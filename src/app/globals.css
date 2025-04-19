@@ -1,8 +1,25 @@
 @import "tailwindcss";
 
 :root {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-border: rgba(0, 0, 0, 0.05);
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --nav-bg: #f5f5f5;
+  --btn-hover: #f0f0f0;
+  --text-secondary: #4b5563;
+}
+
+.dark {
   --background: #000000;
   --foreground: #ffffff;
+  --card-bg: rgba(17, 17, 17, 0.8);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(128, 90, 213, 0.1);
+  --nav-bg: rgba(30, 30, 30, 0.5);
+  --btn-hover: rgba(255, 255, 255, 0.05);
+  --text-secondary: #9ca3af;
 }
 
 @theme inline {
@@ -10,13 +27,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
 }
 
 @keyframes pulse {
@@ -37,11 +47,45 @@
   }
 }
 
+@keyframes glow {
+  0%, 100% {
+    filter: blur(12px) brightness(100%);
+  }
+  50% {
+    filter: blur(15px) brightness(120%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -300px 0;
+  }
+  100% {
+    background-position: 300px 0;
+  }
+}
+
+@keyframes bg-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(12px);
 }
 
 .gradient-text {
@@ -49,4 +93,170 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #8e2de2, #4a00e0);
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(142, 45, 226, 0.3);
+}
+
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
+/* Elegant scrollbar for the site */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(142, 45, 226, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(142, 45, 226, 0.5);
+}
+
+/* About page styles */
+@keyframes rotateAnimation {
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.cube-container {
+  perspective: 1000px;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+.cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotateAnimation 20s infinite linear;
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.front { transform: translateZ(150px); }
+.back { transform: rotateY(180deg) translateZ(150px); }
+.right { transform: rotateY(90deg) translateZ(150px); }
+.left { transform: rotateY(-90deg) translateZ(150px); }
+.top { transform: rotateX(90deg) translateZ(150px); }
+.bottom { transform: rotateX(-90deg) translateZ(150px); }
+
+.transform-style-3d { transform-style: preserve-3d; }
+.perspective-1000 { perspective: 1000px; }
+.backface-hidden { backface-visibility: hidden; }
+.rotate-y-180 { transform: rotateY(180deg); }
+
+@keyframes clientScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.client-scroll {
+  animation: clientScroll 20s linear infinite;
+}
+
+/* 3D Cube Animation Styles */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+.cube-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.cube-face.front {
+  transform: translateZ(150px);
+}
+
+.cube-face.back {
+  transform: rotateY(180deg) translateZ(150px);
+}
+
+.cube-face.right {
+  transform: rotateY(90deg) translateZ(150px);
+}
+
+.cube-face.left {
+  transform: rotateY(-90deg) translateZ(150px);
+}
+
+.cube-face.top {
+  transform: rotateX(90deg) translateZ(150px);
+}
+
+.cube-face.bottom {
+  transform: rotateX(-90deg) translateZ(150px);
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotateY(0) rotateX(0);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* 3D Text Animation */
+@keyframes textFloat {
+  0%, 100% {
+    transform: translateZ(0px) translateY(0px);
+  }
+  50% {
+    transform: translateZ(20px) translateY(-5px);
+  }
 }

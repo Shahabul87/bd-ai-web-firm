@@ -116,6 +116,7 @@ export default function ParticleBackground() {
     <canvas 
       ref={canvasRef} 
       className="absolute top-0 left-0 w-full h-[400px] -z-10 pointer-events-none opacity-40"
+      suppressHydrationWarning={true}
     />
   );
 } 
