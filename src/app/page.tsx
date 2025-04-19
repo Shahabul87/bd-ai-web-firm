@@ -1,103 +1,91 @@
-import Image from "next/image";
+import Header from './components/Header';
+import ParticleBackground from './components/ParticleBackground';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+    <div className="min-h-screen bg-black text-white">
+      <Header />
+      <ParticleBackground />
+      
+      <main className="pt-24 md:pt-32">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden pb-16">
+          {/* Background Effects */}
+          <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-600 rounded-full filter blur-3xl opacity-20"></div>
+          <div className="absolute top-60 -left-40 w-80 h-80 bg-blue-600 rounded-full filter blur-3xl opacity-20"></div>
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+              <div className="space-y-8">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight">
+                  <span className="block">AI-Powered</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-500 to-cyan-400">
+                    Web Development
+                  </span>
+                  <span className="block">For The Future</span>
+                </h1>
+                
+                <p className="text-lg text-gray-300 max-w-lg">
+                  We combine cutting-edge AI technology with expert web development to create stunning, intelligent websites in a fraction of the time.
+                </p>
+                
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-500 text-white font-medium hover:opacity-90 transition-opacity">
+                    Get Started
+                  </button>
+                  <button className="px-8 py-3 rounded-full border border-gray-600 text-white font-medium hover:bg-white/5 transition-colors">
+                    View Portfolio
+                  </button>
+                </div>
+                
+                <div className="flex items-center gap-4 text-sm">
+                  <div className="flex -space-x-2">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i} className={`w-10 h-10 rounded-full border-2 border-black flex items-center justify-center bg-gradient-to-r ${
+                        i === 1 ? 'from-purple-600 to-blue-500' : 
+                        i === 2 ? 'from-blue-500 to-cyan-400' : 
+                        i === 3 ? 'from-cyan-400 to-teal-300' :
+                        'from-teal-300 to-green-400'
+                      }`}>
+                        <span className="text-xs font-bold">AI</span>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-gray-300">
+                    <span className="font-semibold">100+</span> websites launched
+                  </p>
+                </div>
+              </div>
+              
+              <div className="relative">
+                {/* Animated Code Block */}
+                <div className="bg-gray-900 rounded-lg p-5 border border-gray-800 shadow-xl max-w-md mx-auto">
+                  <div className="flex gap-2 mb-4">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  
+                  <div className="font-mono text-sm space-y-2 overflow-hidden">
+                    <p><span className="text-cyan-400">const</span> <span className="text-green-400">website</span> = <span className="text-purple-400">AI</span>.<span className="text-yellow-400">create</span>({`{`}</p>
+                    <p className="pl-4"><span className="text-pink-400">design</span>: <span className="text-orange-400">&apos;modern&apos;</span>,</p>
+                    <p className="pl-4"><span className="text-pink-400">features</span>: [<span className="text-orange-400">&apos;responsive&apos;</span>, <span className="text-orange-400">&apos;fast&apos;</span>, <span className="text-orange-400">&apos;seo-optimized&apos;</span>],</p>
+                    <p className="pl-4"><span className="text-pink-400">timeline</span>: <span className="text-purple-400">Days</span>.<span className="text-yellow-400">not</span>(<span className="text-orange-400">&apos;months&apos;</span>)</p>
+                    <p>{`}`});</p>
+                    <p className="text-gray-400">{/* Your dream website, built with AI magic... */}</p>
+                    <p className="text-cyan-400 flex items-center">
+                      <span className="inline-block w-2 h-4 bg-cyan-400 mr-1 animate-pulse"></span>
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-blue-500/20 to-cyan-400/20 blur-xl rounded-full -z-10 animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }

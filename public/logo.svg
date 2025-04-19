@@ -1,0 +1,51 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Animated Glow Effect -->
+  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+    <feGaussianBlur stdDeviation="2" result="blur" />
+    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+  </filter>
+  
+  <!-- AI Logo Shape with Glow -->
+  <g filter="url(#glow)">
+    <rect width="40" height="40" rx="8" fill="url(#gradient)" />
+    <path d="M13.4 26V14.8H17.24L20.6 22.68L23.96 14.8H27.8V26H24.6V19.56L21.8 26H19.4L16.6 19.56V26H13.4Z" fill="white"/>
+  </g>
+  
+  <!-- CodeGenius Text -->
+  <g>
+    <text x="74" y="18" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="white" text-anchor="middle">
+      <tspan fill="url(#textGradient)">Code</tspan><tspan fill="white">Genius</tspan>
+    </text>
+    <text x="74" y="30" font-family="Arial, sans-serif" font-weight="400" font-size="8" fill="#a5a5a5" text-anchor="middle">AI Web Solutions</text>
+  </g>
+  
+  <!-- Circuit Board Pattern in Logo -->
+  <g opacity="0.2">
+    <path d="M8 20h4v1H8v-1zm8 0h4v1h-4v-1zm8 0h4v1h-4v-1zm-12 6h4v1h-4v-1zm-4-12h4v1H8v-1z" fill="white"/>
+    <circle cx="8" cy="20" r="1" fill="white"/>
+    <circle cx="20" cy="20" r="1" fill="white"/>
+    <circle cx="32" cy="20" r="1" fill="white"/>
+    <circle cx="16" cy="26" r="1" fill="white"/>
+    <circle cx="8" cy="14" r="1" fill="white"/>
+  </g>
+  
+  <!-- Gradient Definitions -->
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8e2de2">
+        <animate attributeName="stop-color" values="#8e2de2; #4a00e0; #6a3093; #8e2de2" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="50%" stop-color="#4a00e0">
+        <animate attributeName="stop-color" values="#4a00e0; #3f5efb; #4a00e0; #8e2de2" dur="4s" repeatCount="indefinite" />
+      </stop>
+      <stop offset="100%" stop-color="#3f5efb">
+        <animate attributeName="stop-color" values="#3f5efb; #8e2de2; #4a00e0; #3f5efb" dur="4s" repeatCount="indefinite" />
+      </stop>
+    </linearGradient>
+    
+    <linearGradient id="textGradient" x1="0" y1="0" x2="100%" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8e2de2" />
+      <stop offset="100%" stop-color="#4a00e0" />
+    </linearGradient>
+  </defs>
+</svg> 
