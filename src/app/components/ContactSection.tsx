@@ -54,7 +54,7 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl border border-gray-800">
-              <h3 className="text-xl font-bold mb-4">Let's discuss your project</h3>
+              <h3 className="text-xl font-bold mb-4">Let&apos;s discuss your project</h3>
               <p className="text-gray-400 mb-6">
                 Fill out the form and our team will get back to you within 24 hours.
               </p>

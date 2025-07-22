@@ -1,25 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #1a1a1a;
-  --card-bg: rgba(255, 255, 255, 0.8);
-  --card-border: rgba(0, 0, 0, 0.05);
-  --shadow-color: rgba(0, 0, 0, 0.05);
-  --nav-bg: #f5f5f5;
-  --btn-hover: #f0f0f0;
-  --text-secondary: #4b5563;
+  --background: #f1f5f9;
+  --foreground: #1e293b;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --card-border: rgba(30, 41, 59, 0.1);
+  --shadow-color: rgba(0, 229, 255, 0.05);
+  --nav-bg: #f8fafc;
+  --btn-hover: #e2e8f0;
+  --text-secondary: #64748b;
+  
+  /* Slate Neural Theme Colors */
+  --slate-deep: #0f172a;
+  --slate-mid: #1e293b;
+  --slate-light: #334155;
+  --neural-cyan: #00E5FF;
+  --neural-purple: #8B5CF6;
+  --neural-orange: #FF6D00;
+  --neural-green: #00E676;
+  --neural-blue: #3B82F6;
 }
 
 .dark {
-  --background: #000000;
-  --foreground: #ffffff;
-  --card-bg: rgba(17, 17, 17, 0.8);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --shadow-color: rgba(128, 90, 213, 0.1);
-  --nav-bg: rgba(30, 30, 30, 0.5);
-  --btn-hover: rgba(255, 255, 255, 0.05);
-  --text-secondary: #9ca3af;
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  --card-bg: rgba(30, 41, 59, 0.8);
+  --card-border: rgba(51, 65, 85, 0.3);
+  --shadow-color: rgba(0, 229, 255, 0.15);
+  --nav-bg: rgba(30, 41, 59, 0.6);
+  --btn-hover: rgba(51, 65, 85, 0.4);
+  --text-secondary: #94a3b8;
 }
 
 @theme inline {
@@ -34,7 +44,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.7;
+    opacity: 0.6;
   }
 }
 
@@ -74,12 +84,246 @@
   }
 }
 
+@keyframes neural-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4), 0 0 25px rgba(124, 77, 255, 0.3);
+  }
+}
+
+@keyframes data-flow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes quantum-spark {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes neural-grid {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(3px, -3px, 0) rotate(0.5deg);
+  }
+  50% {
+    transform: translate3d(-2px, 2px, 0) rotate(-0.3deg);
+  }
+  75% {
+    transform: translate3d(2px, -2px, 0) rotate(0.2deg);
+  }
+}
+
+@keyframes glitch {
+  0%, 85%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  2% {
+    transform: translate3d(-1px, -1px, 0);
+  }
+  4% {
+    transform: translate3d(1px, 1px, 0);
+  }
+  6% {
+    transform: translate3d(-1px, 1px, 0);
+  }
+  8% {
+    transform: translate3d(1px, -1px, 0);
+  }
+  10% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-neural-pulse {
+  animation: neural-pulse 4s ease-in-out infinite;
+  will-change: box-shadow;
+}
+
+.animate-data-flow {
+  animation: data-flow 6s linear infinite;
+  will-change: background-position;
+}
+
+.animate-quantum-spark {
+  animation: quantum-spark 3s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 4s ease-in-out infinite;
+  will-change: background-position;
+}
+
+.glitch-text {
+  position: relative;
+  animation: glitch 8s infinite;
+  will-change: transform;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  clip: rect(0, 0, 0, 0);
+}
+
+.glitch-text::before {
+  left: 1px;
+  text-shadow: -1px 0 rgba(255, 0, 193, 0.5);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 8s infinite linear alternate-reverse;
+  will-change: clip, text-shadow;
+}
+
+.glitch-text::after {
+  left: -1px;
+  text-shadow: -1px 0 rgba(0, 255, 249, 0.5);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim2 8s infinite linear alternate-reverse;
+  will-change: clip, text-shadow;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(91px, 9999px, 95px, 0); }
+  5% { clip: rect(50px, 9999px, 23px, 0); }
+  10% { clip: rect(47px, 9999px, 32px, 0); }
+  15% { clip: rect(3px, 9999px, 17px, 0); }
+  20% { clip: rect(76px, 9999px, 90px, 0); }
+  25% { clip: rect(34px, 9999px, 43px, 0); }
+  30% { clip: rect(27px, 9999px, 39px, 0); }
+  35% { clip: rect(68px, 9999px, 88px, 0); }
+  40% { clip: rect(12px, 9999px, 35px, 0); }
+  45% { clip: rect(89px, 9999px, 100px, 0); }
+  50% { clip: rect(55px, 9999px, 71px, 0); }
+  55% { clip: rect(23px, 9999px, 47px, 0); }
+  60% { clip: rect(78px, 9999px, 95px, 0); }
+  65% { clip: rect(6px, 9999px, 29px, 0); }
+  70% { clip: rect(44px, 9999px, 67px, 0); }
+  75% { clip: rect(82px, 9999px, 99px, 0); }
+  80% { clip: rect(19px, 9999px, 42px, 0); }
+  85% { clip: rect(63px, 9999px, 86px, 0); }
+  90% { clip: rect(8px, 9999px, 31px, 0); }
+  95% { clip: rect(51px, 9999px, 74px, 0); }
+  100% { clip: rect(37px, 9999px, 60px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(65px, 9999px, 80px, 0); }
+  5% { clip: rect(22px, 9999px, 41px, 0); }
+  10% { clip: rect(77px, 9999px, 94px, 0); }
+  15% { clip: rect(33px, 9999px, 52px, 0); }
+  20% { clip: rect(88px, 9999px, 100px, 0); }
+  25% { clip: rect(15px, 9999px, 34px, 0); }
+  30% { clip: rect(70px, 9999px, 87px, 0); }
+  35% { clip: rect(26px, 9999px, 45px, 0); }
+  40% { clip: rect(81px, 9999px, 98px, 0); }
+  45% { clip: rect(7px, 9999px, 26px, 0); }
+  50% { clip: rect(62px, 9999px, 79px, 0); }
+  55% { clip: rect(18px, 9999px, 37px, 0); }
+  60% { clip: rect(73px, 9999px, 90px, 0); }
+  65% { clip: rect(29px, 9999px, 48px, 0); }
+  70% { clip: rect(84px, 9999px, 100px, 0); }
+  75% { clip: rect(11px, 9999px, 30px, 0); }
+  80% { clip: rect(66px, 9999px, 83px, 0); }
+  85% { clip: rect(22px, 9999px, 41px, 0); }
+  90% { clip: rect(77px, 9999px, 94px, 0); }
+  95% { clip: rect(4px, 9999px, 23px, 0); }
+  100% { clip: rect(59px, 9999px, 76px, 0); }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Performance optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth click interactions */
+.smooth-click {
+  transform-origin: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.smooth-click:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease-out;
+}
+
+/* Prevent layout shift during transitions */
+.layout-stable {
+  contain: layout style;
+}
+
+/* Smooth button interactions */
+button {
+  -webkit-tap-highlight-color: transparent;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .glitch-text {
+    animation: none;
+  }
+  
+  .animate-pulse,
+  .animate-bounce,
+  .animate-ping {
+    animation: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .card {
@@ -89,21 +333,52 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  background: linear-gradient(to right, var(--neural-cyan), var(--neural-purple), var(--neural-orange));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, #8e2de2, #4a00e0);
+  background: linear-gradient(90deg, var(--neural-cyan), var(--neural-purple));
   color: white;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(142, 45, 226, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(0, 229, 255, 0.3);
+}
+
+/* Slate Neural Theme Classes */
+.neural-glow {
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+}
+
+.slate-glow {
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.orange-glow {
+  box-shadow: 0 0 20px rgba(255, 109, 0, 0.3);
+}
+
+.green-glow {
+  box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+}
+
+.slate-neural-gradient {
+  background: linear-gradient(135deg, var(--neural-cyan), var(--neural-purple), var(--neural-orange));
+}
+
+.slate-depth-gradient {
+  background: linear-gradient(180deg, var(--slate-deep), var(--slate-mid), var(--slate-light));
+}
+
+.slate-surface {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.3);
 }
 
 .animate-glow {
@@ -120,12 +395,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(142, 45, 226, 0.3);
+  background: rgba(0, 229, 255, 0.3);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(142, 45, 226, 0.5);
+  background: rgba(0, 229, 255, 0.5);
 }
 
 /* About page styles */

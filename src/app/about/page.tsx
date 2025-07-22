@@ -71,7 +71,7 @@ function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          We combine cutting-edge AI with expert web development to create digital experiences that transform businesses. Our team of innovators, developers, and designers work together to build solutions that stand out in today's digital landscape.
+          We combine cutting-edge AI with expert web development to create digital experiences that transform businesses. Our team of innovators, developers, and designers work together to build solutions that stand out in today&apos;s digital landscape.
         </motion.p>
       </div>
       

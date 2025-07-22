@@ -73,7 +73,7 @@ export default function CallToAction() {
           {/* Content Side */}
           <div className="flex flex-col justify-center">
             <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-500/10 text-blue-400 mb-5 w-fit">
-              Let's Work Together
+              Let&apos;s Work Together
             </div>
             
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
@@ -155,7 +155,7 @@ export default function CallToAction() {
                   </div>
                   <h4 className="text-xl font-bold text-white mb-2">Thank You!</h4>
                   <p className="text-gray-300 mb-6">
-                    Your message has been received. We'll get back to you within 24 hours.
+                    Your message has been received. We&apos;ll get back to you within 24 hours.
                   </p>
                   <button
                     onClick={() => setFormState(prev => ({ ...prev, submitted: false, name: '', email: '', company: '', message: '' }))}

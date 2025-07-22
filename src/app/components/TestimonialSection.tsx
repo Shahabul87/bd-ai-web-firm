@@ -11,7 +11,7 @@ export default function TestimonialSection() {
             What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Clients</span> Say
           </h2>
           <p className="text-gray-300 max-w-2xl mx-auto">
-            We've helped businesses of all sizes transform their online presence with our AI-powered web development.
+            We&apos;ve helped businesses of all sizes transform their online presence with our AI-powered web development.
           </p>
         </div>
         
@@ -53,7 +53,7 @@ function TestimonialCard({ quote, author, company }: { quote: string; author: st
         </svg>
       </div>
       
-      <p className="text-gray-300 mb-6 italic">"{quote}"</p>
+      <p className="text-gray-300 mb-6 italic">&ldquo;{quote}&rdquo;</p>
       
       <div className="flex items-center">
         <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-blue-500 flex items-center justify-center text-white font-bold text-sm">

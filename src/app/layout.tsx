@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CodeGenius | AI-Powered Web Development Firm",
-  description: "We build stunning, intelligent websites using AI technology in a fraction of the time.",
+  title: "Inshyra | AI-Powered Intelligent Software Solutions",
+  description: "From data visualization to AI model deployment - we create intelligent software that learns, adapts, and evolves with your business needs.",
 };
 
 export default function RootLayout({
@@ -23,9 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         {children}
       </body>
