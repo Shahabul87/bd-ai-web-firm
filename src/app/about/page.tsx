@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { PageBackground } from '../components/PageBackground';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-900 via-purple-800 to-indigo-900 text-white">
-      <Header />
-      <main className="container mx-auto px-4 py-8">
+    <PageBackground>
+      <div className="min-h-screen text-white">
+        <Header />
+        <main className="pt-16 md:pt-20">
         <HeroSection />
         <TeamSection />
         <StoryTimeline />
@@ -19,6 +21,7 @@ export default function AboutPage() {
       </main>
       <Footer />
     </div>
+    </PageBackground>
   );
 }
 

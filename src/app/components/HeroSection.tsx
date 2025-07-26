@@ -1,95 +1,87 @@
 "use client";
 
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
-import { useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+
+// Smooth floating particles data
+const floatingParticles = Array.from({ length: 12 }, (_, i) => ({
+  id: i,
+  initialX: (i * 8.33) % 100, // Distributed across width
+  initialY: (i * 12) % 100, // Distributed across height
+  size: Math.floor(i % 3) + 1, // Sizes 1-3
+  duration: 15 + (i % 10), // 15-24 seconds
+  delay: i * 2 // Staggered start
+}));
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, vx: number, vy: number, life: number, opacity: number}>>([]);
-  
-  // Optimized particle system with better performance
-  useEffect(() => {
-    if (!isInView) return;
-    
-    const createParticle = () => {
-      return {
-        id: Date.now() + Math.random(),
-        x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
-        y: typeof window !== 'undefined' ? window.innerHeight : 600,
-        vx: (Math.random() - 0.5) * 0.5, // Slower, smoother movement
-        vy: -Math.random() * 1.5 - 0.5, // Always moving up
-        life: 100,
-        opacity: Math.random() * 0.5 + 0.3
-      };
-    };
-
-    // Use requestAnimationFrame for smoother animations
-    let animationFrame: number;
-    
-    const animate = () => {
-      setParticles(prev => {
-        const updated = prev.map(p => ({
-          ...p,
-          x: p.x + p.vx,
-          y: p.y + p.vy,
-          life: p.life - 0.5, // Slower life decay
-          opacity: p.opacity * 0.998 // Smooth fade
-        })).filter(p => p.life > 0 && p.y > -50);
-        
-        // Add particles less frequently for smoother performance
-        if (updated.length < 20 && Math.random() > 0.7) {
-          updated.push(createParticle());
-        }
-        return updated;
-      });
-      
-      animationFrame = requestAnimationFrame(animate);
-    };
-    
-    animationFrame = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
-    };
-  }, [isInView]);
   
   return (
-    <section ref={ref} className="relative overflow-hidden min-h-screen flex items-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Interactive Data Particles - Optimized */}
+    <motion.section 
+      ref={ref} 
+      className="relative overflow-hidden min-h-screen flex items-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      {/* Smooth Floating Particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {particles.map(particle => (
-          <div
-            key={particle.id}
-            className="absolute w-1 h-1 bg-cyan-400 rounded-full transition-opacity duration-300"
-            style={{
-              left: `${particle.x}px`,
-              top: `${particle.y}px`,
-              opacity: particle.opacity,
-              transform: `scale(${Math.max(0.3, particle.life / 100)})`,
-              willChange: 'transform, opacity'
-            }}
-          />
-        ))}
+        <AnimatePresence>
+          {isInView && floatingParticles.map(particle => (
+            <motion.div
+              key={particle.id}
+              className="absolute bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"
+              style={{
+                width: `${particle.size}px`,
+                height: `${particle.size}px`,
+                left: `${particle.initialX}%`,
+                top: `${particle.initialY}%`,
+              }}
+              initial={{ 
+                opacity: 0,
+                scale: 0,
+                y: 0
+              }}
+              animate={{ 
+                opacity: [0, 0.6, 0.3, 0.8, 0],
+                scale: [0, 1, 1.2, 0.8, 0],
+                y: [-20, -40, -60, -80, -100],
+                x: [0, 10, -10, 5, 0],
+              }}
+              transition={{
+                duration: particle.duration,
+                delay: particle.delay,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+          ))}
+        </AnimatePresence>
       </div>
       
-      {/* Neural Grid Background - Smoother */}
+      {/* Neural Grid Background - Smooth Framer Motion */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-slate-900 via-purple-500/3 to-orange-500/3"></div>
-        <div 
-          className="absolute inset-0 opacity-40"
+        <motion.div 
+          className="absolute inset-0 opacity-30"
           style={{
             backgroundImage: `
               linear-gradient(90deg, rgba(0,229,255,0.05) 1px, transparent 1px),
               linear-gradient(rgba(0,229,255,0.05) 1px, transparent 1px)
             `,
             backgroundSize: '80px 80px',
-            animation: 'neural-grid 30s ease-in-out infinite',
-            willChange: 'transform'
           }}
-        ></div>
+          animate={{
+            backgroundPosition: ['0px 0px', '80px 80px'],
+            opacity: [0.2, 0.4, 0.2]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
@@ -98,7 +90,7 @@ export default function HeroSection() {
           <LiveDataVisualization isInView={isInView} />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -127,44 +119,86 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
   }, [commands, commandSuggestions]);
   
   useEffect(() => {
-    if (isInView) {
-      // Auto-demo sequence
-      const demoSequence = ['status', 'analyze market', 'predict sales'];
-      let index = 0;
+    if (!isInView) return;
+    
+    // Beautiful auto-demo sequence with controlled looping
+    const demoSequence = ['status', 'analyze market', 'predict sales'];
+    let index = 0;
+    let cycleCount = 0; // Track number of complete cycles
+    const maxCycles = 3; // Limit to 3 complete cycles, then stop
+    let isActive = true; // Flag to prevent execution after cleanup
+    let currentTimeout: NodeJS.Timeout;
+    let typeInterval: NodeJS.Timeout;
+    
+    const runDemo = () => {
+      if (!isActive || cycleCount >= maxCycles) return; // Exit if cleaned up or max cycles reached
       
-      const runDemo = () => {
-        if (index < demoSequence.length) {
-          const cmd = demoSequence[index];
-          setCurrentCommand('');
-          setIsTyping(true);
+      if (index < demoSequence.length) {
+        const cmd = demoSequence[index];
+        setCurrentCommand('');
+        setIsTyping(true);
+        
+        // Beautiful typing animation
+        let charIndex = 0;
+        typeInterval = setInterval(() => {
+          if (!isActive) {
+            clearInterval(typeInterval);
+            return;
+          }
           
-          // Simulate typing with variable speed
-          let charIndex = 0;
-          const typeInterval = setInterval(() => {
-            setCurrentCommand(cmd.substring(0, charIndex + 1));
-            charIndex++;
-            if (charIndex >= cmd.length) {
-              clearInterval(typeInterval);
-              setTimeout(() => {
-                executeCommand(cmd);
-                setIsTyping(false);
-                index++;
-                setTimeout(runDemo, 2500);
-              }, 300);
-            }
-          }, 60 + Math.random() * 40); // Variable typing speed
+          setCurrentCommand(cmd.substring(0, charIndex + 1));
+          charIndex++;
+          
+          if (charIndex >= cmd.length) {
+            clearInterval(typeInterval);
+            // Pause before executing command
+            currentTimeout = setTimeout(() => {
+              if (!isActive) return;
+              executeCommand(cmd);
+              setIsTyping(false);
+              index++;
+              // Continue with next command
+              currentTimeout = setTimeout(runDemo, 2500);
+            }, 800); // Longer pause to show complete command
+          }
+        }, 100); // Slightly slower typing for better visual effect
+      } else {
+        // Completed one cycle
+        cycleCount++;
+        
+        if (cycleCount < maxCycles) {
+          // Reset for next cycle with beautiful transition
+          currentTimeout = setTimeout(() => {
+            if (!isActive) return;
+            setCommandHistory([]); // Clear for fresh start
+            index = 0; // Reset command index
+            // Start next cycle
+            currentTimeout = setTimeout(runDemo, 1000);
+          }, 4000); // Pause between cycles
         } else {
-          // Reset and loop
-          setTimeout(() => {
-            setCommandHistory([]);
-            index = 0;
-            runDemo();
-          }, 5000);
+          // Final cleanup after all cycles
+          currentTimeout = setTimeout(() => {
+            if (!isActive) return;
+            // Keep the last results visible
+          }, 2000);
         }
-      };
-      
-      setTimeout(runDemo, 1000);
-    }
+      }
+    };
+    
+    // Start the beautiful demo after initial delay
+    currentTimeout = setTimeout(runDemo, 1500);
+    
+    // Comprehensive cleanup
+    return () => {
+      isActive = false;
+      if (currentTimeout) {
+        clearTimeout(currentTimeout);
+      }
+      if (typeInterval) {
+        clearInterval(typeInterval);
+      }
+      setIsTyping(false);
+    };
   }, [isInView, executeCommand]);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,30 +222,85 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
   };
   
   return (
-    <div className="space-y-6">
-      {/* Glitch Title */}
-      <div className="space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/60 backdrop-blur-sm border border-cyan-400/30">
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+    <motion.div 
+      className="space-y-6"
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+    >
+      {/* Status Badge */}
+      <motion.div 
+        className="space-y-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+      >
+        <motion.div 
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/60 backdrop-blur-sm border border-cyan-400/30"
+          whileHover={{ scale: 1.05 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <motion.div 
+            className="w-2 h-2 bg-green-400 rounded-full"
+            animate={{ opacity: [1, 0.3, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
           <span className="text-sm font-medium text-slate-200">AI Command Interface</span>
-        </div>
+        </motion.div>
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-          <span className="block text-white glitch-text" data-text="Command Your">
+        <motion.h1 
+          className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <motion.span 
+            className="block text-white"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
             Command Your
-          </span>
-          <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 mt-2 animate-gradient">
+          </motion.span>
+          <motion.span 
+            className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 mt-2"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
             AI Intelligence
-          </span>
-        </h1>
+          </motion.span>
+        </motion.h1>
         
-        <p className="text-xl text-slate-400 max-w-lg">
+        <motion.p 
+          className="text-xl text-slate-400 max-w-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+        >
           Interact directly with our AI systems. Type commands below to see real-time AI processing.
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
       
       {/* Interactive Terminal */}
-      <div className="bg-slate-900/90 rounded-2xl border border-slate-700/50 overflow-hidden backdrop-blur-sm neural-glow">
+      <motion.div 
+        className="bg-slate-900/90 rounded-2xl border border-slate-700/50 overflow-hidden backdrop-blur-sm neural-glow"
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        animate={{ 
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          boxShadow: commandHistory.length > 0 
+            ? "0 25px 50px -12px rgba(34, 211, 238, 0.15)" 
+            : "0 10px 25px -3px rgba(0, 0, 0, 0.1)"
+        }}
+        transition={{ 
+          duration: 0.8, 
+          delay: 1.4,
+          boxShadow: { duration: 0.5, ease: "easeOut" }
+        }}
+        whileHover={{ borderColor: "rgba(34, 211, 238, 0.3)" }}
+      >
         <div className="flex items-center justify-between px-4 py-3 bg-slate-800/50 border-b border-slate-700/50">
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5">
@@ -227,19 +316,65 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
           </div>
         </div>
         
-        <div className="p-4 font-mono text-sm max-h-96 overflow-y-auto">
-          {/* Command History */}
-          {commandHistory.map((entry, index) => (
-            <div key={index} className="mb-4">
-              <div className="flex items-center gap-2 text-cyan-400">
-                <span className="text-slate-500">$</span>
-                <span>{entry.command}</span>
-              </div>
-              <div className="mt-1 text-slate-300 pl-4">
-                {entry.response}
-              </div>
-            </div>
-          ))}
+        <motion.div 
+          className="p-4 font-mono text-sm overflow-hidden"
+          initial={{ height: "60px" }}
+          animate={{ 
+            height: commandHistory.length === 0 ? "60px" : `${Math.min(60 + (commandHistory.length * 80), 400)}px`
+          }}
+          transition={{ 
+            duration: 0.5, 
+            ease: "easeOut" 
+          }}
+        >
+          {/* Command History with Growing Animation */}
+          <AnimatePresence mode="popLayout">
+            {commandHistory.map((entry, index) => (
+              <motion.div 
+                key={index} 
+                className="mb-4"
+                initial={{ opacity: 0, x: -20, height: 0 }}
+                animate={{ 
+                  opacity: 1, 
+                  x: 0, 
+                  height: "auto" 
+                }}
+                exit={{ 
+                  opacity: 0, 
+                  x: -20, 
+                  height: 0 
+                }}
+                transition={{ 
+                  duration: 0.4,
+                  height: { duration: 0.3, ease: "easeOut" },
+                  opacity: { duration: 0.2, delay: 0.1 }
+                }}
+                layout
+              >
+                <motion.div 
+                  className="flex items-center gap-2 text-cyan-400"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.1, duration: 0.3 }}
+                >
+                  <span className="text-slate-500">$</span>
+                  <span>{entry.command}</span>
+                </motion.div>
+                <motion.div 
+                  className="mt-1 text-slate-300 pl-4"
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ 
+                    delay: 0.2, 
+                    duration: 0.4,
+                    ease: "easeOut"
+                  }}
+                >
+                  {entry.response}
+                </motion.div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
           
           {/* Current Command */}
           <div className="flex items-center gap-2">
@@ -254,7 +389,14 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
               placeholder="Try: analyze market, deploy model, predict sales..."
               disabled={isTyping}
             />
-            {isTyping && <span className="animate-pulse">|</span>}
+            {isTyping && (
+              <motion.span
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+              >
+                |
+              </motion.span>
+            )}
           </div>
           
           {/* Command Suggestions */}
@@ -275,8 +417,8 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
               ))}
             </div>
           )}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       
       {/* Quick Actions */}
       <div className="flex flex-wrap gap-2">
@@ -293,7 +435,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
           </button>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -340,14 +482,36 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
   }, [isInView, mounted]);
   
   return (
-    <div className="space-y-6">
+    <motion.div 
+      className="space-y-6"
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.8, delay: 0.6 }}
+    >
       {/* Live System Monitor */}
-      <div className="bg-slate-900/90 rounded-2xl border border-slate-700/50 overflow-hidden backdrop-blur-sm neural-glow">
+      <motion.div 
+        className="bg-slate-900/90 rounded-2xl border border-slate-700/50 overflow-hidden backdrop-blur-sm neural-glow"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+      >
         <div className="px-4 py-3 bg-slate-800/50 border-b border-slate-700/50">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-slate-200">AI System Monitor</span>
             <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${isProcessing ? 'bg-orange-400 animate-pulse' : 'bg-green-400'}`}></div>
+              <motion.div 
+                className={`w-2 h-2 rounded-full ${isProcessing ? 'bg-orange-400' : 'bg-green-400'}`}
+                animate={{ 
+                  opacity: isProcessing ? [1, 0.3, 1] : 1,
+                  scale: isProcessing ? [1, 1.2, 1] : 1 
+                }}
+                transition={{ 
+                  duration: 1, 
+                  repeat: isProcessing ? Infinity : 0, 
+                  ease: "easeInOut" 
+                }}
+              />
               <span className="text-xs text-slate-400">{isProcessing ? 'PROCESSING' : 'LIVE'}</span>
             </div>
           </div>
@@ -387,19 +551,24 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="grid grid-cols-8 gap-1">
                 {mounted ? neuralPattern.map((isActive, i) => (
-                  <div
+                  <motion.div
                     key={i}
-                    className={`w-2 h-2 rounded-full transition-all duration-500 ease-in-out ${
+                    className={`w-2 h-2 rounded-full ${
                       isProcessing
-                        ? 'bg-cyan-400 animate-pulse'
+                        ? 'bg-cyan-400'
                         : isActive
                         ? 'bg-cyan-400/50'
                         : 'bg-slate-600/70'
                     }`}
-                    style={{
-                      animationDelay: `${i * 30}ms`,
-                      transform: isProcessing ? 'scale(1.1)' : 'scale(1)',
-                      willChange: 'transform, background-color'
+                    animate={{
+                      scale: isProcessing ? [1, 1.2, 1] : 1,
+                      opacity: isProcessing ? [0.5, 1, 0.5] : isActive ? 0.7 : 0.3
+                    }}
+                    transition={{
+                      duration: 2,
+                      delay: i * 0.1,
+                      repeat: isProcessing ? Infinity : 0,
+                      ease: "easeInOut"
                     }}
                   />
                 )) : (
@@ -453,7 +622,7 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
             ))}
           </div>
         </div>
-      </div>
+      </motion.div>
       
       {/* CTA Section */}
       <div className="text-center space-y-4">
@@ -481,6 +650,6 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
