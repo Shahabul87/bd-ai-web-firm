@@ -134,16 +134,63 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
   const currentService = useMemo(() => services[serviceIndex], [services, serviceIndex]);
   const codeLines = useMemo(() => currentService.code, [currentService]);
   
-  // Format the current line with syntax highlighting
+  // Format the current line with syntax highlighting - safe JSX version
   const formatCodeLine = (line: { content: string, className: string }) => {
-    const line1 = line.content
-      .replace(/const\s+(\w+)/g, '<span class="text-cyan-400">const</span> <span class="text-green-400">$1</span>')
-      .replace(/AI\.(\w+)/g, '<span class="text-purple-400">AI</span>.<span class="text-yellow-400">$1</span>')
-      .replace(/([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g, '<span class="text-pink-400">$1</span>:')
-      .replace(/'([^']*)'/g, '<span class="text-orange-400">\'$1\'</span>')
-      .replace(/\{|\}/g, (match) => match);
-      
-    return <span dangerouslySetInnerHTML={{ __html: line1 }} />;
+    const parts: React.ReactNode[] = [];
+    let remaining = line.content;
+    let key = 0;
+
+    // Process const keywords
+    remaining = remaining.replace(/const\s+(\w+)/g, (match, p1) => {
+      parts.push(
+        <span key={key++} className="text-cyan-400">const</span>,
+        ' ',
+        <span key={key++} className="text-green-400">{p1}</span>
+      );
+      return `__CONST_${key-2}__`;
+    });
+
+    // Process AI method calls
+    remaining = remaining.replace(/AI\.(\w+)/g, (match, p1) => {
+      parts.push(
+        <span key={key++} className="text-purple-400">AI</span>,
+        '.',
+        <span key={key++} className="text-yellow-400">{p1}</span>
+      );
+      return `__AI_${key-2}__`;
+    });
+
+    // Process object properties
+    remaining = remaining.replace(/([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g, (match, p1) => {
+      parts.push(<span key={key++} className="text-pink-400">{p1}</span>, ':');
+      return `__PROP_${key-1}__`;
+    });
+
+    // Process strings
+    remaining = remaining.replace(/'([^']*)'/g, (match, p1) => {
+      parts.push(<span key={key++} className="text-orange-400">&apos;{p1}&apos;</span>);
+      return `__STRING_${key-1}__`;
+    });
+
+    // Reconstruct the line with safe JSX
+    const finalParts = [];
+    const currentIndex = 0;
+    
+    for (let i = 0; i < remaining.length; i++) {
+      if (remaining.substr(i).startsWith('__')) {
+        const endIndex = remaining.indexOf('__', i + 2) + 2;
+        const placeholder = remaining.substring(i, endIndex);
+        const partIndex = parseInt(placeholder.match(/\d+/)?.[0] || '0');
+        if (parts[partIndex]) {
+          finalParts.push(...(Array.isArray(parts[partIndex]) ? parts[partIndex] : [parts[partIndex]]));
+        }
+        i = endIndex - 1;
+      } else {
+        finalParts.push(remaining[i]);
+      }
+    }
+
+    return <span>{finalParts.length ? finalParts : remaining}</span>;
   };
   
   useEffect(() => {
@@ -214,14 +261,7 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
                 <p className="opacity-90">{formatCodeLine(line)}</p>
               ) : idx === currentLine ? (
                 <p>
-                  <span dangerouslySetInnerHTML={{ 
-                    __html: line.content
-                      .substring(0, currentChar)
-                      .replace(/const\s+(\w+)/g, '<span class="text-cyan-400">const</span> <span class="text-green-400">$1</span>')
-                      .replace(/AI\.(\w+)/g, '<span class="text-purple-400">AI</span>.<span class="text-yellow-400">$1</span>')
-                      .replace(/([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g, '<span class="text-pink-400">$1</span>:')
-                      .replace(/'([^']*)'/g, '<span class="text-orange-400">\'$1\'</span>')
-                  }} />
+                  {formatCodeLine({ content: line.content.substring(0, currentChar), className: line.className })}
                   <span className="animate-pulse">|</span>
                 </p>
               ) : (

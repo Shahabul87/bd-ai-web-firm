@@ -11,16 +11,16 @@ export default function AboutPage() {
     <PageBackground>
       <div className="min-h-screen text-white">
         <Header />
-        <main className="pt-16 md:pt-20">
-        <HeroSection />
-        <TeamSection />
-        <StoryTimeline />
-        <TechnologyStack />
-        <ValuesSection />
-        <ClientsSection />
-      </main>
-      <Footer />
-    </div>
+        <main className="pt-16 sm:pt-18 md:pt-20 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8">
+          <HeroSection />
+          <SimpleTeamSection />
+          <SimpleStorySection />
+          <TechnologyStack />
+          <ValuesSection />
+          <ClientsSection />
+        </main>
+        <Footer />
+      </div>
     </PageBackground>
   );
 }
@@ -44,21 +44,22 @@ function HeroSection() {
   }, [phrases.length]);
   
   return (
-    <section className="py-20 flex flex-col md:flex-row items-center justify-between">
-      <div className="md:w-1/2 mb-10 md:mb-0">
-        <motion.h1 
-          className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+        <div className="w-full lg:w-1/2 text-center lg:text-left">
+          <motion.h1 
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600 leading-tight"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          We Are AI Web Dev Firm
+          We Are Inshyra
         </motion.h1>
         
-        <div className="h-20">
+        <div className="h-16 sm:h-20 mb-4 sm:mb-6">
           <motion.p
             key={currentPhraseIndex}
-            className="text-2xl md:text-3xl text-purple-300"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-purple-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -69,7 +70,7 @@ function HeroSection() {
         </div>
         
         <motion.p 
-          className="text-lg text-gray-300 mt-6"
+          className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -78,15 +79,28 @@ function HeroSection() {
         </motion.p>
       </div>
       
-      <div className="md:w-1/2 flex justify-center">
-        <div className="cube-container">
-          <div className="cube">
-            <div className="face front bg-gradient-to-br from-purple-600 to-indigo-700 rounded-lg flex items-center justify-center font-bold text-2xl shadow-lg">Innovation</div>
-            <div className="face back bg-gradient-to-br from-indigo-600 to-blue-700 rounded-lg flex items-center justify-center font-bold text-2xl shadow-lg">Excellence</div>
-            <div className="face right bg-gradient-to-br from-blue-600 to-cyan-700 rounded-lg flex items-center justify-center font-bold text-2xl shadow-lg">Intelligence</div>
-            <div className="face left bg-gradient-to-br from-cyan-600 to-teal-700 rounded-lg flex items-center justify-center font-bold text-2xl shadow-lg">Creativity</div>
-            <div className="face top bg-gradient-to-br from-teal-600 to-green-700 rounded-lg flex items-center justify-center font-bold text-2xl shadow-lg">Passion</div>
-            <div className="face bottom bg-gradient-to-br from-green-600 to-lime-700 rounded-lg flex items-center justify-center font-bold text-2xl shadow-lg">Growth</div>
+        <div className="w-full lg:w-1/2 flex justify-center mt-8 lg:mt-0">
+          <div className="perspective-1000">
+            <div className="w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 xl:w-80 xl:h-80 animate-spin-slow transform-style-3d">
+              <div className="cube-face front bg-gradient-to-br from-purple-600 to-indigo-700 rounded-xl flex items-center justify-center font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl shadow-2xl">
+                Innovation
+              </div>
+              <div className="cube-face back bg-gradient-to-br from-indigo-600 to-purple-700 rounded-xl flex items-center justify-center font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl shadow-2xl">
+                Excellence
+              </div>
+              <div className="cube-face right bg-gradient-to-br from-purple-700 to-pink-600 rounded-xl flex items-center justify-center font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl shadow-2xl">
+                Future
+              </div>
+              <div className="cube-face left bg-gradient-to-br from-cyan-600 to-purple-600 rounded-xl flex items-center justify-center font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl shadow-2xl">
+                AI
+              </div>
+              <div className="cube-face top bg-gradient-to-br from-orange-600 to-red-600 rounded-xl flex items-center justify-center font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl shadow-2xl">
+                Web
+              </div>
+              <div className="cube-face bottom bg-gradient-to-br from-green-600 to-teal-600 rounded-xl flex items-center justify-center font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl shadow-2xl">
+                Tech
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -94,78 +108,28 @@ function HeroSection() {
   );
 }
 
-function TeamSection() {
+function SimpleTeamSection() {
   const team = [
-    {
-      name: "Alex Morgan",
-      role: "Founder & CEO",
-      image: "/team/alex.jpg",
-      bio: "Former AI researcher at MIT with 15+ years of experience in tech leadership.",
-      specialty: "AI Strategy & Business Development"
-    },
-    {
-      name: "Jamie Chen",
-      role: "CTO",
-      image: "/team/jamie.jpg",
-      bio: "Full-stack architect who previously led engineering teams at Google and Amazon.",
-      specialty: "System Architecture & Performance"
-    },
-    {
-      name: "Sam Wilson",
-      role: "Creative Director",
-      image: "/team/sam.jpg",
-      bio: "Award-winning designer with a background in human-centered design principles.",
-      specialty: "UX/UI & Design Systems"
-    },
-    {
-      name: "Robin Taylor",
-      role: "AI Lead",
-      image: "/team/robin.jpg",
-      bio: "PhD in Machine Learning with specialization in generative models.",
-      specialty: "Neural Networks & NLP"
-    }
+    { name: "Alex Morgan", role: "Founder & CEO", initial: "A" },
+    { name: "Jamie Chen", role: "CTO", initial: "J" },
+    { name: "Sam Wilson", role: "Creative Director", initial: "S" },
+    { name: "Robin Taylor", role: "AI Lead", initial: "R" }
   ];
   
   return (
-    <section className="py-20">
-      <motion.h2 
-        className="text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        The Minds Behind Our Magic
-      </motion.h2>
+    <section className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+        Our Team
+      </h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {team.map((member, index) => (
-          <div 
-            key={member.name} 
-            className="perspective-1000"
-          >
-            <motion.div
-              className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-xl p-6 h-full shadow-lg transform-style-3d duration-500 hover:rotate-y-180"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="text-center backface-hidden">
-                <div className="w-32 h-32 mx-auto rounded-full overflow-hidden mb-4 bg-purple-700">
-                  {/* Replace with real images when available */}
-                  <div className="w-full h-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
-                    <span className="text-3xl">{member.name[0]}</span>
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold">{member.name}</h3>
-                <p className="text-purple-300">{member.role}</p>
-              </div>
-              
-              <div className="text-center absolute inset-0 p-6 rotate-y-180 backface-hidden">
-                <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                <p className="text-sm text-purple-300 mb-4">{member.specialty}</p>
-                <p className="text-sm">{member.bio}</p>
-              </div>
-            </motion.div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        {team.map((member) => (
+          <div key={member.name} className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mb-3 sm:mb-4">
+              <span className="text-xl sm:text-2xl font-bold">{member.initial}</span>
+            </div>
+            <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">{member.name}</h3>
+            <p className="text-sm sm:text-base text-purple-300">{member.role}</p>
           </div>
         ))}
       </div>
@@ -173,66 +137,34 @@ function TeamSection() {
   );
 }
 
-function StoryTimeline() {
-  const milestones = [
-    {
-      year: "2021",
-      title: "The Beginning",
-      description: "Founded with a vision to bridge the gap between AI innovation and web development."
-    },
-    {
-      year: "2022",
-      title: "First Major Client",
-      description: "Secured partnership with a Fortune 500 company to build their next-gen web platform."
-    },
-    {
-      year: "2023",
-      title: "Team Expansion",
-      description: "Grew to a team of 20 developers, designers, and AI specialists across three continents."
-    },
-    {
-      year: "2024",
-      title: "Innovation Award",
-      description: "Recognized with the Tech Innovator Award for our contributions to AI-powered web development."
-    }
-  ];
-  
+function SimpleStorySection() {
   return (
-    <section className="py-20">
-      <motion.h2 
-        className="text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        Our Journey
-      </motion.h2>
+    <section className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+        Our Story
+      </h2>
       
-      <div className="relative">
-        {/* Vertical line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-purple-500 to-indigo-600"></div>
-        
-        {milestones.map((milestone, index) => (
-          <motion.div 
-            key={milestone.year}
-            className={`flex items-center mb-16 ${index % 2 === 0 ? 'flex-row-reverse' : ''}`}
-            initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className={`w-1/2 px-8 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-              <h3 className="text-2xl font-bold mb-2 text-purple-300">{milestone.title}</h3>
-              <p className="text-gray-300">{milestone.description}</p>
-            </div>
-            
-            <div className="w-16 h-16 rounded-full bg-purple-700 z-10 flex items-center justify-center">
-              <span className="text-xl font-bold">{milestone.year}</span>
-            </div>
-            
-            <div className="w-1/2"></div>
-          </motion.div>
-        ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div className="bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-800/70 transition-colors duration-300">
+          <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">2021</div>
+          <h3 className="text-base sm:text-lg font-bold mb-2">Founded</h3>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Inshyra started with a vision to bridge AI and web development</p>
+        </div>
+        <div className="bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-800/70 transition-colors duration-300">
+          <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-2">2022</div>
+          <h3 className="text-base sm:text-lg font-bold mb-2">First Client</h3>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Secured partnership with Fortune 500 company</p>
+        </div>
+        <div className="bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-800/70 transition-colors duration-300">
+          <div className="text-2xl sm:text-3xl font-bold text-orange-400 mb-2">2023</div>
+          <h3 className="text-base sm:text-lg font-bold mb-2">Team Growth</h3>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Expanded to 20+ specialists across 3 continents</p>
+        </div>
+        <div className="bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-800/70 transition-colors duration-300">
+          <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-2">2024</div>
+          <h3 className="text-base sm:text-lg font-bold mb-2">Innovation Award</h3>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Recognized for AI-powered web development</p>
+        </div>
       </div>
     </section>
   );
@@ -251,9 +183,9 @@ function TechnologyStack() {
   ];
   
   return (
-    <section className="py-20">
+    <section className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.h2 
-        className="text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
+        className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -261,7 +193,7 @@ function TechnologyStack() {
         Our Technology Stack
       </motion.h2>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {technologies.map((tech, index) => (
           <motion.div
             key={tech.name}
@@ -271,13 +203,13 @@ function TechnologyStack() {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <div className="transform-style-3d h-40 w-full duration-500 hover:rotate-y-180">
-              <div className="absolute w-full h-full backface-hidden rounded-xl bg-gradient-to-br from-purple-800 to-indigo-900 p-6 flex flex-col items-center justify-center shadow-lg">
-                <h3 className="text-xl font-bold mb-2">{tech.name}</h3>
+            <div className="transform-style-3d h-32 sm:h-36 lg:h-40 w-full transition-all duration-700 hover:rotate-y-180">
+              <div className="absolute w-full h-full backface-hidden rounded-xl bg-gradient-to-br from-purple-800 to-indigo-900 p-3 sm:p-4 lg:p-6 flex flex-col items-center justify-center shadow-lg">
+                <h3 className="text-sm sm:text-base lg:text-xl font-bold text-center leading-tight">{tech.name}</h3>
               </div>
-              <div className="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl bg-gradient-to-br from-indigo-800 to-purple-900 p-6 flex flex-col items-center justify-center shadow-lg">
-                <span className="text-sm text-purple-300 mb-2">Category</span>
-                <p className="text-lg font-bold">{tech.category}</p>
+              <div className="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl bg-gradient-to-br from-indigo-800 to-purple-900 p-3 sm:p-4 lg:p-6 flex flex-col items-center justify-center shadow-lg">
+                <span className="text-xs sm:text-sm text-purple-300 mb-1 sm:mb-2">Category</span>
+                <p className="text-sm sm:text-base lg:text-lg font-bold text-center">{tech.category}</p>
               </div>
             </div>
           </motion.div>
@@ -318,9 +250,9 @@ function ValuesSection() {
   }, [values.length]);
   
   return (
-    <section className="py-20">
+    <section className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.h2 
-        className="text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
+        className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -328,8 +260,8 @@ function ValuesSection() {
         Our Core Values
       </motion.h2>
       
-      <div className="max-w-3xl mx-auto">
-        <div className="h-40 overflow-hidden relative">
+      <div className="max-w-4xl mx-auto">
+        <div className="h-32 sm:h-36 lg:h-40 overflow-hidden relative">
           {values.map((value, index) => (
             <motion.div
               key={value.title}
@@ -341,17 +273,17 @@ function ValuesSection() {
               }}
               transition={{ duration: 0.6 }}
             >
-              <h3 className="text-2xl font-bold mb-4 text-center text-purple-300">{value.title}</h3>
-              <p className="text-lg text-center text-gray-300">{value.description}</p>
+              <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-center text-purple-300">{value.title}</h3>
+              <p className="text-sm sm:text-base lg:text-lg text-center text-gray-300 leading-relaxed">{value.description}</p>
             </motion.div>
           ))}
         </div>
         
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-6 sm:mt-8 lg:mt-10">
           {values.map((_, index) => (
             <button
               key={index}
-              className={`w-3 h-3 rounded-full mx-2 ${
+              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full mx-1 sm:mx-2 transition-colors duration-300 ${
                 currentValueIndex === index ? 'bg-purple-500' : 'bg-purple-900'
               }`}
               onClick={() => setCurrentValueIndex(index)}
@@ -370,9 +302,9 @@ function ClientsSection() {
   ];
   
   return (
-    <section className="py-20">
+    <section className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <motion.h2 
-        className="text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
+        className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -387,8 +319,8 @@ function ClientsSection() {
               key={`${client}-${index}`}
               className="flex-shrink-0 px-8"
             >
-              <div className="bg-gradient-to-br from-purple-800 to-indigo-900 rounded-lg p-6 w-40 h-20 flex items-center justify-center shadow-lg">
-                <p className="font-medium">{client}</p>
+              <div className="bg-gradient-to-br from-purple-800 to-indigo-900 rounded-lg p-3 sm:p-4 lg:p-6 w-32 h-16 sm:w-36 sm:h-18 lg:w-40 lg:h-20 flex items-center justify-center shadow-lg">
+                <p className="font-medium text-xs sm:text-sm lg:text-base text-center">{client}</p>
               </div>
             </div>
           ))}

@@ -13,17 +13,65 @@ export default function ContactSection() {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  
+  // Input sanitization function
+  const sanitizeInput = (input: string): string => {
+    return input
+      .replace(/[<>]/g, '') // Remove potential HTML tags
+      .replace(/javascript:/gi, '') // Remove javascript: protocol
+      .replace(/on\w+=/gi, '') // Remove event handlers
+      .trim()
+      .slice(0, 1000); // Limit length
+  };
+
+  // Email validation
+  const isValidEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  // Form validation
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.name || formData.name.length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+
+    if (!formData.email || !isValidEmail(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.message || formData.message.length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const sanitizedValue = sanitizeInput(value);
+    setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    // Simulate API call
+    // Simulate API call with additional security checks
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -34,6 +82,7 @@ export default function ContactSection() {
         message: '',
         type: 'website'
       });
+      setErrors({});
     }, 1500);
   };
   
@@ -148,9 +197,14 @@ export default function ContactSection() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                      className={`w-full px-4 py-3 rounded-lg bg-gray-800 border text-white focus:outline-none focus:ring-1 ${
+                        errors.name 
+                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
+                          : 'border-gray-700 focus:border-purple-500 focus:ring-purple-500'
+                      }`}
                       placeholder="John Doe"
                     />
+                    {errors.name && <p className="mt-1 text-sm text-red-400">{errors.name}</p>}
                   </div>
                   
                   <div>
@@ -162,9 +216,14 @@ export default function ContactSection() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                      className={`w-full px-4 py-3 rounded-lg bg-gray-800 border text-white focus:outline-none focus:ring-1 ${
+                        errors.email 
+                          ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
+                          : 'border-gray-700 focus:border-purple-500 focus:ring-purple-500'
+                      }`}
                       placeholder="john@example.com"
                     />
+                    {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email}</p>}
                   </div>
                 </div>
                 
@@ -207,9 +266,14 @@ export default function ContactSection() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                    className={`w-full px-4 py-3 rounded-lg bg-gray-800 border text-white focus:outline-none focus:ring-1 ${
+                      errors.message 
+                        ? 'border-red-500 focus:border-red-500 focus:ring-red-500' 
+                        : 'border-gray-700 focus:border-purple-500 focus:ring-purple-500'
+                    }`}
                     placeholder="Tell us about your project..."
                   ></textarea>
+                  {errors.message && <p className="mt-1 text-sm text-red-400">{errors.message}</p>}
                 </div>
                 
                 <button

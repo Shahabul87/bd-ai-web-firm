@@ -1,8 +1,15 @@
+'use client';
+
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { PageBackground } from '../components/PageBackground';
 
 export default function DataVisualization() {
+  const handleCTAClick = () => {
+    console.log('CTA clicked');
+    // TODO: Implement CTA logic
+  };
+  
   return (
     <PageBackground>
       <div className="min-h-screen text-white">
@@ -207,7 +214,10 @@ export default function DataVisualization() {
               <p className="text-xl text-slate-400 mb-12">
                 Let&apos;s transform your data into powerful visual insights that drive business decisions.
               </p>
-              <button className="group px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full text-white font-semibold hover:shadow-xl hover:shadow-cyan-400/30 transition-all duration-300 transform hover:-translate-y-1">
+              <button 
+                onClick={handleCTAClick}
+                className="group px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full text-white font-semibold hover:shadow-xl hover:shadow-cyan-400/30 transition-all duration-300 transform hover:-translate-y-1"
+              >
                 <span className="flex items-center gap-2">
                   Start Your Project
                   <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

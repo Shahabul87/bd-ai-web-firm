@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const pathname = usePathname();
   
   useEffect(() => {
     
@@ -94,23 +96,27 @@ export default function Header() {
             <div className={`flex space-x-1 rounded-full py-1 px-1.5 ${
               isDarkMode ? 'bg-slate-800/60 backdrop-blur-sm border border-slate-700/50' : 'bg-slate-100/80 backdrop-blur-sm border border-slate-200/50'
             }`}>
-              {["Home", "AI Solutions", "Data Viz", "About"].map((item) => {
+              {["Home", "AI Solutions", "Web Dev", "Portfolio", "About"].map((item) => {
                 const getHref = (itemName: string) => {
                   switch(itemName) {
                     case "Home": return "/";
                     case "AI Solutions": return "/ai-solutions";
-                    case "Data Viz": return "/data-viz";
+                    case "Web Dev": return "/web-development";
+                    case "Portfolio": return "/portfolio";
                     case "About": return "/about";
                     default: return `/${itemName.toLowerCase()}`;
                   }
                 };
                 
+                const href = getHref(item);
+                const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
+                
                 return (
                 <Link 
                   key={item}
-                  href={getHref(item)} 
+                  href={href} 
                   className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:text-cyan-400 ${
-                    item === "Home" 
+                    isActive
                       ? `${isDarkMode ? 'text-slate-100 bg-slate-700/50' : 'text-slate-800 bg-slate-200/70'} shadow-inner`
                       : `${isDarkMode ? 'text-slate-300 hover:bg-slate-700/30' : 'text-slate-600 hover:bg-slate-200/50'}`
                   }`}>
@@ -182,26 +188,30 @@ export default function Header() {
         suppressHydrationWarning={true}
       >
         <nav className="flex flex-col py-5 px-4 sm:px-6 space-y-1">
-          {["Home", "AI Solutions", "Data Viz", "About"].map((item) => {
+          {["Home", "AI Solutions", "Web Dev", "Portfolio", "About"].map((item) => {
             const getHref = (itemName: string) => {
               switch(itemName) {
                 case "Home": return "/";
                 case "AI Solutions": return "/ai-solutions";
-                case "Data Viz": return "/data-viz";
+                case "Web Dev": return "/web-development";
+                case "Portfolio": return "/portfolio";
                 case "About": return "/about";
                 default: return `/${itemName.toLowerCase()}`;
               }
             };
             
+            const href = getHref(item);
+            const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
+            
             return (
             <Link 
               key={item}
-              href={getHref(item)}
-              className={`py-3 px-4 rounded-lg ${
-                isDarkMode 
-                  ? 'text-slate-100 hover:bg-slate-800/50' 
-                  : 'text-slate-800 hover:bg-slate-200/50'
-              } transition-colors font-medium`}
+              href={href}
+              className={`py-3 px-4 rounded-lg transition-colors font-medium ${
+                isActive
+                  ? `${isDarkMode ? 'text-cyan-400 bg-slate-700/50' : 'text-purple-600 bg-slate-200/70'} shadow-inner`
+                  : `${isDarkMode ? 'text-slate-100 hover:bg-slate-800/50' : 'text-slate-800 hover:bg-slate-200/50'}`
+              }`}
               onClick={() => setMobileMenuOpen(false)}
             >
               {item}

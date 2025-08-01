@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 
@@ -87,20 +87,31 @@ const CubeAnimation = () => {
 const FloatingParticles = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {[...Array(15)].map((_, i) => (
-        <div 
-          key={i}
-          className="absolute rounded-full bg-white/10"
-          style={{
-            width: `${Math.random() * 20 + 5}px`,
-            height: `${Math.random() * 20 + 5}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animation: `floatParticle ${Math.random() * 10 + 15}s linear infinite`,
-            animationDelay: `${Math.random() * 5}s`
-          }}
-        />
-      ))}
+{useMemo(() => 
+        [...Array(15)].map((_, i) => {
+          // Generate deterministic values based on index
+          const width = (i % 3) * 7 + 8; // 8, 15, 22px
+          const height = width;
+          const left = (i * 7) % 100; // Distributed positions
+          const top = (i * 13) % 100;
+          const duration = (i % 3) * 5 + 15; // 15, 20, 25s
+          const delay = (i * 0.8) % 5; // 0-5s delay
+          
+          return (
+            <div 
+              key={i}
+              className="absolute rounded-full bg-white/10"
+              style={{
+                width: `${width}px`,
+                height: `${height}px`,
+                left: `${left}%`,
+                top: `${top}%`,
+                animation: `floatParticle ${duration}s linear infinite`,
+                animationDelay: `${delay}s`
+              }}
+            />
+          );
+        }), [])}
     </div>
   );
 };

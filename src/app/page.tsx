@@ -1,3 +1,5 @@
+'use client';
+
 import Header from './components/Header';
 import ClientParticles from './components/ClientParticles';
 import HeroSection from './components/HeroSection';

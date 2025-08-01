@@ -11,7 +11,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center space-x-2 mb-6">
               <Image 
                 src="/logo.svg" 
-                alt="CodeGenius Logo" 
+                alt="Inshyra Logo" 
                 width={120} 
                 height={40}
                 className="h-10 w-auto"

@@ -626,7 +626,9 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
       
       {/* CTA Section */}
       <div className="text-center space-y-4">
-        <button className="group px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full text-white font-semibold hover:shadow-xl hover:shadow-cyan-400/30 transition-all duration-300 transform hover:-translate-y-1">
+        <button 
+          className="group px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full text-white font-semibold hover:shadow-xl hover:shadow-cyan-400/30 transition-all duration-300 transform hover:-translate-y-1"
+          aria-label="Deploy Your AI System - Get started with our AI solutions">
           <span className="flex items-center gap-2">
             Deploy Your AI System
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
