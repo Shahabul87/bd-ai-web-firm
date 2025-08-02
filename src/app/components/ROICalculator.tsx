@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 interface BusinessMetrics {
   industry: string;
@@ -64,21 +64,15 @@ export default function ROICalculator() {
   const [results, setResults] = useState<ROIResults | null>(null);
   const [showResults, setShowResults] = useState(false);
 
-  useEffect(() => {
-    if (isFormValid()) {
-      calculateROI();
-    }
-  }, [metrics]);
-
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     return metrics.industry && 
            metrics.companySize && 
            metrics.currentRevenue > 0 && 
            metrics.operatingCosts > 0 &&
            metrics.employeeCount > 0;
-  };
+  }, [metrics]);
 
-  const calculateROI = () => {
+  const calculateROI = useCallback(() => {
     if (!isFormValid()) return;
 
     const industryMult = industryMultipliers[metrics.industry as keyof typeof industryMultipliers] || industryMultipliers['Other'];
@@ -115,7 +109,13 @@ export default function ROICalculator() {
       paybackPeriod,
       breakEvenMonth
     });
-  };
+  }, [metrics, isFormValid]);
+
+  useEffect(() => {
+    if (isFormValid()) {
+      calculateROI();
+    }
+  }, [metrics, isFormValid, calculateROI]);
 
   const handleInputChange = (field: keyof BusinessMetrics, value: string | number) => {
     setMetrics(prev => ({

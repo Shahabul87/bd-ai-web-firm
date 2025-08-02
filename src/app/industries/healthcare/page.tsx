@@ -212,7 +212,7 @@ export default function HealthcareAI() {
                   </div>
 
                   <blockquote className="text-lg text-slate-300 mb-6 italic">
-                    "The AI-powered diagnostic system has revolutionized our approach to patient care. We're able to identify critical conditions 23% faster than before, and our diagnostic accuracy has improved dramatically. The system pays for itself through improved efficiency and better patient outcomes."
+                    &ldquo;The AI-powered diagnostic system has revolutionized our approach to patient care. We&rsquo;re able to identify critical conditions 23% faster than before, and our diagnostic accuracy has improved dramatically. The system pays for itself through improved efficiency and better patient outcomes.&rdquo;
                   </blockquote>
 
                   <div className="text-right">
@@ -347,7 +347,7 @@ export default function HealthcareAI() {
                 Transform Healthcare with AI
               </h2>
               <p className="text-xl text-slate-400 mb-12">
-                Ready to improve patient outcomes and operational efficiency with AI? Let's discuss your healthcare AI implementation.
+                Ready to improve patient outcomes and operational efficiency with AI? Let&rsquo;s discuss your healthcare AI implementation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button 

@@ -208,7 +208,7 @@ export default function RetailAI() {
                   </div>
 
                   <blockquote className="text-lg text-slate-300 mb-6 italic">
-                    "The AI recommendation engine has completely transformed our customer experience. We're seeing 47% higher sales and 65% better engagement. Our customers love the personalized shopping experience, and we've dramatically reduced cart abandonment rates."
+                    &ldquo;The AI recommendation engine has completely transformed our customer experience. We&rsquo;re seeing 47% higher sales and 65% better engagement. Our customers love the personalized shopping experience, and we&rsquo;ve dramatically reduced cart abandonment rates.&rdquo;
                   </blockquote>
 
                   <div className="text-right">
@@ -394,7 +394,7 @@ export default function RetailAI() {
                 Transform Retail with AI
               </h2>
               <p className="text-xl text-slate-400 mb-12">
-                Ready to revolutionize your retail operations with AI? Let's discuss your retail AI transformation strategy.
+                Ready to revolutionize your retail operations with AI? Let&rsquo;s discuss your retail AI transformation strategy.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button 

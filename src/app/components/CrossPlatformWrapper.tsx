@@ -104,16 +104,38 @@ const CrossPlatformWrapper: React.FC<CrossPlatformWrapperProps> = ({ children, f
       // Create a simple fallback for IntersectionObserver
       if (typeof window !== 'undefined' && !window.IntersectionObserver) {
         (window as WindowWithPolyfills).IntersectionObserver = class {
-          constructor(callback: IntersectionObserverCallback) {
+          root: Element | null = null;
+          rootMargin: string = '0px';
+          thresholds: ReadonlyArray<number> = [0];
+          
+          constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+            this.root = (options?.root instanceof Element) ? options.root : null;
+            this.rootMargin = options?.rootMargin || '0px';
+            this.thresholds = options?.threshold ? (Array.isArray(options.threshold) ? options.threshold : [options.threshold]) : [0];
+            
             // Simple fallback - immediately trigger callback
             setTimeout(() => {
-              callback([{ isIntersecting: true, target: null }]);
+              const body = document.body;
+              if (body) {
+                callback([{ 
+                  isIntersecting: true, 
+                  target: body,
+                  boundingClientRect: body.getBoundingClientRect(),
+                  intersectionRatio: 1,
+                  intersectionRect: body.getBoundingClientRect(),
+                  rootBounds: null,
+                  time: Date.now()
+                } as IntersectionObserverEntry], this as IntersectionObserver);
+              }
             }, 100);
           }
           observe() {}
           unobserve() {}
           disconnect() {}
-        };
+          takeRecords(): IntersectionObserverEntry[] {
+            return [];
+          }
+        } as typeof IntersectionObserver;
       }
     }
 
@@ -127,7 +149,35 @@ const CrossPlatformWrapper: React.FC<CrossPlatformWrapperProps> = ({ children, f
           constructor(callback: ResizeObserverCallback) {
             this.callback = callback;
             this.handleResize = () => {
-              this.callback([{ contentRect: { width: window.innerWidth, height: window.innerHeight } }]);
+              const body = document.body;
+              if (body) {
+                this.callback([{ 
+                  target: body,
+                contentRect: { 
+                  width: window.innerWidth, 
+                  height: window.innerHeight,
+                  top: 0,
+                  left: 0,
+                  bottom: window.innerHeight,
+                  right: window.innerWidth,
+                  x: 0,
+                  y: 0,
+                  toJSON: () => ({ 
+                    width: window.innerWidth, 
+                    height: window.innerHeight,
+                    top: 0,
+                    left: 0,
+                    bottom: window.innerHeight,
+                    right: window.innerWidth,
+                    x: 0,
+                    y: 0
+                  })
+                },
+                borderBoxSize: [{ blockSize: window.innerHeight, inlineSize: window.innerWidth }],
+                contentBoxSize: [{ blockSize: window.innerHeight, inlineSize: window.innerWidth }],
+                devicePixelContentBoxSize: [{ blockSize: window.innerHeight, inlineSize: window.innerWidth }]
+              } as ResizeObserverEntry], this as ResizeObserver);
+              }
             };
             window.addEventListener('resize', this.handleResize);
           }
@@ -137,7 +187,7 @@ const CrossPlatformWrapper: React.FC<CrossPlatformWrapperProps> = ({ children, f
           disconnect() {
             window.removeEventListener('resize', this.handleResize);
           }
-        };
+        } as typeof ResizeObserver;
       }
     }
 

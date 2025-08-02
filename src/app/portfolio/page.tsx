@@ -481,80 +481,9 @@ export default function Portfolio() {
                     description: "Launch your solution with monitoring, optimization, and ongoing support.",
                     icon: "🚀"
                   }
-                ].map((phase, index) => {
-                  const ref = useRef(null);
-                  const inView = useInView(ref, { once: true });
-                  
-                  return (
-                    <motion.div 
-                      key={index} 
-                      ref={ref}
-                      className="text-center"
-                      initial={{ opacity: 0, y: 50 }}
-                      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                      transition={{ duration: 0.6, delay: index * 0.2 }}
-                    >
-                      <motion.div 
-                        className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-r from-slate-800 to-slate-700 flex items-center justify-center border border-slate-600/50 transition-all duration-300 group relative overflow-hidden"
-                        whileHover={{ 
-                          scale: 1.1,
-                          borderColor: 'rgba(34, 211, 238, 0.4)',
-                          boxShadow: '0 15px 25px -5px rgba(34, 211, 238, 0.2)'
-                        }}
-                        animate={{
-                          y: [0, -5, 0],
-                        }}
-                        transition={{
-                          y: {
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: index * 0.5
-                          }
-                        }}
-                      >
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 opacity-0"
-                          whileHover={{ opacity: 1 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                        <motion.div 
-                          className="text-3xl relative z-10"
-                          whileHover={{ 
-                            scale: 1.2,
-                            rotate: [0, -10, 10, 0]
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {phase.icon}
-                        </motion.div>
-                      </motion.div>
-                      <motion.div 
-                        className="text-sm text-cyan-400 font-bold mb-2"
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
-                      >
-                        {phase.step}
-                      </motion.div>
-                      <motion.h3 
-                        className="text-xl font-bold mb-4 text-white"
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 + 0.4 }}
-                      >
-                        {phase.title}
-                      </motion.h3>
-                      <motion.p 
-                        className="text-slate-400 text-sm leading-relaxed"
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 + 0.5 }}
-                      >
-                        {phase.description}
-                      </motion.p>
-                    </motion.div>
-                  );
-                })}
+                ].map((phase, index) => (
+                  <PhaseItem key={index} phase={phase} index={index} />
+                ))}
               </div>
             </div>
           </section>
@@ -660,5 +589,71 @@ export default function Portfolio() {
         <Footer />
       </div>
     </PageBackground>
+  );
+}
+
+function PhaseItem({ phase, index }: { phase: { title: string; description: string; icon: string }; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  
+  return (
+    <motion.div 
+      ref={ref}
+      className="text-center"
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+    >
+      <motion.div 
+        className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-r from-slate-800 to-slate-700 flex items-center justify-center border border-slate-600/50 transition-all duration-300 group relative overflow-hidden"
+        whileHover={{ 
+          scale: 1.1,
+          borderColor: 'rgba(34, 211, 238, 0.4)',
+          boxShadow: '0 15px 25px -5px rgba(34, 211, 238, 0.2)'
+        }}
+        animate={{
+          y: [0, -5, 0],
+        }}
+        transition={{
+          y: {
+            duration: 2,
+            repeat: Infinity,
+            delay: index * 0.5
+          }
+        }}
+      >
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 opacity-0"
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+        <motion.div 
+          className="text-3xl relative z-10"
+          whileHover={{ 
+            scale: 1.2,
+            rotate: [0, -10, 10, 0]
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          {phase.icon}
+        </motion.div>
+      </motion.div>
+      <motion.h3 
+        className="text-xl font-bold mb-4 text-white"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.2 + 0.4 }}
+      >
+        {phase.title}
+      </motion.h3>
+      <motion.p 
+        className="text-slate-400 text-sm leading-relaxed"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.2 + 0.5 }}
+      >
+        {phase.description}
+      </motion.p>
+    </motion.div>
   );
 }

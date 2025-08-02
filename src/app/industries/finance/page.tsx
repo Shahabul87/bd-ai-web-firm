@@ -208,7 +208,7 @@ export default function FinanceAI() {
                   </div>
 
                   <blockquote className="text-lg text-slate-300 mb-6 italic">
-                    "The AI-powered trading platform has transformed our operations. We're executing trades 45% faster with 87% fraud detection accuracy. Our clients benefit from better returns while we've significantly reduced operational risks and costs."
+                    &ldquo;The AI-powered trading platform has transformed our operations. We&rsquo;re executing trades 45% faster with 87% fraud detection accuracy. Our clients benefit from better returns while we&rsquo;ve significantly reduced operational risks and costs.&rdquo;
                   </blockquote>
 
                   <div className="text-right">
@@ -394,7 +394,7 @@ export default function FinanceAI() {
                 Revolutionize Finance with AI
               </h2>
               <p className="text-xl text-slate-400 mb-12">
-                Ready to enhance your financial services with cutting-edge AI? Let's discuss your fintech AI implementation.
+                Ready to enhance your financial services with cutting-edge AI? Let&rsquo;s discuss your fintech AI implementation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button 

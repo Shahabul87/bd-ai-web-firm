@@ -1,10 +1,20 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { PageBackground } from '../components/PageBackground';
+
+interface Service {
+  id: number;
+  icon: string;
+  title: string;
+  description: string;
+  features: string[];
+  gradient: string;
+  hoverColor: string;
+}
 
 export default function WebDevelopment() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -261,212 +271,15 @@ export default function WebDevelopment() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {services.map((service, index) => {
-                  const ref = useRef(null);
-                  const inView = useInView(ref, { once: true });
-                  
-                  return (
-                    <motion.div
-                      key={service.id}
-                      ref={ref}
-                      className="bg-slate-900/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 transition-all duration-500 group relative overflow-hidden"
-                      initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                      animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      onHoverStart={() => setHoveredCard(service.id)}
-                      onHoverEnd={() => setHoveredCard(null)}
-                      whileHover={{
-                        scale: 1.02,
-                        borderColor: `rgba(34, 211, 238, 0.4)`,
-                        boxShadow: `0 20px 40px -10px rgba(34, 211, 238, 0.2)`
-                      }}
-                    >
-                      {/* Animated background glow */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 via-purple-500/5 to-orange-500/5 opacity-0"
-                        animate={{ opacity: hoveredCard === service.id ? 1 : 0 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                      
-                      <motion.div 
-                        className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 relative z-10`}
-                        whileHover={{ 
-                          scale: 1.1,
-                          rotate: [0, -5, 5, 0],
-                          boxShadow: '0 15px 30px -5px rgba(34, 211, 238, 0.3)'
-                        }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <motion.span 
-                          className="text-2xl"
-                          animate={hoveredCard === service.id ? { 
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 10, -10, 0]
-                          } : {}}
-                          transition={{ duration: 0.5 }}
-                        >
-                          {service.icon}
-                        </motion.span>
-                      </motion.div>
-                      <motion.h3 
-                        className="text-2xl font-bold mb-4 relative z-10"
-                        animate={{ 
-                          color: hoveredCard === service.id ? '#22d3ee' : '#ffffff'
-                        }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        {service.title}
-                      </motion.h3>
-                      <motion.p 
-                        className="text-slate-400 mb-6 relative z-10"
-                        initial={{ opacity: 0.7 }}
-                        animate={{ opacity: hoveredCard === service.id ? 1 : 0.7 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        {service.description}
-                      </motion.p>
-                      <motion.ul 
-                        className="space-y-2 text-sm text-slate-300 relative z-10"
-                        initial={{ opacity: 0.8 }}
-                        animate={{ opacity: hoveredCard === service.id ? 1 : 0.8 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        {service.features.map((feature, featureIndex) => (
-                          <motion.li 
-                            key={featureIndex}
-                            className="flex items-center gap-2"
-                            initial={{ x: 0 }}
-                            animate={{ x: hoveredCard === service.id ? 5 : 0 }}
-                            transition={{ duration: 0.3, delay: featureIndex * 0.05 }}
-                          >
-                            <motion.div 
-                              className="w-1.5 h-1.5 bg-cyan-400 rounded-full flex-shrink-0"
-                              animate={{ 
-                                scale: hoveredCard === service.id ? [1, 1.5, 1] : 1,
-                                opacity: hoveredCard === service.id ? [0.7, 1, 0.7] : 0.7
-                              }}
-                              transition={{ duration: 0.5, delay: featureIndex * 0.1 }}
-                            />
-                            {feature}
-                          </motion.li>
-                        ))}
-                      </motion.ul>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-          </section>
-
-          {/* Technology Stack */}
-          <section className="py-16 relative">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16">
-                <motion.h2 
-                  className="text-3xl md:text-4xl font-bold mb-4"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                >
-                  Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Technology Stack</span>
-                </motion.h2>
-                <motion.p 
-                  className="text-slate-400 max-w-2xl mx-auto"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                  We use cutting-edge technologies to build scalable, maintainable, and intelligent web applications.
-                </motion.p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {[
-                  {
-                    title: 'Frontend Technologies',
-                    color: 'cyan-400',
-                    techs: [
-                      { name: 'React & Next.js', desc: 'Modern React framework with SSR/SSG' },
-                      { name: 'TypeScript', desc: 'Type-safe JavaScript development' },
-                      { name: 'Tailwind CSS', desc: 'Utility-first CSS framework' },
-                      { name: 'Framer Motion', desc: 'Advanced animations and interactions' }
-                    ]
-                  },
-                  {
-                    title: 'Backend Technologies',
-                    color: 'purple-400',
-                    techs: [
-                      { name: 'Node.js & Python', desc: 'Scalable server-side development' },
-                      { name: 'FastAPI & Express', desc: 'High-performance API frameworks' },
-                      { name: 'PostgreSQL & MongoDB', desc: 'Relational and NoSQL databases' },
-                      { name: 'Redis & ElasticSearch', desc: 'Caching and search solutions' }
-                    ]
-                  },
-                  {
-                    title: 'AI & Cloud',
-                    color: 'orange-400',
-                    techs: [
-                      { name: 'TensorFlow & PyTorch', desc: 'Machine learning frameworks' },
-                      { name: 'OpenAI & Hugging Face', desc: 'AI model integration' },
-                      { name: 'AWS & Google Cloud', desc: 'Cloud infrastructure & services' },
-                      { name: 'Docker & Kubernetes', desc: 'Containerization & orchestration' }
-                    ]
-                  }
-                ].map((stack, index) => {
-                  const ref = useRef(null);
-                  const inView = useInView(ref, { once: true });
-                  
-                  return (
-                    <motion.div 
-                      key={index}
-                      ref={ref}
-                      className="bg-slate-900/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50"
-                      initial={{ opacity: 0, y: 50 }}
-                      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                      transition={{ duration: 0.6, delay: index * 0.2 }}
-                      whileHover={{
-                        scale: 1.02,
-                        borderColor: `rgba(34, 211, 238, 0.3)`,
-                        boxShadow: '0 15px 30px -10px rgba(34, 211, 238, 0.1)'
-                      }}
-                    >
-                      <motion.h3 
-                        className={`text-xl font-bold mb-6 text-${stack.color}`}
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
-                      >
-                        {stack.title}
-                      </motion.h3>
-                      <div className="space-y-4">
-                        {stack.techs.map((tech, techIndex) => (
-                          <motion.div 
-                            key={techIndex} 
-                            className="flex items-start gap-3"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                            transition={{ duration: 0.5, delay: index * 0.2 + 0.4 + techIndex * 0.1 }}
-                            whileHover={{ x: 5 }}
-                          >
-                            <motion.div 
-                              className={`w-2 h-2 bg-${stack.color} rounded-full mt-2 flex-shrink-0`}
-                              whileHover={{ 
-                                scale: 1.5,
-                                boxShadow: `0 0 10px rgba(34, 211, 238, 0.5)`
-                              }}
-                            />
-                            <div>
-                              <div className="text-white font-medium">{tech.name}</div>
-                              <div className="text-sm text-slate-400">{tech.desc}</div>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  );
-                })}
+                {services.map((service, index) => (
+                  <ServiceCard 
+                    key={service.id} 
+                    service={service} 
+                    index={index} 
+                    hoveredCard={hoveredCard}
+                    setHoveredCard={setHoveredCard}
+                  />
+                ))}
               </div>
             </div>
           </section>
@@ -521,71 +334,9 @@ export default function WebDevelopment() {
                     description: 'Launch your application and provide ongoing maintenance, updates, and support.',
                     color: 'from-green-400 to-cyan-400'
                   }
-                ].map((phase, index) => {
-                  const ref = useRef(null);
-                  const inView = useInView(ref, { once: true });
-                  
-                  return (
-                    <motion.div 
-                      key={index} 
-                      ref={ref}
-                      className="text-center group"
-                      initial={{ opacity: 0, y: 50 }}
-                      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                      transition={{ duration: 0.6, delay: index * 0.2 }}
-                    >
-                      <motion.div 
-                        className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-r ${phase.color} flex items-center justify-center transition-all duration-300 relative overflow-hidden`}
-                        whileHover={{ 
-                          scale: 1.1,
-                          boxShadow: '0 15px 25px -5px rgba(34, 211, 238, 0.3)'
-                        }}
-                        animate={{
-                          y: [0, -8, 0],
-                        }}
-                        transition={{
-                          y: {
-                            duration: 3,
-                            repeat: Infinity,
-                            delay: index * 0.7
-                          }
-                        }}
-                      >
-                        <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0"
-                          whileHover={{ opacity: 1 }}
-                          transition={{ duration: 0.3 }}
-                        />
-                        <motion.span 
-                          className="text-xl font-bold text-white relative z-10"
-                          whileHover={{ 
-                            scale: 1.1,
-                            rotate: [0, -5, 5, 0]
-                          }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {phase.step}
-                        </motion.span>
-                      </motion.div>
-                      <motion.h3 
-                        className="text-xl font-bold mb-4 text-white"
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
-                      >
-                        {phase.title}
-                      </motion.h3>
-                      <motion.p 
-                        className="text-slate-400"
-                        initial={{ opacity: 0 }}
-                        animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.2 + 0.4 }}
-                      >
-                        {phase.description}
-                      </motion.p>
-                    </motion.div>
-                  );
-                })}
+                ].map((phase, index) => (
+                  <ProcessPhase key={index} phase={phase} index={index} />
+                ))}
               </div>
             </div>
           </section>
@@ -705,5 +456,168 @@ export default function WebDevelopment() {
         <Footer />
       </div>
     </PageBackground>
+  );
+}
+
+function ServiceCard({ service, index, hoveredCard, setHoveredCard }: {
+  service: Service;
+  index: number;
+  hoveredCard: number | null;
+  setHoveredCard: (id: number | null) => void;
+}) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  
+  return (
+    <motion.div
+      ref={ref}
+      className="bg-slate-900/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 transition-all duration-500 group relative overflow-hidden"
+      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      onHoverStart={() => setHoveredCard(service.id)}
+      onHoverEnd={() => setHoveredCard(null)}
+      whileHover={{
+        scale: 1.02,
+        borderColor: `rgba(34, 211, 238, 0.4)`,
+        boxShadow: `0 20px 40px -10px rgba(34, 211, 238, 0.2)`
+      }}
+    >
+      {/* Animated background glow */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 via-purple-500/5 to-orange-500/5 opacity-0"
+        animate={{ opacity: hoveredCard === service.id ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      />
+      
+      <motion.div 
+        className={`w-16 h-16 bg-gradient-to-r ${service.gradient} rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 relative z-10`}
+        whileHover={{ 
+          scale: 1.1,
+          rotate: [0, -5, 5, 0],
+          boxShadow: '0 15px 30px -5px rgba(34, 211, 238, 0.3)'
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <motion.span 
+          className="text-2xl"
+          animate={hoveredCard === service.id ? { 
+            scale: [1, 1.2, 1],
+            rotate: [0, 10, -10, 0]
+          } : {}}
+          transition={{ duration: 0.5 }}
+        >
+          {service.icon}
+        </motion.span>
+      </motion.div>
+      <motion.h3 
+        className="text-2xl font-bold mb-4 relative z-10"
+        animate={{ 
+          color: hoveredCard === service.id ? '#22d3ee' : '#ffffff'
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        {service.title}
+      </motion.h3>
+      <motion.p 
+        className="text-slate-400 mb-6 relative z-10"
+        initial={{ opacity: 0.7 }}
+        animate={{ opacity: hoveredCard === service.id ? 1 : 0.7 }}
+        transition={{ duration: 0.3 }}
+      >
+        {service.description}
+      </motion.p>
+      <motion.ul 
+        className="space-y-2 text-sm text-slate-300 relative z-10"
+        initial={{ opacity: 0.8 }}
+        animate={{ opacity: hoveredCard === service.id ? 1 : 0.8 }}
+        transition={{ duration: 0.3 }}
+      >
+        {service.features.map((feature: string, featureIndex: number) => (
+          <motion.li 
+            key={featureIndex}
+            className="flex items-center gap-2"
+            initial={{ x: 0 }}
+            animate={{ x: hoveredCard === service.id ? 5 : 0 }}
+            transition={{ duration: 0.3, delay: featureIndex * 0.05 }}
+          >
+            <motion.div 
+              className="w-1.5 h-1.5 bg-cyan-400 rounded-full flex-shrink-0"
+              animate={{ 
+                scale: hoveredCard === service.id ? [1, 1.5, 1] : 1,
+                opacity: hoveredCard === service.id ? [0.7, 1, 0.7] : 0.7
+              }}
+              transition={{ duration: 0.5, delay: featureIndex * 0.1 }}
+            />
+            {feature}
+          </motion.li>
+        ))}
+      </motion.ul>
+    </motion.div>
+  );
+}
+
+function ProcessPhase({ phase, index }: { phase: { step: string; title: string; description: string; color: string }; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  
+  return (
+    <motion.div 
+      ref={ref}
+      className="text-center group"
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+    >
+      <motion.div 
+        className={`w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-r ${phase.color} flex items-center justify-center transition-all duration-300 relative overflow-hidden`}
+        whileHover={{ 
+          scale: 1.1,
+          boxShadow: '0 15px 25px -5px rgba(34, 211, 238, 0.3)'
+        }}
+        animate={{
+          y: [0, -8, 0],
+        }}
+        transition={{
+          y: {
+            duration: 3,
+            repeat: Infinity,
+            delay: index * 0.7
+          }
+        }}
+      >
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0"
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        />
+        <motion.span 
+          className="text-xl font-bold text-white relative z-10"
+          whileHover={{ 
+            scale: 1.1,
+            rotate: [0, -5, 5, 0]
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          {phase.step}
+        </motion.span>
+      </motion.div>
+      <motion.h3 
+        className="text-xl font-bold mb-4 text-white"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+      >
+        {phase.title}
+      </motion.h3>
+      <motion.p 
+        className="text-slate-400"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.2 + 0.4 }}
+      >
+        {phase.description}
+      </motion.p>
+    </motion.div>
   );
 }

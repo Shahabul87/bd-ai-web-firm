@@ -68,9 +68,6 @@ export default function NLPAnalysisDemo() {
     setIsAnalyzing(false);
   };
 
-  const useSampleText = (text: string) => {
-    setInputText(text);
-  };
 
   return (
     <div className="bg-slate-900/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-700/50">
@@ -90,7 +87,7 @@ export default function NLPAnalysisDemo() {
           {sampleTexts.map((text, index) => (
             <button
               key={index}
-              onClick={() => useSampleText(text)}
+              onClick={() => setInputText(text)}
               className="text-xs px-3 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-full transition-colors duration-200"
             >
               Sample {index + 1}

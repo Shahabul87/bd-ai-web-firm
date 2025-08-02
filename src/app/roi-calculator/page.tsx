@@ -206,7 +206,7 @@ export default function ROICalculatorPage() {
                     </div>
                   </div>
                   <p className="text-slate-300 text-sm">
-                    "AI-powered recommendation engine increased our conversion rate by 47% and reduced cart abandonment by 32%."
+                    &ldquo;AI-powered recommendation engine increased our conversion rate by 47% and reduced cart abandonment by 32%.&rdquo;
                   </p>
                 </div>
 
@@ -235,7 +235,7 @@ export default function ROICalculatorPage() {
                     </div>
                   </div>
                   <p className="text-slate-300 text-sm">
-                    "Predictive analytics reduced patient readmissions by 23% and improved operational efficiency by 40%."
+                    &ldquo;Predictive analytics reduced patient readmissions by 23% and improved operational efficiency by 40%.&rdquo;
                   </p>
                 </div>
               </div>

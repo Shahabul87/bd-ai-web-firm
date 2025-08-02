@@ -174,7 +174,6 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
 
     // Reconstruct the line with safe JSX
     const finalParts = [];
-    const currentIndex = 0;
     
     for (let i = 0; i < remaining.length; i++) {
       if (remaining.substr(i).startsWith('__')) {

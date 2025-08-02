@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 interface ServiceConfig {
   category: string;
@@ -91,11 +91,7 @@ export default function ServiceConfigurator() {
   const [estimatedCost, setEstimatedCost] = useState(0);
   const [showResults, setShowResults] = useState(false);
 
-  useEffect(() => {
-    calculateEstimate();
-  }, [config]);
-
-  const calculateEstimate = () => {
+  const calculateEstimate = useCallback(() => {
     if (!config.category || config.services.length === 0) {
       setEstimatedCost(0);
       return;
@@ -108,7 +104,11 @@ export default function ServiceConfigurator() {
 
     const estimate = basePrice * complexityMultiplier * serviceMultiplier;
     setEstimatedCost(Math.round(estimate));
-  };
+  }, [config]);
+
+  useEffect(() => {
+    calculateEstimate();
+  }, [config, calculateEstimate]);
 
   const handleCategoryChange = (category: string) => {
     setConfig(prev => ({
