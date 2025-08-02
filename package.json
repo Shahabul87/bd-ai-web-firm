@@ -12,8 +12,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "analyze": "ANALYZE=true next build",
-    "prepare": "husky install"
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "framer-motion": "^12.7.4",
