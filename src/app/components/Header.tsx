@@ -22,9 +22,9 @@ export default function Header() {
       if (savedMode) {
         setIsDarkMode(savedMode === 'true');
       } else {
-        // Check system preference
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setIsDarkMode(prefersDark);
+        // Default to dark mode (company preference)
+        setIsDarkMode(true);
+        localStorage.setItem('darkMode', 'true');
       }
     };
     

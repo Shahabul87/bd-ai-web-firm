@@ -128,7 +128,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
     const maxCycles = 3; // Limit to 3 complete cycles, then stop
     let isActive = true; // Flag to prevent execution after cleanup
     let currentTimeout: NodeJS.Timeout;
-    let typeInterval: NodeJS.Timeout;
+    let typeInterval: number;
     
     const runDemo = () => {
       if (!isActive || cycleCount >= maxCycles) return; // Exit if cleaned up or max cycles reached
@@ -138,30 +138,39 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
         setCurrentCommand('');
         setIsTyping(true);
         
-        // Beautiful typing animation
+        // Optimized typing animation using requestAnimationFrame
         let charIndex = 0;
-        typeInterval = setInterval(() => {
-          if (!isActive) {
-            clearInterval(typeInterval);
-            return;
+        let lastTime = 0;
+        const typingSpeed = 100; // ms between characters
+        
+        const typeChar = (currentTime: number) => {
+          if (!isActive) return;
+          
+          if (currentTime - lastTime >= typingSpeed) {
+            setCurrentCommand(cmd.substring(0, charIndex + 1));
+            charIndex++;
+            lastTime = currentTime;
+            
+            if (charIndex >= cmd.length) {
+              // Pause before executing command
+              currentTimeout = setTimeout(() => {
+                if (!isActive) return;
+                executeCommand(cmd);
+                setIsTyping(false);
+                index++;
+                // Continue with next command
+                currentTimeout = setTimeout(runDemo, 2500);
+              }, 800);
+              return;
+            }
           }
           
-          setCurrentCommand(cmd.substring(0, charIndex + 1));
-          charIndex++;
-          
-          if (charIndex >= cmd.length) {
-            clearInterval(typeInterval);
-            // Pause before executing command
-            currentTimeout = setTimeout(() => {
-              if (!isActive) return;
-              executeCommand(cmd);
-              setIsTyping(false);
-              index++;
-              // Continue with next command
-              currentTimeout = setTimeout(runDemo, 2500);
-            }, 800); // Longer pause to show complete command
+          if (charIndex < cmd.length) {
+            typeInterval = requestAnimationFrame(typeChar);
           }
-        }, 100); // Slightly slower typing for better visual effect
+        };
+        
+        typeInterval = requestAnimationFrame(typeChar);
       } else {
         // Completed one cycle
         cycleCount++;
@@ -195,7 +204,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
         clearTimeout(currentTimeout);
       }
       if (typeInterval) {
-        clearInterval(typeInterval);
+        cancelAnimationFrame(typeInterval);
       }
       setIsTyping(false);
     };

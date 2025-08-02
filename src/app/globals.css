@@ -411,22 +411,45 @@ textarea {
   justify-content: center;
 }
 
-/* Reduce motion for users who prefer it */
+/* GPU Acceleration and Performance Optimizations */
+.gpu-accelerated,
+.animate-neural-pulse,
+.animate-data-flow,
+.animate-quantum-spark,
+.animate-gradient {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Disable animations on battery saver mode and reduce motion */
 @media (prefers-reduced-motion: reduce) {
-  .glitch-text {
-    animation: none;
+  .glitch-text,
+  .animate-neural-pulse,
+  .animate-data-flow,
+  .animate-quantum-spark,
+  .animate-gradient {
+    animation: none !important;
   }
   
   .animate-pulse,
   .animate-bounce,
   .animate-ping {
-    animation: none;
+    animation: none !important;
   }
   
   * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Battery optimization - disable heavy animations on low battery */
+@media (prefers-reduced-motion: no-preference) and (max-resolution: 1dppx) {
+  .animate-pulse {
+    animation-duration: 3s !important; /* Slower pulse for low-res devices */
   }
 }
 

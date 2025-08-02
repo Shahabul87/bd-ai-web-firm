@@ -60,21 +60,40 @@ export default function ServicesSection() {
     }
   ];
 
-  // Auto-cycle through capabilities with smoother transitions
+  // Auto-cycle through capabilities with optimized requestAnimationFrame
   useEffect(() => {
     if (!isInView) return;
     
-    const interval = setInterval(() => {
+    let isActive = true;
+    let currentTimeout: NodeJS.Timeout;
+    let animationFrame: number;
+    
+    const cycleCapabilities = () => {
+      if (!isActive) return;
+      
       setIsTransitioning(true);
-      setTimeout(() => {
+      currentTimeout = setTimeout(() => {
+        if (!isActive) return;
         setActiveCapability((prev) => (prev + 1) % capabilities.length);
-        setTimeout(() => {
+        currentTimeout = setTimeout(() => {
+          if (!isActive) return;
           setIsTransitioning(false);
+          // Schedule next cycle using requestAnimationFrame for better performance
+          animationFrame = requestAnimationFrame(() => {
+            currentTimeout = setTimeout(cycleCapabilities, 9500); // 10s total cycle
+          });
         }, 500);
       }, 300);
-    }, 10000); // Slower cycling for better user experience
+    };
     
-    return () => clearInterval(interval);
+    // Initial delay before starting
+    currentTimeout = setTimeout(cycleCapabilities, 10000);
+    
+    return () => {
+      isActive = false;
+      if (currentTimeout) clearTimeout(currentTimeout);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+    };
   }, [isInView, capabilities.length]);
 
   // Handle manual capability switching with smooth transitions
@@ -261,17 +280,36 @@ function DataVisualizationDemo({ isActive }: { isActive: boolean }) {
   useEffect(() => {
     if (!isActive) return;
     
-    const interval = setInterval(() => {
+    let isComponentActive = true;
+    let updateTimeout: NodeJS.Timeout;
+    let animationFrame: number;
+    
+    const updateData = () => {
+      if (!isComponentActive) return;
+      
       setIsProcessing(true);
-      setTimeout(() => {
+      updateTimeout = setTimeout(() => {
+        if (!isComponentActive) return;
         setData(prev => prev.map(() => Math.floor(Math.random() * 40) + 60));
-        setTimeout(() => {
+        updateTimeout = setTimeout(() => {
+          if (!isComponentActive) return;
           setIsProcessing(false);
+          // Schedule next update using requestAnimationFrame
+          animationFrame = requestAnimationFrame(() => {
+            updateTimeout = setTimeout(updateData, 4800); // 5s total cycle
+          });
         }, 800);
       }, 1200);
-    }, 5000); // Slower updates for smoother UX
+    };
     
-    return () => clearInterval(interval);
+    // Initial update
+    updateTimeout = setTimeout(updateData, 5000);
+    
+    return () => {
+      isComponentActive = false;
+      if (updateTimeout) clearTimeout(updateTimeout);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+    };
   }, [isActive]);
 
   return (
@@ -343,35 +381,56 @@ function MachineLearningDemo({ isActive }: { isActive: boolean }) {
   useEffect(() => {
     if (!isActive) return;
     
+    let isComponentActive = true;
+    let trainingFrame: number;
+    let restartTimeout: NodeJS.Timeout;
+    
     const startTraining = () => {
+      if (!isComponentActive) return;
+      
       setIsTraining(true);
       setEpoch(0);
       setAccuracy(0);
       setLoss(1.0);
       
-      const trainingInterval = setInterval(() => {
-        setEpoch(prev => {
-          const newEpoch = prev + 1;
-          if (newEpoch >= 100) {
-            clearInterval(trainingInterval);
-            setIsTraining(false);
-            setTimeout(startTraining, 3000);
-            return 100;
-          }
-          
-          // Simulate learning curve
-          const progress = newEpoch / 100;
-          setAccuracy(Math.min(99.5, 60 + progress * 35 + Math.random() * 5));
-          setLoss(Math.max(0.01, 1.0 - progress * 0.95 + Math.random() * 0.1));
-          
-          return newEpoch;
-        });
-      }, 80); // Slower training progression
+      let lastTime = 0;
+      const trainingSpeed = 80; // ms between epochs
       
-      return () => clearInterval(trainingInterval);
+      const trainEpoch = (currentTime: number) => {
+        if (!isComponentActive) return;
+        
+        if (currentTime - lastTime >= trainingSpeed) {
+          setEpoch(prev => {
+            const newEpoch = prev + 1;
+            if (newEpoch >= 100) {
+              setIsTraining(false);
+              restartTimeout = setTimeout(startTraining, 3000);
+              return 100;
+            }
+            
+            // Simulate learning curve
+            const progress = newEpoch / 100;
+            setAccuracy(Math.min(99.5, 60 + progress * 35 + Math.random() * 5));
+            setLoss(Math.max(0.01, 1.0 - progress * 0.95 + Math.random() * 0.1));
+            
+            return newEpoch;
+          });
+          lastTime = currentTime;
+        }
+        
+        trainingFrame = requestAnimationFrame(trainEpoch);
+      };
+      
+      trainingFrame = requestAnimationFrame(trainEpoch);
     };
     
     startTraining();
+    
+    return () => {
+      isComponentActive = false;
+      if (trainingFrame) cancelAnimationFrame(trainingFrame);
+      if (restartTimeout) clearTimeout(restartTimeout);
+    };
   }, [isActive]);
 
   return (
@@ -445,46 +504,81 @@ function NLPDemo({ isActive }: { isActive: boolean }) {
   useEffect(() => {
     if (!isActive) return;
     
+    let isComponentActive = true;
     let textIndex = 0;
+    let typeFrame: number;
+    let analysisTimeout: NodeJS.Timeout;
+    let nextTextTimeout: NodeJS.Timeout;
+    
     const analyzeText = () => {
+      if (!isComponentActive) return;
+      
       const text = sampleTexts[textIndex];
       setCurrentText('');
       
-      // Simulate typing
+      // Optimized typing animation using requestAnimationFrame
       let charIndex = 0;
-      const typeInterval = setInterval(() => {
-        setCurrentText(text.substring(0, charIndex + 1));
-        charIndex++;
-        
-        if (charIndex > text.length) {
-          clearInterval(typeInterval);
-          
-          // Simulate analysis
-          setTimeout(() => {
-            // Mock sentiment analysis
-            const sentimentScore = Math.random() * 2 - 1; // -1 to 1
-            setSentiment({
-              score: sentimentScore,
-              label: sentimentScore > 0.1 ? 'Positive' : sentimentScore < -0.1 ? 'Negative' : 'Neutral'
-            });
-            
-            // Mock entity extraction
-            const words = text.split(' ');
-            const mockEntities = words.filter(word => 
-              word.length > 5 || ['Apple', 'Microsoft', 'Google', 'iPhone'].includes(word)
-            );
-            setEntities(mockEntities.slice(0, 3));
-          }, 1000);
-        }
-      }, 50);
+      let lastTime = 0;
+      const typingSpeed = 50; // ms between characters
       
+      const typeChar = (currentTime: number) => {
+        if (!isComponentActive) return;
+        
+        if (currentTime - lastTime >= typingSpeed) {
+          setCurrentText(text.substring(0, charIndex + 1));
+          charIndex++;
+          lastTime = currentTime;
+          
+          if (charIndex > text.length) {
+            // Simulate analysis after typing completes
+            analysisTimeout = setTimeout(() => {
+              if (!isComponentActive) return;
+              
+              // Mock sentiment analysis
+              const sentimentScore = Math.random() * 2 - 1; // -1 to 1
+              setSentiment({
+                score: sentimentScore,
+                label: sentimentScore > 0.1 ? 'Positive' : sentimentScore < -0.1 ? 'Negative' : 'Neutral'
+              });
+              
+              // Mock entity extraction
+              const words = text.split(' ');
+              const mockEntities = words.filter(word => 
+                word.length > 5 || ['Apple', 'Microsoft', 'Google', 'iPhone'].includes(word)
+              );
+              setEntities(mockEntities.slice(0, 3));
+            }, 1000);
+            return;
+          }
+        }
+        
+        if (charIndex <= text.length) {
+          typeFrame = requestAnimationFrame(typeChar);
+        }
+      };
+      
+      typeFrame = requestAnimationFrame(typeChar);
       textIndex = (textIndex + 1) % sampleTexts.length;
     };
     
-    const interval = setInterval(analyzeText, 5000);
-    analyzeText(); // Start immediately
+    const scheduleNextText = () => {
+      if (isComponentActive) {
+        nextTextTimeout = setTimeout(() => {
+          analyzeText();
+          scheduleNextText();
+        }, 5000);
+      }
+    };
     
-    return () => clearInterval(interval);
+    analyzeText(); // Start immediately
+    scheduleNextText();
+    
+    return () => {
+      isComponentActive = false;
+      if (typeFrame) cancelAnimationFrame(typeFrame);
+      if (analysisTimeout) clearTimeout(analysisTimeout);
+      if (nextTextTimeout) clearTimeout(nextTextTimeout);
+    };
   }, [isActive, sampleTexts]);
 
   return (
@@ -550,11 +644,19 @@ function ComputerVisionDemo({ isActive }: { isActive: boolean }) {
   useEffect(() => {
     if (!isActive) return;
     
+    let isComponentActive = true;
+    let detectionTimeout: NodeJS.Timeout;
+    let nextDetectionTimeout: NodeJS.Timeout;
+    
     const runDetection = () => {
+      if (!isComponentActive) return;
+      
       setIsScanning(true);
       setDetections([]);
       
-      setTimeout(() => {
+      detectionTimeout = setTimeout(() => {
+        if (!isComponentActive) return;
+        
         // Simulate object detection
         const mockDetections = [
           { x: 20, y: 15, label: 'Person', confidence: 0.94 },
@@ -563,13 +665,19 @@ function ComputerVisionDemo({ isActive }: { isActive: boolean }) {
         ];
         setDetections(mockDetections);
         setIsScanning(false);
+        
+        // Schedule next detection
+        nextDetectionTimeout = setTimeout(runDetection, 6000);
       }, 2000);
     };
     
-    const interval = setInterval(runDetection, 6000);
     runDetection(); // Start immediately
     
-    return () => clearInterval(interval);
+    return () => {
+      isComponentActive = false;
+      if (detectionTimeout) clearTimeout(detectionTimeout);
+      if (nextDetectionTimeout) clearTimeout(nextDetectionTimeout);
+    };
   }, [isActive]);
 
   return (
@@ -656,10 +764,18 @@ function PredictiveAnalyticsDemo({ isActive }: { isActive: boolean }) {
   useEffect(() => {
     if (!isActive) return;
     
+    let isComponentActive = true;
+    let forecastTimeout: NodeJS.Timeout;
+    let nextForecastTimeout: NodeJS.Timeout;
+    
     const runForecast = () => {
+      if (!isComponentActive) return;
+      
       setIsForecasting(true);
       
-      setTimeout(() => {
+      forecastTimeout = setTimeout(() => {
+        if (!isComponentActive) return;
+        
         // Generate new forecast data
         const baseValue = 50;
         const trend = Math.random() * 10 - 5; // -5 to +5 trend
@@ -671,13 +787,19 @@ function PredictiveAnalyticsDemo({ isActive }: { isActive: boolean }) {
         
         setForecastData(newData);
         setIsForecasting(false);
+        
+        // Schedule next forecast
+        nextForecastTimeout = setTimeout(runForecast, 5000);
       }, 2000);
     };
     
-    const interval = setInterval(runForecast, 5000);
     runForecast();
     
-    return () => clearInterval(interval);
+    return () => {
+      isComponentActive = false;
+      if (forecastTimeout) clearTimeout(forecastTimeout);
+      if (nextForecastTimeout) clearTimeout(nextForecastTimeout);
+    };
   }, [isActive]);
 
   const futureData = [78, 82, 85, 89]; // Mock future predictions
@@ -774,26 +896,47 @@ function AIAutomationDemo({ isActive }: { isActive: boolean }) {
   useEffect(() => {
     if (!isActive) return;
     
+    let isComponentActive = true;
+    let stepTimeout: NodeJS.Timeout;
+    let completeTimeout: NodeJS.Timeout;
+    let restartTimeout: NodeJS.Timeout;
+    
     const runWorkflow = () => {
+      if (!isComponentActive) return;
+      
       setIsRunning(true);
       setCurrentStep(0);
       
-      const stepInterval = setInterval(() => {
-        setCurrentStep(prev => {
-          if (prev >= workflowSteps.length - 1) {
-            clearInterval(stepInterval);
-            setTimeout(() => {
-              setIsRunning(false);
-              setTimeout(runWorkflow, 2000);
-            }, 1000);
-            return workflowSteps.length - 1;
-          }
-          return prev + 1;
-        });
-      }, 1500);
+      let currentStepIndex = 0;
+      
+      const processNextStep = () => {
+        if (!isComponentActive) return;
+        
+        if (currentStepIndex >= workflowSteps.length - 1) {
+          completeTimeout = setTimeout(() => {
+            if (!isComponentActive) return;
+            setIsRunning(false);
+            restartTimeout = setTimeout(runWorkflow, 2000);
+          }, 1000);
+          return;
+        }
+        
+        currentStepIndex++;
+        setCurrentStep(currentStepIndex);
+        stepTimeout = setTimeout(processNextStep, 1500);
+      };
+      
+      stepTimeout = setTimeout(processNextStep, 1500);
     };
     
     runWorkflow();
+    
+    return () => {
+      isComponentActive = false;
+      if (stepTimeout) clearTimeout(stepTimeout);
+      if (completeTimeout) clearTimeout(completeTimeout);
+      if (restartTimeout) clearTimeout(restartTimeout);
+    };
   }, [isActive, workflowSteps.length]);
 
   return (

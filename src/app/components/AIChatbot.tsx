@@ -29,7 +29,7 @@ const knowledgeBase = {
   },
   contact: {
     keywords: ['contact', 'reach', 'email', 'phone', 'meeting'],
-    response: "I'd love to connect you with our team! Here are the ways to reach us:\n\n📧 **Email:** hello@bdaiwebfirm.com\n📞 **Phone:** +1 (555) 123-4567\n📍 **Office:** 123 Innovation Drive, Tech City, TC 12345\n\nOr click the 'Get a Quote' button to schedule a free consultation!"
+    response: "I'd love to connect you with our team! Here are the ways to reach us:\n\n📧 **Email:** hello@inshyra.com\n📞 **Phone:** +1 (555) 123-4567\n📍 **Office:** 123 Innovation Drive, Tech City, TC 12345\n\nOr click the 'Get a Quote' button to schedule a free consultation!"
   },
   timeline: {
     keywords: ['timeline', 'duration', 'how long', 'delivery', 'time'],

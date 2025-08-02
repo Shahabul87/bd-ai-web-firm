@@ -7,18 +7,25 @@ const nextConfig: NextConfig = {
       {
         source: '/(.*)',
         headers: [
-          // Content Security Policy
+          // Content Security Policy - Tightened for better security
           {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // Allow inline scripts for Next.js
-              "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
-              "font-src 'self' fonts.gstatic.com",
+              "script-src 'self' 'unsafe-inline'", // Removed unsafe-eval for better security
+              "style-src 'self' 'unsafe-inline'",
+              "font-src 'self' data: fonts.gstatic.com",
               "img-src 'self' data: blob: https:",
               "connect-src 'self'",
               "frame-ancestors 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
             ].join('; ')
+          },
+          // Add HTTPS enforcement
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload'
           },
           // Prevent clickjacking
           {

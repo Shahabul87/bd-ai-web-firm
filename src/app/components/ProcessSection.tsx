@@ -65,21 +65,40 @@ export default function ProcessSection() {
     }
   ];
 
-  // Auto-cycle through steps with smoother transitions
+  // Auto-cycle through steps with optimized requestAnimationFrame
   useEffect(() => {
     if (!isInView) return;
     
-    const interval = setInterval(() => {
-      setIsProcessing(true);
-      setTimeout(() => {
-        setActiveStep((prev) => (prev + 1) % processSteps.length);
-        setTimeout(() => {
-          setIsProcessing(false);
-        }, 800); // Smoother processing state transition
-      }, 1200); // Longer processing visual feedback
-    }, 8000); // Slower cycling for better UX
+    let isActive = true;
+    let currentTimeout: NodeJS.Timeout;
+    let animationFrame: number;
     
-    return () => clearInterval(interval);
+    const cycleSteps = () => {
+      if (!isActive) return;
+      
+      setIsProcessing(true);
+      currentTimeout = setTimeout(() => {
+        if (!isActive) return;
+        setActiveStep((prev) => (prev + 1) % processSteps.length);
+        currentTimeout = setTimeout(() => {
+          if (!isActive) return;
+          setIsProcessing(false);
+          // Schedule next cycle using requestAnimationFrame for better performance
+          animationFrame = requestAnimationFrame(() => {
+            currentTimeout = setTimeout(cycleSteps, 7200); // 8s total cycle
+          });
+        }, 800);
+      }, 1200);
+    };
+    
+    // Initial delay before starting
+    currentTimeout = setTimeout(cycleSteps, 8000);
+    
+    return () => {
+      isActive = false;
+      if (currentTimeout) clearTimeout(currentTimeout);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+    };
   }, [isInView, processSteps.length]);
 
   // Handle manual step changes with smooth transitions
@@ -302,11 +321,28 @@ function DiscoverySVG({ isActive, isProcessing }: { isActive: boolean; isProcess
   useEffect(() => {
     if (!isActive) return;
     
-    const interval = setInterval(() => {
-      setScanProgress(prev => (prev + 2) % 100);
-    }, 120); // Slower, smoother scanning
+    let isComponentActive = true;
+    let scanFrame: number;
+    let lastTime = 0;
+    const scanSpeed = 120; // ms between progress updates
     
-    return () => clearInterval(interval);
+    const updateScan = (currentTime: number) => {
+      if (!isComponentActive) return;
+      
+      if (currentTime - lastTime >= scanSpeed) {
+        setScanProgress(prev => (prev + 2) % 100);
+        lastTime = currentTime;
+      }
+      
+      scanFrame = requestAnimationFrame(updateScan);
+    };
+    
+    scanFrame = requestAnimationFrame(updateScan);
+    
+    return () => {
+      isComponentActive = false;
+      if (scanFrame) cancelAnimationFrame(scanFrame);
+    };
   }, [isActive]);
 
   return (
@@ -429,11 +465,22 @@ function DesignSVG({ isActive, isProcessing }: { isActive: boolean; isProcessing
   useEffect(() => {
     if (!isActive) return;
     
-    const interval = setInterval(() => {
-      setDesignIteration(prev => (prev + 1) % 4);
-    }, 2500); // Slower iteration for better viewing
+    let isComponentActive = true;
+    let iterationTimeout: NodeJS.Timeout;
     
-    return () => clearInterval(interval);
+    const nextIteration = () => {
+      if (!isComponentActive) return;
+      
+      setDesignIteration(prev => (prev + 1) % 4);
+      iterationTimeout = setTimeout(nextIteration, 2500);
+    };
+    
+    iterationTimeout = setTimeout(nextIteration, 2500);
+    
+    return () => {
+      isComponentActive = false;
+      if (iterationTimeout) clearTimeout(iterationTimeout);
+    };
   }, [isActive]);
 
   const designs = [
@@ -534,11 +581,22 @@ function DevelopmentSVG({ isActive, isProcessing }: { isActive: boolean; isProce
   useEffect(() => {
     if (!isActive) return;
     
-    const interval = setInterval(() => {
-      setCodeLines(prev => (prev + 1) % 15);
-    }, 400); // Much slower code generation
+    let isComponentActive = true;
+    let codeTimeout: NodeJS.Timeout;
     
-    return () => clearInterval(interval);
+    const generateCodeLine = () => {
+      if (!isComponentActive) return;
+      
+      setCodeLines(prev => (prev + 1) % 15);
+      codeTimeout = setTimeout(generateCodeLine, 400);
+    };
+    
+    codeTimeout = setTimeout(generateCodeLine, 400);
+    
+    return () => {
+      isComponentActive = false;
+      if (codeTimeout) clearTimeout(codeTimeout);
+    };
   }, [isActive]);
 
   return (
@@ -614,11 +672,28 @@ function LaunchSVG({ isActive }: { isActive: boolean }) {
   useEffect(() => {
     if (!isActive) return;
     
-    const interval = setInterval(() => {
-      setDeploymentProgress(prev => (prev + 1) % 100);
-    }, 150); // Slower deployment animation
+    let isComponentActive = true;
+    let deploymentFrame: number;
+    let lastTime = 0;
+    const progressSpeed = 150; // ms between progress updates
     
-    return () => clearInterval(interval);
+    const updateProgress = (currentTime: number) => {
+      if (!isComponentActive) return;
+      
+      if (currentTime - lastTime >= progressSpeed) {
+        setDeploymentProgress(prev => (prev + 1) % 100);
+        lastTime = currentTime;
+      }
+      
+      deploymentFrame = requestAnimationFrame(updateProgress);
+    };
+    
+    deploymentFrame = requestAnimationFrame(updateProgress);
+    
+    return () => {
+      isComponentActive = false;
+      if (deploymentFrame) cancelAnimationFrame(deploymentFrame);
+    };
   }, [isActive]);
 
   return (

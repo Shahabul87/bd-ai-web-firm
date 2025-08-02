@@ -36,11 +36,21 @@ function HeroSection() {
   const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
   
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
-    }, 3000);
+    let isActive = true;
+    let currentTimeout: NodeJS.Timeout;
     
-    return () => clearInterval(interval);
+    const nextPhrase = () => {
+      if (!isActive) return;
+      setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
+      currentTimeout = setTimeout(nextPhrase, 3000);
+    };
+    
+    currentTimeout = setTimeout(nextPhrase, 3000);
+    
+    return () => {
+      isActive = false;
+      if (currentTimeout) clearTimeout(currentTimeout);
+    };
   }, [phrases.length]);
   
   return (
@@ -242,11 +252,21 @@ function ValuesSection() {
   const [currentValueIndex, setCurrentValueIndex] = useState(0);
   
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentValueIndex((prevIndex) => (prevIndex + 1) % values.length);
-    }, 4000);
+    let isActive = true;
+    let currentTimeout: NodeJS.Timeout;
     
-    return () => clearInterval(interval);
+    const nextValue = () => {
+      if (!isActive) return;
+      setCurrentValueIndex((prevIndex) => (prevIndex + 1) % values.length);
+      currentTimeout = setTimeout(nextValue, 4000);
+    };
+    
+    currentTimeout = setTimeout(nextValue, 4000);
+    
+    return () => {
+      isActive = false;
+      if (currentTimeout) clearTimeout(currentTimeout);
+    };
   }, [values.length]);
   
   return (
