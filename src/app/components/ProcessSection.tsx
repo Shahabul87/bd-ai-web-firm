@@ -120,26 +120,26 @@ export default function ProcessSection() {
   };
 
   return (
-    <section ref={ref} className="py-20 relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+    <section ref={ref} className="py-20 relative overflow-hidden bg-gradient-to-b from-slate-100 via-slate-200 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 -left-40 w-80 h-80 bg-cyan-500 rounded-full filter blur-3xl opacity-10"></div>
-        <div className="absolute bottom-20 -right-40 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl opacity-10"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl opacity-5"></div>
+        <div className="absolute top-20 -left-40 w-80 h-80 bg-cyan-500 rounded-full filter blur-3xl opacity-5 dark:opacity-10"></div>
+        <div className="absolute bottom-20 -right-40 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl opacity-5 dark:opacity-10"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-orange-500 rounded-full filter blur-3xl opacity-3 dark:opacity-5"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/60 backdrop-blur-sm border border-cyan-400/30 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-300/60 dark:bg-slate-800/60 backdrop-blur-sm border border-cyan-400/30 mb-6">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-slate-200">Live AI Development Process</span>
+            <span className="text-sm font-medium text-slate-800 dark:text-slate-200">Live AI Development Process</span>
           </div>
           
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
             Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 animate-gradient">AI-Powered</span> Process
           </h2>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
             Watch our AI systems work in real-time. Each step is powered by advanced algorithms 
             that learn, adapt, and optimize for exceptional results.
           </p>
@@ -155,10 +155,10 @@ export default function ProcessSection() {
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
               </div>
-              <span className="text-sm font-mono text-slate-400">ai-development-pipeline</span>
+              <span className="text-sm font-mono text-slate-600 dark:text-slate-400">ai-development-pipeline</span>
               <div className="flex items-center gap-2 ml-auto">
                 <div className={`w-2 h-2 rounded-full ${isProcessing ? 'bg-orange-400 animate-pulse' : 'bg-green-400'}`}></div>
-                <span className="text-xs text-slate-400">{isProcessing ? 'PROCESSING' : 'ACTIVE'}</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400">{isProcessing ? 'PROCESSING' : 'ACTIVE'}</span>
               </div>
             </div>
 
@@ -171,7 +171,7 @@ export default function ProcessSection() {
                 onClick={() => handleStepClick(index)}
               >
                 {/* Timeline Line */}
-                <div className="absolute left-6 top-12 bottom-0 w-0.5 bg-slate-600"></div>
+                <div className="absolute left-6 top-12 bottom-0 w-0.5 bg-slate-400 dark:bg-slate-600"></div>
                 
                 {/* Commit Node */}
                 <div className="flex items-start gap-4">
@@ -190,7 +190,7 @@ export default function ProcessSection() {
                     )}
                   </div>
                   
-                  <div className="flex-1 bg-slate-900/70 rounded-lg p-4 border border-slate-700/50 backdrop-blur-sm transition-all duration-1000 ease-in-out"
+                  <div className="flex-1 bg-white/70 dark:bg-slate-900/70 rounded-lg p-4 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-sm transition-all duration-1000 ease-in-out"
                     style={{
                       borderColor: index === activeStep ? 'rgba(0, 229, 255, 0.3)' : 'rgba(51, 65, 85, 0.5)'
                     }}
@@ -199,18 +199,18 @@ export default function ProcessSection() {
                       <span className="text-xs font-mono text-green-400">
                         {step.commit}
                       </span>
-                      <span className="text-xs text-slate-500">{step.timestamp}</span>
+                      <span className="text-xs text-slate-600 dark:text-slate-500">{step.timestamp}</span>
                     </div>
                     
                     <h3 className={`text-lg font-bold mb-2 ${
                       index === activeStep 
                         ? `text-transparent bg-clip-text bg-gradient-to-r ${step.color}` 
-                        : 'text-slate-200'
+                        : 'text-slate-800 dark:text-slate-200'
                     }`}>
                       {step.title}
                     </h3>
                     
-                    <p className="text-sm text-slate-400 leading-relaxed">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                       {step.description}
                     </p>
                     
@@ -234,9 +234,9 @@ export default function ProcessSection() {
             ))}
 
             {/* Terminal Output */}
-            <div className="bg-slate-950/80 rounded-lg p-4 border border-slate-700/50 backdrop-blur-sm">
+            <div className="bg-slate-100/80 dark:bg-slate-950/80 rounded-lg p-4 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-3">
-                <span className="text-xs font-mono text-slate-400">$ ai-process-monitor --live</span>
+                <span className="text-xs font-mono text-slate-600 dark:text-slate-400">$ ai-process-monitor --live</span>
               </div>
               <div className="font-mono text-xs space-y-1">
                 <div className="text-green-400">✓ Neural networks initialized</div>
@@ -248,9 +248,9 @@ export default function ProcessSection() {
           </div>
 
           {/* Interactive SVG Canvas */}
-          <div className="bg-slate-900/90 rounded-3xl border border-slate-700/50 p-8 backdrop-blur-sm neural-glow transition-all duration-700 ease-out">
+          <div className="bg-white/90 dark:bg-slate-900/90 rounded-3xl border border-slate-300/50 dark:border-slate-700/50 p-8 backdrop-blur-sm neural-glow transition-all duration-700 ease-out">
             <div className="flex items-center justify-between mb-6">
-              <h4 className="text-lg font-semibold text-slate-200">AI Process Visualization</h4>
+              <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-200">AI Process Visualization</h4>
               <div className="flex items-center gap-2">
                 <div className={`px-3 py-1 rounded-full text-xs font-medium ${
                   isProcessing 
@@ -276,19 +276,19 @@ export default function ProcessSection() {
                 <div className={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${processSteps[activeStep].color} transition-all duration-1000 ease-in-out`}>
                   {isProcessing ? '...' : mounted ? randomMetrics.efficiency : 87}%
                 </div>
-                <div className="text-xs text-slate-400">Efficiency</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400">Efficiency</div>
               </div>
               <div className="text-center">
                 <div className={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${processSteps[activeStep].color} transition-all duration-1000 ease-in-out`}>
                   {isProcessing ? '...' : mounted ? randomMetrics.time : 18}s
                 </div>
-                <div className="text-xs text-slate-400">Process Time</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400">Process Time</div>
               </div>
               <div className="text-center">
                 <div className={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${processSteps[activeStep].color} transition-all duration-1000 ease-in-out`}>
                   {isProcessing ? '...' : mounted ? randomMetrics.quality : 97}%
                 </div>
-                <div className="text-xs text-slate-400">Quality Score</div>
+                <div className="text-xs text-slate-600 dark:text-slate-400">Quality Score</div>
               </div>
             </div>
           </div>
@@ -305,7 +305,7 @@ export default function ProcessSection() {
             </span>
           </button>
           
-          <p className="text-slate-500 text-sm mt-4">
+          <p className="text-slate-600 dark:text-slate-500 text-sm mt-4">
             Join 500+ businesses that have transformed with our AI-powered development
           </p>
         </div>

@@ -88,23 +88,23 @@ export default function ContactSection() {
   
   return (
     <section id="contact" className="py-16 relative">
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-10 -z-10"></div>
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-600 rounded-full filter blur-3xl opacity-5 dark:opacity-10 -z-10"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Transform</span> Your Web Presence?
           </h2>
-          <p className="text-gray-300 max-w-2xl mx-auto">
+          <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
             Get in touch with our AI web development experts today and see how we can help your business grow online.
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2 space-y-8">
-            <div className="bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl border border-gray-800">
-              <h3 className="text-xl font-bold mb-4">Let&apos;s discuss your project</h3>
-              <p className="text-gray-400 mb-6">
+            <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl border border-slate-300 dark:border-gray-800">
+              <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Let&apos;s discuss your project</h3>
+              <p className="text-slate-600 dark:text-gray-400 mb-6">
                 Fill out the form and our team will get back to you within 24 hours.
               </p>
               
@@ -115,7 +115,7 @@ export default function ContactSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
                   </div>
-                  <span className="text-gray-300">info@codegenius.ai</span>
+                  <span className="text-slate-700 dark:text-gray-300">info@inshyra.com</span>
                 </div>
                 
                 <div className="flex items-center">
@@ -124,7 +124,7 @@ export default function ContactSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
                     </svg>
                   </div>
-                  <span className="text-gray-300">+1 (555) 123-4567</span>
+                  <span className="text-slate-700 dark:text-gray-300">+1 (555) 123-4567</span>
                 </div>
                 
                 <div className="flex items-center">
@@ -134,13 +134,13 @@ export default function ContactSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                   </div>
-                  <span className="text-gray-300">123 AI Boulevard, Tech City, TC 54321</span>
+                  <span className="text-slate-700 dark:text-gray-300">123 AI Boulevard, Tech City, TC 54321</span>
                 </div>
               </div>
             </div>
             
-            <div className="bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl border border-gray-800">
-              <h3 className="text-xl font-bold mb-4">Follow Us</h3>
+            <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl border border-slate-300 dark:border-gray-800">
+              <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Follow Us</h3>
               <div className="flex space-x-4">
                 <a href="#" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-purple-600 transition-colors">
                   <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -168,14 +168,14 @@ export default function ContactSection() {
           
           <div className="lg:col-span-3">
             {submitted ? (
-              <div className="bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-gray-800 text-center">
+              <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-slate-300 dark:border-gray-800 text-center">
                 <div className="w-16 h-16 mx-auto bg-green-500/20 rounded-full flex items-center justify-center mb-6">
                   <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                <p className="text-gray-300 mb-6">
+                <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Message Sent!</h3>
+                <p className="text-slate-600 dark:text-gray-300 mb-6">
                   Thank you for reaching out. Our team will get back to you within 24 hours.
                 </p>
                 <button 
@@ -186,7 +186,7 @@ export default function ContactSection() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-gray-800">
+              <form onSubmit={handleSubmit} className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-slate-300 dark:border-gray-800">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">Your Name</label>

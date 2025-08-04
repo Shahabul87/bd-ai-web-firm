@@ -97,7 +97,7 @@ export default function WebDevelopment() {
 
   return (
     <PageBackground>
-      <div className="min-h-screen text-white">
+      <div className="min-h-screen text-slate-900 dark:text-white">
         <Header />
         
         <main className="pt-16 md:pt-20">
@@ -165,7 +165,7 @@ export default function WebDevelopment() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
                   <motion.span 
-                    className="block text-white"
+                    className="block text-slate-900 dark:text-white"
                     initial={{ opacity: 0, x: -50 }}
                     animate={isHeroInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
@@ -182,7 +182,7 @@ export default function WebDevelopment() {
                   </motion.span>
                 </motion.h1>
                 <motion.p 
-                  className="text-xl text-slate-400 max-w-3xl mx-auto mb-12"
+                  className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-12"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
@@ -226,7 +226,7 @@ export default function WebDevelopment() {
                   </motion.button>
                   <motion.button 
                     onClick={() => handleCTAClick('start-project')}
-                    className="px-8 py-4 border-2 border-slate-600 rounded-full text-white font-semibold transition-all duration-300 relative overflow-hidden"
+                    className="px-8 py-4 border-2 border-slate-400 dark:border-slate-600 rounded-full text-slate-900 dark:text-white font-semibold transition-all duration-300 relative overflow-hidden"
                     whileHover={{ 
                       scale: 1.05,
                       borderColor: 'rgba(34, 211, 238, 0.8)',
@@ -260,7 +260,7 @@ export default function WebDevelopment() {
                   Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Development Services</span>
                 </motion.h2>
                 <motion.p 
-                  className="text-slate-400 max-w-2xl mx-auto"
+                  className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -298,7 +298,7 @@ export default function WebDevelopment() {
                   Our Development <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Process</span>
                 </motion.h2>
                 <motion.p 
-                  className="text-slate-400 max-w-2xl mx-auto"
+                  className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -387,7 +387,7 @@ export default function WebDevelopment() {
                 Ready to Build Something Amazing?
               </motion.h2>
               <motion.p 
-                className="text-xl text-slate-400 mb-12 relative z-10"
+                className="text-xl text-slate-600 dark:text-slate-400 mb-12 relative z-10"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -433,7 +433,7 @@ export default function WebDevelopment() {
                 </motion.button>
                 <motion.button 
                   onClick={() => handleCTAClick('consultation')}
-                  className="px-8 py-4 border-2 border-slate-600 rounded-full text-white font-semibold transition-all duration-300 relative overflow-hidden"
+                  className="px-8 py-4 border-2 border-slate-400 dark:border-slate-600 rounded-full text-slate-900 dark:text-white font-semibold transition-all duration-300 relative overflow-hidden"
                   whileHover={{ 
                     scale: 1.05,
                     borderColor: 'rgba(34, 211, 238, 0.8)',
@@ -471,7 +471,7 @@ function ServiceCard({ service, index, hoveredCard, setHoveredCard }: {
   return (
     <motion.div
       ref={ref}
-      className="bg-slate-900/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700/50 transition-all duration-500 group relative overflow-hidden"
+      className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-300/50 dark:border-slate-700/50 transition-all duration-500 group relative overflow-hidden"
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -520,7 +520,7 @@ function ServiceCard({ service, index, hoveredCard, setHoveredCard }: {
         {service.title}
       </motion.h3>
       <motion.p 
-        className="text-slate-400 mb-6 relative z-10"
+        className="text-slate-600 dark:text-slate-400 mb-6 relative z-10"
         initial={{ opacity: 0.7 }}
         animate={{ opacity: hoveredCard === service.id ? 1 : 0.7 }}
         transition={{ duration: 0.3 }}
@@ -528,7 +528,7 @@ function ServiceCard({ service, index, hoveredCard, setHoveredCard }: {
         {service.description}
       </motion.p>
       <motion.ul 
-        className="space-y-2 text-sm text-slate-300 relative z-10"
+        className="space-y-2 text-sm text-slate-700 dark:text-slate-300 relative z-10"
         initial={{ opacity: 0.8 }}
         animate={{ opacity: hoveredCard === service.id ? 1 : 0.8 }}
         transition={{ duration: 0.3 }}
@@ -592,7 +592,7 @@ function ProcessPhase({ phase, index }: { phase: { step: string; title: string; 
           transition={{ duration: 0.3 }}
         />
         <motion.span 
-          className="text-xl font-bold text-white relative z-10"
+          className="text-xl font-bold text-slate-900 dark:text-white relative z-10"
           whileHover={{ 
             scale: 1.1,
             rotate: [0, -5, 5, 0]
@@ -603,7 +603,7 @@ function ProcessPhase({ phase, index }: { phase: { step: string; title: string; 
         </motion.span>
       </motion.div>
       <motion.h3 
-        className="text-xl font-bold mb-4 text-white"
+        className="text-xl font-bold mb-4 text-slate-900 dark:text-white"
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
@@ -611,7 +611,7 @@ function ProcessPhase({ phase, index }: { phase: { step: string; title: string; 
         {phase.title}
       </motion.h3>
       <motion.p 
-        className="text-slate-400"
+        className="text-slate-600 dark:text-slate-400"
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.5, delay: index * 0.2 + 0.4 }}

@@ -1,0 +1,10 @@
+# Robots.txt for Inshyra
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /_next/
+Disallow: /404
+
+# Sitemap
+Sitemap: https://inshyra.com/sitemap.xml

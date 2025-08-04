@@ -42,9 +42,11 @@
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.8;
+    transform: scale(0.98);
   }
 }
 
@@ -269,6 +271,12 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Prevent animation flickering */
+footer * {
+  animation: none !important;
+  transition: color 0.2s ease, background-color 0.2s ease !important;
+}
+
 /* Fix for IE/Edge */
 html {
   -ms-text-size-adjust: 100%;
@@ -416,11 +424,14 @@ textarea {
 .animate-neural-pulse,
 .animate-data-flow,
 .animate-quantum-spark,
-.animate-gradient {
+.animate-gradient,
+.animate-pulse,
+.animate-ping {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  contain: layout style paint;
 }
 
 /* Disable animations on battery saver mode and reduce motion */

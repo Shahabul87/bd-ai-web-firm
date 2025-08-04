@@ -10,17 +10,17 @@ export default function CodeShowcase() {
   return (
     <section ref={ref} className="py-16 lg:py-24 relative overflow-hidden">
       {/* Background Effects */}
-      <div className="absolute top-20 -left-40 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
-      <div className="absolute bottom-20 -right-40 w-80 h-80 bg-cyan-400 rounded-full filter blur-3xl opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-20 -left-40 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl opacity-5 dark:opacity-10 animate-pulse"></div>
+      <div className="absolute bottom-20 -right-40 w-80 h-80 bg-cyan-400 rounded-full filter blur-3xl opacity-5 dark:opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-white via-slate-200 to-slate-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-500 dark:from-white dark:via-slate-200 dark:to-slate-300 bg-clip-text text-transparent">
               See AI in Action
             </span>
           </h2>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
             Watch our AI systems work in real-time. From data processing to model deployment, 
             experience the power of intelligent automation.
           </p>
@@ -28,10 +28,10 @@ export default function CodeShowcase() {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-slate-200">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-200">
               Real-Time AI Development
             </h3>
-            <p className="text-lg text-slate-400">
+            <p className="text-lg text-slate-600 dark:text-slate-400">
               Our platform demonstrates live AI workflows including data pipeline creation, 
               model training, and intelligent agent deployment.
             </p>
@@ -65,11 +65,11 @@ export default function CodeShowcase() {
 
 function FeatureItem({ icon, title, description }: { icon: string; title: string; description: string }) {
   return (
-    <div className="flex items-start gap-4 p-4 rounded-lg bg-slate-800/30 backdrop-blur-sm border border-slate-700/50">
+    <div className="flex items-start gap-4 p-4 rounded-lg bg-slate-200/30 dark:bg-slate-800/30 backdrop-blur-sm border border-slate-300/50 dark:border-slate-700/50">
       <div className="text-2xl">{icon}</div>
       <div>
-        <h4 className="font-semibold text-slate-200 mb-1">{title}</h4>
-        <p className="text-sm text-slate-400">{description}</p>
+        <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-1">{title}</h4>
+        <p className="text-sm text-slate-600 dark:text-slate-400">{description}</p>
       </div>
     </div>
   );
@@ -143,9 +143,9 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
     // Process const keywords
     remaining = remaining.replace(/const\s+(\w+)/g, (match, p1) => {
       parts.push(
-        <span key={key++} className="text-cyan-400">const</span>,
+        <span key={key++} className="text-cyan-600 dark:text-cyan-400">const</span>,
         ' ',
-        <span key={key++} className="text-green-400">{p1}</span>
+        <span key={key++} className="text-green-600 dark:text-green-400">{p1}</span>
       );
       return `__CONST_${key-2}__`;
     });
@@ -153,22 +153,22 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
     // Process AI method calls
     remaining = remaining.replace(/AI\.(\w+)/g, (match, p1) => {
       parts.push(
-        <span key={key++} className="text-purple-400">AI</span>,
+        <span key={key++} className="text-purple-600 dark:text-purple-400">AI</span>,
         '.',
-        <span key={key++} className="text-yellow-400">{p1}</span>
+        <span key={key++} className="text-yellow-600 dark:text-yellow-400">{p1}</span>
       );
       return `__AI_${key-2}__`;
     });
 
     // Process object properties
     remaining = remaining.replace(/([a-zA-Z_$][a-zA-Z0-9_$]*)\s*:/g, (match, p1) => {
-      parts.push(<span key={key++} className="text-pink-400">{p1}</span>, ':');
+      parts.push(<span key={key++} className="text-pink-600 dark:text-pink-400">{p1}</span>, ':');
       return `__PROP_${key-1}__`;
     });
 
     // Process strings
     remaining = remaining.replace(/'([^']*)'/g, (match, p1) => {
-      parts.push(<span key={key++} className="text-orange-400">&apos;{p1}&apos;</span>);
+      parts.push(<span key={key++} className="text-orange-600 dark:text-orange-400">&apos;{p1}&apos;</span>);
       return `__STRING_${key-1}__`;
     });
 
@@ -234,7 +234,7 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
            transitionDelay: '0.5s'
          }}>
       {/* Enhanced AI Dashboard */}
-      <div className="bg-slate-900/90 rounded-2xl p-6 border border-slate-700/50 shadow-2xl backdrop-blur-sm relative overflow-hidden neural-glow max-w-lg mx-auto">
+      <div className="bg-white/90 dark:bg-slate-900/90 rounded-2xl p-6 border border-slate-300/50 dark:border-slate-700/50 shadow-2xl backdrop-blur-sm relative overflow-hidden neural-glow max-w-lg mx-auto">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-3">
             <div className="flex gap-2">
@@ -242,18 +242,18 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
               <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
             </div>
-            <span className="text-xs font-medium text-slate-500">AI Terminal</span>
+            <span className="text-xs font-medium text-slate-600 dark:text-slate-500">AI Terminal</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <div className="text-xs font-mono text-slate-400 px-3 py-1.5 rounded-lg bg-slate-800/70 backdrop-blur-sm border border-slate-600/30">
+            <div className="text-xs font-mono text-slate-700 dark:text-slate-400 px-3 py-1.5 rounded-lg bg-slate-200/70 dark:bg-slate-800/70 backdrop-blur-sm border border-slate-400/30 dark:border-slate-600/30">
               {currentService.title}
             </div>
           </div>
         </div>
         
         {/* Professional Code Display */}
-        <div className="font-mono text-sm space-y-2 overflow-hidden relative z-10 min-h-[200px] bg-slate-950/50 rounded-lg p-4 border border-slate-800/50">
+        <div className="font-mono text-sm space-y-2 overflow-hidden relative z-10 min-h-[200px] bg-slate-100/50 dark:bg-slate-950/50 rounded-lg p-4 border border-slate-300/50 dark:border-slate-800/50">
           {codeLines.map((line, idx) => (
             <div key={idx} className={`${line.className}`}>
               {idx < currentLine ? (
