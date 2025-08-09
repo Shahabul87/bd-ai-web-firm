@@ -156,7 +156,7 @@ export default function ServicesSection() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out transform hover:scale-105 active:scale-95 ${
                 activeCapability === index
                   ? `bg-gradient-to-r ${capability.gradient} text-white shadow-lg scale-105`
-                  : 'bg-slate-800/50 text-slate-400 hover:text-slate-800 hover:text-slate-200 hover:bg-slate-400/50 hover:bg-slate-700/50'
+                  : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-600/80 hover:shadow-md'
               } ${isTransitioning ? 'opacity-75 cursor-wait' : 'opacity-100 cursor-pointer'}`}
             >
               <span className="mr-2">{capability.icon}</span>
