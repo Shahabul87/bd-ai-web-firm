@@ -1,4 +1,4 @@
-# Inshyra - AI-Powered Web Development Solutions
+# Cognivat - AI-Powered Web Development Solutions
 
 A modern Next.js 15 marketing website showcasing AI-powered web development services with stunning animations and interactive demos.
 
@@ -33,10 +33,10 @@ A modern Next.js 15 marketing website showcasing AI-powered web development serv
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/inshyra-website.git
+git clone https://github.com/your-org/cognivat-website.git
 
 # Navigate to project directory
-cd inshyra-website
+cd cognivat-website
 
 # Install dependencies
 npm install
@@ -113,4 +113,4 @@ This project is proprietary and confidential.
 
 ## Contact
 
-For inquiries about Inshyra's services, visit [inshyra.com](https://inshyra.com)
+For inquiries about Cognivat's services, visit [cognivat.com](https://cognivat.com)

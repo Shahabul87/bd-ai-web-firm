@@ -11,7 +11,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center space-x-2 mb-6">
               <Image 
                 src="/logo.svg" 
-                alt="Inshyra Logo" 
+                alt="Cognivat Logo" 
                 width={120} 
                 height={40}
                 className="h-10 w-auto"
@@ -64,7 +64,7 @@ export default function Footer() {
                 <svg className="w-5 h-5 mr-2 mt-0.5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
-                <span>info@inshyra.com</span>
+                <span>info@cognivat.com</span>
               </li>
               <li className="flex items-start">
                 <svg className="w-5 h-5 mr-2 mt-0.5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +77,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-slate-300 dark:border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-slate-600 dark:text-gray-500">© {new Date().getFullYear()} Inshyra. All rights reserved.</p>
+          <p className="text-sm text-slate-600 dark:text-gray-500">© {new Date().getFullYear()} Cognivat. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-sm text-slate-600 dark:text-gray-500 hover:text-slate-900 dark:hover:text-white transition-colors">
               Privacy Policy

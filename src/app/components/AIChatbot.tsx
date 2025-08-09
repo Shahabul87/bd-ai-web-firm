@@ -29,7 +29,7 @@ const knowledgeBase = {
   },
   contact: {
     keywords: ['contact', 'reach', 'email', 'phone', 'meeting'],
-    response: "I'd love to connect you with our team! Here are the ways to reach us:\n\n📧 **Email:** hello@inshyra.com\n📞 **Phone:** +1 (555) 123-4567\n📍 **Office:** 123 Innovation Drive, Tech City, TC 12345\n\nOr click the 'Get a Quote' button to schedule a free consultation!"
+    response: "I'd love to connect you with our team! Here are the ways to reach us:\n\n📧 **Email:** hello@cognivat.com\n📞 **Phone:** +1 (555) 123-4567\n📍 **Office:** 123 Innovation Drive, Tech City, TC 12345\n\nOr click the 'Get a Quote' button to schedule a free consultation!"
   },
   timeline: {
     keywords: ['timeline', 'duration', 'how long', 'delivery', 'time'],
@@ -58,7 +58,7 @@ export default function AIChatbot() {
       setTimeout(() => {
         const welcomeMessage: Message = {
           id: 'welcome',
-          text: "👋 Hi! I'm AI Assistant from Inshyra. I'm here to help you learn about our AI and web development services.\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
+          text: "👋 Hi! I'm AI Assistant from Cognivat. I'm here to help you learn about our AI and web development services.\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
           sender: 'bot',
           timestamp: new Date()
         };
@@ -79,7 +79,7 @@ export default function AIChatbot() {
 
     // Default responses for common patterns
     if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
-      return "Hello! I'm here to help you learn about Inshyra. What would you like to know about our AI and web development services?";
+      return "Hello! I'm here to help you learn about Cognivat. What would you like to know about our AI and web development services?";
     }
 
     if (lowerInput.includes('help')) {
@@ -170,7 +170,7 @@ export default function AIChatbot() {
               </div>
               <div>
                 <h3 className="font-semibold">AI Assistant</h3>
-                <p className="text-sm opacity-90">Inshyra</p>
+                <p className="text-sm opacity-90">Cognivat</p>
               </div>
               <div className="ml-auto flex items-center gap-1">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>

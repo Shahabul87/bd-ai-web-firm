@@ -16,7 +16,7 @@ export default function TestAboutPage() {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-8">
                   <span className="block text-white">About</span>
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                    Inshyra
+                    Cognivat
                   </span>
                 </h1>
                 <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-12">

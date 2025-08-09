@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Next.js 15.3.1 marketing website for Inshyra, built with TypeScript and the App Router. The site showcases AI-powered web development services with a modern, animated design.
+This is a Next.js 15.3.1 marketing website for Cognivat, built with TypeScript and the App Router. The site showcases AI-powered web development services with a modern, animated design.
 
 ## Key Commands
 

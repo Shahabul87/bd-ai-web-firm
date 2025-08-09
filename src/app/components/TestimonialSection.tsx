@@ -17,7 +17,7 @@ export default function TestimonialSection() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <TestimonialCard 
-            quote="Inshyra transformed our outdated website into a modern, high-converting digital asset in just two weeks. The AI-generated design exceeded our expectations."
+            quote="Cognivat transformed our outdated website into a modern, high-converting digital asset in just two weeks. The AI-generated design exceeded our expectations."
             author="Sarah Johnson"
             company="TechStart Inc."
           />
@@ -27,7 +27,7 @@ export default function TestimonialSection() {
             company="Growth Ventures"
           />
           <TestimonialCard 
-            quote="We needed an e-commerce solution fast, and Inshyra delivered in record time. The AI optimization has significantly boosted our sales performance."
+            quote="We needed an e-commerce solution fast, and Cognivat delivered in record time. The AI optimization has significantly boosted our sales performance."
             author="Emily Rodriguez"
             company="Fashion Forward"
           />

@@ -17,26 +17,26 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Inshyra | AI-Powered Web Development Solutions",
-  description: "Transform your business with AI-powered web applications, machine learning solutions, and intelligent automation. Inshyra's expert development team delivers cutting-edge technology solutions.",
+  title: "Cognivat | AI-Powered Web Development Solutions",
+  description: "Transform your business with AI-powered web applications, machine learning solutions, and intelligent automation. Cognivat's expert development team delivers cutting-edge technology solutions.",
   keywords: "AI development, machine learning, web development, artificial intelligence, automation, data visualization, predictive analytics",
-  authors: [{ name: "Inshyra" }],
-  creator: "Inshyra",
-  publisher: "Inshyra",
+  authors: [{ name: "Cognivat" }],
+  creator: "Cognivat",
+  publisher: "Cognivat",
   robots: "index, follow",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://inshyra.com",
-    title: "Inshyra | AI-Powered Web Development Solutions",
+    url: "https://cognivat.com",
+    title: "Cognivat | AI-Powered Web Development Solutions",
     description: "Transform your business with AI-powered web applications, machine learning solutions, and intelligent automation.",
-    siteName: "Inshyra"
+    siteName: "Cognivat"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Inshyra | AI-Powered Web Development Solutions",
+    title: "Cognivat | AI-Powered Web Development Solutions",
     description: "Transform your business with AI-powered web applications, machine learning solutions, and intelligent automation.",
-    creator: "@inshyra"
+    creator: "@cognivat"
   }
 };
 

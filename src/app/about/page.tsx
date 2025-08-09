@@ -63,7 +63,7 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          We Are Inshyra
+          We Are Cognivat
         </motion.h1>
         
         <div className="h-16 sm:h-20 mb-4 sm:mb-6">
@@ -158,7 +158,7 @@ function SimpleStorySection() {
         <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
           <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">2021</div>
           <h3 className="text-base sm:text-lg font-bold mb-2">Founded</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Inshyra started with a vision to bridge AI and web development</p>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Cognivat started with a vision to bridge AI and web development</p>
         </div>
         <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
           <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-2">2022</div>

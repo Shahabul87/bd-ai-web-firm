@@ -47,7 +47,7 @@ export default function Header() {
             <div>
               <h1 className="text-xl font-bold flex items-center">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500">
-                  Inshyra
+                  Cognivat
                 </span>
               </h1>
               <p className="text-xs -mt-1 text-slate-400">AI Intelligence Studio</p>
