@@ -1,10 +1,49 @@
-# Robots.txt for Cognivat
+# Robots.txt for Cognivat AI Development Studio
+# https://cognivat.com
 
+# Allow all search engines to crawl the site
 User-agent: *
 Allow: /
+
+# Disallow private/system directories
 Disallow: /api/
 Disallow: /_next/
-Disallow: /404
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*_buildManifest.js$
+Disallow: /*_ssgManifest.js$
 
-# Sitemap
+# Disallow error pages
+Disallow: /404
+Disallow: /500
+
+# Allow important assets
+Allow: /favicon.ico
+Allow: /robots.txt
+Allow: /sitemap.xml
+Allow: /manifest.json
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Specific crawl delays for different bots
+User-agent: Googlebot
+Crawl-delay: 1
+
+User-agent: Bingbot  
+Crawl-delay: 1
+
+User-agent: Slurp
+Crawl-delay: 2
+
+# Sitemaps
 Sitemap: https://cognivat.com/sitemap.xml
+
+# Host specification
+Host: https://cognivat.com
