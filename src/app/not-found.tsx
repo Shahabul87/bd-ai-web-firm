@@ -9,7 +9,7 @@ import { PageBackground } from './components/PageBackground';
 export default function NotFound() {
   return (
     <PageBackground>
-      <div className="min-h-screen text-slate-900 dark:text-white flex flex-col">
+      <div className="min-h-screen text-white flex flex-col">
         <Header />
         
         <main className="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -31,7 +31,7 @@ export default function NotFound() {
               className="mt-8"
             >
               <h2 className="text-3xl font-bold mb-4">Page Not Found</h2>
-              <p className="text-xl text-slate-600 dark:text-slate-400 mb-8 max-w-md mx-auto">
+              <p className="text-xl text-slate-400 mb-8 max-w-md mx-auto">
                 The page you&apos;re looking for doesn&apos;t exist or has been moved.
               </p>
               
@@ -61,7 +61,7 @@ export default function NotFound() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="mt-16"
             >
-              <p className="text-sm text-slate-500 dark:text-slate-600">
+              <p className="text-sm text-slate-600">
                 Error Code: 404 | Page Not Found
               </p>
             </motion.div>

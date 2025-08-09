@@ -11,12 +11,12 @@
     <path d="M13.4 26V14.8H17.24L20.6 22.68L23.96 14.8H27.8V26H24.6V19.56L21.8 26H19.4L16.6 19.56V26H13.4Z" fill="white"/>
   </g>
   
-  <!-- CodeGenius Text -->
+  <!-- Cognivat Text -->
   <g>
     <text x="74" y="18" font-family="Arial, sans-serif" font-weight="700" font-size="14" fill="white" text-anchor="middle">
-      <tspan fill="url(#textGradient)">Code</tspan><tspan fill="white">Genius</tspan>
+      <tspan fill="url(#textGradient)">Cogni</tspan><tspan fill="white">vat</tspan>
     </text>
-    <text x="74" y="30" font-family="Arial, sans-serif" font-weight="400" font-size="8" fill="#a5a5a5" text-anchor="middle">AI Web Solutions</text>
+    <text x="74" y="30" font-family="Arial, sans-serif" font-weight="400" font-size="8" fill="#a5a5a5" text-anchor="middle">AI Autonomous Studio</text>
   </g>
   
   <!-- Circuit Board Pattern in Logo -->

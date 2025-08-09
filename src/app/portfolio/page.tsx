@@ -135,7 +135,7 @@ export default function Portfolio() {
 
   return (
     <PageBackground>
-      <div className="min-h-screen text-slate-900 dark:text-white">
+      <div className="min-h-screen text-white">
         <Header />
         
         <main className="pt-16 md:pt-20">
@@ -175,7 +175,7 @@ export default function Portfolio() {
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
                   <motion.span 
-                    className="block text-slate-900 dark:text-white"
+                    className="block text-white"
                     initial={{ opacity: 0, x: -50 }}
                     animate={isHeroInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
@@ -190,7 +190,7 @@ export default function Portfolio() {
                   </motion.span>
                 </motion.h1>
                 <motion.p 
-                  className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8 lg:mb-12"
+                  className="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto mb-8 lg:mb-12"
                   initial={{ opacity: 0, y: 30 }}
                   animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
@@ -210,7 +210,7 @@ export default function Portfolio() {
                       className={`px-3 sm:px-4 lg:px-6 py-2 rounded-full font-medium transition-all duration-300 text-sm sm:text-base relative overflow-hidden group ${
                         activeFilter === filter
                           ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg shadow-cyan-400/25'
-                          : 'border border-slate-400 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:border-cyan-400 hover:text-cyan-400 hover:shadow-lg hover:shadow-cyan-400/10'
+                          : 'border border-slate-600 text-slate-300 hover:border-cyan-400 hover:text-cyan-400 hover:shadow-lg hover:shadow-cyan-400/10'
                       }`}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={isHeroInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -237,7 +237,7 @@ export default function Portfolio() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Projects</span>
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                <p className="text-slate-400 max-w-2xl mx-auto">
                   Our most impactful projects that showcase the power of AI-driven solutions.
                 </p>
               </div>
@@ -257,7 +257,7 @@ export default function Portfolio() {
                       onHoverEnd={() => setHoveredCard(null)}
                     >
                       <motion.div 
-                        className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-300/50 dark:border-slate-700/50 overflow-hidden transition-all duration-500 relative"
+                        className="bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden transition-all duration-500 relative"
                         whileHover={{ 
                           scale: 1.02,
                           borderColor: 'rgba(34, 211, 238, 0.4)',
@@ -293,7 +293,7 @@ export default function Portfolio() {
                             <div className="text-6xl opacity-20">🚀</div>
                           </motion.div>
                           <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                            <span className="px-2 sm:px-3 py-1 bg-slate-200/80 dark:bg-slate-900/80 rounded-full text-xs sm:text-sm text-cyan-600 dark:text-cyan-400">
+                            <span className="px-2 sm:px-3 py-1 bg-slate-900/80 rounded-full text-xs sm:text-sm text-cyan-400">
                               {item.category}
                             </span>
                           </div>
@@ -301,22 +301,22 @@ export default function Portfolio() {
 
                         {/* Project Details */}
                         <div className="p-4 sm:p-6 lg:p-8">
-                          <h3 className="text-xl sm:text-2xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">
+                          <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white group-hover:text-cyan-600 group-hover:text-cyan-400 transition-colors duration-300">
                             {item.title}
                           </h3>
-                          <p className="text-slate-600 dark:text-slate-400 mb-4 text-sm sm:text-base">Client: {item.client}</p>
-                          <p className="text-slate-700 dark:text-slate-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+                          <p className="text-slate-400 mb-4 text-sm sm:text-base">Client: {item.client}</p>
+                          <p className="text-slate-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                             {item.description}
                           </p>
 
                           {/* Technologies */}
                           <div className="mb-4 sm:mb-6">
-                            <h4 className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2 sm:mb-3">Technologies Used</h4>
+                            <h4 className="text-xs sm:text-sm font-semibold text-slate-400 mb-2 sm:mb-3">Technologies Used</h4>
                             <div className="flex flex-wrap gap-1 sm:gap-2">
                               {item.technologies.map((tech, index) => (
                                 <span
                                   key={index}
-                                  className="px-2 sm:px-3 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-full text-xs sm:text-sm text-slate-700 dark:text-slate-300 border border-slate-400/30 dark:border-slate-600/30"
+                                  className="px-2 sm:px-3 py-1 bg-slate-800/50 rounded-full text-xs sm:text-sm text-slate-300 border border-slate-600/30"
                                 >
                                   {tech}
                                 </span>
@@ -331,7 +331,7 @@ export default function Portfolio() {
                                 <div className="text-lg sm:text-xl lg:text-2xl font-bold text-cyan-400 mb-1">
                                   {result.value}
                                 </div>
-                                <div className="text-xs sm:text-xs text-slate-600 dark:text-slate-400 leading-tight">
+                                <div className="text-xs sm:text-xs text-slate-400 leading-tight">
                                   {result.metric}
                                 </div>
                               </div>
@@ -369,7 +369,7 @@ export default function Portfolio() {
                       whileHover={{ y: -10 }}
                     >
                       <motion.div 
-                        className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-300/50 dark:border-slate-700/50 overflow-hidden transition-all duration-300 h-full relative"
+                        className="bg-slate-900/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 overflow-hidden transition-all duration-300 h-full relative"
                         whileHover={{ 
                           borderColor: 'rgba(168, 85, 247, 0.4)',
                           boxShadow: '0 15px 30px -10px rgba(168, 85, 247, 0.2)'
@@ -399,7 +399,7 @@ export default function Portfolio() {
                             <div className="text-4xl opacity-20">🎯</div>
                           </motion.div>
                           <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                            <span className="px-2 sm:px-3 py-1 bg-slate-200/80 dark:bg-slate-900/80 rounded-full text-xs text-purple-600 dark:text-purple-400">
+                            <span className="px-2 sm:px-3 py-1 bg-slate-900/80 rounded-full text-xs text-purple-400">
                               {item.category}
                             </span>
                           </div>
@@ -407,11 +407,11 @@ export default function Portfolio() {
 
                         {/* Project Details */}
                         <div className="p-4 sm:p-6 flex flex-col h-full">
-                          <h3 className="text-lg sm:text-xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
+                          <h3 className="text-lg sm:text-xl font-bold mb-2 text-white group-hover:text-purple-600 group-hover:text-purple-400 transition-colors duration-300">
                             {item.title}
                           </h3>
-                          <p className="text-slate-600 dark:text-slate-400 mb-3 text-xs sm:text-sm">Client: {item.client}</p>
-                          <p className="text-slate-700 dark:text-slate-300 mb-4 leading-relaxed text-xs sm:text-sm flex-grow">
+                          <p className="text-slate-400 mb-3 text-xs sm:text-sm">Client: {item.client}</p>
+                          <p className="text-slate-300 mb-4 leading-relaxed text-xs sm:text-sm flex-grow">
                             {item.description}
                           </p>
 
@@ -422,7 +422,7 @@ export default function Portfolio() {
                                 <div className="text-lg font-bold text-purple-400 mb-1">
                                   {result.value}
                                 </div>
-                                <div className="text-xs text-slate-600 dark:text-slate-400">
+                                <div className="text-xs text-slate-400">
                                   {result.metric}
                                 </div>
                               </div>
@@ -444,7 +444,7 @@ export default function Portfolio() {
                 <h2 className="text-3xl md:text-4xl font-bold mb-4">
                   Our Project <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">Methodology</span>
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                <p className="text-slate-400 max-w-2xl mx-auto">
                   Every successful project follows our proven methodology for AI implementation and web development.
                 </p>
               </div>
@@ -514,7 +514,7 @@ export default function Portfolio() {
                 Ready to Start Your Next Project?
               </motion.h2>
               <motion.p 
-                className="text-xl text-slate-600 dark:text-slate-400 mb-12 relative z-10"
+                className="text-xl text-slate-400 mb-12 relative z-10"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -560,7 +560,7 @@ export default function Portfolio() {
                 </motion.button>
                 <motion.button 
                   onClick={() => handleCTAClick('view-cases')}
-                  className="px-8 py-4 border-2 border-slate-400 dark:border-slate-600 rounded-full text-slate-900 dark:text-white font-semibold transition-all duration-300 relative overflow-hidden"
+                  className="px-8 py-4 border-2 border-slate-600 rounded-full text-white font-semibold transition-all duration-300 relative overflow-hidden"
                   whileHover={{ 
                     scale: 1.05,
                     borderColor: 'rgba(34, 211, 238, 0.8)',
@@ -633,7 +633,7 @@ function PhaseItem({ phase, index }: { phase: { title: string; description: stri
         </motion.div>
       </motion.div>
       <motion.h3 
-        className="text-xl font-bold mb-4 text-slate-900 dark:text-white"
+        className="text-xl font-bold mb-4 text-white"
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.5, delay: index * 0.2 + 0.4 }}
@@ -641,7 +641,7 @@ function PhaseItem({ phase, index }: { phase: { title: string; description: stri
         {phase.title}
       </motion.h3>
       <motion.p 
-        className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed"
+        className="text-slate-400 text-sm leading-relaxed"
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.5, delay: index * 0.2 + 0.5 }}

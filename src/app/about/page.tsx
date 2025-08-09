@@ -9,7 +9,7 @@ import { PageBackground } from '../components/PageBackground';
 export default function AboutPage() {
   return (
     <PageBackground>
-      <div className="min-h-screen text-slate-900 dark:text-white">
+      <div className="min-h-screen text-white">
         <Header />
         <main className="pt-16 sm:pt-18 md:pt-20 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8">
           <HeroSection />
@@ -69,7 +69,7 @@ function HeroSection() {
         <div className="h-16 sm:h-20 mb-4 sm:mb-6">
           <motion.p
             key={currentPhraseIndex}
-            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-purple-600 dark:text-purple-300"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-purple-300"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -80,7 +80,7 @@ function HeroSection() {
         </div>
         
         <motion.p 
-          className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+          className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
@@ -134,12 +134,12 @@ function SimpleTeamSection() {
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
         {team.map((member) => (
-          <div key={member.name} className="bg-gradient-to-br from-purple-100 to-indigo-100 dark:from-purple-900 dark:to-indigo-900 rounded-xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <div key={member.name} className="bg-gradient-to-br from-purple-900 to-indigo-900 rounded-xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mb-3 sm:mb-4">
               <span className="text-xl sm:text-2xl font-bold">{member.initial}</span>
             </div>
             <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">{member.name}</h3>
-            <p className="text-sm sm:text-base text-purple-700 dark:text-purple-300">{member.role}</p>
+            <p className="text-sm sm:text-base text-purple-300">{member.role}</p>
           </div>
         ))}
       </div>
@@ -155,25 +155,25 @@ function SimpleStorySection() {
       </h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-        <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
+        <div className="bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-800/70 transition-colors duration-300">
           <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">2025</div>
           <h3 className="text-base sm:text-lg font-bold mb-2">Launch</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Starting AI-autonomous development company</p>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Starting AI-autonomous development company</p>
         </div>
-        <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
+        <div className="bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-800/70 transition-colors duration-300">
           <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-2">Q1</div>
           <h3 className="text-base sm:text-lg font-bold mb-2">AI Models</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Training and deploying first AI models</p>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Training and deploying first AI models</p>
         </div>
-        <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
+        <div className="bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-800/70 transition-colors duration-300">
           <div className="text-2xl sm:text-3xl font-bold text-orange-400 mb-2">Q2</div>
           <h3 className="text-base sm:text-lg font-bold mb-2">Data Pipelines</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Building automated data processing workflows</p>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Building automated data processing workflows</p>
         </div>
-        <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
+        <div className="bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-800/70 transition-colors duration-300">
           <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-2">Q3</div>
           <h3 className="text-base sm:text-lg font-bold mb-2">Web Solutions</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Low-cost web development services launch</p>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">Low-cost web development services launch</p>
         </div>
       </div>
     </section>
@@ -214,11 +214,11 @@ function TechnologyStack() {
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <div className="transform-style-3d h-32 sm:h-36 lg:h-40 w-full transition-all duration-700 hover:rotate-y-180">
-              <div className="absolute w-full h-full backface-hidden rounded-xl bg-gradient-to-br from-purple-200 to-indigo-200 dark:from-purple-800 dark:to-indigo-900 p-3 sm:p-4 lg:p-6 flex flex-col items-center justify-center shadow-lg">
+              <div className="absolute w-full h-full backface-hidden rounded-xl bg-gradient-to-br from-purple-800 to-indigo-900 p-3 sm:p-4 lg:p-6 flex flex-col items-center justify-center shadow-lg">
                 <h3 className="text-sm sm:text-base lg:text-xl font-bold text-center leading-tight">{tech.name}</h3>
               </div>
-              <div className="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl bg-gradient-to-br from-indigo-200 to-purple-200 dark:from-indigo-800 dark:to-purple-900 p-3 sm:p-4 lg:p-6 flex flex-col items-center justify-center shadow-lg">
-                <span className="text-xs sm:text-sm text-purple-700 dark:text-purple-300 mb-1 sm:mb-2">Category</span>
+              <div className="absolute w-full h-full backface-hidden rotate-y-180 rounded-xl bg-gradient-to-br from-indigo-800 to-purple-900 p-3 sm:p-4 lg:p-6 flex flex-col items-center justify-center shadow-lg">
+                <span className="text-xs sm:text-sm text-purple-300 mb-1 sm:mb-2">Category</span>
                 <p className="text-sm sm:text-base lg:text-lg font-bold text-center">{tech.category}</p>
               </div>
             </div>
@@ -293,8 +293,8 @@ function ValuesSection() {
               }}
               transition={{ duration: 0.6 }}
             >
-              <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-center text-purple-600 dark:text-purple-300">{value.title}</h3>
-              <p className="text-sm sm:text-base lg:text-lg text-center text-gray-700 dark:text-gray-300 leading-relaxed">{value.description}</p>
+              <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-center text-purple-300">{value.title}</h3>
+              <p className="text-sm sm:text-base lg:text-lg text-center text-gray-300 leading-relaxed">{value.description}</p>
             </motion.div>
           ))}
         </div>
@@ -339,7 +339,7 @@ function ClientsSection() {
               key={`${client}-${index}`}
               className="flex-shrink-0 px-8"
             >
-              <div className="bg-gradient-to-br from-purple-200 to-indigo-200 dark:from-purple-800 dark:to-indigo-900 rounded-lg p-3 sm:p-4 lg:p-6 w-32 h-16 sm:w-36 sm:h-18 lg:w-40 lg:h-20 flex items-center justify-center shadow-lg">
+              <div className="bg-gradient-to-br from-purple-800 to-indigo-900 rounded-lg p-3 sm:p-4 lg:p-6 w-32 h-16 sm:w-36 sm:h-18 lg:w-40 lg:h-20 flex items-center justify-center shadow-lg">
                 <p className="font-medium text-xs sm:text-sm lg:text-base text-center">{client}</p>
               </div>
             </div>

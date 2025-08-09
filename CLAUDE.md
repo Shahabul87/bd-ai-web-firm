@@ -40,12 +40,12 @@ npm install
 ### Project Structure
 ```
 src/app/
-├── layout.tsx              # Root layout with metadata and theme provider
+├── layout.tsx              # Root layout with metadata
 ├── page.tsx                # Homepage composition
 ├── globals.css             # Global styles and Tailwind directives
 ├── [route]/page.tsx        # Route pages (about, services, etc.)
 └── components/             # Shared UI components
-    ├── Header.tsx          # Navigation with theme toggle
+    ├── Header.tsx          # Navigation header
     ├── *Section.tsx        # Page section components
     └── services/           # Service-specific components
 ```
@@ -53,13 +53,12 @@ src/app/
 ### Key Patterns
 
 1. **Client Components**: Components requiring interactivity use `'use client'` directive
-   - Header.tsx (theme toggle, mobile menu)
+   - Header.tsx (mobile menu)
    - ParticleBackground.tsx (animations)
    - ClientParticles.tsx (wrapper for client-side particles)
 
-2. **Theme System**: Dark/light mode with localStorage persistence
-   - CSS variables defined in globals.css
-   - Theme toggle in Header component
+2. **Dark Theme System**: Single dark theme using CSS variables
+   - CSS variables defined in globals.css for dark theme colors
    - Colors use CSS variables (e.g., `bg-background`, `text-foreground`)
 
 3. **Responsive Design**: Mobile-first with Tailwind breakpoints

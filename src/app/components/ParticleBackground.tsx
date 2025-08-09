@@ -24,14 +24,20 @@ export default function ParticleBackground() {
     if (!ctx) return;
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = 400; // Fixed height for the header section
-      initParticles();
+      const newWidth = window.innerWidth;
+      const newHeight = 400;
+      
+      // Only resize if dimensions actually changed
+      if (canvas.width !== newWidth || canvas.height !== newHeight) {
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        initParticles();
+      }
     };
 
     const initParticles = () => {
       particlesRef.current = [];
-      const particleCount = Math.min(Math.floor(window.innerWidth / 10), 50); // Responsive particle count
+      const particleCount = Math.min(Math.floor(window.innerWidth / 20), 25); // Reduced particle count for better performance
 
       for (let i = 0; i < particleCount; i++) {
         const colors = ['#8e2de2', '#4a00e0', '#3f5efb', '#6a3093', '#a17fe0'];
@@ -40,8 +46,8 @@ export default function ParticleBackground() {
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
           size: Math.random() * 1.5 + 0.1,
-          speedX: (Math.random() - 0.5) * 0.3,
-          speedY: (Math.random() - 0.5) * 0.3,
+          speedX: (Math.random() - 0.5) * 0.15,
+          speedY: (Math.random() - 0.5) * 0.15,
           color: colors[Math.floor(Math.random() * colors.length)]
         });
       }

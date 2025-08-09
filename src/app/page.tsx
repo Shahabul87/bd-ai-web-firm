@@ -16,7 +16,7 @@ import { PageBackground } from './components/PageBackground';
 export default function Home() {
   return (
     <PageBackground>
-      <div className="min-h-screen text-slate-900 dark:text-white">
+      <div className="min-h-screen text-white">
         <Header />
         <ClientParticles />
         

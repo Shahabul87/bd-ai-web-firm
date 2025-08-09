@@ -3,14 +3,14 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 
-// Smooth floating particles data
-const floatingParticles = Array.from({ length: 12 }, (_, i) => ({
+// Reduced floating particles for better performance
+const floatingParticles = Array.from({ length: 6 }, (_, i) => ({
   id: i,
-  initialX: (i * 8.33) % 100, // Distributed across width
-  initialY: (i * 12) % 100, // Distributed across height
-  size: Math.floor(i % 3) + 1, // Sizes 1-3
-  duration: 15 + (i % 10), // 15-24 seconds
-  delay: i * 2 // Staggered start
+  initialX: (i * 16.66) % 100, // Distributed across width
+  initialY: (i * 20) % 100, // Distributed across height
+  size: Math.floor(i % 2) + 1, // Sizes 1-2
+  duration: 20 + (i % 5), // 20-24 seconds (slower, smoother)
+  delay: i * 3 // More staggered start
 }));
 
 export default function HeroSection() {
@@ -20,18 +20,18 @@ export default function HeroSection() {
   return (
     <motion.section 
       ref={ref} 
-      className="relative overflow-hidden min-h-screen flex items-center bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
+      className="relative overflow-hidden min-h-screen flex items-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
       {/* Smooth Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none will-change-transform">
         <AnimatePresence>
           {isInView && floatingParticles.map(particle => (
             <motion.div
               key={particle.id}
-              className="absolute bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full"
+              className="absolute bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full will-change-transform"
               style={{
                 width: `${particle.size}px`,
                 height: `${particle.size}px`,
@@ -44,16 +44,17 @@ export default function HeroSection() {
                 y: 0
               }}
               animate={{ 
-                opacity: [0, 0.6, 0.3, 0.8, 0],
-                scale: [0, 1, 1.2, 0.8, 0],
+                opacity: [0, 0.4, 0.6, 0.4, 0],
+                scale: [0, 1, 1.1, 0.9, 0],
                 y: [-20, -40, -60, -80, -100],
-                x: [0, 10, -10, 5, 0],
+                x: [0, 8, -8, 4, 0],
               }}
               transition={{
                 duration: particle.duration,
                 delay: particle.delay,
                 repeat: Infinity,
-                ease: "linear"
+                ease: "easeInOut",
+                repeatType: "loop"
               }}
             />
           ))}
@@ -62,9 +63,9 @@ export default function HeroSection() {
       
       {/* Neural Grid Background - Smooth Framer Motion */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-slate-100 via-purple-500/5 to-orange-500/5 dark:from-cyan-500/3 dark:via-slate-900 dark:via-purple-500/3 dark:to-orange-500/3"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-slate-900 via-purple-500/3 to-orange-500/3"></div>
         <motion.div 
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-30 will-change-transform"
           style={{
             backgroundImage: `
               linear-gradient(90deg, rgba(0,229,255,0.05) 1px, transparent 1px),
@@ -74,12 +75,13 @@ export default function HeroSection() {
           }}
           animate={{
             backgroundPosition: ['0px 0px', '80px 80px'],
-            opacity: [0.2, 0.4, 0.2]
+            opacity: [0.1, 0.2, 0.1]
           }}
           transition={{
-            duration: 20,
+            duration: 45,
             repeat: Infinity,
-            ease: "linear"
+            ease: "easeInOut",
+            repeatType: "reverse"
           }}
         />
       </div>
@@ -245,7 +247,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
         transition={{ duration: 0.6, delay: 0.4 }}
       >
         <motion.div 
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 border border-cyan-400/30 backdrop-blur-sm dark:bg-slate-800/60"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/60 border border-cyan-400/30 backdrop-blur-sm"
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
@@ -254,7 +256,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
             animate={{ opacity: [1, 0.3, 1] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
-          <span className="text-sm font-medium text-slate-700 dark:text-slate-200">AI Command Interface</span>
+          <span className="text-sm font-medium text-slate-200">AI Command Interface</span>
         </motion.div>
         
         <motion.h1 
@@ -264,7 +266,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <motion.span 
-            className="block text-slate-900 dark:text-white"
+            className="block text-white"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.8 }}
@@ -282,7 +284,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
         </motion.h1>
         
         <motion.p 
-          className="text-xl text-slate-600 dark:text-slate-400 max-w-lg"
+          className="text-xl text-slate-400 max-w-lg"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.2 }}
@@ -293,7 +295,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
       
       {/* Interactive Terminal */}
       <motion.div 
-        className="bg-white/90 border border-slate-300/50 dark:bg-slate-900/90 dark:border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-sm neural-glow"
+        className="bg-slate-900/90 border border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-sm neural-glow"
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
         animate={{ 
           opacity: 1, 
@@ -310,18 +312,18 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
         }}
         whileHover={{ borderColor: "rgba(34, 211, 238, 0.3)" }}
       >
-        <div className="flex items-center justify-between px-4 py-3 bg-slate-100/50 border-b border-slate-300/50 dark:bg-slate-800/50 dark:border-slate-700/50">
+        <div className="flex items-center justify-between px-4 py-3 bg-slate-800/50 border-b border-slate-700/50">
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5">
               <div className="w-3 h-3 rounded-full bg-red-500"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
             </div>
-            <span className="text-xs font-mono text-slate-600 dark:text-slate-400 ml-2">cognivat-ai-terminal</span>
+            <span className="text-xs font-mono text-slate-400 ml-2">cognivat-ai-terminal</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-xs text-slate-600 dark:text-slate-400">ONLINE</span>
+            <span className="text-xs text-slate-400">ONLINE</span>
           </div>
         </div>
         
@@ -361,16 +363,16 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
                 layout
               >
                 <motion.div 
-                  className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400"
+                  className="flex items-center gap-2 text-cyan-400"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.1, duration: 0.3 }}
                 >
-                  <span className="text-slate-400 dark:text-slate-500">$</span>
+                  <span className="text-slate-500">$</span>
                   <span>{entry.command}</span>
                 </motion.div>
                 <motion.div 
-                  className="mt-1 text-slate-700 dark:text-slate-300 pl-4"
+                  className="mt-1 text-slate-300 pl-4"
                   initial={{ opacity: 0, y: 10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ 
@@ -394,7 +396,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
               value={currentCommand}
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}
-              className="bg-transparent border-none outline-none flex-1 text-cyan-600 dark:text-cyan-400 placeholder-slate-400 dark:placeholder-slate-500"
+              className="bg-transparent border-none outline-none flex-1 text-cyan-400 placeholder-slate-500"
               placeholder="Try: train model, build website, analyze data..."
               disabled={isTyping}
             />
@@ -419,7 +421,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
                     setSuggestions([]);
                     inputRef.current?.focus();
                   }}
-                  className="block w-full text-left px-2 py-1 text-slate-500 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded transition-colors text-xs"
+                  className="block w-full text-left px-2 py-1 text-slate-400 hover:text-cyan-400 hover:bg-slate-800/50 rounded transition-colors text-xs"
                 >
                   {suggestion}
                 </button>
@@ -438,7 +440,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
               setCurrentCommand(cmd);
               executeCommand(cmd);
             }}
-            className="px-3 py-1.5 text-xs bg-slate-300/60 dark:bg-slate-800/60 hover:bg-slate-400/60 dark:hover:bg-slate-700/60 border border-slate-400/50 dark:border-slate-600/50 rounded-full text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+            className="px-3 py-1.5 text-xs bg-slate-800/60 hover:bg-slate-700/60 border border-slate-600/50 rounded-full text-slate-300 hover:text-cyan-400 transition-colors"
           >
             {cmd}
           </button>
@@ -462,8 +464,8 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
   // Initialize neural pattern and mounted state
   useEffect(() => {
     setMounted(true);
-    // Generate consistent neural pattern on client side only
-    const pattern = Array.from({ length: 24 }, () => Math.random() > 0.6);
+    // Generate consistent neural pattern on client side only (further reduced for performance)
+    const pattern = Array.from({ length: 12 }, () => Math.random() > 0.6);
     setNeuralPattern(pattern);
   }, []);
 
@@ -484,8 +486,8 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
           requestsPerSec: Math.max(2000, Math.min(4000, prev.requestsPerSec + Math.floor(Math.random() * 100) - 50))
         }));
         setIsProcessing(false);
-      }, 800);
-    }, 4000);
+      }, 1200);
+    }, 12000); // Slower updates to reduce DOM thrashing
     
     return () => clearInterval(interval);
   }, [isInView, mounted]);
@@ -499,15 +501,15 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
     >
       {/* Live System Monitor */}
       <motion.div 
-        className="bg-white/90 dark:bg-slate-900/90 rounded-2xl border border-slate-300/50 dark:border-slate-700/50 overflow-hidden backdrop-blur-sm neural-glow"
+        className="bg-slate-900/90 rounded-2xl border border-slate-700/50 overflow-hidden backdrop-blur-sm neural-glow"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.8 }}
         whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
       >
-        <div className="px-4 py-3 bg-slate-100/50 dark:bg-slate-800/50 border-b border-slate-300/50 dark:border-slate-700/50">
+        <div className="px-4 py-3 bg-slate-800/50 border-b border-slate-700/50">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-800 dark:text-slate-200">AI System Monitor</span>
+            <span className="text-sm font-medium text-slate-200">AI System Monitor</span>
             <div className="flex items-center gap-2">
               <motion.div 
                 className={`w-2 h-2 rounded-full ${isProcessing ? 'bg-orange-400' : 'bg-green-400'}`}
@@ -521,7 +523,7 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
                   ease: "easeInOut" 
                 }}
               />
-              <span className="text-xs text-slate-500 dark:text-slate-400">{isProcessing ? 'PROCESSING' : 'LIVE'}</span>
+              <span className="text-xs text-slate-400">{isProcessing ? 'PROCESSING' : 'LIVE'}</span>
             </div>
           </div>
         </div>
@@ -533,32 +535,32 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
               <div className="text-2xl font-bold text-cyan-400 transition-all duration-500 ease-in-out">
                 {metrics.modelsActive}
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">AI Models Active</div>
+              <div className="text-xs text-slate-400 mt-1">AI Models Active</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-purple-400 transition-all duration-500 ease-in-out">
                 {metrics.dataProcessed}
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Data Processed</div>
+              <div className="text-xs text-slate-400 mt-1">Data Processed</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-green-400 transition-all duration-500 ease-in-out">
                 {metrics.accuracy.toFixed(1)}%
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Avg Accuracy</div>
+              <div className="text-xs text-slate-400 mt-1">Avg Accuracy</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-orange-400 transition-all duration-500 ease-in-out">
                 {metrics.requestsPerSec.toLocaleString()}
               </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Requests/sec</div>
+              <div className="text-xs text-slate-400 mt-1">Requests/sec</div>
             </div>
           </div>
           
           {/* Processing Visualization - Fixed Hydration */}
-          <div className="relative h-32 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg overflow-hidden">
+          <div className="relative h-32 bg-slate-800/50 rounded-lg overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="grid grid-cols-8 gap-1">
+              <div className="grid grid-cols-3 gap-2">
                 {mounted ? neuralPattern.map((isActive, i) => (
                   <motion.div
                     key={i}
@@ -582,10 +584,10 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
                   />
                 )) : (
                   // Fallback during SSR - consistent pattern
-                  Array.from({ length: 24 }, (_, i) => (
+                  Array.from({ length: 12 }, (_, i) => (
                     <div
                       key={i}
-                      className="w-2 h-2 rounded-full transition-all duration-500 ease-in-out bg-slate-400/70 dark:bg-slate-600/70"
+                      className="w-2 h-2 rounded-full transition-all duration-500 ease-in-out bg-slate-600/70"
                       style={{
                         animationDelay: `${i * 30}ms`,
                         transform: 'scale(1)',
@@ -596,36 +598,36 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
                 )}
               </div>
             </div>
-            <div className="absolute bottom-2 left-2 text-xs text-slate-600 dark:text-slate-500 font-mono">
+            <div className="absolute bottom-2 left-2 text-xs text-slate-500 font-mono">
               Neural Network Activity
             </div>
           </div>
           
           {/* AI Capabilities */}
           <div className="space-y-3">
-            <div className="text-sm font-medium text-slate-800 dark:text-slate-200 mb-3">Active AI Capabilities</div>
+            <div className="text-sm font-medium text-slate-200 mb-3">Active AI Capabilities</div>
             {[
               { name: 'Natural Language Processing', status: 'online', load: 87 },
               { name: 'Computer Vision', status: 'online', load: 92 },
               { name: 'Predictive Analytics', status: 'processing', load: 76 },
               { name: 'Anomaly Detection', status: 'online', load: 84 }
             ].map((capability, index) => (
-              <div key={index} className="flex items-center justify-between py-2 px-3 bg-slate-200/30 dark:bg-slate-800/30 rounded-lg">
+              <div key={index} className="flex items-center justify-between py-2 px-3 bg-slate-800/30 rounded-lg">
                 <div className="flex items-center gap-3">
                   <div className={`w-2 h-2 rounded-full ${
                     capability.status === 'online' ? 'bg-green-400' : 
                     capability.status === 'processing' ? 'bg-orange-400 animate-pulse' : 'bg-red-400'
                   }`}></div>
-                  <span className="text-xs text-slate-700 dark:text-slate-300">{capability.name}</span>
+                  <span className="text-xs text-slate-300">{capability.name}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-12 h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full overflow-hidden">
+                  <div className="w-12 h-1.5 bg-slate-700 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-gradient-to-r from-cyan-400 to-purple-500 transition-all duration-500"
                       style={{ width: `${capability.load}%` }}
                     ></div>
                   </div>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 w-8">{capability.load}%</span>
+                  <span className="text-xs text-slate-400 w-8">{capability.load}%</span>
                 </div>
               </div>
             ))}
@@ -646,7 +648,7 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
           </span>
         </button>
         
-        <div className="flex items-center justify-center gap-4 text-xs text-slate-600 dark:text-slate-500">
+        <div className="flex items-center justify-center gap-4 text-xs text-slate-500">
           <span className="flex items-center gap-1">
             <div className="w-2 h-2 bg-green-400 rounded-full"></div>
             99.9% Uptime
