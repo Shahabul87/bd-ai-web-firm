@@ -183,12 +183,12 @@ function FooterLink({ href, children, icon }: { href: string; children: React.Re
     <li>
       <Link 
         href={href} 
-        className="group flex items-center space-x-2 text-gray-400 hover:text-white transition-all duration-300 hover:translate-x-1"
+        className="group flex items-center space-x-2 text-gray-400 hover:text-white transition-all duration-500 ease-out hover:translate-x-0.5"
       >
-        {icon && <span className="text-sm group-hover:scale-110 transition-transform duration-300">{icon}</span>}
+        {icon && <span className="text-sm group-hover:scale-105 transition-transform duration-500 ease-out">{icon}</span>}
         <span className="relative">
           {children}
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300" />
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-500 ease-out" />
         </span>
       </Link>
     </li>
@@ -224,31 +224,30 @@ function SocialIcon({ href, icon, label }: { href: string; icon: string; label: 
   return (
     <a 
       href={href} 
-      className={`group relative w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center hover:shadow-lg hover:shadow-current/25 transform hover:scale-110 transition-all duration-300 overflow-hidden`}
+      className={`group relative w-10 h-10 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center hover:shadow-lg hover:shadow-current/25 transform hover:scale-105 transition-all duration-500 ease-out overflow-hidden`}
       aria-label={label}
     >
       {/* Hover effect overlay */}
-      <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
       
-      <svg className="relative z-10 w-5 h-5 text-white group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="relative z-10 w-5 h-5 text-white group-hover:scale-105 transition-transform duration-500 ease-out" viewBox="0 0 24 24" fill="currentColor">
         <path d={iconPath} />
       </svg>
       
       {/* Ripple effect */}
-      <div className="absolute inset-0 rounded-xl bg-white/20 scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-500" />
     </a>
   );
 }
 
 function ContactItem({ icon, text, gradient, href }: { icon: string; text: string; gradient: string; href?: string }) {
   const content = (
-    <div className="group flex items-start space-x-3 text-gray-300 hover:text-white transition-all duration-300">
-      <div className={`mt-0.5 p-2 rounded-lg bg-gradient-to-br ${gradient} opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300`}>
+    <div className="group flex items-start space-x-3 text-gray-300 hover:text-white transition-all duration-500 ease-out">
+      <div className={`mt-0.5 p-2 rounded-lg bg-gradient-to-br ${gradient} opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 ease-out`}>
         <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={icon} />
         </svg>
       </div>
-      <span className="flex-1 group-hover:translate-x-1 transition-transform duration-300">{text}</span>
+      <span className="flex-1 group-hover:translate-x-0.5 transition-transform duration-500 ease-out">{text}</span>
     </div>
   );
 
@@ -269,10 +268,10 @@ function FooterBottomLink({ href, children }: { href: string; children: React.Re
   return (
     <Link 
       href={href} 
-      className="text-sm text-gray-400 hover:text-white transition-colors duration-300 relative group"
+      className="text-sm text-gray-400 hover:text-white transition-colors duration-500 ease-out relative group"
     >
       {children}
-      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300" />
+      <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-500 ease-out" />
     </Link>
   );
 }
