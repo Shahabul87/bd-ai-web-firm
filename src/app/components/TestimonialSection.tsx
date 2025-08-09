@@ -8,35 +8,58 @@ export default function TestimonialSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Clients</span> Say
+            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Vision</span>
           </h2>
           <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
-            We&apos;ve helped businesses of all sizes transform their online presence with our AI-powered web development.
+            Building the future of AI-autonomous development. Low-cost, high-quality solutions for modern businesses.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <TestimonialCard 
-            quote="Cognivat transformed our outdated website into a modern, high-converting digital asset in just two weeks. The AI-generated design exceeded our expectations."
-            author="Sarah Johnson"
-            company="TechStart Inc."
-          />
-          <TestimonialCard 
-            quote="The AI-powered analytics have helped us understand our customers better than ever before. Our conversion rate increased by 45% in the first month alone."
-            author="Michael Chen"
-            company="Growth Ventures"
-          />
-          <TestimonialCard 
-            quote="We needed an e-commerce solution fast, and Cognivat delivered in record time. The AI optimization has significantly boosted our sales performance."
-            author="Emily Rodriguez"
-            company="Fashion Forward"
-          />
+          <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-slate-300 dark:border-gray-800 relative">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full flex items-center justify-center text-3xl shadow-lg mx-auto mb-4">
+                🚀
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Ready to Launch</h3>
+              <p className="text-slate-700 dark:text-gray-300 mb-6">
+                Starting a new AI-powered development company with cutting-edge autonomous coding capabilities.
+              </p>
+              <div className="text-sm text-purple-600 dark:text-purple-400 font-medium">Coming Soon</div>
+            </div>
+          </div>
+          
+          <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-slate-300 dark:border-gray-800 relative">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-cyan-400 to-green-500 rounded-full flex items-center justify-center text-3xl shadow-lg mx-auto mb-4">
+                🤖
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">AI-Autonomous</h3>
+              <p className="text-slate-700 dark:text-gray-300 mb-6">
+                Led by AI autonomous and agentic coding for efficient, cost-effective development solutions.
+              </p>
+              <div className="text-sm text-cyan-600 dark:text-cyan-400 font-medium">Innovation First</div>
+            </div>
+          </div>
+          
+          <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-slate-300 dark:border-gray-800 relative">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center text-3xl shadow-lg mx-auto mb-4">
+                💡
+              </div>
+              <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Low-Cost Solutions</h3>
+              <p className="text-slate-700 dark:text-gray-300 mb-6">
+                Delivering high-quality websites and AI solutions at competitive prices through automation.
+              </p>
+              <div className="text-sm text-orange-600 dark:text-orange-400 font-medium">Affordable Excellence</div>
+            </div>
+          </div>
         </div>
         
         <div className="mt-12 text-center">
           <p className="text-lg">
-            Ready to transform your online presence? 
-            <a href="#contact" className="ml-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 font-medium">Get in touch today.</a>
+            Ready to start your AI project? 
+            <a href="#contact" className="ml-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 font-medium">Contact us today.</a>
           </p>
         </div>
       </div>
@@ -44,26 +67,4 @@ export default function TestimonialSection() {
   );
 }
 
-function TestimonialCard({ quote, author, company }: { quote: string; author: string; company: string }) {
-  return (
-    <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-8 rounded-xl border border-slate-300 dark:border-gray-800 relative">
-      <div className="absolute -top-5 -left-5 w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full flex items-center justify-center">
-        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-        </svg>
-      </div>
-      
-      <p className="text-slate-700 dark:text-gray-300 mb-6 italic">&ldquo;{quote}&rdquo;</p>
-      
-      <div className="flex items-center">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
-          {author.split(' ').map(name => name[0]).join('')}
-        </div>
-        <div className="ml-3">
-          <h4 className="font-medium text-slate-900 dark:text-white">{author}</h4>
-          <p className="text-sm text-slate-600 dark:text-gray-400">{company}</p>
-        </div>
-      </div>
-    </div>
-  );
-} 
+ 

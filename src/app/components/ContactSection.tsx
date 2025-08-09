@@ -8,7 +8,7 @@ export default function ContactSection() {
     email: '',
     company: '',
     message: '',
-    type: 'website'
+    type: 'ai-model'
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -80,7 +80,7 @@ export default function ContactSection() {
         email: '',
         company: '',
         message: '',
-        type: 'website'
+        type: 'ai-model'
       });
       setErrors({});
     }, 1500);
@@ -93,19 +93,19 @@ export default function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Transform</span> Your Web Presence?
+            Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Start</span> Your AI Project?
           </h2>
           <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Get in touch with our AI web development experts today and see how we can help your business grow online.
+            Connect with our AI-autonomous development team for model training, data pipelines, and low-cost web solutions.
           </p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm p-6 rounded-xl border border-slate-300 dark:border-gray-800">
-              <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Let&apos;s discuss your project</h3>
+              <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">Let&apos;s discuss your AI project</h3>
               <p className="text-slate-600 dark:text-gray-400 mb-6">
-                Fill out the form and our team will get back to you within 24 hours.
+                Whether it&apos;s model training, data pipelines, or web development - we deliver low-cost, high-quality solutions.
               </p>
               
               <div className="space-y-4">
@@ -249,10 +249,12 @@ export default function ContactSection() {
                     onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
                   >
-                    <option value="website">Website Design</option>
-                    <option value="ecommerce">E-Commerce Store</option>
-                    <option value="webapp">Web Application</option>
-                    <option value="maintenance">Maintenance & Support</option>
+                    <option value="ai-model">AI Model Development</option>
+                    <option value="data-pipeline">Data Processing Pipeline</option>
+                    <option value="website">Website Development</option>
+                    <option value="fintech">FinTech Analysis</option>
+                    <option value="healthcare">Healthcare Analytics</option>
+                    <option value="customer">Customer Analysis</option>
                     <option value="other">Other</option>
                   </select>
                 </div>

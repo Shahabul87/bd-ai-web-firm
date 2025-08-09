@@ -17,9 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cognivat | AI-Powered Web Development Solutions",
-  description: "Transform your business with AI-powered web applications, machine learning solutions, and intelligent automation. Cognivat's expert development team delivers cutting-edge technology solutions.",
-  keywords: "AI development, machine learning, web development, artificial intelligence, automation, data visualization, predictive analytics",
+  title: "Cognivat | AI-Autonomous Development Studio",
+  description: "AI model development, training, validation, testing and deployments. Data preprocessing pipelines, web development, and business analysis. AI-autonomous coding for low-cost solutions.",
+  keywords: "AI model development, machine learning training, data pipelines, autonomous coding, web development, fintech analysis, healthcare analytics, customer analysis",
   authors: [{ name: "Cognivat" }],
   creator: "Cognivat",
   publisher: "Cognivat",
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://cognivat.com",
-    title: "Cognivat | AI-Powered Web Development Solutions",
-    description: "Transform your business with AI-powered web applications, machine learning solutions, and intelligent automation.",
+    title: "Cognivat | AI-Autonomous Development Studio",
+    description: "AI model development, data pipelines, web development, and business analysis. Low-cost solutions through autonomous coding.",
     siteName: "Cognivat"
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cognivat | AI-Powered Web Development Solutions",
-    description: "Transform your business with AI-powered web applications, machine learning solutions, and intelligent automation.",
+    title: "Cognivat | AI-Autonomous Development Studio",
+    description: "AI model development, data pipelines, web development, and business analysis. Low-cost solutions through autonomous coding.",
     creator: "@cognivat"
   }
 };

@@ -102,12 +102,12 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
   const inputRef = useRef<HTMLInputElement>(null);
   
   const commands = useMemo(() => ({
-    'analyze market': 'Processing 847M data points... Market trend: ↗️ 23.4% growth opportunity detected',
-    'deploy model': 'Initializing ML pipeline... Model deployed successfully. Accuracy: 94.7%',
-    'predict sales': 'Forecasting Q4 performance... Predicted revenue: $2.4M (+31% vs Q3)',
-    'optimize workflow': 'Scanning 1,247 processes... 12 bottlenecks identified. Efficiency gain: +45%',
-    'generate insights': 'Analyzing customer data... 5 actionable insights discovered',
-    'status': 'System Status: ✅ All 12 AI models running. Processing 2.4k req/sec'
+    'train model': 'Initializing AI model training... Dataset loaded. Training in progress...',
+    'build website': 'Autonomous web development started... Generating responsive components...',
+    'analyze data': 'Processing fintech/healthcare data... Generating visualization pipeline...',
+    'deploy pipeline': 'Setting up data preprocessing pipeline... MLOps workflow configured',
+    'validate model': 'Running model testing & validation... Performance metrics generated',
+    'status': 'AI Development Studio: ✅ Ready for autonomous coding. Low-cost solutions active.'
   }), []);
   
   const commandSuggestions = Object.keys(commands);
@@ -122,7 +122,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
     if (!isInView) return;
     
     // Beautiful auto-demo sequence with controlled looping
-    const demoSequence = ['status', 'analyze market', 'predict sales'];
+    const demoSequence = ['status', 'train model', 'build website'];
     let index = 0;
     let cycleCount = 0; // Track number of complete cycles
     const maxCycles = 3; // Limit to 3 complete cycles, then stop
@@ -269,7 +269,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
-            Command Your
+            AI-Autonomous
           </motion.span>
           <motion.span 
             className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 mt-2"
@@ -277,7 +277,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
           >
-            AI Intelligence
+            Development Studio
           </motion.span>
         </motion.h1>
         
@@ -287,7 +287,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.2 }}
         >
-          Interact directly with our AI systems. Type commands below to see real-time AI processing.
+          Experience our autonomous AI development platform. Low-cost, high-quality solutions for modern businesses.
         </motion.p>
       </motion.div>
       
@@ -395,7 +395,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
               onChange={handleInputChange}
               onKeyPress={handleKeyPress}
               className="bg-transparent border-none outline-none flex-1 text-cyan-600 dark:text-cyan-400 placeholder-slate-400 dark:placeholder-slate-500"
-              placeholder="Try: analyze market, deploy model, predict sales..."
+              placeholder="Try: train model, build website, analyze data..."
               disabled={isTyping}
             />
             {isTyping && (
@@ -639,7 +639,7 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
           className="group px-8 py-4 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full text-white font-semibold hover:shadow-xl hover:shadow-cyan-400/30 transition-all duration-300 transform hover:-translate-y-1"
           aria-label="Deploy Your AI System - Get started with our AI solutions">
           <span className="flex items-center gap-2">
-            Deploy Your AI System
+            Start Your AI Project
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

@@ -11,52 +11,52 @@ export default function ServicesSection() {
 
   const capabilities = [
     {
-      id: 'data-viz',
-      title: 'Data Visualization Studio',
-      description: 'Transform complex datasets into interactive, intelligent dashboards that reveal actionable insights and patterns.',
-      icon: '📊',
-      gradient: 'from-cyan-400 to-purple-500',
-      component: DataVisualizationDemo
-    },
-    {
-      id: 'ml-training',
-      title: 'Machine Learning Training',
-      description: 'Build and train specialized AI models with automated hyperparameter tuning and performance optimization.',
+      id: 'ai-model-training',
+      title: 'AI Model Development',
+      description: 'End-to-end AI model training, validation, and deployment. From data preprocessing to production-ready models.',
       icon: '🧠',
-      gradient: 'from-purple-500 to-orange-500',
+      gradient: 'from-cyan-400 to-purple-500',
       component: MachineLearningDemo
     },
     {
-      id: 'nlp-processing',
-      title: 'Natural Language Processing',
-      description: 'Extract insights from text data with sentiment analysis, entity recognition, and language understanding.',
-      icon: '🔤',
+      id: 'data-pipelines',
+      title: 'Data Processing Pipelines',
+      description: 'Automated data preprocessing, ETL workflows, and real-time data streaming for AI applications.',
+      icon: '🔄',
+      gradient: 'from-purple-500 to-orange-500',
+      component: DataVisualizationDemo
+    },
+    {
+      id: 'web-development',
+      title: 'Autonomous Web Development',
+      description: 'Low-cost, high-quality websites and web applications built with AI-powered autonomous coding.',
+      icon: '🌐',
       gradient: 'from-orange-500 to-green-400',
-      component: NLPDemo
+      component: AIAutomationDemo
     },
     {
-      id: 'computer-vision',
-      title: 'Computer Vision',
-      description: 'Process and analyze visual data with object detection, image classification, and pattern recognition.',
-      icon: '👁️',
+      id: 'fintech-analysis',
+      title: 'FinTech Data Analysis',
+      description: 'Financial data visualization, risk analysis, trading insights, and compliance reporting solutions.',
+      icon: '💹',
       gradient: 'from-green-400 to-cyan-400',
-      component: ComputerVisionDemo
-    },
-    {
-      id: 'predictive-analytics',
-      title: 'Predictive Analytics',
-      description: 'Forecast future trends and outcomes using advanced statistical models and machine learning algorithms.',
-      icon: '🔮',
-      gradient: 'from-cyan-400 to-orange-500',
       component: PredictiveAnalyticsDemo
     },
     {
-      id: 'ai-automation',
-      title: 'AI Automation Workflows',
-      description: 'Deploy intelligent agents that automate complex business processes and make autonomous decisions.',
-      icon: '🤖',
+      id: 'healthcare-analytics',
+      title: 'Healthcare Analytics',
+      description: 'Medical data analysis, patient insights, diagnostic support, and healthcare workflow optimization.',
+      icon: '🏥',
+      gradient: 'from-cyan-400 to-orange-500',
+      component: ComputerVisionDemo
+    },
+    {
+      id: 'customer-intelligence',
+      title: 'Customer Analysis',
+      description: 'Customer behavior analysis, segmentation, lifetime value prediction, and personalization engines.',
+      icon: '👥',
       gradient: 'from-purple-500 to-green-400',
-      component: AIAutomationDemo
+      component: NLPDemo
     }
   ];
 
@@ -121,11 +121,11 @@ export default function ServicesSection() {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            AI <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 animate-gradient">Capabilities</span> Matrix
+            AI <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 animate-gradient">Development</span> Services
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-            Explore our comprehensive AI solutions through interactive demonstrations. 
-            Each capability is designed to transform how your business operates and grows.
+            Autonomous AI development, model training, data pipelines, and low-cost web solutions. 
+            Experience agentic coding that delivers results fast.
           </p>
         </div>
 
@@ -216,41 +216,41 @@ export default function ServicesSection() {
 
 function FeaturesList({ capabilityId }: { capabilityId: string }) {
   const features = {
-    'data-viz': [
-      'Interactive Dashboard Creation',
-      'Real-time Data Processing',
-      'Custom Chart Libraries',
-      'Automated Insight Generation'
-    ],
-    'ml-training': [
-      'AutoML Model Selection',
+    'ai-model-training': [
+      'Model Training & Validation',
       'Hyperparameter Optimization',
-      'Cross-validation Testing',
-      'Model Performance Monitoring'
+      'Performance Testing',
+      'Production Deployment'
     ],
-    'nlp-processing': [
-      'Sentiment Analysis',
-      'Entity Recognition',
-      'Language Translation',
-      'Content Summarization'
+    'data-pipelines': [
+      'ETL Workflow Design',
+      'Real-time Data Processing',
+      'Data Quality Monitoring',
+      'Automated Preprocessing'
     ],
-    'computer-vision': [
-      'Object Detection',
-      'Image Classification',
-      'Facial Recognition',
-      'Pattern Analysis'
+    'web-development': [
+      'Autonomous Code Generation',
+      'Responsive Design',
+      'Low-Cost Solutions',
+      'Fast Delivery'
     ],
-    'predictive-analytics': [
-      'Time Series Forecasting',
-      'Trend Analysis',
-      'Risk Assessment',
-      'Anomaly Detection'
+    'fintech-analysis': [
+      'Financial Data Visualization',
+      'Risk Assessment Models',
+      'Trading Analytics',
+      'Compliance Reporting'
     ],
-    'ai-automation': [
-      'Workflow Orchestration',
-      'Decision Making',
-      'Process Optimization',
-      'Intelligent Routing'
+    'healthcare-analytics': [
+      'Medical Data Processing',
+      'Patient Journey Analysis',
+      'Diagnostic Support',
+      'Workflow Optimization'
+    ],
+    'customer-intelligence': [
+      'Behavior Analysis',
+      'Customer Segmentation',
+      'Lifetime Value Prediction',
+      'Personalization Engines'
     ]
   };
 

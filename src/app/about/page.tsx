@@ -63,7 +63,7 @@ function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          We Are Cognivat
+          Welcome to Cognivat
         </motion.h1>
         
         <div className="h-16 sm:h-20 mb-4 sm:mb-6">
@@ -85,7 +85,7 @@ function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          We combine cutting-edge AI with expert web development to create digital experiences that transform businesses. Our team of innovators, developers, and designers work together to build solutions that stand out in today&apos;s digital landscape.
+          We&apos;re an AI-autonomous development studio specializing in model training, data pipelines, and low-cost web development. Our agentic coding approach delivers high-quality solutions efficiently and affordably.
         </motion.p>
       </div>
       
@@ -120,16 +120,16 @@ function HeroSection() {
 
 function SimpleTeamSection() {
   const team = [
-    { name: "Alex Morgan", role: "Founder & CEO", initial: "A" },
-    { name: "Jamie Chen", role: "CTO", initial: "J" },
-    { name: "Sam Wilson", role: "Creative Director", initial: "S" },
-    { name: "Robin Taylor", role: "AI Lead", initial: "R" }
+    { name: "AI Development Team", role: "Autonomous Coding", initial: "🤖" },
+    { name: "ML Engineering", role: "Model Training", initial: "🧠" },
+    { name: "Data Pipeline Team", role: "ETL & Processing", initial: "🔄" },
+    { name: "Full-Stack Solutions", role: "Web Development", initial: "🌐" }
   ];
   
   return (
     <section className="py-12 sm:py-16 lg:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 sm:mb-12 lg:mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-        Our Team
+        Our Capabilities
       </h2>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
@@ -156,24 +156,24 @@ function SimpleStorySection() {
       
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
         <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
-          <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">2021</div>
-          <h3 className="text-base sm:text-lg font-bold mb-2">Founded</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Cognivat started with a vision to bridge AI and web development</p>
+          <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-2">2025</div>
+          <h3 className="text-base sm:text-lg font-bold mb-2">Launch</h3>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Starting AI-autonomous development company</p>
         </div>
         <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
-          <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-2">2022</div>
-          <h3 className="text-base sm:text-lg font-bold mb-2">First Client</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Secured partnership with Fortune 500 company</p>
+          <div className="text-2xl sm:text-3xl font-bold text-cyan-400 mb-2">Q1</div>
+          <h3 className="text-base sm:text-lg font-bold mb-2">AI Models</h3>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Training and deploying first AI models</p>
         </div>
         <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
-          <div className="text-2xl sm:text-3xl font-bold text-orange-400 mb-2">2023</div>
-          <h3 className="text-base sm:text-lg font-bold mb-2">Team Growth</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Expanded to 20+ specialists across 3 continents</p>
+          <div className="text-2xl sm:text-3xl font-bold text-orange-400 mb-2">Q2</div>
+          <h3 className="text-base sm:text-lg font-bold mb-2">Data Pipelines</h3>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Building automated data processing workflows</p>
         </div>
         <div className="bg-slate-200/50 dark:bg-slate-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-slate-300/70 dark:hover:bg-slate-800/70 transition-colors duration-300">
-          <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-2">2024</div>
-          <h3 className="text-base sm:text-lg font-bold mb-2">Innovation Award</h3>
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Recognized for AI-powered web development</p>
+          <div className="text-2xl sm:text-3xl font-bold text-green-400 mb-2">Q3</div>
+          <h3 className="text-base sm:text-lg font-bold mb-2">Web Solutions</h3>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Low-cost web development services launch</p>
         </div>
       </div>
     </section>
