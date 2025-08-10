@@ -101,12 +101,15 @@ export default function Header() {
           </nav>
           
           <div className="flex items-center space-x-3">
-            <button className="hidden sm:flex items-center space-x-1.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-medium text-sm hover:shadow-lg hover:shadow-cyan-400/30 transition-all duration-300 transform hover:-translate-y-0.5 hover:scale-105 neural-glow">
+            <Link 
+              href="/quote"
+              className="hidden sm:flex items-center space-x-1.5 px-5 py-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-medium text-sm hover:shadow-lg hover:shadow-cyan-400/30 transition-all duration-300 transform hover:-translate-y-0.5 hover:scale-105 neural-glow"
+            >
               <span>Get a Quote</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </button>
+            </Link>
             
             <button 
               onClick={toggleMobileMenu}
@@ -168,12 +171,16 @@ export default function Header() {
             );
           })}
           <div className="pt-3 mt-3 border-t border-slate-700/50">
-            <button className="w-full px-5 py-3 rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-medium text-sm hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 neural-glow">
+            <Link 
+              href="/quote"
+              className="w-full px-5 py-3 rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-medium text-sm hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 neural-glow"
+              onClick={() => setMobileMenuOpen(false)}
+            >
               <span>Get a Quote</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </button>
+            </Link>
           </div>
         </nav>
       </div>
