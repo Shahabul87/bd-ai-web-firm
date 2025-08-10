@@ -1,22 +1,34 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useThrottle } from '../utils/throttle';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  // Create throttled scroll handler
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 10);
   }, []);
+  
+  // Throttle the scroll handler to run at most once every 100ms
+  const throttledHandleScroll = useThrottle(handleScroll, 100);
+  
+  useEffect(() => {
+    // Check initial scroll position
+    handleScroll();
+    
+    // Add throttled event listener
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', throttledHandleScroll);
+    };
+  }, [throttledHandleScroll, handleScroll]);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -56,13 +68,14 @@ export default function Header() {
           
           <nav className="hidden md:flex">
             <div className="flex space-x-1 rounded-full py-1 px-1.5 bg-slate-800/60 backdrop-blur-sm border border-slate-700/50">
-              {["Home", "AI Solutions", "Web Dev", "Portfolio", "About"].map((item) => {
+              {["Home", "AI Solutions", "Web Dev", "Portfolio", "Blog", "About"].map((item) => {
                 const getHref = (itemName: string) => {
                   switch(itemName) {
                     case "Home": return "/";
                     case "AI Solutions": return "/ai-solutions";
                     case "Web Dev": return "/web-development";
                     case "Portfolio": return "/portfolio";
+                    case "Blog": return "/blog";
                     case "About": return "/about";
                     default: return `/${itemName.toLowerCase()}`;
                   }
@@ -123,13 +136,14 @@ export default function Header() {
         suppressHydrationWarning={true}
       >
         <nav className="flex flex-col py-5 px-4 sm:px-6 space-y-1">
-          {["Home", "AI Solutions", "Web Dev", "Portfolio", "About"].map((item) => {
+          {["Home", "AI Solutions", "Web Dev", "Portfolio", "Blog", "About"].map((item) => {
             const getHref = (itemName: string) => {
               switch(itemName) {
                 case "Home": return "/";
                 case "AI Solutions": return "/ai-solutions";
                 case "Web Dev": return "/web-development";
                 case "Portfolio": return "/portfolio";
+                case "Blog": return "/blog";
                 case "About": return "/about";
                 default: return `/${itemName.toLowerCase()}`;
               }

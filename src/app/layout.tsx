@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import AIChatbot from "./components/AIChatbot";
 import CrossPlatformWrapper from "./components/CrossPlatformWrapper";
@@ -112,6 +113,9 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
+        
+        {/* Google Search Console Verification - Replace with your actual verification code */}
+        <meta name="google-site-verification" content="abcdef1234567890abcdef1234567890abcdef12" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -125,6 +129,23 @@ export default function RootLayout({
             <AIChatbot />
           </CrossPlatformWrapper>
         </ErrorBoundary>
+        
+        {/* Google Analytics - Replace G-XXXXXXXXXX with your actual GA4 Measurement ID */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX', {
+              page_title: document.title,
+              page_location: window.location.href,
+            });
+          `}
+        </Script>
       </body>
     </html>
   );

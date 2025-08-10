@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useSmartTimeout } from '../utils/animationOptimizer';
+import { useSmartAnimation } from '../hooks/usePerformanceMonitor';
 
 interface Particle {
   x: number;
@@ -15,6 +17,8 @@ export default function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationFrameRef = useRef<number>(0);
+  const { requestAnimationFrame, cancelAnimationFrame } = useSmartTimeout();
+  const { shouldSkipAnimation } = useSmartAnimation();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,105 +27,133 @@ export default function ParticleBackground() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Debounced resize to prevent excessive re-initialization
+    let resizeTimeout: NodeJS.Timeout;
     const resizeCanvas = () => {
-      const newWidth = window.innerWidth;
-      const newHeight = 400;
-      
-      // Only resize if dimensions actually changed
-      if (canvas.width !== newWidth || canvas.height !== newHeight) {
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-        initParticles();
-      }
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const newWidth = window.innerWidth;
+        const newHeight = 400;
+        
+        if (canvas.width !== newWidth || canvas.height !== newHeight) {
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+          // Only reinitialize if size actually changed
+          if (particlesRef.current.length === 0 || 
+              Math.abs(particlesRef.current.length - Math.floor(newWidth / 120)) > 2) {
+            initParticles();
+          }
+        }
+      }, 250); // Debounce resize events
     };
+
+    // Object pool for particles to prevent garbage collection
+    const createParticle = (x: number, y: number): Particle => ({
+      x,
+      y,
+      size: Math.random() * 0.8 + 0.4,
+      speedX: (Math.random() - 0.5) * 0.15, // Even slower for better performance
+      speedY: (Math.random() - 0.5) * 0.15,
+      color: ['#8e2de2', '#4a00e0', '#3f5efb'][Math.floor(Math.random() * 3)]
+    });
 
     const initParticles = () => {
-      particlesRef.current = [];
-      const particleCount = Math.min(Math.floor(window.innerWidth / 20), 25); // Reduced particle count for better performance
-
-      for (let i = 0; i < particleCount; i++) {
-        const colors = ['#8e2de2', '#4a00e0', '#3f5efb', '#6a3093', '#a17fe0'];
-        
-        particlesRef.current.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 1.5 + 0.1,
-          speedX: (Math.random() - 0.5) * 0.15,
-          speedY: (Math.random() - 0.5) * 0.15,
-          color: colors[Math.floor(Math.random() * colors.length)]
-        });
+      // Reuse existing particles array if possible
+      const particleCount = Math.min(Math.floor(window.innerWidth / 150), 5); // Even fewer particles
+      
+      if (particlesRef.current.length > particleCount) {
+        // Remove excess particles
+        particlesRef.current.length = particleCount;
+      } else {
+        // Add new particles only if needed
+        while (particlesRef.current.length < particleCount) {
+          particlesRef.current.push(createParticle(
+            Math.random() * canvas.width,
+            Math.random() * canvas.height
+          ));
+        }
       }
     };
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // const frameCount = 0; // Not needed after optimization
+    let isActive = true;
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Target 30 FPS for smoother performance
+    const frameInterval = 1000 / targetFPS;
+    
+    const animate = (currentTime: number) => {
+      if (!isActive) return;
       
-      particlesRef.current.forEach(particle => {
-        // Update position
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
-        
-        // Bounce off edges
-        if (particle.x < 0 || particle.x > canvas.width) {
-          particle.speedX *= -1;
-        }
-        
-        if (particle.y < 0 || particle.y > canvas.height) {
-          particle.speedY *= -1;
-        }
-        
-        // Draw particle
-        ctx.beginPath();
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = particle.color;
-        ctx.globalAlpha = 0.3;
-        ctx.fill();
-      });
+      // Skip animation entirely if performance is poor
+      if (shouldSkipAnimation()) {
+        // Schedule next check after a delay
+        animationFrameRef.current = requestAnimationFrame(() => {
+          setTimeout(() => animate(performance.now()), 1000);
+        });
+        return;
+      }
       
-      // Connect particles with lines if they're close enough
-      connectParticles(ctx);
+      // Limit frame rate for consistent performance
+      const deltaTime = currentTime - lastFrameTime;
+      
+      if (deltaTime > frameInterval) {
+        lastFrameTime = currentTime - (deltaTime % frameInterval);
+        
+        // Clear canvas with optimized method
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.1)'; // Slight trail effect
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Batch particle rendering
+        ctx.globalAlpha = 0.25; // Lower opacity for better performance
+        
+        particlesRef.current.forEach(particle => {
+          // Update position
+          particle.x += particle.speedX;
+          particle.y += particle.speedY;
+          
+          // Wrap around edges (optimized with modulo)
+          particle.x = (particle.x + canvas.width) % canvas.width;
+          particle.y = (particle.y + canvas.height) % canvas.height;
+          
+          // Optimized drawing - reuse path
+          ctx.fillStyle = particle.color;
+          ctx.fillRect(particle.x - particle.size, particle.y - particle.size, 
+                       particle.size * 2, particle.size * 2);
+        });
+      }
       
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    const connectParticles = (ctx: CanvasRenderingContext2D) => {
-      const maxDistance = 100;
-      
-      for (let i = 0; i < particlesRef.current.length; i++) {
-        for (let j = i + 1; j < particlesRef.current.length; j++) {
-          const dx = particlesRef.current[i].x - particlesRef.current[j].x;
-          const dy = particlesRef.current[i].y - particlesRef.current[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < maxDistance) {
-            ctx.beginPath();
-            ctx.strokeStyle = '#6a3093';
-            ctx.globalAlpha = 0.1 * (1 - distance / maxDistance);
-            ctx.lineWidth = 0.5;
-            ctx.moveTo(particlesRef.current[i].x, particlesRef.current[i].y);
-            ctx.lineTo(particlesRef.current[j].x, particlesRef.current[j].y);
-            ctx.stroke();
-          }
-        }
+    const cleanup = () => {
+      isActive = false;
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
       }
     };
 
     // Initial setup
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
-    animate();
+    
+    // Start animation only if performance allows
+    if (!shouldSkipAnimation()) {
+      animate(performance.now());
+    }
 
-    // Cleanup
+    // Enhanced cleanup with proper resource management
     return () => {
       window.removeEventListener('resize', resizeCanvas);
-      cancelAnimationFrame(animationFrameRef.current);
+      cleanup();
+      particlesRef.current = []; // Clear particles array
     };
-  }, []);
+  }, [requestAnimationFrame, cancelAnimationFrame, shouldSkipAnimation]);
 
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute top-0 left-0 w-full h-[400px] -z-10 pointer-events-none opacity-40"
+      className="absolute top-0 left-0 w-full h-[400px] -z-10 pointer-events-none opacity-20"
       suppressHydrationWarning={true}
     />
   );

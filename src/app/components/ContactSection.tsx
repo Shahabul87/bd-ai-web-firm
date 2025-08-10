@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import validator from 'validator';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -18,20 +19,38 @@ export default function ContactSection() {
     setMounted(true);
   }, []);
   
-  // Input sanitization function
-  const sanitizeInput = (input: string): string => {
-    return input
-      .replace(/[<>]/g, '') // Remove potential HTML tags
-      .replace(/javascript:/gi, '') // Remove javascript: protocol
-      .replace(/on\w+=/gi, '') // Remove event handlers
-      .trim()
-      .slice(0, 1000); // Limit length
+  // Enhanced input sanitization function using validator
+  const sanitizeInput = (input: string, type: 'text' | 'email' | 'message' = 'text'): string => {
+    // First escape HTML entities
+    let sanitized = validator.escape(input);
+    
+    switch(type) {
+      case 'email':
+        // Normalize email format
+        const normalizedEmail = validator.normalizeEmail(sanitized, {
+          all_lowercase: true,
+          gmail_remove_dots: false,
+          gmail_remove_subaddress: false
+        });
+        return normalizedEmail || '';
+      
+      case 'message':
+        // For longer text, strip low ASCII characters
+        // Note: validator.stripLow doesn't support options in the current version
+        sanitized = validator.stripLow(sanitized);
+        return sanitized.slice(0, 1000); // Limit to 1000 chars
+      
+      case 'text':
+      default:
+        // For names and short text, strip all low ASCII characters
+        sanitized = validator.stripLow(sanitized);
+        return sanitized.slice(0, 100); // Limit to 100 chars
+    }
   };
 
-  // Email validation
+  // Enhanced email validation using validator
   const isValidEmail = (email: string): boolean => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return validator.isEmail(email);
   };
 
   // Form validation
@@ -56,7 +75,12 @@ export default function ContactSection() {
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    const sanitizedValue = sanitizeInput(value);
+    
+    // Determine the type based on field name
+    const fieldType = name === 'email' ? 'email' : 
+                     name === 'message' ? 'message' : 'text';
+    
+    const sanitizedValue = sanitizeInput(value, fieldType);
     setFormData(prev => ({ ...prev, [name]: sanitizedValue }));
     
     // Clear error when user starts typing

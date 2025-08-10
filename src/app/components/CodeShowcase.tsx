@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useInView } from 'framer-motion';
+import { useSmartAnimation } from '../hooks/usePerformanceMonitor';
 
 export default function CodeShowcase() {
   const ref = useRef<HTMLDivElement>(null);
@@ -80,6 +81,7 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
   const [currentLine, setCurrentLine] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [serviceIndex, setServiceIndex] = useState(0);
+  const { getOptimizedDelay, shouldSkipAnimation } = useSmartAnimation(400);
   
   // Array of different AI services to showcase
   const services = useMemo(() => [
@@ -199,32 +201,58 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
   }, [isInView]);
   
   useEffect(() => {
-    let typingInterval: NodeJS.Timeout;
+    let animationFrameId: number | null = null;
+    let isActive = true;
     
-    if (isVisible) {
-      typingInterval = setInterval(() => {
-        if (currentChar >= codeLines[currentLine].content.length) {
-          if (currentLine < codeLines.length - 1) {
+    if (isVisible && !shouldSkipAnimation()) {
+      // Performance-optimized line-by-line display
+      const animateLineByLine = () => {
+        if (!isActive) return;
+        
+        if (currentLine < codeLines.length - 1) {
+          // Show complete line instantly for better performance
+          setCurrentChar(codeLines[currentLine].content.length);
+          
+          // Performance-aware delay before next line
+          const lineDelay = getOptimizedDelay(1);
+          
+          setTimeout(() => {
+            if (!isActive) return;
             setCurrentLine(prev => prev + 1);
             setCurrentChar(0);
-          } else {
-            setTimeout(() => {
-              setServiceIndex((prev) => (prev + 1) % services.length);
-              setCurrentLine(0);
-              setCurrentChar(0);
-            }, 3000);
-            clearInterval(typingInterval);
-          }
+            animationFrameId = requestAnimationFrame(animateLineByLine);
+          }, lineDelay);
         } else {
-          setCurrentChar(prev => prev + 1);
+          // Complete final line
+          setCurrentChar(codeLines[currentLine].content.length);
+          
+          // Performance-aware service switching delay
+          const serviceDelay = getOptimizedDelay(10); // Much longer pause for better performance
+          
+          setTimeout(() => {
+            if (!isActive) return;
+            setServiceIndex((prev) => (prev + 1) % services.length);
+            setCurrentLine(0);
+            setCurrentChar(0);
+          }, serviceDelay);
         }
-      }, 50);
+      };
+      
+      // Use RAF for smoother animation
+      animationFrameId = requestAnimationFrame(animateLineByLine);
+    } else if (isVisible && shouldSkipAnimation()) {
+      // Instant display when performance is poor
+      setCurrentLine(codeLines.length - 1);
+      setCurrentChar(codeLines[codeLines.length - 1].content.length);
     }
     
     return () => {
-      clearInterval(typingInterval);
+      isActive = false;
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
-  }, [isVisible, currentLine, currentChar, codeLines.length, codeLines, services.length]);
+  }, [isVisible, currentLine, currentChar, codeLines.length, codeLines, services.length, getOptimizedDelay, shouldSkipAnimation]);
   
   return (
     <div className="relative transform transition-all duration-1000"

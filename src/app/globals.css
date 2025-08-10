@@ -259,6 +259,40 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Performance optimizations for animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Optimize transform animations */
+[class*="motion-"],
+[class*="animate-"] {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduce paint areas for better performance */
+.neural-glow {
+  contain: layout style paint;
+}
+
 /* Prevent animation flickering */
 footer * {
   animation: none !important;

@@ -2,20 +2,20 @@
 
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useSmartAnimation } from '../hooks/usePerformanceMonitor';
 
-// Reduced floating particles for better performance
-const floatingParticles = Array.from({ length: 6 }, (_, i) => ({
-  id: i,
-  initialX: (i * 16.66) % 100, // Distributed across width
-  initialY: (i * 20) % 100, // Distributed across height
-  size: Math.floor(i % 2) + 1, // Sizes 1-2
-  duration: 20 + (i % 5), // 20-24 seconds (slower, smoother)
-  delay: i * 3 // More staggered start
-}));
+// Static particles array to prevent recreation on every render
+const floatingParticles = [
+  { id: 0, initialX: 10, initialY: 20, size: 1, duration: 30, delay: 0 },
+  { id: 1, initialX: 30, initialY: 60, size: 2, duration: 35, delay: 3 },
+  { id: 2, initialX: 70, initialY: 40, size: 1, duration: 32, delay: 6 },
+  { id: 3, initialX: 90, initialY: 80, size: 2, duration: 28, delay: 9 },
+];
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
+  const { shouldSkipAnimation } = useSmartAnimation();
   
   return (
     <motion.section 
@@ -25,63 +25,56 @@ export default function HeroSection() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      {/* Smooth Floating Particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none will-change-transform">
-        <AnimatePresence>
-          {isInView && floatingParticles.map(particle => (
-            <motion.div
-              key={particle.id}
-              className="absolute bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full will-change-transform"
-              style={{
-                width: `${particle.size}px`,
-                height: `${particle.size}px`,
-                left: `${particle.initialX}%`,
-                top: `${particle.initialY}%`,
-              }}
-              initial={{ 
-                opacity: 0,
-                scale: 0,
-                y: 0
-              }}
-              animate={{ 
-                opacity: [0, 0.4, 0.6, 0.4, 0],
-                scale: [0, 1, 1.1, 0.9, 0],
-                y: [-20, -40, -60, -80, -100],
-                x: [0, 8, -8, 4, 0],
-              }}
-              transition={{
-                duration: particle.duration,
-                delay: particle.delay,
-                repeat: Infinity,
-                ease: "easeInOut",
-                repeatType: "loop"
-              }}
-            />
-          ))}
-        </AnimatePresence>
-      </div>
+      {/* Smart Floating Particles - Skip when performance is poor */}
+      {!shouldSkipAnimation() && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none will-change-transform">
+          <AnimatePresence>
+            {isInView && floatingParticles.map(particle => (
+              <motion.div
+                key={particle.id}
+                className="absolute bg-gradient-to-r from-cyan-400 to-purple-500 rounded-full will-change-transform"
+                style={{
+                  width: `${particle.size}px`,
+                  height: `${particle.size}px`,
+                  left: `${particle.initialX}%`,
+                  top: `${particle.initialY}%`,
+                }}
+                initial={{ 
+                  opacity: 0,
+                  scale: 0,
+                  y: 0
+                }}
+                animate={{ 
+                  opacity: [0, 0.2, 0.3, 0.2, 0], // Further reduced opacity
+                  scale: [0, 1, 1.02, 0.98, 0], // Minimal scale changes
+                  y: [-20, -35, -50, -65, -80], // Smoother vertical movement
+                  x: [0, 2, -2, 1, 0], // Minimal horizontal movement
+                }}
+                transition={{
+                  duration: particle.duration, // Use base duration for smoother animation
+                  delay: particle.delay,
+                  repeat: Infinity,
+                  ease: "linear", // Linear for smoother performance
+                  repeatType: "loop"
+                }}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
       
       {/* Neural Grid Background - Smooth Framer Motion */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-slate-900 via-purple-500/3 to-orange-500/3"></div>
-        <motion.div 
-          className="absolute inset-0 opacity-30 will-change-transform"
+        {/* Static background grid - no animation to reduce CPU usage */}
+        <div 
+          className="absolute inset-0 opacity-20"
           style={{
             backgroundImage: `
               linear-gradient(90deg, rgba(0,229,255,0.05) 1px, transparent 1px),
               linear-gradient(rgba(0,229,255,0.05) 1px, transparent 1px)
             `,
             backgroundSize: '80px 80px',
-          }}
-          animate={{
-            backgroundPosition: ['0px 0px', '80px 80px'],
-            opacity: [0.1, 0.2, 0.1]
-          }}
-          transition={{
-            duration: 45,
-            repeat: Infinity,
-            ease: "easeInOut",
-            repeatType: "reverse"
           }}
         />
       </div>
@@ -102,6 +95,7 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
   const [isTyping, setIsTyping] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { getOptimizedDelay, shouldSkipAnimation } = useSmartAnimation(800);
   
   const commands = useMemo(() => ({
     'train model': 'Initializing AI model training... Dataset loaded. Training in progress...',
@@ -123,94 +117,75 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
   useEffect(() => {
     if (!isInView) return;
     
-    // Beautiful auto-demo sequence with controlled looping
-    const demoSequence = ['status', 'train model', 'build website'];
-    let index = 0;
-    let cycleCount = 0; // Track number of complete cycles
-    const maxCycles = 3; // Limit to 3 complete cycles, then stop
-    let isActive = true; // Flag to prevent execution after cleanup
-    let currentTimeout: NodeJS.Timeout;
-    let typeInterval: number;
+    // Skip animation entirely if performance is poor
+    if (shouldSkipAnimation()) {
+      return;
+    }
     
-    const runDemo = () => {
-      if (!isActive || cycleCount >= maxCycles) return; // Exit if cleaned up or max cycles reached
+    // Performance optimized demo sequence with smart delays
+    const demoSequence = ['status', 'train model'];
+    let index = 0;
+    let isActive = true;
+    let animationFrameId: number | null = null;
+    const timeouts: NodeJS.Timeout[] = [];
+    
+    const runOptimizedDemo = () => {
+      if (!isActive || index >= demoSequence.length) return;
       
-      if (index < demoSequence.length) {
-        const cmd = demoSequence[index];
-        setCurrentCommand('');
-        setIsTyping(true);
+      const cmd = demoSequence[index];
+      
+      // Smart typing - show complete command instantly
+      setCurrentCommand(cmd);
+      setIsTyping(true);
+      
+      // Use requestAnimationFrame with performance-aware delays
+      const animateTyping = () => {
+        if (!isActive) return;
         
-        // Optimized typing animation using requestAnimationFrame
-        let charIndex = 0;
-        let lastTime = 0;
-        const typingSpeed = 100; // ms between characters
+        // Dynamic timing based on system performance
+        const typingDelay = getOptimizedDelay(1); // Base delay adjusted for performance
+        const commandDelay = getOptimizedDelay(5); // Longer delay between commands
         
-        const typeChar = (currentTime: number) => {
+        const timeout1 = setTimeout(() => {
           if (!isActive) return;
+          executeCommand(cmd);
+          setIsTyping(false);
+          setCurrentCommand('');
+          index++;
           
-          if (currentTime - lastTime >= typingSpeed) {
-            setCurrentCommand(cmd.substring(0, charIndex + 1));
-            charIndex++;
-            lastTime = currentTime;
-            
-            if (charIndex >= cmd.length) {
-              // Pause before executing command
-              currentTimeout = setTimeout(() => {
-                if (!isActive) return;
-                executeCommand(cmd);
-                setIsTyping(false);
-                index++;
-                // Continue with next command
-                currentTimeout = setTimeout(runDemo, 2500);
-              }, 800);
-              return;
-            }
-          }
+          // Performance-aware delays between commands
+          const timeout2 = setTimeout(() => {
+            if (!isActive) return;
+            runOptimizedDemo();
+          }, commandDelay);
           
-          if (charIndex < cmd.length) {
-            typeInterval = requestAnimationFrame(typeChar);
-          }
-        };
+          timeouts.push(timeout2);
+        }, typingDelay);
         
-        typeInterval = requestAnimationFrame(typeChar);
-      } else {
-        // Completed one cycle
-        cycleCount++;
-        
-        if (cycleCount < maxCycles) {
-          // Reset for next cycle with beautiful transition
-          currentTimeout = setTimeout(() => {
-            if (!isActive) return;
-            setCommandHistory([]); // Clear for fresh start
-            index = 0; // Reset command index
-            // Start next cycle
-            currentTimeout = setTimeout(runDemo, 1000);
-          }, 4000); // Pause between cycles
-        } else {
-          // Final cleanup after all cycles
-          currentTimeout = setTimeout(() => {
-            if (!isActive) return;
-            // Keep the last results visible
-          }, 2000);
-        }
+        timeouts.push(timeout1);
+      };
+      
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
       }
+      animationFrameId = requestAnimationFrame(animateTyping);
     };
     
-    // Start the beautiful demo after initial delay
-    currentTimeout = setTimeout(runDemo, 1500);
+    // Performance-aware initial delay
+    const initialTimeout = setTimeout(runOptimizedDemo, getOptimizedDelay(3));
+    timeouts.push(initialTimeout);
     
-    // Comprehensive cleanup
+    // Enhanced cleanup
     return () => {
       isActive = false;
-      if (currentTimeout) {
-        clearTimeout(currentTimeout);
-      }
-      if (typeInterval) {
-        cancelAnimationFrame(typeInterval);
+      timeouts.forEach(timeout => clearTimeout(timeout));
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
       }
       setIsTyping(false);
+      setCurrentCommand('');
     };
-  }, [isInView, executeCommand]);
+  }, [isInView, executeCommand, getOptimizedDelay, shouldSkipAnimation]);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -235,35 +210,35 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
   return (
     <motion.div 
       className="space-y-6"
-      initial={{ opacity: 0, x: -50 }}
+      initial={{ opacity: 0, x: -30 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.2 }}
+      transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
     >
       {/* Status Badge */}
       <motion.div 
         className="space-y-4"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
+        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
       >
         <motion.div 
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/60 border border-cyan-400/30 backdrop-blur-sm"
           whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
+          transition={{ type: "spring", stiffness: 200, damping: 15 }}
         >
           <motion.div 
             className="w-2 h-2 bg-green-400 rounded-full"
             animate={{ opacity: [1, 0.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
           <span className="text-sm font-medium text-slate-200">AI Command Interface</span>
         </motion.div>
         
         <motion.h1 
           className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
         >
           <motion.span 
             className="block text-white"
@@ -402,8 +377,8 @@ function AICommandInterface({ isInView }: { isInView: boolean }) {
             />
             {isTyping && (
               <motion.span
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
+                animate={{ opacity: [1, 0.3, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
               >
                 |
               </motion.span>
@@ -460,52 +435,95 @@ function LiveDataVisualization({ isInView }: { isInView: boolean }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [neuralPattern, setNeuralPattern] = useState<boolean[]>([]);
+  const { getOptimizedDelay, shouldSkipAnimation } = useSmartAnimation(1500);
   
-  // Initialize neural pattern and mounted state
+  // Initialize with deterministic pattern to prevent hydration mismatches
   useEffect(() => {
     setMounted(true);
-    // Generate consistent neural pattern on client side only (further reduced for performance)
-    const pattern = Array.from({ length: 12 }, () => Math.random() > 0.6);
+    // Use deterministic pattern based on indices to prevent hydration issues
+    const pattern = Array.from({ length: 12 }, (_, i) => i % 3 === 0);
     setNeuralPattern(pattern);
   }, []);
 
-  // Smoother live updating metrics
+  // Ultra-optimized metrics updates with performance awareness
   useEffect(() => {
     if (!isInView || !mounted) return;
     
-    const interval = setInterval(() => {
-      setIsProcessing(true);
-      // Update neural pattern
-      setNeuralPattern(prev => prev.map(() => Math.random() > 0.6));
-      
-      setTimeout(() => {
-        setMetrics(prev => ({
-          modelsActive: Math.max(10, Math.min(15, prev.modelsActive + (Math.random() > 0.5 ? 1 : -1))),
-          dataProcessed: `${(parseFloat(prev.dataProcessed) + 0.05).toFixed(2)}TB`,
-          accuracy: Math.min(99.5, Math.max(93, prev.accuracy + (Math.random() - 0.5) * 0.1)),
-          requestsPerSec: Math.max(2000, Math.min(4000, prev.requestsPerSec + Math.floor(Math.random() * 100) - 50))
-        }));
-        setIsProcessing(false);
-      }, 1200);
-    }, 12000); // Slower updates to reduce DOM thrashing
+    // Skip entirely if performance is critical
+    if (shouldSkipAnimation()) {
+      return;
+    }
     
-    return () => clearInterval(interval);
-  }, [isInView, mounted]);
+    let isActive = true;
+    let animationFrameId: number | null = null;
+    
+    // Single update cycle with performance-aware timing
+    const runSingleUpdateCycle = () => {
+      if (!isActive) return;
+      
+      // Show initial activity
+      setIsProcessing(true);
+      
+      // Update neural pattern once
+      setNeuralPattern(prev => prev.map((_, i) => i % 3 === 0));
+      
+      // Performance-aware metrics update delay
+      const metricsDelay = getOptimizedDelay(1);
+      const patternDelay = getOptimizedDelay(1.3);
+      
+      const timeout = setTimeout(() => {
+        if (!isActive) return;
+        
+        setMetrics({
+          modelsActive: 14,
+          dataProcessed: '2.6TB',
+          accuracy: 95.1,
+          requestsPerSec: 2934
+        });
+        setIsProcessing(false);
+        
+        // Final pattern update with smart delay
+        setTimeout(() => {
+          if (!isActive) return;
+          setNeuralPattern(prev => prev.map((_, i) => i % 4 === 0));
+        }, patternDelay);
+      }, metricsDelay);
+      
+      return timeout;
+    };
+    
+    // Performance-aware initial delay
+    const initialTimeout = setTimeout(() => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      animationFrameId = requestAnimationFrame(runSingleUpdateCycle);
+    }, getOptimizedDelay(3));
+    
+    return () => {
+      isActive = false;
+      clearTimeout(initialTimeout);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      setIsProcessing(false);
+    };
+  }, [isInView, mounted, getOptimizedDelay, shouldSkipAnimation]);
   
   return (
     <motion.div 
       className="space-y-6"
-      initial={{ opacity: 0, x: 50 }}
+      initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, delay: 0.6 }}
+      transition={{ duration: 1, delay: 0.6, ease: "easeOut" }}
     >
       {/* Live System Monitor */}
       <motion.div 
         className="bg-slate-900/90 rounded-2xl border border-slate-700/50 overflow-hidden backdrop-blur-sm neural-glow"
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
-        whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+        whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
       >
         <div className="px-4 py-3 bg-slate-800/50 border-b border-slate-700/50">
           <div className="flex items-center justify-between">
