@@ -61,43 +61,43 @@ export default function ServicesSection() {
   return (
     <section
       ref={ref}
-      className="py-24 lg:py-32 relative overflow-hidden"
+      className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32 relative overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #0a0a0f 0%, #0d1117 50%, #0a0f1a 100%)'
       }}
     >
       {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-violet-500/5 rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 left-0 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-emerald-500/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-0 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-violet-500/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-6">
-            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-sm text-slate-300">AI Agent Services</span>
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-4 sm:mb-6">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full animate-pulse" />
+            <span className="text-xs sm:text-sm text-slate-300">AI Agent Services</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5 md:mb-6 tracking-tight px-2">
             <span className="text-white/90">What We</span>{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
               Build
             </span>
           </h2>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto px-2">
             Four specialized AI agent teams ready to code your next project
           </p>
         </motion.div>
 
         {/* Service Navigation */}
         <motion.div
-          className="flex flex-wrap justify-center gap-3 mb-16"
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-12 md:mb-16 px-2"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -106,13 +106,13 @@ export default function ServicesSection() {
             <button
               key={service.id}
               onClick={() => setActiveService(index)}
-              className={`group flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+              className={`group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 ${
                 activeService === index
                   ? `bg-gradient-to-r ${service.gradient} text-white shadow-lg shadow-emerald-500/20`
                   : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 border border-slate-700/50'
               }`}
             >
-              <span className="text-lg">{service.icon}</span>
+              <span className="text-base sm:text-lg">{service.icon}</span>
               <span className="hidden sm:inline">{service.title}</span>
             </button>
           ))}
@@ -120,53 +120,53 @@ export default function ServicesSection() {
 
         {/* Service Content */}
         <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           {/* Left: Service Info */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-7 md:space-y-8">
             <div>
-              <div className={`inline-flex items-center gap-3 mb-4`}>
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${currentService.gradient} flex items-center justify-center text-2xl shadow-lg`}>
+              <div className={`inline-flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4`}>
+                <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${currentService.gradient} flex items-center justify-center text-xl sm:text-2xl shadow-lg`}>
                   {currentService.icon}
                 </div>
                 <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-white">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                     {currentService.title}
                   </h3>
-                  <p className={`text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r ${currentService.gradient}`}>
+                  <p className={`text-xs sm:text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r ${currentService.gradient}`}>
                     {currentService.subtitle}
                   </p>
                 </div>
               </div>
-              <p className="text-lg text-slate-400 leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
                 {currentService.description}
               </p>
             </div>
 
             {/* Features Grid */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {currentService.features.map((feature, i) => (
                 <div
                   key={feature}
-                  className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 border border-slate-700/30"
+                  className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-slate-800/30 border border-slate-700/30"
                 >
-                  <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${currentService.gradient}`} />
-                  <span className="text-sm text-slate-300">{feature}</span>
+                  <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r ${currentService.gradient}`} />
+                  <span className="text-xs sm:text-sm text-slate-300">{feature}</span>
                 </div>
               ))}
             </div>
 
             {/* Stats */}
-            <div className="flex gap-6">
+            <div className="flex gap-4 sm:gap-6">
               {Object.entries(currentService.stats).map(([key, value]) => (
                 <div key={key} className="text-center">
-                  <div className={`text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${currentService.gradient}`}>
+                  <div className={`text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${currentService.gradient}`}>
                     {value}
                   </div>
-                  <div className="text-xs text-slate-500 uppercase tracking-wider mt-1">
+                  <div className="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider mt-1">
                     {key.replace(/([A-Z])/g, ' $1').trim()}
                   </div>
                 </div>
@@ -174,21 +174,21 @@ export default function ServicesSection() {
             </div>
 
             {/* CTA */}
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link
                 href="/quote"
-                className={`group px-6 py-3 rounded-xl bg-gradient-to-r ${currentService.gradient} text-white font-semibold transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-0.5`}
+                className={`group px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-gradient-to-r ${currentService.gradient} text-white font-semibold text-sm sm:text-base transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-0.5 text-center sm:text-left`}
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center justify-center sm:justify-start gap-2">
                   Start Project
-                  <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </span>
               </Link>
               <Link
                 href={`/services/${currentService.id}`}
-                className="px-6 py-3 rounded-xl border border-slate-600/50 text-slate-300 font-medium hover:border-slate-500/50 hover:text-white transition-all duration-300"
+                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-slate-600/50 text-slate-300 font-medium text-sm sm:text-base hover:border-slate-500/50 hover:text-white transition-all duration-300 text-center"
               >
                 Learn More
               </Link>

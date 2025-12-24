@@ -30,6 +30,12 @@
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
   }
+  
+  /* Improve touch targets on mobile */
+  button, a, .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 /* Tablet optimizations */
@@ -37,6 +43,31 @@
   .container {
     padding-left: 1.5rem !important;
     padding-right: 1.5rem !important;
+  }
+  
+  /* Optimize spacing for tablets */
+  section {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+  
+  /* Improve grid layouts on tablets */
+  .grid {
+    gap: 1.5rem !important;
+  }
+  
+  /* Better text sizing for tablets */
+  h1 {
+    font-size: 2.5rem !important;
+  }
+  
+  h2 {
+    font-size: 2rem !important;
+  }
+  
+  /* Optimize card padding */
+  .card, [class*="rounded"] {
+    padding: 1.25rem !important;
   }
 }
 

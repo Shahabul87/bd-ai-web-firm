@@ -47,29 +47,29 @@ export default function Footer() {
         </div>
       )}
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 md:py-14 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
           {/* Company Info */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-flex items-center space-x-3 group mb-6">
-              <div className="relative overflow-hidden rounded-xl h-12 w-12 flex items-center justify-center bg-slate-800/80 transition-all duration-300 transform group-hover:scale-105 group-hover:rotate-3 backdrop-blur-sm">
+            <Link href="/" className="inline-flex items-center space-x-2 sm:space-x-3 group mb-4 sm:mb-6">
+              <div className="relative overflow-hidden rounded-lg sm:rounded-xl h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center bg-slate-800/80 transition-all duration-300 transform group-hover:scale-105 group-hover:rotate-3 backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-purple-500 to-orange-500 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-                <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 text-xl animate-neural-pulse">
+                <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 text-lg sm:text-xl animate-neural-pulse">
                   I
                 </span>
                 <div className="absolute -bottom-4 -right-4 w-8 h-8 bg-gradient-to-tr from-cyan-400 to-purple-500 rounded-full blur-lg opacity-70 group-hover:opacity-100 transition-opacity animate-quantum-spark"></div>
               </div>
               
               <div>
-                <h2 className="text-2xl font-bold flex items-center">
+                <h2 className="text-xl sm:text-2xl font-bold flex items-center">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
                     Cognivat
                   </span>
                 </h2>
-                <p className="text-sm -mt-1 text-gray-400">Agentic AI Coding Studio</p>
+                <p className="text-xs sm:text-sm -mt-0.5 sm:-mt-1 text-gray-400">Agentic AI Coding Studio</p>
               </div>
             </Link>
-            <p className="text-gray-300 text-sm leading-relaxed mb-8">
+            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8">
               AI agents that write code. We build web apps, Android apps, and data solutions 10x faster using autonomous AI coding technology.
             </p>
             
@@ -139,17 +139,17 @@ export default function Footer() {
         </div>
         
         {/* Newsletter Signup */}
-        <div className="mt-16 mb-12">
-          <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/30 rounded-2xl p-8 text-center">
-            <h3 className="text-2xl font-bold text-white mb-4">Stay Updated</h3>
-            <p className="text-gray-300 mb-6">Get the latest insights on AI development and industry trends</p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+        <div className="mt-10 sm:mt-12 md:mt-16 mb-8 sm:mb-10 md:mb-12">
+          <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/30 rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 text-center">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Stay Updated</h3>
+            <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-5 md:mb-6">Get the latest insights on AI development and industry trends</p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-slate-700/50 border border-slate-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300"
+                className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-700/50 border border-slate-600/50 rounded-lg text-sm sm:text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300"
               />
-              <button className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transform hover:scale-105 transition-all duration-300">
+              <button className="px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold text-sm sm:text-base rounded-lg hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transform hover:scale-105 transition-all duration-300">
                 Subscribe
               </button>
             </div>

@@ -169,15 +169,15 @@ export default function Portfolio() {
         {/* Hero Section */}
         <section
           ref={heroRef}
-          className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24"
+          className="relative overflow-hidden pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24"
           style={{
             background: 'linear-gradient(135deg, #0a0a0f 0%, #0d1117 25%, #0a0f1a 50%, #0d0d14 75%, #0a0a0f 100%)'
           }}
         >
           {/* Background Effects */}
           <div className="absolute inset-0">
-            <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[150px]" />
-            <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-[120px]" />
+            <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] bg-emerald-500/10 rounded-full blur-[100px] sm:blur-[120px] md:blur-[150px]" />
+            <div className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] bg-violet-500/10 rounded-full blur-[80px] sm:blur-[100px] md:blur-[120px]" />
           </div>
 
           {/* Grid Pattern */}
@@ -185,7 +185,7 @@ export default function Portfolio() {
             className="absolute inset-0 opacity-[0.02]"
             style={{
               backgroundImage: `linear-gradient(90deg, #10b981 1px, transparent 1px), linear-gradient(#10b981 1px, transparent 1px)`,
-              backgroundSize: '60px 60px'
+              backgroundSize: '40px 40px sm:50px 50px md:60px 60px'
             }}
           />
 
@@ -193,21 +193,21 @@ export default function Portfolio() {
             <div className="text-center">
               {/* Badge */}
               <motion.div
-                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm mb-8"
+                className="inline-flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-5 sm:py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm mb-6 sm:mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6 }}
               >
                 <div className="relative">
-                  <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full" />
-                  <div className="absolute inset-0 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping" />
+                  <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full" />
+                  <div className="absolute inset-0 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full animate-ping" />
                 </div>
-                <span className="text-sm font-medium text-emerald-300">Agent-Built Projects</span>
+                <span className="text-xs sm:text-sm font-medium text-emerald-300">Agent-Built Projects</span>
               </motion.div>
 
               {/* Title */}
               <motion.h1
-                className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight mb-4 sm:mb-6 px-2"
                 initial={{ opacity: 0, y: 30 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.1 }}
@@ -219,7 +219,7 @@ export default function Portfolio() {
               </motion.h1>
 
               <motion.p
-                className="text-xl text-slate-400 max-w-3xl mx-auto mb-12"
+                className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 px-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.2 }}
@@ -230,7 +230,7 @@ export default function Portfolio() {
 
               {/* Filter Tabs */}
               <motion.div
-                className="flex flex-wrap justify-center gap-3"
+                className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.3 }}
@@ -239,14 +239,14 @@ export default function Portfolio() {
                   <button
                     key={filter.id}
                     onClick={() => setActiveFilter(filter.id)}
-                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm transition-all duration-300 ${
+                    className={`flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-4 sm:py-2.5 md:px-5 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm transition-all duration-300 min-h-[44px] ${
                       activeFilter === filter.id
                         ? 'bg-gradient-to-r from-emerald-500 to-cyan-500 text-white shadow-lg shadow-emerald-500/25'
-                        : 'bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400'
+                        : 'bg-slate-800/50 border border-slate-700/50 text-slate-300 hover:border-emerald-500/50 hover:text-emerald-400 active:bg-slate-700/50'
                     }`}
                   >
-                    <span>{filter.icon}</span>
-                    <span>{filter.label}</span>
+                    <span className="text-sm sm:text-base">{filter.icon}</span>
+                    <span className="whitespace-nowrap">{filter.label}</span>
                   </button>
                 ))}
               </motion.div>
@@ -257,33 +257,33 @@ export default function Portfolio() {
         {/* Featured Projects */}
         {featuredItems.length > 0 && (
           <section
-            className="py-20 relative"
+            className="py-12 sm:py-16 md:py-20 relative"
             style={{
               background: 'linear-gradient(180deg, #0a0a0f 0%, #0d1117 50%, #0a0f1a 100%)'
             }}
           >
             <div className="absolute inset-0">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-[150px]" />
+              <div className="absolute top-0 right-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-emerald-500/5 rounded-full blur-[100px] sm:blur-[120px] md:blur-[150px]" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-              <div className="text-center mb-16">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-6">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                  <span className="text-sm text-slate-300">Featured Work</span>
+              <div className="text-center mb-10 sm:mb-12 md:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-4 sm:mb-6">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full animate-pulse" />
+                  <span className="text-xs sm:text-sm text-slate-300">Featured Work</span>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-2">
                   <span className="text-white/90">Flagship </span>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
                     Projects
                   </span>
                 </h2>
-                <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+                <p className="text-sm sm:text-base md:text-lg text-slate-400 max-w-2xl mx-auto px-4">
                   Our most impactful work showcasing the full potential of AI-powered development.
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
                 <AnimatePresence mode="wait">
                   {featuredItems.map((item, index) => (
                     <ProjectCard key={item.id} item={item} index={index} featured />
@@ -297,18 +297,18 @@ export default function Portfolio() {
         {/* Other Projects */}
         {otherItems.length > 0 && (
           <section
-            className="py-20 relative"
+            className="py-12 sm:py-16 md:py-20 relative"
             style={{
               background: 'linear-gradient(180deg, #0a0f1a 0%, #0d1117 50%, #0a0a0f 100%)'
             }}
           >
             <div className="absolute inset-0">
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-violet-500/5 rounded-full blur-[150px]" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-violet-500/5 rounded-full blur-[100px] sm:blur-[120px] md:blur-[150px]" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <div className="text-center mb-10 sm:mb-12 md:mb-16">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2">
                   <span className="text-white/90">More </span>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
                     Success Stories
@@ -316,7 +316,7 @@ export default function Portfolio() {
                 </h2>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
                 <AnimatePresence mode="wait">
                   {otherItems.map((item, index) => (
                     <ProjectCard key={item.id} item={item} index={index} />
@@ -364,20 +364,18 @@ function ProjectCard({
       exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <div className={`relative rounded-2xl bg-slate-800/30 border border-slate-700/50 overflow-hidden transition-all duration-500 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 h-full ${
-        featured ? '' : ''
-      }`}>
+      <div className="relative rounded-xl sm:rounded-2xl bg-slate-800/30 border border-slate-700/50 overflow-hidden transition-all duration-500 hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-500/10 h-full">
         {/* Header with gradient */}
-        <div className={`relative h-${featured ? '48' : '32'} bg-gradient-to-br ${item.gradient} p-6`}>
+        <div className={`relative bg-gradient-to-br ${item.gradient} ${featured ? 'h-40 sm:h-44 md:h-48' : 'h-28 sm:h-32 md:h-36'} p-4 sm:p-5 md:p-6`}>
           {/* Agent Badge */}
-          <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/30 backdrop-blur-sm">
-            <span className="text-lg">{item.agentIcon}</span>
-            <span className="text-xs font-medium text-white">{item.agent}</span>
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex items-center gap-1.5 sm:gap-2 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-black/30 backdrop-blur-sm">
+            <span className="text-base sm:text-lg">{item.agentIcon}</span>
+            <span className="text-[10px] sm:text-xs font-medium text-white">{item.agent}</span>
           </div>
 
           {/* Category */}
-          <div className="absolute top-4 right-4">
-            <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-xs text-white/90">
+          <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
+            <span className="px-2 py-0.5 sm:px-3 sm:py-1 rounded-full bg-white/10 backdrop-blur-sm text-[10px] sm:text-xs text-white/90">
               {item.category}
             </span>
           </div>
@@ -388,31 +386,31 @@ function ProjectCard({
               className="absolute inset-0"
               style={{
                 backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-                backgroundSize: '20px 20px'
+                backgroundSize: '16px 16px sm:20px 20px'
               }}
             />
           </div>
         </div>
 
         {/* Content */}
-        <div className={`p-${featured ? '6' : '5'}`}>
-          <h3 className={`${featured ? 'text-2xl' : 'text-lg'} font-bold text-white mb-3 group-hover:text-emerald-400 transition-colors`}>
+        <div className={featured ? 'p-4 sm:p-5 md:p-6' : 'p-4 sm:p-5'}>
+          <h3 className={`${featured ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg'} font-bold text-white mb-2 sm:mb-3 group-hover:text-emerald-400 transition-colors`}>
             {item.title}
           </h3>
 
-          <p className={`text-slate-400 ${featured ? 'text-base mb-6' : 'text-sm mb-4'} leading-relaxed`}>
+          <p className={`text-slate-400 ${featured ? 'text-sm sm:text-base mb-4 sm:mb-6' : 'text-xs sm:text-sm mb-3 sm:mb-4'} leading-relaxed`}>
             {item.description}
           </p>
 
           {/* Technologies */}
           {featured && (
-            <div className="mb-6">
-              <div className="text-xs font-medium text-slate-500 mb-2 uppercase tracking-wider">Tech Stack</div>
-              <div className="flex flex-wrap gap-2">
+            <div className="mb-4 sm:mb-6">
+              <div className="text-[10px] sm:text-xs font-medium text-slate-500 mb-2 uppercase tracking-wider">Tech Stack</div>
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {item.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="px-2.5 py-1 rounded-lg bg-slate-700/50 border border-slate-600/50 text-xs text-slate-300"
+                    className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md sm:rounded-lg bg-slate-700/50 border border-slate-600/50 text-[10px] sm:text-xs text-slate-300"
                   >
                     {tech}
                   </span>
@@ -422,13 +420,13 @@ function ProjectCard({
           )}
 
           {/* Results */}
-          <div className={`grid grid-cols-3 gap-${featured ? '4' : '2'} ${featured ? 'pt-6 border-t border-slate-700/50' : ''}`}>
+          <div className={`grid grid-cols-3 ${featured ? 'gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-slate-700/50' : 'gap-2 sm:gap-2'}`}>
             {item.results.map((result) => (
               <div key={result.metric} className="text-center">
-                <div className={`${featured ? 'text-xl' : 'text-lg'} font-bold text-transparent bg-clip-text bg-gradient-to-r ${item.gradient}`}>
+                <div className={`${featured ? 'text-lg sm:text-xl' : 'text-base sm:text-lg'} font-bold text-transparent bg-clip-text bg-gradient-to-r ${item.gradient}`}>
                   {result.value}
                 </div>
-                <div className={`${featured ? 'text-xs' : 'text-[10px]'} text-slate-500 leading-tight`}>
+                <div className={`${featured ? 'text-[10px] sm:text-xs' : 'text-[9px] sm:text-[10px]'} text-slate-500 leading-tight mt-0.5`}>
                   {result.metric}
                 </div>
               </div>
@@ -479,38 +477,38 @@ function ProcessSection() {
   return (
     <section
       ref={ref}
-      className="py-24 relative overflow-hidden"
+      className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #0a0a0f 0%, #0d1117 100%)'
       }}
     >
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[200px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] bg-emerald-500/5 rounded-full blur-[150px] sm:blur-[180px] md:blur-[200px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-6">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full" />
-            <span className="text-sm text-slate-300">How It Works</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-4 sm:mb-6">
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400 rounded-full" />
+            <span className="text-xs sm:text-sm text-slate-300">How It Works</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 px-2">
             <span className="text-white/90">From Idea to </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
               Production
             </span>
           </h2>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-slate-400 max-w-2xl mx-auto px-4">
             Our streamlined process gets your project built faster than you thought possible.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {steps.map((step, i) => (
             <motion.div
               key={step.step}
@@ -526,21 +524,21 @@ function ProcessSection() {
 
               <div className="text-center relative z-10">
                 {/* Step number */}
-                <div className={`absolute -top-2 -left-2 w-8 h-8 rounded-lg bg-gradient-to-br ${step.gradient} flex items-center justify-center text-xs font-bold text-white shadow-lg`}>
+                <div className={`absolute -top-1 -left-1 sm:-top-2 sm:-left-2 w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br ${step.gradient} flex items-center justify-center text-[10px] sm:text-xs font-bold text-white shadow-lg`}>
                   {step.step}
                 </div>
 
                 {/* Icon */}
                 <motion.div
-                  className={`w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br ${step.gradient} bg-opacity-10 flex items-center justify-center text-4xl shadow-lg`}
+                  className={`w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 sm:mb-6 rounded-xl sm:rounded-2xl bg-gradient-to-br ${step.gradient} bg-opacity-10 flex items-center justify-center text-3xl sm:text-4xl shadow-lg`}
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
                 >
                   {step.icon}
                 </motion.div>
 
-                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{step.description}</p>
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 px-2">{step.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed px-2">{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -565,14 +563,14 @@ function StatsSection() {
   return (
     <section
       ref={ref}
-      className="py-20 relative"
+      className="py-12 sm:py-16 md:py-20 relative"
       style={{
         background: 'linear-gradient(180deg, #0d1117 0%, #0a0f1a 100%)'
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
@@ -580,16 +578,16 @@ function StatsSection() {
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              className="text-center p-6 rounded-2xl bg-slate-800/30 border border-slate-700/30"
+              className="text-center p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl bg-slate-800/30 border border-slate-700/30"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <span className="text-3xl mb-3 block">{stat.icon}</span>
-              <div className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-2">
+              <span className="text-2xl sm:text-3xl mb-2 sm:mb-3 block">{stat.icon}</span>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-1 sm:mb-2">
                 {stat.value}
               </div>
-              <div className="text-sm text-slate-400">{stat.label}</div>
+              <div className="text-xs sm:text-sm text-slate-400 px-1">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -606,15 +604,15 @@ function CTASection() {
   return (
     <section
       ref={ref}
-      className="py-24 relative overflow-hidden"
+      className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #0a0f1a 0%, #0a0a0f 100%)'
       }}
     >
       {/* Background effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[200px]" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-[150px]" />
+        <div className="absolute top-0 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] bg-emerald-500/10 rounded-full blur-[150px] sm:blur-[180px] md:blur-[200px]" />
+        <div className="absolute bottom-0 right-1/4 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] bg-violet-500/10 rounded-full blur-[100px] sm:blur-[120px] md:blur-[150px]" />
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -623,25 +621,25 @@ function CTASection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 tracking-tight px-2">
             <span className="text-white/90">Your Project </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
               Could Be Next
             </span>
           </h2>
-          <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-8 sm:mb-10 max-w-2xl mx-auto px-4">
             Join the growing list of businesses leveraging AI-powered development.
             Let&apos;s build something amazing together.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
             <Link
               href="/quote"
-              className="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl text-white font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25 hover:-translate-y-0.5"
+              className="group relative px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg sm:rounded-xl text-white font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25 hover:-translate-y-0.5 min-h-[44px] flex items-center justify-center"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2">
+              <span className="relative z-10 flex items-center justify-center gap-2 text-sm sm:text-base">
                 Start Your Project
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </span>
@@ -650,23 +648,23 @@ function CTASection() {
 
             <Link
               href="/services"
-              className="px-8 py-4 rounded-xl border border-slate-600/50 text-slate-300 font-medium hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300"
+              className="px-6 py-3 sm:px-8 sm:py-4 rounded-lg sm:rounded-xl border border-slate-600/50 text-slate-300 font-medium hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 min-h-[44px] flex items-center justify-center text-sm sm:text-base"
             >
               View Our Services
             </Link>
           </div>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap justify-center gap-8 mt-12 text-sm text-slate-500">
-            <div className="flex items-center gap-2">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mt-8 sm:mt-10 md:mt-12 text-xs sm:text-sm text-slate-500 px-4">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
               <span>No-Risk Consultation</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" />
               <span>Transparent Pricing</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <div className="w-1.5 h-1.5 bg-violet-400 rounded-full" />
               <span>Satisfaction Guaranteed</span>
             </div>

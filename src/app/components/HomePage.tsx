@@ -45,7 +45,7 @@ export default function HomePage() {
       <div className="min-h-screen text-white">
         <Header />
         
-        <main className="pt-16 md:pt-20">
+        <main className="pt-16 sm:pt-18 md:pt-20">
           <HeroSectionOptimized />
           
           <CodeShowcaseOptimized />

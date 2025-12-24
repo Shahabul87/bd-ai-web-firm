@@ -133,7 +133,7 @@ export default function ServicesPage() {
       <div className="min-h-screen text-white">
         <Header />
 
-        <main className="pt-20">
+        <main className="pt-16 sm:pt-18 md:pt-20">
           {/* Hero Section - Mission Control */}
           <HeroSection />
 
@@ -166,7 +166,7 @@ export default function ServicesPage() {
 
 function HeroSection() {
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
       {/* Animated Grid Background */}
       <div className="absolute inset-0">
         <div
@@ -179,8 +179,8 @@ function HeroSection() {
             backgroundSize: '40px 40px',
           }}
         />
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-violet-500/10 rounded-full blur-[150px]" />
+        <div className="absolute top-0 left-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-emerald-500/10 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 right-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-violet-500/10 rounded-full blur-[150px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -192,21 +192,21 @@ function HeroSection() {
         >
           {/* Status Badge */}
           <motion.div
-            className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm mb-8"
+            className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm mb-6 sm:mb-8"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="relative">
-              <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full" />
-              <div className="absolute inset-0 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping" />
+              <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full" />
+              <div className="absolute inset-0 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full animate-ping" />
             </div>
-            <span className="text-sm font-medium text-emerald-300">4 AI Agents Online</span>
-            <div className="h-4 w-px bg-emerald-500/30" />
-            <span className="text-xs text-emerald-400/60 font-mono">System Status: OPTIMAL</span>
+            <span className="text-xs sm:text-sm font-medium text-emerald-300">4 AI Agents Online</span>
+            <div className="h-3 sm:h-4 w-px bg-emerald-500/30 hidden sm:block" />
+            <span className="text-[10px] sm:text-xs text-emerald-400/60 font-mono">System Status: OPTIMAL</span>
           </motion.div>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.1]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-5 md:mb-6 leading-[1.1] px-2">
             <span className="text-white/90">AI Agent</span>
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
@@ -214,14 +214,14 @@ function HeroSection() {
             </span>
           </h1>
 
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 leading-relaxed px-2">
             Four specialized AI agents ready to be deployed on your project.
             Each agent is trained for specific tasks and works autonomously to deliver
             <span className="text-emerald-400"> production-ready code</span>.
           </p>
 
           {/* Quick Stats */}
-          <div className="flex flex-wrap justify-center gap-8 mb-12">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 md:mb-12 px-2">
             {[
               { value: '550+', label: 'Projects Completed' },
               { value: '10x', label: 'Faster Than Traditional' },
@@ -235,42 +235,42 @@ function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
               >
-                <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+                <div className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
                   {stat.value}
                 </div>
-                <div className="text-sm text-slate-500">{stat.label}</div>
+                <div className="text-xs sm:text-sm text-slate-500">{stat.label}</div>
               </motion.div>
             ))}
           </div>
 
           {/* Terminal Preview */}
           <motion.div
-            className="max-w-2xl mx-auto"
+            className="max-w-2xl mx-auto px-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <div className="bg-[#0d1117] rounded-xl border border-slate-700/50 overflow-hidden shadow-2xl">
-              <div className="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-slate-700/50">
-                <div className="flex gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                  <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                  <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+            <div className="bg-[#0d1117] rounded-lg sm:rounded-xl border border-slate-700/50 overflow-hidden shadow-2xl">
+              <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-[#161b22] border-b border-slate-700/50">
+                <div className="flex gap-1 sm:gap-1.5">
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff5f57]" />
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#febc2e]" />
+                  <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#28c840]" />
                 </div>
-                <span className="text-xs text-slate-500 font-mono ml-2">cognivat-agent-control</span>
+                <span className="text-[10px] sm:text-xs text-slate-500 font-mono ml-1 sm:ml-2 truncate">cognivat-agent-control</span>
               </div>
-              <div className="p-4 font-mono text-sm">
-                <div className="text-slate-500">$ cognivat deploy --list-agents</div>
-                <div className="mt-2 space-y-1">
-                  <div className="text-emerald-400">  [ONLINE] WebForge     - Web Development</div>
-                  <div className="text-cyan-400">  [ONLINE] DroidMaster  - Android Development</div>
-                  <div className="text-violet-400">  [ONLINE] DataMind     - Data Analysis</div>
-                  <div className="text-amber-400">  [ONLINE] VizCraft     - Data Visualization</div>
+              <div className="p-3 sm:p-4 font-mono text-xs sm:text-sm overflow-x-auto">
+                <div className="text-slate-500 whitespace-nowrap">$ cognivat deploy --list-agents</div>
+                <div className="mt-2 space-y-0.5 sm:space-y-1">
+                  <div className="text-emerald-400 whitespace-nowrap">  [ONLINE] WebForge     - Web Development</div>
+                  <div className="text-cyan-400 whitespace-nowrap">  [ONLINE] DroidMaster  - Android Development</div>
+                  <div className="text-violet-400 whitespace-nowrap">  [ONLINE] DataMind     - Data Analysis</div>
+                  <div className="text-amber-400 whitespace-nowrap">  [ONLINE] VizCraft     - Data Visualization</div>
                 </div>
-                <div className="mt-3 text-slate-500">$ cognivat deploy WebForge --project &quot;your-next-app&quot;</div>
-                <div className="text-emerald-400 flex items-center gap-2 mt-1">
+                <div className="mt-2 sm:mt-3 text-slate-500 whitespace-nowrap">$ cognivat deploy WebForge --project &quot;your-next-app&quot;</div>
+                <div className="text-emerald-400 flex items-center gap-1.5 sm:gap-2 mt-1">
                   <span className="animate-pulse">_</span>
-                  <span>Initializing agent deployment...</span>
+                  <span className="text-xs sm:text-sm">Initializing agent deployment...</span>
                 </div>
               </div>
             </div>
@@ -309,23 +309,23 @@ function AgentGridSection({ agents, activeAgent, setActiveAgent }: AgentGridProp
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section ref={ref} className="py-20 relative">
+    <section ref={ref} className="py-12 sm:py-16 md:py-20 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 px-2">
             Select Your Agent
           </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto px-2">
             Click on an agent to see detailed capabilities, tech stack, and deployment options
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
           {agents.map((agent, i) => (
             <motion.div
               key={agent.id}
@@ -355,31 +355,31 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
       }`}
     >
       {/* Glow Effect */}
-      <div className={`absolute inset-0 bg-gradient-to-r ${agent.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${isActive ? 'opacity-30' : ''}`} />
+      <div className={`absolute inset-0 bg-gradient-to-r ${agent.gradient} rounded-xl sm:rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${isActive ? 'opacity-30' : ''}`} />
 
-      <div className={`relative bg-[#0d1117] rounded-2xl border transition-all duration-300 overflow-hidden ${
+      <div className={`relative bg-[#0d1117] rounded-xl sm:rounded-2xl border transition-all duration-300 overflow-hidden ${
         isActive ? `border-${agent.glowColor}-500/50 shadow-lg shadow-${agent.glowColor}-500/20` : 'border-slate-700/50 hover:border-slate-600/50'
       }`}>
         {/* Header */}
-        <div className="p-6 border-b border-slate-700/50 bg-slate-800/40">
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-4">
-              <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${agent.gradient} flex items-center justify-center text-3xl shadow-lg`}>
+        <div className="p-4 sm:p-5 md:p-6 border-b border-slate-700/50 bg-slate-800/40">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+              <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg sm:rounded-xl bg-gradient-to-br ${agent.gradient} flex items-center justify-center text-2xl sm:text-3xl shadow-lg flex-shrink-0`}>
                 {agent.icon}
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-xl font-bold text-white">{agent.name}</h3>
-                  <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30">
-                    <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                    <span className="text-[10px] font-bold text-emerald-400">{agent.status}</span>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                  <h3 className="text-lg sm:text-xl font-bold text-white truncate">{agent.name}</h3>
+                  <div className="flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex-shrink-0">
+                    <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+                    <span className="text-[9px] sm:text-[10px] font-bold text-emerald-400">{agent.status}</span>
                   </div>
                 </div>
-                <p className="text-sm text-white/80 mt-1 font-medium">{agent.title}</p>
+                <p className="text-xs sm:text-sm text-white/80 mt-0.5 sm:mt-1 font-medium truncate">{agent.title}</p>
               </div>
             </div>
-            <div className={`p-2 rounded-lg bg-slate-800/50 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`}>
-              <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className={`p-1.5 sm:p-2 rounded-lg bg-slate-800/50 transition-transform duration-300 flex-shrink-0 ${isActive ? 'rotate-180' : ''}`}>
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
@@ -387,57 +387,57 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
         </div>
 
         {/* Body */}
-        <div className="p-6">
-          <p className="text-slate-400 text-sm leading-relaxed mb-6">
+        <div className="p-4 sm:p-5 md:p-6">
+          <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5 md:mb-6">
             {agent.description}
           </p>
 
           {/* Quick Metrics */}
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="text-center p-3 rounded-lg bg-slate-800/30">
-              <div className={`text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
+          <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-5 md:mb-6">
+            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg bg-slate-800/30">
+              <div className={`text-sm sm:text-base md:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                 {agent.metrics.speed}
               </div>
-              <div className="text-xs text-slate-500">Speed</div>
+              <div className="text-[10px] sm:text-xs text-slate-500">Speed</div>
             </div>
-            <div className="text-center p-3 rounded-lg bg-slate-800/30">
-              <div className={`text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
+            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg bg-slate-800/30">
+              <div className={`text-sm sm:text-base md:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                 {agent.metrics.accuracy}
               </div>
-              <div className="text-xs text-slate-500">Accuracy</div>
+              <div className="text-[10px] sm:text-xs text-slate-500">Accuracy</div>
             </div>
-            <div className="text-center p-3 rounded-lg bg-slate-800/30">
-              <div className={`text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
+            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg bg-slate-800/30">
+              <div className={`text-sm sm:text-base md:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                 {agent.projects}
               </div>
-              <div className="text-xs text-slate-500">Projects</div>
+              <div className="text-[10px] sm:text-xs text-slate-500">Projects</div>
             </div>
           </div>
 
           {/* Tech Stack Pills */}
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5 md:mb-6">
             {agent.techStack.slice(0, 4).map((tech) => (
-              <span key={tech} className="px-3 py-1 text-xs rounded-full bg-slate-800/50 text-slate-300 border border-slate-700/50">
+              <span key={tech} className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-slate-800/50 text-slate-300 border border-slate-700/50">
                 {tech}
               </span>
             ))}
             {agent.techStack.length > 4 && (
-              <span className="px-3 py-1 text-xs rounded-full bg-slate-800/50 text-slate-500">
+              <span className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-slate-800/50 text-slate-500">
                 +{agent.techStack.length - 4} more
               </span>
             )}
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between">
-            <div className="text-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
+            <div className="text-xs sm:text-sm">
               <span className="text-slate-500">Delivery: </span>
               <span className="text-white font-medium">{agent.deliveryTime}</span>
             </div>
             <Link
               href="/quote"
               onClick={(e) => e.stopPropagation()}
-              className={`px-4 py-2 rounded-lg bg-gradient-to-r ${agent.gradient} text-white text-sm font-medium hover:shadow-lg transition-all duration-300`}
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-gradient-to-r ${agent.gradient} text-white text-xs sm:text-sm font-medium hover:shadow-lg transition-all duration-300 w-full sm:w-auto text-center`}
             >
               Deploy Agent
             </Link>
@@ -446,13 +446,13 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
 
         {/* Expanded Capabilities */}
         <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'max-h-96' : 'max-h-0'}`}>
-          <div className="p-6 pt-0 border-t border-slate-700/50">
-            <h4 className="text-sm font-medium text-white mb-4">Full Capabilities</h4>
-            <div className="grid grid-cols-2 gap-2">
+          <div className="p-4 sm:p-5 md:p-6 pt-0 border-t border-slate-700/50">
+            <h4 className="text-xs sm:text-sm font-medium text-white mb-3 sm:mb-4">Full Capabilities</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {agent.capabilities.map((cap) => (
-                <div key={cap} className="flex items-center gap-2 text-sm text-slate-400">
-                  <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${agent.gradient}`} />
-                  {cap}
+                <div key={cap} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-slate-400">
+                  <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gradient-to-r ${agent.gradient} flex-shrink-0`} />
+                  <span className="break-words">{cap}</span>
                 </div>
               ))}
             </div>
@@ -465,58 +465,58 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
 
 function AgentDetailSection({ agent, onClose }: { agent: Agent; onClose: () => void }) {
   return (
-    <section className="py-12 relative">
+    <section className="py-8 sm:py-10 md:py-12 relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#0d1117] rounded-2xl border border-slate-700/50 overflow-hidden"
+          className="bg-[#0d1117] rounded-xl sm:rounded-2xl border border-slate-700/50 overflow-hidden"
         >
           {/* Agent Header with Visual */}
-          <div className={`relative p-8 bg-gradient-to-br ${agent.gradient} bg-opacity-10`}>
+          <div className={`relative p-4 sm:p-6 md:p-8 bg-gradient-to-br ${agent.gradient} bg-opacity-10`}>
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-lg bg-slate-800/50 text-slate-400 hover:text-white transition-colors"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-lg bg-slate-800/50 text-slate-400 hover:text-white transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
 
-            <div className="flex items-center gap-6">
-              <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${agent.gradient} flex items-center justify-center text-5xl shadow-2xl`}>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 pr-8 sm:pr-0">
+              <div className={`w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl sm:rounded-2xl bg-gradient-to-br ${agent.gradient} flex items-center justify-center text-3xl sm:text-4xl md:text-5xl shadow-2xl flex-shrink-0`}>
                 {agent.icon}
               </div>
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-3xl font-bold text-white">{agent.name}</h2>
-                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20">
-                    <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                    <span className="text-xs font-bold text-emerald-400">{agent.status}</span>
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white">{agent.name}</h2>
+                  <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-500/20">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full animate-pulse" />
+                    <span className="text-[10px] sm:text-xs font-bold text-emerald-400">{agent.status}</span>
                   </div>
                 </div>
-                <p className="text-xl text-slate-400">{agent.title}</p>
-                <p className="text-slate-500 mt-2">{agent.subtitle}</p>
+                <p className="text-lg sm:text-xl text-slate-400">{agent.title}</p>
+                <p className="text-sm sm:text-base text-slate-500 mt-1 sm:mt-2">{agent.subtitle}</p>
               </div>
             </div>
           </div>
 
           {/* Agent Details */}
-          <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="p-4 sm:p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7 md:gap-8">
             {/* Left: Description & Capabilities */}
-            <div className="space-y-6">
+            <div className="space-y-5 sm:space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-white mb-3">About This Agent</h3>
-                <p className="text-slate-400 leading-relaxed">{agent.description}</p>
+                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">About This Agent</h3>
+                <p className="text-sm sm:text-base text-slate-400 leading-relaxed">{agent.description}</p>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-white mb-3">Capabilities</h3>
-                <div className="space-y-2">
+                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Capabilities</h3>
+                <div className="space-y-1.5 sm:space-y-2">
                   {agent.capabilities.map((cap) => (
-                    <div key={cap} className="flex items-center gap-3 p-3 rounded-lg bg-slate-800/30">
-                      <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${agent.gradient}`} />
-                      <span className="text-slate-300">{cap}</span>
+                    <div key={cap} className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg bg-slate-800/30">
+                      <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r ${agent.gradient} flex-shrink-0`} />
+                      <span className="text-xs sm:text-sm text-slate-300 break-words">{cap}</span>
                     </div>
                   ))}
                 </div>
@@ -524,12 +524,12 @@ function AgentDetailSection({ agent, onClose }: { agent: Agent; onClose: () => v
             </div>
 
             {/* Right: Tech Stack & Metrics */}
-            <div className="space-y-6">
+            <div className="space-y-5 sm:space-y-6">
               <div>
-                <h3 className="text-lg font-semibold text-white mb-3">Technology Stack</h3>
-                <div className="flex flex-wrap gap-2">
+                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Technology Stack</h3>
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {agent.techStack.map((tech) => (
-                    <span key={tech} className={`px-4 py-2 rounded-lg bg-gradient-to-r ${agent.gradient} bg-opacity-10 border border-slate-700/50 text-white`}>
+                    <span key={tech} className={`px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-lg bg-gradient-to-r ${agent.gradient} bg-opacity-10 border border-slate-700/50 text-white text-xs sm:text-sm`}>
                       {tech}
                     </span>
                   ))}
@@ -537,37 +537,37 @@ function AgentDetailSection({ agent, onClose }: { agent: Agent; onClose: () => v
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-white mb-3">Performance Metrics</h3>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="p-4 rounded-xl bg-slate-800/30 text-center">
-                    <div className={`text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
+                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Performance Metrics</h3>
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
+                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl bg-slate-800/30 text-center">
+                    <div className={`text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                       {agent.metrics.speed}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">Speed Boost</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500 mt-1">Speed Boost</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-slate-800/30 text-center">
-                    <div className={`text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
+                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl bg-slate-800/30 text-center">
+                    <div className={`text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                       {agent.metrics.accuracy}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">Accuracy</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500 mt-1">Accuracy</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-slate-800/30 text-center">
-                    <div className={`text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
+                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl bg-slate-800/30 text-center">
+                    <div className={`text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                       {agent.metrics.uptime}
                     </div>
-                    <div className="text-xs text-slate-500 mt-1">Uptime</div>
+                    <div className="text-[10px] sm:text-xs text-slate-500 mt-1">Uptime</div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-4 rounded-xl bg-slate-800/30">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-slate-800/30">
                 <div>
-                  <div className="text-sm text-slate-500">Typical Delivery Time</div>
-                  <div className="text-xl font-bold text-white">{agent.deliveryTime}</div>
+                  <div className="text-xs sm:text-sm text-slate-500">Typical Delivery Time</div>
+                  <div className="text-lg sm:text-xl font-bold text-white">{agent.deliveryTime}</div>
                 </div>
                 <Link
                   href="/quote"
-                  className={`px-6 py-3 rounded-xl bg-gradient-to-r ${agent.gradient} text-white font-semibold hover:shadow-xl transition-all duration-300`}
+                  className={`px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl bg-gradient-to-r ${agent.gradient} text-white text-sm sm:text-base font-semibold hover:shadow-xl transition-all duration-300 w-full sm:w-auto text-center`}
                 >
                   Deploy {agent.name}
                 </Link>
@@ -594,52 +594,52 @@ function ComparisonSection() {
   ];
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
+    <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 px-2">
             Traditional Agency vs <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">AI Agents</span>
           </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto px-2">
             See how our AI agents outperform traditional development approaches
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-[#0d1117] rounded-2xl border border-slate-700/50 overflow-hidden"
+          className="bg-[#0d1117] rounded-xl sm:rounded-2xl border border-slate-700/50 overflow-hidden overflow-x-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {/* Header */}
-          <div className="grid grid-cols-4 gap-4 p-6 bg-slate-800/30 border-b border-slate-700/50">
-            <div className="text-sm font-medium text-slate-400">Feature</div>
-            <div className="text-sm font-medium text-slate-400 text-center">Traditional</div>
-            <div className="text-sm font-medium text-emerald-400 text-center">AI Agents</div>
-            <div className="text-sm font-medium text-cyan-400 text-center">Improvement</div>
+          <div className="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 bg-slate-800/30 border-b border-slate-700/50 min-w-[600px]">
+            <div className="text-xs sm:text-sm font-medium text-slate-400">Feature</div>
+            <div className="text-xs sm:text-sm font-medium text-slate-400 text-center">Traditional</div>
+            <div className="text-xs sm:text-sm font-medium text-emerald-400 text-center">AI Agents</div>
+            <div className="text-xs sm:text-sm font-medium text-cyan-400 text-center">Improvement</div>
           </div>
 
           {/* Rows */}
           {comparisons.map((row, i) => (
             <motion.div
               key={row.feature}
-              className="grid grid-cols-4 gap-4 p-6 border-b border-slate-700/30 hover:bg-slate-800/20 transition-colors"
+              className="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 border-b border-slate-700/30 hover:bg-slate-800/20 transition-colors min-w-[600px]"
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
             >
-              <div className="text-white font-medium">{row.feature}</div>
-              <div className="text-slate-500 text-center">{row.traditional}</div>
-              <div className="text-emerald-400 text-center font-medium">{row.ai}</div>
+              <div className="text-xs sm:text-sm md:text-base text-white font-medium">{row.feature}</div>
+              <div className="text-xs sm:text-sm md:text-base text-slate-500 text-center">{row.traditional}</div>
+              <div className="text-xs sm:text-sm md:text-base text-emerald-400 text-center font-medium">{row.ai}</div>
               <div className="text-center">
-                <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-sm font-medium">
+                <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] sm:text-xs md:text-sm font-medium">
                   {row.improvement}
                 </span>
               </div>
@@ -687,23 +687,23 @@ function ProcessSection() {
   ];
 
   return (
-    <section ref={ref} className="py-24 relative">
+    <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 px-2">
             How It Works
           </h2>
-          <p className="text-slate-400 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto px-2">
             From concept to deployment in four simple steps
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
           {steps.map((step, i) => (
             <motion.div
               key={step.number}
@@ -717,18 +717,18 @@ function ProcessSection() {
                 <div className="hidden lg:block absolute top-12 left-[60%] w-full h-0.5 bg-gradient-to-r from-slate-700 to-transparent" />
               )}
 
-              <div className="relative bg-[#0d1117] rounded-2xl border border-slate-700/50 p-6 hover:border-slate-600/50 transition-colors group">
+              <div className="relative bg-[#0d1117] rounded-xl sm:rounded-2xl border border-slate-700/50 p-4 sm:p-5 md:p-6 hover:border-slate-600/50 transition-colors group">
                 {/* Step Number */}
-                <div className={`absolute -top-3 -left-3 w-10 h-10 rounded-xl bg-gradient-to-br ${step.gradient} flex items-center justify-center text-sm font-bold text-white shadow-lg`}>
+                <div className={`absolute -top-2.5 sm:-top-3 -left-2.5 sm:-left-3 w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${step.gradient} flex items-center justify-center text-xs sm:text-sm font-bold text-white shadow-lg`}>
                   {step.number}
                 </div>
 
                 {/* Icon */}
-                <div className="text-4xl mb-4 mt-4">{step.icon}</div>
+                <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 mt-3 sm:mt-4">{step.icon}</div>
 
                 {/* Content */}
-                <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-sm text-slate-400">{step.description}</p>
+                <h3 className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">{step.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-400">{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -743,10 +743,10 @@ function CTASection() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section ref={ref} className="py-24 relative overflow-hidden">
+    <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-violet-500/10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[200px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[700px] md:w-[800px] h-[600px] sm:h-[700px] md:h-[800px] bg-emerald-500/10 rounded-full blur-[200px]" />
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -756,50 +756,50 @@ function CTASection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-5 md:mb-6 px-2">
             Ready to Deploy Your Agent?
           </h2>
-          <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-8 sm:mb-9 md:mb-10 max-w-2xl mx-auto px-2">
             Get a free quote and see how our AI agents can transform your next project.
             No commitment, no pressure.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-2">
             <Link
               href="/quote"
-              className="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl text-white font-semibold hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 hover:-translate-y-1"
+              className="group px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg sm:rounded-xl text-white text-sm sm:text-base font-semibold hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 hover:-translate-y-1"
             >
               <span className="flex items-center justify-center gap-2">
                 Get Free Quote
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </span>
             </Link>
             <Link
               href="/portfolio"
-              className="px-8 py-4 rounded-xl border border-slate-600/50 text-slate-300 font-medium hover:border-emerald-500/50 hover:text-emerald-400 transition-all duration-300"
+              className="px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-lg sm:rounded-xl border border-slate-600/50 text-slate-300 text-sm sm:text-base font-medium hover:border-emerald-500/50 hover:text-emerald-400 transition-all duration-300"
             >
               View Portfolio
             </Link>
           </div>
 
           {/* Trust Badges */}
-          <div className="mt-12 flex flex-wrap justify-center gap-8 text-sm text-slate-500">
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+          <div className="mt-8 sm:mt-10 md:mt-12 flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm text-slate-500 px-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
               </svg>
               <span>Free consultation</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
               </svg>
               <span>24-hour response</span>
             </div>
-            <div className="flex items-center gap-2">
-              <svg className="w-5 h-5 text-violet-500" fill="currentColor" viewBox="0 0 20 20">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-violet-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
               </svg>
               <span>No obligation</span>

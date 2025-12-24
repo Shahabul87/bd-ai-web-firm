@@ -62,8 +62,8 @@ export default function HeroSectionOptimized() {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-8 relative z-10 w-full py-12 sm:py-16 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-20 items-center">
           <AgentHeroContent isInView={isInView} />
           <LiveCodeSynthesis isInView={isInView} mounted={mounted} />
         </div>
@@ -88,27 +88,27 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
     <div className={`space-y-8 ${isInView ? 'animate-fadeInLeft' : 'opacity-0'}`}>
       {/* Agent Status Badge */}
       <div
-        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm animate-scaleIn"
+        className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm animate-scaleIn"
         style={{ animationDelay: '200ms' }}
       >
         <div className="relative">
-          <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full" />
-          <div className="absolute inset-0 w-2.5 h-2.5 bg-emerald-400 rounded-full animate-ping" />
+          <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full" />
+          <div className="absolute inset-0 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full animate-ping" />
         </div>
-        <span className="text-sm font-medium text-emerald-300 tracking-wide">
+        <span className="text-xs sm:text-sm font-medium text-emerald-300 tracking-wide">
           AI Agents Active
         </span>
-        <span className="text-xs text-emerald-400/60 font-mono">v2.4.1</span>
+        <span className="text-[10px] sm:text-xs text-emerald-400/60 font-mono">v2.4.1</span>
       </div>
 
       {/* Main Headline */}
-      <div className="space-y-4">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
+      <div className="space-y-3 sm:space-y-4">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
           <span className="block text-white/90 animate-fadeInUp" style={{ animationDelay: '400ms' }}>
             Agentic AI
           </span>
           <span
-            className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 animate-fadeInUp"
+            className="block mt-1 sm:mt-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 animate-fadeInUp"
             style={{ animationDelay: '600ms' }}
           >
             Coding Studio
@@ -116,7 +116,7 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
         </h1>
 
         <p
-          className="text-lg md:text-xl text-slate-400 max-w-xl leading-relaxed animate-fadeInUp"
+          className="text-base sm:text-lg md:text-xl text-slate-400 max-w-xl leading-relaxed animate-fadeInUp"
           style={{ animationDelay: '800ms' }}
         >
           Our autonomous AI agents write production-ready code for your business.
@@ -126,14 +126,14 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
       </div>
 
       {/* Service Pills */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-2 sm:gap-3">
         {services.map((service, i) => (
           <div
             key={service.label}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/40 border border-slate-700/50 text-sm text-slate-300 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-300 cursor-default animate-fadeIn"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-800/40 border border-slate-700/50 text-xs sm:text-sm text-slate-300 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-300 cursor-default animate-fadeIn"
             style={{ animationDelay: `${1000 + i * 100}ms` }}
           >
-            <span>{service.icon}</span>
+            <span className="text-sm sm:text-base">{service.icon}</span>
             <span>{service.label}</span>
           </div>
         ))}
@@ -141,16 +141,16 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
 
       {/* CTA Buttons */}
       <div
-        className="flex flex-wrap gap-4 pt-4 animate-fadeInUp"
+        className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 pt-4 animate-fadeInUp"
         style={{ animationDelay: '1200ms' }}
       >
         <Link
           href="/quote"
-          className="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl text-white font-semibold overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25 hover:-translate-y-0.5"
+          className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl text-white font-semibold text-sm sm:text-base overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-500/25 hover:-translate-y-0.5 w-full sm:w-auto text-center sm:text-left"
         >
-          <span className="relative z-10 flex items-center gap-2">
+          <span className="relative z-10 flex items-center justify-center sm:justify-start gap-2">
             Start Your Project
-            <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </span>
@@ -159,7 +159,7 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
 
         <Link
           href="/portfolio"
-          className="px-8 py-4 rounded-xl border border-slate-600/50 text-slate-300 font-medium hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300"
+          className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl border border-slate-600/50 text-slate-300 font-medium text-sm sm:text-base hover:border-emerald-500/50 hover:text-emerald-400 hover:bg-emerald-500/5 transition-all duration-300 w-full sm:w-auto text-center"
         >
           View Our Work
         </Link>
@@ -227,10 +227,10 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
   }, [isInView, mounted, agents.length, codeSnippets.length]);
 
   return (
-    <div className={`relative ${isInView ? 'animate-fadeInRight' : 'opacity-0'}`}>
+    <div className={`relative mt-8 lg:mt-0 ${isInView ? 'animate-fadeInRight' : 'opacity-0'}`}>
       {/* Main Code Editor Panel */}
       <div
-        className="relative bg-[#0d1117] rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl shadow-black/50 animate-scaleIn"
+        className="relative bg-[#0d1117] rounded-xl sm:rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl shadow-black/50 animate-scaleIn"
         style={{ animationDelay: '400ms' }}
       >
         {/* Editor Header */}
@@ -253,19 +253,19 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
         </div>
 
         {/* Code Content */}
-        <div className="p-5 font-mono text-sm min-h-[280px]">
-          <div className="space-y-1.5">
+        <div className="p-3 sm:p-4 md:p-5 font-mono text-xs sm:text-sm min-h-[200px] sm:min-h-[240px] md:min-h-[280px]">
+          <div className="space-y-1 sm:space-y-1.5">
             {codeSnippets.map((line, i) => (
               <div
                 key={i}
-                className={`flex items-center gap-3 transition-opacity duration-300 ${
+                className={`flex items-center gap-2 sm:gap-3 transition-opacity duration-300 ${
                   i < codeLines ? 'opacity-100' : 'opacity-20'
                 }`}
               >
-                <span className="text-slate-600 w-5 text-right text-xs">{i + 1}</span>
-                <span className={line.color}>{line.text}</span>
+                <span className="text-slate-600 w-4 sm:w-5 text-right text-[10px] sm:text-xs">{i + 1}</span>
+                <span className={`${line.color} break-words`}>{line.text}</span>
                 {i === codeLines - 1 && mounted && (
-                  <span className="inline-block w-2 h-4 bg-emerald-400 animate-pulse" />
+                  <span className="inline-block w-1.5 h-3 sm:w-2 sm:h-4 bg-emerald-400 animate-pulse" />
                 )}
               </div>
             ))}
@@ -289,23 +289,23 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
 
       {/* Agent Activity Cards */}
       <div
-        className="absolute -bottom-6 -right-4 w-64 animate-fadeInUp"
+        className="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-4 w-56 sm:w-64 animate-fadeInUp hidden sm:block"
         style={{ animationDelay: '800ms' }}
       >
-        <div className="bg-[#0d1117]/95 backdrop-blur-sm rounded-xl border border-slate-700/50 p-4 shadow-xl">
-          <div className="text-xs font-medium text-slate-400 mb-3">Active Agents</div>
-          <div className="space-y-2">
+        <div className="bg-[#0d1117]/95 backdrop-blur-sm rounded-lg sm:rounded-xl border border-slate-700/50 p-3 sm:p-4 shadow-xl">
+          <div className="text-[10px] sm:text-xs font-medium text-slate-400 mb-2 sm:mb-3">Active Agents</div>
+          <div className="space-y-1.5 sm:space-y-2">
             {agents.map((agent, i) => (
               <div
                 key={agent.name}
-                className={`flex items-center gap-2 px-2 py-1.5 rounded-lg transition-all duration-300 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-2 py-1 sm:py-1.5 rounded-lg transition-all duration-300 ${
                   i === activeAgent ? 'bg-emerald-500/10 border border-emerald-500/30' : 'opacity-50'
                 }`}
               >
-                <div className={`w-1.5 h-1.5 rounded-full ${
+                <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full ${
                   i === activeAgent ? 'bg-emerald-400' : 'bg-slate-600'
                 }`} />
-                <span className={`text-xs ${i === activeAgent ? 'text-emerald-300' : 'text-slate-500'}`}>
+                <span className={`text-[10px] sm:text-xs ${i === activeAgent ? 'text-emerald-300' : 'text-slate-500'}`}>
                   {agent.name}
                 </span>
               </div>
@@ -316,16 +316,16 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
 
       {/* Floating Metrics */}
       <div
-        className="absolute -top-4 -left-4 flex gap-3 animate-fadeIn"
+        className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 flex gap-2 sm:gap-3 animate-fadeIn"
         style={{ animationDelay: '1000ms' }}
       >
-        <div className="bg-[#0d1117]/95 backdrop-blur-sm rounded-lg border border-emerald-500/30 px-3 py-2">
-          <div className="text-lg font-bold text-emerald-400">10x</div>
-          <div className="text-[10px] text-slate-500">Faster</div>
+        <div className="bg-[#0d1117]/95 backdrop-blur-sm rounded-lg border border-emerald-500/30 px-2 sm:px-3 py-1.5 sm:py-2">
+          <div className="text-base sm:text-lg font-bold text-emerald-400">10x</div>
+          <div className="text-[9px] sm:text-[10px] text-slate-500">Faster</div>
         </div>
-        <div className="bg-[#0d1117]/95 backdrop-blur-sm rounded-lg border border-cyan-500/30 px-3 py-2">
-          <div className="text-lg font-bold text-cyan-400">80%</div>
-          <div className="text-[10px] text-slate-500">Cost Saved</div>
+        <div className="bg-[#0d1117]/95 backdrop-blur-sm rounded-lg border border-cyan-500/30 px-2 sm:px-3 py-1.5 sm:py-2">
+          <div className="text-base sm:text-lg font-bold text-cyan-400">80%</div>
+          <div className="text-[9px] sm:text-[10px] text-slate-500">Cost Saved</div>
         </div>
       </div>
     </div>
