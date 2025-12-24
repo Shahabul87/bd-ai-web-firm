@@ -9,17 +9,17 @@ export default function StructuredData() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "https://cognivat.com/#organization",
+    "@id": "https://www.cognivat.com/#organization",
     "name": "Cognivat",
     "alternateName": ["Cognivat AI Studio", "Cognivat AI Development"],
-    "url": "https://cognivat.com",
+    "url": "https://www.cognivat.com",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://cognivat.com/logo.png",
+      "url": "https://www.cognivat.com/logo.png",
       "width": 512,
       "height": 512
     },
-    "image": "https://cognivat.com/og-image.jpg",
+    "image": "https://www.cognivat.com/og-image.jpg",
     "description": "Leading AI-autonomous development studio specializing in machine learning model development, data preprocessing pipelines, web development, and business intelligence solutions.",
     "slogan": "Build 10x Faster with AI",
     "foundingDate": "2024",
@@ -109,10 +109,10 @@ export default function StructuredData() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://cognivat.com/#localbusiness",
+    "@id": "https://www.cognivat.com/#localbusiness",
     "name": "Cognivat AI Development Studio",
-    "image": "https://cognivat.com/og-image.jpg",
-    "url": "https://cognivat.com",
+    "image": "https://www.cognivat.com/og-image.jpg",
+    "url": "https://www.cognivat.com",
     "telephone": "+1-775-250-6651",
     "email": "info@cognivat.com",
     "priceRange": "$$",
@@ -143,20 +143,20 @@ export default function StructuredData() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://cognivat.com/#website",
+    "@id": "https://www.cognivat.com/#website",
     "name": "Cognivat",
     "alternateName": "Cognivat AI Development Studio",
-    "url": "https://cognivat.com",
+    "url": "https://www.cognivat.com",
     "description": "AI-autonomous development studio providing machine learning models, data pipelines, and web development services.",
     "publisher": {
-      "@id": "https://cognivat.com/#organization"
+      "@id": "https://www.cognivat.com/#organization"
     },
     "inLanguage": "en-US",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://cognivat.com/search?q={search_term_string}"
+        "urlTemplate": "https://www.cognivat.com/search?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -214,11 +214,11 @@ export default function StructuredData() {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": "https://cognivat.com/#service",
+    "@id": "https://www.cognivat.com/#service",
     "name": "AI Development Services",
     "serviceType": "AI and Machine Learning Development",
     "provider": {
-      "@id": "https://cognivat.com/#organization"
+      "@id": "https://www.cognivat.com/#organization"
     },
     "areaServed": {
       "@type": "Country",
@@ -286,7 +286,7 @@ export default function StructuredData() {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://cognivat.com"
+          "item": "https://www.cognivat.com"
         }
       ]
     };
@@ -305,7 +305,7 @@ export default function StructuredData() {
       'retail': 'Retail',
     };
 
-    let currentPath = 'https://cognivat.com';
+    let currentPath = 'https://www.cognivat.com';
     pathSegments.forEach((segment, index) => {
       currentPath += `/${segment}`;
       breadcrumbList.itemListElement.push({
@@ -328,9 +328,9 @@ export default function StructuredData() {
           "@type": "AboutPage",
           "name": "About Cognivat - AI Development Experts",
           "description": "Meet Cognivat's expert team specializing in AI model development, machine learning training, and autonomous coding solutions.",
-          "url": "https://cognivat.com/about",
+          "url": "https://www.cognivat.com/about",
           "mainEntity": {
-            "@id": "https://cognivat.com/#organization"
+            "@id": "https://www.cognivat.com/#organization"
           }
         };
       case '/ai-solutions':
@@ -339,9 +339,9 @@ export default function StructuredData() {
           "@type": "Service",
           "name": "AI Solutions & Machine Learning Services",
           "description": "Comprehensive AI model development, training, validation, and deployment services with data preprocessing pipelines.",
-          "url": "https://cognivat.com/ai-solutions",
+          "url": "https://www.cognivat.com/ai-solutions",
           "provider": {
-            "@id": "https://cognivat.com/#organization"
+            "@id": "https://www.cognivat.com/#organization"
           },
           "serviceType": "Artificial Intelligence Development",
           "category": "Technology Services",
@@ -358,9 +358,9 @@ export default function StructuredData() {
           "@type": "Service",
           "name": "Autonomous Web Development Services",
           "description": "Low-cost, high-quality web development services using AI-powered autonomous coding for modern businesses.",
-          "url": "https://cognivat.com/web-development",
+          "url": "https://www.cognivat.com/web-development",
           "provider": {
-            "@id": "https://cognivat.com/#organization"
+            "@id": "https://www.cognivat.com/#organization"
           },
           "serviceType": "Web Development",
           "category": "Technology Services"
@@ -371,7 +371,7 @@ export default function StructuredData() {
           "@type": "CollectionPage",
           "name": "Cognivat Portfolio - AI & Web Development Projects",
           "description": "Showcase of successful AI model development, machine learning projects, and web development solutions delivered by Cognivat.",
-          "url": "https://cognivat.com/portfolio"
+          "url": "https://www.cognivat.com/portfolio"
         };
       case '/quote':
         return {
@@ -379,7 +379,7 @@ export default function StructuredData() {
           "@type": "ContactPage",
           "name": "Get a Quote - Cognivat AI Development",
           "description": "Request a free quote for AI development, machine learning, or web development services from Cognivat.",
-          "url": "https://cognivat.com/quote"
+          "url": "https://www.cognivat.com/quote"
         };
       case '/blog':
         return {
@@ -387,9 +387,9 @@ export default function StructuredData() {
           "@type": "Blog",
           "name": "Cognivat Blog - AI & Machine Learning Insights",
           "description": "Latest articles and insights on AI development, machine learning, autonomous coding, and technology trends.",
-          "url": "https://cognivat.com/blog",
+          "url": "https://www.cognivat.com/blog",
           "publisher": {
-            "@id": "https://cognivat.com/#organization"
+            "@id": "https://www.cognivat.com/#organization"
           }
         };
       default:

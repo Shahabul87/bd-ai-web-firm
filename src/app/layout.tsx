@@ -27,7 +27,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://cognivat.com'),
+  metadataBase: new URL('https://www.cognivat.com'),
   title: {
     default: "Cognivat | AI-Autonomous Development Studio",
     template: "%s | Cognivat"
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     "natural language processing",
     "predictive analytics"
   ],
-  authors: [{ name: "Cognivat", url: "https://cognivat.com" }],
+  authors: [{ name: "Cognivat", url: "https://www.cognivat.com" }],
   creator: "Cognivat",
   publisher: "Cognivat",
   robots: {
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://cognivat.com",
+    url: "https://www.cognivat.com",
     title: "Cognivat | AI-Autonomous Development Studio",
     description: "Leading AI-autonomous development studio. Get professional machine learning models, data pipelines, and web development solutions at unbeatable prices through autonomous coding.",
     siteName: "Cognivat",
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"]
   },
   alternates: {
-    canonical: "https://cognivat.com"
+    canonical: "https://www.cognivat.com"
   },
   category: "Technology"
 };
@@ -115,7 +115,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Cognivat" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <link rel="canonical" href="https://cognivat.com" />
+        <link rel="canonical" href="https://www.cognivat.com" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

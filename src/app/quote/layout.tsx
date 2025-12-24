@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Get a Free Quote | Cognivat AI Development',
     description: 'Request a free quote for AI and web development projects. Transparent pricing, fast delivery.',
-    url: 'https://cognivat.com/quote',
+    url: 'https://www.cognivat.com/quote',
     siteName: 'Cognivat',
     type: 'website',
   },
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description: 'Free quotes for AI & web development projects.',
   },
   alternates: {
-    canonical: 'https://cognivat.com/quote'
+    canonical: 'https://www.cognivat.com/quote'
   }
 };
 

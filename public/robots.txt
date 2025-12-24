@@ -1,5 +1,5 @@
 # Robots.txt for Cognivat AI Development Studio
-# https://cognivat.com
+# https://www.cognivat.com
 
 # Allow all search engines to crawl the site
 User-agent: *
@@ -17,7 +17,7 @@ Allow: /_next/static/js/
 Allow: /_next/static/media/
 
 # Sitemaps - Important for Google indexing
-Sitemap: https://cognivat.com/sitemap.xml
+Sitemap: https://www.cognivat.com/sitemap.xml
 
 # Host specification (canonical domain)
-Host: https://cognivat.com
+Host: https://www.cognivat.com

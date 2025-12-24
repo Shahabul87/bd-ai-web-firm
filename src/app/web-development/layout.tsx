@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Web Development Services | Cognivat',
     description: 'Professional React & Next.js web development. AI-powered coding delivers 10x faster.',
-    url: 'https://cognivat.com/web-development',
+    url: 'https://www.cognivat.com/web-development',
     siteName: 'Cognivat',
     type: 'website',
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: 'React & Next.js development powered by AI.',
   },
   alternates: {
-    canonical: 'https://cognivat.com/web-development'
+    canonical: 'https://www.cognivat.com/web-development'
   }
 };
 

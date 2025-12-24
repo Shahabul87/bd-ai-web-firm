@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'About Cognivat - AI Development Experts',
     description: 'Meet our expert team in AI development, machine learning, and autonomous coding.',
-    url: 'https://cognivat.com/about',
+    url: 'https://www.cognivat.com/about',
     siteName: 'Cognivat',
     type: 'website',
   },
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     description: 'Expert AI development team serving clients worldwide.',
   },
   alternates: {
-    canonical: 'https://cognivat.com/about'
+    canonical: 'https://www.cognivat.com/about'
   }
 };
 

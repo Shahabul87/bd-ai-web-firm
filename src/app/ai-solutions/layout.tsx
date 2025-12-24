@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'AI Solutions & Machine Learning Services | Cognivat',
     description: 'Enterprise AI model development, machine learning training, NLP, computer vision, and predictive analytics. Get custom AI solutions 10x faster.',
-    url: 'https://cognivat.com/ai-solutions',
+    url: 'https://www.cognivat.com/ai-solutions',
     siteName: 'Cognivat',
     type: 'website',
     images: [{
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: 'Enterprise AI model development and ML services. Build 10x faster with autonomous coding.',
   },
   alternates: {
-    canonical: 'https://cognivat.com/ai-solutions'
+    canonical: 'https://www.cognivat.com/ai-solutions'
   }
 };
 
