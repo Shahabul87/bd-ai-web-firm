@@ -1,13 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePerformanceOptimizedAnimation } from '../../hooks/useMobileDetection';
 
 export default function ComputerVisionDemo({ isActive }: { isActive: boolean }) {
+  const { isMobile, mounted } = usePerformanceOptimizedAnimation();
   const [isScanning, setIsScanning] = useState(false);
   const [detections, setDetections] = useState<Array<{x: number, y: number, label: string, confidence: number}>>([]);
 
   useEffect(() => {
-    if (!isActive) return;
+    // AUTO-ANIMATIONS DISABLED to prevent layout shifts
+    return;
+    if (!isActive || !mounted || isMobile) return;
     
     let isComponentActive = true;
     let detectionTimeout: NodeJS.Timeout;
@@ -31,9 +35,9 @@ export default function ComputerVisionDemo({ isActive }: { isActive: boolean }) 
         setDetections(mockDetections);
         setIsScanning(false);
         
-        // Schedule next detection
-        nextDetectionTimeout = setTimeout(runDetection, 6000);
-      }, 2000);
+        // Schedule next detection - longer on mobile
+        nextDetectionTimeout = setTimeout(runDetection, 8000);
+      }, 3000); // Longer processing on mobile
     };
     
     runDetection(); // Start immediately
@@ -43,10 +47,10 @@ export default function ComputerVisionDemo({ isActive }: { isActive: boolean }) 
       if (detectionTimeout) clearTimeout(detectionTimeout);
       if (nextDetectionTimeout) clearTimeout(nextDetectionTimeout);
     };
-  }, [isActive]);
+  }, [isActive, mounted, isMobile]);
 
   return (
-    <div className="space-y-6">
+    <div className="h-full flex flex-col justify-between space-y-4">
       <div className="flex items-center justify-between">
         <h4 className="text-lg font-semibold text-slate-200">Object Detection</h4>
         <div className={`px-3 py-1 rounded-full text-xs font-medium ${

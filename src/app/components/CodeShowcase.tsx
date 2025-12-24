@@ -2,17 +2,16 @@
 
 import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { useInView } from 'framer-motion';
-import { useSmartAnimation } from '../hooks/usePerformanceMonitor';
+import { useSimplifiedAnimation } from '../hooks/useSimplifiedAnimation';
 
 export default function CodeShowcase() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
+  const { shouldAnimate } = useSimplifiedAnimation();
   
   return (
-    <section ref={ref} className="py-16 lg:py-24 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute top-20 -left-40 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
-      <div className="absolute bottom-20 -right-40 w-80 h-80 bg-cyan-400 rounded-full filter blur-3xl opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
+    <section ref={ref} className="h-full flex flex-col justify-center relative overflow-hidden">
+      {/* Removed background blur effects for better performance */}
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
@@ -27,7 +26,7 @@ export default function CodeShowcase() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center h-[600px]">
           <div className="space-y-6">
             <h3 className="text-2xl font-bold text-slate-200">
               Real-Time AI Development
@@ -78,10 +77,8 @@ function FeatureItem({ icon, title, description }: { icon: string; title: string
 
 function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [currentLine, setCurrentLine] = useState(0);
-  const [currentChar, setCurrentChar] = useState(0);
   const [serviceIndex, setServiceIndex] = useState(0);
-  const { getOptimizedDelay, shouldSkipAnimation } = useSmartAnimation(400);
+  const { shouldAnimate, isMobile, mounted } = useSimplifiedAnimation();
   
   // Array of different AI services to showcase
   const services = useMemo(() => [
@@ -200,59 +197,16 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
     }
   }, [isInView]);
   
-  useEffect(() => {
-    let animationFrameId: number | null = null;
-    let isActive = true;
-    
-    if (isVisible && !shouldSkipAnimation()) {
-      // Performance-optimized line-by-line display
-      const animateLineByLine = () => {
-        if (!isActive) return;
-        
-        if (currentLine < codeLines.length - 1) {
-          // Show complete line instantly for better performance
-          setCurrentChar(codeLines[currentLine].content.length);
-          
-          // Performance-aware delay before next line
-          const lineDelay = getOptimizedDelay(1);
-          
-          setTimeout(() => {
-            if (!isActive) return;
-            setCurrentLine(prev => prev + 1);
-            setCurrentChar(0);
-            animationFrameId = requestAnimationFrame(animateLineByLine);
-          }, lineDelay);
-        } else {
-          // Complete final line
-          setCurrentChar(codeLines[currentLine].content.length);
-          
-          // Performance-aware service switching delay
-          const serviceDelay = getOptimizedDelay(10); // Much longer pause for better performance
-          
-          setTimeout(() => {
-            if (!isActive) return;
-            setServiceIndex((prev) => (prev + 1) % services.length);
-            setCurrentLine(0);
-            setCurrentChar(0);
-          }, serviceDelay);
-        }
-      };
-      
-      // Use RAF for smoother animation
-      animationFrameId = requestAnimationFrame(animateLineByLine);
-    } else if (isVisible && shouldSkipAnimation()) {
-      // Instant display when performance is poor
-      setCurrentLine(codeLines.length - 1);
-      setCurrentChar(codeLines[codeLines.length - 1].content.length);
-    }
-    
-    return () => {
-      isActive = false;
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-    };
-  }, [isVisible, currentLine, currentChar, codeLines.length, codeLines, services.length, getOptimizedDelay, shouldSkipAnimation]);
+  // AUTO-CYCLING DISABLED - Static display to prevent layout shifts
+  // useEffect(() => {
+  //   if (!isVisible || !shouldAnimate) return;
+  //   
+  //   const interval = setInterval(() => {
+  //     setServiceIndex((prev) => (prev + 1) % services.length);
+  //   }, 8000);
+  //   
+  //   return () => clearInterval(interval);
+  // }, [isVisible, shouldAnimate, services.length]);
   
   return (
     <div className="relative transform transition-all duration-1000"
@@ -261,8 +215,8 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
            transform: isVisible ? 'translateY(0)' : 'translateY(2rem)',
            transitionDelay: '0.5s'
          }}>
-      {/* Enhanced AI Dashboard */}
-      <div className="bg-slate-900/90 rounded-2xl p-6 border border-slate-700/50 shadow-2xl backdrop-blur-sm relative overflow-hidden neural-glow max-w-lg mx-auto">
+      {/* Enhanced AI Dashboard - FIXED HEIGHT */}
+      <div className="bg-slate-900/90 rounded-2xl p-8 border border-slate-700/50 shadow-2xl backdrop-blur-sm relative overflow-hidden neural-glow w-full max-w-2xl mx-auto h-[500px] flex flex-col">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-3">
             <div className="flex gap-2">
@@ -273,43 +227,39 @@ function CodeVisualizerComponent({ isInView }: { isInView: boolean }) {
             <span className="text-xs font-medium text-slate-500">AI Terminal</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <div className={`w-2 h-2 bg-green-400 rounded-full ${!isMobile ? 'animate-pulse' : ''}`}></div>
             <div className="text-xs font-mono text-slate-400 px-3 py-1.5 rounded-lg bg-slate-800/70 backdrop-blur-sm border border-slate-600/30">
               {currentService.title}
             </div>
           </div>
         </div>
         
-        {/* Professional Code Display */}
-        <div className="font-mono text-sm space-y-2 overflow-hidden relative z-10 min-h-[200px] bg-slate-950/50 rounded-lg p-4 border border-slate-800/50">
+        {/* Enhanced Code Display - FIXED HEIGHT */}
+        <div className="font-mono text-sm space-y-3 overflow-y-auto relative z-10 bg-slate-950/50 rounded-lg p-6 border border-slate-800/50 flex-1">
           {codeLines.map((line, idx) => (
-            <div key={idx} className={`${line.className}`}>
-              {idx < currentLine ? (
-                <p className="opacity-90">{formatCodeLine(line)}</p>
-              ) : idx === currentLine ? (
-                <p>
-                  {formatCodeLine({ content: line.content.substring(0, currentChar), className: line.className })}
-                  <span className="animate-pulse">|</span>
-                </p>
-              ) : (
-                <p className="opacity-0">{formatCodeLine(line)}</p>
-              )}
+            <div key={idx} className={`${line.className} transition-opacity duration-300`}>
+              <p className="opacity-90">{formatCodeLine(line)}</p>
             </div>
           ))}
+          {shouldAnimate && (
+            <div className="absolute bottom-4 right-4">
+              <span className="animate-pulse text-cyan-400">●</span>
+            </div>
+          )}
         </div>
         
-        {/* Moving particle effects */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-4 left-4 w-1 h-1 bg-purple-400 rounded-full animate-pulse"></div>
-          <div className="absolute top-8 right-6 w-0.5 h-0.5 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
-          <div className="absolute bottom-6 left-8 w-1.5 h-1.5 bg-orange-400 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-4 right-4 w-1 h-1 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-        </div>
+        {/* Simplified particle effects - Only when animations enabled */}
+        {shouldAnimate && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-4 left-4 w-1 h-1 bg-purple-400 rounded-full opacity-60"></div>
+            <div className="absolute top-8 right-6 w-0.5 h-0.5 bg-cyan-400 rounded-full opacity-60"></div>
+            <div className="absolute bottom-6 left-8 w-1.5 h-1.5 bg-orange-400 rounded-full opacity-60"></div>
+          </div>
+        )}
       </div>
       
-      {/* Professional Glow Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-cyan-400/15 to-orange-500/10 blur-2xl rounded-2xl -z-10"></div>
-      <div className="absolute -inset-4 bg-gradient-to-r from-cyan-400/5 via-purple-500/5 to-orange-500/5 blur-3xl rounded-3xl -z-20"></div>
+      {/* Simple gradient without blur for better performance */}
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-cyan-400/5 rounded-2xl -z-10"></div>
     </div>
   );
 }

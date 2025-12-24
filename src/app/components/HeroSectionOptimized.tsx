@@ -1,13 +1,11 @@
 "use client";
 
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useSmartAnimation } from '../hooks/usePerformanceMonitor';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import Link from 'next/link';
 
-export default function HeroSection() {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.1 });
+export default function HeroSectionOptimized() {
+  const { ref, isInView } = useScrollAnimation({ threshold: 0.1 });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -15,19 +13,18 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <motion.section
-      ref={ref}
-      className="relative overflow-hidden min-h-screen flex items-center"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
+    <section
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className={`relative overflow-hidden min-h-screen flex items-center ${
+        mounted ? 'animate-fadeIn' : 'opacity-0'
+      }`}
       style={{
         background: 'linear-gradient(135deg, #0a0a0f 0%, #0d1117 25%, #0a0f1a 50%, #0d0d14 75%, #0a0a0f 100%)'
       }}
     >
       {/* Animated Code Rain Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {mounted && (
+      {mounted && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute inset-0 opacity-[0.03]">
             {Array.from({ length: 20 }).map((_, i) => (
               <div
@@ -43,8 +40,8 @@ export default function HeroSection() {
               </div>
             ))}
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Gradient Mesh Background */}
       <div className="absolute inset-0">
@@ -74,11 +71,11 @@ export default function HeroSection() {
 
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900 to-transparent" />
-    </motion.section>
+    </section>
   );
 }
 
-// Hero Content with Agentic AI Focus
+// Hero Content with Agentic AI Focus - CSS Animations Only
 function AgentHeroContent({ isInView }: { isInView: boolean }) {
   const services = [
     { icon: '🌐', label: 'Web Development' },
@@ -88,18 +85,11 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
   ];
 
   return (
-    <motion.div
-      className="space-y-8"
-      initial={{ opacity: 0, x: -40 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-    >
+    <div className={`space-y-8 ${isInView ? 'animate-fadeInLeft' : 'opacity-0'}`}>
       {/* Agent Status Badge */}
-      <motion.div
-        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm"
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
+      <div
+        className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm animate-scaleIn"
+        style={{ animationDelay: '200ms' }}
       >
         <div className="relative">
           <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full" />
@@ -109,56 +99,50 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
           AI Agents Active
         </span>
         <span className="text-xs text-emerald-400/60 font-mono">v2.4.1</span>
-      </motion.div>
+      </div>
 
       {/* Main Headline */}
-      <motion.div
-        className="space-y-4"
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.6 }}
-      >
+      <div className="space-y-4">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight">
-          <span className="block text-white/90">Agentic AI</span>
-          <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
+          <span className="block text-white/90 animate-fadeInUp" style={{ animationDelay: '400ms' }}>
+            Agentic AI
+          </span>
+          <span
+            className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400 animate-fadeInUp"
+            style={{ animationDelay: '600ms' }}
+          >
             Coding Studio
           </span>
         </h1>
 
-        <p className="text-lg md:text-xl text-slate-400 max-w-xl leading-relaxed">
+        <p
+          className="text-lg md:text-xl text-slate-400 max-w-xl leading-relaxed animate-fadeInUp"
+          style={{ animationDelay: '800ms' }}
+        >
           Our autonomous AI agents write production-ready code for your business.
           <span className="text-emerald-400"> Web apps, Android apps, data solutions</span> -
           delivered 10x faster at a fraction of the cost.
         </p>
-      </motion.div>
+      </div>
 
       {/* Service Pills */}
-      <motion.div
-        className="flex flex-wrap gap-3"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.9 }}
-      >
+      <div className="flex flex-wrap gap-3">
         {services.map((service, i) => (
-          <motion.div
+          <div
             key={service.label}
-            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/40 border border-slate-700/50 text-sm text-slate-300 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-300 cursor-default"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 1 + i * 0.1 }}
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/40 border border-slate-700/50 text-sm text-slate-300 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-300 cursor-default animate-fadeIn"
+            style={{ animationDelay: `${1000 + i * 100}ms` }}
           >
             <span>{service.icon}</span>
             <span>{service.label}</span>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* CTA Buttons */}
-      <motion.div
-        className="flex flex-wrap gap-4 pt-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
+      <div
+        className="flex flex-wrap gap-4 pt-4 animate-fadeInUp"
+        style={{ animationDelay: '1200ms' }}
       >
         <Link
           href="/quote"
@@ -179,14 +163,12 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
         >
           View Our Work
         </Link>
-      </motion.div>
+      </div>
 
       {/* Trust Indicators */}
-      <motion.div
-        className="flex flex-wrap items-center gap-6 pt-6 text-sm text-slate-500"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.4 }}
+      <div
+        className="flex flex-wrap items-center gap-6 pt-6 text-sm text-slate-500 animate-fadeIn"
+        style={{ animationDelay: '1400ms' }}
       >
         <div className="flex items-center gap-2">
           <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
@@ -200,24 +182,23 @@ function AgentHeroContent({ isInView }: { isInView: boolean }) {
           <div className="w-1.5 h-1.5 bg-violet-400 rounded-full" />
           <span>Enterprise Security</span>
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
-// Live Code Synthesis Visualization
+// Live Code Synthesis Visualization - CSS Animations Only
 function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: boolean }) {
   const [activeAgent, setActiveAgent] = useState(0);
   const [codeLines, setCodeLines] = useState(0);
 
   const agents = [
-    { name: 'WebDev Agent', task: 'Building React components', status: 'active', color: 'emerald' },
-    { name: 'Android Agent', task: 'Generating Kotlin code', status: 'idle', color: 'cyan' },
-    { name: 'Data Agent', task: 'Processing analytics', status: 'idle', color: 'violet' },
-    { name: 'Viz Agent', task: 'Creating dashboards', status: 'idle', color: 'amber' }
+    { name: 'WebDev Agent', task: 'Building React components', color: 'emerald' },
+    { name: 'Android Agent', task: 'Generating Kotlin code', color: 'cyan' },
+    { name: 'Data Agent', task: 'Processing analytics', color: 'violet' },
+    { name: 'Viz Agent', task: 'Creating dashboards', color: 'amber' }
   ];
 
-  // Deterministic code snippets for display
   const codeSnippets = [
     { text: 'export function App() {', color: 'text-violet-400' },
     { text: '  const [data, setData] = useState([]);', color: 'text-cyan-400' },
@@ -231,12 +212,10 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
   useEffect(() => {
     if (!isInView || !mounted) return;
 
-    // Cycle through agents
     const agentInterval = setInterval(() => {
       setActiveAgent(prev => (prev + 1) % agents.length);
     }, 4000);
 
-    // Animate code lines
     const codeInterval = setInterval(() => {
       setCodeLines(prev => (prev + 1) % (codeSnippets.length + 1));
     }, 800);
@@ -248,18 +227,11 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
   }, [isInView, mounted, agents.length, codeSnippets.length]);
 
   return (
-    <motion.div
-      className="relative"
-      initial={{ opacity: 0, x: 40 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
-    >
+    <div className={`relative ${isInView ? 'animate-fadeInRight' : 'opacity-0'}`}>
       {/* Main Code Editor Panel */}
-      <motion.div
-        className="relative bg-[#0d1117] rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl shadow-black/50"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
+      <div
+        className="relative bg-[#0d1117] rounded-2xl border border-slate-700/50 overflow-hidden shadow-2xl shadow-black/50 animate-scaleIn"
+        style={{ animationDelay: '400ms' }}
       >
         {/* Editor Header */}
         <div className="flex items-center justify-between px-4 py-3 bg-[#161b22] border-b border-slate-700/50">
@@ -284,23 +256,18 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
         <div className="p-5 font-mono text-sm min-h-[280px]">
           <div className="space-y-1.5">
             {codeSnippets.map((line, i) => (
-              <motion.div
+              <div
                 key={i}
-                className={`flex items-center gap-3 ${i < codeLines ? 'opacity-100' : 'opacity-20'}`}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: i < codeLines ? 1 : 0.2, x: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.1 }}
+                className={`flex items-center gap-3 transition-opacity duration-300 ${
+                  i < codeLines ? 'opacity-100' : 'opacity-20'
+                }`}
               >
                 <span className="text-slate-600 w-5 text-right text-xs">{i + 1}</span>
                 <span className={line.color}>{line.text}</span>
                 {i === codeLines - 1 && mounted && (
-                  <motion.span
-                    className="inline-block w-2 h-4 bg-emerald-400"
-                    animate={{ opacity: [1, 0, 1] }}
-                    transition={{ duration: 0.8, repeat: Infinity }}
-                  />
+                  <span className="inline-block w-2 h-4 bg-emerald-400 animate-pulse" />
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -318,14 +285,12 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Agent Activity Cards */}
-      <motion.div
-        className="absolute -bottom-6 -right-4 w-64"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1 }}
+      <div
+        className="absolute -bottom-6 -right-4 w-64 animate-fadeInUp"
+        style={{ animationDelay: '800ms' }}
       >
         <div className="bg-[#0d1117]/95 backdrop-blur-sm rounded-xl border border-slate-700/50 p-4 shadow-xl">
           <div className="text-xs font-medium text-slate-400 mb-3">Active Agents</div>
@@ -347,14 +312,12 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
             ))}
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Floating Metrics */}
-      <motion.div
-        className="absolute -top-4 -left-4 flex gap-3"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2 }}
+      <div
+        className="absolute -top-4 -left-4 flex gap-3 animate-fadeIn"
+        style={{ animationDelay: '1000ms' }}
       >
         <div className="bg-[#0d1117]/95 backdrop-blur-sm rounded-lg border border-emerald-500/30 px-3 py-2">
           <div className="text-lg font-bold text-emerald-400">10x</div>
@@ -364,7 +327,7 @@ function LiveCodeSynthesis({ isInView, mounted }: { isInView: boolean; mounted: 
           <div className="text-lg font-bold text-cyan-400">80%</div>
           <div className="text-[10px] text-slate-500">Cost Saved</div>
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

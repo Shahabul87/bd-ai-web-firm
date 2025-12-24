@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePerformanceOptimizedAnimation } from '../../hooks/useMobileDetection';
 
 export default function AIAutomationDemo({ isActive }: { isActive: boolean }) {
+  const { isMobile, mounted: animationMounted } = usePerformanceOptimizedAnimation();
   const [currentStep, setCurrentStep] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -26,7 +28,9 @@ export default function AIAutomationDemo({ isActive }: { isActive: boolean }) {
   ];
 
   useEffect(() => {
-    if (!isActive) return;
+    // AUTO-ANIMATIONS DISABLED to prevent layout shifts
+    return;
+    if (!isActive || !animationMounted || isMobile) return;
     
     let isComponentActive = true;
     let stepTimeout: NodeJS.Timeout;
@@ -48,17 +52,17 @@ export default function AIAutomationDemo({ isActive }: { isActive: boolean }) {
           completeTimeout = setTimeout(() => {
             if (!isComponentActive) return;
             setIsRunning(false);
-            restartTimeout = setTimeout(runWorkflow, 2000);
-          }, 1000);
+            restartTimeout = setTimeout(runWorkflow, 3000); // Longer on mobile
+          }, 1500);
           return;
         }
         
         currentStepIndex++;
         setCurrentStep(currentStepIndex);
-        stepTimeout = setTimeout(processNextStep, 1500);
+        stepTimeout = setTimeout(processNextStep, 2000); // Slower on mobile
       };
       
-      stepTimeout = setTimeout(processNextStep, 1500);
+      stepTimeout = setTimeout(processNextStep, 2000);
     };
     
     runWorkflow();
@@ -69,14 +73,14 @@ export default function AIAutomationDemo({ isActive }: { isActive: boolean }) {
       if (completeTimeout) clearTimeout(completeTimeout);
       if (restartTimeout) clearTimeout(restartTimeout);
     };
-  }, [isActive, workflowSteps.length]);
+  }, [isActive, workflowSteps.length, animationMounted, isMobile]);
 
   return (
-    <div className="space-y-6">
+    <div className="h-full flex flex-col justify-between space-y-4">
       <div className="flex items-center justify-between">
         <h4 className="text-lg font-semibold text-slate-200">AI Workflow Engine</h4>
         <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-          isRunning ? 'bg-blue-400/20 text-blue-400 animate-pulse' : 'bg-green-400/20 text-green-400'
+          isRunning ? `bg-blue-400/20 text-blue-400 ${animationMounted && !isMobile ? 'animate-pulse' : ''}` : 'bg-green-400/20 text-green-400'
         }`}>
           {isRunning ? 'Processing...' : 'Complete'}
         </div>
@@ -89,7 +93,7 @@ export default function AIAutomationDemo({ isActive }: { isActive: boolean }) {
             {/* Status Indicator */}
             <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${
               index < currentStep ? 'bg-green-400 text-black' :
-              index === currentStep ? 'bg-blue-400 text-black animate-pulse' :
+              index === currentStep ? `bg-blue-400 text-black ${animationMounted && !isMobile ? 'animate-pulse' : ''}` :
               'bg-slate-600 text-slate-400'
             }`}>
               {index < currentStep ? '✓' : index + 1}

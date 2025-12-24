@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import AIChatbot from "./components/AIChatbot";
+import WhatsAppButton from "./components/WhatsAppButton";
 import CrossPlatformWrapper from "./components/CrossPlatformWrapper";
 import BrowserCompatibilityFallback from "./components/BrowserCompatibilityFallback";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -12,11 +13,17 @@ import Analytics from "./analytics";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: 'swap', // Optimize font loading
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: 'swap',
+  preload: false, // Only preload main font
+  fallback: ['Menlo', 'Monaco', 'monospace'],
 });
 
 export const metadata: Metadata = {
@@ -114,6 +121,21 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         
+        {/* Preconnect to external domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        
+        {/* Critical CSS for above-the-fold content */}
+        <style dangerouslySetInnerHTML={{ __html: `
+          /* Critical CSS for immediate render */
+          body { margin: 0; background: #0f172a; color: white; }
+          .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+          @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+          .min-h-screen { min-height: 100vh; }
+          .text-white { color: white; }
+          .bg-gradient-to-br { background: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
+        ` }} />
+        
         {/* Google Search Console Verification - Replace with your actual verification code */}
         <meta name="google-site-verification" content="abcdef1234567890abcdef1234567890abcdef12" />
       </head>
@@ -126,6 +148,7 @@ export default function RootLayout({
             <StructuredData />
             <Analytics />
             {children}
+            <WhatsAppButton />
             <AIChatbot />
           </CrossPlatformWrapper>
         </ErrorBoundary>

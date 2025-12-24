@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePerformanceOptimizedAnimation } from '../../hooks/useMobileDetection';
 
 export default function PredictiveAnalyticsDemo({ isActive }: { isActive: boolean }) {
+  const { isMobile, mounted: animationMounted } = usePerformanceOptimizedAnimation();
   const [forecastData, setForecastData] = useState([45, 52, 48, 61, 55, 67, 59, 74]);
   const [isForecasting, setIsForecasting] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -19,7 +21,9 @@ export default function PredictiveAnalyticsDemo({ isActive }: { isActive: boolea
   }, []);
 
   useEffect(() => {
-    if (!isActive) return;
+    // AUTO-ANIMATIONS DISABLED to prevent layout shifts
+    return;
+    if (!isActive || !animationMounted || isMobile) return;
     
     let isComponentActive = true;
     let forecastTimeout: NodeJS.Timeout;
@@ -45,9 +49,9 @@ export default function PredictiveAnalyticsDemo({ isActive }: { isActive: boolea
         setForecastData(newData);
         setIsForecasting(false);
         
-        // Schedule next forecast
-        nextForecastTimeout = setTimeout(runForecast, 5000);
-      }, 2000);
+        // Schedule next forecast - longer delay for mobile
+        nextForecastTimeout = setTimeout(runForecast, 7000);
+      }, 3000); // Longer processing time for mobile
     };
     
     runForecast();
@@ -57,16 +61,16 @@ export default function PredictiveAnalyticsDemo({ isActive }: { isActive: boolea
       if (forecastTimeout) clearTimeout(forecastTimeout);
       if (nextForecastTimeout) clearTimeout(nextForecastTimeout);
     };
-  }, [isActive]);
+  }, [isActive, animationMounted, isMobile]);
 
   const futureData = [78, 82, 85, 89]; // Mock future predictions
 
   return (
-    <div className="space-y-6">
+    <div className="h-full flex flex-col justify-between space-y-4">
       <div className="flex items-center justify-between">
         <h4 className="text-lg font-semibold text-slate-200">Sales Forecasting</h4>
         <div className={`px-3 py-1 rounded-full text-xs font-medium ${
-          isForecasting ? 'bg-purple-400/20 text-purple-400 animate-pulse' : 'bg-green-400/20 text-green-400'
+          isForecasting ? `bg-purple-400/20 text-purple-400 ${animationMounted && !isMobile ? 'animate-pulse' : ''}` : 'bg-green-400/20 text-green-400'
         }`}>
           {isForecasting ? 'Analyzing...' : 'Predicted'}
         </div>

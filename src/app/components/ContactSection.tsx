@@ -2,12 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import validator from 'validator';
+import { usePerformanceOptimizedAnimation } from '../hooks/useMobileDetection';
 
 export default function ContactSection() {
+  const { shouldAnimate } = usePerformanceOptimizedAnimation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    website: '' // Honeypot field - bots will fill this
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -89,7 +92,7 @@ export default function ContactSection() {
     }
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -98,17 +101,40 @@ export default function ContactSection() {
     
     setIsSubmitting(true);
     
-    // Simulate API call with additional security checks
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        message: ''
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      setErrors({});
-    }, 1500);
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setSubmitted(true);
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+          website: ''
+        });
+        setErrors({});
+      } else {
+        // Handle validation errors from server
+        if (result.errors) {
+          setErrors(result.errors);
+        } else {
+          setErrors({ submit: result.message || 'An error occurred while sending your message.' });
+        }
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      setErrors({ submit: 'Network error. Please check your connection and try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   if (!mounted) return null;
@@ -122,7 +148,7 @@ export default function ContactSection() {
             Get in Touch
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            Ready to start your next project? Contact us today and let&apos;s discuss how we can help bring your vision to life.
+            Ready to build 10x faster with AI? Let&apos;s discuss how our AI-powered development can transform your project timeline.
           </p>
         </div>
 
@@ -158,7 +184,7 @@ export default function ContactSection() {
 
             <div className="bg-gray-800 p-6 rounded-xl shadow-lg">
               <h3 className="text-xl font-semibold text-white mb-4">
-                Why Choose Us?
+                Why Choose Our AI Agency?
               </h3>
               <div className="space-y-3">
                 <div className="flex items-center">
@@ -200,7 +226,7 @@ export default function ContactSection() {
                 </p>
                 <button 
                   onClick={() => setSubmitted(false)}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                  className={`px-6 py-3 bg-blue-600 text-white rounded-lg ${shouldAnimate() ? 'hover:bg-blue-700 transition-colors duration-300' : ''}`}
                 >
                   Send Another Message
                 </button>
@@ -208,6 +234,17 @@ export default function ContactSection() {
             ) : (
               <div className="bg-gray-800 p-8 rounded-xl shadow-lg">
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot field - hidden from users, bots will fill it */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    className="absolute -left-[9999px] opacity-0 h-0 w-0"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block text-sm font-semibold text-blue-300 mb-2">
@@ -279,14 +316,20 @@ export default function ContactSection() {
                     )}
                   </div>
 
+                  {errors.submit && (
+                    <div className="p-3 bg-red-900/30 border border-red-500/30 rounded-lg text-red-400 text-sm">
+                      {errors.submit}
+                    </div>
+                  )}
+
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02]"
+                    className={`w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed ${shouldAnimate() ? 'hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-[1.02]' : ''}`}
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center">
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <svg className={`-ml-1 mr-3 h-5 w-5 text-white ${shouldAnimate() ? 'animate-spin' : ''}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>

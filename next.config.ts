@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const nextConfig: NextConfig = {
   /* config options here */
+  // Fix for "multiple lockfiles" warning - explicitly set workspace root
+  outputFileTracingRoot: __dirname,
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.

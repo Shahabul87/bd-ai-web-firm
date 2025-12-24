@@ -1,15 +1,19 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePerformanceOptimizedAnimation } from '../../hooks/useMobileDetection';
 
 export default function MachineLearningDemo({ isActive }: { isActive: boolean }) {
+  const { isMobile, mounted: animationMounted } = usePerformanceOptimizedAnimation();
   const [epoch, setEpoch] = useState(0);
   const [accuracy, setAccuracy] = useState(0);
   const [loss, setLoss] = useState(1.0);
   const [isTraining, setIsTraining] = useState(false);
 
   useEffect(() => {
-    if (!isActive) return;
+    // AUTO-ANIMATIONS DISABLED to prevent layout shifts
+    return;
+    if (!isActive || !animationMounted || isMobile) return;
     
     let isComponentActive = true;
     let trainingFrame: number;
@@ -24,7 +28,7 @@ export default function MachineLearningDemo({ isActive }: { isActive: boolean })
       setLoss(1.0);
       
       let lastTime = 0;
-      const trainingSpeed = 80; // ms between epochs
+      const trainingSpeed = 120; // ms between epochs - slower on mobile
       
       const trainEpoch = (currentTime: number) => {
         if (!isComponentActive) return;
@@ -34,7 +38,7 @@ export default function MachineLearningDemo({ isActive }: { isActive: boolean })
             const newEpoch = prev + 1;
             if (newEpoch >= 100) {
               setIsTraining(false);
-              restartTimeout = setTimeout(startTraining, 3000);
+              restartTimeout = setTimeout(startTraining, 5000); // Longer restart on mobile
               return 100;
             }
             
@@ -61,10 +65,10 @@ export default function MachineLearningDemo({ isActive }: { isActive: boolean })
       if (trainingFrame) cancelAnimationFrame(trainingFrame);
       if (restartTimeout) clearTimeout(restartTimeout);
     };
-  }, [isActive]);
+  }, [isActive, animationMounted, isMobile]);
 
   return (
-    <div className="space-y-6">
+    <div className="h-full flex flex-col justify-between space-y-4">
       <div className="flex items-center justify-between">
         <h4 className="text-lg font-semibold text-slate-200">Model Training Progress</h4>
         <div className={`px-3 py-1 rounded-full text-xs font-medium ${

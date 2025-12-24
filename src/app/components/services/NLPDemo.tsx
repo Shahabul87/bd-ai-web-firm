@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { usePerformanceOptimizedAnimation } from '../../hooks/useMobileDetection';
 
 export default function NLPDemo({ isActive }: { isActive: boolean }) {
+  const { isMobile, mounted: animationMounted } = usePerformanceOptimizedAnimation();
   const [currentText, setCurrentText] = useState('');
   const [sentiment, setSentiment] = useState({ score: 0, label: 'Neutral' });
   const [entities, setEntities] = useState<string[]>([]);
@@ -15,7 +17,9 @@ export default function NLPDemo({ isActive }: { isActive: boolean }) {
   ], []);
 
   useEffect(() => {
-    if (!isActive) return;
+    // AUTO-ANIMATIONS DISABLED to prevent layout shifts
+    return;
+    if (!isActive || !animationMounted || isMobile) return;
     
     let isComponentActive = true;
     let textIndex = 0;
@@ -32,7 +36,7 @@ export default function NLPDemo({ isActive }: { isActive: boolean }) {
       // Optimized typing animation using requestAnimationFrame
       let charIndex = 0;
       let lastTime = 0;
-      const typingSpeed = 50; // ms between characters
+      const typingSpeed = 80; // ms between characters - slower on mobile
       
       const typeChar = (currentTime: number) => {
         if (!isComponentActive) return;
@@ -92,10 +96,10 @@ export default function NLPDemo({ isActive }: { isActive: boolean }) {
       if (analysisTimeout) clearTimeout(analysisTimeout);
       if (nextTextTimeout) clearTimeout(nextTextTimeout);
     };
-  }, [isActive, sampleTexts]);
+  }, [isActive, animationMounted, isMobile, sampleTexts]);
 
   return (
-    <div className="space-y-6">
+    <div className="h-full flex flex-col justify-between space-y-4">
       <h4 className="text-lg font-semibold text-slate-200">Text Analysis Engine</h4>
       
       {/* Input Text */}

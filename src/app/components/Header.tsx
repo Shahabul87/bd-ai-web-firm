@@ -58,37 +58,35 @@ export default function Header() {
             
             <div>
               <h1 className="text-xl font-bold flex items-center">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
                   Cognivat
                 </span>
               </h1>
-              <p className="text-xs -mt-1 text-slate-400">AI Intelligence Studio</p>
+              <p className="text-xs -mt-1 text-slate-400">Agentic AI Coding</p>
             </div>
           </Link>
           
           <nav className="hidden md:flex">
             <div className="flex space-x-1 rounded-full py-1 px-1.5 bg-slate-800/60 backdrop-blur-sm border border-slate-700/50">
-              {["Home", "AI Solutions", "Web Dev", "Portfolio", "Blog", "About"].map((item) => {
+              {["Home", "Services", "Portfolio", "About"].map((item) => {
                 const getHref = (itemName: string) => {
                   switch(itemName) {
                     case "Home": return "/";
-                    case "AI Solutions": return "/ai-solutions";
-                    case "Web Dev": return "/web-development";
+                    case "Services": return "/services";
                     case "Portfolio": return "/portfolio";
-                    case "Blog": return "/blog";
                     case "About": return "/about";
                     default: return `/${itemName.toLowerCase()}`;
                   }
                 };
-                
+
                 const href = getHref(item);
                 const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
-                
+
                 return (
-                <Link 
+                <Link
                   key={item}
-                  href={href} 
-                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:text-cyan-400 ${
+                  href={href}
+                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:text-emerald-400 ${
                     isActive
                       ? 'text-slate-100 bg-slate-700/50 shadow-inner'
                       : 'text-slate-300 hover:bg-slate-700/30'
@@ -139,29 +137,27 @@ export default function Header() {
         suppressHydrationWarning={true}
       >
         <nav className="flex flex-col py-5 px-4 sm:px-6 space-y-1">
-          {["Home", "AI Solutions", "Web Dev", "Portfolio", "Blog", "About"].map((item) => {
+          {["Home", "Services", "Portfolio", "About"].map((item) => {
             const getHref = (itemName: string) => {
               switch(itemName) {
                 case "Home": return "/";
-                case "AI Solutions": return "/ai-solutions";
-                case "Web Dev": return "/web-development";
+                case "Services": return "/services";
                 case "Portfolio": return "/portfolio";
-                case "Blog": return "/blog";
                 case "About": return "/about";
                 default: return `/${itemName.toLowerCase()}`;
               }
             };
-            
+
             const href = getHref(item);
             const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
-            
+
             return (
-            <Link 
+            <Link
               key={item}
               href={href}
               className={`py-3 px-4 rounded-lg transition-colors font-medium ${
                 isActive
-                  ? 'text-cyan-400 bg-slate-700/50 shadow-inner'
+                  ? 'text-emerald-400 bg-slate-700/50 shadow-inner'
                   : 'text-slate-100 hover:bg-slate-800/50'
               }`}
               onClick={() => setMobileMenuOpen(false)}

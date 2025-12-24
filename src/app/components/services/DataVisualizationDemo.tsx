@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { usePerformanceOptimizedAnimation } from '../../hooks/useMobileDetection';
 
 export default function DataVisualizationDemo({ isActive }: { isActive: boolean }) {
+  const { isMobile, mounted: animationMounted } = usePerformanceOptimizedAnimation();
   const [data, setData] = useState([65, 75, 85, 70, 90, 95, 88]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -13,7 +15,9 @@ export default function DataVisualizationDemo({ isActive }: { isActive: boolean 
   }, []);
 
   useEffect(() => {
-    if (!isActive) return;
+    // AUTO-ANIMATIONS DISABLED to prevent layout shifts
+    return;
+    if (!isActive || !animationMounted || isMobile) return;
     
     let isComponentActive = true;
     let updateTimeout: NodeJS.Timeout;
@@ -31,24 +35,24 @@ export default function DataVisualizationDemo({ isActive }: { isActive: boolean 
           setIsProcessing(false);
           // Schedule next update using requestAnimationFrame
           animationFrame = requestAnimationFrame(() => {
-            updateTimeout = setTimeout(updateData, 4800); // 5s total cycle
+            updateTimeout = setTimeout(updateData, 7000); // Longer cycle on mobile
           });
         }, 800);
       }, 1200);
     };
     
-    // Initial update
-    updateTimeout = setTimeout(updateData, 5000);
+    // Initial update - longer delay on mobile
+    updateTimeout = setTimeout(updateData, 7000);
     
     return () => {
       isComponentActive = false;
       if (updateTimeout) clearTimeout(updateTimeout);
       if (animationFrame) cancelAnimationFrame(animationFrame);
     };
-  }, [isActive]);
+  }, [isActive, animationMounted, isMobile]);
 
   return (
-    <div className="space-y-6">
+    <div className="h-full flex flex-col justify-between space-y-4">
       <div className="flex items-center justify-between">
         <h4 className="text-lg font-semibold text-slate-200">Live Data Dashboard</h4>
         <div className={`px-3 py-1 rounded-full text-xs font-medium ${

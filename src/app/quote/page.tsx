@@ -3,15 +3,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import validator from 'validator';
+import Link from 'next/link';
 import { PageBackground } from '../components/PageBackground';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-// Types for form data
+// Types
 interface ProjectDetails {
   services: string[];
   projectType: string;
-  complexity: 'basic' | 'intermediate' | 'advanced' | 'enterprise';
+  complexity: 'mvp' | 'standard' | 'advanced' | 'enterprise';
   description: string;
   requirements: string;
   timeline: 'urgent' | 'standard' | 'flexible';
@@ -32,7 +33,6 @@ interface QuoteFormData {
   currentStep: number;
   projectDetails: ProjectDetails;
   companyInfo: CompanyInfo;
-  additionalFiles: File[];
   specialRequirements: string;
   agreedToTerms: boolean;
 }
@@ -42,7 +42,7 @@ const initialFormData: QuoteFormData = {
   projectDetails: {
     services: [],
     projectType: '',
-    complexity: 'basic',
+    complexity: 'mvp',
     description: '',
     requirements: '',
     timeline: 'standard',
@@ -57,7 +57,6 @@ const initialFormData: QuoteFormData = {
     phone: '',
     preferredContact: 'email',
   },
-  additionalFiles: [],
   specialRequirements: '',
   agreedToTerms: false,
 };
@@ -66,7 +65,6 @@ export default function QuotePage() {
   const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [estimatedCost, setEstimatedCost] = useState({ min: 0, max: 0 });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -75,106 +73,50 @@ export default function QuotePage() {
 
   const services = useMemo(() => [
     {
-      id: 'ai-model-development',
-      name: 'AI Model Development',
-      description: 'Custom machine learning models, training, and deployment',
-      icon: '🧠',
-      priceCategory: 'premium',
-      valueProps: ['Custom AI Solutions', 'Production-Ready Models', 'Ongoing Support'],
-    },
-    {
-      id: 'data-pipelines',
-      name: 'Data Processing Pipelines',
-      description: 'ETL workflows, real-time data processing, and automation',
-      icon: '🔄',
-      priceCategory: 'standard',
-      valueProps: ['Automated Workflows', 'Real-time Processing', 'Scalable Architecture'],
-    },
-    {
       id: 'web-development',
       name: 'Web Development',
-      description: 'Modern websites, web apps, and autonomous coding solutions',
+      description: 'Full-stack web apps with React, Next.js, and modern APIs',
       icon: '🌐',
-      priceCategory: 'affordable',
-      valueProps: ['Rapid Development', 'Modern Stack', 'Responsive Design'],
+      gradient: 'from-emerald-400 to-cyan-500',
+      bgGlow: 'emerald',
+      deliverables: ['React/Next.js Apps', 'API Development', 'Database Design', 'Cloud Deployment'],
+      timeline: '2-6 weeks',
+      perfectFor: 'SaaS platforms, dashboards, e-commerce',
     },
     {
-      id: 'fintech-analysis',
-      name: 'FinTech Solutions',
-      description: 'Financial data analysis, risk assessment, and trading insights',
-      icon: '💹',
-      priceCategory: 'premium',
-      valueProps: ['Compliance Ready', 'Advanced Analytics', 'Risk Management'],
+      id: 'android-development',
+      name: 'Android Development',
+      description: 'Native Android apps with Kotlin and Jetpack Compose',
+      icon: '📱',
+      gradient: 'from-cyan-400 to-violet-500',
+      bgGlow: 'cyan',
+      deliverables: ['Native Kotlin Apps', 'Material Design 3', 'Play Store Ready', 'Firebase Backend'],
+      timeline: '4-8 weeks',
+      perfectFor: 'Consumer apps, B2B mobile tools',
     },
     {
-      id: 'healthcare-analytics',
-      name: 'Healthcare Analytics',
-      description: 'Medical data analysis, patient insights, and diagnostic support',
-      icon: '🏥',
-      priceCategory: 'enterprise',
-      valueProps: ['HIPAA Compliant', 'Clinical Grade', 'Regulatory Support'],
+      id: 'data-analysis',
+      name: 'Data Analysis',
+      description: 'Transform raw data into actionable business insights',
+      icon: '📊',
+      gradient: 'from-violet-400 to-amber-500',
+      bgGlow: 'violet',
+      deliverables: ['Pattern Recognition', 'Predictive Models', 'Automated Reports', 'Data Pipelines'],
+      timeline: '1-4 weeks',
+      perfectFor: 'Business intelligence, market research',
     },
     {
-      id: 'automation',
-      name: 'Business Automation',
-      description: 'Workflow automation, process optimization, and AI integration',
-      icon: '⚡',
-      priceCategory: 'standard',
-      valueProps: ['Process Optimization', 'Cost Reduction', 'Efficiency Gains'],
+      id: 'data-visualization',
+      name: 'Data Visualization',
+      description: 'Beautiful interactive dashboards and reports',
+      icon: '📈',
+      gradient: 'from-amber-400 to-emerald-500',
+      bgGlow: 'amber',
+      deliverables: ['Custom Dashboards', 'Real-time Charts', 'Interactive Reports', 'Export Features'],
+      timeline: '1-3 weeks',
+      perfectFor: 'Executive dashboards, analytics portals',
     }
   ], []);
-
-  // Calculate project scope and complexity indicators
-  useEffect(() => {
-    if (!mounted) return;
-    
-    const calculateProjectScope = () => {
-      const { services: selectedServices, complexity } = formData.projectDetails;
-      
-      if (selectedServices.length === 0) {
-        setEstimatedCost({ min: 0, max: 0 });
-        return;
-      }
-      
-      // Calculate project scope based on service categories and complexity
-      let scopePoints = 0;
-      
-      selectedServices.forEach(serviceId => {
-        const service = services.find(s => s.id === serviceId);
-        if (service) {
-          switch (service.priceCategory) {
-            case 'affordable': scopePoints += 1; break;
-            case 'standard': scopePoints += 2; break;
-            case 'premium': scopePoints += 3; break;
-            case 'enterprise': scopePoints += 4; break;
-          }
-        }
-      });
-      
-      // Complexity multiplier
-      const complexityMultipliers = {
-        basic: 1,
-        intermediate: 1.3,
-        advanced: 1.8,
-        enterprise: 2.5,
-      };
-      
-      scopePoints *= complexityMultipliers[complexity];
-      
-      // Convert scope points to startup-style indicators
-      if (scopePoints <= 3) {
-        setEstimatedCost({ min: 1, max: 1 }); // "Startup Friendly"
-      } else if (scopePoints <= 6) {
-        setEstimatedCost({ min: 2, max: 2 }); // "Growth Ready"
-      } else if (scopePoints <= 10) {
-        setEstimatedCost({ min: 3, max: 3 }); // "Scale-Up"
-      } else {
-        setEstimatedCost({ min: 4, max: 4 }); // "Enterprise"
-      }
-    };
-    
-    calculateProjectScope();
-  }, [formData.projectDetails, mounted, services]);
 
   const handleServiceToggle = (serviceId: string) => {
     setFormData(prev => ({
@@ -196,47 +138,28 @@ export default function QuotePage() {
         if (formData.projectDetails.services.length === 0) {
           newErrors.services = 'Please select at least one service';
         }
-        if (!formData.projectDetails.projectType) {
-          newErrors.projectType = 'Please specify your project type';
-        }
         break;
-
       case 2:
         if (!formData.projectDetails.description || formData.projectDetails.description.length < 20) {
-          newErrors.description = 'Please provide a detailed project description (minimum 20 characters)';
-        }
-        if (!formData.projectDetails.requirements || formData.projectDetails.requirements.length < 10) {
-          newErrors.requirements = 'Please describe your technical requirements';
+          newErrors.description = 'Please describe your project (minimum 20 characters)';
         }
         break;
-
       case 3:
         if (!formData.projectDetails.budget) {
-          newErrors.budget = 'Please select a budget range';
+          newErrors.budget = 'Please select your investment level';
         }
         break;
-
       case 4:
-        if (!formData.companyInfo.companyName || formData.companyInfo.companyName.length < 2) {
-          newErrors.companyName = 'Company name is required';
-        }
         if (!formData.companyInfo.contactName || formData.companyInfo.contactName.length < 2) {
-          newErrors.contactName = 'Contact name is required';
+          newErrors.contactName = 'Your name is required';
         }
         if (!formData.companyInfo.email || !validator.isEmail(formData.companyInfo.email)) {
-          newErrors.email = 'Valid email address is required';
-        }
-        if (!formData.companyInfo.industry) {
-          newErrors.industry = 'Please select your industry';
-        }
-        if (!formData.companyInfo.companySize) {
-          newErrors.companySize = 'Please select your company size';
+          newErrors.email = 'Valid email is required';
         }
         break;
-
-      case 6:
+      case 5:
         if (!formData.agreedToTerms) {
-          newErrors.terms = 'Please agree to the terms and conditions';
+          newErrors.terms = 'Please agree to the terms';
         }
         break;
     }
@@ -249,7 +172,7 @@ export default function QuotePage() {
     if (validateStep(formData.currentStep)) {
       setFormData(prev => ({
         ...prev,
-        currentStep: Math.min(prev.currentStep + 1, 6),
+        currentStep: Math.min(prev.currentStep + 1, 5),
       }));
     }
   };
@@ -262,72 +185,184 @@ export default function QuotePage() {
   };
 
   const handleSubmit = async () => {
-    if (!validateStep(6)) return;
+    if (!validateStep(5)) return;
 
     setIsSubmitting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
+
+    try {
+      const response = await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          projectDetails: formData.projectDetails,
+          companyInfo: formData.companyInfo,
+          specialRequirements: formData.specialRequirements,
+          agreedToTerms: formData.agreedToTerms,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert('Quote request submitted! We will contact you within 24 hours.');
+        setFormData(initialFormData);
+      } else {
+        if (result.errors) {
+          setErrors(result.errors);
+          setFormData(prev => ({ ...prev, currentStep: 1 }));
+        } else {
+          alert('Error: ' + (result.message || 'Something went wrong. Please try again.'));
+        }
+      }
+    } catch {
+      alert('Network error. Please check your connection and try again.');
+    } finally {
       setIsSubmitting(false);
-      // In a real implementation, this would redirect to a thank you page
-      alert('Quote request submitted successfully! We\'ll contact you within 24 hours.');
-    }, 2000);
+    }
   };
 
   if (!mounted) return null;
+
+  const stepTitles = ['Select Services', 'Project Details', 'Investment', 'Contact Info', 'Review'];
 
   return (
     <PageBackground>
       <div className="min-h-screen text-white">
         <Header />
-        
+
         <main className="pt-20">
           {/* Hero Section */}
-          <section className="py-16 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <motion.h1 
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+          <section
+            className="relative py-20 overflow-hidden"
+            style={{
+              background: 'linear-gradient(135deg, #0a0a0f 0%, #0d1117 50%, #0a0f1a 100%)'
+            }}
+          >
+            {/* Background Effects */}
+            <div className="absolute inset-0">
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[128px]" />
+              <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-[128px]" />
+            </div>
+
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                {/* Left: Hero Content */}
+                <motion.div
+                  className="space-y-8"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8 }}
                 >
-                  Get Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500">AI Solution</span> Quote
-                </motion.h1>
-                <motion.p 
-                  className="text-xl text-slate-400 max-w-3xl mx-auto"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/5">
+                    <div className="relative">
+                      <div className="w-2 h-2 bg-emerald-400 rounded-full" />
+                      <div className="absolute inset-0 w-2 h-2 bg-emerald-400 rounded-full animate-ping" />
+                    </div>
+                    <span className="text-sm text-emerald-300">Free Quote in 24 Hours</span>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1]">
+                      <span className="text-white/90">Get Your Project</span>
+                      <br />
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
+                        Built by AI Agents
+                      </span>
+                    </h1>
+                    <p className="text-lg text-slate-400 max-w-lg">
+                      Tell us what you need. Our AI agents will analyze your requirements and deliver a
+                      <span className="text-emerald-400"> custom quote within 24 hours</span>.
+                    </p>
+                  </div>
+
+                  {/* Value Props */}
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { icon: '⚡', value: '10x', label: 'Faster Delivery' },
+                      { icon: '💰', value: '80%', label: 'Cost Savings' },
+                      { icon: '🤖', value: '24/7', label: 'AI Working' },
+                      { icon: '✨', value: '100%', label: 'Satisfaction' },
+                    ].map((stat) => (
+                      <div
+                        key={stat.label}
+                        className="flex items-center gap-3 p-3 rounded-xl bg-slate-800/30 border border-slate-700/30"
+                      >
+                        <span className="text-2xl">{stat.icon}</span>
+                        <div>
+                          <div className="text-lg font-bold text-white">{stat.value}</div>
+                          <div className="text-xs text-slate-500">{stat.label}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Social Proof */}
+                  <div className="flex items-center gap-4 pt-4">
+                    <div className="flex -space-x-2">
+                      {['🧑‍💻', '👩‍💼', '👨‍🔬', '👩‍🎨'].map((emoji, i) => (
+                        <div key={i} className="w-8 h-8 rounded-full bg-slate-700 border-2 border-slate-900 flex items-center justify-center text-sm">
+                          {emoji}
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-sm">
+                      <span className="text-white font-medium">50+ founders</span>
+                      <span className="text-slate-500"> trust us with their projects</span>
+                    </div>
+                  </div>
+                </motion.div>
+
+                {/* Right: Quick Stats */}
+                <motion.div
+                  className="hidden lg:block"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  Tell us about your project and get a detailed estimate for enterprise-grade AI development, 
-                  data processing, and web solutions. Our autonomous coding platform delivers results fast.
-                </motion.p>
-                
-                {/* Trust Indicators */}
-                <motion.div 
-                  className="flex flex-wrap justify-center gap-8 mt-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                >
-                  <div className="flex items-center gap-2 text-green-400">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                    </svg>
-                    <span className="text-sm font-medium">24-Hour Response</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-cyan-400">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                    </svg>
-                    <span className="text-sm font-medium">No Obligation</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-purple-400">
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                    </svg>
-                    <span className="text-sm font-medium">Enterprise Security</span>
+                  <div className="relative">
+                    {/* Main Card */}
+                    <div className="bg-[#0d1117] rounded-2xl border border-slate-700/50 p-8 shadow-2xl">
+                      <div className="text-center mb-8">
+                        <div className="text-5xl mb-4">🚀</div>
+                        <h3 className="text-2xl font-bold text-white mb-2">Why Startups Choose Us</h3>
+                        <p className="text-slate-400 text-sm">We&apos;re founders too. We get it.</p>
+                      </div>
+
+                      <div className="space-y-4">
+                        {[
+                          { label: 'No upfront payment required', check: true },
+                          { label: 'Milestone-based billing', check: true },
+                          { label: 'Equity-friendly arrangements', check: true },
+                          { label: 'Cancel anytime policy', check: true },
+                          { label: 'Source code ownership', check: true },
+                        ].map((item, i) => (
+                          <div key={i} className="flex items-center gap-3">
+                            <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                              <svg className="w-3 h-3 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                              </svg>
+                            </div>
+                            <span className="text-slate-300">{item.label}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="mt-8 p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20">
+                        <div className="flex items-center gap-3">
+                          <div className="text-2xl">💬</div>
+                          <div>
+                            <div className="text-sm font-medium text-white">&quot;Shipped our MVP in 3 weeks&quot;</div>
+                            <div className="text-xs text-slate-500">- Sarah K., Fintech Founder</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Floating Badge */}
+                    <div className="absolute -top-4 -right-4 px-4 py-2 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full shadow-lg">
+                      <span className="text-sm font-bold text-white">Startup Friendly</span>
+                    </div>
                   </div>
                 </motion.div>
               </div>
@@ -335,26 +370,53 @@ export default function QuotePage() {
           </section>
 
           {/* Quote Form Section */}
-          <section className="py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                {/* Form Steps */}
-                <div className="lg:col-span-2">
-                  <div className="bg-slate-900/90 rounded-3xl border border-slate-700/50 p-8 backdrop-blur-sm neural-glow">
-                    {/* Progress Bar */}
-                    <div className="mb-8">
-                      <div className="flex items-center justify-between text-sm mb-2">
-                        <span className="text-slate-300">Step {formData.currentStep} of 6</span>
-                        <span className="text-cyan-400 font-medium">{Math.round((formData.currentStep / 6) * 100)}% Complete</span>
+          <section className="py-16 relative">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Step Indicators */}
+              <div className="mb-12">
+                <div className="flex items-center justify-between max-w-3xl mx-auto">
+                  {stepTitles.map((title, i) => (
+                    <div key={i} className="flex flex-col items-center">
+                      <div
+                        className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+                          formData.currentStep > i + 1
+                            ? 'bg-emerald-500 text-white'
+                            : formData.currentStep === i + 1
+                            ? 'bg-gradient-to-r from-emerald-400 to-cyan-500 text-white shadow-lg shadow-emerald-500/30'
+                            : 'bg-slate-800 text-slate-500'
+                        }`}
+                      >
+                        {formData.currentStep > i + 1 ? (
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                          </svg>
+                        ) : (
+                          i + 1
+                        )}
                       </div>
-                      <div className="w-full bg-slate-700 rounded-full h-2">
-                        <div 
-                          className="bg-gradient-to-r from-cyan-400 to-purple-500 h-2 rounded-full transition-all duration-500"
-                          style={{ width: `${(formData.currentStep / 6) * 100}%` }}
-                        />
-                      </div>
+                      <span className={`mt-2 text-xs hidden sm:block ${
+                        formData.currentStep === i + 1 ? 'text-emerald-400 font-medium' : 'text-slate-500'
+                      }`}>
+                        {title}
+                      </span>
                     </div>
+                  ))}
+                </div>
+                {/* Progress Line */}
+                <div className="mt-4 max-w-3xl mx-auto">
+                  <div className="h-1 bg-slate-800 rounded-full">
+                    <div
+                      className="h-full bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-full transition-all duration-500"
+                      style={{ width: `${((formData.currentStep - 1) / 4) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
 
+              {/* Form Card */}
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-[#0d1117] rounded-3xl border border-slate-700/50 overflow-hidden shadow-2xl">
+                  <div className="p-8 md:p-12">
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={formData.currentStep}
@@ -364,89 +426,116 @@ export default function QuotePage() {
                         transition={{ duration: 0.3 }}
                       >
                         {formData.currentStep === 1 && (
-                          <QuoteStep1 
-                            formData={formData} 
-                            setFormData={setFormData} 
+                          <Step1Services
+                            formData={formData}
                             services={services}
                             handleServiceToggle={handleServiceToggle}
                             errors={errors}
                           />
                         )}
                         {formData.currentStep === 2 && (
-                          <QuoteStep2 
-                            formData={formData} 
-                            setFormData={setFormData} 
+                          <Step2Details
+                            formData={formData}
+                            setFormData={setFormData}
                             errors={errors}
                           />
                         )}
                         {formData.currentStep === 3 && (
-                          <QuoteStep3 
-                            formData={formData} 
-                            setFormData={setFormData} 
+                          <Step3Investment
+                            formData={formData}
+                            setFormData={setFormData}
                             errors={errors}
                           />
                         )}
                         {formData.currentStep === 4 && (
-                          <QuoteStep4 
-                            formData={formData} 
-                            setFormData={setFormData} 
+                          <Step4Contact
+                            formData={formData}
+                            setFormData={setFormData}
                             errors={errors}
                           />
                         )}
                         {formData.currentStep === 5 && (
-                          <QuoteStep5 
-                            formData={formData} 
-                            setFormData={setFormData} 
-                            errors={errors}
-                          />
-                        )}
-                        {formData.currentStep === 6 && (
-                          <QuoteStep6 
-                            formData={formData} 
-                            setFormData={setFormData} 
+                          <Step5Review
+                            formData={formData}
+                            setFormData={setFormData}
+                            services={services}
                             errors={errors}
                           />
                         )}
                       </motion.div>
                     </AnimatePresence>
 
-                    {/* Navigation Buttons */}
-                    <div className="flex justify-between mt-8 pt-8 border-t border-slate-700/50">
+                    {/* Navigation */}
+                    <div className="flex justify-between mt-10 pt-8 border-t border-slate-700/50">
                       {formData.currentStep > 1 ? (
                         <button
                           onClick={prevStep}
-                          className="px-6 py-3 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors duration-300"
+                          className="flex items-center gap-2 px-6 py-3 text-slate-400 hover:text-white transition-colors"
                         >
-                          Previous
+                          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                          </svg>
+                          Back
                         </button>
                       ) : (
                         <div />
                       )}
 
-                      {formData.currentStep < 6 ? (
+                      {formData.currentStep < 5 ? (
                         <button
                           onClick={nextStep}
-                          className="px-6 py-3 bg-gradient-to-r from-cyan-400 to-purple-500 text-white rounded-lg hover:shadow-lg transition-all duration-300"
+                          className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl text-white font-semibold hover:shadow-xl hover:shadow-emerald-500/25 transition-all duration-300"
                         >
-                          Next Step
+                          Continue
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
                         </button>
                       ) : (
                         <button
                           onClick={handleSubmit}
                           disabled={isSubmitting}
-                          className="px-8 py-3 bg-gradient-to-r from-cyan-400 to-purple-500 text-white rounded-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50"
+                          className="group flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-xl text-white font-semibold hover:shadow-xl hover:shadow-emerald-500/25 transition-all duration-300 disabled:opacity-50"
                         >
-                          {isSubmitting ? 'Submitting...' : 'Submit Quote Request'}
+                          {isSubmitting ? (
+                            <>
+                              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                              Submitting...
+                            </>
+                          ) : (
+                            <>
+                              Get My Free Quote
+                              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                              </svg>
+                            </>
+                          )}
                         </button>
                       )}
                     </div>
                   </div>
                 </div>
 
-                {/* Cost Estimation Panel */}
-                <div className="space-y-6">
-                  <CostEstimationPanel estimatedCost={estimatedCost} formData={formData} services={services} />
-                  <TrustSignalsPanel />
+                {/* Trust Bar */}
+                <div className="mt-8 flex flex-wrap justify-center gap-8 text-sm text-slate-500">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+                    </svg>
+                    <span>Secure & Encrypted</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
+                    </svg>
+                    <span>Response within 24 hours</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <svg className="w-5 h-5 text-violet-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                    </svg>
+                    <span>No spam, ever</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -459,388 +548,340 @@ export default function QuotePage() {
   );
 }
 
-// Step Component Props Types
+// Step Components
 interface StepProps {
   formData: QuoteFormData;
   setFormData: React.Dispatch<React.SetStateAction<QuoteFormData>>;
   errors: Record<string, string>;
 }
 
-interface Step1Props extends StepProps {
+interface Step1Props {
+  formData: QuoteFormData;
   services: Array<{
     id: string;
     name: string;
     description: string;
     icon: string;
-    priceCategory: string;
-    valueProps: string[];
+    gradient: string;
+    bgGlow: string;
+    deliverables: string[];
+    timeline: string;
+    perfectFor: string;
   }>;
   handleServiceToggle: (serviceId: string) => void;
+  errors: Record<string, string>;
 }
 
-// Step Components
-function QuoteStep1({ formData, setFormData, services, handleServiceToggle, errors }: Step1Props) {
+function Step1Services({ formData, services, handleServiceToggle, errors }: Step1Props) {
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-2">Select Your Services</h2>
-        <p className="text-slate-400">Choose the AI and development services you need for your project.</p>
+    <div className="space-y-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-white mb-3">What do you need built?</h2>
+        <p className="text-slate-400">Select all the services that apply to your project</p>
       </div>
 
       {errors.services && (
-        <div className="p-3 bg-red-900/30 border border-red-500/30 rounded-lg text-red-400 text-sm">
+        <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-center">
           {errors.services}
         </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {services.map((service) => (
-          <div
-            key={service.id}
-            onClick={() => handleServiceToggle(service.id)}
-            className={`p-4 rounded-xl border-2 cursor-pointer transition-all duration-300 ${
-              formData.projectDetails.services.includes(service.id)
-                ? 'border-cyan-400 bg-cyan-400/10'
-                : 'border-slate-600 hover:border-slate-500'
-            }`}
-          >
-            <div className="flex items-start gap-3">
-              <div className="text-2xl">{service.icon}</div>
-              <div>
-                <h3 className="font-semibold text-white mb-1">{service.name}</h3>
-                <p className="text-sm text-slate-400 mb-2">{service.description}</p>
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {service.valueProps.map((prop, idx) => (
-                    <span key={idx} className="text-xs bg-cyan-400/20 text-cyan-300 px-2 py-0.5 rounded">
-                      {prop}
-                    </span>
-                  ))}
+        {services.map((service) => {
+          const isSelected = formData.projectDetails.services.includes(service.id);
+          return (
+            <div
+              key={service.id}
+              onClick={() => handleServiceToggle(service.id)}
+              className={`relative p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
+                isSelected
+                  ? 'border-emerald-500/50 bg-emerald-500/5 shadow-lg shadow-emerald-500/10'
+                  : 'border-slate-700/50 hover:border-slate-600/50 hover:bg-slate-800/30'
+              }`}
+            >
+              {/* Selection Indicator */}
+              <div className={`absolute top-4 right-4 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                isSelected ? 'border-emerald-500 bg-emerald-500' : 'border-slate-600'
+              }`}>
+                {isSelected && (
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+                  </svg>
+                )}
+              </div>
+
+              <div className="flex items-start gap-4">
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-2xl shadow-lg`}>
+                  {service.icon}
                 </div>
-                <div className={`text-xs font-medium ${
-                  service.priceCategory === 'affordable' ? 'text-green-400' :
-                  service.priceCategory === 'standard' ? 'text-cyan-400' :
-                  service.priceCategory === 'premium' ? 'text-purple-400' :
-                  'text-orange-400'
-                }`}>
-                  {service.priceCategory === 'affordable' ? '💰 Startup Friendly' :
-                   service.priceCategory === 'standard' ? '🚀 Growth Ready' :
-                   service.priceCategory === 'premium' ? '⭐ Premium Solution' :
-                   '🏢 Enterprise Grade'}
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-white mb-1">{service.name}</h3>
+                  <p className="text-sm text-slate-400 mb-3">{service.description}</p>
+
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {service.deliverables.slice(0, 2).map((item, i) => (
+                      <span key={i} className="text-xs px-2 py-1 rounded-full bg-slate-800/50 text-slate-300">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-500">Timeline: {service.timeline}</span>
+                    <span className={`text-transparent bg-clip-text bg-gradient-to-r ${service.gradient} font-medium`}>
+                      {isSelected ? 'Selected' : 'Click to select'}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function Step2Details({ formData, setFormData, errors }: StepProps) {
+  return (
+    <div className="space-y-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-white mb-3">Tell us about your project</h2>
+        <p className="text-slate-400">The more details you share, the better quote we can provide</p>
+      </div>
+
+      <div className="space-y-6">
+        {/* Project Scale */}
+        <div>
+          <label className="block text-sm font-medium text-white mb-3">
+            Project Scale
+          </label>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { value: 'mvp', label: 'MVP', desc: 'Quick validation', icon: '🌱' },
+              { value: 'standard', label: 'Standard', desc: 'Full features', icon: '🚀' },
+              { value: 'advanced', label: 'Advanced', desc: 'Complex logic', icon: '⚡' },
+              { value: 'enterprise', label: 'Enterprise', desc: 'Mission-critical', icon: '🏢' }
+            ].map((option) => (
+              <button
+                key={option.value}
+                onClick={() => setFormData((prev) => ({
+                  ...prev,
+                  projectDetails: { ...prev.projectDetails, complexity: option.value as 'mvp' | 'standard' | 'advanced' | 'enterprise' }
+                }))}
+                className={`p-4 rounded-xl border-2 text-center transition-all duration-300 ${
+                  formData.projectDetails.complexity === option.value
+                    ? 'border-emerald-500/50 bg-emerald-500/10 text-emerald-400'
+                    : 'border-slate-700/50 hover:border-slate-600/50 text-slate-400'
+                }`}
+              >
+                <div className="text-2xl mb-1">{option.icon}</div>
+                <div className="font-medium text-sm">{option.label}</div>
+                <div className="text-xs opacity-70">{option.desc}</div>
+              </button>
+            ))}
           </div>
+        </div>
+
+        {/* Description */}
+        <div>
+          <label className="block text-sm font-medium text-white mb-2">
+            Project Description *
+          </label>
+          <textarea
+            value={formData.projectDetails.description}
+            onChange={(e) => setFormData((prev) => ({
+              ...prev,
+              projectDetails: { ...prev.projectDetails, description: e.target.value }
+            }))}
+            placeholder="Describe your project goals, target users, and key features you need..."
+            rows={4}
+            className={`w-full px-4 py-3 bg-slate-800/50 border-2 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none transition-all ${
+              errors.description ? 'border-red-500/50' : 'border-slate-700/50'
+            }`}
+          />
+          {errors.description && (
+            <p className="mt-2 text-sm text-red-400">{errors.description}</p>
+          )}
+        </div>
+
+        {/* Requirements */}
+        <div>
+          <label className="block text-sm font-medium text-white mb-2">
+            Special Requirements (Optional)
+          </label>
+          <textarea
+            value={formData.projectDetails.requirements}
+            onChange={(e) => setFormData((prev) => ({
+              ...prev,
+              projectDetails: { ...prev.projectDetails, requirements: e.target.value }
+            }))}
+            placeholder="Any technical requirements, integrations, or specific technologies you need..."
+            rows={3}
+            className="w-full px-4 py-3 bg-slate-800/50 border-2 border-slate-700/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 resize-none transition-all"
+          />
+        </div>
+
+        {/* Timeline */}
+        <div>
+          <label className="block text-sm font-medium text-white mb-3">
+            Preferred Timeline
+          </label>
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { value: 'urgent', label: 'ASAP', desc: '2-4 weeks', badge: 'Priority' },
+              { value: 'standard', label: 'Standard', desc: '4-8 weeks', badge: 'Recommended' },
+              { value: 'flexible', label: 'Flexible', desc: '8+ weeks', badge: 'Best Value' }
+            ].map((option) => (
+              <button
+                key={option.value}
+                onClick={() => setFormData((prev) => ({
+                  ...prev,
+                  projectDetails: { ...prev.projectDetails, timeline: option.value as 'urgent' | 'standard' | 'flexible' }
+                }))}
+                className={`relative p-4 rounded-xl border-2 text-center transition-all duration-300 ${
+                  formData.projectDetails.timeline === option.value
+                    ? 'border-cyan-500/50 bg-cyan-500/10 text-cyan-400'
+                    : 'border-slate-700/50 hover:border-slate-600/50 text-slate-400'
+                }`}
+              >
+                {formData.projectDetails.timeline === option.value && (
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-cyan-500 rounded-full text-[10px] font-bold text-white">
+                    {option.badge}
+                  </div>
+                )}
+                <div className="font-medium">{option.label}</div>
+                <div className="text-xs opacity-70">{option.desc}</div>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Step3Investment({ formData, setFormData, errors }: StepProps) {
+  const budgetOptions = [
+    {
+      value: 'bootstrap',
+      label: 'Bootstrap',
+      range: '$2K - $8K',
+      desc: 'Perfect for MVPs and validation',
+      icon: '🌱',
+      features: ['Core features only', '2-4 week delivery', 'Essential support'],
+      popular: false
+    },
+    {
+      value: 'seed',
+      label: 'Seed Stage',
+      range: '$8K - $25K',
+      desc: 'Full-featured product launch',
+      icon: '🚀',
+      features: ['Complete feature set', 'Premium design', '60-day support'],
+      popular: true
+    },
+    {
+      value: 'growth',
+      label: 'Growth',
+      range: '$25K - $75K',
+      desc: 'Scalable enterprise solution',
+      icon: '📈',
+      features: ['Advanced features', 'Custom integrations', '90-day support'],
+      popular: false
+    },
+    {
+      value: 'enterprise',
+      label: 'Enterprise',
+      range: '$75K+',
+      desc: 'Mission-critical systems',
+      icon: '🏢',
+      features: ['Full customization', 'Dedicated team', 'Ongoing partnership'],
+      popular: false
+    }
+  ];
+
+  return (
+    <div className="space-y-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-white mb-3">What&apos;s your investment level?</h2>
+        <p className="text-slate-400">We work with startups at every stage. Pick what fits your budget.</p>
+      </div>
+
+      {errors.budget && (
+        <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 text-center">
+          {errors.budget}
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {budgetOptions.map((option) => (
+          <button
+            key={option.value}
+            onClick={() => setFormData((prev) => ({
+              ...prev,
+              projectDetails: { ...prev.projectDetails, budget: option.value }
+            }))}
+            className={`relative p-6 rounded-2xl border-2 text-left transition-all duration-300 ${
+              formData.projectDetails.budget === option.value
+                ? 'border-emerald-500/50 bg-emerald-500/5 shadow-lg shadow-emerald-500/10'
+                : 'border-slate-700/50 hover:border-slate-600/50'
+            }`}
+          >
+            {option.popular && (
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full text-xs font-bold text-white">
+                Most Popular
+              </div>
+            )}
+
+            <div className="flex items-start gap-4">
+              <div className="text-3xl">{option.icon}</div>
+              <div className="flex-1">
+                <div className="flex items-center justify-between mb-1">
+                  <h3 className="text-lg font-bold text-white">{option.label}</h3>
+                  <span className="text-emerald-400 font-bold">{option.range}</span>
+                </div>
+                <p className="text-sm text-slate-400 mb-3">{option.desc}</p>
+                <div className="space-y-1">
+                  {option.features.map((feature, i) => (
+                    <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
+                      <div className="w-1 h-1 bg-slate-600 rounded-full" />
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </button>
         ))}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Project Type *
-        </label>
-        <input
-          type="text"
-          value={formData.projectDetails.projectType}
-          onChange={(e) => setFormData((prev) => ({
-            ...prev,
-            projectDetails: { ...prev.projectDetails, projectType: e.target.value }
-          }))}
-          placeholder="e.g., E-commerce platform, Predictive analytics dashboard, Customer service chatbot"
-          className={`w-full px-4 py-3 bg-slate-700 border-2 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-300 ${
-            errors.projectType ? 'border-red-500' : 'border-slate-600'
-          }`}
-        />
-        {errors.projectType && (
-          <p className="mt-2 text-sm text-red-400">{errors.projectType}</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function QuoteStep2({ formData, setFormData, errors }: StepProps) {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-2">Project Details</h2>
-        <p className="text-slate-400">Tell us more about your project requirements and complexity.</p>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Project Complexity *
-        </label>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[
-            { value: 'basic', label: 'Basic', desc: 'Simple implementation' },
-            { value: 'intermediate', label: 'Intermediate', desc: 'Moderate complexity' },
-            { value: 'advanced', label: 'Advanced', desc: 'Complex solution' },
-            { value: 'enterprise', label: 'Enterprise', desc: 'Mission-critical' }
-          ].map((option) => (
-            <button
-              key={option.value}
-              onClick={() => setFormData((prev) => ({
-                ...prev,
-                projectDetails: { ...prev.projectDetails, complexity: option.value }
-              }))}
-              className={`p-3 text-center rounded-lg border-2 transition-all duration-300 ${
-                formData.projectDetails.complexity === option.value
-                  ? 'border-purple-400 bg-purple-400/10 text-purple-400'
-                  : 'border-slate-600 hover:border-slate-500 text-slate-400'
-              }`}
-            >
-              <div className="font-medium">{option.label}</div>
-              <div className="text-xs mt-1">{option.desc}</div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Detailed Project Description *
-        </label>
-        <textarea
-          value={formData.projectDetails.description}
-          onChange={(e) => setFormData((prev) => ({
-            ...prev,
-            projectDetails: { ...prev.projectDetails, description: e.target.value }
-          }))}
-          placeholder="Describe your project goals, target users, key features, and expected outcomes..."
-          rows={4}
-          className={`w-full px-4 py-3 bg-slate-700 border-2 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none transition-all duration-300 ${
-            errors.description ? 'border-red-500' : 'border-slate-600'
-          }`}
-        />
-        {errors.description && (
-          <p className="mt-2 text-sm text-red-400">{errors.description}</p>
-        )}
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Technical Requirements *
-        </label>
-        <textarea
-          value={formData.projectDetails.requirements}
-          onChange={(e) => setFormData((prev) => ({
-            ...prev,
-            projectDetails: { ...prev.projectDetails, requirements: e.target.value }
-          }))}
-          placeholder="Specific technical requirements, integrations, platforms, data sources, performance needs..."
-          rows={3}
-          className={`w-full px-4 py-3 bg-slate-700 border-2 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none transition-all duration-300 ${
-            errors.requirements ? 'border-red-500' : 'border-slate-600'
-          }`}
-        />
-        {errors.requirements && (
-          <p className="mt-2 text-sm text-red-400">{errors.requirements}</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function QuoteStep3({ formData, setFormData, errors }: StepProps) {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-2">Timeline & Budget</h2>
-        <p className="text-slate-400">Help us understand your timeline and budget constraints.</p>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Project Timeline *
-        </label>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {[
-            { value: 'urgent', label: 'Urgent', desc: '2-4 weeks', multiplier: '+80%' },
-            { value: 'standard', label: 'Standard', desc: '6-8 weeks', multiplier: 'Base price' },
-            { value: 'flexible', label: 'Flexible', desc: '10-12 weeks', multiplier: '-20%' }
-          ].map((option) => (
-            <button
-              key={option.value}
-              onClick={() => setFormData((prev) => ({
-                ...prev,
-                projectDetails: { ...prev.projectDetails, timeline: option.value }
-              }))}
-              className={`p-4 text-center rounded-lg border-2 transition-all duration-300 ${
-                formData.projectDetails.timeline === option.value
-                  ? 'border-orange-400 bg-orange-400/10 text-orange-400'
-                  : 'border-slate-600 hover:border-slate-500 text-slate-400'
-              }`}
-            >
-              <div className="font-medium">{option.label}</div>
-              <div className="text-sm mt-1">{option.desc}</div>
-              <div className="text-xs mt-1">{option.multiplier}</div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Investment Level *
-        </label>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {[
-            { 
-              value: 'bootstrap', 
-              label: 'Bootstrap Budget', 
-              desc: 'MVP development, essential features only',
-              icon: '🌱'
-            },
-            { 
-              value: 'seed', 
-              label: 'Seed Funding Ready', 
-              desc: 'Full-featured product, market-ready',
-              icon: '🚀'
-            },
-            { 
-              value: 'series-a', 
-              label: 'Growth Investment', 
-              desc: 'Advanced features, scalable architecture',
-              icon: '📈'
-            },
-            { 
-              value: 'enterprise', 
-              label: 'Enterprise Scale', 
-              desc: 'Enterprise-grade, compliance, custom integrations',
-              icon: '🏢'
-            }
-          ].map((option) => (
-            <button
-              key={option.value}
-              onClick={() => setFormData((prev) => ({
-                ...prev,
-                projectDetails: { ...prev.projectDetails, budget: option.value }
-              }))}
-              className={`p-4 text-left rounded-lg border-2 transition-all duration-300 ${
-                formData.projectDetails.budget === option.value
-                  ? 'border-orange-400 bg-orange-400/10 text-orange-400'
-                  : 'border-slate-600 hover:border-slate-500 text-slate-400'
-              }`}
-            >
-              <div className="flex items-start gap-3">
-                <span className="text-lg">{option.icon}</span>
-                <div>
-                  <div className="font-medium text-sm">{option.label}</div>
-                  <div className="text-xs mt-1 opacity-80">{option.desc}</div>
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-        {errors.budget && (
-          <p className="mt-2 text-sm text-red-400">{errors.budget}</p>
-        )}
-        
-        <div className="mt-4 p-3 bg-slate-800/30 rounded-lg border border-slate-700/50">
-          <p className="text-xs text-slate-400">
-            💡 <strong>Flexible Pricing:</strong> We work with startups at every stage. 
-            Our pricing is tailored to your current funding situation and growth plans.
-          </p>
+      <div className="p-4 bg-slate-800/30 rounded-xl border border-slate-700/30">
+        <div className="flex items-start gap-3">
+          <div className="text-xl">💡</div>
+          <div>
+            <h4 className="text-sm font-medium text-white mb-1">Not sure about budget?</h4>
+            <p className="text-xs text-slate-400">
+              No worries! We&apos;ll provide a detailed quote based on your requirements.
+              We also offer flexible payment plans and equity arrangements for early-stage startups.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function QuoteStep4({ formData, setFormData, errors }: StepProps) {
+function Step4Contact({ formData, setFormData, errors }: StepProps) {
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-2">Company Information</h2>
-        <p className="text-slate-400">Tell us about your organization so we can tailor our approach.</p>
+    <div className="space-y-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-white mb-3">How can we reach you?</h2>
+        <p className="text-slate-400">We&apos;ll send your personalized quote to this email</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-white mb-2">
-            Company Name *
-          </label>
-          <input
-            type="text"
-            value={formData.companyInfo.companyName}
-            onChange={(e) => setFormData((prev) => ({
-              ...prev,
-              companyInfo: { ...prev.companyInfo, companyName: e.target.value }
-            }))}
-            className={`w-full px-4 py-3 bg-slate-700 border-2 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-300 ${
-              errors.companyName ? 'border-red-500' : 'border-slate-600'
-            }`}
-            placeholder="Your company name"
-          />
-          {errors.companyName && (
-            <p className="mt-2 text-sm text-red-400">{errors.companyName}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-white mb-2">
-            Industry *
-          </label>
-          <select
-            value={formData.companyInfo.industry}
-            onChange={(e) => setFormData((prev) => ({
-              ...prev,
-              companyInfo: { ...prev.companyInfo, industry: e.target.value }
-            }))}
-            className={`w-full px-4 py-3 bg-slate-700 border-2 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-300 ${
-              errors.industry ? 'border-red-500' : 'border-slate-600'
-            }`}
-          >
-            <option value="">Select industry</option>
-            <option value="technology">Technology</option>
-            <option value="finance">Finance & Banking</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="retail">Retail & E-commerce</option>
-            <option value="manufacturing">Manufacturing</option>
-            <option value="education">Education</option>
-            <option value="media">Media & Entertainment</option>
-            <option value="consulting">Consulting</option>
-            <option value="other">Other</option>
-          </select>
-          {errors.industry && (
-            <p className="mt-2 text-sm text-red-400">{errors.industry}</p>
-          )}
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Company Size *
-        </label>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[
-            { value: 'startup', label: 'Startup', desc: '1-10 employees' },
-            { value: 'small', label: 'Small', desc: '11-50 employees' },
-            { value: 'medium', label: 'Medium', desc: '51-200 employees' },
-            { value: 'large', label: 'Enterprise', desc: '200+ employees' }
-          ].map((option) => (
-            <button
-              key={option.value}
-              onClick={() => setFormData((prev) => ({
-                ...prev,
-                companyInfo: { ...prev.companyInfo, companySize: option.value }
-              }))}
-              className={`p-3 text-center rounded-lg border-2 transition-all duration-300 ${
-                formData.companyInfo.companySize === option.value
-                  ? 'border-green-400 bg-green-400/10 text-green-400'
-                  : 'border-slate-600 hover:border-slate-500 text-slate-400'
-              }`}
-            >
-              <div className="font-medium text-sm">{option.label}</div>
-              <div className="text-xs mt-1">{option.desc}</div>
-            </button>
-          ))}
-        </div>
-        {errors.companySize && (
-          <p className="mt-2 text-sm text-red-400">{errors.companySize}</p>
-        )}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="space-y-6 max-w-lg mx-auto">
+        {/* Name */}
         <div>
           <label className="block text-sm font-medium text-white mb-2">
             Your Name *
@@ -852,16 +893,17 @@ function QuoteStep4({ formData, setFormData, errors }: StepProps) {
               ...prev,
               companyInfo: { ...prev.companyInfo, contactName: e.target.value }
             }))}
-            className={`w-full px-4 py-3 bg-slate-700 border-2 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-300 ${
-              errors.contactName ? 'border-red-500' : 'border-slate-600'
+            placeholder="John Smith"
+            className={`w-full px-4 py-3 bg-slate-800/50 border-2 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all ${
+              errors.contactName ? 'border-red-500/50' : 'border-slate-700/50'
             }`}
-            placeholder="Full name"
           />
           {errors.contactName && (
             <p className="mt-2 text-sm text-red-400">{errors.contactName}</p>
           )}
         </div>
 
+        {/* Email */}
         <div>
           <label className="block text-sm font-medium text-white mb-2">
             Email Address *
@@ -873,21 +915,37 @@ function QuoteStep4({ formData, setFormData, errors }: StepProps) {
               ...prev,
               companyInfo: { ...prev.companyInfo, email: e.target.value }
             }))}
-            className={`w-full px-4 py-3 bg-slate-700 border-2 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-300 ${
-              errors.email ? 'border-red-500' : 'border-slate-600'
+            placeholder="john@company.com"
+            className={`w-full px-4 py-3 bg-slate-800/50 border-2 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all ${
+              errors.email ? 'border-red-500/50' : 'border-slate-700/50'
             }`}
-            placeholder="your.email@company.com"
           />
           {errors.email && (
             <p className="mt-2 text-sm text-red-400">{errors.email}</p>
           )}
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Company (Optional) */}
         <div>
           <label className="block text-sm font-medium text-white mb-2">
-            Phone Number
+            Company Name <span className="text-slate-500">(Optional)</span>
+          </label>
+          <input
+            type="text"
+            value={formData.companyInfo.companyName}
+            onChange={(e) => setFormData((prev) => ({
+              ...prev,
+              companyInfo: { ...prev.companyInfo, companyName: e.target.value }
+            }))}
+            placeholder="Acme Inc."
+            className="w-full px-4 py-3 bg-slate-800/50 border-2 border-slate-700/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
+          />
+        </div>
+
+        {/* Phone (Optional) */}
+        <div>
+          <label className="block text-sm font-medium text-white mb-2">
+            Phone Number <span className="text-slate-500">(Optional)</span>
           </label>
           <input
             type="tel"
@@ -896,123 +954,83 @@ function QuoteStep4({ formData, setFormData, errors }: StepProps) {
               ...prev,
               companyInfo: { ...prev.companyInfo, phone: e.target.value }
             }))}
-            className="w-full px-4 py-3 bg-slate-700 border-2 border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-300"
             placeholder="+1 (555) 123-4567"
+            className="w-full px-4 py-3 bg-slate-800/50 border-2 border-slate-700/50 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all"
           />
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-white mb-2">
-            Preferred Contact Method
-          </label>
-          <select
-            value={formData.companyInfo.preferredContact}
-            onChange={(e) => setFormData((prev) => ({
-              ...prev,
-              companyInfo: { ...prev.companyInfo, preferredContact: e.target.value }
-            }))}
-            className="w-full px-4 py-3 bg-slate-700 border-2 border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all duration-300"
-          >
-            <option value="email">Email</option>
-            <option value="phone">Phone</option>
-            <option value="both">Both</option>
-          </select>
-        </div>
       </div>
     </div>
   );
 }
 
-function QuoteStep5({ formData, setFormData }: Omit<StepProps, 'errors'>) {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-2">Additional Requirements</h2>
-        <p className="text-slate-400">Any additional information that would help us provide an accurate quote.</p>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Special Requirements or Notes
-        </label>
-        <textarea
-          value={formData.specialRequirements}
-          onChange={(e) => setFormData((prev) => ({
-            ...prev,
-            specialRequirements: e.target.value
-          }))}
-          placeholder="Compliance requirements, integration specifics, performance targets, security needs, etc."
-          rows={4}
-          className="w-full px-4 py-3 bg-slate-700 border-2 border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none transition-all duration-300"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-white mb-2">
-          Project Documents (Optional)
-        </label>
-        <div className="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:border-slate-500 transition-colors duration-300">
-          <svg className="mx-auto h-12 w-12 text-slate-400 mb-4" stroke="currentColor" fill="none" viewBox="0 0 48 48">
-            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          <p className="text-slate-400 mb-2">Upload project documents, mockups, or reference materials</p>
-          <p className="text-sm text-slate-500">PDF, DOC, PNG, JPG (Max 10MB each)</p>
-          <button className="mt-3 px-4 py-2 bg-slate-700 text-white rounded-lg hover:bg-slate-600 transition-colors duration-300">
-            Choose Files
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+interface Step5Props extends StepProps {
+  services: Array<{
+    id: string;
+    name: string;
+    icon: string;
+    gradient: string;
+  }>;
 }
 
-function QuoteStep6({ formData, setFormData, errors }: StepProps) {
-  const selectedServices = formData.projectDetails.services.map((serviceId: string) => 
-    serviceId.replace(/-/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())
-  );
+function Step5Review({ formData, setFormData, services, errors }: Step5Props) {
+  const selectedServices = formData.projectDetails.services.map((id) =>
+    services.find((s) => s.id === id)
+  ).filter(Boolean);
+
+  const getBudgetLabel = (value: string) => {
+    const labels: Record<string, string> = {
+      bootstrap: 'Bootstrap ($2K - $8K)',
+      seed: 'Seed Stage ($8K - $25K)',
+      growth: 'Growth ($25K - $75K)',
+      enterprise: 'Enterprise ($75K+)'
+    };
+    return labels[value] || value;
+  };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-2">Review & Submit</h2>
-        <p className="text-slate-400">Please review your quote request before submitting.</p>
+    <div className="space-y-8">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold text-white mb-3">Review Your Quote Request</h2>
+        <p className="text-slate-400">Make sure everything looks good before submitting</p>
       </div>
 
-      {/* Quote Summary */}
-      <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
-        <h3 className="text-lg font-semibold text-white mb-4">Quote Summary</h3>
-        
-        <div className="space-y-3 text-sm">
-          <div className="flex justify-between">
-            <span className="text-slate-400">Company:</span>
-            <span className="text-white">{formData.companyInfo.companyName}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-400">Services:</span>
-            <span className="text-white">{selectedServices.join(', ')}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-400">Project Type:</span>
-            <span className="text-white">{formData.projectDetails.projectType}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-400">Complexity:</span>
-            <span className="text-white capitalize">{formData.projectDetails.complexity}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-400">Timeline:</span>
-            <span className="text-white capitalize">{formData.projectDetails.timeline}</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-400">Investment Level:</span>
-            <span className="text-white capitalize">{formData.projectDetails.budget?.replace('-', ' ')}</span>
+      <div className="space-y-6">
+        {/* Summary Card */}
+        <div className="bg-slate-800/30 rounded-2xl p-6 border border-slate-700/30">
+          <div className="space-y-4">
+            <div className="flex justify-between items-start">
+              <span className="text-slate-400">Services</span>
+              <div className="flex flex-wrap gap-2 justify-end">
+                {selectedServices.map((service) => (
+                  <span key={service?.id} className="flex items-center gap-1 px-3 py-1 bg-slate-700/50 rounded-full text-sm">
+                    <span>{service?.icon}</span>
+                    <span className="text-white">{service?.name}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-400">Project Scale</span>
+              <span className="text-white capitalize">{formData.projectDetails.complexity}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-400">Timeline</span>
+              <span className="text-white capitalize">{formData.projectDetails.timeline}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-slate-400">Investment Level</span>
+              <span className="text-emerald-400 font-medium">{getBudgetLabel(formData.projectDetails.budget)}</span>
+            </div>
+            <div className="border-t border-slate-700/50 pt-4">
+              <span className="text-slate-400 block mb-2">Contact</span>
+              <div className="text-white">{formData.companyInfo.contactName}</div>
+              <div className="text-slate-400 text-sm">{formData.companyInfo.email}</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Terms and Conditions */}
-      <div className="space-y-4">
-        <label className="flex items-start gap-3">
+        {/* Terms */}
+        <label className="flex items-start gap-3 p-4 bg-slate-800/30 rounded-xl border border-slate-700/30 cursor-pointer">
           <input
             type="checkbox"
             checked={formData.agreedToTerms}
@@ -1020,186 +1038,39 @@ function QuoteStep6({ formData, setFormData, errors }: StepProps) {
               ...prev,
               agreedToTerms: e.target.checked
             }))}
-            className="mt-1 w-4 h-4 text-cyan-400 bg-slate-700 border-slate-600 rounded focus:ring-cyan-500"
+            className="mt-1 w-5 h-5 rounded border-slate-600 bg-slate-700 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-0"
           />
           <span className="text-sm text-slate-300">
             I agree to the{' '}
-            <a href="/terms" className="text-cyan-400 hover:text-cyan-300">Terms of Service</a>
+            <Link href="/terms" className="text-emerald-400 hover:underline">Terms of Service</Link>
             {' '}and{' '}
-            <a href="/privacy" className="text-cyan-400 hover:text-cyan-300">Privacy Policy</a>
-            . I understand this is a quote request and not a binding contract.
+            <Link href="/privacy" className="text-emerald-400 hover:underline">Privacy Policy</Link>.
+            This is a quote request, not a binding contract.
           </span>
         </label>
         {errors.terms && (
           <p className="text-sm text-red-400">{errors.terms}</p>
         )}
-      </div>
 
-      <div className="bg-cyan-900/20 border border-cyan-500/30 rounded-lg p-4">
-        <p className="text-sm text-cyan-300">
-          <strong>Next Steps:</strong> After submitting your quote request, our team will review your requirements 
-          and contact you within 24 hours with a detailed proposal and timeline.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-interface CostEstimationPanelProps {
-  estimatedCost: { min: number; max: number };
-  formData: QuoteFormData;
-  services: Array<{
-    id: string;
-    name: string;
-    description: string;
-    icon: string;
-    priceCategory: string;
-    valueProps: string[];
-  }>;
-}
-
-function CostEstimationPanel({ estimatedCost, formData, services }: CostEstimationPanelProps) {
-  const selectedServices = formData.projectDetails.services.map((serviceId: string) => 
-    services.find((s) => s.id === serviceId)
-  ).filter((service): service is NonNullable<typeof service> => service !== undefined);
-
-  const getProjectTier = (tier: number) => {
-    switch (tier) {
-      case 1: return { name: 'Startup Friendly', icon: '🌱', color: 'text-green-400', desc: 'Perfect for MVPs and early-stage startups' };
-      case 2: return { name: 'Growth Ready', icon: '🚀', color: 'text-cyan-400', desc: 'Ideal for scaling businesses and funded startups' };
-      case 3: return { name: 'Scale-Up', icon: '📈', color: 'text-purple-400', desc: 'Advanced solutions for established companies' };
-      case 4: return { name: 'Enterprise', icon: '🏢', color: 'text-orange-400', desc: 'Enterprise-grade, mission-critical solutions' };
-      default: return null;
-    }
-  };
-
-  const projectTier = getProjectTier(estimatedCost.min);
-
-  return (
-    <div className="bg-slate-900/90 rounded-3xl border border-slate-700/50 p-6 backdrop-blur-sm neural-glow">
-      <h3 className="text-xl font-semibold text-white mb-4">Project Assessment</h3>
-      
-      {projectTier ? (
-        <div className="space-y-4">
-          <div className="text-center">
-            <div className={`text-4xl mb-2`}>{projectTier.icon}</div>
-            <div className={`text-2xl font-bold ${projectTier.color}`}>
-              {projectTier.name}
+        {/* What Happens Next */}
+        <div className="p-5 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 rounded-xl border border-emerald-500/20">
+          <h4 className="font-medium text-white mb-3 flex items-center gap-2">
+            <span className="text-lg">✨</span> What happens next?
+          </h4>
+          <div className="space-y-2 text-sm">
+            <div className="flex items-center gap-3 text-slate-300">
+              <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs text-emerald-400">1</div>
+              <span>Our AI analyzes your requirements (instant)</span>
             </div>
-            <p className="text-sm text-slate-400 mt-1">{projectTier.desc}</p>
-          </div>
-          
-          {selectedServices.length > 0 && (
-            <div className="space-y-3">
-              <p className="text-sm font-medium text-white">Selected Services:</p>
-              {selectedServices.map((service) => (
-                <div key={service.id} className="flex items-center justify-between p-2 bg-slate-800/30 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <span>{service.icon}</span>
-                    <span className="text-slate-300 text-sm">{service.name}</span>
-                  </div>
-                  <span className={`text-xs px-2 py-1 rounded ${
-                    service.priceCategory === 'affordable' ? 'bg-green-400/20 text-green-300' :
-                    service.priceCategory === 'standard' ? 'bg-cyan-400/20 text-cyan-300' :
-                    service.priceCategory === 'premium' ? 'bg-purple-400/20 text-purple-300' :
-                    'bg-orange-400/20 text-orange-300'
-                  }`}>
-                    {service.priceCategory === 'affordable' ? 'Budget' :
-                     service.priceCategory === 'standard' ? 'Standard' :
-                     service.priceCategory === 'premium' ? 'Premium' :
-                     'Enterprise'}
-                  </span>
-                </div>
-              ))}
+            <div className="flex items-center gap-3 text-slate-300">
+              <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs text-emerald-400">2</div>
+              <span>You receive a detailed quote (within 24 hours)</span>
             </div>
-          )}
-
-          <div className="bg-slate-800/30 rounded-lg p-3 border border-slate-700/50">
-            <h4 className="text-sm font-medium text-white mb-2">What&apos;s Included:</h4>
-            <div className="text-xs text-slate-400 space-y-1">
-              <p>✅ Flexible payment terms based on your funding stage</p>
-              <p>✅ Milestone-based delivery with regular check-ins</p>
-              <p>✅ Post-launch support and maintenance options</p>
-              <p>✅ Transparent pricing with no hidden fees</p>
+            <div className="flex items-center gap-3 text-slate-300">
+              <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs text-emerald-400">3</div>
+              <span>Free consultation call (optional)</span>
             </div>
           </div>
-        </div>
-      ) : (
-        <div className="text-center py-8">
-          <div className="text-4xl mb-3">🎯</div>
-          <div className="text-slate-400 mb-2">Select services to see your</div>
-          <div className="text-xl font-bold text-slate-500">Project Assessment</div>
-          <p className="text-sm text-slate-500 mt-2">We&apos;ll match you with the right solution for your stage</p>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function TrustSignalsPanel() {
-  return (
-    <div className="space-y-6">
-      {/* Guarantee */}
-      <div className="bg-gradient-to-br from-green-900/20 to-cyan-900/20 border border-green-500/30 rounded-xl p-6">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-            </svg>
-          </div>
-          <h3 className="font-semibold text-green-400">Satisfaction Guarantee</h3>
-        </div>
-        <p className="text-sm text-slate-300">
-          We guarantee your satisfaction with our work. If you&apos;re not completely happy, 
-          we&apos;ll work until it&apos;s right or refund your money.
-        </p>
-      </div>
-
-      {/* Response Time */}
-      <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center">
-            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <h3 className="font-semibold text-cyan-400">Quick Response</h3>
-        </div>
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span className="text-slate-400">Quote Response:</span>
-            <span className="text-white font-medium">Within 24 hours</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-400">Initial Consultation:</span>
-            <span className="text-white font-medium">Within 48 hours</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-slate-400">Project Kickoff:</span>
-            <span className="text-white font-medium">Within 1 week</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Contact Info */}
-      <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700/50">
-        <h3 className="font-semibold text-white mb-4">Need Help?</h3>
-        <div className="space-y-3 text-sm">
-          <div className="flex items-center gap-3">
-            <svg className="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-            <span className="text-slate-300">info@cognivat.com</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-            <span className="text-slate-300">+1 (775) 250-6651</span>
-          </div>
-          <p className="text-xs text-slate-500 mt-2">
-            Have questions about the quote process? We&apos;re here to help!
-          </p>
         </div>
       </div>
     </div>

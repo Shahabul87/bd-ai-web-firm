@@ -1,19 +1,32 @@
 "use client";
 
+import { useEffect, useState } from 'react';
+
 interface PageBackgroundProps {
   children: React.ReactNode;
 }
 
 export function PageBackground({ children }: PageBackgroundProps) {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
   return (
     <div className="relative w-full overflow-x-hidden min-h-screen bg-gradient-to-bl from-slate-900 via-slate-800 to-slate-900">
-      {/* Background pattern */}
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-100"></div>
+      {/* Background pattern - Hide on mobile */}
+      {!isMobile && (
+        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-100"></div>
+      )}
       
-      {/* Neural Glowing orbs - Static with subtle glow */}
-      <div className="absolute -top-40 -right-20 w-80 h-80 bg-cyan-400 rounded-full mix-blend-multiply filter blur-[128px] opacity-15 pointer-events-none"></div>
-      <div className="absolute top-[30%] -left-20 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-15 pointer-events-none"></div>
-      <div className="absolute bottom-20 right-1/4 w-60 h-60 bg-orange-500 rounded-full mix-blend-multiply filter blur-[128px] opacity-10 pointer-events-none"></div>
+      {/* Simple gradient background for all devices - no blur effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/3 via-transparent to-purple-500/3 pointer-events-none"></div>
       
       <div className="relative w-full">
         {children}

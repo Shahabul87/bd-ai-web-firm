@@ -18,77 +18,74 @@ export function usePerformanceMonitor(): PerformanceMetrics {
   });
 
   const frameTimesRef = useRef<number[]>([]);
-  const lastFrameTimeRef = useRef<number>(performance.now());
+  const lastFrameTimeRef = useRef<number>(0);
   const rafIdRef = useRef<number | undefined>(undefined);
-  const measurementCountRef = useRef(0);
-  const MAX_MEASUREMENTS = 100; // Stop after 100 samples to prevent infinite loop
 
-  const measureFrameTime = useCallback(() => {
-    // Stop measuring after enough samples
-    if (measurementCountRef.current >= MAX_MEASUREMENTS) {
+  useEffect(() => {
+    // Check if device is mobile first
+    const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
+    
+    if (isMobile) {
+      // On mobile, always reduce animations
+      setMetrics({
+        shouldReduceAnimations: true,
+        isLowPerformance: true,
+        frameTime: 32,
+        memoryPressure: false
+      });
       return;
     }
 
-    const now = performance.now();
-    const frameTime = now - lastFrameTimeRef.current;
-    lastFrameTimeRef.current = now;
-
-    // Keep last 60 frame times for analysis
-    frameTimesRef.current.push(frameTime);
-    if (frameTimesRef.current.length > 60) {
-      frameTimesRef.current.shift();
-    }
-
-    // Analyze performance every 30 frames
-    if (frameTimesRef.current.length >= 30) {
-      const avgFrameTime = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length;
-      const maxFrameTime = Math.max(...frameTimesRef.current);
-      
-      // More conservative performance detection
-      const isLowPerformance = avgFrameTime > 18 || maxFrameTime > 40; // Be more conservative
-      const shouldReduceAnimations = avgFrameTime > 22 || maxFrameTime > 80; // Reduce animations earlier
-
-      // Basic memory pressure detection (if available)
-      let memoryPressure = false;
-      if ('memory' in performance) {
-        const memInfo = (performance as { memory?: { usedJSHeapSize: number; jsHeapSizeLimit: number } }).memory;
-        if (memInfo && memInfo.usedJSHeapSize > memInfo.jsHeapSizeLimit * 0.8) {
-          memoryPressure = true;
+    // Simple performance check for desktop only
+    let frameCount = 0;
+    const maxFrames = 20; // Only check 20 frames
+    
+    const measureFrameTime = () => {
+      if (frameCount >= maxFrames) {
+        // Stop measuring
+        if (rafIdRef.current) {
+          cancelAnimationFrame(rafIdRef.current);
         }
+        
+        // Analyze collected data
+        if (frameTimesRef.current.length > 0) {
+          const avgFrameTime = frameTimesRef.current.reduce((a, b) => a + b, 0) / frameTimesRef.current.length;
+          
+          setMetrics({
+            shouldReduceAnimations: avgFrameTime > 25,
+            isLowPerformance: avgFrameTime > 20,
+            frameTime: avgFrameTime,
+            memoryPressure: false
+          });
+        }
+        return;
       }
 
-      setMetrics({
-        shouldReduceAnimations,
-        isLowPerformance,
-        frameTime: avgFrameTime,
-        memoryPressure
-      });
-    }
-
-    measurementCountRef.current++;
-    
-    // Only continue if we haven't reached the limit
-    if (measurementCountRef.current < MAX_MEASUREMENTS) {
+      const now = performance.now();
+      if (lastFrameTimeRef.current > 0) {
+        const frameTime = now - lastFrameTimeRef.current;
+        if (frameTime < 100) { // Ignore huge gaps
+          frameTimesRef.current.push(frameTime);
+        }
+      }
+      lastFrameTimeRef.current = now;
+      frameCount++;
+      
       rafIdRef.current = requestAnimationFrame(measureFrameTime);
-    }
-  }, [MAX_MEASUREMENTS]);
+    };
 
-  useEffect(() => {
-    // Reset measurement count on mount
-    measurementCountRef.current = 0;
-    
-    // Start monitoring after a delay to let the page settle
-    const startTimer = setTimeout(() => {
+    // Start measuring after a delay
+    const timeout = setTimeout(() => {
       rafIdRef.current = requestAnimationFrame(measureFrameTime);
-    }, 2000);
+    }, 1000);
 
     return () => {
-      clearTimeout(startTimer);
+      clearTimeout(timeout);
       if (rafIdRef.current) {
         cancelAnimationFrame(rafIdRef.current);
       }
     };
-  }, [measureFrameTime]);
+  }, []);
 
   return metrics;
 }
@@ -99,16 +96,16 @@ export function useSmartAnimation(baseDelay: number = 1000) {
   
   const getOptimizedDelay = useCallback((multiplier: number = 1) => {
     if (performance.shouldReduceAnimations) {
-      return baseDelay * multiplier * 2.5; // Much longer delays for low performance
+      return baseDelay * multiplier * 2;
     }
     if (performance.isLowPerformance) {
-      return baseDelay * multiplier * 1.8; // 80% longer delays
+      return baseDelay * multiplier * 1.5;
     }
-    return baseDelay * multiplier * 1.2; // Slightly longer base delays for smoothness
+    return baseDelay * multiplier;
   }, [baseDelay, performance]);
 
   const shouldSkipAnimation = useCallback(() => {
-    return performance.memoryPressure || performance.frameTime > 35; // Skip animations earlier
+    return performance.memoryPressure || performance.frameTime > 40;
   }, [performance]);
 
   return {

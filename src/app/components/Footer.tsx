@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePerformanceOptimizedAnimation } from '../hooks/useMobileDetection';
 
 export default function Footer() {
+  const { shouldAnimate } = usePerformanceOptimizedAnimation();
   const [mounted, setMounted] = useState(false);
   const [particles, setParticles] = useState<Array<{id: number, x: number, y: number, delay: number}>>([]);
 
@@ -21,27 +23,29 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/5 to-cyan-600/10 animate-gradient" />
-        
-        {/* Neural Network Particles */}
-        {mounted && particles.map((particle) => (
-          <div
-            key={particle.id}
-            className="absolute w-1 h-1 bg-cyan-400/30 rounded-full animate-pulse"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              animationDelay: `${particle.delay}s`,
-              animationDuration: '3s'
-            }}
-          />
-        ))}
-        
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
-      </div>
+      {/* Animated Background - reduce on mobile */}
+      {shouldAnimate() && (
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/5 to-cyan-600/10 animate-gradient" />
+          
+          {/* Neural Network Particles */}
+          {mounted && particles.map((particle) => (
+            <div
+              key={particle.id}
+              className="absolute w-1 h-1 bg-cyan-400/30 rounded-full animate-pulse"
+              style={{
+                left: `${particle.x}%`,
+                top: `${particle.y}%`,
+                animationDelay: `${particle.delay}s`,
+                animationDuration: '3s'
+              }}
+            />
+          ))}
+          
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:50px_50px]" />
+        </div>
+      )}
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
@@ -58,15 +62,15 @@ export default function Footer() {
               
               <div>
                 <h2 className="text-2xl font-bold flex items-center">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
                     Cognivat
                   </span>
                 </h2>
-                <p className="text-sm -mt-1 text-gray-400">AI Intelligence Studio</p>
+                <p className="text-sm -mt-1 text-gray-400">Agentic AI Coding Studio</p>
               </div>
             </Link>
             <p className="text-gray-300 text-sm leading-relaxed mb-8">
-              AI-autonomous development studio specializing in model training, data pipelines, and low-cost web solutions through agentic coding.
+              AI agents that write code. We build web apps, Android apps, and data solutions 10x faster using autonomous AI coding technology.
             </p>
             
             {/* Enhanced Social Icons */}
@@ -82,14 +86,13 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6 text-white relative">
               <span className="relative z-10">Services</span>
-              <div className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500" />
+              <div className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-500" />
             </h4>
             <ul className="space-y-4">
-              <FooterLink href="/services/ai-models" icon="🤖">AI Model Development</FooterLink>
-              <FooterLink href="/services/data-pipelines" icon="🔄">Data Pipelines</FooterLink>
-              <FooterLink href="/services/web-development" icon="💻">Web Development</FooterLink>
-              <FooterLink href="/services/fintech" icon="💰">FinTech Analytics</FooterLink>
-              <FooterLink href="/services/healthcare" icon="🏥">Healthcare Data</FooterLink>
+              <FooterLink href="/services/web-development" icon="🌐">Web Development</FooterLink>
+              <FooterLink href="/services/android-development" icon="📱">Android Development</FooterLink>
+              <FooterLink href="/services/data-analysis" icon="📊">Data Analysis</FooterLink>
+              <FooterLink href="/services/data-visualization" icon="📈">Data Visualization</FooterLink>
             </ul>
           </div>
           

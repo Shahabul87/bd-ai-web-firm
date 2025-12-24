@@ -1,4 +1,21 @@
 @import "tailwindcss";
+@import "./styles/animations.css";
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Reduce animations on mobile for performance */
+@media (max-width: 768px) {
+  .animate-pulse, .animate-spin, .animate-ping, .animate-bounce {
+    animation: none !important;
+  }
+}
 
 :root {
   /* Dark theme only - Slate Neural Theme Colors */
@@ -167,6 +184,32 @@
   background-size: 200% 200%;
   animation: gradient 4s ease-in-out infinite;
   will-change: background-position;
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(400px);
+  }
+}
+
+.animate-scan-line {
+  animation: scan-line 4s linear infinite;
+  will-change: transform;
+}
+
+/* Optimize transform animations */
+.transform-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glitch-text {
@@ -366,7 +409,64 @@ input, textarea {
 
 /* Prevent layout shift during transitions */
 .layout-stable {
-  contain: layout style;
+  contain: layout style paint;
+  transform: translateZ(0); /* Force GPU acceleration */
+  will-change: auto;
+}
+
+/* Strict layout container - completely isolates component layout */
+.strict-layout-container {
+  contain: strict; /* Strict containment prevents any layout effects on parent */
+  transform: translateZ(0);
+  will-change: auto;
+  position: relative;
+  isolation: isolate; /* Create new stacking context */
+  overflow: hidden; /* Prevent any overflow from affecting layout */
+}
+
+/* Ensure children don't affect parent layout */
+.strict-layout-container > * {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: layout style paint;
+}
+
+/* Additional layout stability for dynamic content */
+.layout-stable > * {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Prevent content jumping during state changes */
+.height-stable {
+  overflow: hidden;
+  transition: min-height 0.3s ease-out;
+}
+
+/* Force height constraints on mobile */
+@media (max-width: 768px) {
+  .strict-layout-container {
+    height: auto !important;
+    max-height: 80vh !important;
+  }
+}
+
+/* Prevent any dynamic content from affecting layout */
+.strict-layout-container .animate-pulse,
+.strict-layout-container .animate-ping,
+.strict-layout-container .animate-bounce {
+  contain: strict;
+}
+
+/* Additional protection against layout shifts */
+.strict-layout-container section {
+  height: 100%;
+  contain: layout style paint;
+}
+
+.strict-layout-container [class*="grid"],
+.strict-layout-container [class*="flex"] {
+  contain: layout;
 }
 
 /* Smooth button interactions */
@@ -837,6 +937,29 @@ body {
   }
 }
 
+/* Code Fall Animation for Agentic Coding Hero */
+@keyframes code-fall {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.animate-code-fall {
+  animation: code-fall linear infinite;
+  will-change: transform, opacity;
+}
+
 /* 3D Text Animation */
 @keyframes textFloat {
   0%, 100% {
@@ -857,6 +980,21 @@ body {
   contain: layout style paint; /* CSS containment for better performance */
 }
 
+/* Custom class for reduced motion state */
+.reduce-motion,
+.reduce-motion * {
+  animation: none !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+  transform: none !important;
+}
+
+.reduce-motion .animate-pulse,
+.reduce-motion .animate-ping,
+.reduce-motion .animate-bounce,
+.reduce-motion .animate-spin {
+  animation: none !important;
+}
+
 /* Reduce motion for users with motion sensitivity */
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -867,5 +1005,9 @@ body {
   
   .will-change-transform {
     will-change: auto;
+  }
+  
+  .reduce-motion {
+    animation: none !important;
   }
 }
