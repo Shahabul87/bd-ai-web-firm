@@ -7,43 +7,17 @@ Allow: /
 
 # Disallow private/system directories
 Disallow: /api/
-Disallow: /_next/
+Disallow: /_next/static/
 Disallow: /admin/
 Disallow: /private/
-Disallow: /*.json$
-Disallow: /*_buildManifest.js$
-Disallow: /*_ssgManifest.js$
 
-# Disallow error pages
-Disallow: /404
-Disallow: /500
+# Allow important resources for SEO
+Allow: /_next/static/css/
+Allow: /_next/static/js/
+Allow: /_next/static/media/
 
-# Allow important assets
-Allow: /favicon.ico
-Allow: /robots.txt
-Allow: /sitemap.xml
-Allow: /manifest.json
-Allow: /*.css$
-Allow: /*.js$
-Allow: /*.png$
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.gif$
-Allow: /*.svg$
-Allow: /*.webp$
-
-# Specific crawl delays for different bots
-User-agent: Googlebot
-Crawl-delay: 1
-
-User-agent: Bingbot  
-Crawl-delay: 1
-
-User-agent: Slurp
-Crawl-delay: 2
-
-# Sitemaps
+# Sitemaps - Important for Google indexing
 Sitemap: https://cognivat.com/sitemap.xml
 
-# Host specification
+# Host specification (canonical domain)
 Host: https://cognivat.com
