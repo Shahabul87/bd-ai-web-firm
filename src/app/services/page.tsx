@@ -257,17 +257,17 @@ function HeroSection() {
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#febc2e]" />
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#28c840]" />
                 </div>
-                <span className="text-[10px] sm:text-xs text-slate-500 font-mono ml-1 sm:ml-2 truncate">cognivat-agent-control</span>
+                <span className="text-[10px] sm:text-xs text-slate-500 font-mono ml-1 sm:ml-2 truncate">craftsai-agent-control</span>
               </div>
               <div className="p-3 sm:p-4 font-mono text-xs sm:text-sm overflow-x-auto">
-                <div className="text-slate-500 whitespace-nowrap">$ cognivat deploy --list-agents</div>
+                <div className="text-slate-500 whitespace-nowrap">$ craftsai deploy --list-agents</div>
                 <div className="mt-2 space-y-0.5 sm:space-y-1">
                   <div className="text-emerald-400 whitespace-nowrap">  [ONLINE] WebForge     - Web Development</div>
                   <div className="text-cyan-400 whitespace-nowrap">  [ONLINE] DroidMaster  - Android Development</div>
                   <div className="text-violet-400 whitespace-nowrap">  [ONLINE] DataMind     - Data Analysis</div>
                   <div className="text-amber-400 whitespace-nowrap">  [ONLINE] VizCraft     - Data Visualization</div>
                 </div>
-                <div className="mt-2 sm:mt-3 text-slate-500 whitespace-nowrap">$ cognivat deploy WebForge --project &quot;your-next-app&quot;</div>
+                <div className="mt-2 sm:mt-3 text-slate-500 whitespace-nowrap">$ craftsai deploy WebForge --project &quot;your-next-app&quot;</div>
                 <div className="text-emerald-400 flex items-center gap-1.5 sm:gap-2 mt-1">
                   <span className="animate-pulse">_</span>
                   <span className="text-xs sm:text-sm">Initializing agent deployment...</span>

@@ -16,19 +16,19 @@ export const metadata: Metadata = {
     'custom software'
   ],
   openGraph: {
-    title: 'AI Development Services | Cognivat',
+    title: 'AI Development Services | CraftsAI',
     description: 'Professional AI-powered development services. Web, mobile, ML solutions at startup-friendly prices.',
-    url: 'https://www.cognivat.com/services',
-    siteName: 'Cognivat',
+    url: 'https://www.craftsai.org/services',
+    siteName: 'CraftsAI',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AI Development Services | Cognivat',
+    title: 'AI Development Services | CraftsAI',
     description: 'Web, mobile & ML development powered by AI agents.',
   },
   alternates: {
-    canonical: 'https://www.cognivat.com/services'
+    canonical: 'https://www.craftsai.org/services'
   }
 };
 

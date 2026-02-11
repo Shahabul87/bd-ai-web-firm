@@ -11,7 +11,7 @@
 ```
 Hi [Name],
 
-I hope this email finds you well. I'm [Your Name] from Cognivat, an AI development studio specializing in machine learning model development and autonomous coding solutions.
+I hope this email finds you well. I'm [Your Name] from CraftsAI, an AI development studio specializing in machine learning model development and autonomous coding solutions.
 
 I've been following [Website Name] and really appreciate your content on [specific topic they cover]. Your recent article on [specific article] was particularly insightful, especially the section about [specific detail].
 
@@ -42,8 +42,8 @@ Would any of these topics be a good fit for your editorial calendar? I'm happy t
 Best regards,
 [Your Name]
 [Title]
-Cognivat - AI Development Studio
-Website: https://cognivat.com
+CraftsAI - AI Development Studio
+Website: https://craftsai.org
 Email: [email]
 LinkedIn: [profile]
 ```
@@ -60,7 +60,7 @@ Hi [Name],
 
 I came across your excellent resource page on [topic] at [URL] and was impressed by the quality of resources you've curated for [their audience].
 
-I noticed you've included some great AI and development resources, and I'd like to suggest adding Cognivat to your list. We're an AI development studio that specializes in:
+I noticed you've included some great AI and development resources, and I'd like to suggest adding CraftsAI to your list. We're an AI development studio that specializes in:
 
 🔹 Machine Learning Model Development
 🔹 Data Preprocessing Pipelines  
@@ -70,16 +70,16 @@ I noticed you've included some great AI and development resources, and I'd like 
 What makes us unique is our autonomous coding approach, which reduces development costs by 70-80% while maintaining high quality. We've successfully delivered AI solutions for FinTech, Healthcare, and E-commerce companies.
 
 Our resource that might be valuable for your audience:
-• Comprehensive AI Development Guide: https://cognivat.com/blog/ai-model-development-fundamentals
-• Free AI Readiness Assessment Tool: https://cognivat.com/ai-assessment
-• Case Studies with ROI Analysis: https://cognivat.com/case-studies
+• Comprehensive AI Development Guide: https://craftsai.org/blog/ai-model-development-fundamentals
+• Free AI Readiness Assessment Tool: https://craftsai.org/ai-assessment
+• Case Studies with ROI Analysis: https://craftsai.org/case-studies
 
 We also offer free consultations and have helped companies achieve:
 - 75% cost reduction in development projects
 - 6-12x faster time-to-market
 - 99.9% system uptime in production
 
-Would you consider adding Cognivat as a resource for your visitors? I believe it would provide significant value to people looking for AI development solutions.
+Would you consider adding CraftsAI as a resource for your visitors? I believe it would provide significant value to people looking for AI development solutions.
 
 If you'd like, I'm happy to provide any additional information or resources that would be helpful for your page.
 
@@ -87,8 +87,8 @@ Thank you for maintaining such a valuable resource for the [industry] community!
 
 Best regards,
 [Your Name]
-Cognivat
-https://cognivat.com
+CraftsAI
+https://craftsai.org
 ```
 
 ## Template 3: Partnership/Collaboration Outreach
@@ -103,7 +103,7 @@ Hi [Name],
 
 I've been researching [their industry] companies and was impressed by [Company Name]'s work, particularly [specific project/service].
 
-I'm reaching out from Cognivat, where we specialize in AI development and autonomous coding solutions. I see great potential for collaboration between our services.
+I'm reaching out from CraftsAI, where we specialize in AI development and autonomous coding solutions. I see great potential for collaboration between our services.
 
 Many of our clients need complementary services like [their service], and I imagine your clients sometimes need AI/ML capabilities. Here's how we could potentially work together:
 
@@ -133,8 +133,8 @@ Looking forward to hearing from you!
 
 Best regards,
 [Your Name]
-Founder/CEO, Cognivat
-https://cognivat.com
+Founder/CEO, CraftsAI
+https://craftsai.org
 Direct: [phone number]
 ```
 
@@ -147,10 +147,10 @@ Direct: [phone number]
 ```
 Hi [Reporter Name],
 
-I'm writing in response to your query about [topic]. As the founder of Cognivat, an AI development studio, I have direct expertise that would be valuable for your article.
+I'm writing in response to your query about [topic]. As the founder of CraftsAI, an AI development studio, I have direct expertise that would be valuable for your article.
 
 **Brief Background:**
-I'm [Your Name], founder of Cognivat, an AI-autonomous development studio. We've delivered 50+ AI projects with an average cost reduction of 75% and delivered solutions for companies in FinTech, Healthcare, and E-commerce sectors.
+I'm [Your Name], founder of CraftsAI, an AI-autonomous development studio. We've delivered 50+ AI projects with an average cost reduction of 75% and delivered solutions for companies in FinTech, Healthcare, and E-commerce sectors.
 
 **Specific Response to Your Query:**
 
@@ -169,14 +169,14 @@ I'm [Your Name], founder of Cognivat, an AI-autonomous development studio. We've
 - 10+ years in AI/ML development
 - Specialized in autonomous coding systems
 - Published expert in [relevant publications]
-- Case studies available at: https://cognivat.com/case-studies
+- Case studies available at: https://craftsai.org/case-studies
 
 **Contact Information:**
 - Name: [Your Name]
-- Title: Founder & CEO, Cognivat
+- Title: Founder & CEO, CraftsAI
 - Email: [email]
 - Phone: [phone number]
-- Website: https://cognivat.com
+- Website: https://craftsai.org
 - LinkedIn: [profile]
 
 I'm available for follow-up questions and can provide additional data or case studies if needed for your article.
@@ -207,7 +207,7 @@ I have a resource that would be a perfect replacement and would provide even mor
 
 **Suggested Replacement:**
 • Title: "AI Model Development Fundamentals: Complete Business Guide"
-• URL: https://cognivat.com/blog/ai-model-development-fundamentals
+• URL: https://craftsai.org/blog/ai-model-development-fundamentals
 • Why it's better: Includes practical examples, code snippets, and real ROI calculations
 
 This comprehensive guide covers:
@@ -228,8 +228,8 @@ Thank you for maintaining such a valuable resource for the community!
 
 Best regards,
 [Your Name]
-Cognivat
-https://cognivat.com
+CraftsAI
+https://craftsai.org
 ```
 
 ## Template 6: Industry Expert Interview Request
@@ -244,7 +244,7 @@ Hi [Name],
 
 I've been following your excellent coverage of [industry topic] at [Publication Name]. Your recent piece on [specific article] provided great insights into [specific aspect].
 
-I'm [Your Name], founder of Cognivat, an AI development studio that's pioneering autonomous coding technology. We've been at the forefront of several industry trends that might interest your readers:
+I'm [Your Name], founder of CraftsAI, an AI development studio that's pioneering autonomous coding technology. We've been at the forefront of several industry trends that might interest your readers:
 
 **Current Industry Topics I Can Speak To:**
 - The impact of autonomous coding on development costs (we're seeing 70-80% reductions)
@@ -274,7 +274,7 @@ I'm [Your Name], founder of Cognivat, an AI development studio that's pioneering
 
 **My Background:**
 - 10+ years in AI/ML development
-- Founded Cognivat in 2024, grew to 50+ successful projects
+- Founded CraftsAI in 2024, grew to 50+ successful projects
 - Expert in autonomous coding and MLOps
 - Published thought leader in AI development
 
@@ -290,8 +290,8 @@ Looking forward to potentially contributing to your excellent publication!
 
 Best regards,
 [Your Name]
-Founder & CEO, Cognivat
-https://cognivat.com
+Founder & CEO, CraftsAI
+https://craftsai.org
 Direct: [phone number]
 Email: [email address]
 LinkedIn: [profile]
@@ -310,7 +310,7 @@ Dear [Event Organizer/Name],
 I hope this message finds you well. I'm writing to express my interest in speaking at [Conference Name] about AI autonomous development and its impact on the industry.
 
 **About Me:**
-I'm [Your Name], Founder and CEO of Cognivat, an AI development studio specializing in autonomous coding and machine learning solutions. We've successfully delivered 50+ AI projects with groundbreaking cost reductions and efficiency gains.
+I'm [Your Name], Founder and CEO of CraftsAI, an AI development studio specializing in autonomous coding and machine learning solutions. We've successfully delivered 50+ AI projects with groundbreaking cost reductions and efficiency gains.
 
 **Proposed Speaking Topics:**
 
@@ -390,8 +390,8 @@ Thank you for considering my proposal. I look forward to potentially contributin
 
 Best regards,
 [Your Name]
-Founder & CEO, Cognivat
-Website: https://cognivat.com
+Founder & CEO, CraftsAI
+Website: https://craftsai.org
 Email: [email address]
 Phone: [phone number]
 LinkedIn: [profile]

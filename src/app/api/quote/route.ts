@@ -3,7 +3,7 @@ import validator from 'validator';
 import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
 
 // Email configuration
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@cognivat.com';
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@craftsai.com';
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
@@ -25,7 +25,7 @@ async function sendEmail(to: string, subject: string, htmlContent: string, textC
     });
 
     const mailOptions = {
-      from: `"Cognivat" <${SMTP_USER}>`,
+      from: `"CraftsAI" <${SMTP_USER}>`,
       to: to,
       subject: subject,
       text: textContent,
@@ -53,7 +53,7 @@ function getQuoteAutoReply(contactName: string, companyName: string, services: s
   const text = `
 Hi ${contactName},
 
-Thank you for requesting a quote from Cognivat!
+Thank you for requesting a quote from CraftsAI!
 
 We have received your project details for ${companyName} and are excited about the opportunity to work with you.
 
@@ -67,8 +67,8 @@ What happens next:
 If you have any urgent questions, feel free to reply to this email or call us directly.
 
 Best regards,
-The Cognivat Team
-https://cognivat.com
+The CraftsAI Team
+https://craftsai.org
   `;
 
   const html = `
@@ -128,11 +128,11 @@ https://cognivat.com
             </div>
 
             <div class="cta">
-                <a href="https://cognivat.com/portfolio">View Our Portfolio</a>
+                <a href="https://craftsai.org/portfolio">View Our Portfolio</a>
             </div>
         </div>
         <div class="footer">
-            <p>&copy; ${new Date().getFullYear()} Cognivat. All rights reserved.</p>
+            <p>&copy; ${new Date().getFullYear()} CraftsAI. All rights reserved.</p>
             <p>AI-Powered Development Solutions</p>
         </div>
     </div>
@@ -284,7 +284,7 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
     <div class="container">
         <div class="header">
             <h1>NEW QUOTE REQUEST</h1>
-            <p>High-priority lead from Cognivat website!</p>
+            <p>High-priority lead from CraftsAI website!</p>
         </div>
 
         <div class="priority">
@@ -396,7 +396,7 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
       const autoReply = getQuoteAutoReply(companyInfo.contactName, companyInfo.companyName, serviceNames);
       const clientEmailResult = await sendEmail(
         companyInfo.email,
-        'Your Quote Request - Cognivat',
+        'Your Quote Request - CraftsAI',
         autoReply.html,
         autoReply.text
       );

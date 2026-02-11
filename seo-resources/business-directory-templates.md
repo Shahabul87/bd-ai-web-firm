@@ -3,12 +3,12 @@
 ## Company Information Template
 
 ### Basic Details
-- **Company Name**: Cognivat
+- **Company Name**: CraftsAI
 - **Business Type**: AI Development Studio / Software Development Company
 - **Founded**: 2024
 - **Employees**: 5-10
-- **Website**: https://cognivat.com
-- **Email**: info@cognivat.com
+- **Website**: https://craftsai.org
+- **Email**: info@craftsai.com
 - **Phone**: +1 (775) 250-6651
 
 ### Address Information
@@ -25,7 +25,7 @@ AI-autonomous development studio specializing in ML models and web development.
 Leading AI development studio providing machine learning model development, data preprocessing pipelines, web development, and business intelligence solutions through autonomous coding.
 
 #### Long Description (500+ characters)
-Cognivat is a cutting-edge AI-autonomous development studio specializing in machine learning model development, training, validation, and deployment. We provide comprehensive data preprocessing pipelines, web development services, and business intelligence solutions. Our unique approach leverages autonomous coding to deliver high-quality, low-cost AI solutions for businesses across industries including FinTech, Healthcare, E-commerce, and Manufacturing. Services include AI model development, MLOps implementation, data pipeline creation, autonomous web development, and ongoing support and optimization.
+CraftsAI is a cutting-edge AI-autonomous development studio specializing in machine learning model development, training, validation, and deployment. We provide comprehensive data preprocessing pipelines, web development services, and business intelligence solutions. Our unique approach leverages autonomous coding to deliver high-quality, low-cost AI solutions for businesses across industries including FinTech, Healthcare, E-commerce, and Manufacturing. Services include AI model development, MLOps implementation, data pipeline creation, autonomous web development, and ongoing support and optimization.
 
 ### Service Categories
 **Primary Categories:**
@@ -139,7 +139,7 @@ Cognivat is a cutting-edge AI-autonomous development studio specializing in mach
 #### For Clutch.co
 ```
 Company Overview:
-Cognivat is a forward-thinking AI development studio that revolutionizes how businesses implement artificial intelligence solutions. We specialize in end-to-end AI model development, from initial concept to production deployment, with a focus on autonomous coding that reduces costs by up to 80% while maintaining exceptional quality.
+CraftsAI is a forward-thinking AI development studio that revolutionizes how businesses implement artificial intelligence solutions. We specialize in end-to-end AI model development, from initial concept to production deployment, with a focus on autonomous coding that reduces costs by up to 80% while maintaining exceptional quality.
 
 Our Services:
 • AI Model Development & Training
@@ -164,7 +164,7 @@ Location: Reno, Nevada (Remote services worldwide)
 #### For GoodFirms
 ```
 Company Profile:
-Cognivat transforms businesses through AI-autonomous development, delivering machine learning models, data pipelines, and web applications at unprecedented speed and cost efficiency. Our autonomous coding approach enables us to build production-ready applications in weeks instead of months.
+CraftsAI transforms businesses through AI-autonomous development, delivering machine learning models, data pipelines, and web applications at unprecedented speed and cost efficiency. Our autonomous coding approach enables us to build production-ready applications in weeks instead of months.
 
 Specializations:
 ✓ Machine Learning Model Development
@@ -193,7 +193,7 @@ Portfolio Highlights:
 #### For DesignRush
 ```
 Agency Overview:
-Cognivat pioneers the future of web development through AI-powered autonomous coding. We create stunning, high-performance web applications that typically cost 70-80% less than traditional development while maintaining superior quality and faster delivery times.
+CraftsAI pioneers the future of web development through AI-powered autonomous coding. We create stunning, high-performance web applications that typically cost 70-80% less than traditional development while maintaining superior quality and faster delivery times.
 
 Services:
 🔹 Autonomous Web Development
@@ -210,7 +210,7 @@ Technology Stack:
 • Cloud: AWS, Azure, Google Cloud
 • DevOps: Docker, Kubernetes, CI/CD pipelines
 
-Why Choose Cognivat:
+Why Choose CraftsAI:
 ✅ 80% cost savings through autonomous coding
 ✅ 6-12x faster development cycles
 ✅ Built-in AI optimization
@@ -254,29 +254,29 @@ Why Choose Cognivat:
 ### Social Media Profiles for Directory Listings
 
 #### Professional Social Media Links
-- **LinkedIn**: https://linkedin.com/company/cognivat
-- **Twitter**: https://twitter.com/cognivat
-- **GitHub**: https://github.com/cognivat
-- **Medium**: https://medium.com/@cognivat
+- **LinkedIn**: https://linkedin.com/company/craftsai
+- **Twitter**: https://twitter.com/craftsai
+- **GitHub**: https://github.com/craftsai
+- **Medium**: https://medium.com/@craftsai
 
 #### Portfolio & Work Examples
-- **Portfolio**: https://cognivat.com/portfolio
-- **Case Studies**: https://cognivat.com/case-studies
-- **Blog**: https://cognivat.com/blog
-- **Technical Documentation**: https://cognivat.com/docs
+- **Portfolio**: https://craftsai.org/portfolio
+- **Case Studies**: https://craftsai.org/case-studies
+- **Blog**: https://craftsai.org/blog
+- **Technical Documentation**: https://craftsai.org/docs
 
 ### Review Templates for Team/Clients
 
 #### Client Review Template 1
-"Working with Cognivat was a game-changer for our business. Their AI-autonomous development approach delivered our fintech platform in just 3 weeks - something that would have taken our previous vendor 6 months. The cost savings were incredible (75% less than quoted elsewhere), and the quality exceeded our expectations. The platform has been running flawlessly in production with 99.9% uptime. Highly recommend for any AI or web development project."
+"Working with CraftsAI was a game-changer for our business. Their AI-autonomous development approach delivered our fintech platform in just 3 weeks - something that would have taken our previous vendor 6 months. The cost savings were incredible (75% less than quoted elsewhere), and the quality exceeded our expectations. The platform has been running flawlessly in production with 99.9% uptime. Highly recommend for any AI or web development project."
 - Sarah Johnson, CTO, FinanceFlow Inc.
 
 #### Client Review Template 2
-"Cognivat's team built our healthcare analytics dashboard with full HIPAA compliance in record time. Their autonomous coding approach is revolutionary - they delivered more features than we originally requested, all while staying under budget. The ongoing support has been exceptional, and the system performance metrics are outstanding. Best development partner we've ever worked with."
+"CraftsAI's team built our healthcare analytics dashboard with full HIPAA compliance in record time. Their autonomous coding approach is revolutionary - they delivered more features than we originally requested, all while staying under budget. The ongoing support has been exceptional, and the system performance metrics are outstanding. Best development partner we've ever worked with."
 - Dr. Michael Chen, Medical Director, HealthTech Solutions
 
 #### Client Review Template 3
-"The e-commerce platform Cognivat built for us transformed our business. What impressed us most was their ability to integrate AI optimization throughout the entire application - our conversion rates increased by 40% immediately after launch. The autonomous development process was fascinating to watch, and the results speak for themselves. ROI was achieved within the first quarter."
+"The e-commerce platform CraftsAI built for us transformed our business. What impressed us most was their ability to integrate AI optimization throughout the entire application - our conversion rates increased by 40% immediately after launch. The autonomous development process was fascinating to watch, and the results speak for themselves. ROI was achieved within the first quarter."
 - Lisa Rodriguez, CEO, MarketPlace Pro
 
 ### Submission Checklist

@@ -59,7 +59,7 @@ export default function Header() {
             <div>
               <h1 className="text-lg sm:text-xl font-bold flex items-center">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
-                  Cognivat
+                  CraftsAI
                 </span>
               </h1>
               <p className="text-[10px] sm:text-xs -mt-0.5 sm:-mt-1 text-slate-400 hidden sm:block">Agentic AI Coding</p>

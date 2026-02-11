@@ -1,5 +1,5 @@
-# Robots.txt for Cognivat AI Development Studio
-# https://www.cognivat.com
+# Robots.txt for CraftsAI AI Development Studio
+# https://www.craftsai.org
 
 # Allow all search engines to crawl the site
 User-agent: *
@@ -17,7 +17,7 @@ Allow: /_next/static/js/
 Allow: /_next/static/media/
 
 # Sitemaps - Important for Google indexing
-Sitemap: https://www.cognivat.com/sitemap.xml
+Sitemap: https://www.craftsai.org/sitemap.xml
 
 # Host specification (canonical domain)
-Host: https://www.cognivat.com
+Host: https://www.craftsai.org

@@ -63,7 +63,7 @@ export default function Footer() {
               <div>
                 <h2 className="text-xl sm:text-2xl font-bold flex items-center">
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
-                    Cognivat
+                    CraftsAI
                   </span>
                 </h2>
                 <p className="text-xs sm:text-sm -mt-0.5 sm:-mt-1 text-gray-400">Agentic AI Coding Studio</p>
@@ -124,9 +124,9 @@ export default function Footer() {
               />
               <ContactItem 
                 icon="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                text="info@cognivat.com"
+                text="info@craftsai.com"
                 gradient="from-blue-400 to-cyan-500"
-                href="mailto:info@cognivat.com"
+                href="mailto:info@craftsai.com"
               />
               <ContactItem 
                 icon="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
@@ -159,7 +159,7 @@ export default function Footer() {
         {/* Bottom Section */}
         <div className="border-t border-gray-700/50 pt-8 flex flex-col lg:flex-row justify-between items-center">
           <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
-            <p className="text-sm text-gray-400">© {new Date().getFullYear()} Cognivat. All rights reserved.</p>
+            <p className="text-sm text-gray-400">© {new Date().getFullYear()} CraftsAI. All rights reserved.</p>
             <div className="flex items-center space-x-2 text-xs text-gray-500">
               <span>🔒</span>
               <span>Secured by AI</span>

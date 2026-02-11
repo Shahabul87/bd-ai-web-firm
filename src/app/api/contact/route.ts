@@ -3,7 +3,7 @@ import validator from 'validator';
 import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
 
 // Email configuration
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@cognivat.com';
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@craftsai.com';
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
@@ -25,7 +25,7 @@ async function sendEmail(to: string, subject: string, htmlContent: string, textC
     });
 
     const mailOptions = {
-      from: `"Cognivat" <${SMTP_USER}>`,
+      from: `"CraftsAI" <${SMTP_USER}>`,
       to: to,
       subject: subject,
       text: textContent,
@@ -54,14 +54,14 @@ function getAutoReplyEmail(name: string): { html: string; text: string } {
   const text = `
 Hi ${name},
 
-Thank you for contacting Cognivat!
+Thank you for contacting CraftsAI!
 
 We have received your message and will get back to you within 24 hours.
 
-In the meantime, feel free to explore our services at https://cognivat.com
+In the meantime, feel free to explore our services at https://craftsai.org
 
 Best regards,
-The Cognivat Team
+The CraftsAI Team
   `;
 
   const html = `
@@ -99,11 +99,11 @@ The Cognivat Team
                 </ul>
             </div>
             <div class="cta">
-                <a href="https://cognivat.com">Explore Our Services</a>
+                <a href="https://craftsai.org">Explore Our Services</a>
             </div>
         </div>
         <div class="footer">
-            <p>&copy; ${new Date().getFullYear()} Cognivat. All rights reserved.</p>
+            <p>&copy; ${new Date().getFullYear()} CraftsAI. All rights reserved.</p>
             <p>AI-Powered Development Solutions</p>
         </div>
     </div>
@@ -242,7 +242,7 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
       const autoReply = getAutoReplyEmail(name);
       const clientEmailResult = await sendEmail(
         email,
-        'Thank you for contacting Cognivat!',
+        'Thank you for contacting CraftsAI!',
         autoReply.html,
         autoReply.text
       );

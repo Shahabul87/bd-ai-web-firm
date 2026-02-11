@@ -9,30 +9,30 @@ export default function StructuredData() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "https://www.cognivat.com/#organization",
-    "name": "Cognivat",
-    "alternateName": ["Cognivat AI Studio", "Cognivat AI Development"],
-    "url": "https://www.cognivat.com",
+    "@id": "https://www.craftsai.org/#organization",
+    "name": "CraftsAI",
+    "alternateName": ["CraftsAI AI Studio", "CraftsAI AI Development"],
+    "url": "https://www.craftsai.org",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.cognivat.com/logo.png",
+      "url": "https://www.craftsai.org/logo.png",
       "width": 512,
       "height": 512
     },
-    "image": "https://www.cognivat.com/og-image.jpg",
+    "image": "https://www.craftsai.org/og-image.jpg",
     "description": "Leading AI-autonomous development studio specializing in machine learning model development, data preprocessing pipelines, web development, and business intelligence solutions.",
     "slogan": "Build 10x Faster with AI",
     "foundingDate": "2024",
     "founder": {
       "@type": "Person",
-      "name": "Cognivat Team"
+      "name": "CraftsAI Team"
     },
     "contactPoint": [
       {
         "@type": "ContactPoint",
         "telephone": "+1-775-250-6651",
         "contactType": "sales",
-        "email": "info@cognivat.com",
+        "email": "info@craftsai.com",
         "availableLanguage": ["English"],
         "areaServed": "Worldwide"
       },
@@ -40,7 +40,7 @@ export default function StructuredData() {
         "@type": "ContactPoint",
         "telephone": "+1-775-250-6651",
         "contactType": "customer support",
-        "email": "support@cognivat.com",
+        "email": "support@craftsai.com",
         "availableLanguage": ["English"]
       }
     ],
@@ -58,10 +58,10 @@ export default function StructuredData() {
       "longitude": "-119.8138"
     },
     "sameAs": [
-      "https://twitter.com/cognivat",
-      "https://linkedin.com/company/cognivat",
-      "https://github.com/cognivat",
-      "https://facebook.com/cognivat"
+      "https://twitter.com/craftsai",
+      "https://linkedin.com/company/craftsai",
+      "https://github.com/craftsai",
+      "https://facebook.com/craftsai"
     ],
     "knowsAbout": [
       "Artificial Intelligence",
@@ -109,12 +109,12 @@ export default function StructuredData() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://www.cognivat.com/#localbusiness",
-    "name": "Cognivat AI Development Studio",
-    "image": "https://www.cognivat.com/og-image.jpg",
-    "url": "https://www.cognivat.com",
+    "@id": "https://www.craftsai.org/#localbusiness",
+    "name": "CraftsAI AI Development Studio",
+    "image": "https://www.craftsai.org/og-image.jpg",
+    "url": "https://www.craftsai.org",
     "telephone": "+1-775-250-6651",
-    "email": "info@cognivat.com",
+    "email": "info@craftsai.com",
     "priceRange": "$$",
     "address": {
       "@type": "PostalAddress",
@@ -143,20 +143,20 @@ export default function StructuredData() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://www.cognivat.com/#website",
-    "name": "Cognivat",
-    "alternateName": "Cognivat AI Development Studio",
-    "url": "https://www.cognivat.com",
+    "@id": "https://www.craftsai.org/#website",
+    "name": "CraftsAI",
+    "alternateName": "CraftsAI AI Development Studio",
+    "url": "https://www.craftsai.org",
     "description": "AI-autonomous development studio providing machine learning models, data pipelines, and web development services.",
     "publisher": {
-      "@id": "https://www.cognivat.com/#organization"
+      "@id": "https://www.craftsai.org/#organization"
     },
     "inLanguage": "en-US",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://www.cognivat.com/search?q={search_term_string}"
+        "urlTemplate": "https://www.craftsai.org/search?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -169,18 +169,18 @@ export default function StructuredData() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "What AI development services does Cognivat offer?",
+        "name": "What AI development services does CraftsAI offer?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cognivat offers comprehensive AI development services including custom machine learning model development, data preprocessing pipelines, natural language processing (NLP), computer vision solutions, predictive analytics, and AI-powered web development. We specialize in autonomous coding that delivers high-quality solutions 10x faster than traditional development."
+          "text": "CraftsAI offers comprehensive AI development services including custom machine learning model development, data preprocessing pipelines, natural language processing (NLP), computer vision solutions, predictive analytics, and AI-powered web development. We specialize in autonomous coding that delivers high-quality solutions 10x faster than traditional development."
         }
       },
       {
         "@type": "Question",
-        "name": "How much does AI development cost at Cognivat?",
+        "name": "How much does AI development cost at CraftsAI?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cognivat offers flexible pricing starting from $2,500 for basic AI projects. Our autonomous coding approach allows us to deliver enterprise-quality solutions at startup-friendly prices. We offer free consultations to provide accurate quotes based on your specific requirements."
+          "text": "CraftsAI offers flexible pricing starting from $2,500 for basic AI projects. Our autonomous coding approach allows us to deliver enterprise-quality solutions at startup-friendly prices. We offer free consultations to provide accurate quotes based on your specific requirements."
         }
       },
       {
@@ -193,18 +193,18 @@ export default function StructuredData() {
       },
       {
         "@type": "Question",
-        "name": "Does Cognivat provide ongoing support and maintenance?",
+        "name": "Does CraftsAI provide ongoing support and maintenance?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, Cognivat provides 24/7 expert support and ongoing maintenance for all projects. We offer MLOps services to ensure your AI models remain accurate and performant over time, including model retraining, monitoring, and optimization."
+          "text": "Yes, CraftsAI provides 24/7 expert support and ongoing maintenance for all projects. We offer MLOps services to ensure your AI models remain accurate and performant over time, including model retraining, monitoring, and optimization."
         }
       },
       {
         "@type": "Question",
-        "name": "What industries does Cognivat serve?",
+        "name": "What industries does CraftsAI serve?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Cognivat serves diverse industries including FinTech (fraud detection, algorithmic trading), Healthcare (diagnostic AI, patient analytics), Retail (recommendation systems, inventory optimization), Manufacturing, and more. Our solutions are customized for each industry's specific needs."
+          "text": "CraftsAI serves diverse industries including FinTech (fraud detection, algorithmic trading), Healthcare (diagnostic AI, patient analytics), Retail (recommendation systems, inventory optimization), Manufacturing, and more. Our solutions are customized for each industry's specific needs."
         }
       }
     ]
@@ -214,11 +214,11 @@ export default function StructuredData() {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    "@id": "https://www.cognivat.com/#service",
+    "@id": "https://www.craftsai.org/#service",
     "name": "AI Development Services",
     "serviceType": "AI and Machine Learning Development",
     "provider": {
-      "@id": "https://www.cognivat.com/#organization"
+      "@id": "https://www.craftsai.org/#organization"
     },
     "areaServed": {
       "@type": "Country",
@@ -286,7 +286,7 @@ export default function StructuredData() {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": "https://www.cognivat.com"
+          "item": "https://www.craftsai.org"
         }
       ]
     };
@@ -305,7 +305,7 @@ export default function StructuredData() {
       'retail': 'Retail',
     };
 
-    let currentPath = 'https://www.cognivat.com';
+    let currentPath = 'https://www.craftsai.org';
     pathSegments.forEach((segment, index) => {
       currentPath += `/${segment}`;
       breadcrumbList.itemListElement.push({
@@ -326,11 +326,11 @@ export default function StructuredData() {
         return {
           "@context": "https://schema.org",
           "@type": "AboutPage",
-          "name": "About Cognivat - AI Development Experts",
-          "description": "Meet Cognivat's expert team specializing in AI model development, machine learning training, and autonomous coding solutions.",
-          "url": "https://www.cognivat.com/about",
+          "name": "About CraftsAI - AI Development Experts",
+          "description": "Meet CraftsAI's expert team specializing in AI model development, machine learning training, and autonomous coding solutions.",
+          "url": "https://www.craftsai.org/about",
           "mainEntity": {
-            "@id": "https://www.cognivat.com/#organization"
+            "@id": "https://www.craftsai.org/#organization"
           }
         };
       case '/ai-solutions':
@@ -339,9 +339,9 @@ export default function StructuredData() {
           "@type": "Service",
           "name": "AI Solutions & Machine Learning Services",
           "description": "Comprehensive AI model development, training, validation, and deployment services with data preprocessing pipelines.",
-          "url": "https://www.cognivat.com/ai-solutions",
+          "url": "https://www.craftsai.org/ai-solutions",
           "provider": {
-            "@id": "https://www.cognivat.com/#organization"
+            "@id": "https://www.craftsai.org/#organization"
           },
           "serviceType": "Artificial Intelligence Development",
           "category": "Technology Services",
@@ -358,9 +358,9 @@ export default function StructuredData() {
           "@type": "Service",
           "name": "Autonomous Web Development Services",
           "description": "Low-cost, high-quality web development services using AI-powered autonomous coding for modern businesses.",
-          "url": "https://www.cognivat.com/web-development",
+          "url": "https://www.craftsai.org/web-development",
           "provider": {
-            "@id": "https://www.cognivat.com/#organization"
+            "@id": "https://www.craftsai.org/#organization"
           },
           "serviceType": "Web Development",
           "category": "Technology Services"
@@ -369,27 +369,27 @@ export default function StructuredData() {
         return {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "name": "Cognivat Portfolio - AI & Web Development Projects",
-          "description": "Showcase of successful AI model development, machine learning projects, and web development solutions delivered by Cognivat.",
-          "url": "https://www.cognivat.com/portfolio"
+          "name": "CraftsAI Portfolio - AI & Web Development Projects",
+          "description": "Showcase of successful AI model development, machine learning projects, and web development solutions delivered by CraftsAI.",
+          "url": "https://www.craftsai.org/portfolio"
         };
       case '/quote':
         return {
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          "name": "Get a Quote - Cognivat AI Development",
-          "description": "Request a free quote for AI development, machine learning, or web development services from Cognivat.",
-          "url": "https://www.cognivat.com/quote"
+          "name": "Get a Quote - CraftsAI AI Development",
+          "description": "Request a free quote for AI development, machine learning, or web development services from CraftsAI.",
+          "url": "https://www.craftsai.org/quote"
         };
       case '/blog':
         return {
           "@context": "https://schema.org",
           "@type": "Blog",
-          "name": "Cognivat Blog - AI & Machine Learning Insights",
+          "name": "CraftsAI Blog - AI & Machine Learning Insights",
           "description": "Latest articles and insights on AI development, machine learning, autonomous coding, and technology trends.",
-          "url": "https://www.cognivat.com/blog",
+          "url": "https://www.craftsai.org/blog",
           "publisher": {
-            "@id": "https://www.cognivat.com/#organization"
+            "@id": "https://www.craftsai.org/#organization"
           }
         };
       default:

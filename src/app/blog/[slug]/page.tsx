@@ -112,14 +112,14 @@ Key metrics to monitor:
 
 ## Conclusion
 
-AI model development requires careful planning, technical expertise, and ongoing maintenance. Partner with experienced AI developers like Cognivat to ensure your AI initiatives deliver measurable business value.
+AI model development requires careful planning, technical expertise, and ongoing maintenance. Partner with experienced AI developers like CraftsAI to ensure your AI initiatives deliver measurable business value.
 
 ## Next Steps
 
-Ready to start your AI journey? Contact Cognivat for a free consultation and custom AI model development services.
+Ready to start your AI journey? Contact CraftsAI for a free consultation and custom AI model development services.
 
-[Get Started with Your AI Project →](https://cognivat.com/contact)`,
-    author: 'Cognivat AI Team',
+[Get Started with Your AI Project →](https://craftsai.org/contact)`,
+    author: 'CraftsAI AI Team',
     publishDate: '2025-08-09',
     readTime: '12 min read',
     category: 'AI Development',

@@ -27,10 +27,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.cognivat.com'),
+  metadataBase: new URL('https://www.craftsai.org'),
   title: {
-    default: "Cognivat | AI-Autonomous Development Studio",
-    template: "%s | Cognivat"
+    default: "CraftsAI | AI-Autonomous Development Studio",
+    template: "%s | CraftsAI"
   },
   description: "Leading AI-autonomous development studio specializing in machine learning model development, data preprocessing pipelines, web development, and business intelligence. Get low-cost, high-quality AI solutions through autonomous coding.",
   keywords: [
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
     "natural language processing",
     "predictive analytics"
   ],
-  authors: [{ name: "Cognivat", url: "https://www.cognivat.com" }],
-  creator: "Cognivat",
-  publisher: "Cognivat",
+  authors: [{ name: "CraftsAI", url: "https://www.craftsai.org" }],
+  creator: "CraftsAI",
+  publisher: "CraftsAI",
   robots: {
     index: true,
     follow: true,
@@ -67,26 +67,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://www.cognivat.com",
-    title: "Cognivat | AI-Autonomous Development Studio",
+    url: "https://www.craftsai.org",
+    title: "CraftsAI | AI-Autonomous Development Studio",
     description: "Leading AI-autonomous development studio. Get professional machine learning models, data pipelines, and web development solutions at unbeatable prices through autonomous coding.",
-    siteName: "Cognivat",
+    siteName: "CraftsAI",
     images: [{
       url: "/og-image.jpg",
       width: 1200,
       height: 630,
-      alt: "Cognivat - AI Autonomous Development Studio"
+      alt: "CraftsAI - AI Autonomous Development Studio"
     }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cognivat | AI-Autonomous Development Studio",
+    title: "CraftsAI | AI-Autonomous Development Studio",
     description: "Leading AI-autonomous development studio. Professional ML models, data pipelines & web development through autonomous coding.",
-    creator: "@cognivat",
+    creator: "@craftsai",
     images: ["/og-image.jpg"]
   },
   alternates: {
-    canonical: "https://www.cognivat.com"
+    canonical: "https://www.craftsai.org"
   },
   category: "Technology"
 };
@@ -113,9 +113,9 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Cognivat" />
+        <meta name="apple-mobile-web-app-title" content="CraftsAI" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <link rel="canonical" href="https://www.cognivat.com" />
+        <link rel="canonical" href="https://www.craftsai.org" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

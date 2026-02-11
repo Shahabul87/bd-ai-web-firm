@@ -1,4 +1,4 @@
-# Cognivat - AI-Powered Web Development Solutions
+# CraftsAI - AI-Powered Web Development Solutions
 
 A modern Next.js 15 marketing website showcasing AI-powered web development services with stunning animations and interactive demos.
 
@@ -33,10 +33,10 @@ A modern Next.js 15 marketing website showcasing AI-powered web development serv
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/cognivat-website.git
+git clone https://github.com/your-org/craftsai-website.git
 
 # Navigate to project directory
-cd cognivat-website
+cd craftsai-website
 
 # Install dependencies
 npm install
@@ -113,4 +113,4 @@ This project is proprietary and confidential.
 
 ## Contact
 
-For inquiries about Cognivat's services, visit [cognivat.com](https://cognivat.com)
+For inquiries about CraftsAI's services, visit [craftsai.org](https://craftsai.org)

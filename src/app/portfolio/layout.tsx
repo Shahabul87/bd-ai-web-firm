@@ -13,19 +13,19 @@ export const metadata: Metadata = {
     'client success stories'
   ],
   openGraph: {
-    title: 'Portfolio | Cognivat AI Development',
+    title: 'Portfolio | CraftsAI AI Development',
     description: 'Explore our successful AI & web development projects across industries.',
-    url: 'https://www.cognivat.com/portfolio',
-    siteName: 'Cognivat',
+    url: 'https://www.craftsai.org/portfolio',
+    siteName: 'CraftsAI',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Portfolio | Cognivat',
+    title: 'Portfolio | CraftsAI',
     description: 'AI & web development project showcase.',
   },
   alternates: {
-    canonical: 'https://www.cognivat.com/portfolio'
+    canonical: 'https://www.craftsai.org/portfolio'
   }
 };
 

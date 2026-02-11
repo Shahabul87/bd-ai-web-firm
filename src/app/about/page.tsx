@@ -24,7 +24,7 @@ export default function AboutPage() {
   );
 }
 
-// Hero Section - "The Neural Network Behind Cognivat"
+// Hero Section - "The Neural Network Behind CraftsAI"
 function HeroSection() {
   const [mounted, setMounted] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -104,7 +104,7 @@ function HeroSection() {
                 <div className="absolute inset-0 w-2 h-2 md:w-2.5 md:h-2.5 bg-emerald-400 rounded-full animate-ping" />
               </div>
               <span className="text-xs md:text-sm font-medium text-emerald-300 tracking-wide">
-                About Cognivat
+                About CraftsAI
               </span>
             </div>
 
@@ -303,8 +303,8 @@ function OriginStorySection() {
             },
             {
               year: 'The Launch',
-              title: 'Cognivat is Born',
-              description: 'In 2025, Cognivat emerged as the first Agentic AI Coding Studio. We&apos;re not replacing developers - we&apos;re democratizing development, making great software accessible to everyone.',
+              title: 'CraftsAI is Born',
+              description: 'In 2025, CraftsAI emerged as the first Agentic AI Coding Studio. We&apos;re not replacing developers - we&apos;re democratizing development, making great software accessible to everyone.',
               icon: '🚀',
               gradient: 'from-cyan-500 to-violet-500'
             }
@@ -785,13 +785,13 @@ function FounderSection() {
             {/* Quote */}
             <div className="flex-1 text-center lg:text-left">
               <p className="text-lg md:text-xl lg:text-2xl text-slate-200 leading-relaxed mb-4 md:mb-6 italic">
-                &ldquo;I built Cognivat because I believe every entrepreneur deserves access to
+                &ldquo;I built CraftsAI because I believe every entrepreneur deserves access to
                 world-class software development. AI agents aren&apos;t here to replace human creativity -
                 they&apos;re here to amplify it. Let&apos;s build something amazing together.&rdquo;
               </p>
               <div>
                 <div className="text-base md:text-lg font-bold text-white">Founder &amp; AI Architect</div>
-                <div className="text-emerald-400 text-sm md:text-base">Cognivat</div>
+                <div className="text-emerald-400 text-sm md:text-base">CraftsAI</div>
               </div>
             </div>
           </div>

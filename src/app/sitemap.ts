@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.cognivat.com';
+  const baseUrl = 'https://www.craftsai.org';
   const currentDate = new Date().toISOString();
 
   // Core pages with high priority

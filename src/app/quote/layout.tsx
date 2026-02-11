@@ -13,19 +13,19 @@ export const metadata: Metadata = {
     'development services quote'
   ],
   openGraph: {
-    title: 'Get a Free Quote | Cognivat AI Development',
+    title: 'Get a Free Quote | CraftsAI AI Development',
     description: 'Request a free quote for AI and web development projects. Transparent pricing, fast delivery.',
-    url: 'https://www.cognivat.com/quote',
-    siteName: 'Cognivat',
+    url: 'https://www.craftsai.org/quote',
+    siteName: 'CraftsAI',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Get a Free Quote | Cognivat',
+    title: 'Get a Free Quote | CraftsAI',
     description: 'Free quotes for AI & web development projects.',
   },
   alternates: {
-    canonical: 'https://www.cognivat.com/quote'
+    canonical: 'https://www.craftsai.org/quote'
   }
 };
 

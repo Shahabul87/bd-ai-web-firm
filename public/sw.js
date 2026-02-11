@@ -1,6 +1,6 @@
-// Service Worker for Cognivat - Performance Optimized Caching
-const CACHE_NAME = 'cognivat-v1';
-const DYNAMIC_CACHE = 'cognivat-dynamic-v1';
+// Service Worker for CraftsAI - Performance Optimized Caching
+const CACHE_NAME = 'craftsai-v1';
+const DYNAMIC_CACHE = 'craftsai-dynamic-v1';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [

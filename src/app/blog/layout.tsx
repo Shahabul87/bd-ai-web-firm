@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Blog - AI & Machine Learning Insights',
-  description: 'Latest articles on AI development, machine learning, autonomous coding, and technology trends. Expert insights from the Cognivat team.',
+  description: 'Latest articles on AI development, machine learning, autonomous coding, and technology trends. Expert insights from the CraftsAI team.',
   keywords: [
     'AI blog',
     'machine learning articles',
@@ -14,19 +14,19 @@ export const metadata: Metadata = {
     'software development blog'
   ],
   openGraph: {
-    title: 'Blog | Cognivat AI Development',
+    title: 'Blog | CraftsAI AI Development',
     description: 'Latest articles on AI, machine learning, and autonomous coding.',
-    url: 'https://www.cognivat.com/blog',
-    siteName: 'Cognivat',
+    url: 'https://www.craftsai.org/blog',
+    siteName: 'CraftsAI',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Blog | Cognivat',
+    title: 'Blog | CraftsAI',
     description: 'AI & machine learning insights.',
   },
   alternates: {
-    canonical: 'https://www.cognivat.com/blog'
+    canonical: 'https://www.craftsai.org/blog'
   }
 };
 

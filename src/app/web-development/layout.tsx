@@ -16,19 +16,19 @@ export const metadata: Metadata = {
     'backend development'
   ],
   openGraph: {
-    title: 'Web Development Services | Cognivat',
+    title: 'Web Development Services | CraftsAI',
     description: 'Professional React & Next.js web development. AI-powered coding delivers 10x faster.',
-    url: 'https://www.cognivat.com/web-development',
-    siteName: 'Cognivat',
+    url: 'https://www.craftsai.org/web-development',
+    siteName: 'CraftsAI',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Web Development Services | Cognivat',
+    title: 'Web Development Services | CraftsAI',
     description: 'React & Next.js development powered by AI.',
   },
   alternates: {
-    canonical: 'https://www.cognivat.com/web-development'
+    canonical: 'https://www.craftsai.org/web-development'
   }
 };
 
