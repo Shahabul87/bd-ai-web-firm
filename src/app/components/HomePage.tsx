@@ -1,12 +1,10 @@
 'use client';
 
-import { lazy, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Header from './Header';
-import HeroSectionOptimized from './HeroSectionOptimized';
+import { HeroSection } from './hero';
 import ContactSection from './ContactSection';
 import Footer from './Footer';
-import { PageBackground } from './PageBackground';
 import LoadingSpinner from './LoadingSpinner';
 
 // Lazy load heavy components with Next.js dynamic for better optimization
@@ -41,25 +39,23 @@ function SectionLoader() {
 
 export default function HomePage() {
   return (
-    <PageBackground>
-      <div className="min-h-screen text-white">
-        <Header />
-        
-        <main className="pt-16 sm:pt-18 md:pt-20">
-          <HeroSectionOptimized />
-          
-          <CodeShowcaseOptimized />
-          <ServicesSection />
-          <ProcessSection />
-          
-          <ContactSection />
-        </main>
-        
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <Header />
+
+      <main className="pt-16 sm:pt-18 md:pt-20">
+        {/* Hero section - fully theme-aware */}
+        <HeroSection />
+
+        {/* All sections now support light/dark theme via CSS variables */}
+        <CodeShowcaseOptimized />
+        <ServicesSection />
+        <ProcessSection />
+        <ContactSection />
         <Footer />
-      </div>
-      
+      </main>
+
       {/* Performance monitoring in development */}
       {process.env.NODE_ENV === 'development' && <PerformanceMonitor />}
-    </PageBackground>
+    </div>
   );
 }

@@ -1,12 +1,9 @@
 'use client';
 
-// Remove unused import
 import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { PageBackground } from '../components/PageBackground';
 import Link from 'next/link';
-// Remove unused import
 
 // Blog post data structure
 interface BlogPost {
@@ -54,14 +51,14 @@ from sklearn.model_selection import train_test_split
 def preprocess_data(raw_data):
     # Data cleaning
     cleaned_data = raw_data.dropna()
-    
+
     # Feature engineering
     features = create_features(cleaned_data)
-    
+
     # Normalization
     scaler = StandardScaler()
     normalized_features = scaler.fit_transform(features)
-    
+
     return normalized_features
 \`\`\`
 
@@ -125,7 +122,7 @@ Key metrics to monitor:
 
 ### Measurement Framework
 \`\`\`
-ROI = (Financial Benefit - Implementation Cost) / Implementation Cost × 100%
+ROI = (Financial Benefit - Implementation Cost) / Implementation Cost x 100%
 
 Example:
 - Manual process cost: $100,000/year
@@ -138,7 +135,7 @@ Example:
 
 ### FinTech
 - **Risk Assessment**: Credit scoring models
-- **Fraud Detection**: Transaction anomaly detection  
+- **Fraud Detection**: Transaction anomaly detection
 - **Algorithmic Trading**: Market prediction models
 - **Regulatory Compliance**: Automated reporting
 
@@ -214,7 +211,7 @@ Ready to start your AI journey? Contact CraftsAI for a free consultation:
 - **MLOps Implementation**
 - **Ongoing Support and Optimization**
 
-[Get Started with Your AI Project →](https://craftsai.org/contact)`,
+[Get Started with Your AI Project](/quote)`,
     author: 'CraftsAI AI Team',
     publishDate: '2025-08-09',
     readTime: '12 min read',
@@ -231,7 +228,7 @@ Ready to start your AI journey? Contact CraftsAI for a free consultation:
 
 ## Introduction
 
-The web development industry is undergoing a revolutionary transformation through autonomous coding—AI-powered systems that can write, test, and deploy code with minimal human intervention. This technology promises to reduce development costs by 60-80% while maintaining or improving code quality.
+The web development industry is undergoing a revolutionary transformation through autonomous coding-AI-powered systems that can write, test, and deploy code with minimal human intervention. This technology promises to reduce development costs by 60-80% while maintaining or improving code quality.
 
 ## What is Autonomous Coding?
 
@@ -267,92 +264,122 @@ Ready to explore autonomous coding for your business? Contact CraftsAI for a fre
 ];
 
 export default function BlogPage() {
-  // TODO: Implement category filtering and search functionality
-  // const [selectedCategory, setSelectedCategory] = useState('All');
-  // const [searchTerm, setSearchTerm] = useState('');
-  
-  // const categories = ['All', 'AI Development', 'Innovation'];
-  
-  // For now, show all posts without filtering
-  // const filteredPosts = blogPosts;
-
   const featuredPosts = blogPosts.filter(post => post.featured);
 
   return (
-    <PageBackground>
-      <div className="min-h-screen text-white">
-        <Header />
-        
-        <main className="pt-20 pb-16">
-          {/* Hero Section */}
-          <section className="py-16 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
+      <Header />
+
+      <main className="pt-20 pb-16">
+        {/* Hero Section */}
+        <section
+          className="py-16 relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)'
+          }}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border mb-6"
+                style={{ background: 'var(--surface-elevated)', borderColor: 'var(--border-default)' }}
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500">
-                    AI Development
-                  </span>{' '}
-                  <span className="text-white">Insights</span>
-                </h1>
-                <p className="text-xl text-slate-400 max-w-3xl mx-auto mb-8">
-                  Expert insights on AI model development, machine learning best practices, 
-                  autonomous coding, and the future of intelligent systems.
-                </p>
-              </motion.div>
+                <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Our Blog</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500">
+                  AI Development
+                </span>{' '}
+                <span style={{ color: 'var(--foreground)' }}>Insights</span>
+              </h1>
+              <p className="text-xl max-w-3xl mx-auto mb-8" style={{ color: 'var(--text-secondary)' }}>
+                Expert insights on AI-powered web and app development, autonomous coding,
+                and the future of intelligent systems.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Featured Posts */}
+        {featuredPosts.length > 0 && (
+          <section className="py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: 'var(--foreground)' }}>Featured Articles</h2>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {featuredPosts.map((post, index) => (
+                  <motion.article
+                    key={post.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    className="group"
+                  >
+                    <Link href={`/blog/${post.id}`}>
+                      <div
+                        className="rounded-2xl p-6 backdrop-blur-sm border hover:border-indigo-500/50 transition-all duration-300 hover:transform hover:scale-[1.02] h-full flex flex-col shadow-sm hover:shadow-md"
+                        style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+                      >
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="px-3 py-1 bg-indigo-500/10 rounded-full text-sm text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">
+                            {post.category}
+                          </span>
+                          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{post.readTime}</span>
+                        </div>
+
+                        <h3 className="text-xl font-bold mb-3 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors" style={{ color: 'var(--foreground)' }}>
+                          {post.title}
+                        </h3>
+
+                        <p className="text-sm mb-4 flex-grow" style={{ color: 'var(--text-secondary)' }}>
+                          {post.description}
+                        </p>
+
+                        <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: 'var(--border-default)' }}>
+                          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{post.author}</span>
+                          <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{post.publishDate}</span>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.article>
+                ))}
+              </div>
             </div>
           </section>
+        )}
 
-          {/* Featured Posts */}
-          {featuredPosts.length > 0 && (
-            <section className="py-12">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl font-bold mb-8 text-center">Featured Articles</h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {featuredPosts.map((post, index) => (
-                    <motion.article
-                      key={post.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.1 }}
-                      className="group"
-                    >
-                      <Link href={`/blog/${post.id}`}>
-                        <div className="bg-slate-800/50 rounded-2xl p-6 backdrop-blur-sm border border-slate-700/50 hover:border-cyan-400/50 transition-all duration-300 hover:transform hover:scale-105 h-full flex flex-col">
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="px-3 py-1 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 rounded-full text-sm text-cyan-400 border border-cyan-400/30">
-                              {post.category}
-                            </span>
-                            <span className="text-slate-400 text-sm">{post.readTime}</span>
-                          </div>
-                          
-                          <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors">
-                            {post.title}
-                          </h3>
-                          
-                          <p className="text-slate-400 text-sm mb-4 flex-grow">
-                            {post.description}
-                          </p>
-                          
-                          <div className="flex items-center justify-between pt-4 border-t border-slate-700/50">
-                            <span className="text-slate-500 text-sm">{post.author}</span>
-                            <span className="text-slate-500 text-sm">{post.publishDate}</span>
-                          </div>
-                        </div>
-                      </Link>
-                    </motion.article>
-                  ))}
-                </div>
-              </div>
-            </section>
-          )}
-        </main>
+        {/* CTA Section */}
+        <section className="py-16">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div
+              className="rounded-2xl p-8 sm:p-12 border"
+              style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+            >
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
+                Want to Build Something Amazing?
+              </h2>
+              <p className="text-base sm:text-lg mb-8 max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+                Our AI agents are ready to help you build your next web or mobile application.
+                Get a free quote today.
+              </p>
+              <Link
+                href="/quote"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-indigo-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                <span>Get a Free Quote</span>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
 
-        <Footer />
-      </div>
-    </PageBackground>
+      <Footer />
+    </div>
   );
 }

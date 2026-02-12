@@ -1,19 +1,13 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { PageBackground } from '../components/PageBackground';
 
 export default function ServicesPage() {
-  const [mounted, setMounted] = useState(false);
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const agents = [
     {
@@ -23,8 +17,7 @@ export default function ServicesPage() {
       subtitle: 'Full-Stack Applications',
       icon: '🌐',
       status: 'ONLINE',
-      gradient: 'from-emerald-400 to-cyan-500',
-      glowColor: 'emerald',
+      gradient: 'from-indigo-500 to-cyan-500',
       description: 'Autonomous AI agent specialized in building modern web applications. From React frontends to Node.js backends, this agent handles the entire stack.',
       capabilities: [
         'React & Next.js Applications',
@@ -50,8 +43,7 @@ export default function ServicesPage() {
       subtitle: 'Native Mobile Apps',
       icon: '📱',
       status: 'ONLINE',
-      gradient: 'from-cyan-400 to-violet-500',
-      glowColor: 'cyan',
+      gradient: 'from-cyan-500 to-violet-500',
       description: 'Expert Android development agent using Kotlin and Jetpack Compose. Creates beautiful, performant native apps ready for the Play Store.',
       capabilities: [
         'Native Kotlin Development',
@@ -69,118 +61,44 @@ export default function ServicesPage() {
       techStack: ['Kotlin', 'Jetpack Compose', 'Firebase', 'Room DB', 'Retrofit', 'Hilt'],
       deliveryTime: '4-8 weeks',
       projects: '80+'
-    },
-    {
-      id: 'data',
-      name: 'DataMind',
-      title: 'Data Analysis Agent',
-      subtitle: 'AI-Powered Insights',
-      icon: '📊',
-      status: 'ONLINE',
-      gradient: 'from-violet-400 to-amber-500',
-      glowColor: 'violet',
-      description: 'Advanced data analysis agent that transforms raw data into actionable business intelligence. Pattern recognition, predictive modeling, and automated reporting.',
-      capabilities: [
-        'Pattern Recognition',
-        'Predictive Analytics',
-        'Statistical Modeling',
-        'ETL Pipelines',
-        'Automated Reporting',
-        'Anomaly Detection'
-      ],
-      metrics: {
-        speed: '100x faster',
-        accuracy: '99.5%',
-        uptime: '99.9%'
-      },
-      techStack: ['Python', 'Pandas', 'TensorFlow', 'SQL', 'Apache Spark', 'Jupyter'],
-      deliveryTime: '1-4 weeks',
-      projects: '200+'
-    },
-    {
-      id: 'viz',
-      name: 'VizCraft',
-      title: 'Data Visualization Agent',
-      subtitle: 'Interactive Dashboards',
-      icon: '📈',
-      status: 'ONLINE',
-      gradient: 'from-amber-400 to-emerald-500',
-      glowColor: 'amber',
-      description: 'Creative visualization agent that builds stunning interactive dashboards and reports. Makes complex data accessible and beautiful.',
-      capabilities: [
-        'Custom Dashboards',
-        'Real-time Charts',
-        'Interactive Reports',
-        'Data Storytelling',
-        'Export & Sharing',
-        'Embedded Analytics'
-      ],
-      metrics: {
-        speed: '15x faster',
-        accuracy: '99.1%',
-        uptime: '99.9%'
-      },
-      techStack: ['D3.js', 'Chart.js', 'Recharts', 'Plotly', 'Tableau', 'Power BI'],
-      deliveryTime: '1-3 weeks',
-      projects: '120+'
     }
   ];
 
-  if (!mounted) return null;
-
   return (
-    <PageBackground>
-      <div className="min-h-screen text-white">
-        <Header />
+    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
+      <Header />
 
-        <main className="pt-16 sm:pt-18 md:pt-20">
-          {/* Hero Section - Mission Control */}
-          <HeroSection />
+      <main className="pt-16 sm:pt-18 md:pt-20">
+        <HeroSection />
+        <AgentGridSection agents={agents} activeAgent={activeAgent} setActiveAgent={setActiveAgent} />
+        {activeAgent && (
+          <AgentDetailSection
+            agent={agents.find(a => a.id === activeAgent)!}
+            onClose={() => setActiveAgent(null)}
+          />
+        )}
+        <ComparisonSection />
+        <ProcessSection />
+        <CTASection />
+      </main>
 
-          {/* Agent Grid */}
-          <AgentGridSection agents={agents} activeAgent={activeAgent} setActiveAgent={setActiveAgent} />
-
-          {/* Detailed Agent View */}
-          {activeAgent && (
-            <AgentDetailSection
-              agent={agents.find(a => a.id === activeAgent)!}
-              onClose={() => setActiveAgent(null)}
-            />
-          )}
-
-          {/* Comparison Section */}
-          <ComparisonSection />
-
-          {/* Process Section */}
-          <ProcessSection />
-
-          {/* CTA Section */}
-          <CTASection />
-        </main>
-
-        <Footer />
-      </div>
-    </PageBackground>
+      <Footer />
+    </div>
   );
 }
 
 function HeroSection() {
   return (
-    <section className="relative py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `
-              linear-gradient(90deg, #10b981 1px, transparent 1px),
-              linear-gradient(#10b981 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-          }}
-        />
-        <div className="absolute top-0 left-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-emerald-500/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 right-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-violet-500/10 rounded-full blur-[150px]" />
+    <section
+      className="relative py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)'
+      }}
+    >
+      {/* Subtle gradient orbs */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] rounded-full blur-[150px] opacity-20" style={{ background: 'var(--brand-primary)' }} />
+        <div className="absolute bottom-0 right-1/4 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] rounded-full blur-[150px] opacity-15" style={{ background: 'var(--brand-accent)' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -192,38 +110,39 @@ function HeroSection() {
         >
           {/* Status Badge */}
           <motion.div
-            className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/5 backdrop-blur-sm mb-6 sm:mb-8"
+            className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border backdrop-blur-sm mb-6 sm:mb-8"
+            style={{ borderColor: 'var(--brand-primary)', background: 'var(--brand-primary)' + '08' }}
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <div className="relative">
-              <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full" />
-              <div className="absolute inset-0 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-400 rounded-full animate-ping" />
+              <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-500 rounded-full" />
+              <div className="absolute inset-0 w-2 h-2 sm:w-2.5 sm:h-2.5 bg-emerald-500 rounded-full animate-ping" />
             </div>
-            <span className="text-xs sm:text-sm font-medium text-emerald-300">4 AI Agents Online</span>
-            <div className="h-3 sm:h-4 w-px bg-emerald-500/30 hidden sm:block" />
-            <span className="text-[10px] sm:text-xs text-emerald-400/60 font-mono">System Status: OPTIMAL</span>
+            <span className="text-xs sm:text-sm font-medium" style={{ color: 'var(--brand-primary)' }}>2 AI Agents Online</span>
+            <div className="h-3 sm:h-4 w-px hidden sm:block" style={{ background: 'var(--border-default)' }} />
+            <span className="text-[10px] sm:text-xs font-mono" style={{ color: 'var(--text-secondary)' }}>System Status: OPTIMAL</span>
           </motion.div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-5 md:mb-6 leading-[1.1] px-2">
-            <span className="text-white/90">AI Agent</span>
+            <span style={{ color: 'var(--foreground)' }}>AI Agent</span>
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500">
               Deployment Center
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 leading-relaxed px-2">
-            Four specialized AI agents ready to be deployed on your project.
+          <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 leading-relaxed px-2" style={{ color: 'var(--text-secondary)' }}>
+            Two specialized AI agents ready to be deployed on your project.
             Each agent is trained for specific tasks and works autonomously to deliver
-            <span className="text-emerald-400"> production-ready code</span>.
+            <span style={{ color: 'var(--brand-primary)' }}> production-ready code</span>.
           </p>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 mb-8 sm:mb-10 md:mb-12 px-2">
             {[
-              { value: '550+', label: 'Projects Completed' },
+              { value: '230+', label: 'Projects Completed' },
               { value: '10x', label: 'Faster Than Traditional' },
               { value: '99.9%', label: 'Uptime Guaranteed' },
               { value: '24/7', label: 'Agent Availability' }
@@ -235,10 +154,10 @@ function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
               >
-                <div className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
+                <div className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-500">
                   {stat.value}
                 </div>
-                <div className="text-xs sm:text-sm text-slate-500">{stat.label}</div>
+                <div className="text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -250,25 +169,23 @@ function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <div className="bg-[#0d1117] rounded-lg sm:rounded-xl border border-slate-700/50 overflow-hidden shadow-2xl">
-              <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-[#161b22] border-b border-slate-700/50">
+            <div className="rounded-lg sm:rounded-xl border overflow-hidden shadow-lg" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
+              <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-3 border-b" style={{ background: 'var(--surface-elevated)', borderColor: 'var(--card-border)' }}>
                 <div className="flex gap-1 sm:gap-1.5">
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff5f57]" />
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#febc2e]" />
                   <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#28c840]" />
                 </div>
-                <span className="text-[10px] sm:text-xs text-slate-500 font-mono ml-1 sm:ml-2 truncate">craftsai-agent-control</span>
+                <span className="text-[10px] sm:text-xs font-mono ml-1 sm:ml-2 truncate" style={{ color: 'var(--text-secondary)' }}>craftsai-agent-control</span>
               </div>
               <div className="p-3 sm:p-4 font-mono text-xs sm:text-sm overflow-x-auto">
-                <div className="text-slate-500 whitespace-nowrap">$ craftsai deploy --list-agents</div>
+                <div style={{ color: 'var(--text-secondary)' }} className="whitespace-nowrap">$ craftsai deploy --list-agents</div>
                 <div className="mt-2 space-y-0.5 sm:space-y-1">
-                  <div className="text-emerald-400 whitespace-nowrap">  [ONLINE] WebForge     - Web Development</div>
-                  <div className="text-cyan-400 whitespace-nowrap">  [ONLINE] DroidMaster  - Android Development</div>
-                  <div className="text-violet-400 whitespace-nowrap">  [ONLINE] DataMind     - Data Analysis</div>
-                  <div className="text-amber-400 whitespace-nowrap">  [ONLINE] VizCraft     - Data Visualization</div>
+                  <div className="text-indigo-500 whitespace-nowrap">  [ONLINE] WebForge     - Web Development</div>
+                  <div className="text-cyan-500 whitespace-nowrap">  [ONLINE] DroidMaster  - Android Development</div>
                 </div>
-                <div className="mt-2 sm:mt-3 text-slate-500 whitespace-nowrap">$ craftsai deploy WebForge --project &quot;your-next-app&quot;</div>
-                <div className="text-emerald-400 flex items-center gap-1.5 sm:gap-2 mt-1">
+                <div className="mt-2 sm:mt-3 whitespace-nowrap" style={{ color: 'var(--text-secondary)' }}>$ craftsai deploy WebForge --project &quot;your-next-app&quot;</div>
+                <div className="text-emerald-500 flex items-center gap-1.5 sm:gap-2 mt-1">
                   <span className="animate-pulse">_</span>
                   <span className="text-xs sm:text-sm">Initializing agent deployment...</span>
                 </div>
@@ -289,7 +206,6 @@ interface Agent {
   icon: string;
   status: string;
   gradient: string;
-  glowColor: string;
   description: string;
   capabilities: string[];
   metrics: { speed: string; accuracy: string; uptime: string };
@@ -317,10 +233,10 @@ function AgentGridSection({ agents, activeAgent, setActiveAgent }: AgentGridProp
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 px-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2" style={{ color: 'var(--foreground)' }}>
             Select Your Agent
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto px-2">
+          <p className="text-sm sm:text-base max-w-2xl mx-auto px-2" style={{ color: 'var(--text-secondary)' }}>
             Click on an agent to see detailed capabilities, tech stack, and deployment options
           </p>
         </motion.div>
@@ -355,13 +271,14 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
       }`}
     >
       {/* Glow Effect */}
-      <div className={`absolute inset-0 bg-gradient-to-r ${agent.gradient} rounded-xl sm:rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 ${isActive ? 'opacity-30' : ''}`} />
+      <div className={`absolute inset-0 bg-gradient-to-r ${agent.gradient} rounded-xl sm:rounded-2xl blur-xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 ${isActive ? 'opacity-15' : ''}`} />
 
-      <div className={`relative bg-[#0d1117] rounded-xl sm:rounded-2xl border transition-all duration-300 overflow-hidden ${
-        isActive ? `border-${agent.glowColor}-500/50 shadow-lg shadow-${agent.glowColor}-500/20` : 'border-slate-700/50 hover:border-slate-600/50'
-      }`}>
+      <div
+        className={`relative rounded-xl sm:rounded-2xl border transition-all duration-300 overflow-hidden ${isActive ? 'shadow-lg' : ''}`}
+        style={{ background: 'var(--card-bg)', borderColor: isActive ? 'var(--brand-primary)' : 'var(--card-border)' }}
+      >
         {/* Header */}
-        <div className="p-4 sm:p-5 md:p-6 border-b border-slate-700/50 bg-slate-800/40">
+        <div className="p-4 sm:p-5 md:p-6 border-b" style={{ borderColor: 'var(--card-border)', background: 'var(--surface-elevated)' }}>
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
               <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg sm:rounded-xl bg-gradient-to-br ${agent.gradient} flex items-center justify-center text-2xl sm:text-3xl shadow-lg flex-shrink-0`}>
@@ -369,17 +286,17 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                  <h3 className="text-lg sm:text-xl font-bold text-white truncate">{agent.name}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold truncate" style={{ color: 'var(--foreground)' }}>{agent.name}</h3>
                   <div className="flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex-shrink-0">
-                    <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-                    <span className="text-[9px] sm:text-[10px] font-bold text-emerald-400">{agent.status}</span>
+                    <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                    <span className="text-[9px] sm:text-[10px] font-bold text-emerald-500">{agent.status}</span>
                   </div>
                 </div>
-                <p className="text-xs sm:text-sm text-white/80 mt-0.5 sm:mt-1 font-medium truncate">{agent.title}</p>
+                <p className="text-xs sm:text-sm mt-0.5 sm:mt-1 font-medium truncate" style={{ color: 'var(--text-secondary)' }}>{agent.title}</p>
               </div>
             </div>
-            <div className={`p-1.5 sm:p-2 rounded-lg bg-slate-800/50 transition-transform duration-300 flex-shrink-0 ${isActive ? 'rotate-180' : ''}`}>
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className={`p-1.5 sm:p-2 rounded-lg transition-transform duration-300 flex-shrink-0 ${isActive ? 'rotate-180' : ''}`} style={{ background: 'var(--surface-elevated)' }}>
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: 'var(--text-secondary)' }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
@@ -388,41 +305,41 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
 
         {/* Body */}
         <div className="p-4 sm:p-5 md:p-6">
-          <p className="text-slate-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5 md:mb-6">
+          <p className="text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5 md:mb-6" style={{ color: 'var(--text-secondary)' }}>
             {agent.description}
           </p>
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-5 md:mb-6">
-            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg bg-slate-800/30">
+            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg" style={{ background: 'var(--surface-elevated)' }}>
               <div className={`text-sm sm:text-base md:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                 {agent.metrics.speed}
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-500">Speed</div>
+              <div className="text-[10px] sm:text-xs" style={{ color: 'var(--text-secondary)' }}>Speed</div>
             </div>
-            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg bg-slate-800/30">
+            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg" style={{ background: 'var(--surface-elevated)' }}>
               <div className={`text-sm sm:text-base md:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                 {agent.metrics.accuracy}
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-500">Accuracy</div>
+              <div className="text-[10px] sm:text-xs" style={{ color: 'var(--text-secondary)' }}>Accuracy</div>
             </div>
-            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg bg-slate-800/30">
+            <div className="text-center p-2 sm:p-2.5 md:p-3 rounded-lg" style={{ background: 'var(--surface-elevated)' }}>
               <div className={`text-sm sm:text-base md:text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                 {agent.projects}
               </div>
-              <div className="text-[10px] sm:text-xs text-slate-500">Projects</div>
+              <div className="text-[10px] sm:text-xs" style={{ color: 'var(--text-secondary)' }}>Projects</div>
             </div>
           </div>
 
           {/* Tech Stack Pills */}
           <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5 md:mb-6">
             {agent.techStack.slice(0, 4).map((tech) => (
-              <span key={tech} className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-slate-800/50 text-slate-300 border border-slate-700/50">
+              <span key={tech} className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full border" style={{ background: 'var(--surface-elevated)', borderColor: 'var(--card-border)', color: 'var(--text-secondary)' }}>
                 {tech}
               </span>
             ))}
             {agent.techStack.length > 4 && (
-              <span className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-slate-800/50 text-slate-500">
+              <span className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full" style={{ background: 'var(--surface-elevated)', color: 'var(--text-secondary)' }}>
                 +{agent.techStack.length - 4} more
               </span>
             )}
@@ -431,8 +348,8 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
           {/* Footer */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
             <div className="text-xs sm:text-sm">
-              <span className="text-slate-500">Delivery: </span>
-              <span className="text-white font-medium">{agent.deliveryTime}</span>
+              <span style={{ color: 'var(--text-secondary)' }}>Delivery: </span>
+              <span className="font-medium" style={{ color: 'var(--foreground)' }}>{agent.deliveryTime}</span>
             </div>
             <Link
               href="/quote"
@@ -446,11 +363,11 @@ function AgentCard({ agent, isActive, onClick }: { agent: Agent; isActive: boole
 
         {/* Expanded Capabilities */}
         <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'max-h-96' : 'max-h-0'}`}>
-          <div className="p-4 sm:p-5 md:p-6 pt-0 border-t border-slate-700/50">
-            <h4 className="text-xs sm:text-sm font-medium text-white mb-3 sm:mb-4">Full Capabilities</h4>
+          <div className="p-4 sm:p-5 md:p-6 pt-0 border-t" style={{ borderColor: 'var(--card-border)' }}>
+            <h4 className="text-xs sm:text-sm font-medium mb-3 sm:mb-4" style={{ color: 'var(--foreground)' }}>Full Capabilities</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {agent.capabilities.map((cap) => (
-                <div key={cap} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-slate-400">
+                <div key={cap} className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>
                   <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gradient-to-r ${agent.gradient} flex-shrink-0`} />
                   <span className="break-words">{cap}</span>
                 </div>
@@ -470,13 +387,14 @@ function AgentDetailSection({ agent, onClose }: { agent: Agent; onClose: () => v
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#0d1117] rounded-xl sm:rounded-2xl border border-slate-700/50 overflow-hidden"
+          className="rounded-xl sm:rounded-2xl border overflow-hidden"
+          style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
         >
           {/* Agent Header with Visual */}
           <div className={`relative p-4 sm:p-6 md:p-8 bg-gradient-to-br ${agent.gradient} bg-opacity-10`}>
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-lg bg-slate-800/50 text-slate-400 hover:text-white transition-colors"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 p-1.5 sm:p-2 rounded-lg transition-colors" style={{ background: 'var(--surface-elevated)', color: 'var(--text-secondary)' }}
             >
               <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -489,14 +407,14 @@ function AgentDetailSection({ agent, onClose }: { agent: Agent; onClose: () => v
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-white">{agent.name}</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold" style={{ color: 'var(--foreground)' }}>{agent.name}</h2>
                   <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-emerald-500/20">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full animate-pulse" />
-                    <span className="text-[10px] sm:text-xs font-bold text-emerald-400">{agent.status}</span>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-500 rounded-full animate-pulse" />
+                    <span className="text-[10px] sm:text-xs font-bold text-emerald-500">{agent.status}</span>
                   </div>
                 </div>
-                <p className="text-lg sm:text-xl text-slate-400">{agent.title}</p>
-                <p className="text-sm sm:text-base text-slate-500 mt-1 sm:mt-2">{agent.subtitle}</p>
+                <p className="text-lg sm:text-xl" style={{ color: 'var(--text-secondary)' }}>{agent.title}</p>
+                <p className="text-sm sm:text-base mt-1 sm:mt-2" style={{ color: 'var(--text-secondary)' }}>{agent.subtitle}</p>
               </div>
             </div>
           </div>
@@ -506,17 +424,17 @@ function AgentDetailSection({ agent, onClose }: { agent: Agent; onClose: () => v
             {/* Left: Description & Capabilities */}
             <div className="space-y-5 sm:space-y-6">
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">About This Agent</h3>
-                <p className="text-sm sm:text-base text-slate-400 leading-relaxed">{agent.description}</p>
+                <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>About This Agent</h3>
+                <p className="text-sm sm:text-base leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{agent.description}</p>
               </div>
 
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Capabilities</h3>
+                <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>Capabilities</h3>
                 <div className="space-y-1.5 sm:space-y-2">
                   {agent.capabilities.map((cap) => (
-                    <div key={cap} className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg bg-slate-800/30">
+                    <div key={cap} className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg" style={{ background: 'var(--surface-elevated)' }}>
                       <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r ${agent.gradient} flex-shrink-0`} />
-                      <span className="text-xs sm:text-sm text-slate-300 break-words">{cap}</span>
+                      <span className="text-xs sm:text-sm break-words" style={{ color: 'var(--text-secondary)' }}>{cap}</span>
                     </div>
                   ))}
                 </div>
@@ -526,10 +444,10 @@ function AgentDetailSection({ agent, onClose }: { agent: Agent; onClose: () => v
             {/* Right: Tech Stack & Metrics */}
             <div className="space-y-5 sm:space-y-6">
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Technology Stack</h3>
+                <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>Technology Stack</h3>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {agent.techStack.map((tech) => (
-                    <span key={tech} className={`px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-lg bg-gradient-to-r ${agent.gradient} bg-opacity-10 border border-slate-700/50 text-white text-xs sm:text-sm`}>
+                    <span key={tech} className="px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-lg border text-xs sm:text-sm" style={{ background: 'var(--surface-elevated)', borderColor: 'var(--card-border)', color: 'var(--foreground)' }}>
                       {tech}
                     </span>
                   ))}
@@ -537,33 +455,33 @@ function AgentDetailSection({ agent, onClose }: { agent: Agent; onClose: () => v
               </div>
 
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">Performance Metrics</h3>
+                <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>Performance Metrics</h3>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4">
-                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl bg-slate-800/30 text-center">
+                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl text-center" style={{ background: 'var(--surface-elevated)' }}>
                     <div className={`text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                       {agent.metrics.speed}
                     </div>
-                    <div className="text-[10px] sm:text-xs text-slate-500 mt-1">Speed Boost</div>
+                    <div className="text-[10px] sm:text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>Speed Boost</div>
                   </div>
-                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl bg-slate-800/30 text-center">
+                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl text-center" style={{ background: 'var(--surface-elevated)' }}>
                     <div className={`text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                       {agent.metrics.accuracy}
                     </div>
-                    <div className="text-[10px] sm:text-xs text-slate-500 mt-1">Accuracy</div>
+                    <div className="text-[10px] sm:text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>Accuracy</div>
                   </div>
-                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl bg-slate-800/30 text-center">
+                  <div className="p-3 sm:p-3.5 md:p-4 rounded-lg sm:rounded-xl text-center" style={{ background: 'var(--surface-elevated)' }}>
                     <div className={`text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${agent.gradient}`}>
                       {agent.metrics.uptime}
                     </div>
-                    <div className="text-[10px] sm:text-xs text-slate-500 mt-1">Uptime</div>
+                    <div className="text-[10px] sm:text-xs mt-1" style={{ color: 'var(--text-secondary)' }}>Uptime</div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-slate-800/30">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 p-3 sm:p-4 rounded-lg sm:rounded-xl" style={{ background: 'var(--surface-elevated)' }}>
                 <div>
-                  <div className="text-xs sm:text-sm text-slate-500">Typical Delivery Time</div>
-                  <div className="text-lg sm:text-xl font-bold text-white">{agent.deliveryTime}</div>
+                  <div className="text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>Typical Delivery Time</div>
+                  <div className="text-lg sm:text-xl font-bold" style={{ color: 'var(--foreground)' }}>{agent.deliveryTime}</div>
                 </div>
                 <Link
                   href="/quote"
@@ -594,9 +512,13 @@ function ComparisonSection() {
   ];
 
   return (
-    <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent" />
-
+    <section
+      ref={ref}
+      className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)'
+      }}
+    >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           className="text-center mb-10 sm:mb-12 md:mb-16"
@@ -604,42 +526,44 @@ function ComparisonSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 px-2">
-            Traditional Agency vs <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">AI Agents</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2" style={{ color: 'var(--foreground)' }}>
+            Traditional Agency vs <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-cyan-500">AI Agents</span>
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto px-2">
+          <p className="text-sm sm:text-base max-w-2xl mx-auto px-2" style={{ color: 'var(--text-secondary)' }}>
             See how our AI agents outperform traditional development approaches
           </p>
         </motion.div>
 
         <motion.div
-          className="bg-[#0d1117] rounded-xl sm:rounded-2xl border border-slate-700/50 overflow-hidden overflow-x-auto"
+          className="rounded-xl sm:rounded-2xl border overflow-hidden overflow-x-auto"
+          style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {/* Header */}
-          <div className="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 bg-slate-800/30 border-b border-slate-700/50 min-w-[600px]">
-            <div className="text-xs sm:text-sm font-medium text-slate-400">Feature</div>
-            <div className="text-xs sm:text-sm font-medium text-slate-400 text-center">Traditional</div>
-            <div className="text-xs sm:text-sm font-medium text-emerald-400 text-center">AI Agents</div>
-            <div className="text-xs sm:text-sm font-medium text-cyan-400 text-center">Improvement</div>
+          <div className="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 border-b min-w-[600px]" style={{ background: 'var(--surface-elevated)', borderColor: 'var(--card-border)' }}>
+            <div className="text-xs sm:text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>Feature</div>
+            <div className="text-xs sm:text-sm font-medium text-center" style={{ color: 'var(--text-secondary)' }}>Traditional</div>
+            <div className="text-xs sm:text-sm font-medium text-center text-indigo-500">AI Agents</div>
+            <div className="text-xs sm:text-sm font-medium text-center text-cyan-500">Improvement</div>
           </div>
 
           {/* Rows */}
           {comparisons.map((row, i) => (
             <motion.div
               key={row.feature}
-              className="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 border-b border-slate-700/30 hover:bg-slate-800/20 transition-colors min-w-[600px]"
+              className="grid grid-cols-4 gap-2 sm:gap-3 md:gap-4 p-3 sm:p-4 md:p-6 border-b transition-colors min-w-[600px]"
+              style={{ borderColor: 'var(--card-border)' }}
               initial={{ opacity: 0, x: -20 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
             >
-              <div className="text-xs sm:text-sm md:text-base text-white font-medium">{row.feature}</div>
-              <div className="text-xs sm:text-sm md:text-base text-slate-500 text-center">{row.traditional}</div>
-              <div className="text-xs sm:text-sm md:text-base text-emerald-400 text-center font-medium">{row.ai}</div>
+              <div className="text-xs sm:text-sm md:text-base font-medium" style={{ color: 'var(--foreground)' }}>{row.feature}</div>
+              <div className="text-xs sm:text-sm md:text-base text-center" style={{ color: 'var(--text-secondary)' }}>{row.traditional}</div>
+              <div className="text-xs sm:text-sm md:text-base text-indigo-500 text-center font-medium">{row.ai}</div>
               <div className="text-center">
-                <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] sm:text-xs md:text-sm font-medium">
+                <span className="px-2 sm:px-3 py-0.5 sm:py-1 rounded-full bg-cyan-500/10 text-cyan-500 text-[10px] sm:text-xs md:text-sm font-medium">
                   {row.improvement}
                 </span>
               </div>
@@ -661,28 +585,28 @@ function ProcessSection() {
       title: 'Select Your Agent',
       description: 'Choose from our specialized AI agents based on your project needs',
       icon: '🎯',
-      gradient: 'from-emerald-400 to-cyan-500'
+      gradient: 'from-indigo-500 to-blue-500'
     },
     {
       number: '02',
       title: 'Brief the Agent',
       description: 'Provide project requirements through our intuitive quote system',
       icon: '📋',
-      gradient: 'from-cyan-400 to-violet-500'
+      gradient: 'from-cyan-500 to-teal-500'
     },
     {
       number: '03',
       title: 'Agent Deploys',
       description: 'Your AI agent autonomously starts building your solution',
       icon: '🚀',
-      gradient: 'from-violet-400 to-amber-500'
+      gradient: 'from-violet-500 to-purple-500'
     },
     {
       number: '04',
       title: 'Review & Launch',
       description: 'Review the deliverables and deploy to production',
       icon: '✨',
-      gradient: 'from-amber-400 to-emerald-500'
+      gradient: 'from-amber-500 to-orange-500'
     }
   ];
 
@@ -695,10 +619,10 @@ function ProcessSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4 px-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2" style={{ color: 'var(--foreground)' }}>
             How It Works
           </h2>
-          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto px-2">
+          <p className="text-sm sm:text-base max-w-2xl mx-auto px-2" style={{ color: 'var(--text-secondary)' }}>
             From concept to deployment in four simple steps
           </p>
         </motion.div>
@@ -714,10 +638,10 @@ function ProcessSection() {
             >
               {/* Connector Line */}
               {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-12 left-[60%] w-full h-0.5 bg-gradient-to-r from-slate-700 to-transparent" />
+                <div className="hidden lg:block absolute top-12 left-[60%] w-full h-0.5" style={{ background: 'linear-gradient(to right, var(--border-default), transparent)' }} />
               )}
 
-              <div className="relative bg-[#0d1117] rounded-xl sm:rounded-2xl border border-slate-700/50 p-4 sm:p-5 md:p-6 hover:border-slate-600/50 transition-colors group">
+              <div className="relative rounded-xl sm:rounded-2xl border p-4 sm:p-5 md:p-6 transition-colors group hover:shadow-md" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
                 {/* Step Number */}
                 <div className={`absolute -top-2.5 sm:-top-3 -left-2.5 sm:-left-3 w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-lg sm:rounded-xl bg-gradient-to-br ${step.gradient} flex items-center justify-center text-xs sm:text-sm font-bold text-white shadow-lg`}>
                   {step.number}
@@ -727,8 +651,8 @@ function ProcessSection() {
                 <div className="text-3xl sm:text-4xl mb-3 sm:mb-4 mt-3 sm:mt-4">{step.icon}</div>
 
                 {/* Content */}
-                <h3 className="text-base sm:text-lg font-bold text-white mb-1.5 sm:mb-2">{step.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-400">{step.description}</p>
+                <h3 className="text-base sm:text-lg font-bold mb-1.5 sm:mb-2" style={{ color: 'var(--foreground)' }}>{step.title}</h3>
+                <p className="text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>{step.description}</p>
               </div>
             </motion.div>
           ))}
@@ -743,10 +667,15 @@ function CTASection() {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-cyan-500/10 to-violet-500/10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[700px] md:w-[800px] h-[600px] sm:h-[700px] md:h-[800px] bg-emerald-500/10 rounded-full blur-[200px]" />
+    <section
+      ref={ref}
+      className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)'
+      }}
+    >
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[700px] md:w-[800px] h-[600px] sm:h-[700px] md:h-[800px] rounded-full blur-[200px] opacity-10" style={{ background: 'var(--brand-primary)' }} />
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -756,10 +685,13 @@ function CTASection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-5 md:mb-6 px-2">
-            Ready to Deploy Your Agent?
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-5 md:mb-6 px-2">
+            <span style={{ color: 'var(--foreground)' }}>Ready to Deploy </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500">
+              Your Agent?
+            </span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-8 sm:mb-9 md:mb-10 max-w-2xl mx-auto px-2">
+          <p className="text-base sm:text-lg md:text-xl mb-8 sm:mb-9 md:mb-10 max-w-2xl mx-auto px-2" style={{ color: 'var(--text-secondary)' }}>
             Get a free quote and see how our AI agents can transform your next project.
             No commitment, no pressure.
           </p>
@@ -767,7 +699,7 @@ function CTASection() {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-2">
             <Link
               href="/quote"
-              className="group px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-lg sm:rounded-xl text-white text-sm sm:text-base font-semibold hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 hover:-translate-y-1"
+              className="group px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg sm:rounded-xl text-white text-sm sm:text-base font-semibold hover:shadow-2xl hover:shadow-indigo-500/25 transition-all duration-300 hover:-translate-y-1"
             >
               <span className="flex items-center justify-center gap-2">
                 Get Free Quote
@@ -778,30 +710,25 @@ function CTASection() {
             </Link>
             <Link
               href="/portfolio"
-              className="px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-lg sm:rounded-xl border border-slate-600/50 text-slate-300 text-sm sm:text-base font-medium hover:border-emerald-500/50 hover:text-emerald-400 transition-all duration-300"
+              className="px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-lg sm:rounded-xl border font-medium text-sm sm:text-base transition-all duration-300 hover:shadow-md"
+              style={{ borderColor: 'var(--border-default)', color: 'var(--text-secondary)' }}
             >
               View Portfolio
             </Link>
           </div>
 
           {/* Trust Badges */}
-          <div className="mt-8 sm:mt-10 md:mt-12 flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm text-slate-500 px-2">
+          <div className="mt-8 sm:mt-10 md:mt-12 flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm px-2" style={{ color: 'var(--text-secondary)' }}>
             <div className="flex items-center gap-1.5 sm:gap-2">
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-              </svg>
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--brand-primary)' }} />
               <span>Free consultation</span>
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2">
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-              </svg>
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--brand-accent)' }} />
               <span>24-hour response</span>
             </div>
             <div className="flex items-center gap-1.5 sm:gap-2">
-              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-violet-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-              </svg>
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--brand-secondary)' }} />
               <span>No obligation</span>
             </div>
           </div>

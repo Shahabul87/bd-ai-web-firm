@@ -9,6 +9,7 @@ import BrowserCompatibilityFallback from "./components/BrowserCompatibilityFallb
 import ErrorBoundary from "./components/ErrorBoundary";
 import StructuredData from "./components/StructuredData";
 import Analytics from "./analytics";
+import { ThemeProvider } from "./context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -125,15 +126,18 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         
+        {/* Anti-FOUC: set theme class before paint */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          (function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(t==null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();
+        ` }} />
+
         {/* Critical CSS for above-the-fold content */}
         <style dangerouslySetInnerHTML={{ __html: `
           /* Critical CSS for immediate render */
-          body { margin: 0; background: #0f172a; color: white; }
+          body { margin: 0; background: var(--background, #ffffff); color: var(--foreground, #0f172a); }
           .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
           @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
           .min-h-screen { min-height: 100vh; }
-          .text-white { color: white; }
-          .bg-gradient-to-br { background: linear-gradient(to bottom right, var(--tw-gradient-stops)); }
         ` }} />
         
         {/* Google Search Console Verification - Replace with your actual verification code */}
@@ -143,15 +147,17 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <ErrorBoundary>
-          <CrossPlatformWrapper fallback={<BrowserCompatibilityFallback />}>
-            <StructuredData />
-            <Analytics />
-            {children}
-            <WhatsAppButton />
-            <AIChatbot />
-          </CrossPlatformWrapper>
-        </ErrorBoundary>
+        <ThemeProvider>
+          <ErrorBoundary>
+            <CrossPlatformWrapper fallback={<BrowserCompatibilityFallback />}>
+              <StructuredData />
+              <Analytics />
+              {children}
+              <WhatsAppButton />
+              <AIChatbot />
+            </CrossPlatformWrapper>
+          </ErrorBoundary>
+        </ThemeProvider>
         
         {/* Google Analytics - Replace G-XXXXXXXXXX with your actual GA4 Measurement ID */}
         <Script

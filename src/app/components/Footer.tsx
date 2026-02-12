@@ -22,7 +22,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800">
+    <footer className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--surface-sunken), var(--surface-elevated), var(--surface-sunken))' }}>
       {/* Animated Background - reduce on mobile */}
       {shouldAnimate() && (
         <div className="absolute inset-0">
@@ -52,7 +52,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-flex items-center space-x-2 sm:space-x-3 group mb-4 sm:mb-6">
-              <div className="relative overflow-hidden rounded-lg sm:rounded-xl h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center bg-slate-800/80 transition-all duration-300 transform group-hover:scale-105 group-hover:rotate-3 backdrop-blur-sm">
+              <div className="relative overflow-hidden rounded-lg sm:rounded-xl h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center bg-[var(--surface-elevated)]/80 transition-all duration-300 transform group-hover:scale-105 group-hover:rotate-3 backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-purple-500 to-orange-500 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
                 <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 text-lg sm:text-xl animate-neural-pulse">
                   I
@@ -66,11 +66,11 @@ export default function Footer() {
                     CraftsAI
                   </span>
                 </h2>
-                <p className="text-xs sm:text-sm -mt-0.5 sm:-mt-1 text-gray-400">Agentic AI Coding Studio</p>
+                <p className="text-xs sm:text-sm -mt-0.5 sm:-mt-1 text-[var(--text-secondary)]">Agentic AI Coding Studio</p>
               </div>
             </Link>
-            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8">
-              AI agents that write code. We build web apps, Android apps, and data solutions 10x faster using autonomous AI coding technology.
+            <p className="text-[var(--text-secondary)] text-xs sm:text-sm leading-relaxed mb-6 sm:mb-8">
+              AI agents that write code. We build web apps and Android apps 10x faster using autonomous AI coding technology.
             </p>
             
             {/* Enhanced Social Icons */}
@@ -84,21 +84,19 @@ export default function Footer() {
           
           {/* Services */}
           <div>
-            <h4 className="text-lg font-bold mb-6 text-white relative">
+            <h4 className="text-lg font-bold mb-6 text-[var(--foreground)] relative">
               <span className="relative z-10">Services</span>
               <div className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-emerald-400 to-cyan-500" />
             </h4>
             <ul className="space-y-4">
               <FooterLink href="/services/web-development" icon="🌐">Web Development</FooterLink>
               <FooterLink href="/services/android-development" icon="📱">Android Development</FooterLink>
-              <FooterLink href="/services/data-analysis" icon="📊">Data Analysis</FooterLink>
-              <FooterLink href="/services/data-visualization" icon="📈">Data Visualization</FooterLink>
             </ul>
           </div>
           
           {/* Company */}
           <div>
-            <h4 className="text-lg font-bold mb-6 text-white relative">
+            <h4 className="text-lg font-bold mb-6 text-[var(--foreground)] relative">
               <span className="relative z-10">Company</span>
               <div className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-purple-400 to-pink-500" />
             </h4>
@@ -112,7 +110,7 @@ export default function Footer() {
           
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-bold mb-6 text-white relative">
+            <h4 className="text-lg font-bold mb-6 text-[var(--foreground)] relative">
               <span className="relative z-10">Contact Us</span>
               <div className="absolute -bottom-1 left-0 w-12 h-0.5 bg-gradient-to-r from-green-400 to-cyan-500" />
             </h4>
@@ -140,14 +138,14 @@ export default function Footer() {
         
         {/* Newsletter Signup */}
         <div className="mt-10 sm:mt-12 md:mt-16 mb-8 sm:mb-10 md:mb-12">
-          <div className="bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/30 rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 text-center">
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 sm:mb-4">Stay Updated</h3>
-            <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-5 md:mb-6">Get the latest insights on AI development and industry trends</p>
+          <div className="bg-[var(--card-bg)] backdrop-blur-sm border border-[var(--card-border)] rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 text-center">
+            <h3 className="text-xl sm:text-2xl font-bold text-[var(--foreground)] mb-3 sm:mb-4">Stay Updated</h3>
+            <p className="text-sm sm:text-base text-[var(--text-secondary)] mb-4 sm:mb-5 md:mb-6">Get the latest insights on AI development and industry trends</p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-700/50 border border-slate-600/50 rounded-lg text-sm sm:text-base text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300"
+                className="flex-1 px-3 sm:px-4 py-2.5 sm:py-3 bg-[var(--surface-elevated)] border border-[var(--border-default)] rounded-lg text-sm sm:text-base text-[var(--foreground)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all duration-300"
               />
               <button className="px-5 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold text-sm sm:text-base rounded-lg hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transform hover:scale-105 transition-all duration-300">
                 Subscribe
@@ -157,13 +155,13 @@ export default function Footer() {
         </div>
         
         {/* Bottom Section */}
-        <div className="border-t border-gray-700/50 pt-8 flex flex-col lg:flex-row justify-between items-center">
+        <div className="border-t border-[var(--border-default)] pt-8 flex flex-col lg:flex-row justify-between items-center">
           <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4">
-            <p className="text-sm text-gray-400">© {new Date().getFullYear()} CraftsAI. All rights reserved.</p>
-            <div className="flex items-center space-x-2 text-xs text-gray-500">
+            <p className="text-sm text-[var(--text-secondary)]">© {new Date().getFullYear()} CraftsAI. All rights reserved.</p>
+            <div className="flex items-center space-x-2 text-xs text-[var(--text-secondary)]">
               <span>🔒</span>
               <span>Secured by AI</span>
-              <span className="w-1 h-1 bg-gray-500 rounded-full" />
+              <span className="w-1 h-1 bg-[var(--text-secondary)] rounded-full" />
               <span>🚀</span>
               <span>Powered by Innovation</span>
             </div>
@@ -186,7 +184,7 @@ function FooterLink({ href, children, icon }: { href: string; children: React.Re
     <li>
       <Link 
         href={href} 
-        className="group flex items-center space-x-2 text-gray-400 hover:text-white transition-all duration-500 ease-out hover:translate-x-0.5"
+        className="group flex items-center space-x-2 text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-all duration-500 ease-out hover:translate-x-0.5"
       >
         {icon && <span className="text-sm group-hover:scale-105 transition-transform duration-500 ease-out">{icon}</span>}
         <span className="relative">
@@ -244,7 +242,7 @@ function SocialIcon({ href, icon, label }: { href: string; icon: string; label: 
 
 function ContactItem({ icon, text, gradient, href }: { icon: string; text: string; gradient: string; href?: string }) {
   const content = (
-    <div className="group flex items-start space-x-3 text-gray-300 hover:text-white transition-all duration-500 ease-out">
+    <div className="group flex items-start space-x-3 text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-all duration-500 ease-out">
       <div className={`mt-0.5 p-2 rounded-lg bg-gradient-to-br ${gradient} opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 ease-out`}>
         <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={icon} />
@@ -271,7 +269,7 @@ function FooterBottomLink({ href, children }: { href: string; children: React.Re
   return (
     <Link 
       href={href} 
-      className="text-sm text-gray-400 hover:text-white transition-colors duration-500 ease-out relative group"
+      className="text-sm text-[var(--text-secondary)] hover:text-[var(--foreground)] transition-colors duration-500 ease-out relative group"
     >
       {children}
       <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-500 ease-out" />

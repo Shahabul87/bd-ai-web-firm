@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useThrottle } from '../utils/throttle';
+import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -36,18 +37,18 @@ export default function Header() {
 
 
   return (
-    <header 
+    <header
       className={`fixed w-full z-50 transition-all duration-500 ${
-        scrolled 
-          ? 'bg-slate-900/90 backdrop-blur-md shadow-lg shadow-cyan-400/10 border-b border-slate-700/50'
+        scrolled
+          ? 'bg-[var(--nav-bg)] backdrop-blur-md shadow-lg border-b border-[var(--nav-border)]'
           : 'bg-transparent'
-      } text-slate-100`} 
+      } text-[var(--foreground)]`}
       suppressHydrationWarning={true}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex justify-between items-center ${scrolled ? 'py-2 sm:py-3' : 'py-3 sm:py-4 md:py-5'}`}>
           <Link href="/" className="flex items-center space-x-1.5 sm:space-x-2 group">
-            <div className="relative overflow-hidden rounded-lg sm:rounded-xl h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center bg-slate-800/80 transition-all duration-300 transform group-hover:scale-105 group-hover:rotate-3 backdrop-blur-sm"
+            <div className="relative overflow-hidden rounded-lg sm:rounded-xl h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center bg-[var(--surface-elevated)] border border-[var(--border-default)] transition-all duration-300 transform group-hover:scale-105 group-hover:rotate-3 backdrop-blur-sm"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-purple-500 to-orange-500 opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
               <span className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-500 to-orange-500 text-base sm:text-lg animate-neural-pulse`}>
@@ -62,18 +63,19 @@ export default function Header() {
                   CraftsAI
                 </span>
               </h1>
-              <p className="text-[10px] sm:text-xs -mt-0.5 sm:-mt-1 text-slate-400 hidden sm:block">Agentic AI Coding</p>
+              <p className="text-[10px] sm:text-xs -mt-0.5 sm:-mt-1 text-[var(--text-secondary)] hidden sm:block">Agentic AI Coding</p>
             </div>
           </Link>
           
           <nav className="hidden md:flex">
-            <div className="flex space-x-1 rounded-full py-1 px-1.5 bg-slate-800/60 backdrop-blur-sm border border-slate-700/50">
-              {["Home", "Services", "Portfolio", "About"].map((item) => {
+            <div className="flex space-x-1 rounded-full py-1 px-1.5 bg-[var(--surface-elevated)]/60 backdrop-blur-sm border border-[var(--border-default)]">
+              {["Home", "Services", "Portfolio", "Blog", "About"].map((item) => {
                 const getHref = (itemName: string) => {
                   switch(itemName) {
                     case "Home": return "/";
                     case "Services": return "/services";
                     case "Portfolio": return "/portfolio";
+                    case "Blog": return "/blog";
                     case "About": return "/about";
                     default: return `/${itemName.toLowerCase()}`;
                   }
@@ -86,10 +88,10 @@ export default function Header() {
                 <Link
                   key={item}
                   href={href}
-                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:text-emerald-400 ${
+                  className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:text-indigo-500 dark:hover:text-emerald-400 ${
                     isActive
-                      ? 'text-slate-100 bg-slate-700/50 shadow-inner'
-                      : 'text-slate-300 hover:bg-slate-700/30'
+                      ? 'text-[var(--foreground)] bg-[var(--btn-hover)] shadow-inner'
+                      : 'text-[var(--text-secondary)] hover:bg-[var(--btn-hover)]'
                   }`}>
                   {item}
                 </Link>
@@ -99,9 +101,10 @@ export default function Header() {
           </nav>
           
           <div className="flex items-center space-x-2 sm:space-x-3">
-            <Link 
+            <ThemeToggle />
+            <Link
               href="/quote"
-              className="hidden sm:flex items-center space-x-1.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-medium text-xs sm:text-sm hover:shadow-lg hover:shadow-cyan-400/30 transition-all duration-300 transform hover:-translate-y-0.5 hover:scale-105 neural-glow"
+              className="hidden sm:flex items-center space-x-1.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium text-xs sm:text-sm hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 transform hover:-translate-y-0.5 hover:scale-105"
             >
               <span>Get a Quote</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -111,15 +114,15 @@ export default function Header() {
             
             <button 
               onClick={toggleMobileMenu}
-              className="md:hidden relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-white/5 transition-colors"
+              className="md:hidden relative w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full hover:bg-[var(--btn-hover)] transition-colors"
               aria-label="Toggle mobile menu"
             >
               <div 
-                className={`w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
+                className={`w-5 h-0.5 bg-[var(--foreground)] rounded-full transition-all duration-300 ${
                   mobileMenuOpen ? 'opacity-0' : 'opacity-100'
-                } before:content-[''] before:absolute before:w-5 before:h-0.5 before:rounded-full before:bg-white before:transition-all before:duration-300 ${
+                } before:content-[''] before:absolute before:w-5 before:h-0.5 before:rounded-full before:bg-[var(--foreground)] before:transition-all before:duration-300 ${
                   mobileMenuOpen ? 'before:rotate-45 before:translate-y-0' : 'before:-translate-y-1.5'
-                } after:content-[''] after:absolute after:w-5 after:h-0.5 after:rounded-full after:bg-white after:transition-all after:duration-300 ${
+                } after:content-[''] after:absolute after:w-5 after:h-0.5 after:rounded-full after:bg-[var(--foreground)] after:transition-all after:duration-300 ${
                   mobileMenuOpen ? 'after:-rotate-45 after:translate-y-0' : 'after:translate-y-1.5'
                 }`}
                 suppressHydrationWarning={true}
@@ -131,18 +134,19 @@ export default function Header() {
 
       {/* Mobile Menu */}
       <div 
-        className={`md:hidden absolute top-full left-0 w-full bg-slate-900/95 border-b border-slate-700/50 backdrop-blur-md transition-all duration-300 overflow-hidden ${
-          mobileMenuOpen ? 'max-h-[400px] shadow-xl shadow-cyan-400/10' : 'max-h-0'
+        className={`md:hidden absolute top-full left-0 w-full bg-[var(--nav-bg)] border-b border-[var(--nav-border)] backdrop-blur-md transition-all duration-300 overflow-hidden ${
+          mobileMenuOpen ? 'max-h-[400px] shadow-xl' : 'max-h-0'
         }`}
         suppressHydrationWarning={true}
       >
         <nav className="flex flex-col py-5 px-4 sm:px-6 space-y-1">
-          {["Home", "Services", "Portfolio", "About"].map((item) => {
+          {["Home", "Services", "Portfolio", "Blog", "About"].map((item) => {
             const getHref = (itemName: string) => {
               switch(itemName) {
                 case "Home": return "/";
                 case "Services": return "/services";
                 case "Portfolio": return "/portfolio";
+                case "Blog": return "/blog";
                 case "About": return "/about";
                 default: return `/${itemName.toLowerCase()}`;
               }
@@ -157,8 +161,8 @@ export default function Header() {
               href={href}
               className={`py-3 px-4 rounded-lg transition-colors font-medium ${
                 isActive
-                  ? 'text-emerald-400 bg-slate-700/50 shadow-inner'
-                  : 'text-slate-100 hover:bg-slate-800/50'
+                  ? 'text-indigo-500 dark:text-emerald-400 bg-[var(--btn-hover)] shadow-inner'
+                  : 'text-[var(--foreground)] hover:bg-[var(--btn-hover)]'
               }`}
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -166,10 +170,10 @@ export default function Header() {
             </Link>
             );
           })}
-          <div className="pt-3 mt-3 border-t border-slate-700/50">
-            <Link 
+          <div className="pt-3 mt-3 border-t border-[var(--border-default)]">
+            <Link
               href="/quote"
-              className="w-full px-5 py-3 rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 text-white font-medium text-sm hover:opacity-90 transition-opacity flex items-center justify-center space-x-2 neural-glow"
+              className="w-full px-5 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium text-sm hover:opacity-90 transition-opacity flex items-center justify-center space-x-2"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span>Get a Quote</span>

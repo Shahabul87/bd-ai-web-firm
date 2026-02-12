@@ -18,18 +18,55 @@
 }
 
 :root {
-  /* Dark theme only - Slate Neural Theme Colors */
+  /* Light theme (default) - high contrast */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card-bg: rgba(248, 250, 252, 0.95);
+  --card-border: rgba(203, 213, 225, 0.8);
+  --shadow-color: rgba(99, 102, 241, 0.12);
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --nav-border: rgba(203, 213, 225, 0.6);
+  --btn-hover: rgba(241, 245, 249, 0.9);
+  --text-secondary: #475569;
+  --surface-elevated: #f1f5f9;
+  --surface-sunken: #e8edf3;
+  --border-default: #cbd5e1;
+  --slate-deep: #f1f5f9;
+  --slate-mid: #e2e8f0;
+  --slate-light: #cbd5e1;
+
+  /* Brand colors (shared between themes) */
+  --brand-primary: #6366f1;
+  --brand-secondary: #8b5cf6;
+  --brand-accent: #06b6d4;
+  --brand-success: #10b981;
+  --brand-warning: #f59e0b;
+
+  /* Neural theme colors */
+  --neural-cyan: #06b6d4;
+  --neural-purple: #8B5CF6;
+  --neural-orange: #f97316;
+  --neural-green: #10b981;
+  --neural-blue: #3B82F6;
+}
+
+.dark {
   --background: #0f172a;
   --foreground: #f1f5f9;
   --card-bg: rgba(30, 41, 59, 0.8);
   --card-border: rgba(51, 65, 85, 0.3);
   --shadow-color: rgba(0, 229, 255, 0.15);
   --nav-bg: rgba(30, 41, 59, 0.6);
+  --nav-border: rgba(51, 65, 85, 0.5);
   --btn-hover: rgba(51, 65, 85, 0.4);
   --text-secondary: #94a3b8;
+  --surface-elevated: #1e293b;
+  --surface-sunken: #0c1222;
+  --border-default: #334155;
   --slate-deep: #0f172a;
   --slate-mid: #1e293b;
   --slate-light: #334155;
+
   --neural-cyan: #00E5FF;
   --neural-purple: #8B5CF6;
   --neural-orange: #FF6D00;
@@ -361,31 +398,33 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Cross-platform button and interaction fixes */
-button, select {
-  font-family: inherit;
-  font-size: 100%;
-  line-height: 1.15;
-  margin: 0;
-  border: none;
-  outline: none;
-  background: transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
+/* Cross-platform button and interaction fixes - in @layer base so Tailwind utilities win */
+@layer base {
+  button, select {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 
-/* Separate input and textarea styling to allow background colors */
-input, textarea {
-  font-family: inherit;
-  font-size: 100%;
-  line-height: 1.15;
-  margin: 0;
-  border: none;
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  /* Separate input and textarea styling to allow background colors */
+  input, textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
 }
 
 /* Smooth click interactions */
@@ -469,23 +508,25 @@ input, textarea {
   contain: layout;
 }
 
-/* Smooth button interactions */
-button {
-  -webkit-tap-highlight-color: transparent;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
+/* Smooth button interactions - in @layer base so Tailwind utilities win */
+@layer base {
+  button {
+    -webkit-tap-highlight-color: transparent;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 
-button:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
+  button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
 /* Fix for Safari input styling */
@@ -670,12 +711,20 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 229, 255, 0.3);
+  background: rgba(99, 102, 241, 0.3);
   border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 229, 255, 0.5);
 }
 
@@ -686,7 +735,7 @@ textarea {
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(0, 229, 255, 0.3) transparent;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
 }
 
 /* IE/Edge scrollbar fallback */

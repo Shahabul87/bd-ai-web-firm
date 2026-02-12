@@ -32,28 +32,6 @@ export default function ServicesSection() {
       features: ['Kotlin & Compose', 'Material Design 3', 'Firebase Integration', 'Play Store Ready'],
       stats: { speed: '8x Faster', cost: '75% Savings' }
     },
-    {
-      id: 'data-analysis',
-      title: 'Data Analysis',
-      subtitle: 'AI-Powered Insights',
-      description: 'Transform raw data into actionable business intelligence. Our AI analyzes patterns, trends, and anomalies at scale.',
-      icon: '📊',
-      gradient: 'from-violet-400 to-amber-500',
-      bgGlow: 'bg-violet-500/10',
-      features: ['Pattern Recognition', 'Predictive Models', 'Statistical Analysis', 'Report Automation'],
-      stats: { accuracy: '99.2%', processing: '100x Faster' }
-    },
-    {
-      id: 'data-visualization',
-      title: 'Data Visualization',
-      subtitle: 'Interactive Dashboards',
-      description: 'Create stunning interactive dashboards and data visualizations that make complex data easy to understand.',
-      icon: '📈',
-      gradient: 'from-amber-400 to-emerald-500',
-      bgGlow: 'bg-amber-500/10',
-      features: ['Custom Dashboards', 'Real-time Charts', 'Interactive Reports', 'Export & Share'],
-      stats: { customization: '100%', updates: 'Real-time' }
-    }
   ];
 
   const currentService = services[activeService];
@@ -63,7 +41,7 @@ export default function ServicesSection() {
       ref={ref}
       className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32 relative overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0a0a0f 0%, #0d1117 50%, #0a0f1a 100%)'
+        background: 'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)'
       }}
     >
       {/* Background Elements */}
@@ -80,18 +58,18 @@ export default function ServicesSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-4 sm:mb-6">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[var(--surface-elevated)] border border-[var(--border-default)] mb-4 sm:mb-6">
             <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-xs sm:text-sm text-slate-300">AI Agent Services</span>
+            <span className="text-xs sm:text-sm text-[var(--text-secondary)]">AI Agent Services</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5 md:mb-6 tracking-tight px-2">
-            <span className="text-white/90">What We</span>{' '}
+            <span className="text-[var(--foreground)]">What We</span>{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
               Build
             </span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto px-2">
-            Four specialized AI agent teams ready to code your next project
+          <p className="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto px-2">
+            Specialized AI agent teams ready to build your next project
           </p>
         </motion.div>
 
@@ -109,7 +87,7 @@ export default function ServicesSection() {
               className={`group flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 md:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 ${
                 activeService === index
                   ? `bg-gradient-to-r ${service.gradient} text-white shadow-lg shadow-emerald-500/20`
-                  : 'bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 border border-slate-700/50'
+                  : 'bg-[var(--surface-elevated)] text-[var(--text-secondary)] hover:text-[var(--foreground)] hover:bg-[var(--surface-sunken)] border border-[var(--border-default)]'
               }`}
             >
               <span className="text-base sm:text-lg">{service.icon}</span>
@@ -133,7 +111,7 @@ export default function ServicesSection() {
                   {currentService.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--foreground)]">
                     {currentService.title}
                   </h3>
                   <p className={`text-xs sm:text-sm font-medium text-transparent bg-clip-text bg-gradient-to-r ${currentService.gradient}`}>
@@ -141,7 +119,7 @@ export default function ServicesSection() {
                   </p>
                 </div>
               </div>
-              <p className="text-base sm:text-lg text-slate-400 leading-relaxed">
+              <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed">
                 {currentService.description}
               </p>
             </div>
@@ -151,10 +129,10 @@ export default function ServicesSection() {
               {currentService.features.map((feature, i) => (
                 <div
                   key={feature}
-                  className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-slate-800/30 border border-slate-700/30"
+                  className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg sm:rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-default)]"
                 >
                   <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r ${currentService.gradient}`} />
-                  <span className="text-xs sm:text-sm text-slate-300">{feature}</span>
+                  <span className="text-xs sm:text-sm text-[var(--foreground)]">{feature}</span>
                 </div>
               ))}
             </div>
@@ -166,7 +144,7 @@ export default function ServicesSection() {
                   <div className={`text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${currentService.gradient}`}>
                     {value}
                   </div>
-                  <div className="text-[10px] sm:text-xs text-slate-500 uppercase tracking-wider mt-1">
+                  <div className="text-[10px] sm:text-xs text-[var(--text-secondary)] uppercase tracking-wider mt-1">
                     {key.replace(/([A-Z])/g, ' $1').trim()}
                   </div>
                 </div>
@@ -188,7 +166,7 @@ export default function ServicesSection() {
               </Link>
               <Link
                 href={`/services/${currentService.id}`}
-                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-slate-600/50 text-slate-300 font-medium text-sm sm:text-base hover:border-slate-500/50 hover:text-white transition-all duration-300 text-center"
+                className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-[var(--border-default)] text-[var(--text-secondary)] font-medium text-sm sm:text-base hover:border-[var(--brand-primary)]/50 hover:text-[var(--foreground)] transition-all duration-300 text-center"
               >
                 Learn More
               </Link>
@@ -196,7 +174,7 @@ export default function ServicesSection() {
           </div>
 
           {/* Right: Visual Demo */}
-          <div className={`relative rounded-3xl overflow-hidden border border-slate-700/50 ${currentService.bgGlow}`}>
+          <div className={`relative rounded-3xl overflow-hidden border border-[var(--border-default)] ${currentService.bgGlow}`}>
             <ServiceVisual service={currentService} />
           </div>
         </motion.div>
@@ -210,7 +188,7 @@ export default function ServicesSection() {
               className={`h-1.5 rounded-full transition-all duration-500 ${
                 index === activeService
                   ? `w-10 bg-gradient-to-r ${services[index].gradient}`
-                  : 'w-3 bg-slate-700 hover:bg-slate-600'
+                  : 'w-3 bg-[var(--border-default)] hover:bg-[var(--text-secondary)]'
               }`}
             />
           ))}
@@ -296,74 +274,10 @@ function ServiceVisual({ service }: { service: { id: string; gradient: string; t
         </div>
       </div>
     ),
-    'data-analysis': (
-      <div className="p-8 space-y-6 min-h-[400px]">
-        <div className="text-xs text-slate-500 font-mono mb-4">analysis_pipeline.py</div>
-        <div className="grid grid-cols-3 gap-3">
-          {['Raw Data', 'Processing', 'Insights'].map((stage, i) => (
-            <div key={stage} className="text-center">
-              <div className={`h-20 rounded-lg bg-gradient-to-b ${
-                i === 0 ? 'from-slate-600/40 to-slate-700/20' :
-                i === 1 ? 'from-violet-500/30 to-violet-600/10' :
-                'from-amber-500/30 to-amber-600/10'
-              } flex items-center justify-center mb-2`}>
-                <span className="text-2xl">{['📥', '⚙️', '💡'][i]}</span>
-              </div>
-              <span className="text-xs text-slate-400">{stage}</span>
-            </div>
-          ))}
-        </div>
-        <div className="space-y-2">
-          <div className="flex justify-between text-xs">
-            <span className="text-slate-500">Pattern Detection</span>
-            <span className="text-emerald-400">98.7%</span>
-          </div>
-          <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
-            <div className="h-full w-[98%] bg-gradient-to-r from-violet-500 to-amber-500 rounded-full" />
-          </div>
-        </div>
-        <div className="flex items-center gap-2 text-xs text-violet-400">
-          <div className="w-2 h-2 bg-violet-400 rounded-full animate-pulse" />
-          AI analyzing 2.4M records...
-        </div>
-      </div>
-    ),
-    'data-visualization': (
-      <div className="p-8 space-y-4 min-h-[400px]">
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-sm text-slate-300 font-medium">Revenue Dashboard</span>
-          <span className="text-xs text-emerald-400">LIVE</span>
-        </div>
-        {/* Chart */}
-        <div className="h-40 flex items-end gap-2 p-4 bg-slate-800/50 rounded-xl">
-          {[65, 78, 85, 72, 90, 85, 95].map((h, i) => (
-            <div
-              key={i}
-              className="flex-1 rounded-t-lg bg-gradient-to-t from-emerald-500/80 to-amber-500/80 transition-all duration-500"
-              style={{ height: `${h}%` }}
-            />
-          ))}
-        </div>
-        {/* Metrics */}
-        <div className="grid grid-cols-3 gap-3">
-          {[
-            { label: 'Revenue', value: '$2.4M', change: '+12%' },
-            { label: 'Users', value: '18.2K', change: '+8%' },
-            { label: 'Growth', value: '24%', change: '+5%' }
-          ].map(metric => (
-            <div key={metric.label} className="bg-slate-800/50 rounded-lg p-3 text-center">
-              <div className="text-lg font-bold text-white">{metric.value}</div>
-              <div className="text-xs text-slate-500">{metric.label}</div>
-              <div className="text-xs text-emerald-400">{metric.change}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    )
   };
 
   return (
-    <div className="bg-[#0d1117] min-h-[400px]">
+    <div className="bg-slate-950 min-h-[400px]">
       {visuals[service.id] || (
         <div className="p-8 text-center text-slate-500">
           Demo Coming Soon

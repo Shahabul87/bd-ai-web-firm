@@ -132,7 +132,7 @@ export default function CodeShowcaseOptimized() {
   }, [activeTab, isInView]);
   
   return (
-    <section ref={ref as any} className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-slate-900 to-slate-800 overflow-hidden">
+    <section ref={ref as any} className="py-12 sm:py-16 md:py-20 overflow-hidden" style={{ background: 'linear-gradient(to bottom, var(--surface-sunken), var(--background))' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`text-center mb-8 sm:mb-10 md:mb-12 ${isInView ? 'animate-fadeInDown' : 'opacity-0'}`}>
@@ -141,10 +141,10 @@ export default function CodeShowcaseOptimized() {
             <span className="text-xs sm:text-sm font-medium text-cyan-400">Live AI Coding</span>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4 px-2">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[var(--foreground)] mb-3 sm:mb-4 px-2">
             Watch AI Build Your Code
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-3xl mx-auto px-2">
+          <p className="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] max-w-3xl mx-auto px-2">
             Our AI agents write production-ready code in seconds, not hours. 
             Clean, optimized, and fully tested.
           </p>
@@ -276,13 +276,13 @@ export default function CodeShowcaseOptimized() {
           ].map((feature, index) => (
             <div
               key={index}
-              className={`bg-slate-800/50 rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 border border-slate-700 hover-lift ${
+              className={`bg-[var(--card-bg)] rounded-lg sm:rounded-xl p-4 sm:p-5 md:p-6 border border-[var(--border-default)] shadow-sm hover-lift backdrop-blur-sm ${
                 isInView ? `animate-fadeInUp delay-${400 + index * 100}` : 'opacity-0'
               }`}
             >
               <div className="text-2xl sm:text-3xl mb-2 sm:mb-3">{feature.icon}</div>
-              <h3 className="text-base sm:text-lg font-semibold text-white mb-1.5 sm:mb-2">{feature.title}</h3>
-              <p className="text-xs sm:text-sm text-slate-400">{feature.desc}</p>
+              <h3 className="text-base sm:text-lg font-semibold text-[var(--foreground)] mb-1.5 sm:mb-2">{feature.title}</h3>
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)]">{feature.desc}</p>
             </div>
           ))}
         </div>
@@ -291,31 +291,81 @@ export default function CodeShowcaseOptimized() {
   );
 }
 
-// Simple syntax highlighter
+// Single-pass syntax highlighter using React elements (no dangerouslySetInnerHTML)
+const keywordSet = new Set(['const', 'let', 'var', 'function', 'class', 'async', 'await', 'return', 'import', 'from', 'export', 'default', 'if', 'else', 'try', 'catch', 'def', 'self', 'True', 'False', 'new', 'throw', 'typeof', 'instanceof']);
+const typeSet = new Set(['string', 'number', 'boolean', 'void', 'any', 'List', 'Optional', 'dict', 'str', 'int', 'float', 'Metrics', 'PredictionResult', 'RateLimiter', 'FastAPI', 'HTTPException']);
+
+// Tokenize a single line into colored spans
+function tokenizeLine(line: string): React.ReactNode[] {
+  const tokens: React.ReactNode[] = [];
+  let i = 0;
+  let key = 0;
+
+  while (i < line.length) {
+    // Single-line comment: // or #
+    if ((line[i] === '/' && line[i + 1] === '/') || (line[i] === '#' && (i === 0 || /\s/.test(line[i - 1])))) {
+      tokens.push(<span key={key++} className="text-slate-500">{line.slice(i)}</span>);
+      return tokens;
+    }
+
+    // String literals: "..." or '...' or `...`
+    if (line[i] === '"' || line[i] === "'" || line[i] === '`') {
+      const quote = line[i];
+      let j = i + 1;
+      while (j < line.length && line[j] !== quote) {
+        if (line[j] === '\\') j++; // skip escaped char
+        j++;
+      }
+      j++; // include closing quote
+      tokens.push(<span key={key++} className="text-green-400">{line.slice(i, j)}</span>);
+      i = j;
+      continue;
+    }
+
+    // Numbers
+    if (/\d/.test(line[i]) && (i === 0 || !/\w/.test(line[i - 1]))) {
+      let j = i;
+      while (j < line.length && /[\d.]/.test(line[j])) j++;
+      tokens.push(<span key={key++} className="text-amber-400">{line.slice(i, j)}</span>);
+      i = j;
+      continue;
+    }
+
+    // Words (identifiers, keywords, types)
+    if (/[a-zA-Z_$]/.test(line[i])) {
+      let j = i;
+      while (j < line.length && /[a-zA-Z0-9_$]/.test(line[j])) j++;
+      const word = line.slice(i, j);
+
+      if (keywordSet.has(word)) {
+        tokens.push(<span key={key++} className="text-purple-400">{word}</span>);
+      } else if (typeSet.has(word)) {
+        tokens.push(<span key={key++} className="text-cyan-400">{word}</span>);
+      } else {
+        tokens.push(<span key={key++} className="text-slate-300">{word}</span>);
+      }
+      i = j;
+      continue;
+    }
+
+    // Operators and punctuation
+    tokens.push(<span key={key++} className="text-slate-400">{line[i]}</span>);
+    i++;
+  }
+
+  return tokens;
+}
+
 function highlightCode(code: string): React.ReactNode {
-  // Basic keyword highlighting
-  const keywords = ['const', 'let', 'var', 'function', 'class', 'async', 'await', 'return', 'import', 'from', 'export', 'default', 'if', 'else', 'try', 'catch', 'def', 'self', 'True', 'False'];
-  const types = ['string', 'number', 'boolean', 'void', 'any', 'List', 'Optional', 'dict', 'str'];
-  
-  let highlighted = code;
-  
-  // Highlight keywords
-  keywords.forEach(keyword => {
-    const regex = new RegExp(`\\b${keyword}\\b`, 'g');
-    highlighted = highlighted.replace(regex, `<span class="text-purple-400">${keyword}</span>`);
-  });
-  
-  // Highlight types
-  types.forEach(type => {
-    const regex = new RegExp(`\\b${type}\\b`, 'g');
-    highlighted = highlighted.replace(regex, `<span class="text-cyan-400">${type}</span>`);
-  });
-  
-  // Highlight strings
-  highlighted = highlighted.replace(/(["'])(?:(?=(\\?))\2.)*?\1/g, '<span class="text-green-400">$&</span>');
-  
-  // Highlight comments
-  highlighted = highlighted.replace(/(\/\/.*$|#.*$|\/\*[\s\S]*?\*\/)/gm, '<span class="text-slate-500">$&</span>');
-  
-  return <span dangerouslySetInnerHTML={{ __html: highlighted }} />;
+  const lines = code.split('\n');
+  return (
+    <>
+      {lines.map((line, lineIdx) => (
+        <React.Fragment key={lineIdx}>
+          {tokenizeLine(line)}
+          {lineIdx < lines.length - 1 ? '\n' : null}
+        </React.Fragment>
+      ))}
+    </>
+  );
 }

@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import { PageBackground } from '../../components/PageBackground';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import DOMPurify from 'isomorphic-dompurify';
@@ -42,14 +41,14 @@ from sklearn.model_selection import train_test_split
 def preprocess_data(raw_data):
     # Data cleaning
     cleaned_data = raw_data.dropna()
-    
+
     # Feature engineering
     features = create_features(cleaned_data)
-    
+
     # Normalization
     scaler = StandardScaler()
     normalized_features = scaler.fit_transform(features)
-    
+
     return normalized_features
 \`\`\`
 
@@ -94,7 +93,7 @@ Key metrics to monitor:
 
 ### FinTech
 - **Risk Assessment**: Credit scoring models
-- **Fraud Detection**: Transaction anomaly detection  
+- **Fraud Detection**: Transaction anomaly detection
 - **Algorithmic Trading**: Market prediction models
 - **Regulatory Compliance**: Automated reporting
 
@@ -118,7 +117,7 @@ AI model development requires careful planning, technical expertise, and ongoing
 
 Ready to start your AI journey? Contact CraftsAI for a free consultation and custom AI model development services.
 
-[Get Started with Your AI Project →](https://craftsai.org/contact)`,
+[Get Started with Your AI Project](/quote)`,
     author: 'CraftsAI AI Team',
     publishDate: '2025-08-09',
     readTime: '12 min read',
@@ -127,7 +126,6 @@ Ready to start your AI journey? Contact CraftsAI for a free consultation and cus
     featured: true,
     seoKeywords: ['AI model development', 'machine learning business', 'AI implementation guide', 'MLOps best practices']
   }
-  // Add other blog posts here...
 ];
 
 interface BlogPostPageProps {
@@ -139,12 +137,9 @@ interface BlogPostPageProps {
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const [post, setPost] = useState<typeof blogPosts[0] | null>(null);
   const [loading, setLoading] = useState(true);
-  // const [slug, setSlug] = useState<string>(''); // Not needed, slug is accessed via params
 
   useEffect(() => {
-    // Handle async params in Next.js 15
     params.then(resolvedParams => {
-      // Find the post by slug
       const foundPost = blogPosts.find(p => p.id === resolvedParams.slug);
       if (foundPost) {
         setPost(foundPost);
@@ -155,15 +150,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   if (loading) {
     return (
-      <PageBackground>
-        <div className="min-h-screen text-white">
-          <Header />
-          <div className="pt-20 flex items-center justify-center min-h-[50vh]">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-cyan-400"></div>
-          </div>
-          <Footer />
+      <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
+        <Header />
+        <div className="pt-20 flex items-center justify-center min-h-[50vh]">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-500"></div>
         </div>
-      </PageBackground>
+        <Footer />
+      </div>
     );
   }
 
@@ -172,171 +165,177 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <PageBackground>
-      <div className="min-h-screen text-white">
-        <Header />
-        
-        <main className="pt-20 pb-16">
-          <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Breadcrumb */}
-            <nav className="flex items-center space-x-2 text-sm text-slate-400 mb-8">
-              <Link href="/blog" className="hover:text-cyan-400 transition-colors">
-                Blog
-              </Link>
-              <span>/</span>
-              <span className="text-slate-200">{post.title}</span>
-            </nav>
+    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
+      <Header />
 
-            {/* Article Header */}
-            <header className="mb-12">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <div className="flex flex-wrap items-center gap-3 mb-6">
-                  <span className="px-3 py-1 bg-gradient-to-r from-cyan-400/20 to-purple-500/20 rounded-full text-sm text-cyan-400 border border-cyan-400/30">
-                    {post.category}
-                  </span>
-                  <span className="text-slate-400 text-sm">{post.readTime}</span>
-                  <span className="text-slate-400 text-sm">•</span>
-                  <span className="text-slate-400 text-sm">{post.publishDate}</span>
-                </div>
-                
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                  {post.title}
-                </h1>
-                
-                <p className="text-xl text-slate-400 mb-8 leading-relaxed">
-                  {post.description}
-                </p>
+      <main className="pt-20 pb-16">
+        <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Breadcrumb */}
+          <nav className="flex items-center space-x-2 text-sm mb-8" style={{ color: 'var(--text-secondary)' }}>
+            <Link href="/blog" className="hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">
+              Blog
+            </Link>
+            <span>/</span>
+            <span style={{ color: 'var(--foreground)' }}>{post.title}</span>
+          </nav>
 
-                <div className="flex items-center gap-4 pb-8 border-b border-slate-700/50">
-                  <div>
-                    <p className="font-medium text-white">{post.author}</p>
-                    <p className="text-sm text-slate-400">AI Development Expert</p>
-                  </div>
-                </div>
-              </motion.div>
-            </header>
-
-            {/* Article Content */}
+          {/* Article Header */}
+          <header className="mb-12">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="prose prose-lg prose-invert max-w-none prose-headings:text-white prose-headings:font-bold prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-p:text-slate-300 prose-p:leading-relaxed prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-code:text-cyan-400 prose-code:bg-slate-800 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-pre:bg-slate-800 prose-pre:border prose-pre:border-slate-700"
+              transition={{ duration: 0.8 }}
             >
-              <div dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(post.content) }} />
-            </motion.div>
-
-            {/* Tags */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="mt-12 pt-8 border-t border-slate-700/50"
-            >
-              <h3 className="text-lg font-semibold mb-4">Tags</h3>
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map((tag: string, index: number) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-slate-800/50 rounded-full text-sm text-slate-300 hover:bg-slate-700/50 transition-colors cursor-pointer"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              <div className="flex flex-wrap items-center gap-3 mb-6">
+                <span className="px-3 py-1 bg-indigo-500/10 rounded-full text-sm text-indigo-500 dark:text-indigo-400 border border-indigo-500/20">
+                  {post.category}
+                </span>
+                <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{post.readTime}</span>
+                <span style={{ color: 'var(--text-secondary)' }}>&bull;</span>
+                <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>{post.publishDate}</span>
               </div>
-            </motion.div>
 
-            {/* CTA Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="mt-16 p-8 bg-gradient-to-r from-slate-800/50 to-slate-700/50 backdrop-blur-sm border border-slate-600/30 rounded-2xl text-center"
-            >
-              <h3 className="text-2xl font-bold text-white mb-4">
-                Ready to Implement AI in Your Business?
-              </h3>
-              <p className="text-slate-300 mb-6 max-w-2xl mx-auto">
-                Get expert guidance on AI model development, data pipeline creation, 
-                and autonomous coding solutions tailored to your business needs.
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight" style={{ color: 'var(--foreground)' }}>
+                {post.title}
+              </h1>
+
+              <p className="text-xl mb-8 leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                {post.description}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105"
-                >
-                  Get Free Consultation
-                </Link>
-                <Link
-                  href="/ai-solutions"
-                  className="px-8 py-3 bg-slate-700/50 text-white font-semibold rounded-lg hover:bg-slate-600/50 transition-all duration-300 border border-slate-600"
-                >
-                  Explore AI Solutions
-                </Link>
+
+              <div className="flex items-center gap-4 pb-8 border-b" style={{ borderColor: 'var(--border-default)' }}>
+                <div>
+                  <p className="font-medium" style={{ color: 'var(--foreground)' }}>{post.author}</p>
+                  <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>AI Development Expert</p>
+                </div>
               </div>
             </motion.div>
-          </article>
+          </header>
 
-          {/* Related Articles */}
-          <section className="mt-20">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <h2 className="text-3xl font-bold text-center mb-12">Related Articles</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {blogPosts.slice(0, 3).map((relatedPost, index) => (
-                  <motion.div
-                    key={relatedPost.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
-                    className="group"
-                  >
-                    <Link href={`/blog/${relatedPost.id}`}>
-                      <div className="bg-slate-800/30 rounded-xl p-6 backdrop-blur-sm border border-slate-700/30 hover:border-cyan-400/30 transition-all duration-300 hover:bg-slate-800/50 h-full">
-                        <div className="flex items-center gap-3 mb-4">
-                          <span className="px-3 py-1 bg-slate-700/50 rounded-full text-xs text-slate-300">
-                            {relatedPost.category}
-                          </span>
-                          <span className="text-slate-500 text-xs">{relatedPost.readTime}</span>
-                        </div>
-                        
-                        <h3 className="text-lg font-semibold mb-3 group-hover:text-cyan-400 transition-colors line-clamp-2">
-                          {relatedPost.title}
-                        </h3>
-                        
-                        <p className="text-slate-400 text-sm line-clamp-2">
-                          {relatedPost.description}
-                        </p>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
+          {/* Article Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-bold prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl prose-p:leading-relaxed prose-a:text-indigo-500 dark:prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:underline prose-code:text-indigo-500 dark:prose-code:text-indigo-400 prose-pre:border"
+            style={{ '--tw-prose-body': 'var(--text-secondary)', '--tw-prose-headings': 'var(--foreground)', '--tw-prose-bold': 'var(--foreground)', '--tw-prose-pre-bg': 'var(--surface-elevated)', '--tw-prose-pre-border': 'var(--border-default)' } as React.CSSProperties}
+          >
+            <div dangerouslySetInnerHTML={{ __html: convertMarkdownToHtml(post.content) }} />
+          </motion.div>
+
+          {/* Tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-12 pt-8 border-t"
+            style={{ borderColor: 'var(--border-default)' }}
+          >
+            <h3 className="text-lg font-semibold mb-4" style={{ color: 'var(--foreground)' }}>Tags</h3>
+            <div className="flex flex-wrap gap-2">
+              {post.tags.map((tag: string, index: number) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 rounded-full text-sm cursor-pointer transition-colors"
+                  style={{ background: 'var(--surface-elevated)', color: 'var(--text-secondary)', border: '1px solid var(--border-default)' }}
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
-          </section>
-        </main>
+          </motion.div>
 
-        <Footer />
-      </div>
-    </PageBackground>
+          {/* CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-16 p-8 rounded-2xl text-center border"
+            style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+          >
+            <h3 className="text-2xl font-bold mb-4" style={{ color: 'var(--foreground)' }}>
+              Ready to Build Your Next Project?
+            </h3>
+            <p className="mb-6 max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+              Get expert guidance on AI-powered web and app development
+              tailored to your business needs.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/quote"
+                className="px-8 py-3 bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-indigo-500/25 transition-all duration-300 transform hover:scale-105"
+              >
+                Get Free Consultation
+              </Link>
+              <Link
+                href="/services"
+                className="px-8 py-3 font-semibold rounded-lg transition-all duration-300 border"
+                style={{ background: 'var(--surface-elevated)', color: 'var(--foreground)', borderColor: 'var(--border-default)' }}
+              >
+                Explore Our Services
+              </Link>
+            </div>
+          </motion.div>
+        </article>
+
+        {/* Related Articles */}
+        <section className="mt-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold text-center mb-12" style={{ color: 'var(--foreground)' }}>Related Articles</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blogPosts.slice(0, 3).map((relatedPost, index) => (
+                <motion.div
+                  key={relatedPost.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="group"
+                >
+                  <Link href={`/blog/${relatedPost.id}`}>
+                    <div
+                      className="rounded-xl p-6 backdrop-blur-sm border hover:border-indigo-500/30 transition-all duration-300 h-full"
+                      style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <span
+                          className="px-3 py-1 rounded-full text-xs"
+                          style={{ background: 'var(--surface-elevated)', color: 'var(--text-secondary)' }}
+                        >
+                          {relatedPost.category}
+                        </span>
+                        <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>{relatedPost.readTime}</span>
+                      </div>
+
+                      <h3 className="text-lg font-semibold mb-3 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors line-clamp-2" style={{ color: 'var(--foreground)' }}>
+                        {relatedPost.title}
+                      </h3>
+
+                      <p className="text-sm line-clamp-2" style={{ color: 'var(--text-secondary)' }}>
+                        {relatedPost.description}
+                      </p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
   );
 }
 
 // Secure markdown to HTML conversion with XSS protection
 function convertMarkdownToHtml(markdown: string): string {
-  // Configure marked for security
   marked.setOptions({
     breaks: true,
     gfm: true
   });
-  
-  // Convert markdown to HTML
+
   const rawHtml = marked.parse(markdown) as string;
-  
-  // Sanitize HTML to prevent XSS
+
   const sanitizedHtml = DOMPurify.sanitize(rawHtml, {
     ALLOWED_TAGS: [
       'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
@@ -352,6 +351,6 @@ function convertMarkdownToHtml(markdown: string): string {
     ADD_ATTR: ['target', 'rel'],
     ADD_TAGS: ['article', 'section']
   });
-  
+
   return sanitizedHtml;
 }

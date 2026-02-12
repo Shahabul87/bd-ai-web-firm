@@ -58,7 +58,7 @@ export default function ProcessSection() {
       ref={ref}
       className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32 relative overflow-hidden"
       style={{
-        background: 'linear-gradient(180deg, #0a0f1a 0%, #0d1117 50%, #0a0a0f 100%)'
+        background: 'linear-gradient(180deg, var(--surface-sunken) 0%, var(--background) 50%, var(--surface-sunken) 100%)'
       }}
     >
       {/* Background */}
@@ -75,17 +75,17 @@ export default function ProcessSection() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-800/50 border border-slate-700/50 mb-4 sm:mb-6">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[var(--surface-elevated)] border border-[var(--border-default)] mb-4 sm:mb-6">
             <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-xs sm:text-sm text-slate-300">How It Works</span>
+            <span className="text-xs sm:text-sm text-[var(--text-secondary)]">How It Works</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-5 md:mb-6 tracking-tight px-2">
-            <span className="text-white/90">From Idea to</span>{' '}
+            <span className="text-[var(--foreground)]">From Idea to</span>{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-violet-400">
               Production
             </span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-2xl mx-auto px-2">
+          <p className="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto px-2">
             Our AI agents handle everything. You describe, we deliver.
           </p>
         </motion.div>
@@ -103,15 +103,15 @@ export default function ProcessSection() {
               onClick={() => handleStepClick(index)}
               className={`relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border transition-all duration-300 cursor-pointer group ${
                 activeStep === index
-                  ? 'bg-slate-800/60 border-emerald-500/40 shadow-lg shadow-emerald-500/10'
-                  : 'bg-slate-900/40 border-slate-700/40 hover:border-slate-600/60 hover:bg-slate-800/30'
+                  ? 'bg-[var(--surface-elevated)] border-emerald-500/40 shadow-lg shadow-emerald-500/10'
+                  : 'bg-[var(--card-bg)] border-[var(--card-border)] hover:border-[var(--border-default)] hover:bg-[var(--surface-elevated)]'
               }`}
             >
               {/* Step Number */}
               <div className={`absolute -top-2.5 sm:-top-3 -left-2.5 sm:-left-3 w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center text-xs sm:text-sm font-bold ${
                 activeStep === index
                   ? `bg-gradient-to-br ${step.color} text-white shadow-lg`
-                  : 'bg-slate-800 text-slate-400 border border-slate-700'
+                  : 'bg-[var(--surface-elevated)] text-[var(--text-secondary)] border border-[var(--border-default)]'
               }`}>
                 {index + 1}
               </div>
@@ -120,18 +120,18 @@ export default function ProcessSection() {
               <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center text-xl sm:text-2xl mb-3 sm:mb-4 ${
                 activeStep === index
                   ? `bg-gradient-to-br ${step.color} shadow-lg`
-                  : 'bg-slate-800/60'
+                  : 'bg-[var(--surface-elevated)]'
               }`}>
                 {step.icon}
               </div>
 
               {/* Content */}
               <h3 className={`text-base sm:text-lg font-bold mb-1.5 sm:mb-2 ${
-                activeStep === index ? 'text-white' : 'text-slate-300'
+                activeStep === index ? 'text-[var(--foreground)]' : 'text-[var(--foreground)]'
               }`}>
                 {step.title}
               </h3>
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-3 sm:mb-4">
+              <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed mb-3 sm:mb-4">
                 {step.description}
               </p>
 
@@ -141,13 +141,13 @@ export default function ProcessSection() {
                   <div
                     key={feature}
                     className={`flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs ${
-                      activeStep === index ? 'text-slate-300' : 'text-slate-500'
+                      activeStep === index ? 'text-[var(--text-secondary)]' : 'text-[var(--text-secondary)]'
                     }`}
                   >
                     <div className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full ${
                       activeStep === index
                         ? `bg-gradient-to-r ${step.color}`
-                        : 'bg-slate-600'
+                        : 'bg-[var(--border-default)]'
                     }`} />
                     {feature}
                   </div>
@@ -164,7 +164,7 @@ export default function ProcessSection() {
 
               {/* Connector Line (not on last item) */}
               {index < processSteps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-slate-700/50" />
+                <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-[var(--border-default)]/50" />
               )}
             </div>
           ))}
@@ -183,11 +183,11 @@ export default function ProcessSection() {
             { value: '24/7', label: 'AI Availability' },
             { value: '99%', label: 'Client Satisfaction' }
           ].map((stat, i) => (
-            <div key={stat.label} className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-slate-800/30 border border-slate-700/30">
+            <div key={stat.label} className="text-center p-3 sm:p-4 rounded-lg sm:rounded-xl bg-[var(--surface-elevated)] border border-[var(--border-default)]">
               <div className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
                 {stat.value}
               </div>
-              <div className="text-xs sm:text-sm text-slate-500 mt-1">{stat.label}</div>
+              <div className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1">{stat.label}</div>
             </div>
           ))}
         </motion.div>
