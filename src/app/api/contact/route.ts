@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import validator from 'validator';
 import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
+import { appendToSheet } from '@/app/lib/sheets';
 
 // Email configuration
 const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@craftsai.com';
@@ -255,6 +256,14 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
       console.log(textContent);
       console.log('Email not sent - SMTP not configured.');
     }
+
+    // Log to Google Sheets (non-blocking)
+    appendToSheet('Contacts', [
+      new Date().toISOString(),
+      name,
+      email,
+      message,
+    ]).catch(() => {});
 
     return NextResponse.json({
       success: true,
