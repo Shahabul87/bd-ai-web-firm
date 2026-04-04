@@ -7,7 +7,6 @@ import Footer from '../../components/Footer';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import DOMPurify from 'isomorphic-dompurify';
-import { marked } from 'marked';
 
 // This would typically come from a CMS or database
 const blogPosts = [
@@ -327,16 +326,27 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   );
 }
 
-// Secure markdown to HTML conversion with XSS protection
+// Simple markdown to HTML conversion with XSS protection
+// NOTE: This is a legacy fallback. Blog pages will be rebuilt with Velite MDX.
 function convertMarkdownToHtml(markdown: string): string {
-  marked.setOptions({
-    breaks: true,
-    gfm: true
-  });
+  // Basic markdown-to-HTML conversion for headings, paragraphs, code blocks, lists, bold, italic, links
+  let html = markdown
+    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+    .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+    .replace(/^- (.*$)/gm, '<li>$1</li>')
+    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/^(?!<[huplo])/gm, '');
 
-  const rawHtml = marked.parse(markdown) as string;
+  html = `<p>${html}</p>`;
 
-  const sanitizedHtml = DOMPurify.sanitize(rawHtml, {
+  const sanitizedHtml = DOMPurify.sanitize(html, {
     ALLOWED_TAGS: [
       'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
       'p', 'a', 'code', 'pre', 'blockquote',
