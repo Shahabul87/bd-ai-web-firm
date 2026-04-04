@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import PageLayout from '../components/layout/PageLayout';
 import Link from 'next/link';
 
 // Blog post data structure
@@ -267,10 +266,7 @@ export default function BlogPage() {
   const featuredPosts = blogPosts.filter(post => post.featured);
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
-      <Header />
-
-      <main className="pt-20 pb-16">
+    <PageLayout>
         {/* Hero Section */}
         <section
           className="py-16 relative overflow-hidden"
@@ -377,9 +373,6 @@ export default function BlogPage() {
             </div>
           </div>
         </section>
-      </main>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 }

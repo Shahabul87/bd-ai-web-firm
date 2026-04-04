@@ -3,8 +3,7 @@
 import { useState, useRef } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import PageLayout from '../components/layout/PageLayout';
 
 const portfolioItems = [
   {
@@ -127,10 +126,7 @@ export default function Portfolio() {
   const otherItems = filteredItems.filter(item => !item.featured);
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
-      <Header />
-
-      <main>
+    <PageLayout>
         {/* Hero Section */}
         <section
           ref={heroRef}
@@ -272,10 +268,7 @@ export default function Portfolio() {
 
         <StatsSection />
         <CTASection />
-      </main>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 }
 

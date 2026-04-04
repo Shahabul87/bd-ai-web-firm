@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import PageLayout from '../../components/layout/PageLayout';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import DOMPurify from 'isomorphic-dompurify';
@@ -149,13 +148,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
-        <Header />
+      <PageLayout>
         <div className="pt-20 flex items-center justify-center min-h-[50vh]">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-500"></div>
         </div>
-        <Footer />
-      </div>
+      </PageLayout>
     );
   }
 
@@ -164,10 +161,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
-      <Header />
-
-      <main className="pt-20 pb-16">
+    <PageLayout>
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <nav className="flex items-center space-x-2 text-sm mb-8" style={{ color: 'var(--text-secondary)' }}>
@@ -319,10 +313,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
           </div>
         </section>
-      </main>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 }
 

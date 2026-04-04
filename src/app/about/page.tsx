@@ -3,24 +3,19 @@
 import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import PageLayout from '../components/layout/PageLayout';
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
-      <Header />
-      <main>
-        <HeroSection />
-        <OriginStorySection />
-        <AIAgentsShowcase />
-        <MissionVisionSection />
-        <TechnologyDNA />
-        <FounderSection />
-        <CTASection />
-      </main>
-      <Footer />
-    </div>
+    <PageLayout>
+      <HeroSection />
+      <OriginStorySection />
+      <AIAgentsShowcase />
+      <MissionVisionSection />
+      <TechnologyDNA />
+      <FounderSection />
+      <CTASection />
+    </PageLayout>
   );
 }
 

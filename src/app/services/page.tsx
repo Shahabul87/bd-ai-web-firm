@@ -3,8 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import PageLayout from '../components/layout/PageLayout';
 
 export default function ServicesPage() {
   const [activeAgent, setActiveAgent] = useState<string | null>(null);
@@ -65,25 +64,19 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
-      <Header />
-
-      <main className="pt-16 sm:pt-18 md:pt-20">
-        <HeroSection />
-        <AgentGridSection agents={agents} activeAgent={activeAgent} setActiveAgent={setActiveAgent} />
-        {activeAgent && (
-          <AgentDetailSection
-            agent={agents.find(a => a.id === activeAgent)!}
-            onClose={() => setActiveAgent(null)}
-          />
-        )}
-        <ComparisonSection />
-        <ProcessSection />
-        <CTASection />
-      </main>
-
-      <Footer />
-    </div>
+    <PageLayout>
+      <HeroSection />
+      <AgentGridSection agents={agents} activeAgent={activeAgent} setActiveAgent={setActiveAgent} />
+      {activeAgent && (
+        <AgentDetailSection
+          agent={agents.find(a => a.id === activeAgent)!}
+          onClose={() => setActiveAgent(null)}
+        />
+      )}
+      <ComparisonSection />
+      <ProcessSection />
+      <CTASection />
+    </PageLayout>
   );
 }
 

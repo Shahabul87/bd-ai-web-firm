@@ -4,8 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import validator from 'validator';
 import Link from 'next/link';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import PageLayout from '../components/layout/PageLayout';
 
 // Types
 interface ProjectDetails {
@@ -201,10 +200,7 @@ export default function QuotePage() {
   const stepTitles = ['Select Services', 'Project Details', 'Investment', 'Contact Info', 'Review'];
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--background)', color: 'var(--foreground)' }}>
-      <Header />
-
-      <main className="pt-16 sm:pt-20">
+    <PageLayout>
         {/* Hero Section */}
         <section
           className="relative py-12 sm:py-16 md:py-20 overflow-hidden"
@@ -540,10 +536,7 @@ export default function QuotePage() {
             </div>
           </div>
         </section>
-      </main>
-
-      <Footer />
-    </div>
+    </PageLayout>
   );
 }
 

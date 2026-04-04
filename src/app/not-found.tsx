@@ -2,17 +2,12 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import { PageBackground } from './components/PageBackground';
+import PageLayout from './components/layout/PageLayout';
 
 export default function NotFound() {
   return (
-    <PageBackground>
-      <div className="min-h-screen text-white flex flex-col">
-        <Header />
-        
-        <main className="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <PageLayout>
+      <div className="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
@@ -66,10 +61,7 @@ export default function NotFound() {
               </p>
             </motion.div>
           </div>
-        </main>
-        
-        <Footer />
       </div>
-    </PageBackground>
+    </PageLayout>
   );
 }
