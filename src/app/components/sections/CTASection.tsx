@@ -17,21 +17,18 @@ export default function CTASection() {
               Get a free consultation &mdash; no commitment, no pressure
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button
+              <a
                 href="/quote"
-                size="lg"
-                className="bg-white text-indigo-700 hover:bg-indigo-50 shadow-lg shadow-indigo-900/30"
+                className="inline-flex items-center justify-center rounded-lg font-medium px-8 py-3 text-base bg-white text-indigo-700 hover:bg-indigo-50 shadow-lg shadow-indigo-900/30 transition-all duration-200"
               >
                 Get a Free Quote
-              </Button>
-              <Button
+              </a>
+              <a
                 href="/contact"
-                variant="secondary"
-                size="lg"
-                className="border-white/30 text-white hover:bg-white/10"
+                className="inline-flex items-center justify-center rounded-lg font-medium px-8 py-3 text-base border border-white/30 text-white hover:bg-white/10 transition-all duration-200"
               >
                 Contact Us
-              </Button>
+              </a>
             </div>
           </div>
         </div>
