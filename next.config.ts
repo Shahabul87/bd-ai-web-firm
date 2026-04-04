@@ -1,5 +1,4 @@
 import type { NextConfig } from "next";
-import type { WebpackConfigContext } from "next/dist/server/config-shared";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -82,7 +81,7 @@ const nextConfig: NextConfig = {
       }
     ];
   },
-  webpack(config: { plugins: unknown[] }, _context: WebpackConfigContext) {
+  webpack(config) {
     config.plugins.push(new VeliteWebpackPlugin());
     return config;
   },
