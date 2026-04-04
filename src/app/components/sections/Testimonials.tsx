@@ -2,33 +2,17 @@
 
 import { motion } from 'framer-motion';
 import Card, { CardBody } from '../ui/Card';
+import testimonialData from '../../../../content/testimonials/testimonials.json';
 
 interface Testimonial {
-  quote: string;
-  author: string;
+  name: string;
+  role: string;
   company: string;
+  quote: string;
+  avatar: string | null;
 }
 
-const testimonials: Testimonial[] = [
-  {
-    quote:
-      'CraftsAI delivered our platform in half the time we expected. The AI-powered workflow meant faster iterations and fewer bugs.',
-    author: 'Sarah M.',
-    company: 'EdTech Startup',
-  },
-  {
-    quote:
-      'Working with CraftsAI felt like having a team twice the size. Their AI agents handled the repetitive work while engineers focused on architecture.',
-    author: 'James K.',
-    company: 'FinTech Company',
-  },
-  {
-    quote:
-      'The cost savings were real. We got an enterprise-grade application at a fraction of what traditional agencies quoted us.',
-    author: 'Priya R.',
-    company: 'Healthcare SaaS',
-  },
-];
+const testimonials: Testimonial[] = testimonialData;
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -63,7 +47,7 @@ export default function Testimonials() {
           viewport={{ once: true, margin: '-100px' }}
         >
           {testimonials.map((testimonial) => (
-            <motion.div key={testimonial.author} variants={cardVariants}>
+            <motion.div key={testimonial.name} variants={cardVariants}>
               <Card className="h-full">
                 <CardBody className="flex flex-col h-full">
                   {/* Quote icon */}
@@ -79,10 +63,10 @@ export default function Testimonials() {
                   </p>
                   <div>
                     <p className="text-sm font-semibold text-[var(--foreground)]">
-                      {testimonial.author}
+                      {testimonial.name}
                     </p>
                     <p className="text-xs text-[var(--text-secondary)]">
-                      {testimonial.company}
+                      {testimonial.role}, {testimonial.company}
                     </p>
                   </div>
                 </CardBody>
