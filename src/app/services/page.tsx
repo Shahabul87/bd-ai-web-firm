@@ -30,7 +30,7 @@ const services = [
   },
   {
     icon: '🛡️',
-    title: 'Support &amp; Maintenance',
+    title: 'Support & Maintenance',
     href: '/services/support',
     description:
       'Ongoing support retainers. Bug fixes, updates, performance monitoring.',

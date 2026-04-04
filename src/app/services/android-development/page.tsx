@@ -27,7 +27,7 @@ const projectTypes = [
       'Internal tools, CRM integrations, and field-service apps that streamline operations.',
   },
   {
-    title: 'Social &amp; Community',
+    title: 'Social & Community',
     description:
       'Chat, feeds, and real-time features that keep users engaged and connected.',
   },
@@ -37,7 +37,7 @@ const projectTypes = [
       'Shopping apps with product catalogs, in-app payments, and push notification campaigns.',
   },
   {
-    title: 'Health &amp; Fitness',
+    title: 'Health & Fitness',
     description:
       'Wearable integrations, workout trackers, and telehealth experiences.',
   },

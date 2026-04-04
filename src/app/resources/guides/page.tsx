@@ -52,7 +52,7 @@ export default function GuidesListingPage() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4 sm:mb-6">
-            <span style={{ color: 'var(--foreground)' }}>Guides &amp; </span>
+            <span style={{ color: 'var(--foreground)' }}>Guides & </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-violet-500">
               Whitepapers
             </span>

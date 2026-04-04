@@ -32,7 +32,7 @@ const projectTypes = [
       'Polished consumer experiences with elegant animations and seamless onboarding.',
   },
   {
-    title: 'Health &amp; Fitness',
+    title: 'Health & Fitness',
     description:
       'HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines.',
   },
@@ -47,7 +47,7 @@ const projectTypes = [
       'Secure financial apps with biometric auth, real-time data, and Apple Pay integration.',
   },
   {
-    title: 'Media &amp; Entertainment',
+    title: 'Media & Entertainment',
     description:
       'Streaming, social sharing, and content creation tools optimised for the Apple ecosystem.',
   },

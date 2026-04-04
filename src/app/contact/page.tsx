@@ -9,7 +9,7 @@ const serviceOptions = [
   'Web Development',
   'Android Development',
   'iOS Development',
-  'Support &amp; Maintenance',
+  'Support & Maintenance',
   'Product Inquiry',
   'Other',
 ];

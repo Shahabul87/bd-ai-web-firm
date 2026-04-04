@@ -44,7 +44,7 @@ const tiers = [
       'Performance monitoring',
       'Security patches',
       'Weekly health reports',
-      'WhatsApp &amp; email support',
+      'WhatsApp & email support',
     ],
     highlighted: true,
   },
@@ -54,7 +54,7 @@ const tiers = [
       'Dedicated team with SLA guarantees for mission-critical systems.',
     features: [
       '4-hour response SLA',
-      '24/7 monitoring &amp; alerting',
+      '24/7 monitoring & alerting',
       'Dedicated support engineer',
       'Quarterly architecture reviews',
       'Priority feature development',
@@ -132,10 +132,10 @@ export default function SupportPage() {
             <Link href="/services" className="hover:underline">
               Services
             </Link>{' '}
-            / Support &amp; Maintenance
+            / Support & Maintenance
           </p>
           <h1 className="mt-4 text-4xl md:text-5xl font-bold text-[var(--foreground)]">
-            Support &amp; Maintenance
+            Support & Maintenance
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-[var(--text-secondary)]">
             Ongoing support retainers so your product stays fast, secure, and

@@ -55,7 +55,7 @@ const phases = [
   {
     icon: '\uD83D\uDE80',
     number: 5,
-    title: 'Launch &amp; Support',
+    title: 'Launch & Support',
     what: 'Deployment, monitoring setup, and handoff. We make sure everything runs smoothly and your team is fully equipped to take over.',
     deliverables: 'Live application, documentation, training',
     yourRole: 'Final approval',

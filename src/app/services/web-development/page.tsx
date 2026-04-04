@@ -35,7 +35,7 @@ const projectTypes = [
       'Data-rich dashboards with real-time charts, role-based access, and reporting tools.',
   },
   {
-    title: 'MVPs &amp; Prototypes',
+    title: 'MVPs & Prototypes',
     description:
       'Rapid prototypes to validate your idea and attract funding in weeks, not months.',
   },
