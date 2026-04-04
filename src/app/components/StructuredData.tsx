@@ -1,17 +1,27 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import faqData from '../../../content/faq/faq.json';
+
+interface FaqQuestion {
+  question: string;
+  answer: string;
+}
+
+interface FaqCategory {
+  category: string;
+  questions: FaqQuestion[];
+}
 
 export default function StructuredData() {
   const pathname = usePathname();
 
-  // Organization Schema - Enhanced
+  // Organization Schema
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": "https://www.craftsai.org/#organization",
     "name": "CraftsAI",
-    "alternateName": ["CraftsAI AI Studio", "CraftsAI AI Development"],
     "url": "https://www.craftsai.org",
     "logo": {
       "@type": "ImageObject",
@@ -20,256 +30,93 @@ export default function StructuredData() {
       "height": 512
     },
     "image": "https://www.craftsai.org/og-image.jpg",
-    "description": "Leading AI-autonomous development studio specializing in machine learning model development, data preprocessing pipelines, web development, and business intelligence solutions.",
-    "slogan": "Build 10x Faster with AI",
-    "foundingDate": "2024",
-    "founder": {
-      "@type": "Person",
-      "name": "CraftsAI Team"
-    },
-    "contactPoint": [
-      {
-        "@type": "ContactPoint",
-        "telephone": "+1-775-250-6651",
-        "contactType": "sales",
-        "email": "info@craftsai.com",
-        "availableLanguage": ["English"],
-        "areaServed": "Worldwide"
-      },
-      {
-        "@type": "ContactPoint",
-        "telephone": "+1-775-250-6651",
-        "contactType": "customer support",
-        "email": "support@craftsai.com",
-        "availableLanguage": ["English"]
-      }
-    ],
+    "description": "AI-powered software studio delivering web, Android, and iOS applications up to 10x faster with enterprise-grade quality.",
+    "foundingDate": "2025",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Reno",
-      "addressLocality": "Reno",
-      "addressRegion": "NV",
-      "postalCode": "89501",
-      "addressCountry": "US"
+      "addressCountry": "BD"
     },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "39.5296",
-      "longitude": "-119.8138"
-    },
+    "email": "hello@craftsai.org",
     "sameAs": [
       "https://twitter.com/craftsai",
       "https://linkedin.com/company/craftsai",
-      "https://github.com/craftsai",
-      "https://facebook.com/craftsai"
+      "https://github.com/craftsai"
     ],
     "knowsAbout": [
-      "Artificial Intelligence",
-      "Machine Learning",
-      "Deep Learning",
-      "Natural Language Processing",
-      "Computer Vision",
-      "Data Science",
       "Web Development",
-      "MLOps"
+      "Android Development",
+      "iOS Development",
+      "Software Maintenance",
+      "AI-Powered Development"
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "AI Development Services",
+      "name": "Development Services",
       "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "AI Model Development",
-            "description": "Custom machine learning model development and training"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Data Pipeline Development",
-            "description": "End-to-end data preprocessing and pipeline solutions"
-          }
-        },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
             "name": "Web Development",
-            "description": "AI-powered autonomous web development"
+            "description": "Full-stack web application development with React, Next.js, and Node.js"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Android Development",
+            "description": "Native Android app development with Kotlin and Jetpack Compose"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "iOS Development",
+            "description": "Native iOS app development with Swift and SwiftUI"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Support & Maintenance",
+            "description": "Ongoing support, bug fixes, security patches, and feature updates"
           }
         }
       ]
     }
   };
 
-  // LocalBusiness Schema
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": "https://www.craftsai.org/#localbusiness",
-    "name": "CraftsAI AI Development Studio",
-    "image": "https://www.craftsai.org/og-image.jpg",
-    "url": "https://www.craftsai.org",
-    "telephone": "+1-775-250-6651",
-    "email": "info@craftsai.com",
-    "priceRange": "$$",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Reno",
-      "addressRegion": "Nevada",
-      "addressCountry": "USA"
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "09:00",
-        "closes": "18:00"
-      }
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "47",
-      "bestRating": "5",
-      "worstRating": "1"
-    }
-  };
-
-  // Website Schema with SearchAction
+  // WebSite Schema (no SearchAction)
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": "https://www.craftsai.org/#website",
     "name": "CraftsAI",
-    "alternateName": "CraftsAI AI Development Studio",
     "url": "https://www.craftsai.org",
-    "description": "AI-autonomous development studio providing machine learning models, data pipelines, and web development services.",
+    "description": "AI-powered software studio delivering web, Android, and iOS applications.",
     "publisher": {
       "@id": "https://www.craftsai.org/#organization"
     },
-    "inLanguage": "en-US",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": "https://www.craftsai.org/search?q={search_term_string}"
-      },
-      "query-input": "required name=search_term_string"
-    }
+    "inLanguage": "en"
   };
 
-  // FAQ Schema - Appears in Google Search Results
+  // FAQ Schema - dynamically generated from faq.json
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
-      {
+    "mainEntity": (faqData as FaqCategory[]).flatMap((category) =>
+      category.questions.map((q) => ({
         "@type": "Question",
-        "name": "What AI development services does CraftsAI offer?",
+        "name": q.question,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "CraftsAI offers comprehensive AI development services including custom machine learning model development, data preprocessing pipelines, natural language processing (NLP), computer vision solutions, predictive analytics, and AI-powered web development. We specialize in autonomous coding that delivers high-quality solutions 10x faster than traditional development."
+          "text": q.answer
         }
-      },
-      {
-        "@type": "Question",
-        "name": "How much does AI development cost at CraftsAI?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "CraftsAI offers flexible pricing starting from $2,500 for basic AI projects. Our autonomous coding approach allows us to deliver enterprise-quality solutions at startup-friendly prices. We offer free consultations to provide accurate quotes based on your specific requirements."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How long does it take to develop an AI model?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Development timelines vary based on project complexity. Simple models can be delivered in 2-4 weeks, while complex enterprise solutions may take 2-3 months. Our AI-powered development process accelerates delivery by up to 10x compared to traditional methods."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does CraftsAI provide ongoing support and maintenance?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, CraftsAI provides 24/7 expert support and ongoing maintenance for all projects. We offer MLOps services to ensure your AI models remain accurate and performant over time, including model retraining, monitoring, and optimization."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What industries does CraftsAI serve?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "CraftsAI serves diverse industries including FinTech (fraud detection, algorithmic trading), Healthcare (diagnostic AI, patient analytics), Retail (recommendation systems, inventory optimization), Manufacturing, and more. Our solutions are customized for each industry's specific needs."
-        }
-      }
-    ]
-  };
-
-  // Service Schema
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "@id": "https://www.craftsai.org/#service",
-    "name": "AI Development Services",
-    "serviceType": "AI and Machine Learning Development",
-    "provider": {
-      "@id": "https://www.craftsai.org/#organization"
-    },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Worldwide"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "AI Services Catalog",
-      "itemListElement": [
-        {
-          "@type": "OfferCatalog",
-          "name": "AI Model Development",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Machine Learning Model Training"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Deep Learning Solutions"
-              }
-            }
-          ]
-        },
-        {
-          "@type": "OfferCatalog",
-          "name": "Data Services",
-          "itemListElement": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Data Pipeline Development"
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Data Analytics"
-              }
-            }
-          ]
-        }
-      ]
-    }
+      }))
+    )
   };
 
   // Breadcrumb Schema Generator
@@ -277,6 +124,33 @@ export default function StructuredData() {
     const pathSegments = pathname.split('/').filter(Boolean);
 
     if (pathSegments.length === 0) return null;
+
+    const pageNames: Record<string, string> = {
+      'about': 'About Us',
+      'services': 'Services',
+      'web-development': 'Web Development',
+      'android-development': 'Android Development',
+      'ios-development': 'iOS Development',
+      'support': 'Support & Maintenance',
+      'products': 'Products',
+      'taxomind': 'TaxoMind',
+      'taxomind-schools': 'TaxoMind Schools',
+      'fincoach-ai': 'FinCoach AI',
+      'mathphysics': 'MathPhysics',
+      'portfolio': 'Portfolio',
+      'resources': 'Resources',
+      'blog': 'Blog',
+      'case-studies': 'Case Studies',
+      'guides': 'Guides',
+      'quote': 'Get a Quote',
+      'contact': 'Contact',
+      'process': 'Our Process',
+      'faq': 'FAQ',
+      'careers': 'Careers',
+      'privacy': 'Privacy Policy',
+      'terms': 'Terms of Service',
+      'cookies': 'Cookie Policy',
+    };
 
     const breadcrumbList = {
       "@context": "https://schema.org",
@@ -289,20 +163,6 @@ export default function StructuredData() {
           "item": "https://www.craftsai.org"
         }
       ]
-    };
-
-    const pageNames: Record<string, string> = {
-      'about': 'About Us',
-      'ai-solutions': 'AI Solutions',
-      'web-development': 'Web Development',
-      'portfolio': 'Portfolio',
-      'blog': 'Blog',
-      'quote': 'Get a Quote',
-      'services': 'Services',
-      'industries': 'Industries',
-      'finance': 'Finance',
-      'healthcare': 'Healthcare',
-      'retail': 'Retail',
     };
 
     let currentPath = 'https://www.craftsai.org';
@@ -322,75 +182,136 @@ export default function StructuredData() {
   // Page-specific schemas
   const getPageSchema = () => {
     switch (pathname) {
-      case '/about':
-        return {
-          "@context": "https://schema.org",
-          "@type": "AboutPage",
-          "name": "About CraftsAI - AI Development Experts",
-          "description": "Meet CraftsAI's expert team specializing in AI model development, machine learning training, and autonomous coding solutions.",
-          "url": "https://www.craftsai.org/about",
-          "mainEntity": {
-            "@id": "https://www.craftsai.org/#organization"
-          }
-        };
-      case '/ai-solutions':
+      case '/services':
         return {
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "AI Solutions & Machine Learning Services",
-          "description": "Comprehensive AI model development, training, validation, and deployment services with data preprocessing pipelines.",
-          "url": "https://www.craftsai.org/ai-solutions",
-          "provider": {
-            "@id": "https://www.craftsai.org/#organization"
-          },
-          "serviceType": "Artificial Intelligence Development",
-          "category": "Technology Services",
-          "offers": {
-            "@type": "Offer",
-            "price": "2500",
-            "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
-          }
+          "name": "CraftsAI Development Services",
+          "description": "AI-powered web, Android, iOS development and ongoing support services.",
+          "url": "https://www.craftsai.org/services",
+          "provider": { "@id": "https://www.craftsai.org/#organization" }
         };
-      case '/web-development':
+      case '/services/web-development':
         return {
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "Autonomous Web Development Services",
-          "description": "Low-cost, high-quality web development services using AI-powered autonomous coding for modern businesses.",
-          "url": "https://www.craftsai.org/web-development",
-          "provider": {
-            "@id": "https://www.craftsai.org/#organization"
-          },
-          "serviceType": "Web Development",
-          "category": "Technology Services"
+          "name": "Web Development",
+          "description": "Full-stack web application development with React, Next.js, and Node.js.",
+          "url": "https://www.craftsai.org/services/web-development",
+          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "serviceType": "Web Development"
+        };
+      case '/services/android-development':
+        return {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Android Development",
+          "description": "Native Android app development with Kotlin and Jetpack Compose.",
+          "url": "https://www.craftsai.org/services/android-development",
+          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "serviceType": "Android Development"
+        };
+      case '/services/ios-development':
+        return {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "iOS Development",
+          "description": "Native iOS app development with Swift and SwiftUI.",
+          "url": "https://www.craftsai.org/services/ios-development",
+          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "serviceType": "iOS Development"
+        };
+      case '/services/support':
+        return {
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Support & Maintenance",
+          "description": "Ongoing support, bug fixes, security patches, and feature updates.",
+          "url": "https://www.craftsai.org/services/support",
+          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "serviceType": "Support & Maintenance"
+        };
+      case '/products':
+        return {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "CraftsAI Products",
+          "description": "Ready-made software products by CraftsAI.",
+          "url": "https://www.craftsai.org/products"
         };
       case '/portfolio':
         return {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "name": "CraftsAI Portfolio - AI & Web Development Projects",
-          "description": "Showcase of successful AI model development, machine learning projects, and web development solutions delivered by CraftsAI.",
+          "name": "CraftsAI Portfolio",
+          "description": "Web, Android, and iOS projects built by CraftsAI.",
           "url": "https://www.craftsai.org/portfolio"
+        };
+      case '/resources':
+        return {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": "CraftsAI Resources",
+          "description": "Blog posts, case studies, and development guides.",
+          "url": "https://www.craftsai.org/resources"
+        };
+      case '/resources/blog':
+        return {
+          "@context": "https://schema.org",
+          "@type": "Blog",
+          "name": "CraftsAI Blog",
+          "description": "Articles on web, Android, and iOS development.",
+          "url": "https://www.craftsai.org/resources/blog",
+          "publisher": { "@id": "https://www.craftsai.org/#organization" }
+        };
+      case '/contact':
+        return {
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact CraftsAI",
+          "description": "Get in touch with CraftsAI for web, Android, or iOS development inquiries.",
+          "url": "https://www.craftsai.org/contact"
         };
       case '/quote':
         return {
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          "name": "Get a Quote - CraftsAI AI Development",
-          "description": "Request a free quote for AI development, machine learning, or web development services from CraftsAI.",
+          "name": "Get a Quote from CraftsAI",
+          "description": "Request a free quote for your development project.",
           "url": "https://www.craftsai.org/quote"
         };
-      case '/blog':
+      case '/faq':
         return {
           "@context": "https://schema.org",
-          "@type": "Blog",
-          "name": "CraftsAI Blog - AI & Machine Learning Insights",
-          "description": "Latest articles and insights on AI development, machine learning, autonomous coding, and technology trends.",
-          "url": "https://www.craftsai.org/blog",
-          "publisher": {
-            "@id": "https://www.craftsai.org/#organization"
-          }
+          "@type": "FAQPage",
+          "name": "CraftsAI FAQ",
+          "description": "Frequently asked questions about CraftsAI services, pricing, and process.",
+          "url": "https://www.craftsai.org/faq"
+        };
+      case '/about':
+        return {
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About CraftsAI",
+          "description": "Learn about CraftsAI, our team, and our AI-powered development approach.",
+          "url": "https://www.craftsai.org/about",
+          "mainEntity": { "@id": "https://www.craftsai.org/#organization" }
+        };
+      case '/process':
+        return {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Our Process",
+          "description": "How CraftsAI delivers projects from consultation to launch.",
+          "url": "https://www.craftsai.org/process"
+        };
+      case '/careers':
+        return {
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "Careers at CraftsAI",
+          "description": "Join the CraftsAI team and build the future of AI-powered development.",
+          "url": "https://www.craftsai.org/careers"
         };
       default:
         return null;
@@ -411,12 +332,6 @@ export default function StructuredData() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteSchema),
         }}
       />
@@ -424,12 +339,6 @@ export default function StructuredData() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqSchema),
-        }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(serviceSchema),
         }}
       />
       {breadcrumbSchema && (
