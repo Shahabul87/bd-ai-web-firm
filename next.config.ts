@@ -27,6 +27,20 @@ const nextConfig: NextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/blog',
+        destination: '/resources/blog',
+        permanent: true,
+      },
+      {
+        source: '/blog/:slug',
+        destination: '/resources/blog/:slug',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
