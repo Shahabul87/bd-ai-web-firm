@@ -1,16 +1,9 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | CraftsAI',
+  title: 'Contact Us',
   description:
-    'Get in touch with CraftsAI. Send us a message about your web, Android, or iOS project and receive a free quote within 24 hours.',
-  openGraph: {
-    title: 'Contact Us | CraftsAI',
-    description:
-      'Send us a message and get a free quote within 24 hours.',
-    url: 'https://www.craftsai.org/contact',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/contact' },
+    'Get in touch with CraftsAI for web, Android, iOS development or support inquiries.',
 };
 
 export default function ContactLayout({
