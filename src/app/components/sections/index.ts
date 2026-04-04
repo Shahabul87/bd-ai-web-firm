@@ -1,0 +1,10 @@
+export { default as HeroSection } from './HeroSection';
+export { default as SocialProofBar } from './SocialProofBar';
+export { default as ServicesGrid } from './ServicesGrid';
+export { default as AIAdvantage } from './AIAdvantage';
+export { default as ProductsShowcase } from './ProductsShowcase';
+export { default as FeaturedWork } from './FeaturedWork';
+export { default as ProcessTimeline } from './ProcessTimeline';
+export { default as Testimonials } from './Testimonials';
+export { default as ResourcesPreview } from './ResourcesPreview';
+export { default as CTASection } from './CTASection';
