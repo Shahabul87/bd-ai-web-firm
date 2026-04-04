@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "name": "Sarah Chen",
+    "role": "CTO",
+    "company": "EduTech Startup",
+    "quote": "CraftsAI delivered our learning platform in just 3 weeks. The AI-powered approach meant we got enterprise quality at startup speed.",
+    "avatar": null
+  },
+  {
+    "name": "Rahim Ahmed",
+    "role": "Founder",
+    "company": "FinanceApp BD",
+    "quote": "The FinCoach AI app exceeded our expectations. Professional, fast, and the ongoing support keeps everything running smoothly.",
+    "avatar": null
+  },
+  {
+    "name": "Michael Torres",
+    "role": "Product Manager",
+    "company": "RetailTech Co",
+    "quote": "Working with CraftsAI felt like having a full development team at a fraction of the cost. Highly recommended.",
+    "avatar": null
+  }
+]

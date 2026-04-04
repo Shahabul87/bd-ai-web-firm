@@ -1,1 +1,92 @@
-[]
+[
+  {
+    "category": "General",
+    "questions": [
+      {
+        "question": "What is CraftsAI?",
+        "answer": "CraftsAI is an AI-powered software studio based in Bangladesh. We combine AI coding agents with experienced human engineers to deliver web, Android, and iOS applications up to 10x faster than traditional studios, while maintaining enterprise-grade quality."
+      },
+      {
+        "question": "How does AI-powered development work?",
+        "answer": "Our engineers work alongside AI coding agents that handle repetitive tasks such as boilerplate generation, test writing, and code review. The human team focuses on architecture decisions, business logic, and quality assurance. This hybrid approach accelerates delivery without sacrificing craftsmanship."
+      },
+      {
+        "question": "Where is CraftsAI based?",
+        "answer": "CraftsAI is headquartered in Bangladesh with a fully remote team. We serve clients worldwide and communicate across time zones through asynchronous updates, scheduled calls, and real-time project dashboards."
+      }
+    ]
+  },
+  {
+    "category": "Services",
+    "questions": [
+      {
+        "question": "What services do you offer?",
+        "answer": "We offer full-stack web development (React, Next.js, Node.js), native Android development (Kotlin, Jetpack Compose), iOS development (Swift, SwiftUI), and ongoing support and maintenance plans. Every project includes cloud deployment, testing, and documentation."
+      },
+      {
+        "question": "Do you build iOS apps?",
+        "answer": "Yes. We build native iOS apps using Swift and SwiftUI, targeting iPhone, iPad, and Apple Watch. Our iOS projects include App Store submission, TestFlight beta testing, and post-launch monitoring."
+      },
+      {
+        "question": "Do you offer ongoing support?",
+        "answer": "Absolutely. We offer monthly support plans that cover bug fixes, performance monitoring, security patches, feature enhancements, and server maintenance. Plans start with basic monitoring and scale up to dedicated engineering hours."
+      }
+    ]
+  },
+  {
+    "category": "Products",
+    "questions": [
+      {
+        "question": "What ready-made products do you sell?",
+        "answer": "We offer several ready-made products including TaxoMind (an AI-powered tax management platform), TaxoMind Schools (school management system), FinCoach AI (personal finance coaching app), and MathPhysics (an interactive STEM learning tool). Each product is production-ready and continuously updated."
+      },
+      {
+        "question": "Can products be customized?",
+        "answer": "Yes. All our products can be white-labeled and customized to match your brand, workflows, and specific requirements. We offer customization packages that range from simple branding changes to deep feature additions tailored to your industry."
+      }
+    ]
+  },
+  {
+    "category": "Process",
+    "questions": [
+      {
+        "question": "How long does a typical project take?",
+        "answer": "Timelines depend on scope. An MVP web application typically takes 2 to 4 weeks. A standard mobile app runs 4 to 8 weeks. Enterprise platforms with complex integrations may take 8 to 16 weeks. We provide a detailed timeline estimate during the free consultation."
+      },
+      {
+        "question": "How do you communicate during projects?",
+        "answer": "We use a combination of weekly video calls, a shared project dashboard with real-time progress tracking, and instant messaging through Slack or WhatsApp. You receive daily summary updates and can review work-in-progress at any time."
+      },
+      {
+        "question": "What if I need changes after launch?",
+        "answer": "Post-launch changes are covered under our support plans or handled as change requests. Minor tweaks within the first 30 days after launch are included at no extra cost. Larger feature additions are scoped and quoted separately."
+      }
+    ]
+  },
+  {
+    "category": "Pricing",
+    "questions": [
+      {
+        "question": "How much does a project cost?",
+        "answer": "Project costs vary by scope and complexity. MVPs typically start from $2,000, standard web apps from $5,000, and enterprise solutions from $15,000. We provide a free, no-obligation quote tailored to your exact requirements after an initial consultation."
+      },
+      {
+        "question": "Do you offer payment plans?",
+        "answer": "Yes. We offer milestone-based payment plans where you pay in stages as the project progresses. A typical split is 30% upfront, 40% at mid-project milestone, and 30% upon delivery. Custom arrangements are available for larger projects."
+      }
+    ]
+  },
+  {
+    "category": "Support",
+    "questions": [
+      {
+        "question": "What does your support include?",
+        "answer": "Our support plans include server monitoring, bug fixes, security patches, dependency updates, performance optimization, and a monthly allocation of feature development hours. We also provide incident response for critical issues."
+      },
+      {
+        "question": "What is your response time?",
+        "answer": "Critical issues receive a response within 2 hours during business hours and within 6 hours outside business hours. Standard requests are acknowledged within 24 hours. Enterprise support clients receive a dedicated Slack channel with priority routing."
+      }
+    ]
+  }
+]

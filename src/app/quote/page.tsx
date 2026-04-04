@@ -90,6 +90,26 @@ export default function QuotePage() {
       timeline: '4-8 weeks',
       perfectFor: 'Consumer apps, B2B mobile tools',
     },
+    {
+      id: 'ios-development',
+      name: 'iOS Development',
+      description: 'Native iOS apps with Swift and SwiftUI for iPhone and iPad',
+      icon: '\u{1F34F}',
+      gradient: 'from-violet-500 to-pink-500',
+      deliverables: ['Swift/SwiftUI Apps', 'App Store Ready', 'TestFlight Beta', 'CloudKit Integration'],
+      timeline: '4-8 weeks',
+      perfectFor: 'Consumer apps, enterprise iOS tools',
+    },
+    {
+      id: 'product-inquiry',
+      name: 'Product Inquiry',
+      description: 'Explore our ready-made products or request customization',
+      icon: '\u{1F4E6}',
+      gradient: 'from-amber-500 to-orange-500',
+      deliverables: ['Product Demo', 'Custom Branding', 'Feature Add-ons', 'Deployment Support'],
+      timeline: '1-3 weeks',
+      perfectFor: 'Quick launch with proven solutions',
+    },
   ], []);
 
   const handleServiceToggle = (serviceId: string) => {
