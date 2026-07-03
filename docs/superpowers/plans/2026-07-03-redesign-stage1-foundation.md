@@ -14,7 +14,7 @@
 
 - **Palette (exact values):** `ink-950 #0A0C10`, `ink-900 #11141A`, `ink-800 #1A1E26`, `signal #D8FF3E`, `signal-dim #9BBD2A`, `bone #EDEEE8`, `steel #8A919E`, `line #262B35`, `amber #FFB347`. Dark-only — no light theme, no theme toggle.
 - **Fonts:** Space Grotesk (display), Instrument Sans (body), JetBrains Mono (mono) — all via `next/font/google` (self-hosted at build time). Never Inter/Roboto/Geist/system stacks.
-- **Motion rules:** only `transform`/`opacity` animate; infinite loops in CSS only (never JS); viewport triggers fire once; `prefers-reduced-motion` gets static final frames. No floats, bounces, glows, glass-morphism, or purple gradients.
+- **Motion rules:** only `transform`/`opacity` animate (one spec-named exception: the Pipeline pulse is an SVG `stroke-dashoffset` CSS loop, per spec §6 motion catalog); infinite loops in CSS only (never JS); viewport triggers fire once; `prefers-reduced-motion` gets static final frames. No floats, bounces, glows, glass-morphism, or purple gradients.
 - **TypeScript:** strict; no `any`/`unknown`. JSX string literals: escape apostrophes as `&apos;` (never `&amp;` in plain strings).
 - **Verification per task:** `npm run lint` (no errors in files this plan touches — the repo builds with `ignoreDuringBuilds`, but new code must be clean), `npm run type-check` (must pass), and for tasks marked BUILD also `npm run build` (must succeed). No test framework exists; adding one is out of scope per spec.
 - **Commits:** one per task, exact `git add` of touched files only (never `git add -A`).
