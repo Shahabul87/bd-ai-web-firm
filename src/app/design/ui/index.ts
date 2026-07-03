@@ -6,3 +6,5 @@ export { default as SpecTable } from './SpecTable';
 export type { SpecRow } from './SpecTable';
 export { default as Accordion } from './Accordion';
 export type { AccordionItem } from './Accordion';
+export { default as TypeOn } from './TypeOn';
+export { default as Stepper } from './Stepper';
