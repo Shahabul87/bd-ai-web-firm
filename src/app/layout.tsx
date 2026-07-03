@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, Instrument_Sans, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import AIChatbot from "./components/AIChatbot";
@@ -11,20 +11,28 @@ import StructuredData from "./components/StructuredData";
 import Analytics from "./analytics";
 import { ThemeProvider } from "./context/ThemeContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  display: 'swap', // Optimize font loading
+  display: "swap",
   preload: true,
-  fallback: ['system-ui', '-apple-system', 'sans-serif'],
+  fallback: ["system-ui", "sans-serif"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
-  display: 'swap',
-  preload: false, // Only preload main font
-  fallback: ['Menlo', 'Monaco', 'monospace'],
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "sans-serif"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  fallback: ["Menlo", "Monaco", "monospace"],
 });
 
 export const metadata: Metadata = {
@@ -97,7 +105,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#0f172a'
+  themeColor: '#0A0C10'
 };
 
 export default function RootLayout({
@@ -106,7 +114,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
@@ -121,22 +129,10 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        
-        {/* Preconnect to external domains */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        
-        {/* Anti-FOUC: set theme class before paint */}
-        <script dangerouslySetInnerHTML={{ __html: `
-          (function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(t==null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();
-        ` }} />
 
         {/* Critical CSS for above-the-fold content */}
         <style dangerouslySetInnerHTML={{ __html: `
-          /* Critical CSS for immediate render */
-          body { margin: 0; background: var(--background, #ffffff); color: var(--foreground, #0f172a); }
-          .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
-          @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+          body { margin: 0; background: #0A0C10; color: #EDEEE8; }
           .min-h-screen { min-height: 100vh; }
         ` }} />
         
@@ -144,7 +140,7 @@ export default function RootLayout({
         <meta name="google-site-verification" content="abcdef1234567890abcdef1234567890abcdef12" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${instrumentSans.variable} ${jetbrainsMono.variable} antialiased bg-ink-950 text-bone`}
         suppressHydrationWarning
       >
         <ThemeProvider>

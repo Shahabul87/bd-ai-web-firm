@@ -1,0 +1,63 @@
+/* ── CraftsAI "Agent Foundry" design tokens ─────────────────────────
+   Dark-only. Spec: docs/superpowers/specs/2026-07-03-craftsai-redesign-design.md §2 */
+
+:root {
+  --ink-950: #0A0C10;
+  --ink-900: #11141A;
+  --ink-800: #1A1E26;
+  --signal: #D8FF3E;
+  --signal-dim: #9BBD2A;
+  --bone: #EDEEE8;
+  --steel: #8A919E;
+  --line: #262B35;
+  --amber: #FFB347;
+
+  color-scheme: dark;
+}
+
+/* Display face for all headings (old pages inherit this during migration) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space-grotesk), sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* ── Motion primitives (CSS loops only — never JS) ────────────────── */
+
+/* Terminal block cursor */
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.cursor-blink {
+  color: var(--signal);
+  animation: cursor-blink 1.1s steps(1) infinite;
+}
+
+/* Pipeline dashed-connector flow */
+@keyframes dash-flow {
+  to { stroke-dashoffset: -24; }
+}
+.pipeline-dash {
+  stroke-dasharray: 6 6;
+  animation: dash-flow 1.2s linear infinite;
+}
+
+/* Footer marquee (content must be duplicated in markup; track is 2x wide) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+/* Blueprint grid surface (static; cursor reveal comes in stage 2) */
+.blueprint-grid {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}

@@ -1,5 +1,10 @@
 @import "tailwindcss";
+@import "./design/tokens.css";
 @import "./styles/animations.css";
+
+/* Tailwind v4 class-based dark variant — html always carries .dark (dark-only site),
+   so legacy `dark:` utilities apply for every visitor regardless of OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Respect user's motion preferences */
 @media (prefers-reduced-motion: reduce) {
@@ -18,67 +23,55 @@
 }
 
 :root {
-  /* Light theme (default) - high contrast */
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --card-bg: rgba(248, 250, 252, 0.95);
-  --card-border: rgba(203, 213, 225, 0.8);
-  --shadow-color: rgba(99, 102, 241, 0.12);
-  --nav-bg: rgba(255, 255, 255, 0.92);
-  --nav-border: rgba(203, 213, 225, 0.6);
-  --btn-hover: rgba(241, 245, 249, 0.9);
-  --text-secondary: #475569;
-  --surface-elevated: #f1f5f9;
-  --surface-sunken: #e8edf3;
-  --border-default: #cbd5e1;
-  --slate-deep: #f1f5f9;
-  --slate-mid: #e2e8f0;
-  --slate-light: #cbd5e1;
+  /* Legacy variables — pinned to dark "Agent Foundry" values during migration.
+     Old components read these; new components use the ink/signal tokens. */
+  --background: var(--ink-950);
+  --foreground: var(--bone);
+  --card-bg: rgba(17, 20, 26, 0.8);
+  --card-border: rgba(38, 43, 53, 0.5);
+  --shadow-color: rgba(216, 255, 62, 0.08);
+  --nav-bg: rgba(10, 12, 16, 0.92);
+  --nav-border: rgba(38, 43, 53, 0.6);
+  --btn-hover: rgba(26, 30, 38, 0.6);
+  --text-secondary: #8A919E;
+  --surface-elevated: #11141A;
+  --surface-sunken: #07090C;
+  --border-default: #262B35;
+  --slate-deep: #0A0C10;
+  --slate-mid: #11141A;
+  --slate-light: #1A1E26;
 
-  /* Brand colors (shared between themes) */
-  --brand-primary: #6366f1;
-  --brand-secondary: #8b5cf6;
-  --brand-accent: #06b6d4;
-  --brand-success: #10b981;
-  --brand-warning: #f59e0b;
-
-  /* Neural theme colors */
-  --neural-cyan: #06b6d4;
-  --neural-purple: #8B5CF6;
-  --neural-orange: #f97316;
-  --neural-green: #10b981;
-  --neural-blue: #3B82F6;
-}
-
-.dark {
-  --background: #0f172a;
-  --foreground: #f1f5f9;
-  --card-bg: rgba(30, 41, 59, 0.8);
-  --card-border: rgba(51, 65, 85, 0.3);
-  --shadow-color: rgba(0, 229, 255, 0.15);
-  --nav-bg: rgba(30, 41, 59, 0.6);
-  --nav-border: rgba(51, 65, 85, 0.5);
-  --btn-hover: rgba(51, 65, 85, 0.4);
-  --text-secondary: #94a3b8;
-  --surface-elevated: #1e293b;
-  --surface-sunken: #0c1222;
-  --border-default: #334155;
-  --slate-deep: #0f172a;
-  --slate-mid: #1e293b;
-  --slate-light: #334155;
-
-  --neural-cyan: #00E5FF;
-  --neural-purple: #8B5CF6;
-  --neural-orange: #FF6D00;
-  --neural-green: #00E676;
-  --neural-blue: #3B82F6;
+  /* Legacy brand/neural colors remapped into the new palette */
+  --brand-primary: #D8FF3E;
+  --brand-secondary: #9BBD2A;
+  --brand-accent: #D8FF3E;
+  --brand-success: #9BBD2A;
+  --brand-warning: #FFB347;
+  --neural-cyan: #D8FF3E;
+  --neural-purple: #9BBD2A;
+  --neural-orange: #FFB347;
+  --neural-green: #D8FF3E;
+  --neural-blue: #8A919E;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  /* Agent Foundry tokens → Tailwind utilities (bg-ink-950, text-signal, border-line …) */
+  --color-ink-950: var(--ink-950);
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-signal: var(--signal);
+  --color-signal-dim: var(--signal-dim);
+  --color-bone: var(--bone);
+  --color-steel: var(--steel);
+  --color-line: var(--line);
+  --color-amber: var(--amber);
+
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-instrument-sans);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 @keyframes pulse {
