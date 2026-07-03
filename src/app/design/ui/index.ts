@@ -8,3 +8,6 @@ export { default as Accordion } from './Accordion';
 export type { AccordionItem } from './Accordion';
 export { default as TypeOn } from './TypeOn';
 export { default as Stepper } from './Stepper';
+export { default as Pipeline } from './Pipeline';
+export { default as Terminal } from './Terminal';
+export type { TerminalLine } from './Terminal';
