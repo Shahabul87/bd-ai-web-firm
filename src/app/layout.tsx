@@ -9,7 +9,6 @@ import BrowserCompatibilityFallback from "./components/BrowserCompatibilityFallb
 import ErrorBoundary from "./components/ErrorBoundary";
 import StructuredData from "./components/StructuredData";
 import Analytics from "./analytics";
-import { ThemeProvider } from "./context/ThemeContext";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -38,26 +37,21 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.craftsai.org'),
   title: {
-    default: "CraftsAI | AI-Autonomous Development Studio",
+    default: "CraftsAI | AI Agent Development Studio",
     template: "%s | CraftsAI"
   },
-  description: "Leading AI-autonomous development studio specializing in machine learning model development, data preprocessing pipelines, web development, and business intelligence. Get low-cost, high-quality AI solutions through autonomous coding.",
+  description: "CraftsAI is an AI agent development studio in Dhaka serving clients worldwide. We build custom AI agents, ship websites and mobile apps built by AI agents, and integrate agents into your existing systems.",
   keywords: [
-    "AI model development",
-    "machine learning training", 
-    "data pipelines",
+    "AI agent development",
+    "custom AI agents",
+    "AI agent integration",
+    "AI web development",
+    "mobile app development",
+    "AI automation",
     "autonomous coding",
-    "web development",
-    "fintech analysis",
-    "healthcare analytics",
-    "business intelligence",
-    "MLOps",
-    "AI consulting",
-    "neural networks",
-    "deep learning",
-    "computer vision",
-    "natural language processing",
-    "predictive analytics"
+    "AI software studio",
+    "Bangladesh software company",
+    "AI development agency"
   ],
   authors: [{ name: "CraftsAI", url: "https://www.craftsai.org" }],
   creator: "CraftsAI",
@@ -77,8 +71,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://www.craftsai.org",
-    title: "CraftsAI | AI-Autonomous Development Studio",
-    description: "Leading AI-autonomous development studio. Get professional machine learning models, data pipelines, and web development solutions at unbeatable prices through autonomous coding.",
+    title: "CraftsAI | AI Agent Development Studio",
+    description: "We build AI agents. Our agents build your software — websites, mobile apps, and integrations, shipped fast with human review.",
     siteName: "CraftsAI",
     images: [{
       url: "/og-image.jpg",
@@ -89,8 +83,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CraftsAI | AI-Autonomous Development Studio",
-    description: "Leading AI-autonomous development studio. Professional ML models, data pipelines & web development through autonomous coding.",
+    title: "CraftsAI | AI Agent Development Studio",
+    description: "We build AI agents. Our agents build your software — websites, mobile apps, and integrations.",
     creator: "@craftsai",
     images: ["/og-image.jpg"]
   },
@@ -143,17 +137,15 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${instrumentSans.variable} ${jetbrainsMono.variable} antialiased bg-ink-950 text-bone`}
         suppressHydrationWarning
       >
-        <ThemeProvider>
-          <ErrorBoundary>
-            <CrossPlatformWrapper fallback={<BrowserCompatibilityFallback />}>
-              <StructuredData />
-              <Analytics />
-              {children}
-              <WhatsAppButton />
-              <AIChatbot />
-            </CrossPlatformWrapper>
-          </ErrorBoundary>
-        </ThemeProvider>
+        <ErrorBoundary>
+          <CrossPlatformWrapper fallback={<BrowserCompatibilityFallback />}>
+            <StructuredData />
+            <Analytics />
+            {children}
+            <WhatsAppButton />
+            <AIChatbot />
+          </CrossPlatformWrapper>
+        </ErrorBoundary>
         
         {/* Google Analytics - loaded only when NEXT_PUBLIC_GA_MEASUREMENT_ID is set */}
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
