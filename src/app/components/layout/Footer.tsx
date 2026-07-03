@@ -17,10 +17,10 @@ export default function Footer() {
       <div className="overflow-hidden border-b border-line py-3" aria-hidden>
         <div className="marquee-track">
           <span className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            {TICKER}
+            {TICKER.repeat(3)}
           </span>
           <span className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            {TICKER}
+            {TICKER.repeat(3)}
           </span>
         </div>
       </div>

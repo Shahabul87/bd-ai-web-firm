@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Button from '../../design/ui/Button';
 import MonoLabel from '../../design/ui/MonoLabel';
@@ -13,11 +13,14 @@ interface MobileMenuProps {
 
 /** Full-screen blueprint overlay menu (below lg breakpoint). */
 export default function MobileMenu({ open, onClose }: MobileMenuProps) {
-  // Lock body scroll while open
+  const navRef = useRef<HTMLElement>(null);
+
+  // Lock body scroll and move focus into the overlay while open
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    navRef.current?.focus();
     return () => {
       document.body.style.overflow = prev;
     };
@@ -27,7 +30,12 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
 
   return (
     <div className="blueprint-grid fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-ink-950 lg:hidden">
-      <nav aria-label="Mobile" className="flex min-h-full flex-col gap-10 px-6 py-10">
+      <nav
+        ref={navRef}
+        aria-label="Mobile"
+        tabIndex={-1}
+        className="flex min-h-full flex-col gap-10 px-6 py-10 focus:outline-none"
+      >
         <div>
           <MonoLabel>Services</MonoLabel>
           <ul className="mt-4 space-y-4">

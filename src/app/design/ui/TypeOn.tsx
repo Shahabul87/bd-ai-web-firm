@@ -26,11 +26,15 @@ export default function TypeOn({
   const reduced = useReducedMotion();
   const [count, setCount] = useState(0);
 
-  const done = reduced ? true : count >= text.length;
-  const shown = reduced ? text : text.slice(0, count);
+  const shown = text.slice(0, count);
+  const done = count >= text.length;
 
   useEffect(() => {
-    if (!inView || reduced || count >= text.length) return;
+    if (!inView || count >= text.length) return;
+    if (reduced) {
+      setCount(text.length);
+      return;
+    }
     const delay = count === 0 ? startDelay + speed : speed;
     const t = setTimeout(() => setCount((c) => c + 1), delay);
     return () => clearTimeout(t);

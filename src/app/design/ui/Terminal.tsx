@@ -30,10 +30,14 @@ export default function Terminal({ lines, title = 'crafts.ai — agent', classNa
   const reduced = useReducedMotion();
   const [shown, setShown] = useState(0);
 
-  const visibleCount = reduced ? lines.length : shown;
+  const visibleCount = shown;
 
   useEffect(() => {
-    if (!inView || reduced || shown >= lines.length) return;
+    if (!inView || shown >= lines.length) return;
+    if (reduced) {
+      setShown(lines.length);
+      return;
+    }
     const t = setTimeout(() => setShown((s) => s + 1), LINE_INTERVAL_MS);
     return () => clearTimeout(t);
   }, [inView, reduced, shown, lines.length]);

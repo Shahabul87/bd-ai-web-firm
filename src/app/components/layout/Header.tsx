@@ -12,6 +12,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const servicesRef = useRef<HTMLDivElement>(null);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
 
   // Close overlays on route change
   useEffect(() => {
@@ -38,6 +39,21 @@ export default function Header() {
     };
   }, [servicesOpen]);
 
+  // Close mobile menu on Escape and return focus to the toggle
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        menuToggleRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [menuOpen]);
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink-950/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
@@ -50,7 +66,6 @@ export default function Header() {
             <button
               type="button"
               aria-expanded={servicesOpen}
-              aria-haspopup="menu"
               onClick={() => setServicesOpen((o) => !o)}
               className={`font-mono text-xs uppercase tracking-[0.15em] transition-colors duration-150 hover:text-signal ${
                 pathname.startsWith('/services') ? 'text-signal' : 'text-bone'
@@ -59,14 +74,10 @@ export default function Header() {
               Services {servicesOpen ? '−' : '+'}
             </button>
             {servicesOpen ? (
-              <div
-                role="menu"
-                className="absolute left-0 top-full mt-4 w-72 border border-line bg-ink-900 p-2"
-              >
+              <div className="absolute left-0 top-full mt-4 w-72 border border-line bg-ink-900 p-2">
                 {SERVICE_LINKS.map((link) => (
                   <Link
                     key={link.index}
-                    role="menuitem"
                     href={link.href}
                     className="flex items-baseline gap-3 px-3 py-2.5 transition-colors duration-150 hover:bg-ink-800"
                   >
@@ -97,6 +108,7 @@ export default function Header() {
         </div>
 
         <button
+          ref={menuToggleRef}
           type="button"
           aria-expanded={menuOpen}
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
