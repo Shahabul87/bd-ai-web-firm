@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
-import { appendToSheet } from '@/app/lib/sheets';
+import { createLead } from '@/app/lib/leads';
 import { sendEmail, isSmtpConfigured, CONTACT_EMAIL, SITE_URL } from '@/app/lib/email';
 import { sanitizeInput, validateEmail } from '@/app/lib/sanitize';
 
@@ -377,18 +377,21 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
       console.warn('Quote request: SMTP not configured — notification email skipped.');
     }
 
-    // Log to Google Sheets (non-blocking)
-    appendToSheet('Quotes', [
-      new Date().toISOString(),
-      contactName,
+    // Persist the lead (fail-open) + alert the founder
+    await createLead({
+      source: 'QUOTE',
+      name: contactName,
       email,
-      serviceNames.join(', '),
-      projectType,
-      complexity,
-      timeline,
-      budget,
-      companyName,
-    ]).catch(() => {});
+      company: companyName || undefined,
+      message: description || undefined,
+      payload: {
+        contactName, email, companyName, industry, companySize, phone, preferredContact,
+        services: serviceNames, projectType, complexity, timeline, budget, description,
+        requirements, specialRequirements,
+      },
+      ip: clientIP,
+      userAgent: request.headers.get('user-agent') ?? undefined,
+    });
 
     return NextResponse.json({
       success: true,

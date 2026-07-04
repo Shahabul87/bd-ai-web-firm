@@ -22,7 +22,6 @@
     "@prisma/client": "^6.19.3",
     "@types/nodemailer": "^6.4.17",
     "framer-motion": "^12.7.4",
-    "googleapis": "^171.4.0",
     "isomorphic-dompurify": "^2.26.0",
     "next": "^15.4.2",
     "nodemailer": "^7.0.5",
