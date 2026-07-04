@@ -17,7 +17,9 @@ export const SERVICE_LINKS: NavLink[] = [
 ];
 
 export const PRIMARY_LINKS: NavLink[] = [
-  { label: 'Work', href: '/portfolio' },
+  // "Work" and "Products" were the same thing (our built products ARE our work),
+  // so they're merged into a single Products entry pointing at /products.
+  { label: 'Products', href: '/products' },
   { label: 'Process', href: '/process' },
   { label: 'Resources', href: '/resources' },
   { label: 'About', href: '/about' },
