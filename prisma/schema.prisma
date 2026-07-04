@@ -74,6 +74,7 @@ model VerificationToken {
 model AuthTicket {
   id        String    @id @default(cuid())
   email     String
+  scope     String    @default("admin")
   usedAt    DateTime?
   expiresAt DateTime
   createdAt DateTime  @default(now())
@@ -155,7 +156,8 @@ model Client {
   company      String?
   phone        String?
   notes        String?      @db.Text
-  status       ClientStatus @default(ACTIVE)
+  status        ClientStatus @default(ACTIVE)
+  portalEnabled Boolean      @default(false)
   sourceLeadId String?      @unique
   sourceLead   Lead?        @relation("LeadClient", fields: [sourceLeadId], references: [id])
   projects     Project[]
@@ -177,6 +179,7 @@ model Project {
   targetDate  DateTime?
   milestones  Milestone[]
   updates     ProjectUpdate[]
+  messages    Message[]
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 
@@ -205,6 +208,26 @@ model ProjectUpdate {
   body        String           @db.Text
   visibility  UpdateVisibility @default(INTERNAL)
   createdAt   DateTime         @default(now())
+
+  @@index([projectId])
+}
+
+// ── Phase 3: Client portal messaging ──
+
+enum MessageSender {
+  ADMIN
+  CLIENT
+}
+
+model Message {
+  id          String        @id @default(cuid())
+  projectId   String
+  project     Project       @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  senderType  MessageSender
+  senderEmail String
+  body        String        @db.Text
+  readAt      DateTime?
+  createdAt   DateTime      @default(now())
 
   @@index([projectId])
 }
