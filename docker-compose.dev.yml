@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:16
+    container_name: craftsai-dev-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: craftsai_dev
+    ports:
+      - "5438:5432"
+    volumes:
+      - craftsai_dev_db:/var/lib/postgresql/data
+volumes:
+  craftsai_dev_db:
