@@ -166,6 +166,21 @@ export function leadsToCsv(rows: LeadListItem[]): string {
 }
 
 /**
+ * If a lead has been converted, return its client id + first project id
+ * (for the "already converted → view" link). Otherwise null.
+ */
+export async function getLeadConversion(
+  leadId: string,
+): Promise<{ clientId: string; projectId: string | null } | null> {
+  const client = await prisma.client.findUnique({
+    where: { sourceLeadId: leadId },
+    select: { id: true, projects: { orderBy: { createdAt: 'asc' }, take: 1, select: { id: true } } },
+  });
+  if (!client) return null;
+  return { clientId: client.id, projectId: client.projects[0]?.id ?? null };
+}
+
+/**
  * Convert a won lead into a Client + a first Project, atomically.
  * Refuses if the lead is missing or already converted (a Client with this
  * sourceLeadId exists — enforced unique). Returns ids or an { error }.
