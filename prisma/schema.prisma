@@ -93,6 +93,7 @@ model Lead {
   ip        String?
   userAgent String?    @db.Text
   notes     LeadNote[]
+  convertedClient Client? @relation("LeadClient")
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 
@@ -119,4 +120,91 @@ model AuditLog {
   createdAt  DateTime @default(now())
 
   @@index([createdAt])
+}
+
+// ── Phase 2: Clients & Projects ──
+
+enum ClientStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum ProjectStatus {
+  DISCOVERY
+  BUILD
+  REVIEW
+  LAUNCHED
+  MAINTENANCE
+  ON_HOLD
+}
+
+enum MilestoneStatus {
+  PENDING
+  DONE
+}
+
+enum UpdateVisibility {
+  INTERNAL
+  CLIENT
+}
+
+model Client {
+  id           String       @id @default(cuid())
+  name         String
+  email        String
+  company      String?
+  phone        String?
+  notes        String?      @db.Text
+  status       ClientStatus @default(ACTIVE)
+  sourceLeadId String?      @unique
+  sourceLead   Lead?        @relation("LeadClient", fields: [sourceLeadId], references: [id])
+  projects     Project[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Project {
+  id          String          @id @default(cuid())
+  clientId    String
+  client      Client          @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  title       String
+  description String?         @db.Text
+  status      ProjectStatus   @default(DISCOVERY)
+  startedAt   DateTime?
+  targetDate  DateTime?
+  milestones  Milestone[]
+  updates     ProjectUpdate[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([clientId])
+  @@index([status])
+}
+
+model Milestone {
+  id        String          @id @default(cuid())
+  projectId String
+  project   Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title     String
+  dueDate   DateTime?
+  status    MilestoneStatus @default(PENDING)
+  order     Int             @default(0)
+  createdAt DateTime        @default(now())
+
+  @@index([projectId])
+}
+
+model ProjectUpdate {
+  id          String           @id @default(cuid())
+  projectId   String
+  project     Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  authorEmail String
+  body        String           @db.Text
+  visibility  UpdateVisibility @default(INTERNAL)
+  createdAt   DateTime         @default(now())
+
+  @@index([projectId])
 }
