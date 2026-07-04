@@ -164,3 +164,60 @@ export function leadsToCsv(rows: LeadListItem[]): string {
   );
   return [header, ...lines].join('\n') + '\n';
 }
+
+/**
+ * If a lead has been converted, return its client id + first project id
+ * (for the "already converted → view" link). Otherwise null.
+ */
+export async function getLeadConversion(
+  leadId: string,
+): Promise<{ clientId: string; projectId: string | null } | null> {
+  const client = await prisma.client.findUnique({
+    where: { sourceLeadId: leadId },
+    select: { id: true, projects: { orderBy: { createdAt: 'asc' }, take: 1, select: { id: true } } },
+  });
+  if (!client) return null;
+  return { clientId: client.id, projectId: client.projects[0]?.id ?? null };
+}
+
+/**
+ * Convert a won lead into a Client + a first Project, atomically.
+ * Refuses if the lead is missing or already converted (a Client with this
+ * sourceLeadId exists — enforced unique). Returns ids or an { error }.
+ */
+export async function convertLeadToClient(
+  leadId: string,
+  actorEmail: string,
+  projectTitle: string,
+): Promise<{ clientId: string; projectId: string } | { error: string }> {
+  const lead = await prisma.lead.findUnique({
+    where: { id: leadId },
+    select: { id: true, name: true, email: true, company: true },
+  });
+  if (!lead) return { error: 'Lead not found.' };
+
+  const existing = await prisma.client.findUnique({
+    where: { sourceLeadId: leadId },
+    select: { id: true },
+  });
+  if (existing) return { error: 'Lead already converted.' };
+
+  try {
+    const result = await prisma.$transaction(async (tx) => {
+      const client = await tx.client.create({
+        data: { name: lead.name, email: lead.email, company: lead.company ?? null, sourceLeadId: lead.id },
+        select: { id: true },
+      });
+      const project = await tx.project.create({
+        data: { clientId: client.id, title: projectTitle || `${lead.name} — project` },
+        select: { id: true },
+      });
+      return { clientId: client.id, projectId: project.id };
+    });
+    await writeAudit('lead.convert', { actorEmail, meta: { leadId, ...result } });
+    return result;
+  } catch (err) {
+    console.error('convertLeadToClient failed:', err instanceof Error ? err.message : 'unknown');
+    return { error: 'Could not convert lead. It may already be converted.' };
+  }
+}

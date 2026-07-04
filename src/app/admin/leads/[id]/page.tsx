@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { getAdmin } from '@/app/lib/adminSession';
-import { getLead, type LeadStatusValue } from '@/app/lib/leads';
+import { getLead, getLeadConversion, type LeadStatusValue } from '@/app/lib/leads';
 import AdminNav from '../../AdminNav';
 import StatusBadge from '../../StatusBadge';
 import LeadControls from './LeadControls';
+import LeadConvert from './LeadConvert';
 
 export const metadata = { title: 'Lead', robots: { index: false, follow: false } };
 
@@ -28,6 +29,8 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
   const { id } = await params;
   const lead = await getLead(id);
   if (!lead) notFound();
+
+  const conversion = await getLeadConversion(id);
 
   const payload = (lead.payload ?? {}) as Record<string, unknown>;
   const payloadEntries = Object.entries(payload).filter(
@@ -106,6 +109,23 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
           {/* Triage */}
           <aside className="border border-line p-5">
             <LeadControls id={lead.id} status={lead.status as LeadStatusValue} />
+            {conversion ? (
+              <div className="mt-5 border-t border-line pt-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-signal">Converted</p>
+                <div className="mt-2 flex flex-col gap-2 text-sm">
+                  <Link href={`/admin/clients/${conversion.clientId}`} className="text-signal hover:underline">
+                    View client →
+                  </Link>
+                  {conversion.projectId && (
+                    <Link href={`/admin/projects/${conversion.projectId}`} className="text-signal hover:underline">
+                      View project →
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <LeadConvert leadId={lead.id} defaultTitle={`${lead.name || 'Client'} — project`} />
+            )}
           </aside>
         </div>
       </main>

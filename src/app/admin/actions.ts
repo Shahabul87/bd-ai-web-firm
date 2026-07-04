@@ -1,10 +1,34 @@
 'use server';
 
+import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { getAdmin } from '@/app/lib/adminSession';
-import { updateLeadStatus, addLeadNote, type LeadStatusValue } from '@/app/lib/leads';
+import {
+  updateLeadStatus,
+  addLeadNote,
+  convertLeadToClient,
+  type LeadStatusValue,
+} from '@/app/lib/leads';
+import { createClient, updateClient, archiveClient } from '@/app/lib/clients';
+import {
+  createProject,
+  setProjectStatus,
+  addMilestone,
+  toggleMilestone,
+  addProjectUpdate,
+  type ProjectStatusValue,
+} from '@/app/lib/projects';
 
 const STATUSES: LeadStatusValue[] = ['NEW', 'CONTACTED', 'QUALIFIED', 'PROPOSAL', 'WON', 'LOST'];
+const PROJECT_STATUSES: ProjectStatusValue[] = [
+  'DISCOVERY',
+  'BUILD',
+  'REVIEW',
+  'LAUNCHED',
+  'MAINTENANCE',
+  'ON_HOLD',
+];
 
 export async function setLeadStatus(id: string, status: string): Promise<void> {
   const admin = await getAdmin();
@@ -22,4 +46,110 @@ export async function addNote(id: string, body: string): Promise<void> {
   if (trimmed.length === 0 || trimmed.length > 5000) throw new Error('bad note');
   await addLeadNote(id, admin.email, trimmed);
   revalidatePath(`/admin/leads/${id}`);
+}
+
+// ── Clients & Projects (Phase 2) ──
+
+const ClientSchema = z.object({
+  name: z.string().min(1),
+  email: z.email(),
+  company: z.string().optional(),
+  phone: z.string().optional(),
+  notes: z.string().optional(),
+});
+
+export async function createClientAction(form: {
+  name: string;
+  email: string;
+  company?: string;
+  phone?: string;
+  notes?: string;
+}): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  const p = ClientSchema.parse(form);
+  const { id } = await createClient(p);
+  revalidatePath('/admin/clients');
+  redirect(`/admin/clients/${id}`);
+}
+
+export async function updateClientAction(
+  id: string,
+  patch: { name?: string; email?: string; company?: string; phone?: string; notes?: string },
+): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  await updateClient(id, patch, admin.email);
+  revalidatePath(`/admin/clients/${id}`);
+}
+
+export async function archiveClientAction(id: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  await archiveClient(id, admin.email);
+  revalidatePath(`/admin/clients/${id}`);
+  revalidatePath('/admin/clients');
+}
+
+export async function createProjectAction(
+  clientId: string,
+  title: string,
+  description?: string,
+): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  if (!title.trim()) throw new Error('title required');
+  const { id } = await createProject({ clientId, title: title.trim(), description });
+  revalidatePath(`/admin/clients/${clientId}`);
+  redirect(`/admin/projects/${id}`);
+}
+
+export async function setProjectStatusAction(id: string, status: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  if (!PROJECT_STATUSES.includes(status as ProjectStatusValue)) throw new Error('bad status');
+  await setProjectStatus(id, status as ProjectStatusValue, admin.email);
+  revalidatePath(`/admin/projects/${id}`);
+}
+
+export async function addMilestoneAction(
+  projectId: string,
+  title: string,
+  dueDate?: string,
+): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  if (!title.trim()) throw new Error('title required');
+  await addMilestone(projectId, title.trim(), dueDate ? new Date(dueDate) : null);
+  revalidatePath(`/admin/projects/${projectId}`);
+}
+
+export async function toggleMilestoneAction(id: string, projectId: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  await toggleMilestone(id, admin.email);
+  revalidatePath(`/admin/projects/${projectId}`);
+}
+
+export async function addProjectUpdateAction(
+  projectId: string,
+  body: string,
+  visibility: string,
+): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  if (!body.trim()) throw new Error('empty');
+  const vis = visibility === 'CLIENT' ? 'CLIENT' : 'INTERNAL';
+  await addProjectUpdate(projectId, admin.email, body.trim(), vis);
+  revalidatePath(`/admin/projects/${projectId}`);
+}
+
+export async function convertLeadAction(leadId: string, projectTitle: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  const r = await convertLeadToClient(leadId, admin.email, projectTitle);
+  if ('error' in r) throw new Error(r.error);
+  revalidatePath('/admin/clients');
+  revalidatePath(`/admin/leads/${leadId}`);
+  redirect(`/admin/projects/${r.projectId}`);
 }
