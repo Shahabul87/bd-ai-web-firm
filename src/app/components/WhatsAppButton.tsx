@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-const WHATSAPP_NUMBER = '17752506651'; // Format: country code + number without spaces or symbols
+const WHATSAPP_NUMBER = '17753382146'; // Format: country code + number without spaces or symbols
 const DEFAULT_MESSAGE = 'Hi! I am interested in your AI development services. Can we discuss my project?';
 
 export default function WhatsAppButton() {
