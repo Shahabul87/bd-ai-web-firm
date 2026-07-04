@@ -7,6 +7,7 @@ import PageHero from '../../../components/shared/PageHero';
 import CTABand from '../../../components/shared/CTABand';
 import Card from '../../../design/ui/Card';
 import MdxContent from '../../../components/mdx/MdxContent';
+import ArticleJsonLd from '../../../components/ArticleJsonLd';
 
 interface CaseStudyDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -51,6 +52,11 @@ export default async function CaseStudyDetailPage({
 
   return (
     <PageLayout>
+      <ArticleJsonLd
+        headline={cs.title}
+        description={cs.excerpt}
+        urlPath={`/resources/case-studies/${cs.slug}`}
+      />
       <PageHero eyebrow="Resources / Case studies" title={cs.title} lede={cs.excerpt} />
 
       <section className="border-b border-line bg-ink-950">

@@ -36,7 +36,9 @@ export async function appendToSheet(
     await sheets.spreadsheets.values.append({
       spreadsheetId,
       range: `${sheetName}!A:Z`,
-      valueInputOption: 'USER_ENTERED',
+      // RAW (not USER_ENTERED) so user-supplied values starting with =, +, -, @
+      // are stored as literal text and never interpreted as spreadsheet formulas.
+      valueInputOption: 'RAW',
       requestBody: {
         values: [values],
       },

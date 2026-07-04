@@ -25,11 +25,11 @@ export default function StructuredData() {
     "url": "https://www.craftsai.org",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.craftsai.org/logo.png",
+      "url": "https://www.craftsai.org/icon-512.png",
       "width": 512,
       "height": 512
     },
-    "image": "https://www.craftsai.org/og-image.jpg",
+    "image": "https://www.craftsai.org/opengraph-image",
     "description": "AI-powered software studio delivering web, Android, and iOS applications up to 10x faster with enterprise-grade quality.",
     "foundingDate": "2025",
     "address": {

@@ -51,3 +51,8 @@ next-env.d.ts
 
 # screenshots
 *.png
+
+# ...but keep brand/PWA icon assets (generated from logo, must ship to prod)
+!public/icon-192.png
+!public/icon-512.png
+!src/app/apple-icon.png

@@ -1,53 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import validator from 'validator';
 import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
 import { appendToSheet } from '@/app/lib/sheets';
-
-// Email configuration
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@craftsai.com';
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
-const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
-const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587');
-
-// Send email using nodemailer
-async function sendEmail(to: string, subject: string, htmlContent: string, textContent: string) {
-  try {
-    const nodemailer = await import('nodemailer');
-
-    const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_PORT === 465,
-      auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASSWORD,
-      },
-    });
-
-    const mailOptions = {
-      from: `"CraftsAI" <${SMTP_USER}>`,
-      to: to,
-      subject: subject,
-      text: textContent,
-      html: htmlContent,
-    };
-
-    const result = await transporter.sendMail(mailOptions);
-    return { success: true, messageId: result.messageId };
-  } catch (error) {
-    console.error('Email sending failed:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
-  }
-}
-
-function sanitizeInput(input: string, maxLength: number = 1000): string {
-  return validator.escape(input.trim()).slice(0, maxLength);
-}
-
-function validateEmail(email: string): boolean {
-  return validator.isEmail(email);
-}
+import { sendEmail, isSmtpConfigured, CONTACT_EMAIL, SITE_URL } from '@/app/lib/email';
+import { sanitizeInput, validateEmail } from '@/app/lib/sanitize';
 
 // Auto-reply email for quote requests
 function getQuoteAutoReply(contactName: string, companyName: string, services: string[]): { html: string; text: string } {
@@ -65,11 +20,11 @@ What happens next:
 - We will prepare a detailed proposal tailored to your needs
 - You will receive a comprehensive quote with timeline and pricing
 
-If you have any urgent questions, feel free to reply to this email or call us directly.
+If you have any urgent questions, feel free to reply to this email.
 
 Best regards,
 The CraftsAI Team
-https://craftsai.org
+${SITE_URL}
   `;
 
   const html = `
@@ -81,10 +36,10 @@ https://craftsai.org
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background: #f5f5f5; margin: 0; padding: 20px; }
         .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .header { background: linear-gradient(135deg, #00E5FF, #8B5CF6, #FF6D00); color: white; padding: 30px; text-align: center; }
+        .header { background: linear-gradient(135deg, #0f172a, #1e293b); color: white; padding: 30px; text-align: center; }
         .header h1 { margin: 0; font-size: 24px; }
         .content { padding: 30px; }
-        .highlight { background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-left: 4px solid #00E5FF; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .highlight { background: #f0f9ff; border-left: 4px solid #00E5FF; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
         .services { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; }
         .service-tag { background: linear-gradient(135deg, #00E5FF, #8B5CF6); color: white; padding: 6px 14px; border-radius: 20px; font-size: 13px; }
         .steps { background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0; }
@@ -129,12 +84,12 @@ https://craftsai.org
             </div>
 
             <div class="cta">
-                <a href="https://craftsai.org/portfolio">View Our Portfolio</a>
+                <a href="${SITE_URL}/portfolio">View Our Portfolio</a>
             </div>
         </div>
         <div class="footer">
             <p>&copy; ${new Date().getFullYear()} CraftsAI. All rights reserved.</p>
-            <p>AI-Powered Development Solutions</p>
+            <p>AI Agent Development Studio</p>
         </div>
     </div>
 </body>
@@ -164,42 +119,39 @@ export async function POST(request: NextRequest) {
 
     // Honeypot spam check
     if (body.website || body.fax || body.company_url) {
-      console.log('Bot detected via honeypot:', clientIP);
       return NextResponse.json({
         success: true,
         message: 'Your quote request has been submitted successfully!'
       });
     }
 
-    // Extract and sanitize form data
-    const projectDetails = body.projectDetails;
-    const companyInfo = body.companyInfo;
-    const specialRequirements = sanitizeInput(body.specialRequirements || '', 2000);
+    const projectDetails = body.projectDetails ?? {};
+    const companyInfo = body.companyInfo ?? {};
 
-    // Validate required fields
+    // Validate required fields (against raw values)
     const errors: Record<string, string> = {};
 
-    if (!projectDetails?.services?.length) {
+    if (!Array.isArray(projectDetails.services) || projectDetails.services.length === 0) {
       errors.services = 'Please select at least one service';
     }
 
-    if (!projectDetails?.projectType) {
+    if (!projectDetails.projectType) {
       errors.projectType = 'Please specify your project type';
     }
 
-    if (!projectDetails?.description || projectDetails.description.length < 20) {
+    if (!projectDetails.description || String(projectDetails.description).length < 20) {
       errors.description = 'Please provide a detailed project description';
     }
 
-    if (!companyInfo?.companyName) {
+    if (!companyInfo.companyName) {
       errors.companyName = 'Company name is required';
     }
 
-    if (!companyInfo?.contactName) {
+    if (!companyInfo.contactName) {
       errors.contactName = 'Contact name is required';
     }
 
-    if (!companyInfo?.email || !validateEmail(companyInfo.email)) {
+    if (!companyInfo.email || !validateEmail(String(companyInfo.email))) {
       errors.email = 'Valid email address is required';
     }
 
@@ -207,48 +159,63 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    // Create service names from IDs
-    const serviceNames = projectDetails.services.map((serviceId: string) => {
-      const serviceMap: Record<string, string> = {
-        'ai-model-development': 'AI Model Development',
-        'data-pipelines': 'Data Processing Pipelines',
-        'web-development': 'Web Development',
-        'fintech-analysis': 'FinTech Solutions',
-        'healthcare-analytics': 'Healthcare Analytics',
-        'automation': 'Business Automation',
-      };
-      return serviceMap[serviceId] || serviceId;
-    });
+    // Sanitize every field before embedding it into email HTML/text or Sheets.
+    // (email passed validateEmail above, so it is safe to use verbatim.)
+    const companyName = sanitizeInput(companyInfo.companyName, 200);
+    const industry = sanitizeInput(companyInfo.industry, 100);
+    const companySize = sanitizeInput(companyInfo.companySize, 100);
+    const contactName = sanitizeInput(companyInfo.contactName, 100);
+    const email = String(companyInfo.email);
+    const phone = sanitizeInput(companyInfo.phone, 50);
+    const preferredContact = sanitizeInput(companyInfo.preferredContact, 50);
+    const projectType = sanitizeInput(projectDetails.projectType, 200);
+    const complexity = sanitizeInput(projectDetails.complexity, 100);
+    const timeline = sanitizeInput(projectDetails.timeline, 100);
+    const budget = sanitizeInput(projectDetails.budget, 100);
+    const description = sanitizeInput(projectDetails.description, 5000);
+    const requirements = sanitizeInput(projectDetails.requirements, 5000);
+    const specialRequirements = sanitizeInput(body.specialRequirements, 2000);
+
+    // Map service IDs (from the quote form) to display names; sanitize any fallback.
+    const serviceMap: Record<string, string> = {
+      'web-development': 'Web Development',
+      'android-development': 'Android Development',
+      'ios-development': 'iOS Development',
+      'product-inquiry': 'Product Inquiry',
+    };
+    const serviceNames: string[] = (projectDetails.services as unknown[]).map((serviceId) =>
+      serviceMap[String(serviceId)] || sanitizeInput(serviceId, 100)
+    );
 
     // Create admin notification email
-    const subject = `New Quote Request from ${companyInfo.companyName}`;
+    const subject = `New Quote Request from ${companyName}`;
 
     const textContent = `
 NEW QUOTE REQUEST
 
 COMPANY INFORMATION:
-Company: ${companyInfo.companyName}
-Industry: ${companyInfo.industry || 'Not specified'}
-Size: ${companyInfo.companySize || 'Not specified'}
+Company: ${companyName}
+Industry: ${industry || 'Not specified'}
+Size: ${companySize || 'Not specified'}
 
 CONTACT INFORMATION:
-Name: ${companyInfo.contactName}
-Email: ${companyInfo.email}
-Phone: ${companyInfo.phone || 'Not provided'}
-Preferred Contact: ${companyInfo.preferredContact || 'Email'}
+Name: ${contactName}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+Preferred Contact: ${preferredContact || 'Email'}
 
 PROJECT DETAILS:
 Services: ${serviceNames.join(', ')}
-Project Type: ${projectDetails.projectType}
-Complexity: ${projectDetails.complexity}
-Timeline: ${projectDetails.timeline}
-Investment Level: ${projectDetails.budget}
+Project Type: ${projectType}
+Complexity: ${complexity}
+Timeline: ${timeline}
+Investment Level: ${budget}
 
 Project Description:
-${projectDetails.description}
+${description}
 
 Technical Requirements:
-${projectDetails.requirements || 'Not specified'}
+${requirements || 'Not specified'}
 
 Special Requirements:
 ${specialRequirements || 'None specified'}
@@ -289,22 +256,22 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
         </div>
 
         <div class="priority">
-            POTENTIAL CLIENT: ${companyInfo.companyName} (${companyInfo.industry || 'Industry not specified'})
+            POTENTIAL CLIENT: ${companyName} (${industry || 'Industry not specified'})
         </div>
 
         <div class="section">
             <div class="section-title">Company Information</div>
             <div class="field">
                 <div class="field-label">Company:</div>
-                <div class="field-value">${companyInfo.companyName}</div>
+                <div class="field-value">${companyName}</div>
             </div>
             <div class="field">
                 <div class="field-label">Industry:</div>
-                <div class="field-value">${companyInfo.industry || 'Not specified'}</div>
+                <div class="field-value">${industry || 'Not specified'}</div>
             </div>
             <div class="field">
                 <div class="field-label">Company Size:</div>
-                <div class="field-value">${companyInfo.companySize || 'Not specified'}</div>
+                <div class="field-value">${companySize || 'Not specified'}</div>
             </div>
         </div>
 
@@ -312,19 +279,19 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
             <div class="section-title">Contact Information</div>
             <div class="field">
                 <div class="field-label">Name:</div>
-                <div class="field-value">${companyInfo.contactName}</div>
+                <div class="field-value">${contactName}</div>
             </div>
             <div class="field">
                 <div class="field-label">Email:</div>
-                <div class="field-value"><a href="mailto:${companyInfo.email}">${companyInfo.email}</a></div>
+                <div class="field-value"><a href="mailto:${email}">${email}</a></div>
             </div>
             <div class="field">
                 <div class="field-label">Phone:</div>
-                <div class="field-value">${companyInfo.phone || 'Not provided'}</div>
+                <div class="field-value">${phone || 'Not provided'}</div>
             </div>
             <div class="field">
                 <div class="field-label">Preferred Contact:</div>
-                <div class="field-value">${companyInfo.preferredContact || 'Email'}</div>
+                <div class="field-value">${preferredContact || 'Email'}</div>
             </div>
         </div>
 
@@ -334,36 +301,36 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
                 <div class="field-label">Services Needed:</div>
                 <div class="field-value">
                     <div class="services">
-                        ${serviceNames.map((service: string) => `<span class="service-tag">${service}</span>`).join('')}
+                        ${serviceNames.map((service) => `<span class="service-tag">${service}</span>`).join('')}
                     </div>
                 </div>
             </div>
             <div class="field">
                 <div class="field-label">Project Type:</div>
-                <div class="field-value">${projectDetails.projectType}</div>
+                <div class="field-value">${projectType}</div>
             </div>
             <div class="field">
                 <div class="field-label">Complexity:</div>
-                <div class="field-value">${projectDetails.complexity}</div>
+                <div class="field-value">${complexity || 'Not specified'}</div>
             </div>
             <div class="field">
                 <div class="field-label">Timeline:</div>
-                <div class="field-value">${projectDetails.timeline}</div>
+                <div class="field-value">${timeline || 'Not specified'}</div>
             </div>
             <div class="field">
                 <div class="field-label">Investment Level:</div>
-                <div class="field-value">${projectDetails.budget}</div>
+                <div class="field-value">${budget || 'Not specified'}</div>
             </div>
         </div>
 
         <div class="section">
             <div class="section-title">Project Description</div>
-            <div class="long-text">${projectDetails.description}</div>
+            <div class="long-text">${description}</div>
         </div>
 
         <div class="section">
             <div class="section-title">Technical Requirements</div>
-            <div class="long-text">${projectDetails.requirements || 'Not specified'}</div>
+            <div class="long-text">${requirements || 'Not specified'}</div>
         </div>
 
         ${specialRequirements ? `
@@ -385,7 +352,7 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
     `;
 
     // Send emails if SMTP is configured
-    if (SMTP_USER && SMTP_PASSWORD) {
+    if (isSmtpConfigured) {
       // Send admin notification
       const adminEmailResult = await sendEmail(CONTACT_EMAIL, subject, htmlContent, textContent);
 
@@ -394,9 +361,9 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
       }
 
       // Send auto-reply to client
-      const autoReply = getQuoteAutoReply(companyInfo.contactName, companyInfo.companyName, serviceNames);
+      const autoReply = getQuoteAutoReply(contactName, companyName, serviceNames);
       const clientEmailResult = await sendEmail(
-        companyInfo.email,
+        email,
         'Your Quote Request - CraftsAI',
         autoReply.html,
         autoReply.text
@@ -406,22 +373,21 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
         console.error('Client auto-reply failed:', clientEmailResult.error);
       }
     } else {
-      console.log('NEW QUOTE REQUEST:');
-      console.log(textContent);
-      console.log('Email not sent - SMTP not configured.');
+      // Do not log submission contents (PII).
+      console.warn('Quote request: SMTP not configured — notification email skipped.');
     }
 
     // Log to Google Sheets (non-blocking)
     appendToSheet('Quotes', [
       new Date().toISOString(),
-      companyInfo.contactName,
-      companyInfo.email,
+      contactName,
+      email,
       serviceNames.join(', '),
-      projectDetails.projectType,
-      projectDetails.complexity,
-      projectDetails.timeline,
-      projectDetails.budget,
-      companyInfo.companyName,
+      projectType,
+      complexity,
+      timeline,
+      budget,
+      companyName,
     ]).catch(() => {});
 
     return NextResponse.json({

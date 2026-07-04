@@ -1,54 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
-import validator from 'validator';
 import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
 import { appendToSheet } from '@/app/lib/sheets';
-
-// Email configuration
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@craftsai.com';
-const SMTP_USER = process.env.SMTP_USER;
-const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
-const SMTP_HOST = process.env.SMTP_HOST || 'smtp.gmail.com';
-const SMTP_PORT = parseInt(process.env.SMTP_PORT || '587');
-
-// Send email using nodemailer
-async function sendEmail(to: string, subject: string, htmlContent: string, textContent: string) {
-  try {
-    const nodemailer = await import('nodemailer');
-
-    const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_PORT === 465,
-      auth: {
-        user: SMTP_USER,
-        pass: SMTP_PASSWORD,
-      },
-    });
-
-    const mailOptions = {
-      from: `"CraftsAI" <${SMTP_USER}>`,
-      to: to,
-      subject: subject,
-      text: textContent,
-      html: htmlContent,
-    };
-
-    const result = await transporter.sendMail(mailOptions);
-    return { success: true, messageId: result.messageId };
-  } catch (error) {
-    console.error('Email sending failed:', error);
-    return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
-  }
-}
-
-// Sanitize and validate input
-function sanitizeInput(input: string, maxLength: number = 1000): string {
-  return validator.escape(input.trim()).slice(0, maxLength);
-}
-
-function validateEmail(email: string): boolean {
-  return validator.isEmail(email);
-}
+import { sendEmail, isSmtpConfigured, CONTACT_EMAIL, SITE_URL } from '@/app/lib/email';
+import { sanitizeInput, validateEmail } from '@/app/lib/sanitize';
 
 // Auto-reply email template for clients
 function getAutoReplyEmail(name: string): { html: string; text: string } {
@@ -59,7 +13,7 @@ Thank you for contacting CraftsAI!
 
 We have received your message and will get back to you within 24 hours.
 
-In the meantime, feel free to explore our services at https://craftsai.org
+In the meantime, feel free to explore our services at ${SITE_URL}
 
 Best regards,
 The CraftsAI Team
@@ -100,7 +54,7 @@ The CraftsAI Team
                 </ul>
             </div>
             <div class="cta">
-                <a href="https://craftsai.org">Explore Our Services</a>
+                <a href="${SITE_URL}">Explore Our Services</a>
             </div>
         </div>
         <div class="footer">
@@ -136,7 +90,6 @@ export async function POST(request: NextRequest) {
     // Honeypot spam check - if this field has a value, it's a bot
     if (body.website || body.url || body.company_website) {
       // Silently reject but return success to fool the bot
-      console.log('🤖 Bot detected via honeypot:', clientIP);
       return NextResponse.json({
         success: true,
         message: 'Your message has been sent successfully!'
@@ -231,7 +184,7 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
     `;
 
     // Send emails if SMTP is configured
-    if (SMTP_USER && SMTP_PASSWORD) {
+    if (isSmtpConfigured) {
       // Send admin notification
       const adminEmailResult = await sendEmail(CONTACT_EMAIL, subject, htmlContent, textContent);
 
@@ -252,9 +205,9 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
         console.error('Client auto-reply failed:', clientEmailResult.error);
       }
     } else {
-      console.log('NEW CONTACT FORM SUBMISSION:');
-      console.log(textContent);
-      console.log('Email not sent - SMTP not configured.');
+      // Do not log submission contents (PII). The Google Sheets append below
+      // still captures the lead when configured.
+      console.warn('Contact form: SMTP not configured — notification email skipped.');
     }
 
     // Log to Google Sheets (non-blocking)

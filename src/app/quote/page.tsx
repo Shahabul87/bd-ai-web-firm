@@ -8,6 +8,7 @@ import PageLayout from '../components/layout/PageLayout';
 import PageHero from '../components/shared/PageHero';
 import Button from '../design/ui/Button';
 import Stepper from '../design/ui/Stepper';
+import MonoLabel from '../design/ui/MonoLabel';
 
 // Types
 interface ProjectDetails {
@@ -71,6 +72,8 @@ export default function QuotePage() {
   const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -186,6 +189,8 @@ export default function QuotePage() {
     if (!validateStep(5)) return;
 
     setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setSubmitMessage('');
 
     try {
       const response = await fetch('/api/quote', {
@@ -202,18 +207,25 @@ export default function QuotePage() {
       const result = await response.json();
 
       if (result.success) {
-        alert('Quote request submitted! We will contact you within 24 hours.');
+        setSubmitStatus('success');
+        setSubmitMessage(
+          result.message ||
+            'Quote request submitted! We\'ll review your requirements and contact you within 24 hours.'
+        );
         setFormData(initialFormData);
+        if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (result.errors) {
+        setErrors(result.errors);
+        setFormData(prev => ({ ...prev, currentStep: 1 }));
+        setSubmitStatus('error');
+        setSubmitMessage('Please fix the highlighted fields and try again.');
       } else {
-        if (result.errors) {
-          setErrors(result.errors);
-          setFormData(prev => ({ ...prev, currentStep: 1 }));
-        } else {
-          alert('Error: ' + (result.message || 'Something went wrong. Please try again.'));
-        }
+        setSubmitStatus('error');
+        setSubmitMessage(result.message || 'Something went wrong. Please try again.');
       }
     } catch {
-      alert('Network error. Please check your connection and try again.');
+      setSubmitStatus('error');
+      setSubmitMessage('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -233,6 +245,30 @@ export default function QuotePage() {
 
       <section className="bg-ink-950">
         <div className="mx-auto max-w-4xl px-6 py-16 sm:py-20 md:py-24">
+          {submitStatus === 'success' ? (
+            <div
+              role="status"
+              aria-live="polite"
+              className="border border-signal/40 bg-ink-900 p-8 text-center sm:p-12"
+            >
+              <MonoLabel className="text-signal">Submitted</MonoLabel>
+              <h2 className="mt-6 font-display text-3xl font-medium text-bone sm:text-4xl">
+                Quote request received.
+              </h2>
+              <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-steel">
+                {submitMessage}
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3.5">
+                <Button variant="signal" size="lg" href="/">
+                  Back to home
+                </Button>
+                <Button variant="ghost" size="lg" href="/portfolio">
+                  View our work
+                </Button>
+              </div>
+            </div>
+          ) : (
+          <>
           <Stepper steps={stepTitles} current={formData.currentStep - 1} className="mb-10 sm:mb-12" />
 
           {/* Form Card */}
@@ -284,6 +320,16 @@ export default function QuotePage() {
                 )}
               </motion.div>
             </AnimatePresence>
+
+            {submitStatus === 'error' && (
+              <div
+                role="alert"
+                aria-live="assertive"
+                className="mt-6 border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-300"
+              >
+                {submitMessage}
+              </div>
+            )}
 
             {/* Navigation */}
             <div className="mt-8 flex justify-between border-t border-line pt-6 sm:mt-10 sm:pt-8">
@@ -347,6 +393,8 @@ export default function QuotePage() {
               <span>No spam, ever</span>
             </div>
           </div>
+          </>
+          )}
         </div>
       </section>
     </PageLayout>
@@ -459,8 +507,8 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
       <div className="space-y-5 sm:space-y-6">
         {/* Project Scale */}
         <div>
-          <label className={labelStyles}>Project Scale</label>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
+          <div id="project-scale-label" className={labelStyles}>Project Scale</div>
+          <div role="group" aria-labelledby="project-scale-label" className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
             {[
               { value: 'mvp', label: 'MVP', desc: 'Quick validation', icon: '\u{1F331}' },
               { value: 'standard', label: 'Standard', desc: 'Full features', icon: '\u{1F680}' },
@@ -489,8 +537,9 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
 
         {/* Description */}
         <div>
-          <label className={labelStyles}>Project Description *</label>
+          <label htmlFor="project-description" className={labelStyles}>Project Description *</label>
           <textarea
+            id="project-description"
             value={formData.projectDetails.description}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -507,8 +556,9 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
 
         {/* Requirements */}
         <div>
-          <label className={labelStyles}>Special Requirements (Optional)</label>
+          <label htmlFor="project-requirements" className={labelStyles}>Special Requirements (Optional)</label>
           <textarea
+            id="project-requirements"
             value={formData.projectDetails.requirements}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -522,8 +572,8 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
 
         {/* Timeline */}
         <div>
-          <label className={labelStyles}>Preferred Timeline</label>
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          <div id="timeline-label" className={labelStyles}>Preferred Timeline</div>
+          <div role="group" aria-labelledby="timeline-label" className="grid grid-cols-3 gap-2 sm:gap-3">
             {[
               { value: 'urgent', label: 'ASAP', desc: '2-4 weeks', badge: 'Priority' },
               { value: 'standard', label: 'Standard', desc: '4-8 weeks', badge: 'Recommended' },
@@ -677,9 +727,11 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
       <div className="mx-auto max-w-lg space-y-5 sm:space-y-6">
         {/* Name */}
         <div>
-          <label className={labelStyles}>Your Name *</label>
+          <label htmlFor="contact-name" className={labelStyles}>Your Name *</label>
           <input
+            id="contact-name"
             type="text"
+            autoComplete="name"
             value={formData.companyInfo.contactName}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -695,9 +747,11 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
 
         {/* Email */}
         <div>
-          <label className={labelStyles}>Email Address *</label>
+          <label htmlFor="contact-email" className={labelStyles}>Email Address *</label>
           <input
+            id="contact-email"
             type="email"
+            autoComplete="email"
             value={formData.companyInfo.email}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -713,11 +767,13 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
 
         {/* Company (Optional) */}
         <div>
-          <label className={labelStyles}>
+          <label htmlFor="company-name" className={labelStyles}>
             Company Name <span className="normal-case tracking-normal text-steel/70">(Optional)</span>
           </label>
           <input
+            id="company-name"
             type="text"
+            autoComplete="organization"
             value={formData.companyInfo.companyName}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -730,17 +786,19 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
 
         {/* Phone (Optional) */}
         <div>
-          <label className={labelStyles}>
+          <label htmlFor="contact-phone" className={labelStyles}>
             Phone Number <span className="normal-case tracking-normal text-steel/70">(Optional)</span>
           </label>
           <input
+            id="contact-phone"
             type="tel"
+            autoComplete="tel"
             value={formData.companyInfo.phone}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
               companyInfo: { ...prev.companyInfo, phone: e.target.value }
             }))}
-            placeholder="+1 (555) 123-4567"
+            placeholder="+880 1XXX-XXXXXX"
             className={`${inputStyles} min-h-[44px]`}
           />
         </div>

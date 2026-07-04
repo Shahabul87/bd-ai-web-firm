@@ -40,8 +40,8 @@ const contactInfo = [
   },
   {
     label: 'WhatsApp',
-    value: '+880 XXXX XXXXXX',
-    href: 'https://wa.me/880XXXXXXXXXX',
+    value: '+1 775 250 6651',
+    href: 'https://wa.me/17752506651',
     icon: (
       <svg
         className="h-5 w-5"

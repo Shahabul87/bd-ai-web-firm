@@ -13,27 +13,27 @@ interface Message {
 const knowledgeBase = {
   services: {
     keywords: ['services', 'what do you do', 'capabilities', 'offerings'],
-    response: "We offer comprehensive AI and web development services including:\n\n• Machine Learning & Predictive Analytics\n• Natural Language Processing\n• Computer Vision & Image Recognition\n• AI-Powered Web Applications\n• Data Visualization & Dashboards\n• Intelligent Process Automation\n\nWould you like to know more about any specific service?"
+    response: "We're an AI agent development studio. Our AI agents build your software, with human review on every release. We offer:\n\n• Custom AI agents built for your workflows\n• AI-built websites & web applications\n• Android apps (Kotlin, Jetpack Compose)\n• iOS apps (Swift, SwiftUI)\n• AI agent integration into your existing systems\n• Ongoing support & maintenance\n\nWould you like to know more about any specific service?"
   },
   pricing: {
     keywords: ['price', 'cost', 'pricing', 'budget', 'quote'],
-    response: "Our pricing is tailored to each project's complexity and requirements. We offer:\n\n• Free initial consultation\n• Custom project quotes\n• Flexible payment plans\n• Ongoing support packages\n\nI'd be happy to connect you with our team for a personalized quote. What type of project are you considering?"
+    response: "Our pricing is tailored to each project's scope and complexity. We offer:\n\n• Free initial consultation\n• Custom project quotes\n• Flexible engagement options\n• Ongoing support packages\n\nI'd be happy to connect you with our team for a personalized quote. What type of project are you considering?"
   },
   technologies: {
     keywords: ['technology', 'tech stack', 'tools', 'frameworks'],
-    response: "We use cutting-edge technologies including:\n\n**AI/ML:** TensorFlow, PyTorch, Scikit-learn, OpenAI API\n**Web:** React, Next.js, Node.js, Python, TypeScript\n**Cloud:** AWS, Google Cloud, Azure\n**Databases:** PostgreSQL, MongoDB, Redis\n\nOur tech stack is chosen based on your specific project needs."
+    response: "We build with a modern, production-grade stack:\n\n**Web:** React, Next.js, Node.js, TypeScript\n**Android:** Kotlin, Jetpack Compose\n**iOS:** Swift, SwiftUI\n**AI:** custom AI agents integrated into your build and product workflows\n\nWe choose the right tools for your specific project needs."
   },
   portfolio: {
     keywords: ['portfolio', 'projects', 'examples', 'work', 'case studies'],
-    response: "We've successfully delivered projects across various industries:\n\n• E-commerce recommendation engines (47% sales increase)\n• Healthcare analytics platforms (99.2% accuracy)\n• Financial trading dashboards (87% prediction accuracy)\n• Manufacturing quality control AI (99.7% defect detection)\n\nCheck out our Portfolio page for detailed case studies!"
+    response: "Here are products we've built:\n\n• **TaxoMind** — AI-powered learning platform\n• **TaxoMind Schools** — learning platform for schools\n• **FinCoach AI** — personal finance made simple\n• **MathPhysics** — interactive STEM learning\n\nVisit our Portfolio and Case Studies pages for the full stories!"
   },
   contact: {
-    keywords: ['contact', 'reach', 'email', 'phone', 'meeting'],
-    response: "I'd love to connect you with our team! Here are the ways to reach us:\n\n📧 **Email:** hello@craftsai.com\n📞 **Phone:** +1 (555) 123-4567\n📍 **Office:** 123 Innovation Drive, Tech City, TC 12345\n\nOr click the 'Get a Quote' button to schedule a free consultation!"
+    keywords: ['contact', 'reach', 'email', 'phone', 'meeting', 'location', 'where'],
+    response: "I'd love to connect you with our team! Here's how to reach us:\n\n📧 **Email:** hello@craftsai.org\n💬 **WhatsApp:** tap the green button at the bottom-right\n📍 **Based in:** Dhaka, Bangladesh — working with clients worldwide\n\nOr click the 'Get a Quote' button to start a free consultation!"
   },
   timeline: {
     keywords: ['timeline', 'duration', 'how long', 'delivery', 'time'],
-    response: "Project timelines vary based on complexity:\n\n• **Simple AI Integration:** 2-4 weeks\n• **Custom Web Application:** 6-12 weeks\n• **Complex AI System:** 3-6 months\n• **Enterprise Solution:** 6-12 months\n\nWe always provide detailed timelines during our initial consultation."
+    response: "Project timelines depend on scope. Typical ranges:\n\n• **Website / landing site:** 1-4 weeks\n• **Custom web application:** 4-12 weeks\n• **Mobile app (Android/iOS):** 6-14 weeks\n• **AI agent integration:** scoped per project\n\nWe'll give you a detailed timeline during your consultation."
   }
 };
 
@@ -91,7 +91,7 @@ export default function AIChatbot() {
     }
 
     // Default response
-    return "I'd be happy to help you with that! For detailed information about your specific needs, I recommend:\n\n• Checking our Services or Portfolio pages\n• Scheduling a free consultation with our team\n• Calling us at +1 (555) 123-4567\n\nIs there anything specific about our AI or web development services you'd like to know?";
+    return "I'd be happy to help you with that! For detailed information about your specific needs, I recommend:\n\n• Checking our Services or Portfolio pages\n• Scheduling a free consultation with our team\n• Emailing us at hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything specific about our AI, web, or mobile development services you'd like to know?";
   };
 
   const sendMessage = async () => {
@@ -205,11 +205,11 @@ export default function AIChatbot() {
 
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-slate-800 border border-slate-700/50 p-3 rounded-2xl">
+                <div className="bg-ink-800 border border-line p-3 rounded-2xl">
                   <div className="flex items-center gap-1">
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-steel rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-steel rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-steel rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
                 </div>
               </div>
@@ -220,8 +220,8 @@ export default function AIChatbot() {
 
           {/* Quick Questions */}
           {messages.length <= 1 && (
-            <div className="p-4 border-t border-slate-700/50">
-              <div className="text-xs text-slate-400 mb-2">Quick questions:</div>
+            <div className="p-4 border-t border-line">
+              <div className="text-xs text-steel mb-2">Quick questions:</div>
               <div className="flex flex-wrap gap-2">
                 {quickQuestions.slice(0, 3).map((question, index) => (
                   <button
@@ -230,7 +230,7 @@ export default function AIChatbot() {
                       setInputText(question);
                       setTimeout(sendMessage, 100);
                     }}
-                    className="text-xs px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-full transition-colors duration-200"
+                    className="text-xs px-3 py-1 bg-ink-800 hover:bg-line text-bone rounded-full transition-colors duration-200"
                   >
                     {question}
                   </button>
@@ -240,7 +240,7 @@ export default function AIChatbot() {
           )}
 
           {/* Input */}
-          <div className="p-3 sm:p-4 border-t border-slate-700/50">
+          <div className="p-3 sm:p-4 border-t border-line">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -248,12 +248,14 @@ export default function AIChatbot() {
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything..."
-                className="flex-1 bg-slate-800 border border-slate-600 rounded-full px-3 sm:px-4 py-2 text-white text-xs sm:text-sm focus:outline-none focus:border-cyan-400 transition-colors duration-200"
+                aria-label="Chat message"
+                className="flex-1 bg-ink-800 border border-line rounded-full px-3 sm:px-4 py-2 text-bone text-xs sm:text-sm focus:outline-none focus:border-signal transition-colors duration-200"
                 disabled={isTyping}
               />
               <button
                 onClick={sendMessage}
                 disabled={!inputText.trim() || isTyping}
+                aria-label="Send message"
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
                   inputText.trim() && !isTyping
                     ? 'bg-signal text-ink-950 hover:bg-signal-dim'

@@ -9,6 +9,7 @@ import BrowserCompatibilityFallback from "./components/BrowserCompatibilityFallb
 import ErrorBoundary from "./components/ErrorBoundary";
 import StructuredData from "./components/StructuredData";
 import Analytics from "./analytics";
+import CookieConsent from "./components/CookieConsent";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -73,20 +74,15 @@ export const metadata: Metadata = {
     url: "https://www.craftsai.org",
     title: "CraftsAI | AI Agent Development Studio",
     description: "We build AI agents. Our agents build your software — websites, mobile apps, and integrations, shipped fast with human review.",
-    siteName: "CraftsAI",
-    images: [{
-      url: "/og-image.jpg",
-      width: 1200,
-      height: 630,
-      alt: "CraftsAI - AI Autonomous Development Studio"
-    }]
+    siteName: "CraftsAI"
+    // OG image is generated dynamically by src/app/opengraph-image.tsx
   },
   twitter: {
     card: "summary_large_image",
     title: "CraftsAI | AI Agent Development Studio",
     description: "We build AI agents. Our agents build your software — websites, mobile apps, and integrations.",
-    creator: "@craftsai",
-    images: ["/og-image.jpg"]
+    creator: "@craftsai"
+    // Twitter image is generated dynamically by src/app/opengraph-image.tsx
   },
   alternates: {
     canonical: "https://www.craftsai.org"
@@ -119,9 +115,8 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="CraftsAI" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <link rel="canonical" href="https://www.craftsai.org" />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        {/* Favicon (icon.svg), apple-touch-icon (apple-icon.png) auto-injected by Next.js
+            metadata file conventions; favicon.ico served from /public for legacy crawlers. */}
         <link rel="manifest" href="/manifest.json" />
 
         {/* Critical CSS for above-the-fold content */}
@@ -129,9 +124,7 @@ export default function RootLayout({
           body { margin: 0; background: #0A0C10; color: #EDEEE8; }
           .min-h-screen { min-height: 100vh; }
         ` }} />
-        
-        {/* Google Search Console Verification - Replace with your actual verification code */}
-        <meta name="google-site-verification" content="abcdef1234567890abcdef1234567890abcdef12" />
+        {/* Google Search Console is verified via /googlef1eae627fd291eda.html (public/). */}
       </head>
       <body
         className={`${spaceGrotesk.variable} ${instrumentSans.variable} ${jetbrainsMono.variable} antialiased bg-ink-950 text-bone`}
@@ -144,24 +137,41 @@ export default function RootLayout({
             {children}
             <WhatsAppButton />
             <AIChatbot />
+            {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <CookieConsent />}
           </CrossPlatformWrapper>
         </ErrorBoundary>
         
-        {/* Google Analytics - loaded only when NEXT_PUBLIC_GA_MEASUREMENT_ID is set */}
+        {/* Google Analytics with Consent Mode v2 (default DENIED until the user
+            opts in via the CookieConsent banner). Loaded only when configured. */}
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <>
+            <Script id="ga-consent-default" strategy="beforeInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('consent', 'default', {
+                  ad_storage: 'denied',
+                  ad_user_data: 'denied',
+                  ad_personalization: 'denied',
+                  analytics_storage: 'denied',
+                  wait_for_update: 500
+                });
+                try {
+                  if (localStorage.getItem('cookie-consent') === 'granted') {
+                    gtag('consent', 'update', { analytics_storage: 'granted' });
+                  }
+                } catch (e) {}
+              `}
+            </Script>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
               strategy="afterInteractive"
             />
             <Script id="google-analytics" strategy="afterInteractive">
               {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}', {
-                  page_title: document.title,
-                  page_location: window.location.href,
+                  anonymize_ip: true
                 });
               `}
             </Script>

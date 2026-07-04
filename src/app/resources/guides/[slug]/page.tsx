@@ -6,6 +6,7 @@ import PageLayout from '../../../components/layout/PageLayout';
 import PageHero from '../../../components/shared/PageHero';
 import CTABand from '../../../components/shared/CTABand';
 import MdxContent from '../../../components/mdx/MdxContent';
+import ArticleJsonLd from '../../../components/ArticleJsonLd';
 
 interface GuideDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -58,6 +59,12 @@ export default async function GuideDetailPage({
 
   return (
     <PageLayout>
+      <ArticleJsonLd
+        headline={guide.title}
+        description={guide.excerpt}
+        urlPath={`/resources/guides/${guide.slug}`}
+        datePublished={guide.date}
+      />
       <PageHero eyebrow="Resources / Guides" title={guide.title} lede={guide.excerpt} />
 
       <section className="border-b border-line bg-ink-950">

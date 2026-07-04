@@ -6,6 +6,7 @@ import PageLayout from '../../../components/layout/PageLayout';
 import PageHero from '../../../components/shared/PageHero';
 import CTABand from '../../../components/shared/CTABand';
 import MdxContent from '../../../components/mdx/MdxContent';
+import ArticleJsonLd from '../../../components/ArticleJsonLd';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -58,6 +59,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <PageLayout>
+      <ArticleJsonLd
+        type="BlogPosting"
+        headline={blog.title}
+        description={blog.excerpt}
+        urlPath={`/resources/blog/${blog.slug}`}
+        datePublished={blog.date}
+        author={blog.author}
+      />
       <PageHero eyebrow="Resources / Blog" title={blog.title} lede={blog.excerpt} />
 
       <section className="border-b border-line bg-ink-950">

@@ -22,11 +22,8 @@ const nextConfig: NextConfig = {
   /* config options here */
   // Fix for "multiple lockfiles" warning - explicitly set workspace root
   outputFileTracingRoot: __dirname,
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
+  // ESLint is enforced during builds — the codebase is lint-clean, so a new
+  // error should fail the build rather than ship silently.
   async redirects() {
     return [
       {

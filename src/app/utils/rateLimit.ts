@@ -1,6 +1,15 @@
 /**
- * Simple in-memory rate limiter
- * Tracks requests by IP address
+ * Best-effort in-memory rate limiter, keyed by IP address.
+ *
+ * ⚠️ SERVERLESS LIMITATION: this Map lives in a single process. On serverless
+ * platforms (Vercel/Netlify) each instance and each cold start has its own Map,
+ * so limits are NOT shared across instances and reset on scale-down. It still
+ * blocks naive single-source floods, but it is NOT a robust abuse control.
+ *
+ * For production-grade limiting shared across instances, back this with a
+ * central store (Upstash Redis / Vercel KV) using TTL keys — swap the body of
+ * checkRateLimit() to INCR + EXPIRE against that store. The honeypot + input
+ * validation in each route remain the primary spam defenses.
  */
 
 interface RateLimitEntry {
@@ -10,15 +19,18 @@ interface RateLimitEntry {
 
 const rateLimitStore = new Map<string, RateLimitEntry>();
 
-// Clean up old entries every 5 minutes
-setInterval(() => {
-  const now = Date.now();
+// Opportunistic cleanup: prune expired entries when the map grows, so a
+// long-lived process (e.g. `next start`) does not leak memory. No timers —
+// setInterval never fires reliably in a frozen serverless runtime.
+const MAX_ENTRIES_BEFORE_SWEEP = 10_000;
+
+function sweepExpired(now: number): void {
   for (const [key, entry] of rateLimitStore.entries()) {
     if (now > entry.resetTime) {
       rateLimitStore.delete(key);
     }
   }
-}, 5 * 60 * 1000);
+}
 
 interface RateLimitOptions {
   maxRequests: number;  // Maximum requests allowed
@@ -36,6 +48,11 @@ export function checkRateLimit(
   options: RateLimitOptions = { maxRequests: 5, windowMs: 60 * 1000 }
 ): RateLimitResult {
   const now = Date.now();
+
+  if (rateLimitStore.size > MAX_ENTRIES_BEFORE_SWEEP) {
+    sweepExpired(now);
+  }
+
   const entry = rateLimitStore.get(identifier);
 
   // If no entry or window expired, create new entry
@@ -71,7 +88,10 @@ export function checkRateLimit(
 }
 
 /**
- * Get client IP from request headers
+ * Get client IP from request headers.
+ * Note: trusts x-forwarded-for / x-real-ip — only reliable behind a trusted
+ * proxy (Vercel sets these). Returns 'unknown' if absent, so all
+ * header-less callers share one bucket (fail-closed-ish for spam).
  */
 export function getClientIP(request: Request): string {
   const forwarded = request.headers.get('x-forwarded-for');
