@@ -7,7 +7,11 @@ import 'server-only';
  * if ever invoked in production.
  */
 type Chal = { code: string; expires: number };
-const store = new Map<string, Chal>();
+
+// globalThis-backed so the store is shared across separately-bundled route
+// handlers in dev (same reason db.ts pins its PrismaClient to globalThis).
+const g = globalThis as unknown as { __devAuthStore?: Map<string, Chal> };
+const store = (g.__devAuthStore ??= new Map<string, Chal>());
 
 function assertDev(): void {
   if (process.env.NODE_ENV === 'production') {
