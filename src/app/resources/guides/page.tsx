@@ -7,7 +7,7 @@ import Card from '../../design/ui/Card';
 import { getAllGuides } from '@/app/lib/content';
 
 export const metadata: Metadata = {
-  title: 'Guides & Whitepapers - In-Depth Development Resources | CraftsAI',
+  title: 'Guides & Whitepapers - In-Depth Development Resources',
   description:
     'Comprehensive guides on web app development, choosing a development partner, and building successful software products.',
   openGraph: {

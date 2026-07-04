@@ -7,7 +7,7 @@ import SectionHeader from '../design/ui/SectionHeader';
 import Card from '../design/ui/Card';
 
 export const metadata: Metadata = {
-  title: 'About CraftsAI | AI-First Software Studio',
+  title: 'About - AI-First Software Studio',
   description:
     'Founded in 2025, CraftsAI is a Bangladesh-based software studio that combines AI agents with human engineers to deliver web, Android, and iOS products 10x faster.',
   openGraph: {

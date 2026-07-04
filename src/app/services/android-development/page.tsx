@@ -12,11 +12,11 @@ import type { AccordionItem } from '../../design/ui/Accordion';
 import type { SpecRow } from '../../design/ui/SpecTable';
 
 export const metadata: Metadata = {
-  title: 'Android Development Services | CraftsAI',
+  title: 'Android Development Services',
   description:
     'Native Android apps with Kotlin and Jetpack Compose. Material Design 3, Firebase integration — built by our AI agents and reviewed by senior engineers.',
   openGraph: {
-    title: 'Android Development Services | CraftsAI',
+    title: 'Android Development Services',
     description: 'Native Android apps with Kotlin and Jetpack Compose. 8x faster delivery.',
     url: 'https://www.craftsai.org/services/android-development',
   },

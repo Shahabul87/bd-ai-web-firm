@@ -11,11 +11,11 @@ import type { AccordionItem } from '../../design/ui/Accordion';
 import type { SpecRow } from '../../design/ui/SpecTable';
 
 export const metadata: Metadata = {
-  title: 'Support & Maintenance Services | CraftsAI',
+  title: 'Support & Maintenance Services',
   description:
     'Ongoing support retainers with bug fixes, security patches, performance monitoring, and feature updates. 24/7 monitoring with 4-hour response time.',
   openGraph: {
-    title: 'Support & Maintenance Services | CraftsAI',
+    title: 'Support & Maintenance Services',
     description: 'Ongoing support retainers. Bug fixes, updates, performance monitoring.',
     url: 'https://www.craftsai.org/services/support',
   },

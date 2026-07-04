@@ -24,7 +24,7 @@ export async function generateMetadata({
   if (!guide) return {};
 
   return {
-    title: `${guide.title} | CraftsAI Guides`,
+    title: guide.title,
     description: guide.excerpt,
     openGraph: {
       title: `${guide.title} | CraftsAI`,

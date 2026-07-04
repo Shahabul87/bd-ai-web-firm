@@ -8,11 +8,11 @@ import Accordion from '../design/ui/Accordion';
 import faqData from '../../../content/faq/faq.json';
 
 export const metadata: Metadata = {
-  title: 'FAQ | CraftsAI',
+  title: 'FAQ',
   description:
     'Frequently asked questions about CraftsAI services, pricing, process, and support. Find answers to common questions about AI-powered development.',
   openGraph: {
-    title: 'FAQ | CraftsAI',
+    title: 'FAQ',
     description:
       'Frequently asked questions about CraftsAI services, pricing, process, and support.',
     url: 'https://www.craftsai.org/faq',

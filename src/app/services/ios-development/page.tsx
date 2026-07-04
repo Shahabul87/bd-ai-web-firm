@@ -12,11 +12,11 @@ import type { AccordionItem } from '../../design/ui/Accordion';
 import type { SpecRow } from '../../design/ui/SpecTable';
 
 export const metadata: Metadata = {
-  title: 'iOS Development Services | CraftsAI',
+  title: 'iOS Development Services',
   description:
     'Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready — built by our AI agents and reviewed by senior engineers.',
   openGraph: {
-    title: 'iOS Development Services | CraftsAI',
+    title: 'iOS Development Services',
     description: 'Native iOS apps with Swift and SwiftUI. 8x faster delivery.',
     url: 'https://www.craftsai.org/services/ios-development',
   },

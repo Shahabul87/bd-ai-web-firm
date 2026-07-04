@@ -9,7 +9,7 @@ import { getLatestContent } from '../lib/content';
 import type { LatestContentItem } from '../lib/content';
 
 export const metadata: Metadata = {
-  title: 'Resources - Blog, Case Studies & Guides | CraftsAI',
+  title: 'Resources - Blog, Case Studies & Guides',
   description:
     'Explore our blog posts, case studies, and in-depth guides on AI-powered software development, web apps, mobile apps, and business strategy.',
   openGraph: {

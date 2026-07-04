@@ -12,11 +12,11 @@ import type { AccordionItem } from '../../design/ui/Accordion';
 import type { SpecRow } from '../../design/ui/SpecTable';
 
 export const metadata: Metadata = {
-  title: 'Web Development Services | CraftsAI',
+  title: 'Web Development Services',
   description:
     'Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers.',
   openGraph: {
-    title: 'Web Development Services | CraftsAI',
+    title: 'Web Development Services',
     description:
       'Full-stack web applications built with React, Next.js, and modern cloud infrastructure.',
     url: 'https://www.craftsai.org/services/web-development',

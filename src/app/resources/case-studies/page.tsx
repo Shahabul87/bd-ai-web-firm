@@ -7,7 +7,7 @@ import Card from '../../design/ui/Card';
 import { getAllCaseStudies } from '@/app/lib/content';
 
 export const metadata: Metadata = {
-  title: 'Case Studies - Real AI Development Results | CraftsAI',
+  title: 'Case Studies - Real AI Development Results',
   description:
     'See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more.',
   openGraph: {

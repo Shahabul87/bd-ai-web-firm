@@ -6,11 +6,11 @@ import CTABand from '../components/shared/CTABand';
 import MonoLabel from '../design/ui/MonoLabel';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | CraftsAI',
+  title: 'Privacy Policy',
   description:
     'CraftsAI privacy policy. Learn how we collect, use, and protect your personal information.',
   openGraph: {
-    title: 'Privacy Policy | CraftsAI',
+    title: 'Privacy Policy',
     description: 'How CraftsAI collects, uses, and protects your data.',
     url: 'https://www.craftsai.org/privacy',
   },

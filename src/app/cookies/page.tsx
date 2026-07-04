@@ -7,11 +7,11 @@ import MonoLabel from '../design/ui/MonoLabel';
 import Card from '../design/ui/Card';
 
 export const metadata: Metadata = {
-  title: 'Cookie Policy | CraftsAI',
+  title: 'Cookie Policy',
   description:
     'CraftsAI cookie policy. Learn about the cookies we use and how to manage your preferences.',
   openGraph: {
-    title: 'Cookie Policy | CraftsAI',
+    title: 'Cookie Policy',
     description: 'How CraftsAI uses cookies and tracking technologies.',
     url: 'https://www.craftsai.org/cookies',
   },

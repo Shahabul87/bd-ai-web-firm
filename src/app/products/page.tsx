@@ -7,11 +7,11 @@ import CTABand from '../components/shared/CTABand';
 import Card from '../design/ui/Card';
 
 export const metadata: Metadata = {
-  title: 'Our Products | CraftsAI',
+  title: 'Our Products',
   description:
     'Ready-made solutions, battle-tested and production-ready. Explore our product lineup spanning web platforms and Android apps.',
   openGraph: {
-    title: 'Our Products | CraftsAI',
+    title: 'Our Products',
     description: 'Ready-made solutions, battle-tested and production-ready.',
     url: 'https://www.craftsai.org/products',
     siteName: 'CraftsAI',

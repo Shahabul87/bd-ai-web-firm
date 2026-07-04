@@ -6,11 +6,11 @@ import SectionHeader from '../design/ui/SectionHeader';
 import Card from '../design/ui/Card';
 
 export const metadata: Metadata = {
-  title: 'Careers | CraftsAI',
+  title: 'Careers',
   description:
     'Join the CraftsAI team. We are building the future of AI-powered software development. Explore our culture and open positions.',
   openGraph: {
-    title: 'Careers | CraftsAI',
+    title: 'Careers',
     description: 'Join the CraftsAI team and build the future of AI-powered software development.',
     url: 'https://www.craftsai.org/careers',
   },

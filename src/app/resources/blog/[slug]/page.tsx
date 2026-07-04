@@ -24,7 +24,7 @@ export async function generateMetadata({
   if (!blog) return {};
 
   return {
-    title: `${blog.title} | CraftsAI Blog`,
+    title: blog.title,
     description: blog.excerpt,
     openGraph: {
       title: `${blog.title} | CraftsAI`,

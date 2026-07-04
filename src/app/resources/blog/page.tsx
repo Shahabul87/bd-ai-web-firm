@@ -7,7 +7,7 @@ import Card from '../../design/ui/Card';
 import { getAllBlogs } from '@/app/lib/content';
 
 export const metadata: Metadata = {
-  title: 'Blog - AI Development Insights | CraftsAI',
+  title: 'Blog - AI Development Insights',
   description:
     'Read our latest articles on AI-powered development, web and mobile strategy, cost savings, and technology trends.',
   openGraph: {

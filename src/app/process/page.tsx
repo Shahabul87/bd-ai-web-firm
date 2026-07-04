@@ -7,11 +7,11 @@ import Card from '../design/ui/Card';
 import SpecTable from '../design/ui/SpecTable';
 
 export const metadata: Metadata = {
-  title: 'Our Development Process | CraftsAI',
+  title: 'Our Development Process',
   description:
     'From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication.',
   openGraph: {
-    title: 'Our Development Process | CraftsAI',
+    title: 'Our Development Process',
     description: 'From discovery to launch in 5 clear phases.',
     url: 'https://www.craftsai.org/process',
   },
