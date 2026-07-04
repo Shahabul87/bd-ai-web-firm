@@ -112,7 +112,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: craftsai_dev
     ports:
-      - "5433:5432"
+      - "5438:5432"
     volumes:
       - craftsai_dev_db:/var/lib/postgresql/data
 volumes:
@@ -121,7 +121,7 @@ volumes:
 
 Create `.env` (local only, gitignored):
 ```
-DATABASE_URL="postgresql://postgres:postgres@localhost:5433/craftsai_dev?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5438/craftsai_dev?schema=public"
 ```
 
 Append to `.env.example`:
@@ -131,7 +131,7 @@ DATABASE_URL="postgresql://user:pass@host:5432/db?schema=public"
 ```
 
 Run: `docker compose -f docker-compose.dev.yml up -d`
-Expected: `craftsai-dev-db` container running; `docker ps` shows it on `0.0.0.0:5433->5432`.
+Expected: `craftsai-dev-db` container running; `docker ps` shows it on `0.0.0.0:5438->5432`.
 
 - [ ] **Step 4: Write `prisma/schema.prisma`**
 

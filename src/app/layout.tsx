@@ -10,6 +10,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import StructuredData from "./components/StructuredData";
 import Analytics from "./analytics";
 import CookieConsent from "./components/CookieConsent";
+import MarketingChrome from "./components/MarketingChrome";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -135,9 +136,11 @@ export default function RootLayout({
             <StructuredData />
             <Analytics />
             {children}
-            <WhatsAppButton />
-            <AIChatbot />
-            {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <CookieConsent />}
+            <MarketingChrome>
+              <WhatsAppButton />
+              <AIChatbot />
+              {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <CookieConsent />}
+            </MarketingChrome>
           </CrossPlatformWrapper>
         </ErrorBoundary>
         

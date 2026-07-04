@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
-import { appendToSheet } from '@/app/lib/sheets';
+import { createLead } from '@/app/lib/leads';
 import { sendEmail, isSmtpConfigured, CONTACT_EMAIL, SITE_URL } from '@/app/lib/email';
 import { sanitizeInput, validateEmail } from '@/app/lib/sanitize';
 
@@ -210,13 +210,16 @@ User Agent: ${request.headers.get('user-agent') || 'Unknown'}
       console.warn('Contact form: SMTP not configured — notification email skipped.');
     }
 
-    // Log to Google Sheets (non-blocking)
-    appendToSheet('Contacts', [
-      new Date().toISOString(),
+    // Persist the lead (fail-open) + alert the founder
+    await createLead({
+      source: 'CONTACT',
       name,
       email,
       message,
-    ]).catch(() => {});
+      payload: { name, email, message },
+      ip: clientIP,
+      userAgent: request.headers.get('user-agent') ?? undefined,
+    });
 
     return NextResponse.json({
       success: true,

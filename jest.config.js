@@ -12,6 +12,8 @@ const customJestConfig = {
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
     '^@/(.*)$': '<rootDir>/src/$1',
+    // server-only throws outside a server bundle; no-op it under Jest.
+    '^server-only$': '<rootDir>/__mocks__/server-only.js',
   },
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
