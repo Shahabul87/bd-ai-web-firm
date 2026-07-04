@@ -31,7 +31,7 @@ export default function WhatsAppButton() {
       {/* Tooltip */}
       {showTooltip && (
         <div
-          className="fixed bottom-24 right-6 z-40 bg-white text-gray-800 px-4 py-2 rounded-lg shadow-lg max-w-[200px] text-sm animate-fadeIn"
+          className="fixed bottom-40 right-6 z-40 bg-ink-800 text-bone border border-line px-4 py-2 shadow-lg max-w-[200px] text-sm animate-fadeIn"
           style={{
             animation: 'fadeIn 0.3s ease-out',
           }}
@@ -40,13 +40,13 @@ export default function WhatsAppButton() {
             <span>Chat with us on WhatsApp!</span>
             <button
               onClick={() => setShowTooltip(false)}
-              className="absolute -top-2 -right-2 w-5 h-5 bg-gray-200 rounded-full text-xs flex items-center justify-center hover:bg-gray-300"
+              className="absolute -top-2 -right-2 w-5 h-5 bg-ink-900 border border-line text-steel rounded-full text-xs flex items-center justify-center hover:text-bone"
               aria-label="Close tooltip"
             >
               &times;
             </button>
             {/* Arrow pointing down */}
-            <div className="absolute -bottom-2 right-4 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-white" />
+            <div className="absolute -bottom-2 right-4 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-ink-800" />
           </div>
         </div>
       )}
@@ -56,9 +56,7 @@ export default function WhatsAppButton() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className={`fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-all duration-300 ${
-          isHovered ? 'scale-110' : 'scale-100'
-        }`}
+        className="fixed bottom-24 right-6 z-50 flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-shadow duration-300"
         style={{
           background: 'linear-gradient(135deg, #25D366, #128C7E)',
           boxShadow: isHovered

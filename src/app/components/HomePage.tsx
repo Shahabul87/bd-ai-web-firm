@@ -1,5 +1,5 @@
+import DraftingRoomHero from './home/DraftingRoomHero';
 import {
-  HeroSection,
   SocialProofBar,
   ServicesGrid,
   AIAdvantage,
@@ -14,7 +14,7 @@ import {
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
+      <DraftingRoomHero />
       <SocialProofBar />
       <ServicesGrid />
       <AIAdvantage />

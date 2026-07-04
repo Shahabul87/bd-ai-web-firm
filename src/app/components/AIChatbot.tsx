@@ -143,9 +143,7 @@ export default function AIChatbot() {
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 ${
-          isOpen ? 'rotate-45' : ''
-        }`}
+        className="fixed bottom-6 right-6 z-50 h-14 w-14 border border-signal-dim bg-signal text-ink-950 shadow-lg transition-colors duration-150 hover:bg-signal-dim"
         aria-label="Open AI Chat Assistant"
       >
         {isOpen ? (
@@ -161,9 +159,9 @@ export default function AIChatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-slate-900/95 backdrop-blur-md rounded-2xl border border-slate-700/50 shadow-2xl flex flex-col overflow-hidden">
+        <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-ink-900 border border-line shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-cyan-400 to-purple-500 p-4 text-white">
+          <div className="border-b border-line bg-ink-950 p-4 text-bone">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                 <span className="text-lg">🤖</span>
@@ -173,7 +171,7 @@ export default function AIChatbot() {
                 <p className="text-sm opacity-90">CraftsAI</p>
               </div>
               <div className="ml-auto flex items-center gap-1">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-signal rounded-full animate-pulse"></div>
                 <span className="text-xs">Online</span>
               </div>
             </div>
@@ -187,17 +185,17 @@ export default function AIChatbot() {
                 className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-2xl ${
+                  className={`max-w-[80%] p-3 ${
                     message.sender === 'user'
-                      ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white'
-                      : 'bg-slate-800 text-slate-200 border border-slate-700/50'
+                      ? 'bg-signal text-ink-950'
+                      : 'bg-ink-800 text-bone border border-line'
                   }`}
                 >
                   <div className="whitespace-pre-wrap text-sm leading-relaxed">
                     {message.text}
                   </div>
                   <div className={`text-xs mt-2 opacity-70 ${
-                    message.sender === 'user' ? 'text-white' : 'text-slate-400'
+                    message.sender === 'user' ? 'text-ink-950' : 'text-steel'
                   }`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </div>
@@ -258,8 +256,8 @@ export default function AIChatbot() {
                 disabled={!inputText.trim() || isTyping}
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
                   inputText.trim() && !isTyping
-                    ? 'bg-gradient-to-r from-cyan-400 to-purple-500 text-white hover:shadow-lg'
-                    : 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                    ? 'bg-signal text-ink-950 hover:bg-signal-dim'
+                    : 'bg-ink-800 text-steel cursor-not-allowed'
                 }`}
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
