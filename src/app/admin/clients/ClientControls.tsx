@@ -1,7 +1,12 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { updateClientAction, archiveClientAction, createProjectAction } from '../actions';
+import {
+  updateClientAction,
+  archiveClientAction,
+  createProjectAction,
+  inviteToPortalAction,
+} from '../actions';
 
 interface Defaults {
   name: string;
@@ -19,15 +24,30 @@ export default function ClientControls({
   id,
   defaults,
   archived,
+  portalEnabled,
 }: {
   id: string;
   defaults: Defaults;
   archived: boolean;
+  portalEnabled: boolean;
 }) {
   const [pending, start] = useTransition();
   const [form, setForm] = useState(defaults);
   const [projectTitle, setProjectTitle] = useState('');
   const [error, setError] = useState('');
+  const [invited, setInvited] = useState(false);
+
+  function invite() {
+    setError('');
+    start(async () => {
+      try {
+        await inviteToPortalAction(id);
+        setInvited(true);
+      } catch {
+        setError('Could not send invite.');
+      }
+    });
+  }
 
   const set = (k: keyof Defaults) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -105,6 +125,22 @@ export default function ClientControls({
           Create project
         </button>
       </form>
+
+      <div className="border-t border-line pt-5">
+        <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-steel">Client portal</p>
+        <p className="mt-1 text-xs text-steel">
+          {portalEnabled || invited
+            ? 'Access enabled — the client can sign in at /portal/login.'
+            : 'Off — the client cannot sign in yet.'}
+        </p>
+        <button
+          onClick={invite}
+          disabled={pending || archived}
+          className="mt-2 w-full border border-line px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors hover:border-signal hover:text-signal disabled:opacity-50"
+        >
+          {portalEnabled || invited ? 'Re-send invite' : 'Invite to portal'}
+        </button>
+      </div>
 
       {!archived && (
         <button

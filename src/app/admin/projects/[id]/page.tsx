@@ -6,6 +6,7 @@ import AdminNav from '../../AdminNav';
 import ProjectStatusBadge from '../ProjectStatusBadge';
 import ProjectControls from '../ProjectControls';
 import MilestoneToggle from '../MilestoneToggle';
+import AdminThread from '../AdminThread';
 
 export const metadata = { title: 'Project', robots: { index: false, follow: false } };
 
@@ -90,6 +91,19 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
                   ))}
                 </ul>
               )}
+            </section>
+
+            {/* Client message thread */}
+            <section className="border-t border-line pt-8">
+              <AdminThread
+                projectId={project.id}
+                messages={project.messages.map((m) => ({
+                  id: m.id,
+                  senderType: m.senderType as 'ADMIN' | 'CLIENT',
+                  body: m.body,
+                  createdAt: m.createdAt.toISOString(),
+                }))}
+              />
             </section>
           </div>
 
