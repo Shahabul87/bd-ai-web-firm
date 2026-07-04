@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-type ButtonVariant = 'signal' | 'ghost' | 'link';
+type ButtonVariant = 'signal' | 'ghost' | 'link' | 'amber' | 'chalk';
 type ButtonSize = 'md' | 'lg';
 
 interface ButtonProps {
@@ -21,6 +21,9 @@ const VARIANTS: Record<ButtonVariant, string> = {
   signal: 'bg-signal text-ink-950 hover:bg-signal-dim',
   ghost: 'border border-line text-bone hover:border-signal hover:text-signal',
   link: 'text-signal underline-offset-4 hover:underline',
+  // For use on the drafting-blue surface (PageHero, hero, blueprint bands).
+  amber: 'bg-amber text-ink-950 hover:opacity-90',
+  chalk: 'border border-[#EDEDE3]/45 text-[#EDEDE3] hover:border-amber hover:text-amber',
 };
 
 const SIZES: Record<ButtonSize, string> = {
