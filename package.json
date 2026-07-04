@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -16,11 +16,13 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",
     "@prisma/client": "^6.19.3",
+    "prisma": "^6.19.3",
     "@types/nodemailer": "^6.4.17",
     "framer-motion": "^12.7.4",
     "isomorphic-dompurify": "^2.26.0",
@@ -52,7 +54,6 @@
     "eslint-config-next": "^15.4.2",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
-    "prisma": "^6.19.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
