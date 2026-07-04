@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
 import PageLayout from '../components/layout/PageLayout';
-import Accordion from '../components/ui/Accordion';
+import PageHero from '../components/shared/PageHero';
+import CTABand from '../components/shared/CTABand';
+import Button from '../design/ui/Button';
+import MonoLabel from '../design/ui/MonoLabel';
+import Accordion from '../design/ui/Accordion';
 import faqData from '../../../content/faq/faq.json';
 
 export const metadata: Metadata = {
@@ -20,75 +23,46 @@ export const metadata: Metadata = {
 export default function FAQPage() {
   return (
     <PageLayout>
-      {/* Hero */}
-      <section className="relative overflow-hidden py-20 sm:py-28">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold tracking-tight text-[var(--foreground)] sm:text-5xl">
-            Frequently Asked Questions
-          </h1>
-          <p className="mt-4 text-lg text-[var(--text-secondary)]">
-            Everything you need to know about working with CraftsAI. Can&apos;t
-            find what you&apos;re looking for?{' '}
-            <Link
-              href="/contact"
-              className="text-indigo-400 underline underline-offset-4 hover:text-indigo-300"
-            >
-              Reach out to us
-            </Link>
-            .
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="FAQ"
+        title="Questions, answered."
+        lede="Everything you need to know about working with CraftsAI."
+      >
+        <Button variant="amber" size="lg" href="/contact">
+          Ask us directly
+        </Button>
+      </PageHero>
 
-      {/* FAQ Categories */}
-      <section className="pb-20 sm:pb-28">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          {faqData.map((category) => (
-            <div key={category.category} className="mb-12">
-              <h2 className="mb-4 text-2xl font-semibold text-[var(--foreground)]">
-                {category.category}
-              </h2>
-              <div className="rounded-xl border border-[var(--border-default)] bg-[var(--surface)] p-4 sm:p-6">
-                <Accordion items={category.questions} />
-              </div>
+      <section className="mx-auto max-w-4xl px-6 py-20 sm:py-28">
+        {faqData.map((category, categoryIndex) => (
+          <div key={category.category} className="mb-16 last:mb-0">
+            <MonoLabel>
+              {String(categoryIndex + 1).padStart(2, '0')} / {category.category}
+            </MonoLabel>
+            <h2 className="mt-3 font-display text-2xl font-medium text-bone sm:text-3xl">
+              {category.category}
+            </h2>
+            <div className="mt-6">
+              <Accordion
+                items={category.questions.map((q, questionIndex) => ({
+                  id: `${category.category}-${questionIndex}`,
+                  question: q.question,
+                  answer: q.answer,
+                }))}
+              />
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-[var(--border-default)] py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-[var(--foreground)] sm:text-3xl">
-            Still have questions?
-          </h2>
-          <p className="mt-3 text-[var(--text-secondary)]">
-            We&apos;re happy to help. Get in touch and we&apos;ll respond
-            within 24 hours.
-          </p>
-          <div className="mt-8">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-6 py-3 font-medium text-white transition-colors hover:bg-indigo-500"
-            >
-              Contact Us
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CTABand
+        title="Still have questions?"
+        lede="We're happy to help. Get in touch and we'll respond within 24 hours."
+        primaryLabel="Contact us"
+        primaryHref="/contact"
+        secondaryLabel="Get an estimate"
+        secondaryHref="/quote"
+      />
     </PageLayout>
   );
 }

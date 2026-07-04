@@ -10,12 +10,13 @@ interface ButtonProps {
   href?: string;
   onClick?: () => void;
   type?: 'button' | 'submit';
+  disabled?: boolean;
   className?: string;
   children: ReactNode;
 }
 
 const BASE =
-  'inline-flex items-center justify-center gap-2 font-mono uppercase tracking-[0.15em] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal';
+  'inline-flex items-center justify-center gap-2 font-mono uppercase tracking-[0.15em] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal disabled:pointer-events-none disabled:opacity-50';
 
 const VARIANTS: Record<ButtonVariant, string> = {
   signal: 'bg-signal text-ink-950 hover:bg-signal-dim',
@@ -38,6 +39,7 @@ export default function Button({
   href,
   onClick,
   type = 'button',
+  disabled = false,
   className = '',
   children,
 }: ButtonProps) {
@@ -50,7 +52,7 @@ export default function Button({
     );
   }
   return (
-    <button type={type} onClick={onClick} className={cls}>
+    <button type={type} onClick={onClick} disabled={disabled} className={cls}>
       {children}
     </button>
   );

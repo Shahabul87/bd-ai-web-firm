@@ -1,9 +1,12 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import PageLayout from '../components/layout/PageLayout';
-import ContentGrid from '../components/content/ContentGrid';
-import { getLatestContent } from '@/app/lib/content';
-import type { LatestContentItem } from '@/app/lib/content';
+import PageHero from '../components/shared/PageHero';
+import CTABand from '../components/shared/CTABand';
+import Button from '../design/ui/Button';
+import SectionHeader from '../design/ui/SectionHeader';
+import { getLatestContent } from '../lib/content';
+import type { LatestContentItem } from '../lib/content';
 
 export const metadata: Metadata = {
   title: 'Resources - Blog, Case Studies & Guides | CraftsAI',
@@ -22,132 +25,129 @@ export const metadata: Metadata = {
   },
 };
 
-const categories = [
+interface Category {
+  index: string;
+  title: string;
+  description: string;
+  href: string;
+}
+
+const CATEGORIES: Category[] = [
   {
-    icon: '\u{1F4DD}',
+    index: '01',
     title: 'Blog',
     description: 'Insights on AI development, strategy, and technology trends.',
     href: '/resources/blog',
-    gradient: 'from-amber-500 to-orange-500',
   },
   {
-    icon: '\u{1F4CA}',
-    title: 'Case Studies',
+    index: '02',
+    title: 'Case studies',
     description: 'Real results from our AI-powered development projects.',
     href: '/resources/case-studies',
-    gradient: 'from-cyan-500 to-blue-500',
   },
   {
-    icon: '\u{1F4DA}',
+    index: '03',
     title: 'Guides',
     description:
       'In-depth guides on web development, mobile apps, and choosing the right approach.',
     href: '/resources/guides',
-    gradient: 'from-purple-500 to-violet-500',
   },
 ];
+
+function typeLabel(type: LatestContentItem['type']): string {
+  if (type === 'blog') return 'Blog';
+  if (type === 'case-study') return 'Case study';
+  return 'Guide';
+}
+
+function typeHref(item: LatestContentItem): string {
+  if (item.type === 'blog') return `/resources/blog/${item.slug}`;
+  if (item.type === 'case-study') return `/resources/case-studies/${item.slug}`;
+  return `/resources/guides/${item.slug}`;
+}
+
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
 
 export default function ResourcesPage() {
   const latestContent = getLatestContent(12);
 
-  const items = latestContent.map((item: LatestContentItem) => ({
-    title: item.title,
-    excerpt: item.excerpt,
-    type: item.type,
-    slug: item.slug,
-    date: item.date,
-    readTime: 'readTime' in item ? (item as { readTime: number }).readTime : undefined,
-    tags: item.tags,
-  }));
-
   return (
     <PageLayout>
-      {/* Hero Section */}
-      <section
-        className="relative overflow-hidden pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20"
-        style={{
-          background:
-            'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)',
-        }}
+      <PageHero
+        eyebrow="Resources"
+        title="Field notes from the studio."
+        lede="Blog posts, case studies, and guides on AI-powered development — written by the team that ships it."
       >
-        <div className="absolute inset-0 pointer-events-none">
-          <div
-            className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full blur-[150px] opacity-20"
-            style={{ background: 'var(--brand-primary)' }}
-          />
-          <div
-            className="absolute bottom-1/4 right-1/4 w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] rounded-full blur-[120px] opacity-15"
-            style={{ background: 'var(--brand-secondary)' }}
-          />
-        </div>
+        <Button variant="amber" size="lg" href="/contact">
+          Start a project
+        </Button>
+      </PageHero>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4 sm:mb-6">
-            <span style={{ color: 'var(--foreground)' }}>Resource </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500">
-              Hub
-            </span>
-          </h1>
-          <p
-            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            Practical insights, real case studies, and expert guides to help you
-            make smarter technology decisions.
-          </p>
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        <SectionHeader
+          index="fig. 01"
+          eyebrow="Browse by type"
+          title="Three ways into the archive."
+        />
+        <div className="mt-14 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-3">
+          {CATEGORIES.map((cat) => (
+            <Link
+              key={cat.href}
+              href={cat.href}
+              className="group block bg-ink-950 p-8 transition-colors duration-150 hover:bg-ink-900 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-signal"
+            >
+              <span className="font-mono text-xs uppercase tracking-[0.18em] text-signal">
+                {cat.index}
+              </span>
+              <h3 className="mt-5 font-display text-2xl font-medium text-bone">{cat.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-steel">{cat.description}</p>
+              <span className="mt-7 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
+                Browse
+                <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-1">
+                  →
+                </span>
+              </span>
+            </Link>
+          ))}
         </div>
       </section>
 
-      {/* Category Cards */}
-      <section className="py-12 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
-            {categories.map((cat) => (
-              <Link key={cat.href} href={cat.href} className="group">
-                <div
-                  className="rounded-xl border overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-indigo-500/30 h-full"
-                  style={{
-                    background: 'var(--card-bg)',
-                    borderColor: 'var(--card-border)',
-                  }}
-                >
-                  <div
-                    className={`h-2 bg-gradient-to-r ${cat.gradient}`}
-                  />
-                  <div className="p-5 sm:p-6">
-                    <span className="text-3xl mb-3 block">{cat.icon}</span>
-                    <h2
-                      className="text-xl font-bold mb-2 group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors"
-                      style={{ color: 'var(--foreground)' }}
-                    >
-                      {cat.title}
-                    </h2>
-                    <p
-                      className="text-sm leading-relaxed"
-                      style={{ color: 'var(--text-secondary)' }}
-                    >
-                      {cat.description}
-                    </p>
-                  </div>
-                </div>
+      <section className="border-t border-line bg-ink-900">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+          <SectionHeader
+            index="fig. 02"
+            eyebrow="Latest"
+            title="Everything we've published."
+          />
+          <div className="mt-14 divide-y divide-line border-y border-line">
+            {latestContent.map((item) => (
+              <Link
+                key={`${item.type}-${item.slug}`}
+                href={typeHref(item)}
+                className="group grid gap-2 py-6 transition-colors duration-150 hover:bg-ink-800 sm:grid-cols-[140px_1fr_auto] sm:items-center sm:gap-6 sm:px-2"
+              >
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-signal">
+                  {typeLabel(item.type)}
+                </span>
+                <span className="text-base text-bone transition-colors duration-150 group-hover:text-signal">
+                  {item.title}
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-steel">
+                  {formatDate(item.date)}
+                </span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Latest Content */}
-      <section className="py-12 sm:py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2
-            className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 sm:mb-10 text-center"
-            style={{ color: 'var(--foreground)' }}
-          >
-            Latest Content
-          </h2>
-          <ContentGrid items={items} />
-        </div>
-      </section>
+      <CTABand />
     </PageLayout>
   );
 }

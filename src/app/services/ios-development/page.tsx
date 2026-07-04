@@ -1,18 +1,23 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import PageLayout from '../../components/layout/PageLayout';
-import Button from '../../components/ui/Button';
-import Tag from '../../components/ui/Tag';
-import Accordion from '../../components/ui/Accordion';
+import PageHero from '../../components/shared/PageHero';
+import CTABand from '../../components/shared/CTABand';
+import Button from '../../design/ui/Button';
+import SectionHeader from '../../design/ui/SectionHeader';
+import Card from '../../design/ui/Card';
+import SpecTable from '../../design/ui/SpecTable';
+import Accordion from '../../design/ui/Accordion';
+import Pipeline from '../../design/ui/Pipeline';
+import type { AccordionItem } from '../../design/ui/Accordion';
+import type { SpecRow } from '../../design/ui/SpecTable';
 
 export const metadata: Metadata = {
   title: 'iOS Development Services | CraftsAI',
   description:
-    'Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready. 8x faster delivery powered by our iOSForge AI agent.',
+    'Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready — built by our AI agents and reviewed by senior engineers.',
   openGraph: {
     title: 'iOS Development Services | CraftsAI',
-    description:
-      'Native iOS apps with Swift and SwiftUI. 8x faster delivery.',
+    description: 'Native iOS apps with Swift and SwiftUI. 8x faster delivery.',
     url: 'https://www.craftsai.org/services/ios-development',
   },
   alternates: {
@@ -20,26 +25,16 @@ export const metadata: Metadata = {
   },
 };
 
-const projectTypes = [
+const useCases = [
   {
     title: 'Business Apps',
     description:
       'Enterprise tools, CRM mobile clients, and field-service apps with secure data handling.',
   },
   {
-    title: 'Consumer Apps',
-    description:
-      'Polished consumer experiences with elegant animations and seamless onboarding.',
-  },
-  {
     title: 'Health & Fitness',
     description:
-      'HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines.',
-  },
-  {
-    title: 'Education',
-    description:
-      'Interactive learning apps with offline content, progress tracking, and in-app purchases.',
+      "HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines.",
   },
   {
     title: 'Fintech',
@@ -47,9 +42,9 @@ const projectTypes = [
       'Secure financial apps with biometric auth, real-time data, and Apple Pay integration.',
   },
   {
-    title: 'Media & Entertainment',
+    title: 'Consumer Apps',
     description:
-      'Streaming, social sharing, and content creation tools optimised for the Apple ecosystem.',
+      'Polished consumer experiences with elegant animations and seamless onboarding.',
   },
 ];
 
@@ -66,29 +61,64 @@ const techStack = [
   'Core ML',
 ];
 
-const stats = [
-  { label: 'Faster Delivery', value: '8x' },
-  { label: 'Cost Savings', value: '75%' },
-  { label: 'Typical Timeline', value: '4-8 weeks' },
-];
-
-const faqItems = [
+const specRows: SpecRow[] = [
   {
-    question: 'Do you build with SwiftUI or UIKit?',
-    answer:
-      'We use SwiftUI for all new projects because it provides a modern, declarative approach to UI development and is Apple\u2019s recommended framework going forward. For projects that need to support older iOS versions or require features not yet available in SwiftUI, we use UIKit or a hybrid approach.',
+    label: 'Scope',
+    value:
+      'Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst.',
   },
   {
+    label: 'Stack',
+    value: (
+      <div className="flex flex-wrap gap-2">
+        {techStack.map((tech) => (
+          <span
+            key={tech}
+            className="border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-steel"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    ),
+  },
+  {
+    label: 'Timeline',
+    value: '4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build.',
+  },
+  {
+    label: 'Automated by agents',
+    value:
+      "SwiftUI views, Core Data models, networking layers, and navigation stacks — generated from your requirements, following Apple's Human Interface Guidelines.",
+  },
+  {
+    label: 'Reviewed by engineers',
+    value:
+      'UX refinement, App Store compliance, and rigorous testing on every build before it reaches your users.',
+  },
+];
+
+const faqItems: AccordionItem[] = [
+  {
+    id: 'swiftui-uikit',
+    question: 'Do you build with SwiftUI or UIKit?',
+    answer:
+      "We use SwiftUI for all new projects because it provides a modern, declarative approach to UI development and is Apple's recommended framework going forward. For projects that need to support older iOS versions or require features not yet available in SwiftUI, we use UIKit or a hybrid approach.",
+  },
+  {
+    id: 'app-store-submission',
     question: 'Can you submit to the App Store for us?',
     answer:
       'Yes. We manage the entire submission process including App Store Connect setup, screenshots, metadata, and review compliance. We also handle TestFlight distribution for beta testing with your team or early users.',
   },
   {
+    id: 'ipad-watch',
     question: 'Do you support iPad and Apple Watch?',
     answer:
       'Absolutely. Our SwiftUI layouts adapt to iPad, Apple Watch, and even macOS via Catalyst. We design for the full Apple ecosystem from day one, so your app feels native on every device.',
   },
   {
+    id: 'iap',
     question: 'What about in-app purchases and subscriptions?',
     answer:
       'StoreKit 2 is part of our standard toolkit. We implement subscriptions, consumables, and non-consumable purchases with server-side receipt validation. We also handle the App Store pricing and tax configuration.',
@@ -98,148 +128,76 @@ const faqItems = [
 export default function IOSDevelopmentPage() {
   return (
     <PageLayout>
-      {/* Hero */}
-      <section
-        className="py-20 md:py-28"
-        style={{
-          background:
-            'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 100%)',
-        }}
+      <PageHero
+        eyebrow="Services / iOS"
+        title="iOS Development"
+        lede="Native iOS apps with Swift and SwiftUI — built by our agents and shipped fast, with senior engineers reviewing every release."
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-medium text-indigo-500">
-            <Link href="/services" className="hover:underline">
-              Services
-            </Link>{' '}
-            / iOS Development
-          </p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-[var(--foreground)]">
-            iOS Development
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-[var(--text-secondary)]">
-            Native iOS apps with Swift and SwiftUI &mdash; delivered 8x faster
-            with our iOSForge AI agent.
-          </p>
+        <Button variant="amber" size="lg" href="/contact">
+          Start a project
+        </Button>
+        <Button variant="chalk" size="lg" href="/quote">
+          Get an estimate
+        </Button>
+      </PageHero>
 
-          <div className="mt-10 flex flex-wrap gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <p className="text-3xl font-bold text-indigo-500">{stat.value}</p>
-                <p className="text-sm text-[var(--text-secondary)]">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        <SectionHeader
+          index="fig. 01"
+          eyebrow="How it ships"
+          title="One brief. An agent drafts the app. Engineers ship it."
+          description="Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance."
+        />
+        <div className="mt-14">
+          <Card>
+            <Pipeline stages={['Brief', 'Design', 'Build', 'Review', 'Ship']} />
+          </Card>
+        </div>
+      </section>
 
-          <div className="mt-10">
-            <Button href="/quote" size="lg">
-              Get a Free Quote
-            </Button>
+      <section className="border-t border-line bg-ink-900">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+          <SectionHeader
+            index="fig. 02"
+            eyebrow="What you get"
+            title="Scope, stack, and delivery — in writing."
+          />
+          <div className="mt-14">
+            <SpecTable rows={specRows} />
           </div>
         </div>
       </section>
 
-      {/* What We Build */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            What We Build
-          </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projectTypes.map((project) => (
-              <div
-                key={project.title}
-                className="rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-6"
-              >
-                <h3 className="text-lg font-semibold text-[var(--foreground)]">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-            ))}
-          </div>
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        <SectionHeader
+          index="fig. 03"
+          eyebrow="Use cases"
+          title="Where this fits."
+          description="A sample of the apps we build most often — not an exhaustive list."
+        />
+        <div className="mt-14 grid gap-6 sm:grid-cols-2">
+          {useCases.map((useCase) => (
+            <Card key={useCase.title} interactive>
+              <h3 className="font-display text-lg font-medium text-bone">{useCase.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-steel">{useCase.description}</p>
+            </Card>
+          ))}
         </div>
       </section>
 
-      {/* Tech Stack */}
-      <section
-        className="py-16 md:py-24"
-        style={{ background: 'var(--surface-sunken)' }}
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            Tech Stack
-          </h2>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {techStack.map((tech) => (
-              <Tag key={tech} variant="primary" size="md">
-                {tech}
-              </Tag>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* AI Agent */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            How Our AI Agent Works
-          </h2>
-          <div className="mt-8 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-6 md:p-8">
-            <div className="flex items-center gap-3">
-              <span className="text-3xl">🤖</span>
-              <div>
-                <h3 className="text-xl font-semibold text-[var(--foreground)]">
-                  iOSForge AI
-                </h3>
-                <p className="text-sm text-indigo-500">iOS Development Agent</p>
-              </div>
-            </div>
-            <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
-              iOSForge AI generates SwiftUI views, Core Data models, networking
-              layers, and navigation stacks from your requirements. It follows
-              Apple&apos;s Human Interface Guidelines and produces clean,
-              idiomatic Swift code. Human engineers refine the UX, handle App
-              Store compliance, and ensure every build passes rigorous testing
-              before it reaches your users.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section
-        className="py-16 md:py-24"
-        style={{ background: 'var(--surface-sunken)' }}
-      >
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            Frequently Asked Questions
-          </h2>
-          <div className="mt-8">
+      <section className="border-t border-line bg-ink-900">
+        <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
+          <SectionHeader index="fig. 04" eyebrow="FAQ" title="Common questions." />
+          <div className="mt-14">
             <Accordion items={faqItems} />
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            Ready to build your iOS app?
-          </h2>
-          <p className="mt-3 text-[var(--text-secondary)]">
-            Tell us about your project and get a free quote within 24 hours.
-          </p>
-          <div className="mt-8">
-            <Button href="/quote" size="lg">
-              Start Your Project
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTABand
+        title="Ready to build your iOS app?"
+        lede="Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+      />
     </PageLayout>
   );
 }

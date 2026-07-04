@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import PageLayout from '../../components/layout/PageLayout';
-import ContentGrid from '../../components/content/ContentGrid';
+import PageHero from '../../components/shared/PageHero';
+import CTABand from '../../components/shared/CTABand';
+import Card from '../../design/ui/Card';
 import { getAllCaseStudies } from '@/app/lib/content';
 
 export const metadata: Metadata = {
@@ -23,55 +26,56 @@ export const metadata: Metadata = {
 export default function CaseStudiesListingPage() {
   const caseStudies = getAllCaseStudies();
 
-  const items = caseStudies.map((cs) => ({
-    title: cs.title,
-    excerpt: cs.excerpt,
-    type: 'case-study' as const,
-    slug: cs.slug,
-    date: cs.date,
-    tags: [...cs.tags, cs.industry, ...cs.services],
-  }));
-
   return (
     <PageLayout>
-      {/* Hero Section */}
-      <section
-        className="relative overflow-hidden pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20"
-        style={{
-          background:
-            'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)',
-        }}
-      >
-        <div className="absolute inset-0 pointer-events-none">
-          <div
-            className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full blur-[150px] opacity-20"
-            style={{ background: 'var(--brand-accent)' }}
-          />
-        </div>
+      <PageHero
+        eyebrow="Resources / Case studies"
+        title="Real projects, real results."
+        lede="See how AI-powered development delivers measurable outcomes for businesses across industries."
+      />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4 sm:mb-6">
-            <span style={{ color: 'var(--foreground)' }}>Case </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-500">
-              Studies
-            </span>
-          </h1>
-          <p
-            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            Real projects, real results. See how AI-powered development
-            delivers measurable outcomes for businesses across industries.
-          </p>
-        </div>
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        {caseStudies.length === 0 ? (
+          <p className="text-base text-steel">No case studies yet — check back soon.</p>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {caseStudies.map((cs) => (
+              <Link
+                key={cs.slug}
+                href={`/resources/case-studies/${cs.slug}`}
+                className="group block h-full focus-visible:outline-none"
+              >
+                <Card interactive className="flex h-full flex-col">
+                  <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-steel">
+                    <span className="text-signal">{cs.industry}</span>
+                    <span>{cs.client}</span>
+                  </div>
+                  <h2 className="mt-6 font-display text-xl font-medium text-bone">{cs.title}</h2>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-steel">{cs.excerpt}</p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {cs.services.map((service) => (
+                      <span
+                        key={service}
+                        className="border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-steel"
+                      >
+                        {service}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
+                    Read case study
+                    <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </span>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
-      {/* Case Studies Grid */}
-      <section className="py-12 sm:py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ContentGrid items={items} showFilter />
-        </div>
-      </section>
+      <CTABand />
     </PageLayout>
   );
 }

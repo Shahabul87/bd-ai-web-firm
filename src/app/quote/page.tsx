@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import validator from 'validator';
 import Link from 'next/link';
 import PageLayout from '../components/layout/PageLayout';
+import PageHero from '../components/shared/PageHero';
+import Button from '../design/ui/Button';
+import Stepper from '../design/ui/Stepper';
 
 // Types
 interface ProjectDetails {
@@ -59,6 +62,11 @@ const initialFormData: QuoteFormData = {
   agreedToTerms: false,
 };
 
+// Shared field styles (Drafting Room form tokens)
+const labelStyles = 'mb-2 block font-mono text-xs uppercase tracking-[0.15em] text-steel';
+const inputStyles =
+  'w-full border border-line bg-ink-900 px-4 py-3 text-sm text-bone placeholder:text-steel/50 transition-colors focus:border-signal focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal';
+
 export default function QuotePage() {
   const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -75,7 +83,6 @@ export default function QuotePage() {
       name: 'Web Development',
       description: 'Full-stack web apps with React, Next.js, and modern APIs',
       icon: '\u{1F310}',
-      gradient: 'from-indigo-500 to-cyan-500',
       deliverables: ['React/Next.js Apps', 'API Development', 'Database Design', 'Cloud Deployment'],
       timeline: '2-6 weeks',
       perfectFor: 'SaaS platforms, dashboards, e-commerce',
@@ -85,7 +92,6 @@ export default function QuotePage() {
       name: 'Android Development',
       description: 'Native Android apps with Kotlin and Jetpack Compose',
       icon: '\u{1F4F1}',
-      gradient: 'from-cyan-500 to-violet-500',
       deliverables: ['Native Kotlin Apps', 'Material Design 3', 'Play Store Ready', 'Firebase Backend'],
       timeline: '4-8 weeks',
       perfectFor: 'Consumer apps, B2B mobile tools',
@@ -95,7 +101,6 @@ export default function QuotePage() {
       name: 'iOS Development',
       description: 'Native iOS apps with Swift and SwiftUI for iPhone and iPad',
       icon: '\u{1F34F}',
-      gradient: 'from-violet-500 to-pink-500',
       deliverables: ['Swift/SwiftUI Apps', 'App Store Ready', 'TestFlight Beta', 'CloudKit Integration'],
       timeline: '4-8 weeks',
       perfectFor: 'Consumer apps, enterprise iOS tools',
@@ -105,7 +110,6 @@ export default function QuotePage() {
       name: 'Product Inquiry',
       description: 'Explore our ready-made products or request customization',
       icon: '\u{1F4E6}',
-      gradient: 'from-amber-500 to-orange-500',
       deliverables: ['Product Demo', 'Custom Branding', 'Feature Add-ons', 'Deployment Support'],
       timeline: '1-3 weeks',
       perfectFor: 'Quick launch with proven solutions',
@@ -221,341 +225,130 @@ export default function QuotePage() {
 
   return (
     <PageLayout>
-        {/* Hero Section */}
-        <section
-          className="relative py-12 sm:py-16 md:py-20 overflow-hidden"
-          style={{
-            background: 'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)'
-          }}
-        >
-          {/* Background Effects */}
-          <div className="absolute inset-0">
-            <div className="absolute top-0 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-indigo-500/8 rounded-full blur-[128px]" />
-            <div className="absolute bottom-0 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-violet-500/8 rounded-full blur-[128px]" />
-          </div>
+      <PageHero
+        eyebrow="Estimate"
+        title="Get your project built by AI agents."
+        lede="Tell us what you need. Our agents analyze the brief and a senior engineer delivers a fixed-scope quote within 24 hours."
+      />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
-              {/* Left: Hero Content */}
+      <section className="bg-ink-950">
+        <div className="mx-auto max-w-4xl px-6 py-16 sm:py-20 md:py-24">
+          <Stepper steps={stepTitles} current={formData.currentStep - 1} className="mb-10 sm:mb-12" />
+
+          {/* Form Card */}
+          <div className="border border-line bg-ink-900 p-5 sm:p-8 md:p-12">
+            <AnimatePresence mode="wait">
               <motion.div
-                className="space-y-6 sm:space-y-8"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
+                key={formData.currentStep}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.3 }}
               >
-                {/* Badge */}
-                <div
-                  className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-indigo-500/30"
-                  style={{ background: 'var(--surface-elevated)' }}
-                >
-                  <div className="relative">
-                    <div className="w-2 h-2 bg-indigo-500 rounded-full" />
-                    <div className="absolute inset-0 w-2 h-2 bg-indigo-500 rounded-full animate-ping" />
-                  </div>
-                  <span className="text-xs sm:text-sm text-indigo-500 dark:text-indigo-400">Free Quote in 24 Hours</span>
-                </div>
-
-                <div className="space-y-3 sm:space-y-4">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1]">
-                    <span style={{ color: 'var(--foreground)', opacity: 0.9 }}>Get Your Project</span>
-                    <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500">
-                      Built by AI Agents
-                    </span>
-                  </h1>
-                  <p className="text-base sm:text-lg max-w-lg" style={{ color: 'var(--text-secondary)' }}>
-                    Tell us what you need. Our AI agents will analyze your requirements and deliver a
-                    <span className="text-indigo-500 dark:text-indigo-400"> custom quote within 24 hours</span>.
-                  </p>
-                </div>
-
-                {/* Value Props */}
-                <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                  {[
-                    { icon: '\u26A1', value: '10x', label: 'Faster Delivery' },
-                    { icon: '\u{1F4B0}', value: '80%', label: 'Cost Savings' },
-                    { icon: '\u{1F916}', value: '24/7', label: 'AI Working' },
-                    { icon: '\u2728', value: '100%', label: 'Satisfaction' },
-                  ].map((stat) => (
-                    <div
-                      key={stat.label}
-                      className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-xl border"
-                      style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
-                    >
-                      <span className="text-xl sm:text-2xl">{stat.icon}</span>
-                      <div>
-                        <div className="text-base sm:text-lg font-bold" style={{ color: 'var(--foreground)' }}>{stat.value}</div>
-                        <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>{stat.label}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Social Proof */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
-                  <div className="flex -space-x-2">
-                    {['\u{1F9D1}\u200D\u{1F4BB}', '\u{1F469}\u200D\u{1F4BC}', '\u{1F468}\u200D\u{1F52C}', '\u{1F469}\u200D\u{1F3A8}'].map((emoji, i) => (
-                      <div
-                        key={i}
-                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 flex items-center justify-center text-xs sm:text-sm"
-                        style={{ background: 'var(--surface-elevated)', borderColor: 'var(--background)' }}
-                      >
-                        {emoji}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="text-xs sm:text-sm">
-                    <span className="font-medium" style={{ color: 'var(--foreground)' }}>50+ founders</span>
-                    <span style={{ color: 'var(--text-secondary)' }}> trust us with their projects</span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Right: Quick Stats */}
-              <motion.div
-                className="hidden md:block"
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <div className="relative">
-                  {/* Main Card */}
-                  <div
-                    className="rounded-2xl border p-6 md:p-8 shadow-xl"
-                    style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
-                  >
-                    <div className="text-center mb-6 md:mb-8">
-                      <div className="text-4xl md:text-5xl mb-3 md:mb-4">{'\u{1F680}'}</div>
-                      <h3 className="text-xl md:text-2xl font-bold mb-2" style={{ color: 'var(--foreground)' }}>Why Startups Choose Us</h3>
-                      <p className="text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>We&apos;re founders too. We get it.</p>
-                    </div>
-
-                    <div className="space-y-3 md:space-y-4">
-                      {[
-                        { label: 'No upfront payment required', check: true },
-                        { label: 'Milestone-based billing', check: true },
-                        { label: 'Equity-friendly arrangements', check: true },
-                        { label: 'Cancel anytime policy', check: true },
-                        { label: 'Source code ownership', check: true },
-                      ].map((item, i) => (
-                        <div key={i} className="flex items-center gap-2 md:gap-3">
-                          <div className="w-5 h-5 rounded-full bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                            <svg className="w-3 h-3 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                            </svg>
-                          </div>
-                          <span className="text-sm md:text-base" style={{ color: 'var(--text-secondary)' }}>{item.label}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div
-                      className="mt-6 md:mt-8 p-3 md:p-4 rounded-xl border border-indigo-500/20"
-                      style={{ background: 'var(--surface-elevated)' }}
-                    >
-                      <div className="flex items-center gap-2 md:gap-3">
-                        <div className="text-xl md:text-2xl">{'\u{1F4AC}'}</div>
-                        <div>
-                          <div className="text-xs sm:text-sm font-medium" style={{ color: 'var(--foreground)' }}>&quot;Shipped our MVP in 3 weeks&quot;</div>
-                          <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>- Sarah K., Fintech Founder</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Floating Badge */}
-                  <div className="absolute -top-3 md:-top-4 -right-3 md:-right-4 px-3 md:px-4 py-1.5 md:py-2 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full shadow-lg">
-                    <span className="text-xs sm:text-sm font-bold text-white">Startup Friendly</span>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Quote Form Section */}
-        <section className="py-10 sm:py-12 md:py-16 relative">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Step Indicators */}
-            <div className="mb-8 sm:mb-10 md:mb-12">
-              <div className="flex items-center justify-between max-w-3xl mx-auto px-2 sm:px-0">
-                {stepTitles.map((title, i) => (
-                  <div key={i} className="flex flex-col items-center flex-1">
-                    <div
-                      className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold transition-all duration-300 ${
-                        formData.currentStep > i + 1
-                          ? 'bg-indigo-500 text-white'
-                          : formData.currentStep === i + 1
-                          ? 'bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30'
-                          : ''
-                      }`}
-                      style={
-                        formData.currentStep <= i + 1 && formData.currentStep !== i + 1
-                          ? { background: 'var(--surface-elevated)', color: 'var(--text-secondary)' }
-                          : undefined
-                      }
-                    >
-                      {formData.currentStep > i + 1 ? (
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                        </svg>
-                      ) : (
-                        i + 1
-                      )}
-                    </div>
-                    <span className={`mt-1.5 sm:mt-2 text-[10px] sm:text-xs text-center px-0.5 md:px-0 ${
-                      formData.currentStep === i + 1 ? 'text-indigo-500 dark:text-indigo-400 font-medium' : ''
-                    } ${i < 2 ? 'hidden sm:block' : 'hidden md:block'}`}
-                      style={formData.currentStep !== i + 1 ? { color: 'var(--text-secondary)' } : undefined}
-                    >
-                      {title}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              {/* Progress Line */}
-              <div className="mt-3 sm:mt-4 max-w-3xl mx-auto px-2 sm:px-0">
-                <div className="h-1 rounded-full" style={{ background: 'var(--surface-elevated)' }}>
-                  <div
-                    className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all duration-500"
-                    style={{ width: `${((formData.currentStep - 1) / 4) * 100}%` }}
+                {formData.currentStep === 1 && (
+                  <Step1Services
+                    formData={formData}
+                    services={services}
+                    handleServiceToggle={handleServiceToggle}
+                    errors={errors}
                   />
-                </div>
-              </div>
-            </div>
+                )}
+                {formData.currentStep === 2 && (
+                  <Step2Details
+                    formData={formData}
+                    setFormData={setFormData}
+                    errors={errors}
+                  />
+                )}
+                {formData.currentStep === 3 && (
+                  <Step3Investment
+                    formData={formData}
+                    setFormData={setFormData}
+                    errors={errors}
+                  />
+                )}
+                {formData.currentStep === 4 && (
+                  <Step4Contact
+                    formData={formData}
+                    setFormData={setFormData}
+                    errors={errors}
+                  />
+                )}
+                {formData.currentStep === 5 && (
+                  <Step5Review
+                    formData={formData}
+                    setFormData={setFormData}
+                    services={services}
+                    errors={errors}
+                  />
+                )}
+              </motion.div>
+            </AnimatePresence>
 
-            {/* Form Card */}
-            <div className="max-w-4xl mx-auto">
-              <div
-                className="rounded-2xl sm:rounded-3xl border overflow-hidden shadow-xl"
-                style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
-              >
-                <div className="p-4 sm:p-6 md:p-8 lg:p-12">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={formData.currentStep}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {formData.currentStep === 1 && (
-                        <Step1Services
-                          formData={formData}
-                          services={services}
-                          handleServiceToggle={handleServiceToggle}
-                          errors={errors}
-                        />
-                      )}
-                      {formData.currentStep === 2 && (
-                        <Step2Details
-                          formData={formData}
-                          setFormData={setFormData}
-                          errors={errors}
-                        />
-                      )}
-                      {formData.currentStep === 3 && (
-                        <Step3Investment
-                          formData={formData}
-                          setFormData={setFormData}
-                          errors={errors}
-                        />
-                      )}
-                      {formData.currentStep === 4 && (
-                        <Step4Contact
-                          formData={formData}
-                          setFormData={setFormData}
-                          errors={errors}
-                        />
-                      )}
-                      {formData.currentStep === 5 && (
-                        <Step5Review
-                          formData={formData}
-                          setFormData={setFormData}
-                          services={services}
-                          errors={errors}
-                        />
-                      )}
-                    </motion.div>
-                  </AnimatePresence>
-
-                  {/* Navigation */}
-                  <div className="flex justify-between mt-6 sm:mt-8 md:mt-10 pt-6 sm:pt-8 border-t" style={{ borderColor: 'var(--border-default)' }}>
-                    {formData.currentStep > 1 ? (
-                      <button
-                        onClick={prevStep}
-                        className="flex items-center gap-1.5 sm:gap-2 px-4 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base transition-colors min-h-[44px]"
-                        style={{ color: 'var(--text-secondary)' }}
-                      >
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                        <span className="hidden sm:inline">Back</span>
-                      </button>
-                    ) : (
-                      <div />
-                    )}
-
-                    {formData.currentStep < 5 ? (
-                      <button
-                        onClick={nextStep}
-                        className="group flex items-center gap-1.5 sm:gap-2 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg sm:rounded-xl text-sm sm:text-base text-white font-semibold hover:shadow-xl hover:shadow-indigo-500/25 transition-all duration-300 min-h-[44px]"
-                      >
-                        <span>Continue</span>
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </button>
-                    ) : (
-                      <button
-                        onClick={handleSubmit}
-                        disabled={isSubmitting}
-                        className="group flex items-center gap-1.5 sm:gap-2 px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-lg sm:rounded-xl text-sm sm:text-base text-white font-semibold hover:shadow-xl hover:shadow-indigo-500/25 transition-all duration-300 disabled:opacity-50 min-h-[44px]"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            <span>Submitting...</span>
-                          </>
-                        ) : (
-                          <>
-                            <span className="hidden sm:inline">Get My Free Quote</span>
-                            <span className="sm:hidden">Submit</span>
-                            <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                          </>
-                        )}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Trust Bar */}
-              <div className="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+            {/* Navigation */}
+            <div className="mt-8 flex justify-between border-t border-line pt-6 sm:mt-10 sm:pt-8">
+              {formData.currentStep > 1 ? (
+                <button
+                  onClick={prevStep}
+                  className="flex min-h-[44px] items-center gap-2 px-2 font-mono text-xs uppercase tracking-[0.15em] text-steel transition-colors hover:text-bone"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
-                  <span>Secure & Encrypted</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
+                  <span className="hidden sm:inline">Back</span>
+                </button>
+              ) : (
+                <div />
+              )}
+
+              {formData.currentStep < 5 ? (
+                <Button variant="signal" size="lg" onClick={nextStep}>
+                  Continue
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                  <span>Response within 24 hours</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-violet-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
-                  </svg>
-                  <span>No spam, ever</span>
-                </div>
-              </div>
+                </Button>
+              ) : (
+                <Button variant="signal" size="lg" onClick={handleSubmit} disabled={isSubmitting}>
+                  {isSubmitting ? (
+                    <>
+                      <span className="h-4 w-4 animate-spin border-2 border-ink-950/30 border-t-ink-950" />
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      <span className="hidden sm:inline">Get My Free Quote</span>
+                      <span className="sm:hidden">Submit</span>
+                    </>
+                  )}
+                </Button>
+              )}
             </div>
           </div>
-        </section>
+
+          {/* Trust Bar */}
+          <div className="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-[0.15em] text-steel">
+            <div className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-signal" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+              </svg>
+              <span>Secure &amp; encrypted</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-signal" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"/>
+              </svg>
+              <span>Response within 24 hours</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-signal" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+              </svg>
+              <span>No spam, ever</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </PageLayout>
   );
 }
@@ -574,7 +367,6 @@ interface Step1Props {
     name: string;
     description: string;
     icon: string;
-    gradient: string;
     deliverables: string[];
     timeline: string;
     perfectFor: string;
@@ -587,69 +379,62 @@ function Step1Services({ formData, services, handleServiceToggle, errors }: Step
   return (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>What do you need built?</h2>
-        <p className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>Select all the services that apply to your project</p>
+        <h2 className="font-display text-2xl font-medium text-bone sm:text-3xl">What do you need built?</h2>
+        <p className="mt-2 text-sm text-steel sm:text-base">Select all the services that apply to your project</p>
       </div>
 
       {errors.services && (
-        <div className="p-3 sm:p-4 bg-red-500/10 border border-red-500/30 rounded-lg sm:rounded-xl text-sm sm:text-base text-red-500 text-center">
+        <div className="border border-amber/40 bg-amber/10 p-3 text-center text-sm text-amber sm:p-4 sm:text-base">
           {errors.services}
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
         {services.map((service) => {
           const isSelected = formData.projectDetails.services.includes(service.id);
           return (
             <div
               key={service.id}
               onClick={() => handleServiceToggle(service.id)}
-              className={`relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border-2 cursor-pointer transition-all duration-300 min-h-[120px] ${
-                isSelected
-                  ? 'border-indigo-500/50 shadow-lg shadow-indigo-500/10'
-                  : 'hover:border-indigo-500/30'
+              className={`relative min-h-[120px] cursor-pointer border p-4 transition-colors duration-150 sm:p-5 md:p-6 ${
+                isSelected ? 'border-signal bg-ink-800' : 'border-line hover:border-signal/50'
               }`}
-              style={{
-                background: isSelected ? 'var(--surface-elevated)' : 'var(--card-bg)',
-                borderColor: isSelected ? undefined : 'var(--card-border)',
-              }}
             >
               {/* Selection Indicator */}
-              <div className={`absolute top-3 right-3 sm:top-4 sm:right-4 w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0 ${
-                isSelected ? 'border-indigo-500 bg-indigo-500' : ''
-              }`}
-                style={!isSelected ? { borderColor: 'var(--border-default)' } : undefined}
+              <div
+                className={`absolute right-3 top-3 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors sm:right-4 sm:top-4 sm:h-6 sm:w-6 ${
+                  isSelected ? 'border-signal bg-signal' : 'border-line'
+                }`}
               >
                 {isSelected && (
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <svg className="h-3 w-3 text-ink-950 sm:h-4 sm:w-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
                   </svg>
                 )}
               </div>
 
-              <div className="flex items-start gap-3 sm:gap-4 pr-6 sm:pr-8">
-                <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-xl sm:text-2xl shadow-lg flex-shrink-0`}>
+              <div className="flex items-start gap-3 pr-6 sm:gap-4 sm:pr-8">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center border border-line bg-ink-950 text-xl sm:h-14 sm:w-14 sm:text-2xl">
                   {service.icon}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-base sm:text-lg font-bold mb-1" style={{ color: 'var(--foreground)' }}>{service.name}</h3>
-                  <p className="text-xs sm:text-sm mb-2 sm:mb-3" style={{ color: 'var(--text-secondary)' }}>{service.description}</p>
+                <div className="min-w-0 flex-1">
+                  <h3 className="mb-1 text-base font-bold text-bone sm:text-lg">{service.name}</h3>
+                  <p className="mb-2 text-xs text-steel sm:mb-3 sm:text-sm">{service.description}</p>
 
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                  <div className="mb-2 flex flex-wrap gap-1.5 sm:mb-3 sm:gap-2">
                     {service.deliverables.slice(0, 2).map((item, i) => (
                       <span
                         key={i}
-                        className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full"
-                        style={{ background: 'var(--surface-elevated)', color: 'var(--text-secondary)' }}
+                        className="border border-line px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-steel sm:px-2 sm:py-1 sm:text-xs"
                       >
                         {item}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 text-xs">
-                    <span style={{ color: 'var(--text-secondary)' }}>Timeline: {service.timeline}</span>
-                    <span className={`text-transparent bg-clip-text bg-gradient-to-r ${service.gradient} font-medium`}>
+                  <div className="flex flex-col gap-1 text-xs sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+                    <span className="text-steel">Timeline: {service.timeline}</span>
+                    <span className={`font-mono uppercase tracking-[0.1em] ${isSelected ? 'text-signal' : 'text-steel'}`}>
                       {isSelected ? 'Selected' : 'Tap to select'}
                     </span>
                   </div>
@@ -667,21 +452,19 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
   return (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>Tell us about your project</h2>
-        <p className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>The more details you share, the better quote we can provide</p>
+        <h2 className="font-display text-2xl font-medium text-bone sm:text-3xl">Tell us about your project</h2>
+        <p className="mt-2 text-sm text-steel sm:text-base">The more details you share, the better quote we can provide</p>
       </div>
 
       <div className="space-y-5 sm:space-y-6">
         {/* Project Scale */}
         <div>
-          <label className="block text-sm font-medium mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>
-            Project Scale
-          </label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+          <label className={labelStyles}>Project Scale</label>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
             {[
               { value: 'mvp', label: 'MVP', desc: 'Quick validation', icon: '\u{1F331}' },
               { value: 'standard', label: 'Standard', desc: 'Full features', icon: '\u{1F680}' },
-              { value: 'advanced', label: 'Advanced', desc: 'Complex logic', icon: '\u26A1' },
+              { value: 'advanced', label: 'Advanced', desc: 'Complex logic', icon: '⚡' },
               { value: 'enterprise', label: 'Enterprise', desc: 'Mission-critical', icon: '\u{1F3E2}' }
             ].map((option) => (
               <button
@@ -690,20 +473,15 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
                   ...prev,
                   projectDetails: { ...prev.projectDetails, complexity: option.value as 'mvp' | 'standard' | 'advanced' | 'enterprise' }
                 }))}
-                className={`p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 text-center transition-all duration-300 min-h-[80px] sm:min-h-[100px] ${
+                className={`min-h-[80px] border p-3 text-center transition-colors duration-150 sm:min-h-[100px] sm:p-4 ${
                   formData.projectDetails.complexity === option.value
-                    ? 'border-indigo-500/50 text-indigo-500 dark:text-indigo-400'
-                    : ''
+                    ? 'border-signal bg-ink-800 text-signal'
+                    : 'border-line text-steel hover:border-signal/50'
                 }`}
-                style={
-                  formData.projectDetails.complexity === option.value
-                    ? { background: 'var(--surface-elevated)' }
-                    : { background: 'var(--card-bg)', borderColor: 'var(--card-border)', color: 'var(--text-secondary)' }
-                }
               >
-                <div className="text-xl sm:text-2xl mb-1">{option.icon}</div>
-                <div className="font-medium text-xs sm:text-sm">{option.label}</div>
-                <div className="text-[10px] sm:text-xs opacity-70">{option.desc}</div>
+                <div className="mb-1 text-xl sm:text-2xl">{option.icon}</div>
+                <div className="text-xs font-medium sm:text-sm">{option.label}</div>
+                <div className="text-[10px] opacity-70 sm:text-xs">{option.desc}</div>
               </button>
             ))}
           </div>
@@ -711,9 +489,7 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
-            Project Description *
-          </label>
+          <label className={labelStyles}>Project Description *</label>
           <textarea
             value={formData.projectDetails.description}
             onChange={(e) => setFormData((prev) => ({
@@ -722,25 +498,16 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
             }))}
             placeholder="Describe your project goals, target users, and key features you need..."
             rows={4}
-            className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 border-2 rounded-lg sm:rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50 resize-none transition-all ${
-              errors.description ? 'border-red-500/50' : ''
-            }`}
-            style={{
-              background: 'var(--surface-elevated)',
-              color: 'var(--foreground)',
-              borderColor: errors.description ? undefined : 'var(--border-default)',
-            }}
+            className={`${inputStyles} resize-none ${errors.description ? 'border-amber' : ''}`}
           />
           {errors.description && (
-            <p className="mt-2 text-xs sm:text-sm text-red-500">{errors.description}</p>
+            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.description}</p>
           )}
         </div>
 
         {/* Requirements */}
         <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
-            Special Requirements (Optional)
-          </label>
+          <label className={labelStyles}>Special Requirements (Optional)</label>
           <textarea
             value={formData.projectDetails.requirements}
             onChange={(e) => setFormData((prev) => ({
@@ -749,20 +516,13 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
             }))}
             placeholder="Any technical requirements, integrations, or specific technologies you need..."
             rows={3}
-            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border-2 rounded-lg sm:rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50 resize-none transition-all"
-            style={{
-              background: 'var(--surface-elevated)',
-              color: 'var(--foreground)',
-              borderColor: 'var(--border-default)',
-            }}
+            className={`${inputStyles} resize-none`}
           />
         </div>
 
         {/* Timeline */}
         <div>
-          <label className="block text-sm font-medium mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>
-            Preferred Timeline
-          </label>
+          <label className={labelStyles}>Preferred Timeline</label>
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
             {[
               { value: 'urgent', label: 'ASAP', desc: '2-4 weeks', badge: 'Priority' },
@@ -775,24 +535,19 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
                   ...prev,
                   projectDetails: { ...prev.projectDetails, timeline: option.value as 'urgent' | 'standard' | 'flexible' }
                 }))}
-                className={`relative p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 text-center transition-all duration-300 min-h-[80px] sm:min-h-[100px] ${
+                className={`relative min-h-[80px] border p-3 text-center transition-colors duration-150 sm:min-h-[100px] sm:p-4 ${
                   formData.projectDetails.timeline === option.value
-                    ? 'border-cyan-500/50 text-cyan-600 dark:text-cyan-400'
-                    : ''
+                    ? 'border-signal bg-ink-800 text-signal'
+                    : 'border-line text-steel hover:border-signal/50'
                 }`}
-                style={
-                  formData.projectDetails.timeline === option.value
-                    ? { background: 'var(--surface-elevated)' }
-                    : { background: 'var(--card-bg)', borderColor: 'var(--card-border)', color: 'var(--text-secondary)' }
-                }
               >
                 {formData.projectDetails.timeline === option.value && (
-                  <div className="absolute -top-1.5 sm:-top-2 left-1/2 -translate-x-1/2 px-1.5 sm:px-2 py-0.5 bg-cyan-500 rounded-full text-[9px] sm:text-[10px] font-bold text-white whitespace-nowrap">
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-signal px-1.5 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.1em] text-ink-950 sm:-top-2.5 sm:px-2 sm:text-[10px]">
                     {option.badge}
                   </div>
                 )}
-                <div className="font-medium text-xs sm:text-sm">{option.label}</div>
-                <div className="text-[10px] sm:text-xs opacity-70 mt-1">{option.desc}</div>
+                <div className="text-xs font-medium sm:text-sm">{option.label}</div>
+                <div className="mt-1 text-[10px] opacity-70 sm:text-xs">{option.desc}</div>
               </button>
             ))}
           </div>
@@ -845,17 +600,17 @@ function Step3Investment({ formData, setFormData, errors }: StepProps) {
   return (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>What&apos;s your investment level?</h2>
-        <p className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>We work with startups at every stage. Pick what fits your budget.</p>
+        <h2 className="font-display text-2xl font-medium text-bone sm:text-3xl">What&apos;s your investment level?</h2>
+        <p className="mt-2 text-sm text-steel sm:text-base">We work with startups at every stage. Pick what fits your budget.</p>
       </div>
 
       {errors.budget && (
-        <div className="p-3 sm:p-4 bg-red-500/10 border border-red-500/30 rounded-lg sm:rounded-xl text-sm sm:text-base text-red-500 text-center">
+        <div className="border border-amber/40 bg-amber/10 p-3 text-center text-sm text-amber sm:p-4 sm:text-base">
           {errors.budget}
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2">
         {budgetOptions.map((option) => (
           <button
             key={option.value}
@@ -863,35 +618,28 @@ function Step3Investment({ formData, setFormData, errors }: StepProps) {
               ...prev,
               projectDetails: { ...prev.projectDetails, budget: option.value }
             }))}
-            className={`relative p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl border-2 text-left transition-all duration-300 ${
-              formData.projectDetails.budget === option.value
-                ? 'border-indigo-500/50 shadow-lg shadow-indigo-500/10'
-                : ''
+            className={`relative border p-4 text-left transition-colors duration-150 sm:p-5 md:p-6 ${
+              formData.projectDetails.budget === option.value ? 'border-signal bg-ink-800' : 'border-line hover:border-signal/50'
             }`}
-            style={
-              formData.projectDetails.budget === option.value
-                ? { background: 'var(--surface-elevated)' }
-                : { background: 'var(--card-bg)', borderColor: 'var(--card-border)' }
-            }
           >
             {option.popular && (
-              <div className="absolute -top-2.5 sm:-top-3 left-1/2 -translate-x-1/2 px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full text-[10px] sm:text-xs font-bold text-white whitespace-nowrap">
+              <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-signal px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.1em] text-ink-950 sm:-top-3 sm:px-3 sm:py-1">
                 Most Popular
               </div>
             )}
 
             <div className="flex items-start gap-3 sm:gap-4">
-              <div className="text-2xl sm:text-3xl flex-shrink-0">{option.icon}</div>
-              <div className="flex-1 min-w-0">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0 mb-1">
-                  <h3 className="text-base sm:text-lg font-bold" style={{ color: 'var(--foreground)' }}>{option.label}</h3>
-                  <span className="text-sm sm:text-base text-indigo-500 dark:text-indigo-400 font-bold">{option.range}</span>
+              <div className="flex-shrink-0 text-2xl sm:text-3xl">{option.icon}</div>
+              <div className="min-w-0 flex-1">
+                <div className="mb-1 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+                  <h3 className="text-base font-bold text-bone sm:text-lg">{option.label}</h3>
+                  <span className="font-mono text-sm font-bold text-signal sm:text-base">{option.range}</span>
                 </div>
-                <p className="text-xs sm:text-sm mb-2 sm:mb-3" style={{ color: 'var(--text-secondary)' }}>{option.desc}</p>
+                <p className="mb-2 text-xs text-steel sm:mb-3 sm:text-sm">{option.desc}</p>
                 <div className="space-y-1">
                   {option.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs" style={{ color: 'var(--text-secondary)' }}>
-                      <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: 'var(--border-default)' }} />
+                    <div key={i} className="flex items-center gap-1.5 text-[10px] text-steel sm:gap-2 sm:text-xs">
+                      <div className="h-1 w-1 flex-shrink-0 rounded-full bg-line" />
                       <span>{feature}</span>
                     </div>
                   ))}
@@ -902,15 +650,12 @@ function Step3Investment({ formData, setFormData, errors }: StepProps) {
         ))}
       </div>
 
-      <div
-        className="p-3 sm:p-4 rounded-lg sm:rounded-xl border"
-        style={{ background: 'var(--surface-elevated)', borderColor: 'var(--border-default)' }}
-      >
+      <div className="border border-line bg-ink-800/50 p-3 sm:p-4">
         <div className="flex items-start gap-2 sm:gap-3">
-          <div className="text-lg sm:text-xl flex-shrink-0">{'\u{1F4A1}'}</div>
+          <div className="flex-shrink-0 text-lg sm:text-xl">{'\u{1F4A1}'}</div>
           <div>
-            <h4 className="text-xs sm:text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>Not sure about budget?</h4>
-            <p className="text-[10px] sm:text-xs" style={{ color: 'var(--text-secondary)' }}>
+            <h4 className="mb-1 text-xs font-medium text-bone sm:text-sm">Not sure about budget?</h4>
+            <p className="text-[10px] text-steel sm:text-xs">
               No worries! We&apos;ll provide a detailed quote based on your requirements.
               We also offer flexible payment plans and equity arrangements for early-stage startups.
             </p>
@@ -925,16 +670,14 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
   return (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>How can we reach you?</h2>
-        <p className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>We&apos;ll send your personalized quote to this email</p>
+        <h2 className="font-display text-2xl font-medium text-bone sm:text-3xl">How can we reach you?</h2>
+        <p className="mt-2 text-sm text-steel sm:text-base">We&apos;ll send your personalized quote to this email</p>
       </div>
 
-      <div className="space-y-5 sm:space-y-6 max-w-lg mx-auto">
+      <div className="mx-auto max-w-lg space-y-5 sm:space-y-6">
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
-            Your Name *
-          </label>
+          <label className={labelStyles}>Your Name *</label>
           <input
             type="text"
             value={formData.companyInfo.contactName}
@@ -943,25 +686,16 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
               companyInfo: { ...prev.companyInfo, contactName: e.target.value }
             }))}
             placeholder="John Smith"
-            className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 border-2 rounded-lg sm:rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all min-h-[44px] ${
-              errors.contactName ? 'border-red-500/50' : ''
-            }`}
-            style={{
-              background: 'var(--surface-elevated)',
-              color: 'var(--foreground)',
-              borderColor: errors.contactName ? undefined : 'var(--border-default)',
-            }}
+            className={`${inputStyles} min-h-[44px] ${errors.contactName ? 'border-amber' : ''}`}
           />
           {errors.contactName && (
-            <p className="mt-2 text-xs sm:text-sm text-red-500">{errors.contactName}</p>
+            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.contactName}</p>
           )}
         </div>
 
         {/* Email */}
         <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
-            Email Address *
-          </label>
+          <label className={labelStyles}>Email Address *</label>
           <input
             type="email"
             value={formData.companyInfo.email}
@@ -970,24 +704,17 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
               companyInfo: { ...prev.companyInfo, email: e.target.value }
             }))}
             placeholder="john@company.com"
-            className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 border-2 rounded-lg sm:rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all min-h-[44px] ${
-              errors.email ? 'border-red-500/50' : ''
-            }`}
-            style={{
-              background: 'var(--surface-elevated)',
-              color: 'var(--foreground)',
-              borderColor: errors.email ? undefined : 'var(--border-default)',
-            }}
+            className={`${inputStyles} min-h-[44px] ${errors.email ? 'border-amber' : ''}`}
           />
           {errors.email && (
-            <p className="mt-2 text-xs sm:text-sm text-red-500">{errors.email}</p>
+            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.email}</p>
           )}
         </div>
 
         {/* Company (Optional) */}
         <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
-            Company Name <span style={{ color: 'var(--text-secondary)' }}>(Optional)</span>
+          <label className={labelStyles}>
+            Company Name <span className="normal-case tracking-normal text-steel/70">(Optional)</span>
           </label>
           <input
             type="text"
@@ -997,19 +724,14 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
               companyInfo: { ...prev.companyInfo, companyName: e.target.value }
             }))}
             placeholder="Acme Inc."
-            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border-2 rounded-lg sm:rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all min-h-[44px]"
-            style={{
-              background: 'var(--surface-elevated)',
-              color: 'var(--foreground)',
-              borderColor: 'var(--border-default)',
-            }}
+            className={`${inputStyles} min-h-[44px]`}
           />
         </div>
 
         {/* Phone (Optional) */}
         <div>
-          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
-            Phone Number <span style={{ color: 'var(--text-secondary)' }}>(Optional)</span>
+          <label className={labelStyles}>
+            Phone Number <span className="normal-case tracking-normal text-steel/70">(Optional)</span>
           </label>
           <input
             type="tel"
@@ -1019,12 +741,7 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
               companyInfo: { ...prev.companyInfo, phone: e.target.value }
             }))}
             placeholder="+1 (555) 123-4567"
-            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border-2 rounded-lg sm:rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all min-h-[44px]"
-            style={{
-              background: 'var(--surface-elevated)',
-              color: 'var(--foreground)',
-              borderColor: 'var(--border-default)',
-            }}
+            className={`${inputStyles} min-h-[44px]`}
           />
         </div>
       </div>
@@ -1037,7 +754,6 @@ interface Step5Props extends StepProps {
     id: string;
     name: string;
     icon: string;
-    gradient: string;
   }>;
 }
 
@@ -1059,25 +775,21 @@ function Step5Review({ formData, setFormData, services, errors }: Step5Props) {
   return (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3" style={{ color: 'var(--foreground)' }}>Review Your Quote Request</h2>
-        <p className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>Make sure everything looks good before submitting</p>
+        <h2 className="font-display text-2xl font-medium text-bone sm:text-3xl">Review Your Quote Request</h2>
+        <p className="mt-2 text-sm text-steel sm:text-base">Make sure everything looks good before submitting</p>
       </div>
 
       <div className="space-y-5 sm:space-y-6">
         {/* Summary Card */}
-        <div
-          className="rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border"
-          style={{ background: 'var(--surface-elevated)', borderColor: 'var(--border-default)' }}
-        >
+        <div className="border border-line bg-ink-800/50 p-4 sm:p-5 md:p-6">
           <div className="space-y-3 sm:space-y-4">
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-0">
-              <span className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>Services</span>
-              <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-start sm:justify-end">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-0">
+              <span className="text-sm text-steel sm:text-base">Services</span>
+              <div className="flex flex-wrap justify-start gap-1.5 sm:justify-end sm:gap-2">
                 {selectedServices.map((service) => (
                   <span
                     key={service?.id}
-                    className="flex items-center gap-1 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm"
-                    style={{ background: 'var(--card-bg)', color: 'var(--foreground)' }}
+                    className="flex items-center gap-1 border border-line px-2 py-1 text-xs text-bone sm:px-3 sm:text-sm"
                   >
                     <span>{service?.icon}</span>
                     <span>{service?.name}</span>
@@ -1085,31 +797,28 @@ function Step5Review({ formData, setFormData, services, errors }: Step5Props) {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
-              <span className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>Project Scale</span>
-              <span className="text-sm sm:text-base capitalize" style={{ color: 'var(--foreground)' }}>{formData.projectDetails.complexity}</span>
+            <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-0">
+              <span className="text-sm text-steel sm:text-base">Project Scale</span>
+              <span className="text-sm capitalize text-bone sm:text-base">{formData.projectDetails.complexity}</span>
             </div>
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
-              <span className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>Timeline</span>
-              <span className="text-sm sm:text-base capitalize" style={{ color: 'var(--foreground)' }}>{formData.projectDetails.timeline}</span>
+            <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-0">
+              <span className="text-sm text-steel sm:text-base">Timeline</span>
+              <span className="text-sm capitalize text-bone sm:text-base">{formData.projectDetails.timeline}</span>
             </div>
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-0">
-              <span className="text-sm sm:text-base" style={{ color: 'var(--text-secondary)' }}>Investment Level</span>
-              <span className="text-sm sm:text-base text-indigo-500 dark:text-indigo-400 font-medium">{getBudgetLabel(formData.projectDetails.budget)}</span>
+            <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-0">
+              <span className="text-sm text-steel sm:text-base">Investment Level</span>
+              <span className="font-mono text-sm font-medium text-signal sm:text-base">{getBudgetLabel(formData.projectDetails.budget)}</span>
             </div>
-            <div className="border-t pt-3 sm:pt-4" style={{ borderColor: 'var(--border-default)' }}>
-              <span className="text-sm sm:text-base block mb-2" style={{ color: 'var(--text-secondary)' }}>Contact</span>
-              <div className="text-sm sm:text-base" style={{ color: 'var(--foreground)' }}>{formData.companyInfo.contactName}</div>
-              <div className="text-xs sm:text-sm break-all" style={{ color: 'var(--text-secondary)' }}>{formData.companyInfo.email}</div>
+            <div className="border-t border-line pt-3 sm:pt-4">
+              <span className="mb-2 block text-sm text-steel sm:text-base">Contact</span>
+              <div className="text-sm text-bone sm:text-base">{formData.companyInfo.contactName}</div>
+              <div className="break-all text-xs text-steel sm:text-sm">{formData.companyInfo.email}</div>
             </div>
           </div>
         </div>
 
         {/* Terms */}
-        <label
-          className="flex items-start gap-2 sm:gap-3 p-3 sm:p-4 rounded-lg sm:rounded-xl border cursor-pointer"
-          style={{ background: 'var(--surface-elevated)', borderColor: 'var(--border-default)' }}
-        >
+        <label className="flex cursor-pointer items-start gap-2 border border-line bg-ink-800/50 p-3 sm:gap-3 sm:p-4">
           <input
             type="checkbox"
             checked={formData.agreedToTerms}
@@ -1117,39 +826,36 @@ function Step5Review({ formData, setFormData, services, errors }: Step5Props) {
               ...prev,
               agreedToTerms: e.target.checked
             }))}
-            className="mt-0.5 sm:mt-1 w-4 h-4 sm:w-5 sm:h-5 rounded text-indigo-500 focus:ring-indigo-500 focus:ring-offset-0 flex-shrink-0"
+            className="mt-0.5 h-4 w-4 flex-shrink-0 border-line text-signal focus:ring-0 focus:ring-offset-0 sm:mt-1 sm:h-5 sm:w-5"
           />
-          <span className="text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>
+          <span className="text-xs text-steel sm:text-sm">
             I agree to the{' '}
-            <Link href="/terms" className="text-indigo-500 dark:text-indigo-400 hover:underline">Terms of Service</Link>
+            <Link href="/terms" className="text-signal hover:underline">Terms of Service</Link>
             {' '}and{' '}
-            <Link href="/privacy" className="text-indigo-500 dark:text-indigo-400 hover:underline">Privacy Policy</Link>.
+            <Link href="/privacy" className="text-signal hover:underline">Privacy Policy</Link>.
             This is a quote request, not a binding contract.
           </span>
         </label>
         {errors.terms && (
-          <p className="text-xs sm:text-sm text-red-500">{errors.terms}</p>
+          <p className="text-xs text-amber sm:text-sm">{errors.terms}</p>
         )}
 
         {/* What Happens Next */}
-        <div
-          className="p-4 sm:p-5 rounded-lg sm:rounded-xl border border-indigo-500/20"
-          style={{ background: 'var(--surface-elevated)' }}
-        >
-          <h4 className="font-medium text-sm sm:text-base mb-2 sm:mb-3 flex items-center gap-2" style={{ color: 'var(--foreground)' }}>
-            <span className="text-base sm:text-lg">{'\u2728'}</span> What happens next?
+        <div className="border border-line bg-ink-800/50 p-4 sm:p-5">
+          <h4 className="mb-2 flex items-center gap-2 text-sm font-medium text-bone sm:mb-3 sm:text-base">
+            <span className="text-base sm:text-lg">{'✨'}</span> What happens next?
           </h4>
           <div className="space-y-2 text-xs sm:text-sm">
-            <div className="flex items-center gap-2 sm:gap-3" style={{ color: 'var(--text-secondary)' }}>
-              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-[10px] sm:text-xs text-indigo-500 dark:text-indigo-400 flex-shrink-0">1</div>
+            <div className="flex items-center gap-2 text-steel sm:gap-3">
+              <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-signal/40 font-mono text-[10px] text-signal sm:h-6 sm:w-6 sm:text-xs">1</div>
               <span>Our AI analyzes your requirements (instant)</span>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3" style={{ color: 'var(--text-secondary)' }}>
-              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-[10px] sm:text-xs text-indigo-500 dark:text-indigo-400 flex-shrink-0">2</div>
+            <div className="flex items-center gap-2 text-steel sm:gap-3">
+              <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-signal/40 font-mono text-[10px] text-signal sm:h-6 sm:w-6 sm:text-xs">2</div>
               <span>You receive a detailed quote (within 24 hours)</span>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3" style={{ color: 'var(--text-secondary)' }}>
-              <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-[10px] sm:text-xs text-indigo-500 dark:text-indigo-400 flex-shrink-0">3</div>
+            <div className="flex items-center gap-2 text-steel sm:gap-3">
+              <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-signal/40 font-mono text-[10px] text-signal sm:h-6 sm:w-6 sm:text-xs">3</div>
               <span>Free consultation call (optional)</span>
             </div>
           </div>

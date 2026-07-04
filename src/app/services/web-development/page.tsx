@@ -1,14 +1,20 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import PageLayout from '../../components/layout/PageLayout';
-import Button from '../../components/ui/Button';
-import Tag from '../../components/ui/Tag';
-import Accordion from '../../components/ui/Accordion';
+import PageHero from '../../components/shared/PageHero';
+import CTABand from '../../components/shared/CTABand';
+import Button from '../../design/ui/Button';
+import SectionHeader from '../../design/ui/SectionHeader';
+import Card from '../../design/ui/Card';
+import SpecTable from '../../design/ui/SpecTable';
+import Accordion from '../../design/ui/Accordion';
+import Pipeline from '../../design/ui/Pipeline';
+import type { AccordionItem } from '../../design/ui/Accordion';
+import type { SpecRow } from '../../design/ui/SpecTable';
 
 export const metadata: Metadata = {
   title: 'Web Development Services | CraftsAI',
   description:
-    'Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure. 10x faster delivery powered by our WebForge AI agent.',
+    'Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers.',
   openGraph: {
     title: 'Web Development Services | CraftsAI',
     description:
@@ -18,7 +24,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.craftsai.org/services/web-development' },
 };
 
-const projectTypes = [
+const useCases = [
   {
     title: 'SaaS Platforms',
     description:
@@ -39,16 +45,6 @@ const projectTypes = [
     description:
       'Rapid prototypes to validate your idea and attract funding in weeks, not months.',
   },
-  {
-    title: 'API Development',
-    description:
-      'RESTful and GraphQL APIs designed for performance, security, and developer experience.',
-  },
-  {
-    title: 'Progressive Web Apps',
-    description:
-      'Offline-capable, installable web apps that feel native on any device.',
-  },
 ];
 
 const techStack = [
@@ -66,29 +62,64 @@ const techStack = [
   'Tailwind CSS',
 ];
 
-const stats = [
-  { label: 'Faster Delivery', value: '10x' },
-  { label: 'Cost Savings', value: '80%' },
-  { label: 'Typical Timeline', value: '2-6 weeks' },
-];
-
-const faqItems = [
+const specRows: SpecRow[] = [
   {
-    question: 'How does AI speed up web development?',
-    answer:
-      'Our WebForge AI agent generates boilerplate code, database schemas, and component scaffolding in minutes. Human engineers then review, refine, and customize everything to your exact requirements. This eliminates repetitive work and lets us focus on what makes your product unique.',
+    label: 'Scope',
+    value:
+      'SaaS platforms, e-commerce, enterprise dashboards, MVPs, APIs, and progressive web apps — full-stack, schema to deploy.',
   },
   {
+    label: 'Stack',
+    value: (
+      <div className="flex flex-wrap gap-2">
+        {techStack.map((tech) => (
+          <span
+            key={tech}
+            className="border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-steel"
+          >
+            {tech}
+          </span>
+        ))}
+      </div>
+    ),
+  },
+  {
+    label: 'Timeline',
+    value: '2–6 weeks, depending on scope — roughly 10x faster and 80% cheaper than a typical agency build.',
+  },
+  {
+    label: 'Automated by agents',
+    value:
+      'Next.js page structures, API routes, database schemas, and Tailwind component libraries, generated from a plain-English brief.',
+  },
+  {
+    label: 'Reviewed by engineers',
+    value:
+      'Every pull request, integration test, and product decision that only a person can make — before anything ships.',
+  },
+];
+
+const faqItems: AccordionItem[] = [
+  {
+    id: 'ai-speed',
+    question: 'How does AI speed up web development?',
+    answer:
+      'Our agents generate boilerplate code, database schemas, and component scaffolding in minutes. Human engineers then review, refine, and customize everything to your exact requirements. This eliminates repetitive work and lets us focus on what makes your product unique.',
+  },
+  {
+    id: 'existing-codebase',
     question: 'Can you work with my existing codebase?',
     answer:
       'Absolutely. We regularly join projects mid-stream. Our onboarding process includes a thorough code audit, and our AI agent adapts to your existing patterns, conventions, and tech stack.',
   },
   {
+    id: 'timeline',
     question: 'What does the delivery timeline look like?',
     answer:
       'Most web projects ship in 2 to 6 weeks depending on complexity. MVPs and prototypes can launch in as little as 2 weeks. Enterprise platforms with complex integrations typically take 4 to 6 weeks. You will receive weekly progress demos throughout.',
   },
   {
+    id: 'deployment',
     question: 'Do you handle deployment and hosting?',
     answer:
       'Yes. We deploy to Vercel, AWS, or your preferred cloud provider. Every project includes CI/CD pipelines, monitoring, and a production-ready infrastructure setup at no extra charge.',
@@ -98,149 +129,76 @@ const faqItems = [
 export default function WebDevelopmentPage() {
   return (
     <PageLayout>
-      {/* Hero */}
-      <section
-        className="py-20 md:py-28"
-        style={{
-          background:
-            'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 100%)',
-        }}
+      <PageHero
+        eyebrow="Services / Web"
+        title="Web Development"
+        lede="Full-stack web applications built with React, Next.js, and modern cloud infrastructure — built by our agents and shipped fast, with senior engineers reviewing every release."
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-medium text-indigo-500">
-            <Link href="/services" className="hover:underline">
-              Services
-            </Link>{' '}
-            / Web Development
-          </p>
-          <h1 className="mt-4 text-4xl md:text-5xl font-bold text-[var(--foreground)]">
-            Web Development
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-[var(--text-secondary)]">
-            Full-stack web applications built with React, Next.js, and modern
-            cloud infrastructure &mdash; delivered 10x faster with our WebForge
-            AI agent.
-          </p>
+        <Button variant="amber" size="lg" href="/contact">
+          Start a project
+        </Button>
+        <Button variant="chalk" size="lg" href="/quote">
+          Get an estimate
+        </Button>
+      </PageHero>
 
-          <div className="mt-10 flex flex-wrap gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <p className="text-3xl font-bold text-indigo-500">{stat.value}</p>
-                <p className="text-sm text-[var(--text-secondary)]">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        <SectionHeader
+          index="fig. 01"
+          eyebrow="How it ships"
+          title="One brief. An agent scaffolds it. Engineers ship it."
+          description="Our agents turn your requirements into a working codebase in hours — senior engineers take it from there."
+        />
+        <div className="mt-14">
+          <Card>
+            <Pipeline stages={['Brief', 'Scaffold', 'Build', 'Review', 'Ship']} />
+          </Card>
+        </div>
+      </section>
 
-          <div className="mt-10">
-            <Button href="/quote" size="lg">
-              Get a Free Quote
-            </Button>
+      <section className="border-t border-line bg-ink-900">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+          <SectionHeader
+            index="fig. 02"
+            eyebrow="What you get"
+            title="Scope, stack, and delivery — in writing."
+          />
+          <div className="mt-14">
+            <SpecTable rows={specRows} />
           </div>
         </div>
       </section>
 
-      {/* What We Build */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            What We Build
-          </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projectTypes.map((project) => (
-              <div
-                key={project.title}
-                className="rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-6"
-              >
-                <h3 className="text-lg font-semibold text-[var(--foreground)]">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-            ))}
-          </div>
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        <SectionHeader
+          index="fig. 03"
+          eyebrow="Use cases"
+          title="Where this fits."
+          description="A sample of the products we build most often — not an exhaustive list."
+        />
+        <div className="mt-14 grid gap-6 sm:grid-cols-2">
+          {useCases.map((useCase) => (
+            <Card key={useCase.title} interactive>
+              <h3 className="font-display text-lg font-medium text-bone">{useCase.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-steel">{useCase.description}</p>
+            </Card>
+          ))}
         </div>
       </section>
 
-      {/* Tech Stack */}
-      <section
-        className="py-16 md:py-24"
-        style={{ background: 'var(--surface-sunken)' }}
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            Tech Stack
-          </h2>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {techStack.map((tech) => (
-              <Tag key={tech} variant="primary" size="md">
-                {tech}
-              </Tag>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* AI Agent */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            How Our AI Agent Works
-          </h2>
-          <div className="mt-8 rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-6 md:p-8">
-            <div className="flex items-center gap-3">
-              <span className="text-3xl">🤖</span>
-              <div>
-                <h3 className="text-xl font-semibold text-[var(--foreground)]">
-                  WebForge AI
-                </h3>
-                <p className="text-sm text-indigo-500">Web Development Agent</p>
-              </div>
-            </div>
-            <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
-              WebForge AI is our autonomous agent specialised in building modern
-              web applications. It generates Next.js page structures, API routes,
-              database schemas, and Tailwind component libraries from a plain-English
-              brief. Human engineers review every pull request, write integration
-              tests, and handle the nuanced product decisions that only people can
-              make. The result: enterprise-grade software delivered at startup speed.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section
-        className="py-16 md:py-24"
-        style={{ background: 'var(--surface-sunken)' }}
-      >
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            Frequently Asked Questions
-          </h2>
-          <div className="mt-8">
+      <section className="border-t border-line bg-ink-900">
+        <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
+          <SectionHeader index="fig. 04" eyebrow="FAQ" title="Common questions." />
+          <div className="mt-14">
             <Accordion items={faqItems} />
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            Ready to build your web application?
-          </h2>
-          <p className="mt-3 text-[var(--text-secondary)]">
-            Tell us about your project and get a free quote within 24 hours.
-          </p>
-          <div className="mt-8">
-            <Button href="/quote" size="lg">
-              Start Your Project
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTABand
+        title="Ready to build your web application?"
+        lede="Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+      />
     </PageLayout>
   );
 }

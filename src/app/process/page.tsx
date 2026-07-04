@@ -1,6 +1,10 @@
 import { Metadata } from 'next';
 import PageLayout from '../components/layout/PageLayout';
-import Button from '../components/ui/Button';
+import PageHero from '../components/shared/PageHero';
+import CTABand from '../components/shared/CTABand';
+import SectionHeader from '../design/ui/SectionHeader';
+import Card from '../design/ui/Card';
+import SpecTable from '../design/ui/SpecTable';
 
 export const metadata: Metadata = {
   title: 'Our Development Process | CraftsAI',
@@ -8,62 +12,66 @@ export const metadata: Metadata = {
     'From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication.',
   openGraph: {
     title: 'Our Development Process | CraftsAI',
-    description:
-      'From discovery to launch in 5 clear phases.',
+    description: 'From discovery to launch in 5 clear phases.',
     url: 'https://www.craftsai.org/process',
   },
   alternates: { canonical: 'https://www.craftsai.org/process' },
 };
 
-const phases = [
+interface Phase {
+  number: string;
+  title: string;
+  what: string;
+  deliverables: string;
+  yourRole: string;
+  timeline: string;
+}
+
+/* A real sequence — numbering encodes the order the reader follows. */
+const PHASES: Phase[] = [
   {
-    icon: '\uD83D\uDCAC',
-    number: 1,
+    number: '01',
     title: 'Discovery',
     what: 'Free consultation to understand your needs. We discuss your goals, target audience, and success criteria to make sure we are aligned before any code is written.',
     deliverables: 'Requirements document, project scope',
     yourRole: 'Share your vision and goals',
-    timeline: '1\u20132 days',
+    timeline: '1–2 days',
   },
   {
-    icon: '\uD83D\uDCCB',
-    number: 2,
+    number: '02',
     title: 'Planning',
     what: 'Architecture design, technology selection, and milestone planning. We map out the entire project so there are no surprises down the road.',
     deliverables: 'Technical spec, project timeline, cost estimate',
     yourRole: 'Review and approve plan',
-    timeline: '2\u20133 days',
+    timeline: '2–3 days',
   },
   {
-    icon: '\uD83E\uDD16',
-    number: 3,
+    number: '03',
     title: 'Development',
     what: 'AI agents generate code while engineers review and refine. You see working features early and often through regular demos.',
     deliverables: 'Working features, regular demos',
     yourRole: 'Weekly check-ins, feedback',
-    timeline: '1\u20134 weeks',
+    timeline: '1–4 weeks',
   },
   {
-    icon: '\u2705',
-    number: 4,
+    number: '04',
     title: 'Testing',
     what: 'Comprehensive QA, performance testing, and security audit. We catch issues before your users do.',
     deliverables: 'Test reports, bug-free application',
     yourRole: 'User acceptance testing',
-    timeline: '3\u20135 days',
+    timeline: '3–5 days',
   },
   {
-    icon: '\uD83D\uDE80',
-    number: 5,
+    number: '05',
     title: 'Launch & Support',
     what: 'Deployment, monitoring setup, and handoff. We make sure everything runs smoothly and your team is fully equipped to take over.',
     deliverables: 'Live application, documentation, training',
     yourRole: 'Final approval',
-    timeline: '1\u20132 days',
+    timeline: '1–2 days',
   },
 ];
 
-const communicationItems = [
+const COMMUNICATION_ITEMS = [
   {
     title: 'Weekly Progress Reports',
     description: 'Detailed updates on what was completed, what is next, and any blockers.',
@@ -85,133 +93,76 @@ const communicationItems = [
 export default function ProcessPage() {
   return (
     <PageLayout>
-      {/* Hero */}
-      <section
-        className="py-20 md:py-28"
-        style={{
-          background:
-            'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 100%)',
-        }}
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-[var(--foreground)]">
-            Our Development Process
-          </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-[var(--text-secondary)]">
-            Five clear phases from discovery to launch. No black boxes, no
-            surprises &mdash; just transparent, predictable delivery.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Process"
+        title="Five phases, start to ship."
+        lede="No black boxes, no surprises — just transparent, predictable delivery from discovery to launch."
+      />
 
-      {/* Phases */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="space-y-16">
-            {phases.map((phase) => (
-              <div
-                key={phase.number}
-                className="relative rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-6 md:p-8"
-              >
-                {/* Phase header */}
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-indigo-600 text-white text-lg font-bold">
-                    {phase.number}
-                  </div>
-                  <div>
-                    <h2 className="text-xl md:text-2xl font-bold text-[var(--foreground)]">
-                      <span className="mr-2">{phase.icon}</span>
-                      {phase.title}
-                    </h2>
-                  </div>
-                </div>
+      <section className="mx-auto max-w-4xl px-6 py-20 sm:py-28">
+        <SectionHeader
+          index="fig. 01"
+          eyebrow="The pipeline"
+          title="How a project moves through CraftsAI."
+        />
 
-                {/* What */}
-                <p className="mt-4 text-[var(--text-secondary)] leading-relaxed">
-                  {phase.what}
-                </p>
-
-                {/* Details grid */}
-                <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-indigo-500">
-                      Deliverables
-                    </p>
-                    <p className="mt-1 text-sm text-[var(--text-secondary)]">
-                      {phase.deliverables}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-indigo-500">
-                      Your Role
-                    </p>
-                    <p className="mt-1 text-sm text-[var(--text-secondary)]">
-                      {phase.yourRole}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-indigo-500">
-                      Timeline
-                    </p>
-                    <p className="mt-1 text-sm text-[var(--text-secondary)]">
-                      {phase.timeline}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How We Communicate */}
-      <section
-        className="py-16 md:py-24"
-        style={{ background: 'var(--surface-sunken)' }}
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            How We Communicate
-          </h2>
-          <p className="mt-3 max-w-2xl text-[var(--text-secondary)]">
-            Transparency is not a feature &mdash; it is how we work. You will
-            always know where your project stands.
-          </p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {communicationItems.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-6"
-              >
-                <h3 className="text-lg font-semibold text-[var(--foreground)]">
-                  {item.title}
+        <ol className="mt-14 space-y-6 border-l border-line pl-8 sm:pl-10">
+          {PHASES.map((phase) => (
+            <li key={phase.number} className="relative">
+              <span
+                aria-hidden
+                className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-signal sm:-left-[calc(2.5rem+5px)]"
+              />
+              <Card>
+                <span className="font-mono text-xs uppercase tracking-[0.18em] text-signal">
+                  {phase.number}
+                </span>
+                <h3 className="mt-4 font-display text-2xl font-medium text-bone">
+                  {phase.title}
                 </h3>
-                <p className="mt-2 text-sm text-[var(--text-secondary)] leading-relaxed">
-                  {item.description}
-                </p>
+                <p className="mt-3 text-sm leading-relaxed text-steel">{phase.what}</p>
+                <div className="mt-6">
+                  <SpecTable
+                    rows={[
+                      { label: 'Deliverables', value: phase.deliverables },
+                      { label: 'Your role', value: phase.yourRole },
+                      { label: 'Timeline', value: phase.timeline },
+                    ]}
+                  />
+                </div>
+              </Card>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="border-t border-line bg-ink-900">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+          <SectionHeader
+            index="fig. 02"
+            eyebrow="How we communicate"
+            title="Transparency is how we work."
+            description="You will always know where your project stands."
+          />
+          <div className="mt-14 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {COMMUNICATION_ITEMS.map((item) => (
+              <div key={item.title} className="bg-ink-950 p-6">
+                <h3 className="font-display text-lg font-medium text-bone">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-steel">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
-            Ready to get started?
-          </h2>
-          <p className="mt-3 text-[var(--text-secondary)]">
-            Phase 1 is free. Tell us about your project and we will schedule a
-            discovery call within 24 hours.
-          </p>
-          <div className="mt-8">
-            <Button href="/quote" size="lg">
-              Start Your Project
-            </Button>
-          </div>
-        </div>
-      </section>
+      <CTABand
+        title="Ready to get started?"
+        lede="Phase 1 is free. Tell us about your project and we'll schedule a discovery call within 24 hours."
+        primaryLabel="Start your project"
+        primaryHref="/quote"
+        secondaryLabel="See our services"
+        secondaryHref="/services"
+      />
     </PageLayout>
   );
 }

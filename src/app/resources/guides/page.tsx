@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import PageLayout from '../../components/layout/PageLayout';
-import ContentGrid from '../../components/content/ContentGrid';
+import PageHero from '../../components/shared/PageHero';
+import CTABand from '../../components/shared/CTABand';
+import Card from '../../design/ui/Card';
 import { getAllGuides } from '@/app/lib/content';
 
 export const metadata: Metadata = {
@@ -20,59 +23,65 @@ export const metadata: Metadata = {
   },
 };
 
+function formatDate(dateString: string): string {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
 export default function GuidesListingPage() {
   const guides = getAllGuides();
 
-  const items = guides.map((guide) => ({
-    title: guide.title,
-    excerpt: guide.excerpt,
-    type: 'guide' as const,
-    slug: guide.slug,
-    date: guide.date,
-    readTime: guide.readTime,
-    tags: guide.tags,
-  }));
-
   return (
     <PageLayout>
-      {/* Hero Section */}
-      <section
-        className="relative overflow-hidden pt-20 pb-12 sm:pt-24 sm:pb-16 md:pt-28 md:pb-20"
-        style={{
-          background:
-            'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 50%, var(--background) 100%)',
-        }}
-      >
-        <div className="absolute inset-0 pointer-events-none">
-          <div
-            className="absolute top-1/4 left-1/4 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] rounded-full blur-[150px] opacity-20"
-            style={{ background: 'var(--brand-secondary)' }}
-          />
-        </div>
+      <PageHero
+        eyebrow="Resources / Guides"
+        title="Guides & whitepapers."
+        lede="In-depth resources to help you plan, build, and ship successful software products."
+      />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-4 sm:mb-6">
-            <span style={{ color: 'var(--foreground)' }}>Guides & </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-violet-500">
-              Whitepapers
-            </span>
-          </h1>
-          <p
-            className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto"
-            style={{ color: 'var(--text-secondary)' }}
-          >
-            In-depth resources to help you plan, build, and ship successful
-            software products.
-          </p>
-        </div>
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        {guides.length === 0 ? (
+          <p className="text-base text-steel">No guides yet — check back soon.</p>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {guides.map((guide) => (
+              <Link
+                key={guide.slug}
+                href={`/resources/guides/${guide.slug}`}
+                className="group block h-full focus-visible:outline-none"
+              >
+                <Card interactive className="flex h-full flex-col">
+                  <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-steel">
+                    <span className="text-signal">Guide</span>
+                    <span>{guide.readTime} min read</span>
+                  </div>
+                  <h2 className="mt-6 font-display text-xl font-medium text-bone">{guide.title}</h2>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-steel">{guide.excerpt}</p>
+                  <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+                    <time
+                      dateTime={guide.date}
+                      className="font-mono text-[10px] uppercase tracking-[0.18em] text-steel"
+                    >
+                      {formatDate(guide.date)}
+                    </time>
+                    <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
+                      Read
+                      <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-1">
+                        →
+                      </span>
+                    </span>
+                  </div>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
-      {/* Guides Grid */}
-      <section className="py-12 sm:py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ContentGrid items={items} showFilter />
-        </div>
-      </section>
+      <CTABand />
     </PageLayout>
   );
 }

@@ -1,9 +1,12 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import PageLayout from '../components/layout/PageLayout';
-import Button from '../components/ui/Button';
 import Link from 'next/link';
+import PageLayout from '../components/layout/PageLayout';
+import PageHero from '../components/shared/PageHero';
+import Button from '../design/ui/Button';
+import MonoLabel from '../design/ui/MonoLabel';
+import Card from '../design/ui/Card';
 
 const serviceOptions = [
   'Web Development',
@@ -82,7 +85,7 @@ const contactInfo = [
   },
   {
     label: 'Business Hours',
-    value: 'Sun\u2013Thu, 9 AM\u20136 PM BST',
+    value: 'Sun–Thu, 9 AM–6 PM (Dhaka, GMT+6)',
     href: undefined,
     icon: (
       <svg
@@ -149,42 +152,78 @@ export default function ContactPage() {
     }
   };
 
+  const labelStyles = 'mb-2 block font-mono text-xs uppercase tracking-[0.15em] text-steel';
   const inputStyles =
-    'w-full rounded-lg border border-[var(--border-default)] bg-[var(--surface-elevated)] px-4 py-2.5 text-sm text-[var(--foreground)] placeholder:text-[var(--text-secondary)]/60 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-colors';
+    'w-full border border-line bg-ink-900 px-4 py-2.5 text-sm text-bone placeholder:text-steel/50 transition-colors focus:border-signal focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal';
 
   return (
     <PageLayout>
-      {/* Hero */}
-      <section
-        className="py-20 md:py-28"
-        style={{
-          background:
-            'linear-gradient(180deg, var(--background) 0%, var(--surface-sunken) 100%)',
-        }}
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-[var(--foreground)]">
-            Get in Touch
-          </h1>
-          <p className="mt-4 max-w-2xl mx-auto text-lg text-[var(--text-secondary)]">
-            Have a project in mind? Send us a message and we&apos;ll get back to
-            you within 24 hours.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Contact"
+        title="Get in touch."
+        lede="Have a project in mind? Send a message and we&apos;ll get back to you within 24 hours."
+      />
 
-      {/* Form + Info */}
-      <section className="py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-5">
+      <section className="bg-ink-950">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+          <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
+            {/* Direct channels */}
+            <div className="lg:col-span-2">
+              <MonoLabel>Direct channels</MonoLabel>
+              <h2 className="mt-4 font-display text-2xl font-medium text-bone sm:text-3xl">
+                Reach us directly.
+              </h2>
+
+              <Card className="mt-8">
+                <div className="space-y-6">
+                  {contactInfo.map((item) => (
+                    <div key={item.label} className="flex items-start gap-4">
+                      <span className="mt-0.5 text-signal">{item.icon}</span>
+                      <div>
+                        <p className="font-mono text-xs uppercase tracking-[0.15em] text-steel">
+                          {item.label}
+                        </p>
+                        {item.href ? (
+                          <a
+                            href={item.href}
+                            className="mt-1 block text-sm text-bone transition-colors hover:text-signal"
+                            target={
+                              item.href.startsWith('http')
+                                ? '_blank'
+                                : undefined
+                            }
+                            rel={
+                              item.href.startsWith('http')
+                                ? 'noopener noreferrer'
+                                : undefined
+                            }
+                          >
+                            {item.value}
+                          </a>
+                        ) : (
+                          <p className="mt-1 text-sm text-bone">{item.value}</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <hr className="my-6 border-line" />
+
+                <Link
+                  href="/faq"
+                  className="font-mono text-xs uppercase tracking-[0.15em] text-signal hover:underline"
+                >
+                  Frequently asked questions &rarr;
+                </Link>
+              </Card>
+            </div>
+
             {/* Contact Form */}
             <div className="lg:col-span-3">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="mb-1.5 block text-sm font-medium text-[var(--foreground)]"
-                  >
+                  <label htmlFor="name" className={labelStyles}>
                     Name
                   </label>
                   <input
@@ -200,10 +239,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="mb-1.5 block text-sm font-medium text-[var(--foreground)]"
-                  >
+                  <label htmlFor="email" className={labelStyles}>
                     Email
                   </label>
                   <input
@@ -219,12 +255,9 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="company"
-                    className="mb-1.5 block text-sm font-medium text-[var(--foreground)]"
-                  >
+                  <label htmlFor="company" className={labelStyles}>
                     Company{' '}
-                    <span className="text-[var(--text-secondary)] font-normal">
+                    <span className="normal-case tracking-normal text-steel/70">
                       (optional)
                     </span>
                   </label>
@@ -240,10 +273,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="service"
-                    className="mb-1.5 block text-sm font-medium text-[var(--foreground)]"
-                  >
+                  <label htmlFor="service" className={labelStyles}>
                     Service Interest
                   </label>
                   <select
@@ -264,10 +294,7 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="mb-1.5 block text-sm font-medium text-[var(--foreground)]"
-                  >
+                  <label htmlFor="message" className={labelStyles}>
                     Message
                   </label>
                   <textarea
@@ -284,6 +311,7 @@ export default function ContactPage() {
 
                 <Button
                   type="submit"
+                  variant="signal"
                   size="lg"
                   disabled={status === 'loading'}
                 >
@@ -291,68 +319,16 @@ export default function ContactPage() {
                 </Button>
 
                 {status === 'success' && (
-                  <p className="text-sm text-emerald-500">
+                  <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
                     Message sent! We&apos;ll be in touch soon.
                   </p>
                 )}
                 {status === 'error' && (
-                  <p className="text-sm text-red-500">
+                  <p className="font-mono text-xs uppercase tracking-[0.15em] text-amber">
                     Something went wrong. Please try again or email us directly.
                   </p>
                 )}
               </form>
-            </div>
-
-            {/* Contact Info Panel */}
-            <div className="lg:col-span-2">
-              <div className="rounded-xl border border-[var(--card-border)] bg-[var(--card-bg)] p-6 md:p-8">
-                <h2 className="text-lg font-semibold text-[var(--foreground)]">
-                  Contact Information
-                </h2>
-                <div className="mt-6 space-y-6">
-                  {contactInfo.map((item) => (
-                    <div key={item.label} className="flex items-start gap-3">
-                      <span className="mt-0.5 text-indigo-500">{item.icon}</span>
-                      <div>
-                        <p className="text-sm font-medium text-[var(--foreground)]">
-                          {item.label}
-                        </p>
-                        {item.href ? (
-                          <a
-                            href={item.href}
-                            className="text-sm text-[var(--text-secondary)] hover:text-indigo-500 transition-colors"
-                            target={
-                              item.href.startsWith('http')
-                                ? '_blank'
-                                : undefined
-                            }
-                            rel={
-                              item.href.startsWith('http')
-                                ? 'noopener noreferrer'
-                                : undefined
-                            }
-                          >
-                            {item.value}
-                          </a>
-                        ) : (
-                          <p className="text-sm text-[var(--text-secondary)]">
-                            {item.value}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <hr className="my-6 border-[var(--border-default)]" />
-
-                <Link
-                  href="/faq"
-                  className="text-sm font-medium text-indigo-500 hover:text-indigo-400 transition-colors"
-                >
-                  Frequently Asked Questions &rarr;
-                </Link>
-              </div>
             </div>
           </div>
         </div>

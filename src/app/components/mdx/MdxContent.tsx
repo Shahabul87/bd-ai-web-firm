@@ -18,23 +18,30 @@ export default function MdxContent({ code, className = '' }: MdxContentProps) {
   return (
     <div
       className={[
-        'prose prose-lg max-w-none dark:prose-invert',
-        'prose-headings:font-bold prose-h2:text-2xl prose-h3:text-xl',
+        'prose prose-invert prose-lg max-w-none',
+        'prose-headings:font-display prose-headings:font-medium',
+        'prose-h2:text-2xl prose-h3:text-xl',
         'prose-p:leading-relaxed',
-        'prose-a:text-indigo-500 dark:prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:underline',
-        'prose-code:text-indigo-500 dark:prose-code:text-indigo-400',
-        'prose-pre:border',
+        'prose-a:text-signal prose-a:no-underline hover:prose-a:underline',
+        'prose-strong:text-bone',
+        'prose-code:font-mono prose-code:text-signal prose-code:before:content-none prose-code:after:content-none',
+        'prose-pre:border prose-pre:border-line prose-pre:font-mono',
+        'prose-blockquote:border-l-line prose-blockquote:text-steel',
+        'prose-hr:border-line',
+        'prose-li:marker:text-steel',
         className,
       ]
         .filter(Boolean)
         .join(' ')}
       style={
         {
-          '--tw-prose-body': 'var(--text-secondary)',
-          '--tw-prose-headings': 'var(--foreground)',
-          '--tw-prose-bold': 'var(--foreground)',
-          '--tw-prose-pre-bg': 'var(--surface-elevated)',
-          '--tw-prose-pre-border': 'var(--border-default)',
+          '--tw-prose-body': 'var(--steel)',
+          '--tw-prose-headings': 'var(--bone)',
+          '--tw-prose-bold': 'var(--bone)',
+          '--tw-prose-bullets': 'var(--steel)',
+          '--tw-prose-counters': 'var(--steel)',
+          '--tw-prose-pre-bg': 'var(--ink-900)',
+          '--tw-prose-pre-code': 'var(--bone)',
         } as React.CSSProperties
       }
     >
@@ -45,6 +52,6 @@ export default function MdxContent({ code, className = '' }: MdxContentProps) {
 
 function useMDXComponent(code: string) {
   const fn = new Function(code);
-  const module = fn({ ...runtime });
-  return module.default as React.ComponentType;
+  const mdxModule = fn({ ...runtime });
+  return mdxModule.default as React.ComponentType;
 }
