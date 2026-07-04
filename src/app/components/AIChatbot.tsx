@@ -25,7 +25,7 @@ const knowledgeBase = {
   },
   portfolio: {
     keywords: ['portfolio', 'projects', 'examples', 'work', 'case studies'],
-    response: "Here are products we've built:\n\n• **TaxoMind** — AI-powered learning platform\n• **TaxoMind Schools** — learning platform for schools\n• **FinCoach AI** — personal finance made simple\n• **MathPhysics** — interactive STEM learning\n\nVisit our Portfolio and Case Studies pages for the full stories!"
+    response: "Here are live products we've built:\n\n• **TaxoMind** — AI-powered learning platform (taxomind.com)\n• **TaxoMind Schools** — cognitive learning for schools (taxomindsc.com)\n• **Book-AI** — interactive AI & math lessons (book-ai.org)\n• **File2Insight** — turn documents into insight (file2insight.com)\n• **Banglu** — type Bangla from an English keyboard (bangluweb.com)\n\nVisit our Products, Portfolio, and Case Studies pages for the full stories!"
   },
   contact: {
     keywords: ['contact', 'reach', 'email', 'phone', 'meeting', 'location', 'where'],
