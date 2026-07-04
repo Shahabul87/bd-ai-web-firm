@@ -16,6 +16,7 @@ export async function getProject(id: string) {
       client: true,
       milestones: { orderBy: { order: 'asc' } },
       updates: { orderBy: { createdAt: 'desc' } },
+      messages: { orderBy: { createdAt: 'asc' } },
     },
   });
 }

@@ -19,6 +19,9 @@ import {
   addProjectUpdate,
   type ProjectStatusValue,
 } from '@/app/lib/projects';
+import { prisma } from '@/app/lib/db';
+import { addMessage } from '@/app/lib/messages';
+import { sendAnnouncement } from '@/app/lib/notify';
 
 const STATUSES: LeadStatusValue[] = ['NEW', 'CONTACTED', 'QUALIFIED', 'PROPOSAL', 'WON', 'LOST'];
 const PROJECT_STATUSES: ProjectStatusValue[] = [
@@ -152,4 +155,22 @@ export async function convertLeadAction(leadId: string, projectTitle: string): P
   revalidatePath('/admin/clients');
   revalidatePath(`/admin/leads/${leadId}`);
   redirect(`/admin/projects/${r.projectId}`);
+}
+
+export async function sendAdminMessage(projectId: string, body: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  if (!body.trim()) throw new Error('empty');
+  const project = await prisma.project.findUnique({
+    where: { id: projectId },
+    select: { title: true, client: { select: { email: true } } },
+  });
+  if (!project) throw new Error('not found');
+  await addMessage(projectId, 'ADMIN', admin.email, body.trim());
+  void sendAnnouncement(
+    project.client.email,
+    `Reply from CraftsAI — ${project.title}`,
+    `You have a new message on "${project.title}". Sign in to your portal to view and reply.`,
+  );
+  revalidatePath(`/admin/projects/${projectId}`);
 }
