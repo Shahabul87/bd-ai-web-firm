@@ -15,6 +15,12 @@ export default function AdminNav({ email }: { email: string }) {
           >
             Leads
           </Link>
+          <Link
+            href="/admin/clients"
+            className="font-mono text-xs uppercase tracking-[0.15em] text-steel transition-colors hover:text-signal"
+          >
+            Clients
+          </Link>
         </div>
         <div className="flex items-center gap-4">
           <span className="hidden font-mono text-xs text-steel sm:inline">{email}</span>
