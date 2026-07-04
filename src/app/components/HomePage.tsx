@@ -1,29 +1,25 @@
 import DraftingRoomHero from './home/DraftingRoomHero';
-import {
-  SocialProofBar,
-  ServicesGrid,
-  AIAdvantage,
-  ProductsShowcase,
-  FeaturedWork,
-  ProcessTimeline,
-  Testimonials,
-  ResourcesPreview,
-  CTASection,
-} from './sections';
+import ProofStrip from './home/ProofStrip';
+import PillarsGrid from './home/PillarsGrid';
+import AgentBuildShowcase from './home/AgentBuildShowcase';
+import Advantage from './home/Advantage';
+import SelectedWork from './home/SelectedWork';
+import ProcessStrip from './home/ProcessStrip';
+import ResourcesRow from './home/ResourcesRow';
+import FinalCTA from './home/FinalCTA';
 
 export default function HomePage() {
   return (
     <>
       <DraftingRoomHero />
-      <SocialProofBar />
-      <ServicesGrid />
-      <AIAdvantage />
-      <ProductsShowcase />
-      <FeaturedWork />
-      <ProcessTimeline />
-      <Testimonials />
-      <ResourcesPreview />
-      <CTASection />
+      <ProofStrip />
+      <PillarsGrid />
+      <AgentBuildShowcase />
+      <Advantage />
+      <SelectedWork />
+      <ProcessStrip />
+      <ResourcesRow />
+      <FinalCTA />
     </>
   );
 }
