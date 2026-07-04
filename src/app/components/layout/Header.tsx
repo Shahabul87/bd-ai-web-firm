@@ -55,7 +55,8 @@ export default function Header() {
   }, [menuOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink-950/95 backdrop-blur-sm">
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink-950/95 backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link href="/" className="font-display text-lg font-medium tracking-tight text-bone">
           CRAFTS.AI<span aria-hidden className="cursor-blink">▮</span>
@@ -118,8 +119,9 @@ export default function Header() {
           {menuOpen ? 'Close ×' : 'Menu ≡'}
         </button>
       </div>
+      </header>
 
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
-    </header>
+    </>
   );
 }
