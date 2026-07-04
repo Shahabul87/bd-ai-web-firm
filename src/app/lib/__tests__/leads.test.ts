@@ -42,4 +42,14 @@ describe('createLead', () => {
     expect(r).toBeNull();
     expect(sendAnnouncement).not.toHaveBeenCalled();
   });
+
+  it('retries a transient connection error and then succeeds', async () => {
+    createMock
+      .mockRejectedValueOnce(new Error("Can't reach database server at postgres:5432"))
+      .mockResolvedValueOnce({ id: 'lead_2' });
+    const r = await createLead({ source: 'CONTACT', name: 'C', email: 'c@x.com', payload: {} });
+    expect(r).toEqual({ id: 'lead_2' });
+    expect(createMock).toHaveBeenCalledTimes(2);
+    expect(sendAnnouncement).toHaveBeenCalledTimes(1);
+  });
 });

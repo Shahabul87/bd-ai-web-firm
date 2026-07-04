@@ -15,41 +15,62 @@ export interface CreateLeadInput {
   userAgent?: string;
 }
 
+// A transient DB error is worth retrying (e.g. the first request after a cold
+// deploy, before the Prisma connection to the private Postgres is established).
+function isTransientDbError(msg: string): boolean {
+  return /can't reach|reach database|connect|ECONN|ETIMEDOUT|timeout|terminating|P10(01|17)|pool/i.test(
+    msg,
+  );
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 /**
  * Persists a lead and fires the founder alert. Fail-open: returns `null`
  * (never throws) so public form routes still succeed for the visitor.
+ * Retries a few times on transient connection errors so the first lead after
+ * a cold deploy is not lost.
  */
 export async function createLead(input: CreateLeadInput): Promise<{ id: string } | null> {
-  try {
-    const lead = await prisma.lead.create({
-      data: {
-        source: input.source,
-        name: input.name,
-        email: input.email,
-        company: input.company ?? null,
-        message: input.message ?? null,
-        // Sanitized, JSON-serializable form data → Prisma's Json input type.
-        payload: input.payload as Prisma.InputJsonValue,
-        ip: input.ip ?? null,
-        userAgent: input.userAgent ?? null,
-      },
-      select: { id: true },
-    });
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const lead = await prisma.lead.create({
+        data: {
+          source: input.source,
+          name: input.name,
+          email: input.email,
+          company: input.company ?? null,
+          message: input.message ?? null,
+          // Sanitized, JSON-serializable form data → Prisma's Json input type.
+          payload: input.payload as Prisma.InputJsonValue,
+          ip: input.ip ?? null,
+          userAgent: input.userAgent ?? null,
+        },
+        select: { id: true },
+      });
 
-    // Fire-and-forget founder alert; never let it affect the lead result.
-    const subject = `New ${input.source} lead from ${input.name}`;
-    const body =
-      `${subject}\n\nName: ${input.name}\nEmail: ${input.email}` +
-      (input.company ? `\nCompany: ${input.company}` : '') +
-      (input.message ? `\nMessage: ${input.message}` : '') +
-      `\n\nView: ${SITE_URL}/admin/leads/${lead.id}`;
-    void sendAnnouncement(CONTACT_EMAIL, subject, body);
+      // Fire-and-forget founder alert; never let it affect the lead result.
+      const subject = `New ${input.source} lead from ${input.name}`;
+      const body =
+        `${subject}\n\nName: ${input.name}\nEmail: ${input.email}` +
+        (input.company ? `\nCompany: ${input.company}` : '') +
+        (input.message ? `\nMessage: ${input.message}` : '') +
+        `\n\nView: ${SITE_URL}/admin/leads/${lead.id}`;
+      void sendAnnouncement(CONTACT_EMAIL, subject, body);
 
-    return { id: lead.id };
-  } catch (err) {
-    console.error('createLead failed:', err instanceof Error ? err.message : 'unknown');
-    return null;
+      return { id: lead.id };
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'unknown';
+      if (attempt < maxAttempts && isTransientDbError(msg)) {
+        await sleep(300 * attempt);
+        continue;
+      }
+      console.error(`createLead failed (attempt ${attempt}/${maxAttempts}):`, msg);
+      return null;
+    }
   }
+  return null;
 }
 
 // ── Read/triage layer (admin dashboard) ──
