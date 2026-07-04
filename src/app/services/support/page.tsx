@@ -113,7 +113,7 @@ const specRows: SpecRow[] = [
     ),
   },
   {
-    label: 'Coverage',
+    label: 'Stacks supported',
     value: (
       <div className="flex flex-wrap gap-2">
         {coverage.map((tech) => (

@@ -19,8 +19,10 @@ export default function MdxContent({ code, className = '' }: MdxContentProps) {
     <div
       className={[
         'prose prose-invert prose-lg max-w-none',
-        'prose-headings:font-display prose-headings:font-medium',
-        'prose-h2:text-2xl prose-h3:text-xl',
+        'prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight',
+        'prose-h2:text-3xl prose-h2:mt-14 prose-h2:mb-5',
+        'prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4',
+        'prose-h4:text-xl',
         'prose-p:leading-relaxed',
         'prose-a:text-signal prose-a:no-underline hover:prose-a:underline',
         'prose-strong:text-bone',

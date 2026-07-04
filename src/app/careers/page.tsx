@@ -73,7 +73,14 @@ export default function CareersPage() {
             <Card>
               <p className="text-base leading-relaxed text-steel">
                 We are always looking for talented people. There are no open positions right now,
-                but we would love to hear from you.
+                but we would love to hear from you — send your CV and a note to{' '}
+                <a
+                  href="mailto:careers@craftsai.org"
+                  className="text-signal underline-offset-4 hover:underline"
+                >
+                  careers@craftsai.org
+                </a>
+                .
               </p>
             </Card>
           </div>
