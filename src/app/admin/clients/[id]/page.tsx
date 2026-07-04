@@ -72,6 +72,7 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
                 notes: client.notes ?? '',
               }}
               archived={client.status === 'ARCHIVED'}
+              portalEnabled={client.portalEnabled}
             />
           </aside>
         </div>

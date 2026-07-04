@@ -1,5 +1,7 @@
 import { prisma } from './db';
 import { writeAudit } from './audit';
+import { sendAnnouncement } from './notify';
+import { SITE_URL } from './email';
 
 export type ClientStatusValue = 'ACTIVE' | 'ARCHIVED';
 
@@ -86,4 +88,27 @@ export async function updateClient(
 export async function archiveClient(id: string, actorEmail: string): Promise<void> {
   await prisma.client.update({ where: { id }, data: { status: 'ARCHIVED' } });
   await writeAudit('client.archive', { actorEmail, meta: { id } });
+}
+
+/**
+ * Enable portal access for a client and email them a welcome/login link.
+ * Idempotent (re-invite just re-sends). Fire-and-forget email.
+ */
+export async function inviteClientToPortal(
+  clientId: string,
+  actorEmail: string,
+): Promise<{ ok: true } | { error: string }> {
+  const c = await prisma.client.findUnique({
+    where: { id: clientId },
+    select: { id: true, name: true, email: true },
+  });
+  if (!c) return { error: 'Client not found.' };
+  await prisma.client.update({ where: { id: clientId }, data: { portalEnabled: true } });
+  await writeAudit('client.portal.invite', { actorEmail, meta: { clientId } });
+  void sendAnnouncement(
+    c.email,
+    'Your CraftsAI project portal is ready',
+    `Hi ${c.name},\n\nYou can now track your project and message us anytime. Sign in with this email address at ${SITE_URL}/portal/login.\n\n— The CraftsAI Team`,
+  );
+  return { ok: true };
 }

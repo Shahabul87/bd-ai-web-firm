@@ -10,7 +10,7 @@ import {
   convertLeadToClient,
   type LeadStatusValue,
 } from '@/app/lib/leads';
-import { createClient, updateClient, archiveClient } from '@/app/lib/clients';
+import { createClient, updateClient, archiveClient, inviteClientToPortal } from '@/app/lib/clients';
 import {
   createProject,
   setProjectStatus,
@@ -92,6 +92,14 @@ export async function archiveClientAction(id: string): Promise<void> {
   await archiveClient(id, admin.email);
   revalidatePath(`/admin/clients/${id}`);
   revalidatePath('/admin/clients');
+}
+
+export async function inviteToPortalAction(clientId: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  const r = await inviteClientToPortal(clientId, admin.email);
+  if ('error' in r) throw new Error(r.error);
+  revalidatePath(`/admin/clients/${clientId}`);
 }
 
 export async function createProjectAction(
