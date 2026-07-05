@@ -3,8 +3,7 @@ import PageLayout from '../components/layout/PageLayout';
 import PageHero from '../components/shared/PageHero';
 import CTABand from '../components/shared/CTABand';
 import SectionHeader from '../design/ui/SectionHeader';
-import Card from '../design/ui/Card';
-import SpecTable from '../design/ui/SpecTable';
+import ConveyorProcess, { ConveyorPhase } from '../components/process/ConveyorProcess';
 
 export const metadata: Metadata = {
   title: 'Our Development Process',
@@ -18,20 +17,12 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.craftsai.org/process' },
 };
 
-interface Phase {
-  number: string;
-  title: string;
-  what: string;
-  deliverables: string;
-  yourRole: string;
-  timeline: string;
-}
-
-/* A real sequence — numbering encodes the order the reader follows. */
-const PHASES: Phase[] = [
+/* A real sequence — station numbers encode the order the work happens in. */
+const PHASES: ConveyorPhase[] = [
   {
     number: '01',
     title: 'Discovery',
+    label: 'DISCOVERY',
     what: 'Free consultation to understand your needs. We discuss your goals, target audience, and success criteria to make sure we are aligned before any code is written.',
     deliverables: 'Requirements document, project scope',
     yourRole: 'Share your vision and goals',
@@ -40,6 +31,7 @@ const PHASES: Phase[] = [
   {
     number: '02',
     title: 'Planning',
+    label: 'PLANNING',
     what: 'Architecture design, technology selection, and milestone planning. We map out the entire project so there are no surprises down the road.',
     deliverables: 'Technical spec, project timeline, cost estimate',
     yourRole: 'Review and approve plan',
@@ -48,6 +40,7 @@ const PHASES: Phase[] = [
   {
     number: '03',
     title: 'Development',
+    label: 'DEVELOPMENT',
     what: 'AI agents generate code while engineers review and refine. You see working features early and often through regular demos.',
     deliverables: 'Working features, regular demos',
     yourRole: 'Weekly check-ins, feedback',
@@ -56,6 +49,7 @@ const PHASES: Phase[] = [
   {
     number: '04',
     title: 'Testing',
+    label: 'TESTING',
     what: 'Comprehensive QA, performance testing, and security audit. We catch issues before your users do.',
     deliverables: 'Test reports, bug-free application',
     yourRole: 'User acceptance testing',
@@ -64,6 +58,7 @@ const PHASES: Phase[] = [
   {
     number: '05',
     title: 'Launch & Support',
+    label: 'LAUNCH',
     what: 'Deployment, monitoring setup, and handoff. We make sure everything runs smoothly and your team is fully equipped to take over.',
     deliverables: 'Live application, documentation, training',
     yourRole: 'Final approval',
@@ -95,45 +90,17 @@ export default function ProcessPage() {
     <PageLayout>
       <PageHero
         eyebrow="Process"
-        title="Five phases, start to ship."
-        lede="No black boxes, no surprises — just transparent, predictable delivery from discovery to launch."
+        title="Your project rides the line."
+        lede="Five stations between idea and launch. Watch it move — no black boxes, no surprises, just a build you can follow with your own eyes."
       />
 
-      <section className="mx-auto max-w-4xl px-6 py-20 sm:py-28">
+      <section className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
         <SectionHeader
           index="fig. 01"
-          eyebrow="The pipeline"
+          eyebrow="The line"
           title="How a project moves through CraftsAI."
         />
-
-        <ol className="mt-14 space-y-6 border-l border-line pl-8 sm:pl-10">
-          {PHASES.map((phase) => (
-            <li key={phase.number} className="relative">
-              <span
-                aria-hidden
-                className="absolute -left-[calc(2rem+5px)] top-1.5 h-2.5 w-2.5 rounded-full bg-signal sm:-left-[calc(2.5rem+5px)]"
-              />
-              <Card>
-                <span className="font-mono text-xs uppercase tracking-[0.18em] text-signal">
-                  {phase.number}
-                </span>
-                <h3 className="mt-4 font-display text-2xl font-medium text-bone">
-                  {phase.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-steel">{phase.what}</p>
-                <div className="mt-6">
-                  <SpecTable
-                    rows={[
-                      { label: 'Deliverables', value: phase.deliverables },
-                      { label: 'Your role', value: phase.yourRole },
-                      { label: 'Timeline', value: phase.timeline },
-                    ]}
-                  />
-                </div>
-              </Card>
-            </li>
-          ))}
-        </ol>
+        <ConveyorProcess phases={PHASES} totalNote="05 stations · typical total 2–6 weeks" />
       </section>
 
       <section className="border-t border-line bg-ink-900">
