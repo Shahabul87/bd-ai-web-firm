@@ -178,7 +178,7 @@ export default function ConveyorProcess({ phases, totalNote }: ConveyorProcessPr
                 ) : null}
               </span>
               <span
-                className={`mt-3 hidden font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-300 sm:block ${
+                className={`mt-5 hidden font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-300 sm:block ${
                   state === 'active' ? 'text-bone' : 'text-steel'
                 }`}
               >

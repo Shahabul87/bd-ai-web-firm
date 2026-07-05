@@ -70,10 +70,12 @@ h1, h2, h3, h4, h5, h6 {
   to { transform: scale(2.6); opacity: 0; }
 }
 
-/* Gentle "hum" of the traveling build artifact */
+/* Gentle "hum" of the traveling build artifact.
+   Scale only — the element carries `rotate-45` (Tailwind v4 `rotate`
+   property), and a transform rotation here would compose to 90°. */
 @keyframes cube-hum {
-  0%, 100% { transform: rotate(45deg) scale(1); }
-  50% { transform: rotate(45deg) scale(0.88); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(0.88); }
 }
 
 /* Phase card entrance on station change */
