@@ -4,6 +4,15 @@ Report date: 2026-07-05
 
 ## Verdict
 
+> **UPDATE 2026-07-05 (post-remediation):** All 5 "Must fix" and all 5 "Should fix"
+> items below have been implemented, verified (lint / type-check / **76 tests** /
+> build / **0-vuln audit**), and **shipped to production** (merged PR #1, Railway
+> deploy `15ba9d4` SUCCESS). A live production smoke test of the contact form
+> passed (lead persisted + founder alert). See **"Remediation Applied (2026-07-05)"**
+> at the end of this document. The only remaining launch gates are operator tasks,
+> not code: provision Upstash + an observability sink, finalize the legal
+> placeholders + legal review, and implement the authenticated-flow E2E tests.
+
 This codebase is not ready for a full public production launch yet.
 
 It is close enough for a controlled staging launch or private beta because the app builds, type-checks, lints, and has a meaningful unit test suite. The remaining gaps are mostly operational and security hardening issues rather than broken implementation.
@@ -33,7 +42,10 @@ Not verified:
 
 - `npm audit --omit=dev`
   - Could not run from the sandbox because registry access was blocked.
-  - A network-enabled vulnerability audit should be run in CI or with explicit approval before launch.
+  - **RESOLVED 2026-07-05:** later run with network access — found 1 high + 5 moderate
+    (all transitive via the `next-auth` beta / `next`). Fixed via `overrides`
+    (`nodemailer@^9.0.3`, `postcss@^8.5.10`) → **0 vulnerabilities**. `npm run audit:ci`
+    added for CI.
 - `npm outdated --depth=0`
   - Could not reach the npm registry from the sandbox.
 
