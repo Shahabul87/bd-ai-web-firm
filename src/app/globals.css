@@ -1054,3 +1054,26 @@ body {
     animation: none !important;
   }
 }
+
+/* Print styles for invoices — hide chrome, print the invoice clean on white. */
+@media print {
+  header,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .invoice-print {
+    border: none !important;
+    background: #fff !important;
+    color: #111 !important;
+    padding: 0 !important;
+  }
+  .invoice-print * {
+    color: #111 !important;
+    border-color: #ccc !important;
+  }
+}

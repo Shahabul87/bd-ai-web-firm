@@ -6,9 +6,17 @@ export default function PortalHeader({ clientName }: { clientName: string }) {
   return (
     <header className="border-b border-line">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-        <Link href="/portal" className="font-mono text-sm font-semibold tracking-tight text-bone">
-          CRAFTS.AI<span className="text-signal">▮</span> <span className="text-steel">CLIENT</span>
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/portal" className="font-mono text-sm font-semibold tracking-tight text-bone">
+            CRAFTS.AI<span className="text-signal">▮</span> <span className="text-steel">CLIENT</span>
+          </Link>
+          <Link href="/portal" className="font-mono text-xs uppercase tracking-[0.15em] text-steel transition-colors hover:text-signal">
+            Projects
+          </Link>
+          <Link href="/portal/invoices" className="font-mono text-xs uppercase tracking-[0.15em] text-steel transition-colors hover:text-signal">
+            Invoices
+          </Link>
+        </div>
         <div className="flex items-center gap-4">
           <span className="hidden font-mono text-xs uppercase tracking-[0.1em] text-steel sm:inline">
             {clientName}

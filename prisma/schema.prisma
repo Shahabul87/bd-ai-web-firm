@@ -161,6 +161,7 @@ model Client {
   sourceLeadId String?      @unique
   sourceLead   Lead?        @relation("LeadClient", fields: [sourceLeadId], references: [id])
   projects     Project[]
+  invoices     Invoice[]
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
@@ -180,6 +181,7 @@ model Project {
   milestones  Milestone[]
   updates     ProjectUpdate[]
   messages    Message[]
+  invoices    Invoice[]
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 
@@ -230,4 +232,52 @@ model Message {
   createdAt   DateTime      @default(now())
 
   @@index([projectId])
+}
+
+// ── Phase 4: Invoicing ──
+
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  VOID
+}
+
+model Invoice {
+  id            String        @id @default(cuid())
+  number        Int           @unique
+  clientId      String
+  client        Client        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  projectId     String?
+  project       Project?      @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  currency      String        @default("USD")
+  status        InvoiceStatus @default(DRAFT)
+  issueDate     DateTime?
+  dueDate       DateTime?
+  taxLabel      String?
+  taxRateBps    Int           @default(0)
+  notes         String?       @db.Text
+  subtotalMinor Int           @default(0)
+  taxMinor      Int           @default(0)
+  totalMinor    Int           @default(0)
+  paidAt        DateTime?
+  paymentRef    String?
+  lines         InvoiceLine[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([clientId])
+  @@index([status])
+}
+
+model InvoiceLine {
+  id             String  @id @default(cuid())
+  invoiceId      String
+  invoice        Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  description    String
+  quantity       Int
+  unitPriceMinor Int
+  order          Int     @default(0)
+
+  @@index([invoiceId])
 }
