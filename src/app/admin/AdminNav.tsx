@@ -28,6 +28,12 @@ export default function AdminNav({ email }: { email: string }) {
           >
             Invoices
           </Link>
+          <Link
+            href="/admin/incidents"
+            className="font-mono text-xs uppercase tracking-[0.15em] text-steel transition-colors hover:text-signal"
+          >
+            Incidents
+          </Link>
         </div>
         <div className="flex items-center gap-4">
           <EnablePush registerPath="/api/admin/push/register" />

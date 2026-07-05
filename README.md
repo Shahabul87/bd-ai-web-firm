@@ -61,10 +61,10 @@ See [`.env.example`](./.env.example) for the full list. Required in production
 | `ADMIN_EMAILS` | Comma-separated admin allowlist |
 | `NOTIFY_URL`, `NOTIFY_API_KEY` | notify-svc endpoint + tenant key |
 
-Optional: `CONTACT_EMAIL` (lead-alert recipient), `UPSTASH_REDIS_REST_URL` /
-`UPSTASH_REDIS_REST_TOKEN` (distributed rate limiting),
-`OBSERVABILITY_WEBHOOK_URL` (incident forwarding),
-`NEXT_PUBLIC_GA_MEASUREMENT_ID` (analytics + cookie consent), and the
+Optional: `CONTACT_EMAIL` (lead-alert recipient),
+`OBSERVABILITY_WEBHOOK_URL` (forward incidents to a self-owned endpoint —
+rate limiting and incident logging otherwise need no extra config; they run on
+`DATABASE_URL`), `NEXT_PUBLIC_GA_MEASUREMENT_ID` (analytics + cookie consent), and the
 `NEXT_PUBLIC_FIREBASE_*` push variables (set only after FCM setup).
 
 ## Scripts
@@ -108,8 +108,10 @@ prisma/                          # schema + migrations
 - **Fail-open helpers** (`notify`, `audit`, lead persistence) never throw, but
   every failure is funneled through `src/app/lib/report.ts` so it can be alerted
   on. Lead-persistence failure returns a 503 to the visitor and pages the founder.
-- **Rate limiting** uses Upstash Redis when configured, falling back to an
-  in-memory limiter otherwise.
+- **Rate limiting** and **incident logging** run entirely on our own Postgres
+  (no third-party service): a shared `RateLimit` table (atomic per-window
+  upsert, in-memory fallback) and an `Incident` table surfaced at
+  `/admin/incidents`.
 - Run `npm run audit:ci` in CI. The app has no direct SMTP path; email is
   notify-svc only.
 

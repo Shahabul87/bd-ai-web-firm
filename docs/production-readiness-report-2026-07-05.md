@@ -9,9 +9,10 @@ Report date: 2026-07-05
 > build / **0-vuln audit**), and **shipped to production** (merged PR #1, Railway
 > deploy `15ba9d4` SUCCESS). A live production smoke test of the contact form
 > passed (lead persisted + founder alert). See **"Remediation Applied (2026-07-05)"**
-> at the end of this document. The only remaining launch gates are operator tasks,
-> not code: provision Upstash + an observability sink, finalize the legal
-> placeholders + legal review, and implement the authenticated-flow E2E tests.
+> at the end of this document. Rate limiting and observability run on our OWN
+> Postgres (no third-party services). The only remaining launch gates are operator
+> tasks, not code: apply the DB migration in prod, finalize the legal placeholders
+> + legal review, and implement the authenticated-flow E2E tests.
 
 Update after remediation: the original code-level production blockers have been fixed and reverified locally. The app is now technically ready for a production deployment candidate, with launch still gated by real infrastructure provisioning, legal finalization, dependency audit verification in CI, and production smoke testing.
 
@@ -261,8 +262,8 @@ Must fix — DONE:
 
 1. **Env validation** — added `src/app/lib/env.ts` (Zod, server-only) validating `DATABASE_URL`, `AUTH_SECRET`, `PORTAL_AUTH_SECRET`, `AUTH_URL`, `ADMIN_EMAILS`, `NOTIFY_URL`, `NOTIFY_API_KEY` in production (secrets ≥ 32 chars). Wired via `src/instrumentation.ts` to fail fast at startup (skips build phase). Cookie helpers now sign via `authSecret()`/`portalAuthSecret()` — never `?? ''`. `.env.example` now documents `PORTAL_AUTH_SECRET`.
 2. **Lead reliability** — contact/quote/demo routes now return **503** (honest "try again") instead of a false success when `createLead()` returns `null`, and `createLead` pages the founder + reports the incident on final failure. Test updated to assert the new alert behavior.
-3. **Distributed rate limiting** — `checkRateLimit` is now async and backed by Upstash Redis (atomic `INCR` + `EXPIRE NX`) when `UPSTASH_REDIS_REST_URL`/`_TOKEN` are set, with the in-memory limiter as fallback. All 8 call sites updated to `await`. Added targeted tests (limit/reset, multi-route keys, IP extraction).
-4. **Observability** — added `src/app/lib/report.ts` as the single incident funnel (structured log + optional `OBSERVABILITY_WEBHOOK_URL` forward). Notify, audit, lead-persist, and rate-limiter failures now route through it.
+3. **Distributed rate limiting (self-hosted)** — `checkRateLimit` is now async and backed by our **own Postgres** (`RateLimit` table, atomic `INSERT … ON CONFLICT` fixed-window upsert), shared across all instances, with the in-memory limiter as fallback (also covers the pre-migration window). All 8 call sites updated to `await`. Added targeted tests for the DB path + fallback. **No third-party service.**
+4. **Observability (self-hosted)** — added `src/app/lib/report.ts` as the single incident funnel: structured log → records to our **own Postgres** (`Incident` table) → surfaced at **`/admin/incidents`** → escalates critical ones via **our own notify-svc**; an optional `OBSERVABILITY_WEBHOOK_URL` can forward to a self-owned endpoint. Notify, audit, lead-persist, and rate-limiter failures all route through it. **No Sentry/Logtail/Datadog.**
 5. **Dependency audit** — ran the audit (found 1 high `nodemailer` + 5 moderate, all transitive via the `next-auth` beta / `next`). Added `overrides` (`nodemailer@^9.0.3`, `postcss@^8.5.10`) → **0 vulnerabilities**, build still green. Added `npm run audit:ci`. Note: email uses notify-svc only (no SMTP path), so the nodemailer issue was not reachable in-app regardless.
 
 Should fix — DONE:
@@ -275,8 +276,7 @@ Should fix — DONE:
 
 Still requires the founder / real infrastructure (not code):
 
-- Provision **Upstash Redis** and set `UPSTASH_REDIS_REST_URL`/`_TOKEN` (rate limiting stays in-memory until then).
-- Choose an **observability sink** and set `OBSERVABILITY_WEBHOOK_URL` (incidents only log until then).
+- Apply the `RateLimit` + `Incident` migration to production (`npm run db:deploy`, or the idempotent-DDL-via-CLI workflow) to activate the self-hosted rate limiting + incident log. (Both degrade gracefully — in-memory limiter, console log — until then.)
 - Finalize the legal `[placeholders]` (retention periods, named hosting/DB + email sub-processors) and get **legal review**.
 - Implement the authenticated-flow E2E stubs against a **seeded test DB + notify test tenant**.
 - Decide whether the **`next-auth` 5 beta** is acceptable for launch (currently 0 known vulns after overrides).
