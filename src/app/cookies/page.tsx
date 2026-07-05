@@ -22,24 +22,19 @@ const COOKIE_TYPES = [
   {
     title: 'Essential Cookies',
     description:
-      'Required for the website to function properly. These enable basic features like page navigation, theme preferences, and secure access. They cannot be disabled.',
+      'Required for the site to function and stay secure. These carry your authenticated admin or client-portal session, short-lived login challenge state, an optional "remember this device" token, and your cookie-consent choice. They cannot be disabled.',
   },
   {
-    title: 'Analytics Cookies',
+    title: 'Analytics Cookies (optional)',
     description:
-      'Help us understand how visitors interact with our website by collecting anonymous usage data such as pages visited, session duration, and referral sources. We use this information to improve our content and performance.',
-  },
-  {
-    title: 'Functional Cookies',
-    description:
-      'Remember your preferences and settings, such as language selection and form data, to provide a more personalized experience on return visits.',
+      'If — and only if — you accept analytics in our consent banner, we use Google Analytics to understand how visitors interact with the site (pages visited, session duration, referral sources). You can decline these, and no analytics cookies are set until you consent.',
   },
 ];
 
 export default function CookiesPage() {
   return (
     <PageLayout>
-      <PageHero eyebrow="Legal" title="Cookie Policy" lede="Last updated: April 1, 2026" />
+      <PageHero eyebrow="Legal" title="Cookie Policy" lede="Last updated: July 5, 2026" />
 
       <section className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
         <div className="space-y-12">

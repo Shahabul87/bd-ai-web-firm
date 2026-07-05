@@ -335,12 +335,18 @@ export default function StructuredData() {
           __html: JSON.stringify(websiteSchema),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema),
-        }}
-      />
+      {/* FAQPage schema is emitted ONLY on /faq, the one page that visibly
+          renders this exact faq.json content. Injecting it site-wide is a
+          structured-data mismatch (Google flags FAQ markup with no matching
+          on-page content). */}
+      {pathname === '/faq' && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
+      )}
       {breadcrumbSchema && (
         <script
           type="application/ld+json"

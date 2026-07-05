@@ -20,7 +20,7 @@ const Body = z.object({
 
 export async function POST(req: NextRequest) {
   const ip = getClientIP(req);
-  if (!checkRateLimit(`portallogin:${ip}`, { maxRequests: 10, windowMs: 5 * 60_000 }).success) {
+  if (!(await checkRateLimit(`portallogin:${ip}`, { maxRequests: 10, windowMs: 5 * 60_000 })).success) {
     return NextResponse.json({ ok: false, message: 'Too many attempts.' }, { status: 429 });
   }
   const chal = readPortalChallenge(req);

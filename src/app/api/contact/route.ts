@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   try {
     // Rate limiting: 5 requests per minute per IP
     const clientIP = getClientIP(request);
-    const rateLimit = checkRateLimit(`contact:${clientIP}`, { maxRequests: 5, windowMs: 60 * 1000 });
+    const rateLimit = await checkRateLimit(`contact:${clientIP}`, { maxRequests: 5, windowMs: 60 * 1000 });
 
     if (!rateLimit.success) {
       return NextResponse.json(
@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    // Persist the lead (fail-open) + alert the founder (via notify-svc).
-    await createLead({
+    // Persist the lead (retries transient errors) + alert the founder.
+    const lead = await createLead({
       source: 'CONTACT',
       name,
       email,
@@ -64,6 +64,18 @@ export async function POST(request: NextRequest) {
       ip: clientIP,
       userAgent: request.headers.get('user-agent') ?? undefined,
     });
+
+    // Do not claim success if the lead was not persisted — the founder has been
+    // paged (see createLead) and the visitor is told to retry.
+    if (!lead) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'We could not submit your message right now. Please try again in a moment.',
+        },
+        { status: 503 },
+      );
+    }
 
     // Client auto-reply via notify-svc (fire-and-forget; never throws).
     void sendAnnouncement(

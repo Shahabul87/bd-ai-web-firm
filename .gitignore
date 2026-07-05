@@ -56,3 +56,9 @@ next-env.d.ts
 !public/icon-192.png
 !public/icon-512.png
 !src/app/apple-icon.png
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

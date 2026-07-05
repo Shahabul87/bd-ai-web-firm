@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from './db';
+import { reportError } from './report';
 
 /**
  * Append an entry to the audit log. Never throws — audit failures must not
@@ -19,6 +20,6 @@ export async function writeAudit(
       },
     });
   } catch (err) {
-    console.error('writeAudit failed:', err instanceof Error ? err.message : 'unknown');
+    reportError('audit.write', err, { severity: 'warn', meta: { action } });
   }
 }

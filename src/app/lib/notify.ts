@@ -1,5 +1,6 @@
 import 'server-only';
 import { devChallenge, devVerify } from './devAuth';
+import { reportError } from './report';
 
 const NOTIFY_URL = () => process.env.NOTIFY_URL ?? '';
 const NOTIFY_API_KEY = () => process.env.NOTIFY_API_KEY ?? '';
@@ -9,14 +10,24 @@ export const isNotifyConfigured = (): boolean => Boolean(NOTIFY_URL() && NOTIFY_
 
 async function post(path: string, body: unknown): Promise<Response | null> {
   try {
-    return await fetch(`${NOTIFY_URL()}${path}`, {
+    const res = await fetch(`${NOTIFY_URL()}${path}`, {
       method: 'POST',
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json', 'X-API-Key': NOTIFY_API_KEY() },
       body: JSON.stringify(body),
     });
+    // A non-2xx from notify-svc is an operational failure worth surfacing (auth
+    // challenges, founder alerts and pushes all depend on it). Never include the
+    // request body (may contain PII / codes) in the incident meta.
+    if (res.status < 200 || res.status >= 300) {
+      reportError('notify.response', new Error(`notify-svc ${res.status}`), {
+        severity: 'warn',
+        meta: { path, status: res.status },
+      });
+    }
+    return res;
   } catch (err) {
-    console.error('notify request failed:', err instanceof Error ? err.message : 'unknown');
+    reportError('notify.request', err, { meta: { path } });
     return null;
   }
 }

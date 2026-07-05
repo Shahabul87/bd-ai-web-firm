@@ -1,6 +1,7 @@
 import 'server-only';
 import { createHmac, timingSafeEqual } from 'crypto';
 import type { NextRequest, NextResponse } from 'next/server';
+import { portalAuthSecret } from './env';
 
 // Short-lived, HMAC-signed cookie binding a challengeId to its email across the
 // portal login steps. Signed with PORTAL_AUTH_SECRET (NOT the admin secret) so
@@ -8,7 +9,8 @@ import type { NextRequest, NextResponse } from 'next/server';
 const NAME = 'portal_chal';
 
 function sign(v: string): string {
-  return createHmac('sha256', process.env.PORTAL_AUTH_SECRET ?? '').update(v).digest('hex');
+  // portalAuthSecret() is guaranteed non-empty (throws in prod if unset/weak).
+  return createHmac('sha256', portalAuthSecret()).update(v).digest('hex');
 }
 
 function safeEq(a: string, b: string): boolean {
