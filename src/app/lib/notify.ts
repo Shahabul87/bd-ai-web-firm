@@ -43,6 +43,30 @@ export async function sendAnnouncement(
   return { ok: Boolean(res && res.status >= 200 && res.status < 300) };
 }
 
+/**
+ * Registers a browser's FCM token with notify-svc so it can receive push.
+ * No-op (and never throws) when notify-svc is unconfigured. Idempotent server-side.
+ */
+export async function registerDevice(token: string, userRef: string): Promise<void> {
+  if (!isNotifyConfigured()) return;
+  await post('/v1/devices', { token, user_ref: userRef, platform: 'web' });
+}
+
+/**
+ * Sends a push notification to a user_ref's devices via notify-svc (announcement
+ * template). Fire-and-forget: no-op when unconfigured, never throws. If notify-svc
+ * lacks FCM creds it no-ops server-side.
+ */
+export async function sendPush(userRef: string, subject: string, body: string): Promise<void> {
+  if (!isNotifyConfigured()) return;
+  await post('/v1/notify', {
+    channel: 'push',
+    to: `user:${userRef}`,
+    template: 'announcement',
+    data: { subject, title: subject, body },
+  });
+}
+
 // ── Auth (per-tenant via X-API-Key). Dev fallback when notify unconfigured. ──
 
 const devMode = (): boolean => !isNotifyConfigured() && process.env.NODE_ENV !== 'production';
