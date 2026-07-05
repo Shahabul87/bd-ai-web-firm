@@ -1,5 +1,8 @@
 jest.mock('../db', () => ({ prisma: { lead: { create: jest.fn() } } }));
-jest.mock('../notify', () => ({ sendAnnouncement: jest.fn().mockResolvedValue({ ok: true }) }));
+jest.mock('../notify', () => ({
+  sendAnnouncement: jest.fn().mockResolvedValue({ ok: true }),
+  sendPush: jest.fn().mockResolvedValue(undefined),
+}));
 jest.mock('../email', () => ({
   CONTACT_EMAIL: 'owner@craftsai.org',
   SITE_URL: 'https://www.craftsai.org',

@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { getPortalClient } from '@/app/lib/portalSession';
 import { getClientProject } from '@/app/lib/portal';
 import { addMessage } from '@/app/lib/messages';
-import { sendAnnouncement } from '@/app/lib/notify';
+import { sendAnnouncement, sendPush } from '@/app/lib/notify';
 import { CONTACT_EMAIL } from '@/app/lib/email';
 
 /** Client posts a message on one of THEIR projects (ownership re-checked). */
@@ -20,5 +20,6 @@ export async function sendClientMessage(projectId: string, body: string): Promis
     `New portal message — ${project.title}`,
     `${c.name} sent a message on "${project.title}". Sign in to the admin dashboard to reply.`,
   );
+  void sendPush('admin', `New portal message — ${project.title}`, `${c.name} sent a message.`);
   revalidatePath(`/portal/projects/${projectId}`);
 }

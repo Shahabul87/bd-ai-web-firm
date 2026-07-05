@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { signOutPortal } from './login/actions';
+import EnablePush from '@/app/components/EnablePush';
 
 /** Portal header for authenticated pages (distinct from the admin nav). */
 export default function PortalHeader({ clientName }: { clientName: string }) {
@@ -18,6 +19,7 @@ export default function PortalHeader({ clientName }: { clientName: string }) {
           </Link>
         </div>
         <div className="flex items-center gap-4">
+          <EnablePush registerPath="/api/user/push/register" />
           <span className="hidden font-mono text-xs uppercase tracking-[0.1em] text-steel sm:inline">
             {clientName}
           </span>
