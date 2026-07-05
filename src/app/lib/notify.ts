@@ -49,7 +49,8 @@ export async function sendAnnouncement(
  */
 export async function registerDevice(token: string, userRef: string): Promise<void> {
   if (!isNotifyConfigured()) return;
-  await post('/v1/devices', { token, user_ref: userRef, platform: 'web' });
+  // notify-svc's /v1/devices requires the field name `fcm_token`.
+  await post('/v1/devices', { fcm_token: token, user_ref: userRef, platform: 'web' });
 }
 
 /**

@@ -29,7 +29,7 @@ it('registerDevice posts token to /v1/devices', async () => {
   const [url, opts] = fetchMock.mock.calls[0];
   expect(String(url)).toContain('/v1/devices');
   expect(JSON.parse(opts.body)).toEqual(
-    expect.objectContaining({ token: 'tok123', user_ref: 'client:c1', platform: 'web' }),
+    expect.objectContaining({ fcm_token: 'tok123', user_ref: 'client:c1', platform: 'web' }),
   );
 });
 
