@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { signOutAction } from './login/actions';
+import EnablePush from '@/app/components/EnablePush';
 
 export default function AdminNav({ email }: { email: string }) {
   return (
@@ -29,6 +30,7 @@ export default function AdminNav({ email }: { email: string }) {
           </Link>
         </div>
         <div className="flex items-center gap-4">
+          <EnablePush registerPath="/api/admin/push/register" />
           <span className="hidden font-mono text-xs text-steel sm:inline">{email}</span>
           <form action={signOutAction}>
             <button
