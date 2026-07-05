@@ -1,5 +1,6 @@
 import { prisma } from './db';
 import { writeAudit } from './audit';
+import { sendPush } from './notify';
 
 export type ProjectStatusValue =
   | 'DISCOVERY'
@@ -66,4 +67,9 @@ export async function addProjectUpdate(
 ): Promise<void> {
   await prisma.projectUpdate.create({ data: { projectId, authorEmail, body, visibility } });
   await writeAudit('project.update.add', { actorEmail: authorEmail, meta: { projectId, visibility } });
+  // Push only client-visible updates to the client's devices.
+  if (visibility === 'CLIENT') {
+    const p = await prisma.project.findUnique({ where: { id: projectId }, select: { clientId: true, title: true } });
+    if (p) void sendPush(`client:${p.clientId}`, `Project update — ${p.title}`, 'There is a new update on your project.');
+  }
 }

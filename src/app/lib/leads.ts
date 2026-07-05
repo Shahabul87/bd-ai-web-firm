@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from './db';
-import { sendAnnouncement } from './notify';
+import { sendAnnouncement, sendPush } from './notify';
 import { SITE_URL, CONTACT_EMAIL } from './email';
 import { writeAudit } from './audit';
 
@@ -58,6 +58,7 @@ export async function createLead(input: CreateLeadInput): Promise<{ id: string }
         (input.message ? `\nMessage: ${input.message}` : '') +
         `\n\nView: ${SITE_URL}/admin/leads/${lead.id}`;
       void sendAnnouncement(CONTACT_EMAIL, subject, body);
+      void sendPush('admin', `New ${input.source} lead`, `${input.name} — ${input.email}`);
 
       return { id: lead.id };
     } catch (err) {

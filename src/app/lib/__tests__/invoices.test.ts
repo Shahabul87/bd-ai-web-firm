@@ -12,7 +12,7 @@ jest.mock('../db', () => {
   };
 });
 jest.mock('../audit', () => ({ writeAudit: jest.fn() }));
-jest.mock('../notify', () => ({ sendAnnouncement: jest.fn() }));
+jest.mock('../notify', () => ({ sendAnnouncement: jest.fn(), sendPush: jest.fn() }));
 jest.mock('../email', () => ({ SITE_URL: 'https://www.craftsai.org', CONTACT_EMAIL: 'o@c.org' }));
 
 import { prisma } from '../db';

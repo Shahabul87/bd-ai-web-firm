@@ -1,6 +1,6 @@
 import { prisma } from './db';
 import { writeAudit } from './audit';
-import { sendAnnouncement } from './notify';
+import { sendAnnouncement, sendPush } from './notify';
 import { SITE_URL } from './email';
 import { computeTotals, formatMoney } from './money';
 
@@ -184,6 +184,11 @@ export async function sendInvoice(id: string, actorEmail: string): Promise<void>
     inv.client.email,
     `Invoice ${invNo(inv.number)} from CraftsAI`,
     `Hi ${inv.client.name},\n\nInvoice ${invNo(inv.number)} for ${formatMoney(inv.totalMinor, inv.currency)} is ready. View and print it in your portal: ${SITE_URL}/portal/invoices/${inv.id}\n\n— The CraftsAI Team`,
+  );
+  void sendPush(
+    `client:${inv.clientId}`,
+    `Invoice ${invNo(inv.number)}`,
+    `${formatMoney(inv.totalMinor, inv.currency)} — view it in your portal.`,
   );
 }
 
