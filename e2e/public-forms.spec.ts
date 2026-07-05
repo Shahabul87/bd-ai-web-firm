@@ -99,8 +99,10 @@ test.describe('Demo API (validation is DB-independent)', () => {
 test.describe('Quote form (UI)', () => {
   test('renders the multi-step quote wizard', async ({ page }) => {
     await page.goto('/quote');
-    // First step should be visible; assert the page mounted the stepper form.
-    await expect(page.locator('form, [role="form"]').first()).toBeVisible();
-    await expect(page.getByRole('button').first()).toBeVisible();
+    // First step should be visible; assert the page mounted the actual
+    // accessible wizard UI rather than an implementation-specific <form>.
+    await expect(page.getByText('Step 1/5')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'What do you need built?' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Continue' })).toBeVisible();
   });
 });

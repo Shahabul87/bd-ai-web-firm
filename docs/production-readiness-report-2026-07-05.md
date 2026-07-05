@@ -13,11 +13,11 @@ Report date: 2026-07-05
 > not code: provision Upstash + an observability sink, finalize the legal
 > placeholders + legal review, and implement the authenticated-flow E2E tests.
 
-This codebase is not ready for a full public production launch yet.
+Update after remediation: the original code-level production blockers have been fixed and reverified locally. The app is now technically ready for a production deployment candidate, with launch still gated by real infrastructure provisioning, legal finalization, dependency audit verification in CI, and production smoke testing.
 
-It is close enough for a controlled staging launch or private beta because the app builds, type-checks, lints, and has a meaningful unit test suite. The remaining gaps are mostly operational and security hardening issues rather than broken implementation.
+It is ready for a controlled staging launch and can move toward public launch after the remaining founder/infrastructure items at the end of this report are completed.
 
-Recommended launch gate: fix the "Must fix before production" items below, then run a production-like smoke test against the real deployment, database, notify service, and email domain.
+Recommended launch gate: run a production-like smoke test against the real deployment, database, notify service, Redis limiter, observability sink, and email domain.
 
 ## Verified Locally
 
@@ -281,3 +281,23 @@ Still requires the founder / real infrastructure (not code):
 - Implement the authenticated-flow E2E stubs against a **seeded test DB + notify test tenant**.
 - Decide whether the **`next-auth` 5 beta** is acceptable for launch (currently 0 known vulns after overrides).
 - Run the operational launch checklist above (backups, prod smoke test, deliverability, rollback plan).
+
+## Re-Verification After Remediation (Codex, 2026-07-05)
+
+Current local verification:
+
+- `npm run lint` — passed, no warnings/errors. Note: still uses deprecated `next lint`.
+- `npm run type-check` — passed.
+- `npm test -- --runInBand` — passed: 20 suites, 76 tests.
+- `npx prisma validate` — passed.
+- `npm run build` — passed: production build completed, 70 routes generated.
+- `npm run test:e2e` — passed for implemented coverage: 8 passed, 5 authenticated-flow stubs skipped.
+
+Fixes applied during this re-verification:
+
+- `playwright.config.ts` now defaults to port `3101` and does not reuse an existing server unless `E2E_REUSE_SERVER=1` is set. This prevents the suite from accidentally testing another app on port 3000.
+- `e2e/public-forms.spec.ts` now asserts the actual quote wizard UI (`Step 1/5`, heading, Continue button) instead of expecting a nonexistent `<form>` wrapper.
+
+Not independently reverified in this session:
+
+- `npm run audit:ci` still could not be rerun from Codex because npm registry access was blocked as an external dependency-metadata disclosure. Keep the CI audit gate enabled and run it in your approved CI/network environment before public launch.
