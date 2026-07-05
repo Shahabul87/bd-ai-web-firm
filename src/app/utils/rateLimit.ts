@@ -1,15 +1,16 @@
+import { prisma } from '@/app/lib/db';
 import { reportError } from '@/app/lib/report';
 
 /**
- * Rate limiter with a distributed backend and an in-memory fallback.
+ * Rate limiter backed by our OWN Postgres (no third-party service).
  *
- * When `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN` are set, limits are
- * enforced atomically in Redis (INCR + EXPIRE NX = a shared fixed window), so
- * they hold across serverless instances and cold starts. Without those env vars
- * — or if Redis is unreachable — it falls back to the best-effort in-memory
- * limiter below, which still blocks naive single-source floods within one
- * process. The honeypot + input validation in each route remain the primary
- * spam defenses.
+ * A single atomic upsert (`INSERT ... ON CONFLICT`) maintains one fixed-window
+ * counter per key in the `RateLimit` table, so limits are shared across every
+ * app instance and cold start — which the per-instance in-memory Map below
+ * cannot do. If Postgres is unreachable, or the table does not exist yet (e.g.
+ * before the migration is applied), we fall back to the in-memory limiter rather
+ * than failing a legitimate request. The honeypot + input validation in each
+ * route remain the primary spam defenses.
  */
 
 interface RateLimitEntry {
@@ -88,79 +89,82 @@ function checkRateLimitMemory(
   };
 }
 
-const upstashUrl = () => process.env.UPSTASH_REDIS_REST_URL ?? '';
-const upstashToken = () => process.env.UPSTASH_REDIS_REST_TOKEN ?? '';
+// Opportunistic prune of expired Postgres rows — no cron needed. Fire-and-forget
+// roughly every N calls so the table cannot grow unbounded.
+let callsSincePrune = 0;
+const PRUNE_EVERY = 500;
 
-/** True when a shared Redis backend is configured. */
-export function isDistributedRateLimitEnabled(): boolean {
-  return Boolean(upstashUrl() && upstashToken());
+function maybePruneExpired(): void {
+  callsSincePrune += 1;
+  if (callsSincePrune < PRUNE_EVERY) return;
+  callsSincePrune = 0;
+  void prisma.rateLimit
+    .deleteMany({ where: { expiresAt: { lt: new Date() } } })
+    .catch(() => {
+      /* best-effort cleanup — never affects the request */
+    });
 }
 
 /**
- * Atomic fixed-window limit in Upstash Redis. Returns `null` (so the caller
- * falls back to the in-memory limiter) when unconfigured or on any Redis error —
- * we never fail a legitimate request just because the limiter store is down.
+ * Atomic fixed-window limit in our Postgres. Returns `null` (so the caller falls
+ * back to the in-memory limiter) on any DB error — including the table not
+ * existing yet — so a limiter-store problem never blocks a real request.
  */
-async function checkRateLimitRedis(
+async function checkRateLimitDb(
   identifier: string,
   options: RateLimitOptions,
 ): Promise<RateLimitResult | null> {
-  if (!isDistributedRateLimitEnabled()) return null;
-
-  const windowSec = Math.max(1, Math.ceil(options.windowMs / 1000));
-  const key = `rl:${identifier}`;
-
   try {
-    // Pipeline: INCR (atomic counter), EXPIRE NX (set TTL only on the first hit
-    // of the window → a true fixed window), PTTL (ms left for resetIn).
-    const res = await fetch(`${upstashUrl()}/pipeline`, {
-      method: 'POST',
-      cache: 'no-store',
-      headers: {
-        Authorization: `Bearer ${upstashToken()}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify([
-        ['INCR', key],
-        ['EXPIRE', key, String(windowSec), 'NX'],
-        ['PTTL', key],
-      ]),
-    });
+    // One atomic statement: start a new window (count=1) if none exists or the
+    // current one has expired, else increment. RETURNING gives us the post-op
+    // count and the window end for `resetIn`.
+    const rows = await prisma.$queryRaw<Array<{ count: number; expiresAt: Date }>>`
+      INSERT INTO "RateLimit" ("key", "count", "expiresAt")
+      VALUES (${identifier}, 1, now() + (${options.windowMs} * interval '1 millisecond'))
+      ON CONFLICT ("key") DO UPDATE SET
+        "count" = CASE
+          WHEN "RateLimit"."expiresAt" < now() THEN 1
+          ELSE "RateLimit"."count" + 1
+        END,
+        "expiresAt" = CASE
+          WHEN "RateLimit"."expiresAt" < now() THEN now() + (${options.windowMs} * interval '1 millisecond')
+          ELSE "RateLimit"."expiresAt"
+        END
+      RETURNING "count", "expiresAt";
+    `;
 
-    if (!res.ok) {
-      reportError('ratelimit.redis', new Error(`upstash ${res.status}`), {
-        severity: 'warn',
-        meta: { status: res.status },
-      });
-      return null;
-    }
+    const row = rows[0];
+    if (!row) return null;
 
-    const data = (await res.json()) as Array<{ result?: number; error?: string }>;
-    const count = Number(data[0]?.result ?? 0);
-    let ttlMs = Number(data[2]?.result ?? options.windowMs);
-    if (!Number.isFinite(ttlMs) || ttlMs < 0) ttlMs = options.windowMs;
-    const resetIn = Math.max(1, Math.ceil(ttlMs / 1000));
+    const count = Number(row.count);
+    const resetIn = Math.max(
+      1,
+      Math.ceil((new Date(row.expiresAt).getTime() - Date.now()) / 1000),
+    );
+
+    maybePruneExpired();
 
     if (count > options.maxRequests) {
       return { success: false, remaining: 0, resetIn };
     }
     return { success: true, remaining: Math.max(0, options.maxRequests - count), resetIn };
   } catch (err) {
-    reportError('ratelimit.redis', err, { severity: 'warn' });
+    // Includes "relation RateLimit does not exist" before the migration runs.
+    reportError('ratelimit.db', err, { severity: 'warn', meta: { identifier } });
     return null;
   }
 }
 
 /**
  * Check (and consume) one unit of the rate limit for `identifier`. Uses the
- * shared Redis backend when configured, otherwise the in-memory fallback.
+ * shared Postgres backend, falling back to the in-memory limiter on any error.
  */
 export async function checkRateLimit(
   identifier: string,
   options: RateLimitOptions = { maxRequests: 5, windowMs: 60 * 1000 },
 ): Promise<RateLimitResult> {
-  const distributed = await checkRateLimitRedis(identifier, options);
-  return distributed ?? checkRateLimitMemory(identifier, options);
+  const shared = await checkRateLimitDb(identifier, options);
+  return shared ?? checkRateLimitMemory(identifier, options);
 }
 
 /**

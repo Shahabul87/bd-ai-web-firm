@@ -1,4 +1,10 @@
-jest.mock('../db', () => ({ prisma: { lead: { create: jest.fn() } } }));
+jest.mock('../db', () => ({
+  prisma: {
+    lead: { create: jest.fn() },
+    // reportError persists incidents on the final-failure path.
+    incident: { create: jest.fn().mockResolvedValue({}) },
+  },
+}));
 jest.mock('../notify', () => ({
   sendAnnouncement: jest.fn().mockResolvedValue({ ok: true }),
   sendPush: jest.fn().mockResolvedValue(undefined),

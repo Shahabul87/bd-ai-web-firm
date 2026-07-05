@@ -281,3 +281,36 @@ model InvoiceLine {
 
   @@index([invoiceId])
 }
+
+// ── Self-hosted infrastructure (runs entirely on our own Postgres) ──
+
+// Distributed rate-limit counters, shared across all app instances via Postgres
+// (replaces the per-instance in-memory limiter, which the fallback still uses).
+// `key` is e.g. "contact:1.2.3.4"; a row is one fixed window ending at expiresAt.
+model RateLimit {
+  key       String   @id
+  count     Int      @default(0)
+  expiresAt DateTime
+
+  @@index([expiresAt])
+}
+
+enum IncidentSeverity {
+  WARN
+  ERROR
+}
+
+// Self-hosted observability: operational incidents (lead-persist failures,
+// notify-svc failures, auth/Prisma errors) recorded to our own DB and surfaced
+// in /admin/incidents — no third-party error-tracking service.
+model Incident {
+  id        String           @id @default(cuid())
+  scope     String
+  severity  IncidentSeverity @default(ERROR)
+  message   String           @db.Text
+  meta      Json?
+  createdAt DateTime         @default(now())
+
+  @@index([createdAt])
+  @@index([scope])
+}
