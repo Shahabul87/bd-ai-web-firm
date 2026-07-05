@@ -1,13 +1,16 @@
 import 'server-only';
 import { createHmac, timingSafeEqual } from 'crypto';
 import type { NextRequest, NextResponse } from 'next/server';
+import { authSecret } from './env';
 
 // Short-lived, HMAC-signed cookie binding a challengeId to its email so the
 // multi-step login flow never trusts the client for the email/challenge pair.
 const NAME = 'adm_chal';
 
 function sign(v: string): string {
-  return createHmac('sha256', process.env.AUTH_SECRET ?? '').update(v).digest('hex');
+  // authSecret() is guaranteed non-empty (throws in prod if unset/weak), so we
+  // never sign with an empty key.
+  return createHmac('sha256', authSecret()).update(v).digest('hex');
 }
 
 function safeEq(a: string, b: string): boolean {

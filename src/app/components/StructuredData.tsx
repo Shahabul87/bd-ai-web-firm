@@ -281,9 +281,12 @@ export default function StructuredData() {
           "url": "https://www.craftsai.org/quote"
         };
       case '/faq':
+        // NOTE: the actual FAQPage schema (with mainEntity) is emitted above,
+        // scoped to /faq. Keep this a plain WebPage so we don't render a second,
+        // empty FAQPage (invalid structured data Google would flag).
         return {
           "@context": "https://schema.org",
-          "@type": "FAQPage",
+          "@type": "WebPage",
           "name": "CraftsAI FAQ",
           "description": "Frequently asked questions about CraftsAI services, pricing, and process.",
           "url": "https://www.craftsai.org/faq"
@@ -335,12 +338,18 @@ export default function StructuredData() {
           __html: JSON.stringify(websiteSchema),
         }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema),
-        }}
-      />
+      {/* FAQPage schema is emitted ONLY on /faq, the one page that visibly
+          renders this exact faq.json content. Injecting it site-wide is a
+          structured-data mismatch (Google flags FAQ markup with no matching
+          on-page content). */}
+      {pathname === '/faq' && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema),
+          }}
+        />
+      )}
       {breadcrumbSchema && (
         <script
           type="application/ld+json"

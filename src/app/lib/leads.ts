@@ -3,6 +3,7 @@ import { prisma } from './db';
 import { sendAnnouncement, sendPush } from './notify';
 import { SITE_URL, CONTACT_EMAIL } from './email';
 import { writeAudit } from './audit';
+import { reportError } from './report';
 
 export interface CreateLeadInput {
   source: 'CONTACT' | 'QUOTE' | 'DEMO';
@@ -67,7 +68,22 @@ export async function createLead(input: CreateLeadInput): Promise<{ id: string }
         await sleep(300 * attempt);
         continue;
       }
-      console.error(`createLead failed (attempt ${attempt}/${maxAttempts}):`, msg);
+      // Final failure after retries: surface it loudly. The route turns this
+      // null into a 503 for the visitor; here we also page the founder so a lost
+      // lead never fails silently. Alerting goes over notify-svc, a separate
+      // service from Postgres, so it can still reach us when the DB is the fault.
+      reportError('lead.persist', err, {
+        meta: { source: input.source, email: input.email, attempts: maxAttempts },
+      });
+      void sendAnnouncement(
+        CONTACT_EMAIL,
+        `⚠️ Lead capture FAILED (${input.source})`,
+        `A ${input.source} lead could not be saved after ${maxAttempts} attempts.\n\n` +
+          `Name: ${input.name}\nEmail: ${input.email}` +
+          (input.company ? `\nCompany: ${input.company}` : '') +
+          (input.message ? `\nMessage: ${input.message}` : '') +
+          `\n\nError: ${msg}\n\nFollow up with this visitor manually — the row was NOT persisted.`,
+      );
       return null;
     }
   }

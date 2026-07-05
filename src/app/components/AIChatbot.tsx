@@ -58,7 +58,7 @@ export default function AIChatbot() {
       setTimeout(() => {
         const welcomeMessage: Message = {
           id: 'welcome',
-          text: "👋 Hi! I'm AI Assistant from CraftsAI. I'm here to help you learn about our AI and web development services.\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
+          text: "👋 Hi! I'm the CraftsAI Help Assistant — a guided FAQ that answers common questions about our services. (For anything specific, our team is one message away via the contact page.)\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
           sender: 'bot',
           timestamp: new Date()
         };
@@ -144,7 +144,7 @@ export default function AIChatbot() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 h-14 w-14 border border-signal-dim bg-signal text-ink-950 shadow-lg transition-colors duration-150 hover:bg-signal-dim"
-        aria-label="Open AI Chat Assistant"
+        aria-label="Open CraftsAI Help Assistant"
       >
         {isOpen ? (
           <svg className="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -167,8 +167,8 @@ export default function AIChatbot() {
                 <span className="text-lg">🤖</span>
               </div>
               <div>
-                <h3 className="font-semibold">AI Assistant</h3>
-                <p className="text-sm opacity-90">CraftsAI</p>
+                <h3 className="font-semibold">Help Assistant</h3>
+                <p className="text-sm opacity-90">CraftsAI · guided FAQ</p>
               </div>
               <div className="ml-auto flex items-center gap-1">
                 <div className="w-2 h-2 bg-signal rounded-full animate-pulse"></div>
@@ -262,8 +262,10 @@ export default function AIChatbot() {
                     : 'bg-ink-800 text-steel cursor-not-allowed'
                 }`}
               >
-                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                {/* Horizontal paper-plane = unambiguous "send" (the prior upward
+                    glyph read like a warning triangle). */}
+                <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.769 59.769 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
                 </svg>
               </button>
             </div>

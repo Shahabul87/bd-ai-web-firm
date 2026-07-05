@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
     // Rate limiting: 3 quote requests per 5 minutes per IP
     const clientIP = getClientIP(request);
-    const rateLimit = checkRateLimit(`quote:${clientIP}`, { maxRequests: 3, windowMs: 5 * 60 * 1000 });
+    const rateLimit = await checkRateLimit(`quote:${clientIP}`, { maxRequests: 3, windowMs: 5 * 60 * 1000 });
 
     if (!rateLimit.success) {
       return NextResponse.json(
@@ -87,8 +87,8 @@ export async function POST(request: NextRequest) {
       serviceMap[String(serviceId)] || sanitizeInput(serviceId, 100),
     );
 
-    // Persist the lead (fail-open) + alert the founder (via notify-svc).
-    await createLead({
+    // Persist the lead (retries transient errors) + alert the founder.
+    const lead = await createLead({
       source: 'QUOTE',
       name: contactName,
       email,
@@ -102,6 +102,17 @@ export async function POST(request: NextRequest) {
       ip: clientIP,
       userAgent: request.headers.get('user-agent') ?? undefined,
     });
+
+    // Do not claim success if the lead was not persisted (founder is paged).
+    if (!lead) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: 'We could not submit your quote request right now. Please try again in a moment.',
+        },
+        { status: 503 },
+      );
+    }
 
     // Client auto-reply via notify-svc (fire-and-forget; never throws).
     void sendAnnouncement(

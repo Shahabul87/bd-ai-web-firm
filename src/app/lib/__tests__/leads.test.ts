@@ -39,11 +39,18 @@ describe('createLead', () => {
     );
   });
 
-  it('returns null and does not throw if the DB write fails', async () => {
+  it('returns null, pages the founder, and does not throw if the DB write fails', async () => {
     createMock.mockRejectedValue(new Error('db down'));
     const r = await createLead({ source: 'DEMO', name: 'B', email: 'b@x.com', payload: {} });
     expect(r).toBeNull();
-    expect(sendAnnouncement).not.toHaveBeenCalled();
+    // On final failure the founder is alerted about the lost lead (exactly once),
+    // so a persistence failure is never silent.
+    expect(sendAnnouncement).toHaveBeenCalledTimes(1);
+    expect(sendAnnouncement).toHaveBeenCalledWith(
+      'owner@craftsai.org',
+      expect.stringContaining('Lead capture FAILED'),
+      expect.stringContaining('b@x.com'),
+    );
   });
 
   it('retries a transient connection error and then succeeds', async () => {

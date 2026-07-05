@@ -43,7 +43,10 @@ const nextConfig: NextConfig = {
       {
         source: '/(.*)',
         headers: [
-          // Content Security Policy - Tightened for better security
+          // Content Security Policy - Tightened for better security.
+          // TODO(csp-hardening): 'unsafe-inline' for scripts/styles remains for
+          // initial compatibility (Next.js inline bootstrap + Tailwind). Plan to
+          // migrate to per-request nonces/hashes before broad public launch.
           {
             key: 'Content-Security-Policy',
             value: [
@@ -76,11 +79,8 @@ const nextConfig: NextConfig = {
             key: 'X-Content-Type-Options',
             value: 'nosniff'
           },
-          // Enable XSS protection
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block'
-          },
+          // (X-XSS-Protection intentionally removed: the legacy header is
+          // obsolete in modern browsers and superseded by the CSP above.)
           // Referrer policy
           {
             key: 'Referrer-Policy',
