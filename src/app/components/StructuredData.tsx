@@ -281,9 +281,12 @@ export default function StructuredData() {
           "url": "https://www.craftsai.org/quote"
         };
       case '/faq':
+        // NOTE: the actual FAQPage schema (with mainEntity) is emitted above,
+        // scoped to /faq. Keep this a plain WebPage so we don't render a second,
+        // empty FAQPage (invalid structured data Google would flag).
         return {
           "@context": "https://schema.org",
-          "@type": "FAQPage",
+          "@type": "WebPage",
           "name": "CraftsAI FAQ",
           "description": "Frequently asked questions about CraftsAI services, pricing, and process.",
           "url": "https://www.craftsai.org/faq"
