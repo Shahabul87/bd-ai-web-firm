@@ -206,3 +206,18 @@ export async function voidInvoice(id: string, actorEmail: string): Promise<void>
   await prisma.invoice.update({ where: { id }, data: { status: 'VOID' } });
   await writeAudit('invoice.void', { actorEmail, meta: { id } });
 }
+
+/** Active clients + their projects, for the invoice builder's selects. */
+export async function listClientsForInvoice(): Promise<
+  { id: string; name: string; projects: { id: string; title: string }[] }[]
+> {
+  return prisma.client.findMany({
+    where: { status: 'ACTIVE' },
+    orderBy: { name: 'asc' },
+    select: {
+      id: true,
+      name: true,
+      projects: { select: { id: true, title: true }, orderBy: { createdAt: 'desc' } },
+    },
+  });
+}
