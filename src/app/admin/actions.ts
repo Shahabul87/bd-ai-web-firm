@@ -22,6 +22,14 @@ import {
 import { prisma } from '@/app/lib/db';
 import { addMessage } from '@/app/lib/messages';
 import { sendAnnouncement } from '@/app/lib/notify';
+import {
+  createInvoice,
+  updateInvoiceDraft,
+  sendInvoice,
+  markInvoicePaid,
+  voidInvoice,
+  type InvoiceInput,
+} from '@/app/lib/invoices';
 
 const STATUSES: LeadStatusValue[] = ['NEW', 'CONTACTED', 'QUALIFIED', 'PROPOSAL', 'WON', 'LOST'];
 const PROJECT_STATUSES: ProjectStatusValue[] = [
@@ -181,4 +189,74 @@ export async function sendAdminMessage(projectId: string, body: string): Promise
     `You have a new message on "${project.title}". Sign in to your portal to view and reply.`,
   );
   revalidatePath(`/admin/projects/${projectId}`);
+}
+
+// ── Invoices (Phase 4) ──
+
+const LineSchema = z.object({
+  description: z.string().min(1),
+  quantity: z.number().int().positive(),
+  unitPriceMinor: z.number().int().nonnegative(),
+});
+const InvoiceSchema = z.object({
+  clientId: z.string().min(1),
+  projectId: z.string().optional(),
+  currency: z.string().min(1),
+  taxLabel: z.string().optional(),
+  taxRateBps: z.number().int().min(0).max(100000),
+  dueDate: z.string().optional(),
+  notes: z.string().optional(),
+  lines: z.array(LineSchema).min(1),
+});
+
+function toInvoiceInput(form: z.infer<typeof InvoiceSchema>): InvoiceInput {
+  return {
+    clientId: form.clientId,
+    projectId: form.projectId,
+    currency: form.currency,
+    taxLabel: form.taxLabel,
+    taxRateBps: form.taxRateBps,
+    notes: form.notes,
+    dueDate: form.dueDate ? new Date(form.dueDate) : null,
+    lines: form.lines,
+  };
+}
+
+export async function createInvoiceAction(form: unknown): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  const { id } = await createInvoice(toInvoiceInput(InvoiceSchema.parse(form)), admin.email);
+  revalidatePath('/admin/invoices');
+  redirect(`/admin/invoices/${id}`);
+}
+
+export async function updateInvoiceDraftAction(id: string, form: unknown): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  await updateInvoiceDraft(id, toInvoiceInput(InvoiceSchema.parse(form)), admin.email);
+  revalidatePath(`/admin/invoices/${id}`);
+}
+
+export async function sendInvoiceAction(id: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  await sendInvoice(id, admin.email);
+  revalidatePath(`/admin/invoices/${id}`);
+  revalidatePath('/admin/invoices');
+}
+
+export async function markInvoicePaidAction(id: string, paymentRef: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  await markInvoicePaid(id, paymentRef, admin.email);
+  revalidatePath(`/admin/invoices/${id}`);
+  revalidatePath('/admin/invoices');
+}
+
+export async function voidInvoiceAction(id: string): Promise<void> {
+  const admin = await getAdmin();
+  if (!admin) throw new Error('unauthorized');
+  await voidInvoice(id, admin.email);
+  revalidatePath(`/admin/invoices/${id}`);
+  revalidatePath('/admin/invoices');
 }
