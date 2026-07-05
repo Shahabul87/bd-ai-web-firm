@@ -36,6 +36,12 @@ export default async function ProjectDetail({ params }: { params: Promise<{ id: 
         <div className="mt-4 flex flex-wrap items-center gap-4">
           <h1 className="font-display text-3xl font-medium">{project.title}</h1>
           <ProjectStatusBadge status={project.status as ProjectStatusValue} />
+          <Link
+            href={`/admin/invoices/new?clientId=${project.clientId}&projectId=${project.id}`}
+            className="font-mono text-[10px] uppercase tracking-[0.12em] text-signal hover:underline"
+          >
+            + New invoice
+          </Link>
         </div>
         {project.description && <p className="mt-2 max-w-2xl text-sm text-steel">{project.description}</p>}
 

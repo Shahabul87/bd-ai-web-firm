@@ -39,9 +39,17 @@ export default async function ClientDetail({ params }: { params: Promise<{ id: s
         <div className="mt-8 grid gap-8 md:grid-cols-[1fr_320px]">
           {/* Projects */}
           <div className="space-y-4">
-            <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-steel">
-              Projects ({client.projects.length})
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-steel">
+                Projects ({client.projects.length})
+              </p>
+              <Link
+                href={`/admin/invoices/new?clientId=${client.id}`}
+                className="font-mono text-[10px] uppercase tracking-[0.12em] text-signal hover:underline"
+              >
+                + New invoice
+              </Link>
+            </div>
             {client.projects.length === 0 ? (
               <p className="text-sm text-steel">No projects yet — add one on the right.</p>
             ) : (
