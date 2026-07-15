@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
-import PageLayout from '../components/layout/PageLayout';
-import PageHero from '../components/shared/PageHero';
-import CTABand from '../components/shared/CTABand';
-import Button from '../design/ui/Button';
-import MonoLabel from '../design/ui/MonoLabel';
-import Accordion from '../design/ui/Accordion';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import Button from '@/app/design/ui/Button';
+import MonoLabel from '@/app/design/ui/MonoLabel';
+import Accordion from '@/app/design/ui/Accordion';
 import faqData from '../../../content/faq/faq.json';
 
 export const metadata: Metadata = {

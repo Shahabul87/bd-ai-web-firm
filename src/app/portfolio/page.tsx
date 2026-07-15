@@ -1,7 +1,7 @@
-import PageLayout from '../components/layout/PageLayout';
-import PageHero from '../components/shared/PageHero';
-import CTABand from '../components/shared/CTABand';
-import PortfolioGrid from '../components/portfolio/PortfolioGrid';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import PortfolioGrid from '@/app/components/portfolio/PortfolioGrid';
 import { caseStudies } from '#content';
 
 export default function Portfolio() {

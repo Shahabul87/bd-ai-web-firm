@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import PageLayout from '../components/layout/PageLayout';
-import PageHero from '../components/shared/PageHero';
-import PillarCards from '../components/shared/PillarCards';
-import CTABand from '../components/shared/CTABand';
-import Button from '../design/ui/Button';
-import SectionHeader from '../design/ui/SectionHeader';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import PillarCards from '@/app/components/shared/PillarCards';
+import CTABand from '@/app/components/shared/CTABand';
+import Button from '@/app/design/ui/Button';
+import SectionHeader from '@/app/design/ui/SectionHeader';
 
 export const metadata: Metadata = {
   title: 'Services',

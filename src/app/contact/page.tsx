@@ -2,11 +2,11 @@
 
 import { useState, FormEvent } from 'react';
 import Link from 'next/link';
-import PageLayout from '../components/layout/PageLayout';
-import PageHero from '../components/shared/PageHero';
-import Button from '../design/ui/Button';
-import MonoLabel from '../design/ui/MonoLabel';
-import Card from '../design/ui/Card';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import Button from '@/app/design/ui/Button';
+import MonoLabel from '@/app/design/ui/MonoLabel';
+import Card from '@/app/design/ui/Card';
 
 const serviceOptions = [
   'Web Development',

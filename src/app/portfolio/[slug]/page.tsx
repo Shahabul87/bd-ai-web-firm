@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { caseStudies } from '#content';
 import { getCaseStudyBySlug, getAllCaseStudies } from '@/app/lib/content';
-import PageLayout from '../../components/layout/PageLayout';
-import PageHero from '../../components/shared/PageHero';
-import CTABand from '../../components/shared/CTABand';
-import MdxContent from '../../components/mdx/MdxContent';
-import SectionHeader from '../../design/ui/SectionHeader';
-import SpecTable from '../../design/ui/SpecTable';
-import Card from '../../design/ui/Card';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import MdxContent from '@/app/components/mdx/MdxContent';
+import SectionHeader from '@/app/design/ui/SectionHeader';
+import SpecTable from '@/app/design/ui/SpecTable';
+import Card from '@/app/design/ui/Card';
 
 interface CaseStudyPageProps {
   params: Promise<{ slug: string }>;

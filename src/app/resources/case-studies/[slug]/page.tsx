@@ -2,12 +2,12 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { caseStudies } from '#content';
 import { getCaseStudyBySlug } from '@/app/lib/content';
-import PageLayout from '../../../components/layout/PageLayout';
-import PageHero from '../../../components/shared/PageHero';
-import CTABand from '../../../components/shared/CTABand';
-import Card from '../../../design/ui/Card';
-import MdxContent from '../../../components/mdx/MdxContent';
-import ArticleJsonLd from '../../../components/ArticleJsonLd';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import Card from '@/app/design/ui/Card';
+import MdxContent from '@/app/components/mdx/MdxContent';
+import ArticleJsonLd from '@/app/components/ArticleJsonLd';
 
 interface CaseStudyDetailPageProps {
   params: Promise<{ slug: string }>;

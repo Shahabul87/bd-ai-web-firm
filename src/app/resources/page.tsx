@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import PageLayout from '../components/layout/PageLayout';
-import PageHero from '../components/shared/PageHero';
-import CTABand from '../components/shared/CTABand';
-import Button from '../design/ui/Button';
-import SectionHeader from '../design/ui/SectionHeader';
-import { getLatestContent } from '../lib/content';
-import type { LatestContentItem } from '../lib/content';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import Button from '@/app/design/ui/Button';
+import SectionHeader from '@/app/design/ui/SectionHeader';
+import { getLatestContent } from '@/app/lib/content';
+import type { LatestContentItem } from '@/app/lib/content';
 
 export const metadata: Metadata = {
   title: 'Resources - Blog, Case Studies & Guides',

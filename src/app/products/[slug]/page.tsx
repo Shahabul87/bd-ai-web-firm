@@ -2,13 +2,13 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { products } from '#content';
 import { getProductBySlug } from '@/app/lib/content';
-import PageLayout from '../../components/layout/PageLayout';
-import PageHero from '../../components/shared/PageHero';
-import CTABand from '../../components/shared/CTABand';
-import MdxContent from '../../components/mdx/MdxContent';
-import SectionHeader from '../../design/ui/SectionHeader';
-import Card from '../../design/ui/Card';
-import Button from '../../design/ui/Button';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import MdxContent from '@/app/components/mdx/MdxContent';
+import SectionHeader from '@/app/design/ui/SectionHeader';
+import Card from '@/app/design/ui/Card';
+import Button from '@/app/design/ui/Button';
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;

@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { products } from '#content';
-import PageLayout from '../components/layout/PageLayout';
-import PageHero from '../components/shared/PageHero';
-import CTABand from '../components/shared/CTABand';
-import Card from '../design/ui/Card';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import Card from '@/app/design/ui/Card';
 
 export const metadata: Metadata = {
   title: 'Our Products',

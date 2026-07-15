@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
-import PageLayout from '../components/layout/PageLayout';
-import PageHero from '../components/shared/PageHero';
-import CTABand from '../components/shared/CTABand';
-import SectionHeader from '../design/ui/SectionHeader';
-import ConveyorProcess, { ConveyorPhase } from '../components/process/ConveyorProcess';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import SectionHeader from '@/app/design/ui/SectionHeader';
+import ConveyorProcess, { ConveyorPhase } from '@/app/components/process/ConveyorProcess';
 
 export const metadata: Metadata = {
   title: 'Our Development Process',

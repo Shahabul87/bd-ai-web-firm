@@ -2,11 +2,11 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { guides } from '#content';
 import { getGuideBySlug } from '@/app/lib/content';
-import PageLayout from '../../../components/layout/PageLayout';
-import PageHero from '../../../components/shared/PageHero';
-import CTABand from '../../../components/shared/CTABand';
-import MdxContent from '../../../components/mdx/MdxContent';
-import ArticleJsonLd from '../../../components/ArticleJsonLd';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import MdxContent from '@/app/components/mdx/MdxContent';
+import ArticleJsonLd from '@/app/components/ArticleJsonLd';
 
 interface GuideDetailPageProps {
   params: Promise<{ slug: string }>;

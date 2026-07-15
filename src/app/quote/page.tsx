@@ -4,11 +4,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import validator from 'validator';
 import Link from 'next/link';
-import PageLayout from '../components/layout/PageLayout';
-import PageHero from '../components/shared/PageHero';
-import Button from '../design/ui/Button';
-import Stepper from '../design/ui/Stepper';
-import MonoLabel from '../design/ui/MonoLabel';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import Button from '@/app/design/ui/Button';
+import Stepper from '@/app/design/ui/Stepper';
+import MonoLabel from '@/app/design/ui/MonoLabel';
 
 // Types
 interface ProjectDetails {

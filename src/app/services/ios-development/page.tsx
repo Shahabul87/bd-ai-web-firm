@@ -1,15 +1,15 @@
 import type { Metadata } from 'next';
-import PageLayout from '../../components/layout/PageLayout';
-import PageHero from '../../components/shared/PageHero';
-import CTABand from '../../components/shared/CTABand';
-import Button from '../../design/ui/Button';
-import SectionHeader from '../../design/ui/SectionHeader';
-import Card from '../../design/ui/Card';
-import SpecTable from '../../design/ui/SpecTable';
-import Accordion from '../../design/ui/Accordion';
-import Pipeline from '../../design/ui/Pipeline';
-import type { AccordionItem } from '../../design/ui/Accordion';
-import type { SpecRow } from '../../design/ui/SpecTable';
+import PageLayout from '@/app/components/layout/PageLayout';
+import PageHero from '@/app/components/shared/PageHero';
+import CTABand from '@/app/components/shared/CTABand';
+import Button from '@/app/design/ui/Button';
+import SectionHeader from '@/app/design/ui/SectionHeader';
+import Card from '@/app/design/ui/Card';
+import SpecTable from '@/app/design/ui/SpecTable';
+import Accordion from '@/app/design/ui/Accordion';
+import Pipeline from '@/app/design/ui/Pipeline';
+import type { AccordionItem } from '@/app/design/ui/Accordion';
+import type { SpecRow } from '@/app/design/ui/SpecTable';
 
 export const metadata: Metadata = {
   title: 'iOS Development Services',
