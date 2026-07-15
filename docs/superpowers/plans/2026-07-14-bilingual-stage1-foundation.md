@@ -958,13 +958,27 @@ Add after the existing font-variable declarations:
 }
 
 /* Bengali has no letter case, so text-transform: uppercase is a silent
- * no-op. Neutralise it rather than leaving dead declarations that imply
- * a styling that never renders. */
-:lang(bn) .uppercase {
-  text-transform: none;
-  letter-spacing: 0;
+ * no-op on Bengali text. Do NOT neutralise `.uppercase` globally under
+ * :lang(bn) — the mono drafting labels ("FIG. 01 — SHEET 1 OF 4") stay
+ * English on Bengali pages by design, and a blanket rule would strip
+ * their uppercase too. :lang() matches by inherited language, so those
+ * labels must instead be marked lang="en" at their source (stage 2/3,
+ * when they get extracted); the selector below then skips them.
+ *
+ * Letter-spacing IS worth relaxing: tracking tuned for Latin caps crowds
+ * Bengali conjuncts. Scope it to elements actually carrying Bengali. */
+:lang(bn) :not([lang="en"]).tracking-\[0\.15em\],
+:lang(bn) :not([lang="en"]).tracking-\[0\.2em\] {
+  letter-spacing: 0.04em;
 }
 ```
+
+**Implementer note:** Stage 1 renders no Bengali copy, so this rule is currently
+inert — it exists so Stage 3 does not have to retrofit it. Do **not** add a
+blanket `:lang(bn) .uppercase { text-transform: none }`; it is wrong for the
+reason above. If Tailwind v4's escaping of arbitrary-value class selectors
+makes the selectors above fail, report it rather than falling back to a
+blanket rule.
 
 - [ ] **Step 2: Verify the gate**
 
@@ -1205,15 +1219,24 @@ npm run build && npm run start > /tmp/i18n-404.log 2>&1 &
 sleep 10
 ```
 
-- [ ] **Step 2: Check what a hard 404 actually returns**
+- [ ] **Step 2: Check the server log for a render failure**
 
-Per repo policy, `curl` is **not** a browser test — but this step is checking an HTTP status code, not verifying a page's UI, and Step 4 does the real visible-browser check. If you would rather not use `curl` at all, skip to Step 4 and judge in the browser.
+**Do not use `curl`, `wget`, or any HTTP-client one-liner here.** The repo standard
+forbids them for verifying pages, and asks the user first if you think you need one.
+The 404's actual status and appearance get judged in a real browser at Step 4.
+
+What this step catches is the crash case, which shows up in the server log:
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/definitely-not-a-real-page
+grep -iE "error|Cannot read|is not a function|ENOENT" /tmp/i18n-404.log | head -10 \
+  || echo "clean boot - no render errors"
 ```
 
-Expected: `404`. A `500` means the root `not-found` has no layout to render into.
+Expected: `clean boot - no render errors`.
+
+If the log shows an error mentioning a missing root layout, `<html>`, or `<body>` while
+rendering `not-found`, that is the known multi-root-layout friction — go to Step 3.
+Otherwise go straight to Step 4 and judge the 404 in the browser.
 
 - [ ] **Step 3: If it returns 500, add a self-contained root not-found**
 
