@@ -26,10 +26,21 @@ function listTsxFilesRecursively(dir: string): string[] {
 // portal are never localized. analytics.tsx and StructuredData.tsx are exempt
 // per Task 10 scope (analytics needs the real locale-prefixed URL; SEO handling
 // of StructuredData is a later stage).
+//
+// src/app/not-found.tsx is exempt for the same reason as (internal)/: it is the
+// GLOBAL 404, living outside both route groups, and is never locale-routed. It
+// has no NextIntlClientProvider and no locale segment to read, so there is no
+// locale for a prefixed href to preserve. Locale-routed 404s never reach it —
+// `localePrefix: 'as-needed'` rewrites bare paths into [locale], so those render
+// (site)/[locale]/not-found.tsx, which is covered by this sweep. Verified in the
+// build output: swapping it to @/i18n/navigation flips /_not-found from static
+// (○) to dynamic (ƒ), because next-intl's Link calls getLocale() and reads
+// headers — making every bot probe of a bad URL a server render.
 it('has no next/link imports in locale-routed code', () => {
   const appDir = join(process.cwd(), 'src', 'app');
   const files = listTsxFilesRecursively(appDir)
     .filter((f) => !f.includes('(internal)'))
+    .filter((f) => f !== join(appDir, 'not-found.tsx'))
     .filter((f) => !f.includes('__tests__'));
 
   const offenders = files
