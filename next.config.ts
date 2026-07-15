@@ -23,11 +23,23 @@ const nextConfig: NextConfig = {
   /* config options here */
   // Fix for "multiple lockfiles" warning - explicitly set workspace root
   outputFileTracingRoot: __dirname,
-  // next-intl ships ESM-only (package.json "type": "module", no CJS export
+  // These ship ESM-only (package.json "type": "module", no CJS export
   // condition). next/jest only transpiles node_modules packages listed here
   // (see next/dist/build/jest/jest.js) — without this, Jest's CJS require()
-  // fails on next-intl's `export` syntax with "Unexpected token 'export'".
-  transpilePackages: ['next-intl'],
+  // fails on their `export`/`import` syntax with "Unexpected token 'export'".
+  // next-auth (plus its ESM-only deps @auth/core, jose and oauth4webapi) are
+  // listed so the middleware test can exercise the real admin auth gate rather
+  // than a mock of it — a mocked gate could not catch a lockout regression.
+  // (@formatjs/* arrive via next-intl/middleware's locale negotiation.)
+  transpilePackages: [
+    'next-intl',
+    'next-auth',
+    '@auth/core',
+    'jose',
+    'oauth4webapi',
+    '@formatjs/intl-localematcher',
+    '@formatjs/fast-memoize',
+  ],
   // ESLint is enforced during builds — the codebase is lint-clean, so a new
   // error should fail the build rather than ship silently.
   async redirects() {
