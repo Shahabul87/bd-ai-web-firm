@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import MonoLabel from '../../design/ui/MonoLabel';
 import { PRIMARY_LINKS, SERVICE_LINKS } from './nav';
 

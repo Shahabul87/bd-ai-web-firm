@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
 import Pipeline from '../../design/ui/Pipeline';
 import { rise, riseStagger, viewportOnce } from '../../design/motion';
