@@ -24,6 +24,7 @@ const PLATFORM_LABELS: Record<string, string> = {
   web: 'Web',
   android: 'Android',
   ios: 'iOS',
+  desktop: 'Desktop',
 };
 
 export default function ProductsPage() {

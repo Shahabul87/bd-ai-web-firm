@@ -3,7 +3,7 @@ import rehypeSlug from "rehype-slug";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 
-const servicePlatform = s.enum(["web", "android", "ios"]);
+const servicePlatform = s.enum(["web", "android", "ios", "desktop"]);
 
 const blogs = {
   name: "Blog",
@@ -87,6 +87,17 @@ const products = {
     ),
     demoUrl: s.string().optional(),
     storeUrl: s.string().optional(),
+    downloads: s
+      .array(
+        s.object({
+          os: s.string(),
+          label: s.string(),
+          url: s.string(),
+          size: s.string(),
+          note: s.string().optional(),
+        })
+      )
+      .optional(),
     content: s.mdx(),
   }),
 };
