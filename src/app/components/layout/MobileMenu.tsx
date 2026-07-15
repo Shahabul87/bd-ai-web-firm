@@ -70,7 +70,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               </li>
             ))}
           </ul>
-          <LocaleToggle className="mt-6 w-fit" />
+          <LocaleToggle className="mt-6 w-fit" onSelect={onClose} />
         </div>
 
         <div className="mt-auto flex flex-col gap-3 border-t border-line pt-8">

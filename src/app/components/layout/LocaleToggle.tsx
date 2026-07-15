@@ -10,6 +10,15 @@ const LOCALES = [
 
 interface LocaleToggleProps {
   className?: string;
+  /**
+   * Fired when the visitor picks the other locale. MobileMenu passes its
+   * `onClose` here: Header closes the overlay from a `[pathname]` effect, but
+   * that pathname is locale-STRIPPED, so it is identical either side of a
+   * switch and the effect never re-fires — the overlay would stay up over the
+   * newly translated page. Every other link in MobileMenu closes it explicitly
+   * the same way. Header's desktop cluster has no overlay and omits this.
+   */
+  onSelect?: () => void;
 }
 
 /**
@@ -18,7 +27,7 @@ interface LocaleToggleProps {
  * @/i18n/navigation returns the locale-stripped path, so switching from
  * /bn/services lands on /services rather than the homepage.
  */
-export default function LocaleToggle({ className = '' }: LocaleToggleProps) {
+export default function LocaleToggle({ className = '', onSelect }: LocaleToggleProps) {
   const active = useLocale();
   const pathname = usePathname();
   const t = useTranslations('LocaleToggle');
@@ -50,8 +59,9 @@ export default function LocaleToggle({ className = '' }: LocaleToggleProps) {
             href={pathname}
             locale={code}
             hrefLang={code}
+            onClick={onSelect}
             aria-label={code === 'bn' ? t('switchToBengali') : t('switchToEnglish')}
-            className="px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-bone transition-colors duration-150 hover:text-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber"
+            className="px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-bone transition-colors duration-150 hover:text-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
           >
             {short}
           </Link>
