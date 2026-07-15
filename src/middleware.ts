@@ -58,7 +58,17 @@ export default async function middleware(req: NextRequest): Promise<Response> {
 }
 
 export const config = {
-  // Skip Next internals and any path with a file extension (static assets).
-  // Deliberately broad: locale negotiation must see every marketing route.
-  matcher: ['/((?!_next|_vercel|.*\\..*).*)'],
+  matcher: [
+    // Marketing/i18n: skip Next internals and any path with a file extension
+    // (static assets, and /sitemap.xml + /rss.xml, which stay root-served).
+    // Deliberately broad: locale negotiation must see every marketing route.
+    '/((?!_next|_vercel|.*\\..*).*)',
+    // The `.*\..*` exclusion above also swallows admin paths whose dynamic id
+    // contains a dot (admin/leads/[id], clients/[id], invoices/[id],
+    // projects/[id]), which would silently drop the auth gate for them. These
+    // two entries are the original pre-i18n matcher, kept verbatim so the gate
+    // covers exactly what it covered before.
+    '/admin/:path*',
+    '/api/admin/:path*',
+  ],
 };

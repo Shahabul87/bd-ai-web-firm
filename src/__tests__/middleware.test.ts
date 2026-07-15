@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { NextRequest } from 'next/server';
-import middleware from '@/middleware';
+import middleware, { config } from '@/middleware';
 
 function request(path: string, opts: { acceptLanguage?: string; cookie?: string } = {}) {
   const headers = new Headers();
@@ -101,5 +101,60 @@ describe('admin auth gate (must not regress)', () => {
   it('never locale-prefixes an admin route', async () => {
     const res = await middleware(request('/admin', { acceptLanguage: 'bn-BD,bn;q=0.9' }));
     expect(res.headers.get('location') ?? '').not.toContain('/bn');
+  });
+});
+
+/**
+ * Dotted admin paths are real: admin/leads/[id], clients/[id], invoices/[id] and
+ * projects/[id] all take ids that may contain a dot. The i18n matcher excludes
+ * anything matching `.*\..*` (so /sitemap.xml stays root-served), which would
+ * drop the admin gate for those ids — hence the extra admin matcher entries.
+ *
+ * These cases assert the DISPATCHER gates dotted paths correctly. They cannot,
+ * on their own, prove middleware is *invoked* for them: calling middleware()
+ * directly bypasses the matcher entirely. The matcher itself is guarded by the
+ * describe block below, and proven end-to-end against the compiled regex in
+ * .next/server/middleware-manifest.json (see task-5-report.md).
+ */
+describe('admin gate survives dotted path segments (defense in depth)', () => {
+  it.each(['/admin/leads/abc.def', '/admin/clients/some.id', '/admin/invoices/v1.2'])(
+    'redirects unauthenticated %s to /admin/login',
+    async (path) => {
+      const res = await middleware(request(path));
+      expect(res.headers.get('location')).toContain('/admin/login');
+    }
+  );
+
+  it.each(['/api/admin/leads/v1.2', '/api/admin/clients/a.b'])(
+    'returns JSON 401 for unauthenticated %s',
+    async (path) => {
+      const res = await middleware(request(path));
+      expect(res.status).toBe(401);
+    }
+  );
+
+  it('does not locale-prefix a dotted admin path', async () => {
+    const res = await middleware(
+      request('/admin/leads/abc.def', { acceptLanguage: 'bn-BD,bn;q=0.9' })
+    );
+    expect(res.headers.get('location') ?? '').not.toContain('/bn');
+  });
+});
+
+/**
+ * The i18n matcher alone cannot carry the admin gate, because its `.*\..*`
+ * exclusion (which correctly keeps /sitemap.xml and /rss.xml root-served) also
+ * swallows dotted admin paths. The original pre-i18n matcher was
+ * ['/admin/:path*', '/api/admin/:path*']; both must survive verbatim.
+ */
+describe('middleware matcher config', () => {
+  it('keeps the original admin matcher entries alongside the i18n one', () => {
+    expect(config.matcher).toEqual(
+      expect.arrayContaining(['/admin/:path*', '/api/admin/:path*'])
+    );
+  });
+
+  it('still matches every marketing route via the i18n entry', () => {
+    expect(config.matcher).toContain('/((?!_next|_vercel|.*\\..*).*)');
   });
 });

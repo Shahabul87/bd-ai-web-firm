@@ -23,23 +23,11 @@ const nextConfig: NextConfig = {
   /* config options here */
   // Fix for "multiple lockfiles" warning - explicitly set workspace root
   outputFileTracingRoot: __dirname,
-  // These ship ESM-only (package.json "type": "module", no CJS export
-  // condition). next/jest only transpiles node_modules packages listed here
-  // (see next/dist/build/jest/jest.js) — without this, Jest's CJS require()
-  // fails on their `export`/`import` syntax with "Unexpected token 'export'".
-  // next-auth (plus its ESM-only deps @auth/core, jose and oauth4webapi) are
-  // listed so the middleware test can exercise the real admin auth gate rather
-  // than a mock of it — a mocked gate could not catch a lockout regression.
-  // (@formatjs/* arrive via next-intl/middleware's locale negotiation.)
-  transpilePackages: [
-    'next-intl',
-    'next-auth',
-    '@auth/core',
-    'jose',
-    'oauth4webapi',
-    '@formatjs/intl-localematcher',
-    '@formatjs/fast-memoize',
-  ],
+  // NOTE: ESM-only packages (next-intl, next-auth and its crypto deps) do NOT
+  // belong here. They only ever needed transpiling so Jest's CJS require() could
+  // parse them; listing them here would drag them through SWC into the production
+  // bundle for a test-only benefit. That allowance now lives in jest.config.js,
+  // which overrides transformIgnorePatterns directly. Next bundles them fine.
   // ESLint is enforced during builds — the codebase is lint-clean, so a new
   // error should fail the build rather than ship silently.
   async redirects() {
