@@ -1293,6 +1293,150 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 
 ---
 
+## Task 10: Sweep `next/link` → `@/i18n/navigation` (20 files)
+
+> **Execution order: run this immediately after Task 7 and before Task 8.** It is numbered 10
+> only because `task-brief` matches `Task 7` followed by any non-digit, so a "Task 7b" heading
+> would collide and hand an implementer the wrong brief.
+
+**Why:** Task 7 fixed Header and MobileMenu, but **20 other locale-routed files still import plain
+`next/link`** with unprefixed hrefs. A Bengali visitor who clicks a CTA, a footer link, a homepage
+card, or almost any in-page link is silently returned to English. Until this lands, **the toggle is
+a trap and Stage 1's "the machinery works" claim is false.** Found during Task 7; verified count is
+20, not the 9 first reported.
+
+**Files (all confirmed present):**
+- `src/app/design/ui/Button.tsx` — **highest impact**: every CTA, including "Start a project" and "Get estimate"
+- `src/app/components/layout/Footer.tsx` — renders on every page
+- `src/app/components/home/{SelectedWork,ResourcesRow,DraftingRoomHero,ProcessStrip}.tsx`
+- `src/app/components/shared/PillarCards.tsx`, `src/app/components/portfolio/PortfolioGrid.tsx`
+- `src/app/components/CookieConsent.tsx`
+- 11 pages under `src/app/(site)/[locale]/`: `contact`, `products`, `privacy`, `quote`, `resources`,
+  `resources/blog`, `resources/case-studies`, `resources/guides`, `about`, `portfolio/[slug]`, `cookies`
+
+**MUST NOT TOUCH:** the 15 files under `src/app/(internal)/` that import `next/link`
+(`admin/*`, `portal/*`). They are never localized — swapping them would point admin nav at
+locale-prefixed URLs that do not exist. This is the main way to get this task wrong.
+
+- [ ] **Step 1: Enumerate and confirm the scope**
+
+```bash
+cd /Users/mdshahabulalam/myprojects/bdaiwebfirm/bd-ai-web-firm
+grep -rln "from 'next/link'" src/app --include="*.tsx" | grep -v "(internal)" | sort | tee /tmp/i18n-link-sweep.txt | wc -l
+```
+
+Expected: `20`. If the count differs, STOP and report — do not proceed against a moving target.
+
+- [ ] **Step 2: Write the failing test**
+
+Add to `src/app/components/layout/__tests__/` a guard that fails while any locale-routed file
+still imports `next/link`. This is a static-analysis test, which is the right shape here: the bug
+is "the wrong import exists," and 20 rendered-component tests would be far more code for less
+coverage.
+
+```tsx
+import { readFileSync } from 'node:fs';
+import { globSync } from 'node:fs';
+import { join } from 'node:path';
+
+// A locale-routed component that imports next/link renders an unprefixed href,
+// which silently drops a Bengali visitor back to the English page. Locale-routed
+// code must use @/i18n/navigation instead. (internal)/ is exempt: admin and
+// portal are never localized.
+it('has no next/link imports in locale-routed code', () => {
+  const files = globSync('src/app/**/*.tsx', { cwd: process.cwd() })
+    .filter((f) => !f.includes('(internal)'))
+    .filter((f) => !f.includes('__tests__'));
+
+  const offenders = files.filter((f) =>
+    /from ['"]next\/link['"]/.test(readFileSync(join(process.cwd(), f), 'utf8'))
+  );
+
+  expect(offenders).toEqual([]);
+});
+```
+
+Verify `globSync` is available in this Node version; if not, use `fast-glob` (already transitively
+present) or a small recursive readdir. Do not add a new production dependency for a test.
+
+- [ ] **Step 3: Run it — confirm it fails with all 20 named**
+
+```bash
+npx jest src/app/components/layout/__tests__ -t "next/link"
+```
+
+Expected: FAIL, listing the 20 offenders. The failure message naming them is the point.
+
+- [ ] **Step 4: Do the swap**
+
+In each of the 20 files, replace:
+
+```tsx
+import Link from 'next/link';
+```
+
+with:
+
+```tsx
+import { Link } from '@/i18n/navigation';
+```
+
+Note the shape change: `next/link` is a **default** export; `@/i18n/navigation`'s `Link` is a
+**named** export. Usage (`<Link href="/x">`) is otherwise identical — do not change any `href`
+value, and do not touch any other prop.
+
+If a file also imports `usePathname` from `next/navigation` **and uses it for route matching**,
+swap that too. **Exception:** `src/app/analytics.tsx` must KEEP `next/navigation`'s `usePathname`
+— it reports pageviews to Google Analytics, where the real, locale-prefixed URL is the correct
+thing to report. Do not touch `analytics.tsx`. Likewise leave `StructuredData.tsx` alone; its
+pathname handling is assigned to a later SEO stage.
+
+- [ ] **Step 5: Run the test — confirm it passes**
+
+```bash
+npx jest src/app/components/layout/__tests__ -t "next/link"
+```
+
+Expected: PASS.
+
+- [ ] **Step 6: Verify the full gate**
+
+```bash
+npm run lint && npm run type-check && npm test
+rm -rf .next && npm run build 2>&1 | tail -30
+```
+
+Expected: all green; build exit 0, 110/110 pages. Only the 2 known pre-existing `jose`/Edge
+warnings — those are not yours.
+
+- [ ] **Step 7: Confirm `(internal)` was untouched**
+
+```bash
+git diff --name-only HEAD | grep "(internal)" && echo "ERROR: internal files changed - revert them with Edit" || echo "CLEAN: internal untouched"
+```
+
+Expected: `CLEAN: internal untouched`
+
+- [ ] **Step 8: Commit**
+
+```bash
+git add src/app
+git commit -m "fix(i18n): route all locale-routed links through @/i18n/navigation
+
+Task 7 fixed Header and MobileMenu, but 20 other locale-routed files still
+imported plain next/link with unprefixed hrefs, so a Bengali visitor who
+clicked a CTA, a footer link, or a homepage card was silently returned to
+English. Button alone covers every CTA on the site.
+
+(internal)/ admin and portal keep next/link deliberately - they are never
+localized. Guarded by a static test so a future next/link import in
+locale-routed code fails the suite.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+```
+
+---
+
 ## Task 8: Verify the 404 path
 
 **Why this is its own task:** `app/not-found.tsx` is a known friction point with multiple root layouts. Next.js renders it for unmatched global URLs, but with no `app/layout.tsx` there may be no root layout to supply `<html>`/`<body>`. The spec flags this as an unknown that must be **exercised, not assumed**.
