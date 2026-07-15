@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import createNextIntlPlugin from 'next-intl/plugin';
 
 class VeliteWebpackPlugin {
   static started = false;
@@ -22,6 +23,11 @@ const nextConfig: NextConfig = {
   /* config options here */
   // Fix for "multiple lockfiles" warning - explicitly set workspace root
   outputFileTracingRoot: __dirname,
+  // next-intl ships ESM-only (package.json "type": "module", no CJS export
+  // condition). next/jest only transpiles node_modules packages listed here
+  // (see next/dist/build/jest/jest.js) — without this, Jest's CJS require()
+  // fails on next-intl's `export` syntax with "Unexpected token 'export'".
+  transpilePackages: ['next-intl'],
   // ESLint is enforced during builds — the codebase is lint-clean, so a new
   // error should fail the build rather than ship silently.
   async redirects() {
@@ -101,4 +107,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+
+export default withNextIntl(nextConfig);

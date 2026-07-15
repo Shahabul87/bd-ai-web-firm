@@ -30,6 +30,7 @@
     "isomorphic-dompurify": "^2.26.0",
     "next": "^15.4.2",
     "next-auth": "^5.0.0-beta.31",
+    "next-intl": "^4.13.2",
     "prisma": "^6.19.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

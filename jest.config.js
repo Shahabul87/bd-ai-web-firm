@@ -30,7 +30,11 @@ const customJestConfig = {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }],
   },
   transformIgnorePatterns: [
-    '/node_modules/',
+    // NOTE: next/jest already injects its own node_modules ignore pattern
+    // (transpilePackages-aware, see next.config.ts) and appends this array
+    // rather than replacing it. A blanket '/node_modules/' entry here would
+    // defeat that allowance for ESM-only packages like next-intl, so this
+    // list intentionally omits it.
     '^.+\\.module\\.(css|sass|scss)$',
   ],
 }
