@@ -1212,6 +1212,62 @@ Then in the CTA cluster at `Header.tsx:106-109`, put the toggle **before** the b
 
 The desktop cluster is `hidden lg:flex`, so mobile visitors would have no toggle at all. Read `src/app/components/layout/MobileMenu.tsx` and place `<LocaleToggle />` alongside its primary nav links, following that file's existing spacing idiom.
 
+- [ ] **Step 6b: Make the rest of the nav locale-aware (added after Task 4 review)**
+
+**Why this is here:** a toggle that switches to Bengali is worthless if the next nav click
+throws the visitor back to English. Found during Task 4's review; no other task owned it.
+
+`Header.tsx` currently imports `usePathname` from `next/navigation` and `Link` from `next/link`.
+Both are locale-blind:
+
+- `Header.tsx:72` — `pathname.startsWith('/services')` and `Header.tsx:98` —
+  `pathname.startsWith(link.href)`. On `/bn/services`, `next/navigation`'s `usePathname()`
+  returns the **full** browser path `/bn/services`, so `startsWith('/services')` is `false`.
+  **Active-link highlighting is dead on every Bengali page.**
+- The nav's `<Link href="/services">` uses unprefixed hrefs, so clicking any nav item from
+  `/bn/*` navigates to the **English** page. The visitor silently loses their language.
+
+Fix: in `Header.tsx` and `MobileMenu.tsx`, replace both imports with the locale-aware versions
+Task 2 already created. They are drop-in — same call signatures:
+
+```tsx
+// REMOVE:
+//   import Link from 'next/link';
+//   import { usePathname } from 'next/navigation';
+// ADD:
+import { Link, usePathname } from '@/i18n/navigation';
+```
+
+`@/i18n/navigation`'s `usePathname()` returns the locale-**stripped** path (`/services` on both
+`/services` and `/bn/services`), so the existing `startsWith` comparisons against unprefixed
+hrefs in `nav.ts` start working again **unchanged** — do not edit `nav.ts`. Its `Link`
+automatically prefixes hrefs with the active locale, keeping the visitor in their language.
+
+Leave the logo `<Link href="/">` and the CTA `<Button href=...>` for last: check whether
+`design/ui/Button` renders a `next/link` internally. If it does, note it in your report —
+do **not** refactor Button in this task, just report it.
+
+Out of scope here (deferred to Stage 4, the SEO stage): `StructuredData.tsx:124,184,345` uses
+`switch (pathname)` and a breadcrumb `pathname.split('/')` that would treat `bn` as a path
+segment. It affects JSON-LD only, not navigation.
+
+- [ ] **Step 6c: Prove the nav fix**
+
+Add to `src/app/components/layout/__tests__/LocaleToggle.test.tsx` (or a sibling `Header.test.tsx`)
+a test asserting the Bengali active-state works — this is the bug being fixed, so it needs a test:
+
+```tsx
+it('highlights the active nav link on Bengali pages', () => {
+  // usePathname from @/i18n/navigation is locale-stripped, so a visitor on
+  // /bn/services must see the same active state as one on /services.
+  // Mock '@/i18n/navigation' usePathname -> '/services' and assert the
+  // Services control carries the active class (text-signal).
+});
+```
+
+Write the real assertion — the comment above is intent, not a placeholder. Follow the mocking
+idiom already used in this file for `@/i18n/navigation`.
+
 - [ ] **Step 7: Verify the gate**
 
 ```bash
