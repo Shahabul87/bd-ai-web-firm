@@ -52,11 +52,13 @@ const customJestConfig = {
  */
 const ESM_ONLY_PACKAGES = [
   'next-intl', //          marketing i18n
+  'use-intl', //           via next-intl (its React hooks live here)
   'next-auth', //          admin auth gate
   '@auth/core', //         via next-auth
   'jose', //               via @auth/core
   'oauth4webapi', //       via @auth/core
   '@formatjs', //          via next-intl/middleware locale negotiation
+  'intl-messageformat', // via use-intl message compilation
   'geist', //              next/jest DEFAULT_TRANSPILED_PACKAGES
 ]
 
