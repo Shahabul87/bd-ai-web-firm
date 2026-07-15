@@ -705,12 +705,40 @@ npm run build 2>&1 | tail -40
 ```
 
 Expected: build succeeds. In the route table, confirm:
-- `/` and `/bn` both listed
-- `/services` and `/bn/services` both listed
+- `/en` and `/bn` both listed
+- `/en/services` and `/bn/services` both listed
 - `/admin`, `/portal` listed **without** a locale prefix
 - `/sitemap.xml` and `/rss.xml` listed at the **root**, NOT under `/en/` or `/[locale]/`
 
 **If `/sitemap.xml` appears as `/en/sitemap.xml`, STOP** — the sitemap moved by mistake and search engines would lose it.
+
+⚠️ **Do NOT expect a bare `/` or `/services` in the route table — they will not be there, and
+that is correct.** Next.js lists *filesystem* routes; it does not list URLs produced by a
+middleware rewrite. With `localePrefix: 'as-needed'` the filesystem route is `/[locale]/services`,
+which builds as `/en/services` and `/bn/services`. The unprefixed English URL `/services` only
+exists once **Task 5** installs the next-intl middleware, which rewrites `/services` →
+`/en/services` while the browser URL stays `/services`.
+
+**Consequence — accept it, do not "fix" it here:** between Task 4 and Task 5 the unprefixed
+English URLs (`/`, `/services`, …) return 404. This is a real but deliberate gap in the staging:
+the split and the rewrite cannot land in the same commit without making an already-atomic task
+larger. The branch is not shippable until Task 5 completes. **Task 5 is load-bearing for the
+entire English site and must be the very next task — do not reorder it, and do not merge this
+branch with Task 4 done but Task 5 outstanding.**
+
+Verify the gap is exactly as described, and no worse:
+
+```bash
+python3 -c "
+import json
+d = json.load(open('.next/prerender-manifest.json'))
+r = sorted(d.get('routes', {}).keys())
+print('bare / present :', '/' in r, '(expected False until task 5)')
+print('/en present    :', '/en' in r, '(expected True)')
+print('/bn present    :', '/bn' in r, '(expected True)')
+print('sitemap at root:', '/sitemap.xml' in r, '(expected True)')
+"
+```
 
 - [ ] **Step 9: Commit**
 
