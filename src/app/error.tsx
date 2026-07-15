@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import PageLayout from './components/layout/PageLayout';
-import Button from './design/ui/Button';
-import MonoLabel from './design/ui/MonoLabel';
+import PageLayout from '@/app/components/layout/PageLayout';
+import Button from '@/app/design/ui/Button';
+import MonoLabel from '@/app/design/ui/MonoLabel';
 
 export default function Error({
   error,

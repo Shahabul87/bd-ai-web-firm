@@ -5,7 +5,7 @@ import CTABand from '@/app/components/shared/CTABand';
 import Button from '@/app/design/ui/Button';
 import MonoLabel from '@/app/design/ui/MonoLabel';
 import Accordion from '@/app/design/ui/Accordion';
-import faqData from '../../../content/faq/faq.json';
+import faqData from '@content/faq/faq.json';
 
 export const metadata: Metadata = {
   title: 'FAQ',
