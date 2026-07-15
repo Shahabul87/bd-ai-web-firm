@@ -20,6 +20,12 @@
 - **Use `git mv`** for all file moves so history is preserved.
 - Locales: `['en', 'bn']`. Default `en`. Cookie: `NEXT_LOCALE`.
 - Verification gate per task: `npm run lint` && `npm run type-check` && `npm test` all green.
+- ⚠️ **`npm test` cannot prove a page change works.** Measured during Task 1: **zero** test
+  suites touch `src/app/**` pages or components — all 20 live under `lib/` and `utils/`. The
+  suite stays green even if every page import is broken. For any task that moves, renames, or
+  re-imports a page (Tasks 3, 4, 7), the binding gate is **`npm run build`** — it prerenders
+  all 71 pages and is the only check that proves webpack actually resolves the imports.
+  Never report "tests pass" as evidence a page-level change is correct.
 - Browser verification requires **explicit user permission** and a **visible** Chromium via Playwright MCP. Never headless, never curl.
 
 ## File Structure
