@@ -1209,188 +1209,188 @@
   "Legal": {
     "privacy": {
       "hero": {
-        "eyebrow": "Legal",
-        "title": "Privacy Policy",
-        "lede": "Last updated: July 5, 2026"
+        "eyebrow": "আইনি",
+        "title": "গোপনীয়তা নীতি",
+        "lede": "সর্বশেষ হালনাগাদ: ৫ জুলাই, ২০২৬"
       },
       "sections": {
         "informationWeCollect": {
-          "label": "01 / Information we collect",
-          "title": "Information We Collect",
-          "intro": "We collect information in the following ways:",
+          "label": "01 / আমরা যে তথ্য সংগ্রহ করি",
+          "title": "আমরা যে তথ্য সংগ্রহ করি",
+          "intro": "আমরা নিম্নলিখিত উপায়ে তথ্য সংগ্রহ করি:",
           "items": [
             {
-              "term": "Enquiry & lead forms.",
-              "detail": "When you use our contact, quote, or demo forms we collect the details you provide — such as your name, email address, company, phone number, project requirements, and message — together with technical metadata (your IP address and browser user-agent) used for spam prevention and security."
+              "term": "অনুসন্ধান ও লিড ফর্ম।",
+              "detail": "আপনি যখন আমাদের যোগাযোগ, এস্টিমেট, বা ডেমো ফর্ম ব্যবহার করেন, তখন আপনি যে বিবরণ প্রদান করেন — যেমন আপনার নাম, ইমেল ঠিকানা, কোম্পানি, ফোন নম্বর, প্রজেক্টের প্রয়োজনীয়তা, এবং বার্তা — তা স্প্যাম প্রতিরোধ ও নিরাপত্তার জন্য ব্যবহৃত প্রযুক্তিগত মেটাডেটার (আপনার IP ঠিকানা এবং ব্রাউজার user-agent) সাথে আমরা সংগ্রহ করি।"
             },
             {
-              "term": "Client portal.",
-              "detail": "If you are an active client, we process your account email, your projects, invoices we issue to you, and any messages you exchange with us through the portal."
+              "term": "ক্লায়েন্ট পোর্টাল।",
+              "detail": "আপনি যদি একজন সক্রিয় ক্লায়েন্ট হন, তবে আমরা আপনার অ্যাকাউন্টের ইমেল, আপনার প্রজেক্টসমূহ, আমরা আপনাকে যে ইনভয়েসগুলো ইস্যু করি, এবং পোর্টালের মাধ্যমে আপনি আমাদের সাথে যে বার্তাগুলো আদান-প্রদান করেন তা প্রসেস করি।"
             },
             {
-              "term": "Authentication.",
-              "detail": "We use passwordless login. To sign you in we process your email address and one-time login codes / magic links, and — if you choose “remember this device” — a trusted-device token."
+              "term": "প্রমাণীকরণ (Authentication)।",
+              "detail": "আমরা পাসওয়ার্ডবিহীন লগইন ব্যবহার করি। আপনাকে সাইন ইন করাতে আমরা আপনার ইমেল ঠিকানা এবং এককালীন লগইন কোড / ম্যাজিক লিংক প্রসেস করি, এবং — আপনি যদি “এই ডিভাইসটি মনে রাখুন” বেছে নেন — একটি ট্রাস্টেড-ডিভাইস টোকেন প্রসেস করি।"
             },
             {
-              "term": "Push notifications (optional).",
-              "detail": "If you opt in to browser notifications, we store a device push token so we can deliver them."
+              "term": "পুশ নোটিফিকেশন (ঐচ্ছিক)।",
+              "detail": "আপনি যদি ব্রাউজার নোটিফিকেশনে অপ্ট ইন করেন, তবে আমরা একটি ডিভাইস পুশ টোকেন সংরক্ষণ করি যাতে সেগুলো সরবরাহ করতে পারি।"
             },
             {
-              "term": "Analytics (optional).",
-              "detail": "Where enabled and where you consent, we collect usage analytics such as pages visited and device type."
+              "term": "অ্যানালিটিক্স (ঐচ্ছিক)।",
+              "detail": "যেখানে সক্রিয় করা আছে এবং যেখানে আপনি সম্মতি দেন, সেখানে আমরা ব্যবহারসংক্রান্ত অ্যানালিটিক্স সংগ্রহ করি, যেমন কোন পৃষ্ঠাগুলো পরিদর্শন করা হয়েছে এবং ডিভাইসের ধরন।"
             }
           ]
         },
         "howWeUse": {
-          "label": "02 / How we use your information",
-          "title": "How We Use Your Information",
-          "intro": "We use the information we collect to:",
+          "label": "02 / আমরা আপনার তথ্য যেভাবে ব্যবহার করি",
+          "title": "আমরা আপনার তথ্য যেভাবে ব্যবহার করি",
+          "intro": "আমরা যে তথ্য সংগ্রহ করি তা নিম্নলিখিত উদ্দেশ্যে ব্যবহার করি:",
           "items": [
-            "Respond to your inquiries and provide requested services",
-            "Process and manage project quotes, contracts, and invoices",
-            "Authenticate you and secure your account and our systems",
-            "Send project updates, transactional emails, and (if opted in) push notifications",
-            "Improve our website, services, and user experience",
-            "Comply with legal obligations and protect our rights"
+            "আপনার অনুসন্ধানের উত্তর দিতে এবং অনুরোধকৃত সার্ভিস প্রদান করতে",
+            "প্রজেক্টের এস্টিমেট, চুক্তি, এবং ইনভয়েস প্রসেস ও পরিচালনা করতে",
+            "আপনাকে প্রমাণীকরণ করতে এবং আপনার অ্যাকাউন্ট ও আমাদের সিস্টেম সুরক্ষিত রাখতে",
+            "প্রজেক্টের আপডেট, লেনদেনসংক্রান্ত ইমেল, এবং (অপ্ট ইন করলে) পুশ নোটিফিকেশন পাঠাতে",
+            "আমাদের ওয়েবসাইট, সার্ভিস, এবং ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে",
+            "আইনি বাধ্যবাধকতা মেনে চলতে এবং আমাদের অধিকার রক্ষা করতে"
           ]
         },
         "serviceProviders": {
-          "label": "03 / Service providers & data sharing",
-          "title": "Service Providers & Data Sharing",
-          "intro": "We do not sell, rent, or trade your personal information. We share data only with the service providers needed to run our business, each of which processes it on our behalf:",
+          "label": "03 / সার্ভিস প্রোভাইডার ও ডেটা শেয়ারিং",
+          "title": "সার্ভিস প্রোভাইডার ও ডেটা শেয়ারিং",
+          "intro": "আমরা আপনার ব্যক্তিগত তথ্য বিক্রি, ভাড়া, বা বিনিময় করি না। আমরা কেবল সেসব সার্ভিস প্রোভাইডারের সাথে ডেটা শেয়ার করি যাদের আমাদের ব্যবসা পরিচালনার জন্য প্রয়োজন, যাদের প্রত্যেকে আমাদের পক্ষে তা প্রসেস করে:",
           "items": [
             {
-              "term": "Cloud hosting & database",
-              "detail": "— [hosting/database provider] hosts our application and stores lead, client, project, and invoice records."
+              "term": "ক্লাউড হোস্টিং ও ডেটাবেস",
+              "detail": "— [hosting/database provider] আমাদের অ্যাপ্লিকেশন হোস্ট করে এবং লিড, ক্লায়েন্ট, প্রজেক্ট, ও ইনভয়েসের রেকর্ড সংরক্ষণ করে।"
             },
             {
-              "term": "Notifications & login",
-              "detail": "— our notification service delivers transactional email and login codes via [email delivery provider], and delivers browser push via Google Firebase Cloud Messaging."
+              "term": "নোটিফিকেশন ও লগইন",
+              "detail": "— আমাদের নোটিফিকেশন সার্ভিস [email delivery provider]-এর মাধ্যমে লেনদেনসংক্রান্ত ইমেল ও লগইন কোড সরবরাহ করে, এবং Google Firebase Cloud Messaging-এর মাধ্যমে ব্রাউজার পুশ সরবরাহ করে।"
             },
             {
-              "term": "Analytics",
-              "detail": "— where enabled, Google Analytics helps us understand site usage."
+              "term": "অ্যানালিটিক্স",
+              "detail": "— যেখানে সক্রিয় করা আছে, সেখানে Google Analytics আমাদের সাইটের ব্যবহার বুঝতে সাহায্য করে।"
             }
           ],
-          "outro": "We may also disclose information when required by law or to protect our rights, safety, or property."
+          "outro": "আইন দ্বারা প্রয়োজন হলে অথবা আমাদের অধিকার, নিরাপত্তা, বা সম্পত্তি রক্ষার জন্য আমরা তথ্য প্রকাশ করতে পারি।"
         },
         "cookies": {
-          "label": "04 / Cookies & analytics",
-          "title": "Cookies & Analytics",
-          "body": "We use strictly-necessary cookies for authentication and security, and — only with your consent — analytics cookies to understand site usage. You can control cookie preferences through the consent banner and your browser settings. For more details, please review our",
-          "linkLabel": "Cookie Policy"
+          "label": "04 / কুকি ও অ্যানালিটিক্স",
+          "title": "কুকি ও অ্যানালিটিক্স",
+          "body": "প্রমাণীকরণ ও নিরাপত্তার জন্য আমরা কঠোরভাবে-প্রয়োজনীয় কুকি ব্যবহার করি, এবং — কেবল আপনার সম্মতিতে — সাইটের ব্যবহার বুঝতে অ্যানালিটিক্স কুকি ব্যবহার করি। আপনি সম্মতি ব্যানার এবং আপনার ব্রাউজার সেটিংসের মাধ্যমে কুকি পছন্দসমূহ নিয়ন্ত্রণ করতে পারেন। আরও বিস্তারিত জানতে, অনুগ্রহ করে আমাদের",
+          "linkLabel": "কুকি নীতি"
         },
         "dataRetention": {
-          "label": "05 / Data retention",
-          "title": "Data Retention",
-          "body": "We keep personal data only as long as necessary for the purposes above or as required by law. Indicatively: lead enquiries are retained for [retention period]; client project, invoice, and message records for [retention period, e.g. as required for tax/accounting]; and optional push tokens until you disable notifications. You can request earlier deletion as described below."
+          "label": "05 / ডেটা সংরক্ষণ",
+          "title": "ডেটা সংরক্ষণ",
+          "body": "উপরের উদ্দেশ্যগুলোর জন্য যতক্ষণ প্রয়োজন অথবা আইন দ্বারা যতক্ষণ আবশ্যক, কেবল ততক্ষণই আমরা ব্যক্তিগত ডেটা রাখি। নির্দেশক হিসেবে: লিড অনুসন্ধান [retention period] সময়কালের জন্য সংরক্ষণ করা হয়; ক্লায়েন্ট প্রজেক্ট, ইনভয়েস, ও বার্তার রেকর্ড [retention period, e.g. as required for tax/accounting] সময়কালের জন্য; এবং ঐচ্ছিক পুশ টোকেন আপনি নোটিফিকেশন নিষ্ক্রিয় না করা পর্যন্ত। আপনি নিচে বর্ণিত উপায়ে আগেভাগে মুছে ফেলার অনুরোধ করতে পারেন।"
         },
         "yourRights": {
-          "label": "06 / Your rights",
-          "title": "Your Rights",
-          "bodyBefore": "Depending on your location, you may have the right to access, correct, delete, or export your personal data, and to restrict or object to certain processing. To exercise any of these rights — including deleting your lead record or client-portal data — email us at",
-          "bodyAfter": "from the address associated with your data. We will verify your identity and respond within 30 days."
+          "label": "06 / আপনার অধিকার",
+          "title": "আপনার অধিকার",
+          "bodyBefore": "আপনার অবস্থানের উপর নির্ভর করে, আপনার ব্যক্তিগত ডেটা অ্যাক্সেস, সংশোধন, মুছে ফেলা, বা এক্সপোর্ট করার অধিকার এবং নির্দিষ্ট কিছু প্রসেসিং সীমিত করা বা তাতে আপত্তি জানানোর অধিকার আপনার থাকতে পারে। এই অধিকারগুলোর যেকোনোটি প্রয়োগ করতে — আপনার লিড রেকর্ড বা ক্লায়েন্ট-পোর্টাল ডেটা মুছে ফেলা সহ — আমাদের ইমেল করুন",
+          "bodyAfter": "আপনার ডেটার সাথে সংশ্লিষ্ট ঠিকানা থেকে। আমরা আপনার পরিচয় যাচাই করব এবং ৩০ দিনের মধ্যে সাড়া দেব।"
         },
         "dataSecurity": {
-          "label": "07 / Data security",
-          "title": "Data Security",
-          "body": "We implement industry-standard security measures to protect your personal information, including encryption in transit (TLS), passwordless authentication, access controls, and separation between our public site, admin, and client-portal systems. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security."
+          "label": "07 / ডেটা নিরাপত্তা",
+          "title": "ডেটা নিরাপত্তা",
+          "body": "আপনার ব্যক্তিগত তথ্য সুরক্ষিত রাখতে আমরা ইন্ডাস্ট্রি-স্ট্যান্ডার্ড নিরাপত্তা ব্যবস্থা বাস্তবায়ন করি, যার মধ্যে রয়েছে ট্রানজিটে এনক্রিপশন (TLS), পাসওয়ার্ডবিহীন প্রমাণীকরণ, অ্যাক্সেস নিয়ন্ত্রণ, এবং আমাদের পাবলিক সাইট, অ্যাডমিন, ও ক্লায়েন্ট-পোর্টাল সিস্টেমের মধ্যে পৃথকীকরণ। তবে, ইন্টারনেটের মাধ্যমে সংক্রমণের কোনো পদ্ধতিই 100% নিরাপদ নয়, এবং আমরা সম্পূর্ণ নিরাপত্তার নিশ্চয়তা দিতে পারি না।"
         },
         "contactUs": {
-          "label": "08 / Contact us",
-          "title": "Contact Us",
-          "body": "If you have any questions about this Privacy Policy or our data practices, please contact us at"
+          "label": "08 / আমাদের সাথে যোগাযোগ করুন",
+          "title": "আমাদের সাথে যোগাযোগ করুন",
+          "body": "এই গোপনীয়তা নীতি বা আমাদের ডেটা চর্চা সম্পর্কে আপনার কোনো প্রশ্ন থাকলে, অনুগ্রহ করে আমাদের সাথে যোগাযোগ করুন"
         }
       }
     },
     "terms": {
       "hero": {
-        "eyebrow": "Legal",
-        "title": "Terms of Service",
-        "lede": "Last updated: April 1, 2026"
+        "eyebrow": "আইনি",
+        "title": "পরিষেবার শর্তাবলী",
+        "lede": "সর্বশেষ হালনাগাদ: ১ এপ্রিল, ২০২৬"
       },
       "sections": {
         "serviceTerms": {
-          "label": "01 / Service terms",
-          "title": "Service Terms",
-          "body": "By engaging CraftsAI for software development services, you agree to these terms. Our services include web development, mobile application development, product customization, and ongoing support as outlined in individual project proposals. All project scopes, timelines, and deliverables are defined in a signed Statement of Work (SOW) prior to commencement."
+          "label": "01 / পরিষেবার শর্তাবলী",
+          "title": "পরিষেবার শর্তাবলী",
+          "body": "সফটওয়্যার ডেভেলপমেন্ট সার্ভিসের জন্য CraftsAI-কে নিয়োজিত করার মাধ্যমে, আপনি এই শর্তাবলীতে সম্মত হন। আমাদের সার্ভিসের মধ্যে রয়েছে ওয়েব ডেভেলপমেন্ট, মোবাইল অ্যাপ্লিকেশন ডেভেলপমেন্ট, প্রোডাক্ট কাস্টমাইজেশন, এবং পৃথক প্রজেক্ট প্রস্তাবে বর্ণিত অব্যাহত সাপোর্ট। সকল প্রজেক্টের স্কোপ, টাইমলাইন, এবং ডেলিভারেবল শুরু হওয়ার আগে একটি স্বাক্ষরিত স্টেটমেন্ট অফ ওয়ার্ক (SOW)-এ সংজ্ঞায়িত করা হয়।"
         },
         "intellectualProperty": {
-          "label": "02 / Intellectual property",
-          "title": "Intellectual Property",
-          "body": "Upon full payment, all custom code, designs, and deliverables created specifically for your project are transferred to you. CraftsAI retains ownership of proprietary tools, frameworks, and reusable components developed independently of your project. We reserve the right to showcase completed work in our portfolio unless a non-disclosure agreement is in place."
+          "label": "02 / মেধাস্বত্ব",
+          "title": "মেধাস্বত্ব",
+          "body": "সম্পূর্ণ অর্থ পরিশোধের পর, আপনার প্রজেক্টের জন্য বিশেষভাবে তৈরি করা সকল কাস্টম কোড, ডিজাইন, এবং ডেলিভারেবল আপনার কাছে হস্তান্তর করা হয়। আপনার প্রজেক্ট থেকে স্বতন্ত্রভাবে বিকশিত মালিকানাধীন টুল, ফ্রেমওয়ার্ক, এবং পুনঃব্যবহারযোগ্য কম্পোনেন্টের মালিকানা CraftsAI ধরে রাখে। কোনো নন-ডিসক্লোজার চুক্তি (NDA) বলবৎ না থাকলে সম্পন্ন কাজ আমাদের পোর্টফোলিওতে প্রদর্শনের অধিকার আমরা সংরক্ষণ করি।"
         },
         "paymentTerms": {
-          "label": "03 / Payment terms",
-          "title": "Payment Terms",
-          "body": "Payment schedules are defined in the project SOW. Standard terms require 30% upfront, 40% at the mid-project milestone, and 30% upon final delivery. Invoices are due within 14 days of issue unless otherwise agreed. Late payments may result in project suspension after a 7-day grace period and written notice."
+          "label": "03 / অর্থ পরিশোধের শর্তাবলী",
+          "title": "অর্থ পরিশোধের শর্তাবলী",
+          "body": "অর্থ পরিশোধের সময়সূচি প্রজেক্ট SOW-এ সংজ্ঞায়িত করা হয়। প্রমিত শর্ত অনুযায়ী শুরুতে 30%, প্রজেক্টের মধ্যবর্তী মাইলফলকে 40%, এবং চূড়ান্ত ডেলিভারিতে 30% প্রয়োজন। অন্যথায় সম্মত না হলে ইনভয়েস ইস্যুর ১৪ দিনের মধ্যে পরিশোধযোগ্য। বিলম্বিত পরিশোধের ক্ষেত্রে ৭ দিনের গ্রেস পিরিয়ড এবং লিখিত নোটিশের পর প্রজেক্ট স্থগিত হতে পারে।"
         },
         "limitationOfLiability": {
-          "label": "04 / Limitation of liability",
-          "title": "Limitation of Liability",
-          "body": "CraftsAI provides services on an \"as is\" basis to the extent permitted by law. Our total liability for any claim arising from our services shall not exceed the total fees paid for the specific project in question. We are not liable for indirect, incidental, or consequential damages including lost profits, data loss, or business interruption."
+          "label": "04 / দায়ের সীমাবদ্ধতা",
+          "title": "দায়ের সীমাবদ্ধতা",
+          "body": "আইন দ্বারা অনুমোদিত সীমা পর্যন্ত CraftsAI \"যেমন আছে\" (as is) ভিত্তিতে সার্ভিস প্রদান করে। আমাদের সার্ভিস থেকে উদ্ভূত যেকোনো দাবির জন্য আমাদের মোট দায় সংশ্লিষ্ট নির্দিষ্ট প্রজেক্টের জন্য পরিশোধিত মোট ফি-এর বেশি হবে না। মুনাফা ক্ষতি, ডেটা ক্ষতি, বা ব্যবসায়িক বিঘ্ন সহ পরোক্ষ, আকস্মিক, বা পারিণামিক ক্ষতির জন্য আমরা দায়ী নই।"
         },
         "termination": {
-          "label": "05 / Termination",
-          "title": "Termination",
-          "body": "Either party may terminate a project with 14 days written notice. Upon termination, the client is responsible for payment of all work completed up to the termination date. CraftsAI will deliver all completed work and source code for paid milestones. Refunds for prepaid but undelivered work will be issued within 30 days of termination."
+          "label": "05 / সমাপ্তি",
+          "title": "সমাপ্তি",
+          "body": "যেকোনো পক্ষ ১৪ দিনের লিখিত নোটিশে একটি প্রজেক্ট সমাপ্ত করতে পারে। সমাপ্তির পর, সমাপ্তির তারিখ পর্যন্ত সম্পন্ন সকল কাজের অর্থ পরিশোধের জন্য ক্লায়েন্ট দায়ী থাকবেন। CraftsAI পরিশোধিত মাইলফলকের জন্য সকল সম্পন্ন কাজ এবং সোর্স কোড সরবরাহ করবে। অগ্রিম পরিশোধিত কিন্তু অসরবরাহিত কাজের জন্য রিফান্ড সমাপ্তির ৩০ দিনের মধ্যে ইস্যু করা হবে।"
         },
         "governingLaw": {
-          "label": "06 / Governing law",
-          "title": "Governing Law",
-          "body": "These terms are governed by the laws of Bangladesh. Any disputes arising from these terms or our services shall be resolved through good-faith negotiation first, followed by binding arbitration if necessary."
+          "label": "06 / প্রযোজ্য আইন",
+          "title": "প্রযোজ্য আইন",
+          "body": "এই শর্তাবলী বাংলাদেশের আইন দ্বারা পরিচালিত। এই শর্তাবলী বা আমাদের সার্ভিস থেকে উদ্ভূত যেকোনো বিরোধ প্রথমে সরল-বিশ্বাসে আলোচনার মাধ্যমে নিষ্পত্তি করা হবে, প্রয়োজন হলে তারপর বাধ্যতামূলক সালিসের (binding arbitration) মাধ্যমে।"
         },
         "contact": {
-          "label": "07 / Contact",
-          "title": "Contact",
-          "body": "For questions about these terms, contact us at"
+          "label": "07 / যোগাযোগ",
+          "title": "যোগাযোগ",
+          "body": "এই শর্তাবলী সম্পর্কে প্রশ্নের জন্য, আমাদের সাথে যোগাযোগ করুন"
         }
       }
     },
     "cookies": {
       "hero": {
-        "eyebrow": "Legal",
-        "title": "Cookie Policy",
-        "lede": "Last updated: July 5, 2026"
+        "eyebrow": "আইনি",
+        "title": "কুকি নীতি",
+        "lede": "সর্বশেষ হালনাগাদ: ৫ জুলাই, ২০২৬"
       },
       "cookieTypes": [
         {
-          "title": "Essential Cookies",
-          "description": "Required for the site to function and stay secure. These carry your authenticated admin or client-portal session, short-lived login challenge state, an optional \"remember this device\" token, and your cookie-consent choice. They cannot be disabled."
+          "title": "অপরিহার্য কুকি",
+          "description": "সাইট কার্যকর রাখতে এবং সুরক্ষিত রাখতে প্রয়োজনীয়। এগুলো আপনার প্রমাণীকৃত অ্যাডমিন বা ক্লায়েন্ট-পোর্টাল সেশন, স্বল্পস্থায়ী লগইন চ্যালেঞ্জ স্টেট, একটি ঐচ্ছিক \"এই ডিভাইসটি মনে রাখুন\" টোকেন, এবং আপনার কুকি-সম্মতির পছন্দ বহন করে। এগুলো নিষ্ক্রিয় করা যায় না।"
         },
         {
-          "title": "Analytics Cookies (optional)",
-          "description": "If — and only if — you accept analytics in our consent banner, we use Google Analytics to understand how visitors interact with the site (pages visited, session duration, referral sources). You can decline these, and no analytics cookies are set until you consent."
+          "title": "অ্যানালিটিক্স কুকি (ঐচ্ছিক)",
+          "description": "আপনি যদি — এবং কেবল যদি — আমাদের সম্মতি ব্যানারে অ্যানালিটিক্স গ্রহণ করেন, তবে দর্শকরা কীভাবে সাইটের সাথে যোগাযোগ করেন (পরিদর্শিত পৃষ্ঠা, সেশনের সময়কাল, রেফারেল উৎস) তা বুঝতে আমরা Google Analytics ব্যবহার করি। আপনি এগুলো প্রত্যাখ্যান করতে পারেন, এবং আপনি সম্মতি না দেওয়া পর্যন্ত কোনো অ্যানালিটিক্স কুকি সেট করা হয় না।"
         }
       ],
       "sections": {
         "whatAreCookies": {
-          "label": "01 / What are cookies",
-          "title": "What Are Cookies",
-          "body": "Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work efficiently, provide a better user experience, and supply information to site owners. Cookies may be set by the website you are visiting (first-party cookies) or by third-party services embedded on the page."
+          "label": "01 / কুকি কী",
+          "title": "কুকি কী",
+          "body": "কুকি হলো ছোট টেক্সট ফাইল যা আপনি কোনো ওয়েবসাইট পরিদর্শন করলে আপনার ডিভাইসে স্থাপন করা হয়। ওয়েবসাইট দক্ষতার সাথে কাজ করাতে, উন্নততর ব্যবহারকারী অভিজ্ঞতা প্রদান করতে, এবং সাইটের মালিকদের তথ্য সরবরাহ করতে এগুলো ব্যাপকভাবে ব্যবহৃত হয়। কুকি আপনি যে ওয়েবসাইট পরিদর্শন করছেন সেটির দ্বারা (ফার্স্ট-পার্টি কুকি) অথবা পৃষ্ঠায় সংযুক্ত তৃতীয় পক্ষের সার্ভিসের দ্বারা সেট করা হতে পারে।"
         },
         "typesOfCookies": {
-          "label": "02 / Types of cookies we use",
-          "title": "Types of Cookies We Use",
-          "intro": "We use the following categories of cookies on our website:"
+          "label": "02 / আমরা যে ধরনের কুকি ব্যবহার করি",
+          "title": "আমরা যে ধরনের কুকি ব্যবহার করি",
+          "intro": "আমরা আমাদের ওয়েবসাইটে নিম্নলিখিত শ্রেণির কুকি ব্যবহার করি:"
         },
         "managingCookies": {
-          "label": "03 / Managing cookies",
-          "title": "Managing Cookies",
-          "body": "Most web browsers allow you to control cookies through their settings. You can configure your browser to block or delete cookies, or to alert you when a cookie is being set. Please note that disabling essential cookies may affect the functionality of our website. Refer to your browser's help documentation for instructions on managing cookie preferences."
+          "label": "03 / কুকি পরিচালনা",
+          "title": "কুকি পরিচালনা",
+          "body": "বেশিরভাগ ওয়েব ব্রাউজার আপনাকে সেটিংসের মাধ্যমে কুকি নিয়ন্ত্রণ করতে দেয়। আপনি আপনার ব্রাউজারকে কুকি ব্লক বা মুছে ফেলতে, অথবা কোনো কুকি সেট হচ্ছে এমন সময় আপনাকে সতর্ক করতে কনফিগার করতে পারেন। অনুগ্রহ করে লক্ষ্য করুন যে অপরিহার্য কুকি নিষ্ক্রিয় করা আমাদের ওয়েবসাইটের কার্যকারিতাকে প্রভাবিত করতে পারে। কুকি পছন্দসমূহ পরিচালনার নির্দেশনার জন্য আপনার ব্রাউজারের সহায়তা ডকুমেন্টেশন দেখুন।"
         },
         "updates": {
-          "label": "04 / Updates to this policy",
-          "title": "Updates to This Policy",
-          "body": "We may update this Cookie Policy from time to time to reflect changes in technology, legislation, or our business practices. The \"Last updated\" date at the top of this page indicates when the policy was most recently revised."
+          "label": "04 / এই নীতির হালনাগাদ",
+          "title": "এই নীতির হালনাগাদ",
+          "body": "প্রযুক্তি, আইন, বা আমাদের ব্যবসায়িক চর্চার পরিবর্তন প্রতিফলিত করতে আমরা সময়ে সময়ে এই কুকি নীতি হালনাগাদ করতে পারি। এই পৃষ্ঠার শীর্ষে থাকা \"সর্বশেষ হালনাগাদ\" তারিখটি নির্দেশ করে যে নীতিটি সবচেয়ে সম্প্রতি কখন সংশোধিত হয়েছিল।"
         },
         "contact": {
-          "label": "05 / Contact",
-          "title": "Contact",
-          "bodyBefore": "If you have questions about our use of cookies, please contact us at",
-          "bodyMiddle": "or review our",
-          "linkLabel": "Privacy Policy",
-          "bodyAfter": "for more information about how we handle your data."
+          "label": "05 / যোগাযোগ",
+          "title": "যোগাযোগ",
+          "bodyBefore": "কুকির আমাদের ব্যবহার সম্পর্কে আপনার প্রশ্ন থাকলে, অনুগ্রহ করে আমাদের সাথে যোগাযোগ করুন",
+          "bodyMiddle": "অথবা দেখুন আমাদের",
+          "linkLabel": "গোপনীয়তা নীতি",
+          "bodyAfter": "আমরা কীভাবে আপনার ডেটা পরিচালনা করি সে সম্পর্কে আরও তথ্যের জন্য।"
         }
       }
     }
