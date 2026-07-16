@@ -96,7 +96,7 @@ export default async function SupportPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
-          index={t('spec.index')}
+          index="fig. 01"
           eyebrow={t('spec.eyebrow')}
           title={t('spec.title')}
         />
@@ -108,7 +108,7 @@ export default async function SupportPage() {
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
           <SectionHeader
-            index={t('plans.index')}
+            index="fig. 02"
             eyebrow={t('plans.eyebrow')}
             title={t('plans.title')}
             description={t('plans.description')}
@@ -140,7 +140,7 @@ export default async function SupportPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
-          index={t('onboardingSection.index')}
+          index="fig. 03"
           eyebrow={t('onboardingSection.eyebrow')}
           title={t('onboardingSection.title')}
         />
@@ -159,7 +159,7 @@ export default async function SupportPage() {
 
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-          <SectionHeader index={t('faq.index')} eyebrow={t('faq.eyebrow')} title={t('faq.title')} />
+          <SectionHeader index="fig. 04" eyebrow={t('faq.eyebrow')} title={t('faq.title')} />
           <div className="mt-14">
             <Accordion items={faqItems} />
           </div>

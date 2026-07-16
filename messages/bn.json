@@ -222,7 +222,6 @@
         "secondaryCta": "Get an estimate"
       },
       "pillars": {
-        "index": "fig. 01",
         "eyebrow": "What we build",
         "title": "Pick where an agent goes to work.",
         "description": "Not sure which fits? Start a project and we'll map it with you."
@@ -237,13 +236,12 @@
         "secondaryCta": "Get an estimate"
       },
       "pipeline": {
-        "index": "fig. 01",
         "eyebrow": "How it ships",
         "title": "One brief. An agent scaffolds it. Engineers ship it.",
         "description": "Our agents turn your requirements into a working codebase in hours — senior engineers take it from there.",
         "stages": ["Brief", "Scaffold", "Build", "Review", "Ship"]
       },
-      "spec": { "index": "fig. 02", "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
       "specRows": [
         {
           "slug": "scope",
@@ -282,7 +280,6 @@
         "Tailwind CSS"
       ],
       "useCasesSection": {
-        "index": "fig. 03",
         "eyebrow": "Use cases",
         "title": "Where this fits.",
         "description": "A sample of the products we build most often — not an exhaustive list."
@@ -305,7 +302,7 @@
           "description": "Rapid prototypes to validate your idea and attract funding in weeks, not months."
         }
       ],
-      "faq": { "index": "fig. 04", "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
       "faqItems": [
         {
           "id": "ai-speed",
@@ -342,13 +339,12 @@
         "secondaryCta": "Get an estimate"
       },
       "pipeline": {
-        "index": "fig. 01",
         "eyebrow": "How it ships",
         "title": "One brief. An agent drafts the app. Engineers ship it.",
         "description": "Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance.",
         "stages": ["Brief", "Design", "Build", "Review", "Ship"]
       },
-      "spec": { "index": "fig. 02", "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
       "specRows": [
         {
           "slug": "scope",
@@ -385,7 +381,6 @@
         "Core ML"
       ],
       "useCasesSection": {
-        "index": "fig. 03",
         "eyebrow": "Use cases",
         "title": "Where this fits.",
         "description": "A sample of the apps we build most often — not an exhaustive list."
@@ -408,7 +403,7 @@
           "description": "Polished consumer experiences with elegant animations and seamless onboarding."
         }
       ],
-      "faq": { "index": "fig. 04", "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
       "faqItems": [
         {
           "id": "swiftui-uikit",
@@ -445,13 +440,12 @@
         "secondaryCta": "Get an estimate"
       },
       "pipeline": {
-        "index": "fig. 01",
         "eyebrow": "How it ships",
         "title": "One brief. An agent drafts the app. Engineers ship it.",
         "description": "Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance.",
         "stages": ["Brief", "Design", "Build", "Review", "Release"]
       },
-      "spec": { "index": "fig. 02", "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
       "specRows": [
         {
           "slug": "scope",
@@ -488,7 +482,6 @@
         "Hilt"
       ],
       "useCasesSection": {
-        "index": "fig. 03",
         "eyebrow": "Use cases",
         "title": "Where this fits.",
         "description": "A sample of the apps we build most often — not an exhaustive list."
@@ -511,7 +504,7 @@
           "description": "Wearable integrations, workout trackers, and telehealth experiences."
         }
       ],
-      "faq": { "index": "fig. 04", "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
       "faqItems": [
         {
           "id": "kotlin-java",
@@ -547,11 +540,7 @@
         "primaryCta": "Start a project",
         "secondaryCta": "Get an estimate"
       },
-      "spec": {
-        "index": "fig. 01",
-        "eyebrow": "Snapshot",
-        "title": "Coverage, response time, and billing — in writing."
-      },
+      "spec": { "eyebrow": "Snapshot", "title": "Coverage, response time, and billing — in writing." },
       "specRows": [
         {
           "slug": "monitoring",
@@ -581,7 +570,6 @@
       ],
       "coverage": ["React", "Next.js", "Node.js", "Kotlin", "Swift", "PostgreSQL", "MongoDB", "AWS", "Vercel", "Firebase"],
       "plans": {
-        "index": "fig. 02",
         "eyebrow": "Plans",
         "title": "Choose your tier.",
         "description": "Every tier is a monthly retainer. Upgrade, downgrade, or cancel with 30 days notice."
@@ -619,7 +607,7 @@
           ]
         }
       ],
-      "onboardingSection": { "index": "fig. 03", "eyebrow": "Onboarding", "title": "Three steps to your first retainer month." },
+      "onboardingSection": { "eyebrow": "Onboarding", "title": "Three steps to your first retainer month." },
       "onboarding": [
         {
           "index": "01",
@@ -637,7 +625,7 @@
           "detail": "Your retainer begins. You get a dedicated channel for requests and a dashboard to track every issue."
         }
       ],
-      "faq": { "index": "fig. 04", "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
       "faqItems": [
         {
           "id": "other-teams",

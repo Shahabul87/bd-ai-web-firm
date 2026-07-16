@@ -75,8 +75,10 @@ export default async function WebDevelopmentPage() {
       </PageHero>
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        {/* `index` is a drafting ornament: it stays English in both locales, on
+            this page and on the three service pages that mirror it. */}
         <SectionHeader
-          index={t('pipeline.index')}
+          index="fig. 01"
           eyebrow={t('pipeline.eyebrow')}
           title={t('pipeline.title')}
           description={t('pipeline.description')}
@@ -91,7 +93,7 @@ export default async function WebDevelopmentPage() {
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
           <SectionHeader
-            index={t('spec.index')}
+            index="fig. 02"
             eyebrow={t('spec.eyebrow')}
             title={t('spec.title')}
           />
@@ -103,7 +105,7 @@ export default async function WebDevelopmentPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
-          index={t('useCasesSection.index')}
+          index="fig. 03"
           eyebrow={t('useCasesSection.eyebrow')}
           title={t('useCasesSection.title')}
           description={t('useCasesSection.description')}
@@ -120,7 +122,7 @@ export default async function WebDevelopmentPage() {
 
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-          <SectionHeader index={t('faq.index')} eyebrow={t('faq.eyebrow')} title={t('faq.title')} />
+          <SectionHeader index="fig. 04" eyebrow={t('faq.eyebrow')} title={t('faq.title')} />
           <div className="mt-14">
             <Accordion items={faqItems} />
           </div>

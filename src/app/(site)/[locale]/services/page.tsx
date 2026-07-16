@@ -29,7 +29,7 @@ export default async function ServicesPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
-          index={t('pillars.index')}
+          index="fig. 01"
           eyebrow={t('pillars.eyebrow')}
           title={t('pillars.title')}
           description={t('pillars.description')}
