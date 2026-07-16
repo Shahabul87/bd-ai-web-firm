@@ -46,19 +46,20 @@ export default async function GuidesListingPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('Resources.guides');
   const guides = getAllGuides();
 
   return (
     <PageLayout>
       <PageHero
-        eyebrow="Resources / Guides"
-        title="Guides & whitepapers."
-        lede="In-depth resources to help you plan, build, and ship successful software products."
+        eyebrow={t('hero.eyebrow')}
+        title={t('hero.title')}
+        lede={t('hero.lede')}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         {guides.length === 0 ? (
-          <p className="text-base text-steel">No guides yet — check back soon.</p>
+          <p className="text-base text-steel">{t('empty')}</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {guides.map((guide) => (
@@ -69,8 +70,8 @@ export default async function GuidesListingPage({
               >
                 <Card interactive className="flex h-full flex-col">
                   <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-steel">
-                    <span className="text-signal">Guide</span>
-                    <span>{guide.readTime} min read</span>
+                    <span className="text-signal">{t('badge')}</span>
+                    <span>{t('readTime', { count: guide.readTime })}</span>
                   </div>
                   <h2 className="mt-6 font-display text-xl font-medium text-bone">{guide.title}</h2>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-steel">{guide.excerpt}</p>
@@ -82,7 +83,7 @@ export default async function GuidesListingPage({
                       {formatDate(guide.date)}
                     </time>
                     <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
-                      Read
+                      {t('readMore')}
                       <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-1">
                         →
                       </span>

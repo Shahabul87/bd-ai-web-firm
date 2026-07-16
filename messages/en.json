@@ -824,6 +824,44 @@
       "title": "Need a custom solution?",
       "lede": "Our products showcase what we can build. Let us create something tailored to your specific needs.",
       "primaryLabel": "Get a free quote"
+    },
+    "detail": {
+      "platformLabels": {
+        "web": "Web Platform",
+        "android": "Android App",
+        "ios": "iOS App",
+        "desktop": "Desktop App"
+      },
+      "hero": {
+        "eyebrow": "Products / {platforms}",
+        "viewDemo": "View live demo",
+        "getOnPlayStore": "Get on Play Store",
+        "downloadDesktop": "Download desktop app",
+        "requestCustomization": "Request customization"
+      },
+      "downloads": {
+        "eyebrow": "Downloads",
+        "title": "Install it on your computer.",
+        "download": "Download"
+      },
+      "features": {
+        "eyebrow": "Features",
+        "title": "Everything you need, built in from day one."
+      },
+      "techStack": {
+        "eyebrow": "Tech stack",
+        "title": "Built with."
+      },
+      "useCases": {
+        "eyebrow": "Use cases",
+        "title": "Who is it for?"
+      },
+      "cta": {
+        "title": "Interested in {title}?",
+        "lede": "Get in touch to learn more, request a demo, or discuss customization options for your needs.",
+        "primaryLabel": "Get in touch",
+        "secondaryLabel": "View all products"
+      }
     }
   },
   "Portfolio": {
@@ -835,6 +873,27 @@
     "cta": {
       "title": "Your project could be next.",
       "lede": "Tell us the brief and we'll come back with a plan, a timeline, and a fixed estimate."
+    },
+    "detail": {
+      "hero": {
+        "eyebrow": "Portfolio / {industry}"
+      },
+      "spec": {
+        "client": "Client",
+        "industry": "Industry",
+        "services": "Services",
+        "tags": "Tags"
+      },
+      "related": {
+        "eyebrow": "Related work",
+        "title": "More projects like this."
+      },
+      "cta": {
+        "title": "Ready to build something similar?",
+        "lede": "Let us help you bring your idea to life with the same quality and expertise.",
+        "primaryLabel": "Start your project",
+        "secondaryLabel": "View all projects"
+      }
     }
   },
   "Resources": {
@@ -871,6 +930,63 @@
       "blog": "Blog",
       "caseStudy": "Case study",
       "guide": "Guide"
+    },
+    "blog": {
+      "hero": {
+        "eyebrow": "Resources / Blog",
+        "title": "Field notes from the build.",
+        "lede": "Insights on AI-powered development, business strategy, and technology trends from the CraftsAI team."
+      },
+      "empty": "No posts yet — check back soon.",
+      "badge": "Blog",
+      "readTime": "{count} min read",
+      "readMore": "Read",
+      "detail": {
+        "by": "By {author}",
+        "cta": {
+          "title": "Ready to build your next project?",
+          "lede": "Let our AI-powered team turn your idea into production-ready software at a fraction of the traditional cost.",
+          "primaryLabel": "Get a free quote",
+          "secondaryLabel": "Back to blog"
+        }
+      }
+    },
+    "caseStudies": {
+      "hero": {
+        "eyebrow": "Resources / Case studies",
+        "title": "Real projects, real results.",
+        "lede": "See how AI-powered development delivers measurable outcomes for businesses across industries."
+      },
+      "empty": "No case studies yet — check back soon.",
+      "readMore": "Read case study",
+      "detail": {
+        "client": "Client: {client}",
+        "cta": {
+          "title": "Ready to build something similar?",
+          "lede": "Let us help you bring your idea to life with the same quality and expertise.",
+          "primaryLabel": "Start your project",
+          "secondaryLabel": "View all case studies"
+        }
+      }
+    },
+    "guides": {
+      "hero": {
+        "eyebrow": "Resources / Guides",
+        "title": "Guides & whitepapers.",
+        "lede": "In-depth resources to help you plan, build, and ship successful software products."
+      },
+      "empty": "No guides yet — check back soon.",
+      "badge": "Guide",
+      "readTime": "{count} min read",
+      "readMore": "Read",
+      "detail": {
+        "cta": {
+          "title": "Need expert help with your project?",
+          "lede": "Our AI-powered team can help you go from idea to launch faster and more affordably than you thought possible.",
+          "primaryLabel": "Get a free quote",
+          "secondaryLabel": "Back to guides"
+        }
+      }
     }
   },
   "Faq": {
@@ -1440,6 +1556,13 @@
     "reference": "Reference:",
     "tryAgain": "Try again",
     "backHome": "Back to home"
+  },
+  "NotFound": {
+    "eyebrow": "404 / Not found",
+    "title": "This page went off the blueprint.",
+    "lede": "The page you're looking for doesn't exist or has been moved.",
+    "primaryLabel": "Back to home",
+    "secondaryLabel": "Contact support"
   },
   "Chatbot": {
     "openLabel": "Open CraftsAI Help Assistant",

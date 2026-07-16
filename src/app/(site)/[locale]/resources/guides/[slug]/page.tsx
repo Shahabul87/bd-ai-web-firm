@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { guides } from '#content';
 import { getGuideBySlug } from '@/app/lib/content';
@@ -53,6 +53,7 @@ export default async function GuideDetailPage({
 }: GuideDetailPageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('Resources.guides');
   const guide = getGuideBySlug(slug);
 
   if (!guide) {
@@ -67,7 +68,7 @@ export default async function GuideDetailPage({
         urlPath={`/resources/guides/${guide.slug}`}
         datePublished={guide.date}
       />
-      <PageHero eyebrow="Resources / Guides" title={guide.title} lede={guide.excerpt} />
+      <PageHero eyebrow={t('hero.eyebrow')} title={guide.title} lede={guide.excerpt} />
 
       <section className="border-b border-line bg-ink-950">
         <div className="mx-auto max-w-3xl px-6 py-8">
@@ -76,7 +77,7 @@ export default async function GuideDetailPage({
               {formatDate(guide.date)}
             </time>
             <span aria-hidden>·</span>
-            <span>{guide.readTime} min read</span>
+            <span>{t('readTime', { count: guide.readTime })}</span>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {guide.tags.map((tag) => (
@@ -98,11 +99,11 @@ export default async function GuideDetailPage({
       </section>
 
       <CTABand
-        title="Need expert help with your project?"
-        lede="Our AI-powered team can help you go from idea to launch faster and more affordably than you thought possible."
-        primaryLabel="Get a free quote"
+        title={t('detail.cta.title')}
+        lede={t('detail.cta.lede')}
+        primaryLabel={t('detail.cta.primaryLabel')}
         primaryHref="/quote"
-        secondaryLabel="Back to guides"
+        secondaryLabel={t('detail.cta.secondaryLabel')}
         secondaryHref="/resources/guides"
       />
     </PageLayout>

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { blogs } from '#content';
 import { getBlogBySlug } from '@/app/lib/content';
@@ -53,6 +53,7 @@ function formatDate(dateString: string): string {
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations('Resources.blog');
   const blog = getBlogBySlug(slug);
 
   if (!blog) {
@@ -69,16 +70,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         datePublished={blog.date}
         author={blog.author}
       />
-      <PageHero eyebrow="Resources / Blog" title={blog.title} lede={blog.excerpt} />
+      <PageHero eyebrow={t('hero.eyebrow')} title={blog.title} lede={blog.excerpt} />
 
       <section className="border-b border-line bg-ink-950">
         <div className="mx-auto max-w-3xl px-6 py-8">
           <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-steel">
-            <span className="text-signal">By {blog.author}</span>
+            <span className="text-signal">{t('detail.by', { author: blog.author })}</span>
             <span aria-hidden>·</span>
             <time dateTime={blog.date}>{formatDate(blog.date)}</time>
             <span aria-hidden>·</span>
-            <span>{blog.readTime} min read</span>
+            <span>{t('readTime', { count: blog.readTime })}</span>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {blog.tags.map((tag) => (
@@ -100,11 +101,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </section>
 
       <CTABand
-        title="Ready to build your next project?"
-        lede="Let our AI-powered team turn your idea into production-ready software at a fraction of the traditional cost."
-        primaryLabel="Get a free quote"
+        title={t('detail.cta.title')}
+        lede={t('detail.cta.lede')}
+        primaryLabel={t('detail.cta.primaryLabel')}
         primaryHref="/quote"
-        secondaryLabel="Back to blog"
+        secondaryLabel={t('detail.cta.secondaryLabel')}
         secondaryHref="/resources/blog"
       />
     </PageLayout>
