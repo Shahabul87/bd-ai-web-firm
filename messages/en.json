@@ -1161,5 +1161,284 @@
       "title": "Terms of Service",
       "description": "CraftsAI terms of service. Read the terms and conditions governing the use of our website and services."
     }
+  },
+  "Contact": {
+    "hero": {
+      "eyebrow": "Contact",
+      "title": "Get in touch.",
+      "lede": "Have a project in mind? Send a message and we'll get back to you within 24 hours."
+    },
+    "directChannels": {
+      "label": "Direct channels",
+      "title": "Reach us directly.",
+      "faqLink": "Frequently asked questions →"
+    },
+    "info": {
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "location": "Location",
+      "locationValue": "Bangladesh",
+      "hours": "Business Hours",
+      "hoursValue": "Sun–Thu, 9 AM–6 PM (Dhaka, GMT+6)"
+    },
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@company.com",
+      "company": "Company",
+      "optional": "(optional)",
+      "companyPlaceholder": "Your company",
+      "service": "Service Interest",
+      "servicePlaceholder": "Select a service",
+      "serviceOptions": {
+        "web": "Web Development",
+        "android": "Android Development",
+        "ios": "iOS Development",
+        "support": "Support & Maintenance",
+        "productInquiry": "Product Inquiry",
+        "other": "Other"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent! We'll be in touch soon.",
+      "error": "Something went wrong. Please try again or email us directly."
+    }
+  },
+  "Quote": {
+    "hero": {
+      "eyebrow": "Estimate",
+      "title": "Get your project built by AI agents.",
+      "lede": "Tell us what you need. Our agents analyze the brief and a senior engineer delivers a fixed-scope quote within 24 hours."
+    },
+    "stepTitles": [
+      "Select Services",
+      "Project Details",
+      "Investment",
+      "Contact Info",
+      "Review"
+    ],
+    "success": {
+      "label": "Submitted",
+      "title": "Quote request received.",
+      "backHome": "Back to home",
+      "viewWork": "View our work"
+    },
+    "nav": {
+      "back": "Back",
+      "continue": "Continue",
+      "submitting": "Submitting...",
+      "submit": "Get My Free Quote",
+      "submitShort": "Submit"
+    },
+    "trust": {
+      "secure": "Secure & encrypted",
+      "response": "Response within 24 hours",
+      "noSpam": "No spam, ever"
+    },
+    "validation": {
+      "services": "Please select at least one service",
+      "description": "Please describe your project (minimum 20 characters)",
+      "budget": "Please select your investment level",
+      "contactName": "Your name is required",
+      "email": "Valid email is required",
+      "terms": "Please agree to the terms"
+    },
+    "status": {
+      "success": "Quote request submitted! We'll review your requirements and contact you within 24 hours.",
+      "fixFields": "Please fix the highlighted fields and try again.",
+      "genericError": "Something went wrong. Please try again.",
+      "networkError": "Network error. Please check your connection and try again."
+    },
+    "step1": {
+      "title": "What do you need built?",
+      "subtitle": "Select all the services that apply to your project",
+      "timelineLabel": "Timeline:",
+      "selected": "Selected",
+      "tapToSelect": "Tap to select",
+      "services": {
+        "web-development": {
+          "name": "Web Development",
+          "description": "Full-stack web apps with React, Next.js, and modern APIs",
+          "deliverables": [
+            "React/Next.js Apps",
+            "API Development",
+            "Database Design",
+            "Cloud Deployment"
+          ],
+          "timeline": "2-6 weeks",
+          "perfectFor": "SaaS platforms, dashboards, e-commerce"
+        },
+        "android-development": {
+          "name": "Android Development",
+          "description": "Native Android apps with Kotlin and Jetpack Compose",
+          "deliverables": [
+            "Native Kotlin Apps",
+            "Material Design 3",
+            "Play Store Ready",
+            "Firebase Backend"
+          ],
+          "timeline": "4-8 weeks",
+          "perfectFor": "Consumer apps, B2B mobile tools"
+        },
+        "ios-development": {
+          "name": "iOS Development",
+          "description": "Native iOS apps with Swift and SwiftUI for iPhone and iPad",
+          "deliverables": [
+            "Swift/SwiftUI Apps",
+            "App Store Ready",
+            "TestFlight Beta",
+            "CloudKit Integration"
+          ],
+          "timeline": "4-8 weeks",
+          "perfectFor": "Consumer apps, enterprise iOS tools"
+        },
+        "product-inquiry": {
+          "name": "Product Inquiry",
+          "description": "Explore our ready-made products or request customization",
+          "deliverables": [
+            "Product Demo",
+            "Custom Branding",
+            "Feature Add-ons",
+            "Deployment Support"
+          ],
+          "timeline": "1-3 weeks",
+          "perfectFor": "Quick launch with proven solutions"
+        }
+      }
+    },
+    "step2": {
+      "title": "Tell us about your project",
+      "subtitle": "The more details you share, the better quote we can provide",
+      "scaleLabel": "Project Scale",
+      "scaleOptions": {
+        "mvp": {
+          "label": "MVP",
+          "desc": "Quick validation"
+        },
+        "standard": {
+          "label": "Standard",
+          "desc": "Full features"
+        },
+        "advanced": {
+          "label": "Advanced",
+          "desc": "Complex logic"
+        },
+        "enterprise": {
+          "label": "Enterprise",
+          "desc": "Mission-critical"
+        }
+      },
+      "descriptionLabel": "Project Description *",
+      "descriptionPlaceholder": "Describe your project goals, target users, and key features you need...",
+      "requirementsLabel": "Special Requirements (Optional)",
+      "requirementsPlaceholder": "Any technical requirements, integrations, or specific technologies you need...",
+      "timelineLabel": "Preferred Timeline",
+      "timelineOptions": {
+        "urgent": {
+          "label": "ASAP",
+          "desc": "2-4 weeks",
+          "badge": "Priority"
+        },
+        "standard": {
+          "label": "Standard",
+          "desc": "4-8 weeks",
+          "badge": "Recommended"
+        },
+        "flexible": {
+          "label": "Flexible",
+          "desc": "8+ weeks",
+          "badge": "Best Value"
+        }
+      }
+    },
+    "step3": {
+      "title": "What's your investment level?",
+      "subtitle": "We work with startups at every stage. Pick what fits your budget.",
+      "mostPopular": "Most Popular",
+      "budgetOptions": {
+        "bootstrap": {
+          "label": "Bootstrap",
+          "range": "$2K - $8K",
+          "desc": "Perfect for MVPs and validation",
+          "features": [
+            "Core features only",
+            "2-4 week delivery",
+            "Essential support"
+          ]
+        },
+        "seed": {
+          "label": "Seed Stage",
+          "range": "$8K - $25K",
+          "desc": "Full-featured product launch",
+          "features": [
+            "Complete feature set",
+            "Premium design",
+            "60-day support"
+          ]
+        },
+        "growth": {
+          "label": "Growth",
+          "range": "$25K - $75K",
+          "desc": "Scalable enterprise solution",
+          "features": [
+            "Advanced features",
+            "Custom integrations",
+            "90-day support"
+          ]
+        },
+        "enterprise": {
+          "label": "Enterprise",
+          "range": "$75K+",
+          "desc": "Mission-critical systems",
+          "features": [
+            "Full customization",
+            "Dedicated team",
+            "Ongoing partnership"
+          ]
+        }
+      },
+      "notSureTitle": "Not sure about budget?",
+      "notSureBody": "No worries! We'll provide a detailed quote based on your requirements. We also offer flexible payment plans and equity arrangements for early-stage startups."
+    },
+    "step4": {
+      "title": "How can we reach you?",
+      "subtitle": "We'll send your personalized quote to this email",
+      "nameLabel": "Your Name *",
+      "namePlaceholder": "John Smith",
+      "emailLabel": "Email Address *",
+      "emailPlaceholder": "john@company.com",
+      "companyLabel": "Company Name",
+      "optional": "(Optional)",
+      "companyPlaceholder": "Acme Inc.",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+880 1XXX-XXXXXX"
+    },
+    "step5": {
+      "title": "Review Your Quote Request",
+      "subtitle": "Make sure everything looks good before submitting",
+      "services": "Services",
+      "projectScale": "Project Scale",
+      "timeline": "Timeline",
+      "investmentLevel": "Investment Level",
+      "contact": "Contact",
+      "terms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>. This is a quote request, not a binding contract.",
+      "whatNextTitle": "What happens next?",
+      "whatNext": [
+        "Our AI analyzes your requirements (instant)",
+        "You receive a detailed quote (within 24 hours)",
+        "Free consultation call (optional)"
+      ]
+    }
+  },
+  "ErrorPage": {
+    "label": "500 / Something broke",
+    "title": "A build step hit an error.",
+    "body": "Something went wrong on our end. You can retry, or head back home and try again in a moment.",
+    "reference": "Reference:",
+    "tryAgain": "Try again",
+    "backHome": "Back to home"
   }
 }
