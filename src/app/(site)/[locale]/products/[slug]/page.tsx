@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { notFound } from 'next/navigation';
 import { products } from '#content';
 import { getProductBySlug } from '@/app/lib/content';
@@ -22,7 +23,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: ProductPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) return {};
 
@@ -32,13 +33,11 @@ export async function generateMetadata({
     openGraph: {
       title: `${product.title} | CraftsAI`,
       description: product.tagline,
-      url: `https://www.craftsai.org/products/${product.slug}`,
+      ...localeOpenGraph(`/products/${product.slug}`, locale),
       siteName: 'CraftsAI',
       type: 'website',
     },
-    alternates: {
-      canonical: `https://www.craftsai.org/products/${product.slug}`,
-    },
+    alternates: localeAlternates(`/products/${product.slug}`, locale),
   };
 }
 

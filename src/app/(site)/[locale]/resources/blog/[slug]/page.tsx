@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { notFound } from 'next/navigation';
 import { blogs } from '#content';
 import { getBlogBySlug } from '@/app/lib/content';
@@ -20,7 +21,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: BlogPostPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const blog = getBlogBySlug(slug);
   if (!blog) return {};
 
@@ -30,15 +31,13 @@ export async function generateMetadata({
     openGraph: {
       title: `${blog.title} | CraftsAI`,
       description: blog.excerpt,
-      url: `https://www.craftsai.org/resources/blog/${blog.slug}`,
+      ...localeOpenGraph(`/resources/blog/${blog.slug}`, locale),
       siteName: 'CraftsAI',
       type: 'article',
       publishedTime: blog.date,
       authors: [blog.author],
     },
-    alternates: {
-      canonical: `https://www.craftsai.org/resources/blog/${blog.slug}`,
-    },
+    alternates: localeAlternates(`/resources/blog/${blog.slug}`, locale),
   };
 }
 

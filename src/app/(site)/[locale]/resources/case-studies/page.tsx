@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -21,13 +22,11 @@ export async function generateMetadata({
       title: 'Case Studies | CraftsAI',
       description:
         'Real results from our AI-powered development projects.',
-      url: 'https://www.craftsai.org/resources/case-studies',
+      ...localeOpenGraph('/resources/case-studies', locale),
       siteName: 'CraftsAI',
       type: 'website',
     },
-    alternates: {
-      canonical: 'https://www.craftsai.org/resources/case-studies',
-    },
+    alternates: localeAlternates('/resources/case-studies', locale),
   };
 }
 

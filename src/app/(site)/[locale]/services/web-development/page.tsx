@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -27,9 +28,9 @@ export async function generateMetadata({
       title: 'Web Development Services',
       description:
         'Full-stack web applications built with React, Next.js, and modern cloud infrastructure.',
-      url: 'https://www.craftsai.org/services/web-development',
+      ...localeOpenGraph('/services/web-development', locale),
     },
-    alternates: { canonical: 'https://www.craftsai.org/services/web-development' },
+    alternates: localeAlternates('/services/web-development', locale),
   };
 }
 

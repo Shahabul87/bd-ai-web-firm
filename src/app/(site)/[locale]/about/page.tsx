@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -20,9 +21,9 @@ export async function generateMetadata({
     openGraph: {
       title: 'About CraftsAI',
       description: 'AI-first software studio delivering web, Android, and iOS products.',
-      url: 'https://www.craftsai.org/about',
+      ...localeOpenGraph('/about', locale),
     },
-    alternates: { canonical: 'https://www.craftsai.org/about' },
+    alternates: localeAlternates('/about', locale),
   };
 }
 

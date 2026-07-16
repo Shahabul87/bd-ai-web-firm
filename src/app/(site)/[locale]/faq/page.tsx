@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -22,9 +23,9 @@ export async function generateMetadata({
       title: 'FAQ',
       description:
         'Frequently asked questions about CraftsAI services, pricing, process, and support.',
-      url: 'https://www.craftsai.org/faq',
+      ...localeOpenGraph('/faq', locale),
     },
-    alternates: { canonical: 'https://www.craftsai.org/faq' },
+    alternates: localeAlternates('/faq', locale),
   };
 }
 

@@ -1685,5 +1685,121 @@
       "accept": "Accept",
       "decline": "Decline"
     }
+  },
+  "StructuredData": {
+    "org": {
+      "description": "AI-powered software studio delivering web, Android, and iOS applications up to 10x faster with enterprise-grade quality.",
+      "offerCatalogName": "Development Services",
+      "service": {
+        "web": {
+          "name": "Web Development",
+          "description": "Full-stack web application development with React, Next.js, and Node.js"
+        },
+        "android": {
+          "name": "Android Development",
+          "description": "Native Android app development with Kotlin and Jetpack Compose"
+        },
+        "ios": {
+          "name": "iOS Development",
+          "description": "Native iOS app development with Swift and SwiftUI"
+        },
+        "support": {
+          "name": "Support & Maintenance",
+          "description": "Ongoing support, bug fixes, security patches, and feature updates"
+        }
+      }
+    },
+    "website": {
+      "description": "AI-powered software studio delivering web, Android, and iOS applications."
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "about": "About Us",
+      "services": "Services",
+      "web-development": "Web Development",
+      "android-development": "Android Development",
+      "ios-development": "iOS Development",
+      "support": "Support & Maintenance",
+      "products": "Products",
+      "taxomind": "TaxoMind",
+      "taxomind-schools": "TaxoMind Schools",
+      "fincoach-ai": "FinCoach AI",
+      "mathphysics": "MathPhysics",
+      "portfolio": "Portfolio",
+      "resources": "Resources",
+      "blog": "Blog",
+      "case-studies": "Case Studies",
+      "guides": "Guides",
+      "quote": "Get a Quote",
+      "contact": "Contact",
+      "process": "Our Process",
+      "faq": "FAQ",
+      "careers": "Careers",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    },
+    "page": {
+      "services": {
+        "name": "CraftsAI Development Services",
+        "description": "AI-powered web, Android, iOS development and ongoing support services."
+      },
+      "webDevelopment": {
+        "name": "Web Development",
+        "description": "Full-stack web application development with React, Next.js, and Node.js."
+      },
+      "androidDevelopment": {
+        "name": "Android Development",
+        "description": "Native Android app development with Kotlin and Jetpack Compose."
+      },
+      "iosDevelopment": {
+        "name": "iOS Development",
+        "description": "Native iOS app development with Swift and SwiftUI."
+      },
+      "support": {
+        "name": "Support & Maintenance",
+        "description": "Ongoing support, bug fixes, security patches, and feature updates."
+      },
+      "products": {
+        "name": "CraftsAI Products",
+        "description": "Ready-made software products by CraftsAI."
+      },
+      "portfolio": {
+        "name": "CraftsAI Portfolio",
+        "description": "Web, Android, and iOS projects built by CraftsAI."
+      },
+      "resources": {
+        "name": "CraftsAI Resources",
+        "description": "Blog posts, case studies, and development guides."
+      },
+      "blog": {
+        "name": "CraftsAI Blog",
+        "description": "Articles on web, Android, and iOS development."
+      },
+      "contact": {
+        "name": "Contact CraftsAI",
+        "description": "Get in touch with CraftsAI for web, Android, or iOS development inquiries."
+      },
+      "quote": {
+        "name": "Get a Quote from CraftsAI",
+        "description": "Request a free quote for your development project."
+      },
+      "faq": {
+        "name": "CraftsAI FAQ",
+        "description": "Frequently asked questions about CraftsAI services, pricing, and process."
+      },
+      "about": {
+        "name": "About CraftsAI",
+        "description": "Learn about CraftsAI, our team, and our AI-powered development approach."
+      },
+      "process": {
+        "name": "Our Process",
+        "description": "How CraftsAI delivers projects from consultation to launch."
+      },
+      "careers": {
+        "name": "Careers at CraftsAI",
+        "description": "Join the CraftsAI team and build the future of AI-powered development."
+      }
+    }
   }
 }

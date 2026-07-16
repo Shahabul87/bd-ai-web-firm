@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -21,13 +22,11 @@ export async function generateMetadata({
       title: 'Guides & Whitepapers | CraftsAI',
       description:
         'In-depth guides on web development, mobile apps, and business strategy.',
-      url: 'https://www.craftsai.org/resources/guides',
+      ...localeOpenGraph('/resources/guides', locale),
       siteName: 'CraftsAI',
       type: 'website',
     },
-    alternates: {
-      canonical: 'https://www.craftsai.org/resources/guides',
-    },
+    alternates: localeAlternates('/resources/guides', locale),
   };
 }
 

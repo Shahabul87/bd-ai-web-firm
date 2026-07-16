@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -18,9 +19,9 @@ export async function generateMetadata({
     openGraph: {
       title: 'Terms of Service',
       description: 'Terms and conditions for using CraftsAI services.',
-      url: 'https://www.craftsai.org/terms',
+      ...localeOpenGraph('/terms', locale),
     },
-    alternates: { canonical: 'https://www.craftsai.org/terms' },
+    alternates: localeAlternates('/terms', locale),
   };
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -23,13 +24,11 @@ export async function generateMetadata({
       title: 'Resources | CraftsAI',
       description:
         'Blog posts, case studies, and guides on AI-powered development.',
-      url: 'https://www.craftsai.org/resources',
+      ...localeOpenGraph('/resources', locale),
       siteName: 'CraftsAI',
       type: 'website',
     },
-    alternates: {
-      canonical: 'https://www.craftsai.org/resources',
-    },
+    alternates: localeAlternates('/resources', locale),
   };
 }
 

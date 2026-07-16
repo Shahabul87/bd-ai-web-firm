@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -19,9 +20,9 @@ export async function generateMetadata({
     openGraph: {
       title: 'Privacy Policy',
       description: 'How CraftsAI collects, uses, and protects your data.',
-      url: 'https://www.craftsai.org/privacy',
+      ...localeOpenGraph('/privacy', locale),
     },
-    alternates: { canonical: 'https://www.craftsai.org/privacy' },
+    alternates: localeAlternates('/privacy', locale),
   };
 }
 

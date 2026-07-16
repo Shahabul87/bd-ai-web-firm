@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { notFound } from 'next/navigation';
 import { caseStudies } from '#content';
 import { getCaseStudyBySlug } from '@/app/lib/content';
@@ -21,7 +22,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: CaseStudyDetailPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const cs = getCaseStudyBySlug(slug);
   if (!cs) return {};
 
@@ -31,13 +32,11 @@ export async function generateMetadata({
     openGraph: {
       title: `${cs.title} | CraftsAI`,
       description: cs.excerpt,
-      url: `https://www.craftsai.org/resources/case-studies/${cs.slug}`,
+      ...localeOpenGraph(`/resources/case-studies/${cs.slug}`, locale),
       siteName: 'CraftsAI',
       type: 'article',
     },
-    alternates: {
-      canonical: `https://www.craftsai.org/resources/case-studies/${cs.slug}`,
-    },
+    alternates: localeAlternates(`/resources/case-studies/${cs.slug}`, locale),
   };
 }
 
