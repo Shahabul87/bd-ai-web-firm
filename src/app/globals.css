@@ -90,6 +90,21 @@
   --font-sans: var(--font-anek-bangla);
 }
 
+/* The hero headline is the one place using Archivo (loaded locally by
+ * DraftingRoomHero, which puts --font-archivo in scope on its <section>).
+ * It must NOT go through next/font's own .className, which hardcodes
+ * font-family: Archivo and so cannot be swapped per-language. These are
+ * deliberately plain rules, not @theme tokens: Tailwind v4's `@theme inline`
+ * bakes a token's *referent* into the generated utility, so a :lang(bn)
+ * override of the token would never reach the element. */
+.hero-display {
+  font-family: var(--font-archivo);
+}
+
+:lang(bn) .hero-display {
+  font-family: var(--font-anek-bangla);
+}
+
 /* Bengali renders optically smaller and taller than Latin at identical
  * font-size — measured against the real hero copy in a live browser, not
  * assumed. Body copy needs a nudge up and looser leading for the matra. */
