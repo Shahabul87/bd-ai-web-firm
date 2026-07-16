@@ -6,17 +6,24 @@ import CTABand from '@/app/components/shared/CTABand';
 import SectionHeader from '@/app/design/ui/SectionHeader';
 import ConveyorProcess, { ConveyorPhase } from '@/app/components/process/ConveyorProcess';
 
-export const metadata: Metadata = {
-  title: 'Our Development Process',
-  description:
-    'From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication.',
-  openGraph: {
-    title: 'Our Development Process',
-    description: 'From discovery to launch in 5 clear phases.',
-    url: 'https://www.craftsai.org/process',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/process' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.process' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Our Development Process',
+      description: 'From discovery to launch in 5 clear phases.',
+      url: 'https://www.craftsai.org/process',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/process' },
+  };
+}
 
 interface CommunicationItem {
   title: string;

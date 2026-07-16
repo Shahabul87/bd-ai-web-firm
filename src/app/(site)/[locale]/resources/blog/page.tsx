@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -7,22 +7,29 @@ import CTABand from '@/app/components/shared/CTABand';
 import Card from '@/app/design/ui/Card';
 import { getAllBlogs } from '@/app/lib/content';
 
-export const metadata: Metadata = {
-  title: 'Blog - AI Development Insights',
-  description:
-    'Read our latest articles on AI-powered development, web and mobile strategy, cost savings, and technology trends.',
-  openGraph: {
-    title: 'Blog | CraftsAI',
-    description:
-      'Articles on AI-powered development, strategy, and technology.',
-    url: 'https://www.craftsai.org/resources/blog',
-    siteName: 'CraftsAI',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://www.craftsai.org/resources/blog',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.resourcesBlog' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Blog | CraftsAI',
+      description:
+        'Articles on AI-powered development, strategy, and technology.',
+      url: 'https://www.craftsai.org/resources/blog',
+      siteName: 'CraftsAI',
+      type: 'website',
+    },
+    alternates: {
+      canonical: 'https://www.craftsai.org/resources/blog',
+    },
+  };
+}
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {

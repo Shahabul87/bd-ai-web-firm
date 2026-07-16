@@ -13,19 +13,26 @@ import Pipeline from '@/app/design/ui/Pipeline';
 import type { AccordionItem } from '@/app/design/ui/Accordion';
 import type { SpecRow, SpecRowMessage } from '@/app/design/ui/SpecTable';
 
-export const metadata: Metadata = {
-  title: 'iOS Development Services',
-  description:
-    'Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready — built by our AI agents and reviewed by senior engineers.',
-  openGraph: {
-    title: 'iOS Development Services',
-    description: 'Native iOS apps with Swift and SwiftUI. 8x faster delivery.',
-    url: 'https://www.craftsai.org/services/ios-development',
-  },
-  alternates: {
-    canonical: 'https://www.craftsai.org/services/ios-development',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.servicesIos' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'iOS Development Services',
+      description: 'Native iOS apps with Swift and SwiftUI. 8x faster delivery.',
+      url: 'https://www.craftsai.org/services/ios-development',
+    },
+    alternates: {
+      canonical: 'https://www.craftsai.org/services/ios-development',
+    },
+  };
+}
 
 interface UseCase {
   title: string;

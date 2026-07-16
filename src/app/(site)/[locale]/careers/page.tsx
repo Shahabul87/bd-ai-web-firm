@@ -6,17 +6,24 @@ import CTABand from '@/app/components/shared/CTABand';
 import SectionHeader from '@/app/design/ui/SectionHeader';
 import Card from '@/app/design/ui/Card';
 
-export const metadata: Metadata = {
-  title: 'Careers',
-  description:
-    'Join the CraftsAI team. We are building the future of AI-powered software development. Explore our culture and open positions.',
-  openGraph: {
-    title: 'Careers',
-    description: 'Join the CraftsAI team and build the future of AI-powered software development.',
-    url: 'https://www.craftsai.org/careers',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/careers' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.careers' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Careers',
+      description: 'Join the CraftsAI team and build the future of AI-powered software development.',
+      url: 'https://www.craftsai.org/careers',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/careers' },
+  };
+}
 
 interface CultureCard {
   title: string;

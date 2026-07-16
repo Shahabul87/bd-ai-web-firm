@@ -6,17 +6,24 @@ import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
 import MonoLabel from '@/app/design/ui/MonoLabel';
 
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description:
-    'CraftsAI privacy policy. Learn how we collect, use, and protect your personal information.',
-  openGraph: {
-    title: 'Privacy Policy',
-    description: 'How CraftsAI collects, uses, and protects your data.',
-    url: 'https://www.craftsai.org/privacy',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/privacy' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.privacy' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Privacy Policy',
+      description: 'How CraftsAI collects, uses, and protects your data.',
+      url: 'https://www.craftsai.org/privacy',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/privacy' },
+  };
+}
 
 type TermDetail = { term: string; detail: string };
 

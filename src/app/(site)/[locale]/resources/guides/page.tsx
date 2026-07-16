@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -7,22 +7,29 @@ import CTABand from '@/app/components/shared/CTABand';
 import Card from '@/app/design/ui/Card';
 import { getAllGuides } from '@/app/lib/content';
 
-export const metadata: Metadata = {
-  title: 'Guides & Whitepapers - In-Depth Development Resources',
-  description:
-    'Comprehensive guides on web app development, choosing a development partner, and building successful software products.',
-  openGraph: {
-    title: 'Guides & Whitepapers | CraftsAI',
-    description:
-      'In-depth guides on web development, mobile apps, and business strategy.',
-    url: 'https://www.craftsai.org/resources/guides',
-    siteName: 'CraftsAI',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://www.craftsai.org/resources/guides',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.resourcesGuides' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Guides & Whitepapers | CraftsAI',
+      description:
+        'In-depth guides on web development, mobile apps, and business strategy.',
+      url: 'https://www.craftsai.org/resources/guides',
+      siteName: 'CraftsAI',
+      type: 'website',
+    },
+    alternates: {
+      canonical: 'https://www.craftsai.org/resources/guides',
+    },
+  };
+}
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {

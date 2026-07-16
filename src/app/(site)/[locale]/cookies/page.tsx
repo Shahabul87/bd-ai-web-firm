@@ -7,17 +7,24 @@ import CTABand from '@/app/components/shared/CTABand';
 import MonoLabel from '@/app/design/ui/MonoLabel';
 import Card from '@/app/design/ui/Card';
 
-export const metadata: Metadata = {
-  title: 'Cookie Policy',
-  description:
-    'CraftsAI cookie policy. Learn about the cookies we use and how to manage your preferences.',
-  openGraph: {
-    title: 'Cookie Policy',
-    description: 'How CraftsAI uses cookies and tracking technologies.',
-    url: 'https://www.craftsai.org/cookies',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/cookies' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.cookies' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Cookie Policy',
+      description: 'How CraftsAI uses cookies and tracking technologies.',
+      url: 'https://www.craftsai.org/cookies',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/cookies' },
+  };
+}
 
 type CookieType = { title: string; description: string };
 

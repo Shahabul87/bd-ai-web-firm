@@ -5,17 +5,24 @@ import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
 import MonoLabel from '@/app/design/ui/MonoLabel';
 
-export const metadata: Metadata = {
-  title: 'Terms of Service',
-  description:
-    'CraftsAI terms of service. Read the terms and conditions governing the use of our website and services.',
-  openGraph: {
-    title: 'Terms of Service',
-    description: 'Terms and conditions for using CraftsAI services.',
-    url: 'https://www.craftsai.org/terms',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/terms' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.terms' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Terms of Service',
+      description: 'Terms and conditions for using CraftsAI services.',
+      url: 'https://www.craftsai.org/terms',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/terms' },
+  };
+}
 
 export default async function TermsPage({
   params,

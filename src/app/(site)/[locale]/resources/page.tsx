@@ -9,22 +9,29 @@ import SectionHeader from '@/app/design/ui/SectionHeader';
 import { getLatestContent } from '@/app/lib/content';
 import type { LatestContentItem } from '@/app/lib/content';
 
-export const metadata: Metadata = {
-  title: 'Resources - Blog, Case Studies & Guides',
-  description:
-    'Explore our blog posts, case studies, and in-depth guides on AI-powered software development, web apps, mobile apps, and business strategy.',
-  openGraph: {
-    title: 'Resources | CraftsAI',
-    description:
-      'Blog posts, case studies, and guides on AI-powered development.',
-    url: 'https://www.craftsai.org/resources',
-    siteName: 'CraftsAI',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://www.craftsai.org/resources',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.resources' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Resources | CraftsAI',
+      description:
+        'Blog posts, case studies, and guides on AI-powered development.',
+      url: 'https://www.craftsai.org/resources',
+      siteName: 'CraftsAI',
+      type: 'website',
+    },
+    alternates: {
+      canonical: 'https://www.craftsai.org/resources',
+    },
+  };
+}
 
 interface CategoryCopy {
   title: string;

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -7,22 +7,29 @@ import CTABand from '@/app/components/shared/CTABand';
 import Card from '@/app/design/ui/Card';
 import { getAllCaseStudies } from '@/app/lib/content';
 
-export const metadata: Metadata = {
-  title: 'Case Studies - Real AI Development Results',
-  description:
-    'See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more.',
-  openGraph: {
-    title: 'Case Studies | CraftsAI',
-    description:
-      'Real results from our AI-powered development projects.',
-    url: 'https://www.craftsai.org/resources/case-studies',
-    siteName: 'CraftsAI',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://www.craftsai.org/resources/case-studies',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.resourcesCaseStudies' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Case Studies | CraftsAI',
+      description:
+        'Real results from our AI-powered development projects.',
+      url: 'https://www.craftsai.org/resources/case-studies',
+      siteName: 'CraftsAI',
+      type: 'website',
+    },
+    alternates: {
+      canonical: 'https://www.craftsai.org/resources/case-studies',
+    },
+  };
+}
 
 export default async function CaseStudiesListingPage({
   params,

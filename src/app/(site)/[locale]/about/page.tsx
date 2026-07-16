@@ -7,17 +7,24 @@ import CTABand from '@/app/components/shared/CTABand';
 import SectionHeader from '@/app/design/ui/SectionHeader';
 import Card from '@/app/design/ui/Card';
 
-export const metadata: Metadata = {
-  title: 'About - AI-First Software Studio',
-  description:
-    'Founded in 2025, CraftsAI is a Bangladesh-based software studio that combines AI agents with human engineers to deliver web, Android, and iOS products 10x faster.',
-  openGraph: {
-    title: 'About CraftsAI',
-    description: 'AI-first software studio delivering web, Android, and iOS products.',
-    url: 'https://www.craftsai.org/about',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/about' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.about' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'About CraftsAI',
+      description: 'AI-first software studio delivering web, Android, and iOS products.',
+      url: 'https://www.craftsai.org/about',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/about' },
+  };
+}
 
 interface Stat {
   value: string;

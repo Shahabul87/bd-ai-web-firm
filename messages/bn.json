@@ -1075,5 +1075,91 @@
         }
       }
     }
+  },
+  "Meta": {
+    "about": {
+      "title": "About - AI-First Software Studio",
+      "description": "Founded in 2025, CraftsAI is a Bangladesh-based software studio that combines AI agents with human engineers to deliver web, Android, and iOS products 10x faster."
+    },
+    "careers": {
+      "title": "Careers",
+      "description": "Join the CraftsAI team. We are building the future of AI-powered software development. Explore our culture and open positions."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Get in touch with CraftsAI for web, Android, iOS development or support inquiries."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "CraftsAI cookie policy. Learn about the cookies we use and how to manage your preferences."
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "Frequently asked questions about CraftsAI services, pricing, process, and support. Find answers to common questions about AI-powered development."
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "description": "Explore CraftsAI projects — web apps, Android apps, and iOS apps built with AI-powered development."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "CraftsAI privacy policy. Learn how we collect, use, and protect your personal information."
+    },
+    "process": {
+      "title": "Our Development Process",
+      "description": "From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication."
+    },
+    "products": {
+      "title": "Our Products",
+      "description": "Ready-made solutions, battle-tested and production-ready. Explore our product lineup spanning web platforms and Android apps."
+    },
+    "quote": {
+      "title": "Get a Quote",
+      "description": "Request a free quote for your web, Android, or iOS development project from CraftsAI."
+    },
+    "resources": {
+      "title": "Resources - Blog, Case Studies & Guides",
+      "description": "Explore our blog posts, case studies, and in-depth guides on AI-powered software development, web apps, mobile apps, and business strategy."
+    },
+    "resourcesBlog": {
+      "title": "Blog - AI Development Insights",
+      "description": "Read our latest articles on AI-powered development, web and mobile strategy, cost savings, and technology trends."
+    },
+    "resourcesCaseStudies": {
+      "title": "Case Studies - Real AI Development Results",
+      "description": "See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more."
+    },
+    "resourcesGuides": {
+      "title": "Guides & Whitepapers - In-Depth Development Resources",
+      "description": "Comprehensive guides on web app development, choosing a development partner, and building successful software products."
+    },
+    "servicesLayout": {
+      "title": "Our Services",
+      "description": "CraftsAI offers AI-powered web development, Android development, iOS development, and ongoing support."
+    },
+    "services": {
+      "title": "Services",
+      "description": "What CraftsAI builds: custom AI agents, agent-built websites and mobile apps, and agent integration into your existing systems."
+    },
+    "servicesAndroid": {
+      "title": "Android Development Services",
+      "description": "Native Android apps with Kotlin and Jetpack Compose. Material Design 3, Firebase integration — built by our AI agents and reviewed by senior engineers."
+    },
+    "servicesIos": {
+      "title": "iOS Development Services",
+      "description": "Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready — built by our AI agents and reviewed by senior engineers."
+    },
+    "servicesSupport": {
+      "title": "Support & Maintenance Services",
+      "description": "Ongoing support retainers with bug fixes, security patches, performance monitoring, and feature updates. 24/7 monitoring with 4-hour response time."
+    },
+    "servicesWeb": {
+      "title": "Web Development Services",
+      "description": "Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "CraftsAI terms of service. Read the terms and conditions governing the use of our website and services."
+    }
   }
 }

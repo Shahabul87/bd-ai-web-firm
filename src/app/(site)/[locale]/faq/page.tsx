@@ -8,18 +8,25 @@ import MonoLabel from '@/app/design/ui/MonoLabel';
 import Accordion from '@/app/design/ui/Accordion';
 import faqData from '@content/faq/faq.json';
 
-export const metadata: Metadata = {
-  title: 'FAQ',
-  description:
-    'Frequently asked questions about CraftsAI services, pricing, process, and support. Find answers to common questions about AI-powered development.',
-  openGraph: {
-    title: 'FAQ',
-    description:
-      'Frequently asked questions about CraftsAI services, pricing, process, and support.',
-    url: 'https://www.craftsai.org/faq',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/faq' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.faq' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'FAQ',
+      description:
+        'Frequently asked questions about CraftsAI services, pricing, process, and support.',
+      url: 'https://www.craftsai.org/faq',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/faq' },
+  };
+}
 
 export default async function FAQPage({
   params,

@@ -7,19 +7,26 @@ import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
 import Card from '@/app/design/ui/Card';
 
-export const metadata: Metadata = {
-  title: 'Our Products',
-  description:
-    'Ready-made solutions, battle-tested and production-ready. Explore our product lineup spanning web platforms and Android apps.',
-  openGraph: {
-    title: 'Our Products',
-    description: 'Ready-made solutions, battle-tested and production-ready.',
-    url: 'https://www.craftsai.org/products',
-    siteName: 'CraftsAI',
-    type: 'website',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/products' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.products' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Our Products',
+      description: 'Ready-made solutions, battle-tested and production-ready.',
+      url: 'https://www.craftsai.org/products',
+      siteName: 'CraftsAI',
+      type: 'website',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/products' },
+  };
+}
 
 export default async function ProductsPage({
   params,

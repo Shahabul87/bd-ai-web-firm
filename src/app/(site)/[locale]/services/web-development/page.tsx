@@ -13,18 +13,25 @@ import Pipeline from '@/app/design/ui/Pipeline';
 import type { AccordionItem } from '@/app/design/ui/Accordion';
 import type { SpecRow, SpecRowMessage } from '@/app/design/ui/SpecTable';
 
-export const metadata: Metadata = {
-  title: 'Web Development Services',
-  description:
-    'Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers.',
-  openGraph: {
-    title: 'Web Development Services',
-    description:
-      'Full-stack web applications built with React, Next.js, and modern cloud infrastructure.',
-    url: 'https://www.craftsai.org/services/web-development',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/services/web-development' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.servicesWeb' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Web Development Services',
+      description:
+        'Full-stack web applications built with React, Next.js, and modern cloud infrastructure.',
+      url: 'https://www.craftsai.org/services/web-development',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/services/web-development' },
+  };
+}
 
 interface UseCase {
   title: string;

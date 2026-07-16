@@ -1,10 +1,18 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
-export const metadata: Metadata = {
-  title: 'Get a Quote',
-  description:
-    'Request a free quote for your web, Android, or iOS development project from CraftsAI.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.quote' });
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 export default function QuoteLayout({
   children,

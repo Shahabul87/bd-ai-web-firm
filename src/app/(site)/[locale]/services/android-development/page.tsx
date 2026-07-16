@@ -13,19 +13,26 @@ import Pipeline from '@/app/design/ui/Pipeline';
 import type { AccordionItem } from '@/app/design/ui/Accordion';
 import type { SpecRow, SpecRowMessage } from '@/app/design/ui/SpecTable';
 
-export const metadata: Metadata = {
-  title: 'Android Development Services',
-  description:
-    'Native Android apps with Kotlin and Jetpack Compose. Material Design 3, Firebase integration — built by our AI agents and reviewed by senior engineers.',
-  openGraph: {
-    title: 'Android Development Services',
-    description: 'Native Android apps with Kotlin and Jetpack Compose. 8x faster delivery.',
-    url: 'https://www.craftsai.org/services/android-development',
-  },
-  alternates: {
-    canonical: 'https://www.craftsai.org/services/android-development',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.servicesAndroid' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Android Development Services',
+      description: 'Native Android apps with Kotlin and Jetpack Compose. 8x faster delivery.',
+      url: 'https://www.craftsai.org/services/android-development',
+    },
+    alternates: {
+      canonical: 'https://www.craftsai.org/services/android-development',
+    },
+  };
+}
 
 interface UseCase {
   title: string;

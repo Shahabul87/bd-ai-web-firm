@@ -12,17 +12,24 @@ import Accordion from '@/app/design/ui/Accordion';
 import type { AccordionItem } from '@/app/design/ui/Accordion';
 import type { SpecRow, SpecRowMessage } from '@/app/design/ui/SpecTable';
 
-export const metadata: Metadata = {
-  title: 'Support & Maintenance Services',
-  description:
-    'Ongoing support retainers with bug fixes, security patches, performance monitoring, and feature updates. 24/7 monitoring with 4-hour response time.',
-  openGraph: {
-    title: 'Support & Maintenance Services',
-    description: 'Ongoing support retainers. Bug fixes, updates, performance monitoring.',
-    url: 'https://www.craftsai.org/services/support',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/services/support' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.servicesSupport' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Support & Maintenance Services',
+      description: 'Ongoing support retainers. Bug fixes, updates, performance monitoring.',
+      url: 'https://www.craftsai.org/services/support',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/services/support' },
+  };
+}
 
 interface Tier {
   slug: string;

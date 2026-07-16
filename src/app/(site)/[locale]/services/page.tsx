@@ -7,11 +7,18 @@ import CTABand from '@/app/components/shared/CTABand';
 import Button from '@/app/design/ui/Button';
 import SectionHeader from '@/app/design/ui/SectionHeader';
 
-export const metadata: Metadata = {
-  title: 'Services',
-  description:
-    'What CraftsAI builds: custom AI agents, agent-built websites and mobile apps, and agent integration into your existing systems.',
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.services' });
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 export default async function ServicesPage({
   params,
