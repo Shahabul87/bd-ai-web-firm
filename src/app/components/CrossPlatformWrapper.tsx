@@ -193,19 +193,17 @@ const CrossPlatformWrapper: React.FC<CrossPlatformWrapperProps> = ({ children, f
 
   }, []);
 
-  if (!browserInfo) {
-    return (
-      <div className="loading-spinner flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"></div>
-      </div>
-    );
-  }
-
+  // NOTE: never gate this render on `browserInfo`. It is populated by the effect
+  // above, which does not run on the server, so any such gate makes every page
+  // server-render as a placeholder — no copy and no JSON-LD for crawlers.
+  // Everything `browserInfo` drives below is progressive enhancement: absent on the
+  // server render and on the first client render (so hydration matches), applied on
+  // the post-mount re-render.
   if (!isCompatible && fallback) {
     return <>{fallback}</>;
   }
 
-  if (browserInfo.isIE) {
+  if (browserInfo?.isIE) {
     return (
       <div className="ie-warning bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
         <strong className="font-bold">Browser Not Supported!</strong>
@@ -223,9 +221,10 @@ const CrossPlatformWrapper: React.FC<CrossPlatformWrapperProps> = ({ children, f
   }
 
   return (
-    <div 
-      className={`cross-platform-wrapper ${browserInfo.isMobile ? 'mobile-optimized' : ''} ${browserInfo.isTablet ? 'tablet-optimized' : ''} ${browserInfo.isDesktop ? 'desktop-optimized' : ''}`}
+    <div
+      className={`cross-platform-wrapper ${browserInfo?.isMobile ? 'mobile-optimized' : ''} ${browserInfo?.isTablet ? 'tablet-optimized' : ''} ${browserInfo?.isDesktop ? 'desktop-optimized' : ''}`}
       data-browser={
+        !browserInfo ? undefined :
         browserInfo.isChrome ? 'chrome' :
         browserInfo.isFirefox ? 'firefox' :
         browserInfo.isSafari ? 'safari' :

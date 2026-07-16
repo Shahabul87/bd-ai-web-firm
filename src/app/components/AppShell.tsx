@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Space_Grotesk, Instrument_Sans, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
 import CrossPlatformWrapper from './CrossPlatformWrapper';
@@ -68,7 +69,13 @@ export default function AppShell({ lang, bodyClassName = '', children }: AppShel
       >
         <ErrorBoundary>
           <CrossPlatformWrapper fallback={<BrowserCompatibilityFallback />}>
-            <Analytics />
+            {/* Analytics calls useSearchParams(), which opts its subtree out of
+                static rendering. It must stay inside its own Suspense boundary so
+                the bailout is scoped to Analytics (which renders null) and never
+                reaches {children} — without this, prerendering every page fails. */}
+            <Suspense fallback={null}>
+              <Analytics />
+            </Suspense>
             {children}
           </CrossPlatformWrapper>
         </ErrorBoundary>
