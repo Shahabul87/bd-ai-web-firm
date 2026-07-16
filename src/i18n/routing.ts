@@ -7,37 +7,25 @@ export const routing = defineRouting({
   // This preserves every existing URL and its accumulated SEO.
   localePrefix: 'as-needed',
 
-  // Accept-Language detection is OFF until Stage 3 ships real Bengali copy in
-  // messages/bn.json. Today /bn renders English prose in Anek Bangla under
-  // <html lang="bn">, so auto-redirecting a Bengali-preferring visitor there
-  // serves them English in a Bengali font — and makes screen readers apply
-  // Bengali phonetics to English text. That is strictly worse than serving them
-  // English at /.
-  //
-  // The EN/BN toggle still works: it links directly to the /bn URL, and a locale
-  // read from the route prefix is resolved before this flag is consulted. The
-  // NEXT_LOCALE cookie is still written on switch (syncCookie gates on
-  // localeCookie, not on this flag).
-  //
-  // KNOWN COST, accepted for Stage 1: in next-intl's resolveLocale the cookie and
-  // the Accept-Language header sit behind the SAME `localeDetection` guard, so
-  // this also stops a returning NEXT_LOCALE=bn holder from being forwarded off a
-  // bare `/` to `/bn`. That costs nothing today — both paths render English — and
-  // there is no config that disables only the header.
-  //
-  // TURN THIS BACK ON by deleting this line (true is next-intl's default) in the
-  // same commit that lands the Bengali translations. Doing so restores both the
-  // Accept-Language redirect and cookie forwarding, and requires re-inverting
-  // the guard tests in src/__tests__/middleware.test.ts.
-  localeDetection: false,
+  // Accept-Language detection is ON (next-intl's default). Re-enabled in Stage 3b
+  // once /bn shipped real Bengali across every namespace (PR: full translation).
+  // A Bengali-preferring visitor with no NEXT_LOCALE cookie is now redirected from
+  // the bare `/` to `/bn`, and a returning NEXT_LOCALE=bn holder is forwarded to
+  // /bn — both were suppressed in Stages 1-3a while /bn was still partly English.
+  // (In next-intl's resolveLocale the cookie and the Accept-Language header sit
+  // behind the same `localeDetection` guard, so restoring it restores both.)
+  // The middleware guard tests in src/__tests__/middleware.test.ts assert this.
+  localeDetection: true,
 
-  // hreflang alternates are deliberately deferred to the SEO stage, which will
-  // emit them per-page from generateMetadata() alongside per-locale canonicals.
-  // next-intl's default (true) makes every marketing response ship a Link:
-  // header advertising hreflang="bn" -> /bn/... to crawlers, while those same
-  // /bn pages carry an English canonical and serve English copy. Advertising a
-  // Bengali alternate whose page serves English under an English canonical is
-  // incoherent signalling, so we emit nothing rather than emit a contradiction.
+  // hreflang alternates STAY OFF — deferred to the SEO stage (Stage 4), NOT because
+  // /bn is untranslated (it now is), but because the /bn pages still emit an ENGLISH
+  // canonical (`<link rel="canonical" href=".../about">` on /bn/about — verified in
+  // the built HTML). next-intl's default would ship a Link header advertising
+  // hreflang="bn" -> /bn/... while that same page's canonical points at the English
+  // URL: Google reads the canonical as "the real version is the English one" and
+  // drops the Bengali page. Enabling hreflang is only coherent once Stage 4 makes
+  // canonicals per-locale (each /bn page canonical to itself). Turn this on THEN,
+  // in the same change that fixes the canonicals.
   alternateLinks: false,
 });
 
