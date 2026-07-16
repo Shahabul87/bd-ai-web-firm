@@ -7,6 +7,7 @@ import SectionHeader from '../../design/ui/SectionHeader';
 import { rise, riseStagger, viewportOnce } from '../../design/motion';
 
 interface ResourceCopy {
+  slug: string;
   type: string;
   title: string;
   readTime: string;
@@ -17,19 +18,33 @@ interface Resource extends ResourceCopy {
 }
 
 /* Routing data stays in code — hrefs must never vary by locale, so they are not
-   exposed to translators. Zipped positionally with the copy; the messages
-   parity test pins both arrays to the same length. */
-const RESOURCE_HREFS = [
-  '/resources/blog/ai-agents-software-development',
-  '/resources/case-studies/taxomind',
-  '/resources/guides/ai-powered-development',
-];
+   exposed to translators. Paired by stable `slug`, never by array position: a
+   translator reordering the message array is natural and length-preserving, so
+   positional pairing would silently repoint every row at the wrong URL. */
+const RESOURCE_HREFS: Record<string, string> = {
+  'ai-agents-software-development': '/resources/blog/ai-agents-software-development',
+  taxomind: '/resources/case-studies/taxomind',
+  'ai-powered-development': '/resources/guides/ai-powered-development',
+};
+
+/* An unknown slug is a bug, not a fallback case. Throwing surfaces it at
+   render; a placeholder href would ship a wrong link to users instead. */
+function resourceHref(slug: string): string {
+  const href = RESOURCE_HREFS[slug];
+  if (!href) {
+    throw new Error(
+      `ResourcesRow: no route for resource slug "${slug}". Routes are defined in ` +
+        'RESOURCE_HREFS; messages must not add or rename slugs.'
+    );
+  }
+  return href;
+}
 
 export default function ResourcesRow() {
   const t = useTranslations('Home.resources');
-  const RESOURCES: Resource[] = (t.raw('items') as ResourceCopy[]).map((resource, i) => ({
+  const RESOURCES: Resource[] = (t.raw('items') as ResourceCopy[]).map((resource) => ({
     ...resource,
-    href: RESOURCE_HREFS[i],
+    href: resourceHref(resource.slug),
   }));
 
   return (

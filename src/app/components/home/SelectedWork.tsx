@@ -8,6 +8,7 @@ import Card from '../../design/ui/Card';
 import { rise, riseStagger, viewportOnce } from '../../design/motion';
 
 interface ProjectCopy {
+  slug: string;
   sector: string;
   platform: string;
   name: string;
@@ -19,15 +20,33 @@ interface Project extends ProjectCopy {
 }
 
 /* Routing data stays in code — hrefs must never vary by locale, so they are not
-   exposed to translators. Zipped positionally with the copy; the messages
-   parity test pins both arrays to the same length. */
-const PROJECT_HREFS = ['/portfolio/taxomind', '/portfolio/fincoach-ai', '/portfolio/mathphysics'];
+   exposed to translators. Paired by stable `slug`, never by array position: a
+   translator reordering the message array is natural and length-preserving, so
+   positional pairing would silently repoint every card at the wrong URL. */
+const PROJECT_HREFS: Record<string, string> = {
+  taxomind: '/portfolio/taxomind',
+  'fincoach-ai': '/portfolio/fincoach-ai',
+  mathphysics: '/portfolio/mathphysics',
+};
+
+/* An unknown slug is a bug, not a fallback case. Throwing surfaces it at
+   render; a placeholder href would ship a wrong link to users instead. */
+function projectHref(slug: string): string {
+  const href = PROJECT_HREFS[slug];
+  if (!href) {
+    throw new Error(
+      `SelectedWork: no route for project slug "${slug}". Routes are defined in ` +
+        'PROJECT_HREFS; messages must not add or rename slugs.'
+    );
+  }
+  return href;
+}
 
 export default function SelectedWork() {
   const t = useTranslations('Home.work');
-  const PROJECTS: Project[] = (t.raw('projects') as ProjectCopy[]).map((project, i) => ({
+  const PROJECTS: Project[] = (t.raw('projects') as ProjectCopy[]).map((project) => ({
     ...project,
-    href: PROJECT_HREFS[i],
+    href: projectHref(project.slug),
   }));
 
   return (
@@ -51,7 +70,7 @@ export default function SelectedWork() {
         viewport={viewportOnce}
       >
         {PROJECTS.map((project) => (
-          <motion.div key={project.name} variants={rise}>
+          <motion.div key={project.slug} variants={rise}>
             <Link href={project.href} className="block h-full focus-visible:outline-none">
               <Card interactive className="flex h-full flex-col">
                 <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-steel">

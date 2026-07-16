@@ -159,18 +159,21 @@
       "readCaseStudy": "Read case study",
       "projects": [
         {
+          "slug": "taxomind",
           "sector": "EdTech",
           "platform": "Web",
           "name": "TaxoMind",
           "outcome": "An AI learning platform built on Bloom's Taxonomy for personalized education."
         },
         {
+          "slug": "fincoach-ai",
           "sector": "FinTech",
           "platform": "Android",
           "name": "FinCoach AI",
           "outcome": "An AI financial coach that helps people build better money habits, day by day."
         },
         {
+          "slug": "mathphysics",
           "sector": "EdTech",
           "platform": "Android",
           "name": "MathPhysics",
@@ -195,9 +198,9 @@
       "title": "What we're writing about.",
       "allResources": "All resources →",
       "items": [
-        { "type": "Blog", "title": "How AI agents are changing software development in 2026", "readTime": "5 min" },
-        { "type": "Case study", "title": "How TaxoMind reached 10× faster content generation", "readTime": "8 min" },
-        { "type": "Guide", "title": "The complete guide to AI-powered app development", "readTime": "12 min" }
+        { "slug": "ai-agents-software-development", "type": "Blog", "title": "How AI agents are changing software development in 2026", "readTime": "5 min" },
+        { "slug": "taxomind", "type": "Case study", "title": "How TaxoMind reached 10× faster content generation", "readTime": "8 min" },
+        { "slug": "ai-powered-development", "type": "Guide", "title": "The complete guide to AI-powered app development", "readTime": "12 min" }
       ]
     },
     "finalCta": {
