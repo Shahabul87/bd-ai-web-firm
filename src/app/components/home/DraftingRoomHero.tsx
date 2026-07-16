@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Archivo } from 'next/font/google';
 import { motion, useReducedMotion } from 'framer-motion';
@@ -22,6 +23,7 @@ const AMBER = '#FFB347';
 const DRAW_DURATION = 1.1;
 
 export default function DraftingRoomHero() {
+  const t = useTranslations('Home.hero');
   const reduced = useReducedMotion();
   // SSR and first client render both show the 'hidden' frame; the effect
   // starts the draw after mount (instantly completed under reduced motion).
@@ -84,14 +86,14 @@ export default function DraftingRoomHero() {
             className="hero-display font-[750] uppercase leading-[1.04] tracking-[-0.01em]"
             style={{ fontVariationSettings: "'wdth' 125", fontSize: 'clamp(2.5rem, 4.6vw, 4.25rem)' }}
           >
-            We draft agents.
+            {t('titleLine1')}
             <br />
-            The agents build <span style={{ color: AMBER }}>the rest.</span>
+            {t.rich('titleLine2', {
+              accent: (chunks) => <span style={{ color: AMBER }}>{chunks}</span>,
+            })}
           </h1>
           <p className="mt-7 max-w-[44ch] text-[17px] leading-[1.65] text-[#EDEDE3]/70">
-            CraftsAI is an engineering studio in Dhaka. We design custom AI agents
-            that plan, write, and ship your websites, mobile apps, and integrations
-            &mdash; every drawing reviewed by a senior engineer.
+            {t('lede')}
           </p>
           <div className="mt-9 flex flex-wrap gap-3.5">
             <Link
@@ -99,16 +101,18 @@ export default function DraftingRoomHero() {
               className="px-7 py-4 font-mono text-xs font-semibold uppercase tracking-[0.15em] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber"
               style={{ backgroundColor: AMBER, color: BLUE }}
             >
-              Start a project
+              {t('ctaPrimary')}
             </Link>
             <Link
               href="/process"
               className="border border-[#EDEDE3]/45 px-7 py-4 font-mono text-xs uppercase tracking-[0.15em] text-[#EDEDE3] transition-colors duration-150 hover:border-amber hover:text-amber focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber"
             >
-              See the process ↓
+              {t('ctaSecondary')}
             </Link>
           </div>
-          <p className="mt-14 font-mono text-[10px] uppercase tracking-[0.2em] text-[#EDEDE3]/50">
+          {/* Drafting ornament: stays English/Latin in both locales by design.
+              `lang="en"` keeps the Latin-tuned tracking on Bengali pages. */}
+          <p lang="en" className="mt-14 font-mono text-[10px] uppercase tracking-[0.2em] text-[#EDEDE3]/50">
             fig. 01 — agent schematic · sheet 1 of 4 · scale 1:1 · dhaka / worldwide
           </p>
         </div>
@@ -117,7 +121,7 @@ export default function DraftingRoomHero() {
           viewBox="0 0 560 420"
           fill="none"
           role="img"
-          aria-label="Engineering schematic: a brief flows into an AI agent, which produces a website, a mobile app, and an integration"
+          aria-label={t('schematicLabel')}
           className="w-full max-w-[560px] justify-self-center lg:justify-self-end"
           initial="hidden"
           animate={started ? 'visible' : 'hidden'}

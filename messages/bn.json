@@ -84,5 +84,129 @@
       "stage3": "Automate",
       "stage4": "Monitor"
     }
+  },
+  "Home": {
+    "hero": {
+      "titleLine1": "We draft agents.",
+      "titleLine2": "The agents build <accent>the rest.</accent>",
+      "lede": "CraftsAI is an engineering studio in Dhaka. We design custom AI agents that plan, write, and ship your websites, mobile apps, and integrations — every drawing reviewed by a senior engineer.",
+      "ctaPrimary": "Start a project",
+      "ctaSecondary": "See the process ↓",
+      "schematicLabel": "Engineering schematic: a brief flows into an AI agent, which produces a website, a mobile app, and an integration"
+    },
+    "proof": {
+      "label": "● what we've shipped",
+      "facts": [
+        "4 products shipped",
+        "web · ios · android",
+        "human-reviewed code",
+        "dhaka → worldwide"
+      ]
+    },
+    "pillars": {
+      "eyebrow": "What we build",
+      "title": "Four ways we put agents to work.",
+      "description": "Every engagement runs on the same idea: agents do the heavy lifting, engineers own the outcome."
+    },
+    "build": {
+      "eyebrow": "How agents build",
+      "title": "Watch a brief become shipped software.",
+      "description": "This is the real shape of a build: the agent plans and writes, the checks run, and nothing ships until an engineer signs off.",
+      "terminalTitle": "crafts.ai — agent build",
+      "terminal": [
+        { "text": "agent run --brief ./client-brief.md", "tone": "cmd" },
+        { "text": "Parsing brief… 4 requirements found", "tone": "out" },
+        { "text": "Planning build — 12 tasks across 3 modules", "tone": "out" },
+        { "text": "Writing src/checkout/payment.ts", "tone": "out" },
+        { "text": "Writing tests/checkout.test.ts", "tone": "out" },
+        { "text": "Running checks — lint ✓  types ✓  tests 34/34 ✓", "tone": "ok" },
+        { "text": "Human review requested — payment flow", "tone": "warn" },
+        { "text": "Approved. Shipped to staging.", "tone": "ok" }
+      ],
+      "notes": [
+        {
+          "label": "Agents do",
+          "body": "Read the brief, plan the work, write code and tests, run the checks, and open the change for review."
+        },
+        {
+          "label": "Engineers do",
+          "body": "Set the direction, review every diff, own the architecture and the security-sensitive paths."
+        },
+        {
+          "label": "You get",
+          "body": "Working software in weeks, not months — with a person accountable for what ships."
+        }
+      ]
+    },
+    "advantage": {
+      "title": "The same software, drafted differently.",
+      "colSpec": "Spec",
+      "colTraditional": "Traditional agency",
+      "colCrafts": "CraftsAI",
+      "rows": [
+        { "label": "Timeline", "traditional": "3–6 months", "crafts": "2–6 weeks" },
+        { "label": "Cost", "traditional": "$50K–200K", "crafts": "~80% less" },
+        { "label": "Team", "traditional": "Large agency team", "crafts": "Agents + senior engineer" },
+        { "label": "Review", "traditional": "Manual, occasional", "crafts": "Every change reviewed" },
+        { "label": "Process", "traditional": "Rigid milestones", "crafts": "Ship continuously" }
+      ],
+      "footnote": "Figures are typical ranges for the projects we take on, not a guarantee — every scope is estimated up front, in writing."
+    },
+    "work": {
+      "eyebrow": "Selected work",
+      "title": "Software our agents have shipped.",
+      "allWork": "All work →",
+      "readCaseStudy": "Read case study",
+      "projects": [
+        {
+          "sector": "EdTech",
+          "platform": "Web",
+          "name": "TaxoMind",
+          "outcome": "An AI learning platform built on Bloom's Taxonomy for personalized education."
+        },
+        {
+          "sector": "FinTech",
+          "platform": "Android",
+          "name": "FinCoach AI",
+          "outcome": "An AI financial coach that helps people build better money habits, day by day."
+        },
+        {
+          "sector": "EdTech",
+          "platform": "Android",
+          "name": "MathPhysics",
+          "outcome": "Interactive math and physics practice for grade 9–12 students."
+        }
+      ]
+    },
+    "process": {
+      "eyebrow": "How we work",
+      "title": "Five steps, start to ship.",
+      "fullProcess": "The full process →",
+      "steps": [
+        { "index": "01", "title": "Discover", "detail": "Free consultation to scope the problem." },
+        { "index": "02", "title": "Plan", "detail": "Written scope, estimate, and timeline." },
+        { "index": "03", "title": "Build", "detail": "Agents write; engineers review." },
+        { "index": "04", "title": "Test", "detail": "Automated checks plus human QA." },
+        { "index": "05", "title": "Launch", "detail": "Deploy, then ongoing support." }
+      ]
+    },
+    "resources": {
+      "eyebrow": "Field notes",
+      "title": "What we're writing about.",
+      "allResources": "All resources →",
+      "items": [
+        { "type": "Blog", "title": "How AI agents are changing software development in 2026", "readTime": "5 min" },
+        { "type": "Case study", "title": "How TaxoMind reached 10× faster content generation", "readTime": "8 min" },
+        { "type": "Guide", "title": "The complete guide to AI-powered app development", "readTime": "12 min" }
+      ]
+    },
+    "finalCta": {
+      "eyebrow": "● accepting projects",
+      "title": "Have something to build?",
+      "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
+      "primaryLabel": "Start a project",
+      "secondaryLabel": "Get an estimate",
+      "emailPrefix": "or email"
+    }
   }
 }
