@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 const WHATSAPP_NUMBER = '17753382146'; // Format: country code + number without spaces or symbols
 const DEFAULT_MESSAGE = 'Hi! I am interested in your AI development services. Can we discuss my project?';
 
 export default function WhatsAppButton() {
+  const t = useTranslations('Chrome.whatsapp');
   const [mounted, setMounted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
@@ -37,11 +39,11 @@ export default function WhatsAppButton() {
           }}
         >
           <div className="relative">
-            <span>Chat with us on WhatsApp!</span>
+            <span>{t('tooltip')}</span>
             <button
               onClick={() => setShowTooltip(false)}
               className="absolute -top-2 -right-2 w-5 h-5 bg-ink-900 border border-line text-steel rounded-full text-xs flex items-center justify-center hover:text-bone"
-              aria-label="Close tooltip"
+              aria-label={t('closeTooltip')}
             >
               &times;
             </button>
@@ -66,7 +68,7 @@ export default function WhatsAppButton() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onClick={() => setShowTooltip(false)}
-        aria-label="Chat on WhatsApp"
+        aria-label={t('ariaLabel')}
       >
         {/* WhatsApp Icon */}
         <svg

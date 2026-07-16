@@ -1672,5 +1672,18 @@
       }
     ],
     "fallback": "I'd be happy to help you with that! For detailed information about your specific needs, I recommend:\n\n• Checking our Services or Portfolio pages\n• Scheduling a free consultation with our team\n• Emailing us at hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything specific about our AI, web, or mobile development services you'd like to know?"
+  },
+  "Chrome": {
+    "whatsapp": {
+      "tooltip": "Chat with us on WhatsApp!",
+      "ariaLabel": "Chat on WhatsApp",
+      "closeTooltip": "Close tooltip"
+    },
+    "cookies": {
+      "dialogLabel": "Cookie consent",
+      "body": "We use cookies to understand how visitors use our site (analytics only). You can accept or decline. See our <policy>Cookie Policy</policy>.",
+      "accept": "Accept",
+      "decline": "Decline"
+    }
   }
 }
