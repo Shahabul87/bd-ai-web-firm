@@ -34,7 +34,20 @@ const anekBangla = Anek_Bangla({
 // real locale requires generateMetadata(), because `export const metadata`
 // cannot read runtime params. That belongs in Stage 4 alongside hreflang,
 // per-locale canonicals, and the sitemap — all of which need the same helper.
-// Stage 1 does not touch SEO output.
+//
+// What Stage 1 therefore emits, precisely:
+//   - EMITTED, locale-blind: this block is identical for every locale, so /bn
+//     pages advertise openGraph.locale "en_US" and an ENGLISH canonical — this
+//     layout's root canonical where a page sets none (/bn -> craftsai.org), and
+//     the page's own hardcoded English canonical everywhere else (each
+//     [locale]/*/page.tsx sets alternates.canonical, so /bn/about -> /about;
+//     verified in .next/server/app/bn/about.html). That is pre-existing metadata
+//     carried across verbatim, NOT introduced by the locale split; Stage 4
+//     replaces it with per-locale canonicals.
+//   - NOT EMITTED: hreflang. next-intl's alternateLinks is disabled in
+//     src/i18n/routing.ts, so no Link: header advertises /bn to crawlers while
+//     /bn still serves English copy under those English canonicals.
+// The only locale-aware output Stage 1 adds is <html lang> (via AppShell).
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.craftsai.org'),
   title: {

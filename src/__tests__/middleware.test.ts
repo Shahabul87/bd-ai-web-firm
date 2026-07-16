@@ -12,9 +12,27 @@ function request(path: string, opts: { acceptLanguage?: string; cookie?: string 
 }
 
 describe('locale negotiation', () => {
-  it('sends a Bengali-preferring visitor to /bn', async () => {
+  /**
+   * Stage 1 ships zero Bengali copy: /bn renders English prose in Anek Bangla
+   * under lang="bn". So `localeDetection` is false in src/i18n/routing.ts and
+   * Accept-Language alone must NOT move anyone. Only the explicit cookie (which
+   * the EN/BN toggle sets) may.
+   *
+   * RE-INVERT THIS TEST in the Stage 3 commit that lands messages/bn.json: once
+   * real Bengali copy exists, detection is turned back on and a
+   * Bengali-preferring visitor SHOULD be redirected to /bn. Until then this
+   * assertion is the guard that fails if someone re-enables detection early.
+   */
+  it('does NOT auto-redirect a Bengali-preferring visitor while /bn still serves English', async () => {
     const res = await middleware(request('/', { acceptLanguage: 'bn-BD,bn;q=0.9,en;q=0.8' }));
-    expect(res.headers.get('location')).toContain('/bn');
+
+    // No redirect at all: the visitor stays on the unprefixed English URL.
+    expect(res.headers.get('location')).toBeNull();
+
+    // ...and is actually served English, not just left un-redirected.
+    expect(res.headers.get('x-middleware-request-x-next-intl-locale')).toBe('en');
+    const rewrite = res.headers.get('x-middleware-rewrite');
+    expect(new URL(rewrite as string).pathname).toBe('/en');
   });
 
   it('leaves an English-preferring visitor unprefixed', async () => {
@@ -22,9 +40,58 @@ describe('locale negotiation', () => {
     expect(res.headers.get('location')).toBeNull();
   });
 
-  it('lets the cookie beat the Accept-Language header', async () => {
-    const res = await middleware(request('/', { acceptLanguage: 'bn-BD,bn;q=0.9', cookie: 'en' }));
+  /**
+   * KNOWN, ACCEPTED CONSEQUENCE of localeDetection:false — pinned so it is a
+   * decision on the record, not a surprise.
+   *
+   * next-intl's localeDetection flag gates the NEXT_LOCALE cookie and the
+   * accept-language header TOGETHER (node_modules/next-intl/dist/esm/development/
+   * middleware/resolveLocale.js:51 and :56 — cookie is Prio 2, header is Prio 3,
+   * both behind `if (!locale && routing.localeDetection)`). There is no config
+   * that disables only the header. So turning off the auto-redirect also means a
+   * returning visitor holding NEXT_LOCALE=bn who types the bare `/` is served
+   * English at `/` instead of being forwarded to /bn.
+   *
+   * Why that is acceptable for Stage 1 specifically: /bn renders the SAME
+   * English copy, so this costs zero words of user-visible content — it differs
+   * only in font and lang attribute. It is not acceptable once Bengali copy
+   * exists, which is exactly when the flag comes back.
+   *
+   * RE-INVERT IN STAGE 3: deleting `localeDetection: false` restores cookie
+   * precedence, and this assertion must flip back to expecting /bn.
+   */
+  it('does not forward a NEXT_LOCALE=bn cookie holder from / while /bn is still English', async () => {
+    const res = await middleware(request('/', { cookie: 'bn' }));
     expect(res.headers.get('location')).toBeNull();
+  });
+
+  /**
+   * The toggle itself must not regress. LocaleToggle renders a real
+   * <Link href={pathname} locale="bn">, i.e. a direct navigation to the
+   * /bn-prefixed URL. That resolves via Prio 1 (route prefix), which is NOT
+   * gated by localeDetection — so the BN button still works, and next-intl still
+   * persists the choice (syncCookie.js gates on `localeCookie`, not
+   * `localeDetection`). This asserts both halves of that contract.
+   */
+  it('serves bn AND persists NEXT_LOCALE=bn when the toggle lands on /bn/services', async () => {
+    const res = await middleware(request('/bn/services', { acceptLanguage: 'en-US,en;q=0.9' }));
+    expect(res.headers.get('x-middleware-request-x-next-intl-locale')).toBe('bn');
+    // Asserted via the raw Set-Cookie header: our middleware is typed as
+    // returning the standard `Response`, which has no NextResponse `.cookies`.
+    expect(res.headers.get('set-cookie')).toContain('NEXT_LOCALE=bn');
+  });
+});
+
+/**
+ * `alternateLinks` is false in src/i18n/routing.ts, so next-intl must not ship a
+ * Link: header advertising hreflang="bn" -> /bn/... while /bn still serves
+ * English copy under an English canonical. Re-enable alongside per-locale
+ * canonicals in the SEO stage, not before.
+ */
+describe('hreflang is not advertised to crawlers in Stage 1', () => {
+  it.each(['/', '/services', '/about'])('sends no Link: hreflang header for %s', async (path) => {
+    const res = await middleware(request(path, { acceptLanguage: 'en-US,en;q=0.9' }));
+    expect(res.headers.get('link')).toBeNull();
   });
 });
 
