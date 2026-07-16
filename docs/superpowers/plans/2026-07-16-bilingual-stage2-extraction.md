@@ -699,6 +699,103 @@ Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
 
 ---
 
+## Task 8b: AIChatbot — extract responses AND keywords
+
+> **Execution order: after Task 8, before Task 9.** Numbered 8b only for ordering; `task-brief`
+> matches `Task 8` followed by any non-digit, so generate this brief with an explicit OUTFILE:
+> `scripts/task-brief PLAN 8b .superpowers/sdd/task-8b-brief.md` — verify it extracted THIS task
+> and not Task 8's text before dispatching.
+
+**FOUNDER DECISION, 2026-07-16: make the matcher locale-aware. Do NOT scope the chatbot out of `/bn`.**
+
+**Why this is cheap, and why the spec's framing was pessimistic.** Spec §8.5 warned that
+translating the chatbot's ~590 words would NOT make it work in Bengali, because its matcher
+keyword-matches English input — implying a separate matcher rewrite. Inspection (2026-07-16)
+shows that is not so. `src/app/components/AIChatbot.tsx:15-35` already stores keywords as **data**,
+right beside the responses:
+
+```tsx
+keywords: ['price', 'cost', 'pricing', 'budget', 'quote'],
+// ...
+if (data.keywords.some(keyword => lowerInput.includes(keyword)))   // :75
+```
+
+So the matcher becomes locale-aware for free **if you extract the `keywords` arrays into the
+message files alongside the `response` text.** Stage 3 then translates both, and a Bengali visitor
+typing `দাম` matches the Bengali keyword list. No new matcher, no locale branching in code.
+
+**The trap: extracting `response` but NOT `keywords` is worse than doing nothing.** It ships a
+chatbot that answers in Bengali only when addressed in English. Both or neither.
+
+**Files:**
+- Modify: `src/app/components/AIChatbot.tsx` (277 lines, 6 canned Q&A entries, `'use client'`)
+- Modify: `messages/en.json`, `messages/bn.json`
+
+**Interfaces:**
+- Produces: the `Chatbot` namespace — `Chatbot.quickQuestions`, `Chatbot.qa` (array of
+  `{ id, keywords: string[], response: string }`), `Chatbot.fallback`, plus its UI chrome strings.
+
+- [ ] **Step 1: Inventory**
+
+```bash
+cd /Users/mdshahabulalam/myprojects/bdaiwebfirm/bd-ai-web-firm
+grep -nE "keywords:|response:|placeholder|aria-label|quickQuestions" src/app/components/AIChatbot.tsx
+```
+
+Record every user-visible string AND every keyword array.
+
+- [ ] **Step 2: Extract both into BOTH message files**
+
+`AIChatbot.tsx` is `'use client'` → use `useTranslations('Chatbot')`, keep it SYNC. Read the Q&A
+back with `t.raw('qa')` cast to a concrete named type:
+
+```tsx
+interface ChatbotQA { id: string; keywords: string[]; response: string }
+const qa = t.raw('qa') as ChatbotQA[];
+```
+
+`bn.json` gets the IDENTICAL ENGLISH values as placeholders — do NOT write Bengali here; Stage 3
+translates. Keep the matching logic (`lowerInput.includes(keyword)`) exactly as it is: it is
+already locale-agnostic once the keywords are per-locale.
+
+- [ ] **Step 3: Verify parity, then the gates**
+
+```bash
+npx jest src/__tests__/messages-parity.test.ts
+npm run lint && npm run type-check && npm test
+rm -rf .next && npm run build 2>&1 | tail -5
+```
+
+Expected: green; build exit 0, 110/110, only the 2 known `jose` warnings.
+
+- [ ] **Step 4: Prove the matcher still matches**
+
+Add a test asserting a known English input still resolves to its expected canned response — using
+the real `messages/en.json`, NOT an inline fixture. Make it assertion-red: it must fail if the
+keywords stop being read from the messages.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add src/app/components/AIChatbot.tsx messages
+git commit -m "refactor(i18n): extract chatbot responses AND keywords
+
+The keywords were already a data array beside the responses, so extracting
+both makes the matcher locale-aware with no new machinery: stage 3 translates
+the keyword lists and a Bengali visitor is matched on Bengali input.
+
+Extracting responses WITHOUT keywords would be worse than nothing — a chatbot
+that answers in Bengali only when addressed in English. Both or neither.
+
+Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>"
+```
+
+**Stage 3 note:** Banglish (Bengali typed in Latin script) will not match the Bengali keyword
+list. That is equally true of the English list today and is out of scope — but `bn.json`'s keyword
+arrays are the natural place to add common Banglish spellings later, without touching code.
+
+---
+
 ## Task 9: Sweep for stragglers
 
 **Why:** Tasks 2–8 work file-by-file from an inventory. This task proves nothing was missed, and leaves a guard so future copy cannot be hardcoded silently.
