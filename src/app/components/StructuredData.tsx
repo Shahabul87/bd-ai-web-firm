@@ -1,6 +1,7 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { usePathname } from '@/i18n/navigation';
 import faqData from '../../../content/faq/faq.json';
 
 interface FaqQuestion {
@@ -15,6 +16,8 @@ interface FaqCategory {
 
 export default function StructuredData() {
   const pathname = usePathname();
+  const locale = useLocale();
+  const t = useTranslations('StructuredData');
 
   // Organization Schema
   const organizationSchema = {
@@ -30,7 +33,8 @@ export default function StructuredData() {
       "height": 512
     },
     "image": "https://www.craftsai.org/opengraph-image",
-    "description": "AI-powered software studio delivering web, Android, and iOS applications up to 10x faster with enterprise-grade quality.",
+    "description": t('org.description'),
+    "inLanguage": locale,
     "foundingDate": "2025",
     "address": {
       "@type": "PostalAddress",
@@ -51,38 +55,38 @@ export default function StructuredData() {
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
-      "name": "Development Services",
+      "name": t('org.offerCatalogName'),
       "itemListElement": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Web Development",
-            "description": "Full-stack web application development with React, Next.js, and Node.js"
+            "name": t('org.service.web.name'),
+            "description": t('org.service.web.description')
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Android Development",
-            "description": "Native Android app development with Kotlin and Jetpack Compose"
+            "name": t('org.service.android.name'),
+            "description": t('org.service.android.description')
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "iOS Development",
-            "description": "Native iOS app development with Swift and SwiftUI"
+            "name": t('org.service.ios.name'),
+            "description": t('org.service.ios.description')
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Support & Maintenance",
-            "description": "Ongoing support, bug fixes, security patches, and feature updates"
+            "name": t('org.service.support.name'),
+            "description": t('org.service.support.description')
           }
         }
       ]
@@ -96,17 +100,18 @@ export default function StructuredData() {
     "@id": "https://www.craftsai.org/#website",
     "name": "CraftsAI",
     "url": "https://www.craftsai.org",
-    "description": "AI-powered software studio delivering web, Android, and iOS applications.",
+    "description": t('website.description'),
     "publisher": {
       "@id": "https://www.craftsai.org/#organization"
     },
-    "inLanguage": "en"
+    "inLanguage": locale
   };
 
   // FAQ Schema - dynamically generated from faq.json
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "inLanguage": locale,
     "mainEntity": (faqData as FaqCategory[]).flatMap((category) =>
       category.questions.map((q) => ({
         "@type": "Question",
@@ -125,41 +130,15 @@ export default function StructuredData() {
 
     if (pathSegments.length === 0) return null;
 
-    const pageNames: Record<string, string> = {
-      'about': 'About Us',
-      'services': 'Services',
-      'web-development': 'Web Development',
-      'android-development': 'Android Development',
-      'ios-development': 'iOS Development',
-      'support': 'Support & Maintenance',
-      'products': 'Products',
-      'taxomind': 'TaxoMind',
-      'taxomind-schools': 'TaxoMind Schools',
-      'fincoach-ai': 'FinCoach AI',
-      'mathphysics': 'MathPhysics',
-      'portfolio': 'Portfolio',
-      'resources': 'Resources',
-      'blog': 'Blog',
-      'case-studies': 'Case Studies',
-      'guides': 'Guides',
-      'quote': 'Get a Quote',
-      'contact': 'Contact',
-      'process': 'Our Process',
-      'faq': 'FAQ',
-      'careers': 'Careers',
-      'privacy': 'Privacy Policy',
-      'terms': 'Terms of Service',
-      'cookies': 'Cookie Policy',
-    };
-
     const breadcrumbList = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
+      "inLanguage": locale,
       "itemListElement": [
         {
           "@type": "ListItem",
           "position": 1,
-          "name": "Home",
+          "name": t('breadcrumb.home'),
           "item": "https://www.craftsai.org"
         }
       ]
@@ -168,10 +147,14 @@ export default function StructuredData() {
     let currentPath = 'https://www.craftsai.org';
     pathSegments.forEach((segment, index) => {
       currentPath += `/${segment}`;
+      const breadcrumbKey = `breadcrumb.${segment}`;
+      const name = t.has(breadcrumbKey)
+        ? t(breadcrumbKey)
+        : segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' ');
       breadcrumbList.itemListElement.push({
         "@type": "ListItem",
         "position": index + 2,
-        "name": pageNames[segment] || segment.charAt(0).toUpperCase() + segment.slice(1).replace(/-/g, ' '),
+        "name": name,
         "item": currentPath
       });
     });
@@ -186,99 +169,110 @@ export default function StructuredData() {
         return {
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "CraftsAI Development Services",
-          "description": "AI-powered web, Android, iOS development and ongoing support services.",
+          "name": t('page.services.name'),
+          "description": t('page.services.description'),
           "url": "https://www.craftsai.org/services",
-          "provider": { "@id": "https://www.craftsai.org/#organization" }
+          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "inLanguage": locale
         };
       case '/services/web-development':
         return {
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "Web Development",
-          "description": "Full-stack web application development with React, Next.js, and Node.js.",
+          "name": t('page.webDevelopment.name'),
+          "description": t('page.webDevelopment.description'),
           "url": "https://www.craftsai.org/services/web-development",
           "provider": { "@id": "https://www.craftsai.org/#organization" },
-          "serviceType": "Web Development"
+          "serviceType": "Web Development",
+          "inLanguage": locale
         };
       case '/services/android-development':
         return {
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "Android Development",
-          "description": "Native Android app development with Kotlin and Jetpack Compose.",
+          "name": t('page.androidDevelopment.name'),
+          "description": t('page.androidDevelopment.description'),
           "url": "https://www.craftsai.org/services/android-development",
           "provider": { "@id": "https://www.craftsai.org/#organization" },
-          "serviceType": "Android Development"
+          "serviceType": "Android Development",
+          "inLanguage": locale
         };
       case '/services/ios-development':
         return {
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "iOS Development",
-          "description": "Native iOS app development with Swift and SwiftUI.",
+          "name": t('page.iosDevelopment.name'),
+          "description": t('page.iosDevelopment.description'),
           "url": "https://www.craftsai.org/services/ios-development",
           "provider": { "@id": "https://www.craftsai.org/#organization" },
-          "serviceType": "iOS Development"
+          "serviceType": "iOS Development",
+          "inLanguage": locale
         };
       case '/services/support':
         return {
           "@context": "https://schema.org",
           "@type": "Service",
-          "name": "Support & Maintenance",
-          "description": "Ongoing support, bug fixes, security patches, and feature updates.",
+          "name": t('page.support.name'),
+          "description": t('page.support.description'),
           "url": "https://www.craftsai.org/services/support",
           "provider": { "@id": "https://www.craftsai.org/#organization" },
-          "serviceType": "Support & Maintenance"
+          "serviceType": "Support & Maintenance",
+          "inLanguage": locale
         };
       case '/products':
         return {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "name": "CraftsAI Products",
-          "description": "Ready-made software products by CraftsAI.",
-          "url": "https://www.craftsai.org/products"
+          "name": t('page.products.name'),
+          "description": t('page.products.description'),
+          "url": "https://www.craftsai.org/products",
+          "inLanguage": locale
         };
       case '/portfolio':
         return {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "name": "CraftsAI Portfolio",
-          "description": "Web, Android, and iOS projects built by CraftsAI.",
-          "url": "https://www.craftsai.org/portfolio"
+          "name": t('page.portfolio.name'),
+          "description": t('page.portfolio.description'),
+          "url": "https://www.craftsai.org/portfolio",
+          "inLanguage": locale
         };
       case '/resources':
         return {
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "name": "CraftsAI Resources",
-          "description": "Blog posts, case studies, and development guides.",
-          "url": "https://www.craftsai.org/resources"
+          "name": t('page.resources.name'),
+          "description": t('page.resources.description'),
+          "url": "https://www.craftsai.org/resources",
+          "inLanguage": locale
         };
       case '/resources/blog':
         return {
           "@context": "https://schema.org",
           "@type": "Blog",
-          "name": "CraftsAI Blog",
-          "description": "Articles on web, Android, and iOS development.",
+          "name": t('page.blog.name'),
+          "description": t('page.blog.description'),
           "url": "https://www.craftsai.org/resources/blog",
-          "publisher": { "@id": "https://www.craftsai.org/#organization" }
+          "publisher": { "@id": "https://www.craftsai.org/#organization" },
+          "inLanguage": locale
         };
       case '/contact':
         return {
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          "name": "Contact CraftsAI",
-          "description": "Get in touch with CraftsAI for web, Android, or iOS development inquiries.",
-          "url": "https://www.craftsai.org/contact"
+          "name": t('page.contact.name'),
+          "description": t('page.contact.description'),
+          "url": "https://www.craftsai.org/contact",
+          "inLanguage": locale
         };
       case '/quote':
         return {
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          "name": "Get a Quote from CraftsAI",
-          "description": "Request a free quote for your development project.",
-          "url": "https://www.craftsai.org/quote"
+          "name": t('page.quote.name'),
+          "description": t('page.quote.description'),
+          "url": "https://www.craftsai.org/quote",
+          "inLanguage": locale
         };
       case '/faq':
         // NOTE: the actual FAQPage schema (with mainEntity) is emitted above,
@@ -287,34 +281,38 @@ export default function StructuredData() {
         return {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          "name": "CraftsAI FAQ",
-          "description": "Frequently asked questions about CraftsAI services, pricing, and process.",
-          "url": "https://www.craftsai.org/faq"
+          "name": t('page.faq.name'),
+          "description": t('page.faq.description'),
+          "url": "https://www.craftsai.org/faq",
+          "inLanguage": locale
         };
       case '/about':
         return {
           "@context": "https://schema.org",
           "@type": "AboutPage",
-          "name": "About CraftsAI",
-          "description": "Learn about CraftsAI, our team, and our AI-powered development approach.",
+          "name": t('page.about.name'),
+          "description": t('page.about.description'),
           "url": "https://www.craftsai.org/about",
-          "mainEntity": { "@id": "https://www.craftsai.org/#organization" }
+          "mainEntity": { "@id": "https://www.craftsai.org/#organization" },
+          "inLanguage": locale
         };
       case '/process':
         return {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          "name": "Our Process",
-          "description": "How CraftsAI delivers projects from consultation to launch.",
-          "url": "https://www.craftsai.org/process"
+          "name": t('page.process.name'),
+          "description": t('page.process.description'),
+          "url": "https://www.craftsai.org/process",
+          "inLanguage": locale
         };
       case '/careers':
         return {
           "@context": "https://schema.org",
           "@type": "WebPage",
-          "name": "Careers at CraftsAI",
-          "description": "Join the CraftsAI team and build the future of AI-powered development.",
-          "url": "https://www.craftsai.org/careers"
+          "name": t('page.careers.name'),
+          "description": t('page.careers.description'),
+          "url": "https://www.craftsai.org/careers",
+          "inLanguage": locale
         };
       default:
         return null;

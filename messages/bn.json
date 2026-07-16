@@ -1917,5 +1917,121 @@
       "accept": "গ্রহণ করুন",
       "decline": "প্রত্যাখ্যান করুন"
     }
+  },
+  "StructuredData": {
+    "org": {
+      "description": "AI-চালিত সফটওয়্যার স্টুডিও, যা এন্টারপ্রাইজ-গ্রেড মানে ওয়েব, Android ও iOS অ্যাপ্লিকেশন ১০ গুণ দ্রুত সরবরাহ করে।",
+      "offerCatalogName": "ডেভেলপমেন্ট সেবা",
+      "service": {
+        "web": {
+          "name": "ওয়েব ডেভেলপমেন্ট",
+          "description": "React, Next.js ও Node.js দিয়ে ফুল-স্ট্যাক ওয়েব অ্যাপ্লিকেশন ডেভেলপমেন্ট"
+        },
+        "android": {
+          "name": "Android ডেভেলপমেন্ট",
+          "description": "Kotlin ও Jetpack Compose দিয়ে নেটিভ Android অ্যাপ ডেভেলপমেন্ট"
+        },
+        "ios": {
+          "name": "iOS ডেভেলপমেন্ট",
+          "description": "Swift ও SwiftUI দিয়ে নেটিভ iOS অ্যাপ ডেভেলপমেন্ট"
+        },
+        "support": {
+          "name": "সাপোর্ট ও রক্ষণাবেক্ষণ",
+          "description": "চলমান সাপোর্ট, বাগ সংশোধন, নিরাপত্তা প্যাচ এবং ফিচার আপডেট"
+        }
+      }
+    },
+    "website": {
+      "description": "AI-চালিত সফটওয়্যার স্টুডিও, যা ওয়েব, Android ও iOS অ্যাপ্লিকেশন সরবরাহ করে।"
+    },
+    "breadcrumb": {
+      "home": "হোম",
+      "about": "আমাদের সম্পর্কে",
+      "services": "সেবাসমূহ",
+      "web-development": "ওয়েব ডেভেলপমেন্ট",
+      "android-development": "Android ডেভেলপমেন্ট",
+      "ios-development": "iOS ডেভেলপমেন্ট",
+      "support": "সাপোর্ট ও রক্ষণাবেক্ষণ",
+      "products": "পণ্যসমূহ",
+      "taxomind": "TaxoMind",
+      "taxomind-schools": "TaxoMind Schools",
+      "fincoach-ai": "FinCoach AI",
+      "mathphysics": "MathPhysics",
+      "portfolio": "পোর্টফোলিও",
+      "resources": "রিসোর্স",
+      "blog": "ব্লগ",
+      "case-studies": "কেস স্টাডি",
+      "guides": "গাইড",
+      "quote": "কোটেশন নিন",
+      "contact": "যোগাযোগ",
+      "process": "আমাদের প্রক্রিয়া",
+      "faq": "সাধারণ জিজ্ঞাসা",
+      "careers": "ক্যারিয়ার",
+      "privacy": "গোপনীয়তা নীতি",
+      "terms": "সেবার শর্তাবলি",
+      "cookies": "কুকি নীতি"
+    },
+    "page": {
+      "services": {
+        "name": "CraftsAI ডেভেলপমেন্ট সেবা",
+        "description": "AI-চালিত ওয়েব, Android, iOS ডেভেলপমেন্ট এবং চলমান সাপোর্ট সেবা।"
+      },
+      "webDevelopment": {
+        "name": "ওয়েব ডেভেলপমেন্ট",
+        "description": "React, Next.js ও Node.js দিয়ে ফুল-স্ট্যাক ওয়েব অ্যাপ্লিকেশন ডেভেলপমেন্ট।"
+      },
+      "androidDevelopment": {
+        "name": "Android ডেভেলপমেন্ট",
+        "description": "Kotlin ও Jetpack Compose দিয়ে নেটিভ Android অ্যাপ ডেভেলপমেন্ট।"
+      },
+      "iosDevelopment": {
+        "name": "iOS ডেভেলপমেন্ট",
+        "description": "Swift ও SwiftUI দিয়ে নেটিভ iOS অ্যাপ ডেভেলপমেন্ট।"
+      },
+      "support": {
+        "name": "সাপোর্ট ও রক্ষণাবেক্ষণ",
+        "description": "চলমান সাপোর্ট, বাগ সংশোধন, নিরাপত্তা প্যাচ এবং ফিচার আপডেট।"
+      },
+      "products": {
+        "name": "CraftsAI পণ্যসমূহ",
+        "description": "CraftsAI-এর তৈরি সফটওয়্যার পণ্যসমূহ।"
+      },
+      "portfolio": {
+        "name": "CraftsAI পোর্টফোলিও",
+        "description": "CraftsAI-এর তৈরি ওয়েব, Android ও iOS প্রকল্পসমূহ।"
+      },
+      "resources": {
+        "name": "CraftsAI রিসোর্স",
+        "description": "ব্লগ পোস্ট, কেস স্টাডি এবং ডেভেলপমেন্ট গাইড।"
+      },
+      "blog": {
+        "name": "CraftsAI ব্লগ",
+        "description": "ওয়েব, Android ও iOS ডেভেলপমেন্ট নিয়ে নিবন্ধ।"
+      },
+      "contact": {
+        "name": "CraftsAI-এর সাথে যোগাযোগ",
+        "description": "ওয়েব, Android বা iOS ডেভেলপমেন্ট সম্পর্কিত জিজ্ঞাসার জন্য CraftsAI-এর সাথে যোগাযোগ করুন।"
+      },
+      "quote": {
+        "name": "CraftsAI থেকে কোটেশন নিন",
+        "description": "আপনার ডেভেলপমেন্ট প্রকল্পের জন্য বিনামূল্যে কোটেশন অনুরোধ করুন।"
+      },
+      "faq": {
+        "name": "CraftsAI সাধারণ জিজ্ঞাসা",
+        "description": "CraftsAI-এর সেবা, মূল্য এবং প্রক্রিয়া সম্পর্কে সাধারণ জিজ্ঞাসা।"
+      },
+      "about": {
+        "name": "CraftsAI সম্পর্কে",
+        "description": "CraftsAI, আমাদের দল এবং আমাদের AI-চালিত ডেভেলপমেন্ট পদ্ধতি সম্পর্কে জানুন।"
+      },
+      "process": {
+        "name": "আমাদের প্রক্রিয়া",
+        "description": "পরামর্শ থেকে লঞ্চ পর্যন্ত CraftsAI কীভাবে প্রকল্প সরবরাহ করে।"
+      },
+      "careers": {
+        "name": "CraftsAI-এ ক্যারিয়ার",
+        "description": "CraftsAI দলে যোগ দিন এবং AI-চালিত ডেভেলপমেন্টের ভবিষ্যৎ গড়ে তুলুন।"
+      }
+    }
   }
 }
