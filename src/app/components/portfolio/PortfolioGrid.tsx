@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
 import SectionHeader from '../../design/ui/SectionHeader';
 import Card from '../../design/ui/Card';

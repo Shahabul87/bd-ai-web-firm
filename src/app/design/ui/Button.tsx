@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import type { ReactNode } from 'react';
 
 type ButtonVariant = 'signal' | 'ghost' | 'link' | 'amber' | 'chalk';

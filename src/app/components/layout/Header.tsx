@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
 import Button from '../../design/ui/Button';
+import LocaleToggle from './LocaleToggle';
 import MobileMenu from './MobileMenu';
 import { PRIMARY_LINKS, SERVICE_LINKS } from './nav';
 
@@ -104,6 +104,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <LocaleToggle />
           <Button variant="ghost" href="/quote">Get estimate</Button>
           <Button variant="signal" href="/contact">Start a project</Button>
         </div>

@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import createNextIntlPlugin from 'next-intl/plugin';
 
 class VeliteWebpackPlugin {
   static started = false;
@@ -22,6 +23,11 @@ const nextConfig: NextConfig = {
   /* config options here */
   // Fix for "multiple lockfiles" warning - explicitly set workspace root
   outputFileTracingRoot: __dirname,
+  // NOTE: ESM-only packages (next-intl, next-auth and its crypto deps) do NOT
+  // belong here. They only ever needed transpiling so Jest's CJS require() could
+  // parse them; listing them here would drag them through SWC into the production
+  // bundle for a test-only benefit. That allowance now lives in jest.config.js,
+  // which overrides transformIgnorePatterns directly. Next bundles them fine.
   // ESLint is enforced during builds — the codebase is lint-clean, so a new
   // error should fail the build rather than ship silently.
   async redirects() {
@@ -101,4 +107,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
+
+export default withNextIntl(nextConfig);

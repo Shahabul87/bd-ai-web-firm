@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { Archivo } from 'next/font/google';
 import { motion, useReducedMotion } from 'framer-motion';
 
 const archivo = Archivo({
+  variable: '--font-archivo',
   subsets: ['latin'],
   axes: ['wdth'],
   display: 'swap',
@@ -54,7 +55,7 @@ export default function DraftingRoomHero() {
 
   return (
     <section
-      className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden"
+      className={`${archivo.variable} relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden`}
       style={{ backgroundColor: BLUE, color: CHALK }}
     >
       {/* Drafting-paper grid */}
@@ -80,7 +81,7 @@ export default function DraftingRoomHero() {
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.05fr_1fr] lg:py-24">
         <div>
           <h1
-            className={`${archivo.className} font-[750] uppercase leading-[1.04] tracking-[-0.01em]`}
+            className="hero-display font-[750] uppercase leading-[1.04] tracking-[-0.01em]"
             style={{ fontVariationSettings: "'wdth' 125", fontSize: 'clamp(2.5rem, 4.6vw, 4.25rem)' }}
           >
             We draft agents.

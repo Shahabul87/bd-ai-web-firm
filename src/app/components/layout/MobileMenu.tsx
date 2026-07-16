@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import Button from '../../design/ui/Button';
 import MonoLabel from '../../design/ui/MonoLabel';
+import LocaleToggle from './LocaleToggle';
 import { PRIMARY_LINKS, SERVICE_LINKS } from './nav';
 
 interface MobileMenuProps {
@@ -69,6 +70,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
               </li>
             ))}
           </ul>
+          <LocaleToggle className="mt-6 w-fit" onSelect={onClose} />
         </div>
 
         <div className="mt-auto flex flex-col gap-3 border-t border-line pt-8">

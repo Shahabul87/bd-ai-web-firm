@@ -1,6 +1,6 @@
 import { formatMoney } from '@/app/lib/money';
 import type { InvoiceStatusValue } from '@/app/lib/invoices';
-import InvoiceStatusBadge from '@/app/admin/invoices/InvoiceStatusBadge';
+import InvoiceStatusBadge from '@/app/(internal)/admin/invoices/InvoiceStatusBadge';
 
 export interface InvoiceDoc {
   number: number;
