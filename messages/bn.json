@@ -1397,358 +1397,358 @@
   },
   "Meta": {
     "about": {
-      "title": "About - AI-First Software Studio",
-      "description": "Founded in 2025, CraftsAI is a Bangladesh-based software studio that combines AI agents with human engineers to deliver web, Android, and iOS products 10x faster."
+      "title": "আমাদের সম্পর্কে - AI-ফার্স্ট সফটওয়্যার স্টুডিও",
+      "description": "২০২৫ সালে প্রতিষ্ঠিত CraftsAI একটি বাংলাদেশভিত্তিক সফটওয়্যার স্টুডিও, যা AI এজেন্ট ও মানব ইঞ্জিনিয়ারদের একত্র করে ওয়েব, Android ও iOS প্রোডাক্ট 10x দ্রুত ডেলিভার করে।"
     },
     "careers": {
-      "title": "Careers",
-      "description": "Join the CraftsAI team. We are building the future of AI-powered software development. Explore our culture and open positions."
+      "title": "ক্যারিয়ার",
+      "description": "CraftsAI টিমে যোগ দিন। আমরা AI-চালিত সফটওয়্যার ডেভেলপমেন্টের ভবিষ্যৎ গড়ছি। আমাদের সংস্কৃতি ও খোলা পদগুলো দেখুন।"
     },
     "contact": {
-      "title": "Contact Us",
-      "description": "Get in touch with CraftsAI for web, Android, iOS development or support inquiries."
+      "title": "যোগাযোগ",
+      "description": "ওয়েব, Android, iOS ডেভেলপমেন্ট অথবা সাপোর্ট সংক্রান্ত জিজ্ঞাসার জন্য CraftsAI-এর সঙ্গে যোগাযোগ করুন।"
     },
     "cookies": {
-      "title": "Cookie Policy",
-      "description": "CraftsAI cookie policy. Learn about the cookies we use and how to manage your preferences."
+      "title": "কুকি পলিসি",
+      "description": "CraftsAI কুকি পলিসি। আমরা যে কুকি ব্যবহার করি এবং কীভাবে আপনার পছন্দ পরিচালনা করবেন তা জানুন।"
     },
     "faq": {
-      "title": "FAQ",
-      "description": "Frequently asked questions about CraftsAI services, pricing, process, and support. Find answers to common questions about AI-powered development."
+      "title": "সাধারণ জিজ্ঞাসা",
+      "description": "CraftsAI সার্ভিস, মূল্য, প্রক্রিয়া ও সাপোর্ট সম্পর্কে সাধারণ জিজ্ঞাসা। AI-চালিত ডেভেলপমেন্ট নিয়ে সাধারণ প্রশ্নের উত্তর খুঁজুন।"
     },
     "portfolio": {
-      "title": "Portfolio",
-      "description": "Explore CraftsAI projects — web apps, Android apps, and iOS apps built with AI-powered development."
+      "title": "পোর্টফোলিও",
+      "description": "CraftsAI-এর প্রজেক্ট দেখুন — AI-চালিত ডেভেলপমেন্ট দিয়ে তৈরি ওয়েব অ্যাপ, Android অ্যাপ ও iOS অ্যাপ।"
     },
     "privacy": {
-      "title": "Privacy Policy",
-      "description": "CraftsAI privacy policy. Learn how we collect, use, and protect your personal information."
+      "title": "প্রাইভেসি পলিসি",
+      "description": "CraftsAI প্রাইভেসি পলিসি। আমরা কীভাবে আপনার ব্যক্তিগত তথ্য সংগ্রহ, ব্যবহার ও সুরক্ষা করি তা জানুন।"
     },
     "process": {
-      "title": "Our Development Process",
-      "description": "From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication."
+      "title": "আমাদের ডেভেলপমেন্ট প্রক্রিয়া",
+      "description": "ডিসকভারি থেকে লঞ্চ পর্যন্ত ৫টি সুস্পষ্ট ধাপে। CraftsAI কীভাবে সাপ্তাহিক ডেমো ও স্বচ্ছ যোগাযোগের মাধ্যমে AI-চালিত ওয়েব, Android ও iOS প্রজেক্ট ডেলিভার করে তা জানুন।"
     },
     "products": {
-      "title": "Our Products",
-      "description": "Ready-made solutions, battle-tested and production-ready. Explore our product lineup spanning web platforms and Android apps."
+      "title": "আমাদের প্রোডাক্ট",
+      "description": "রেডিমেড সমাধান, পরীক্ষিত ও প্রোডাকশন-রেডি। ওয়েব প্ল্যাটফর্ম ও Android অ্যাপ জুড়ে আমাদের প্রোডাক্ট লাইনআপ দেখুন।"
     },
     "quote": {
-      "title": "Get a Quote",
-      "description": "Request a free quote for your web, Android, or iOS development project from CraftsAI."
+      "title": "কোটেশন নিন",
+      "description": "CraftsAI থেকে আপনার ওয়েব, Android অথবা iOS ডেভেলপমেন্ট প্রজেক্টের জন্য একটি বিনামূল্যের কোটেশনের অনুরোধ করুন।"
     },
     "resources": {
-      "title": "Resources - Blog, Case Studies & Guides",
-      "description": "Explore our blog posts, case studies, and in-depth guides on AI-powered software development, web apps, mobile apps, and business strategy."
+      "title": "রিসোর্স - ব্লগ, কেস স্টাডি ও গাইড",
+      "description": "AI-চালিত সফটওয়্যার ডেভেলপমেন্ট, ওয়েব অ্যাপ, মোবাইল অ্যাপ ও ব্যবসায়িক কৌশল নিয়ে আমাদের ব্লগ পোস্ট, কেস স্টাডি ও গভীর গাইড দেখুন।"
     },
     "resourcesBlog": {
-      "title": "Blog - AI Development Insights",
-      "description": "Read our latest articles on AI-powered development, web and mobile strategy, cost savings, and technology trends."
+      "title": "ব্লগ - AI ডেভেলপমেন্ট ইনসাইট",
+      "description": "AI-চালিত ডেভেলপমেন্ট, ওয়েব ও মোবাইল কৌশল, খরচ সাশ্রয় এবং প্রযুক্তি প্রবণতা নিয়ে আমাদের সর্বশেষ প্রবন্ধগুলো পড়ুন।"
     },
     "resourcesCaseStudies": {
-      "title": "Case Studies - Real AI Development Results",
-      "description": "See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more."
+      "title": "কেস স্টাডি - বাস্তব AI ডেভেলপমেন্ট ফলাফল",
+      "description": "দেখুন কীভাবে আমাদের AI-চালিত ডেভেলপমেন্ট বাস্তব ফলাফল ডেলিভার করে। EdTech, FinTech এবং আরও অনেক ক্ষেত্রে কেস স্টাডি দেখুন।"
     },
     "resourcesGuides": {
-      "title": "Guides & Whitepapers - In-Depth Development Resources",
-      "description": "Comprehensive guides on web app development, choosing a development partner, and building successful software products."
+      "title": "গাইড ও হোয়াইটপেপার - গভীর ডেভেলপমেন্ট রিসোর্স",
+      "description": "ওয়েব অ্যাপ ডেভেলপমেন্ট, ডেভেলপমেন্ট পার্টনার নির্বাচন এবং সফল সফটওয়্যার প্রোডাক্ট তৈরি নিয়ে বিস্তারিত গাইড।"
     },
     "servicesLayout": {
-      "title": "Our Services",
-      "description": "CraftsAI offers AI-powered web development, Android development, iOS development, and ongoing support."
+      "title": "আমাদের সার্ভিস",
+      "description": "CraftsAI অফার করে AI-চালিত ওয়েব ডেভেলপমেন্ট, Android ডেভেলপমেন্ট, iOS ডেভেলপমেন্ট এবং চলমান সাপোর্ট।"
     },
     "services": {
-      "title": "Services",
-      "description": "What CraftsAI builds: custom AI agents, agent-built websites and mobile apps, and agent integration into your existing systems."
+      "title": "সার্ভিস",
+      "description": "CraftsAI যা তৈরি করে: কাস্টম AI এজেন্ট, এজেন্ট-নির্মিত ওয়েবসাইট ও মোবাইল অ্যাপ, এবং আপনার বিদ্যমান সিস্টেমে এজেন্ট ইন্টিগ্রেশন।"
     },
     "servicesAndroid": {
-      "title": "Android Development Services",
-      "description": "Native Android apps with Kotlin and Jetpack Compose. Material Design 3, Firebase integration — built by our AI agents and reviewed by senior engineers."
+      "title": "Android ডেভেলপমেন্ট সার্ভিস",
+      "description": "Kotlin ও Jetpack Compose দিয়ে নেটিভ Android অ্যাপ। Material Design 3, Firebase ইন্টিগ্রেশন — আমাদের AI এজেন্টদের তৈরি এবং সিনিয়র ইঞ্জিনিয়ারদের পর্যালোচিত।"
     },
     "servicesIos": {
-      "title": "iOS Development Services",
-      "description": "Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready — built by our AI agents and reviewed by senior engineers."
+      "title": "iOS ডেভেলপমেন্ট সার্ভিস",
+      "description": "Swift ও SwiftUI দিয়ে নেটিভ iOS অ্যাপ। সুন্দর, পারফরম্যান্ট, App Store-এর জন্য প্রস্তুত — আমাদের AI এজেন্টদের তৈরি এবং সিনিয়র ইঞ্জিনিয়ারদের পর্যালোচিত।"
     },
     "servicesSupport": {
-      "title": "Support & Maintenance Services",
-      "description": "Ongoing support retainers with bug fixes, security patches, performance monitoring, and feature updates. 24/7 monitoring with 4-hour response time."
+      "title": "সাপোর্ট ও রক্ষণাবেক্ষণ সার্ভিস",
+      "description": "বাগ ফিক্স, নিরাপত্তা প্যাচ, পারফরম্যান্স মনিটরিং এবং ফিচার আপডেটসহ চলমান সাপোর্ট রিটেইনার। ৪ ঘণ্টার রেসপন্স টাইমসহ 24/7 মনিটরিং।"
     },
     "servicesWeb": {
-      "title": "Web Development Services",
-      "description": "Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers."
+      "title": "ওয়েব ডেভেলপমেন্ট সার্ভিস",
+      "description": "React, Next.js, TypeScript এবং আধুনিক ক্লাউড ইনফ্রাস্ট্রাকচার দিয়ে তৈরি ফুল-স্ট্যাক ওয়েব অ্যাপ্লিকেশন — আমাদের AI এজেন্টদের তৈরি এবং সিনিয়র ইঞ্জিনিয়ারদের পর্যালোচিত।"
     },
     "terms": {
-      "title": "Terms of Service",
-      "description": "CraftsAI terms of service. Read the terms and conditions governing the use of our website and services."
+      "title": "সার্ভিস শর্তাবলী",
+      "description": "CraftsAI সার্ভিস শর্তাবলী। আমাদের ওয়েবসাইট ও সার্ভিস ব্যবহারের নিয়ন্ত্রক শর্তাবলী পড়ুন।"
     }
   },
   "Contact": {
     "hero": {
-      "eyebrow": "Contact",
-      "title": "Get in touch.",
-      "lede": "Have a project in mind? Send a message and we'll get back to you within 24 hours."
+      "eyebrow": "যোগাযোগ",
+      "title": "যোগাযোগ করুন।",
+      "lede": "কোনো প্রজেক্টের পরিকল্পনা আছে? একটি বার্তা পাঠান, আমরা ২৪ ঘণ্টার মধ্যে আপনার সঙ্গে যোগাযোগ করব।"
     },
     "directChannels": {
-      "label": "Direct channels",
-      "title": "Reach us directly.",
-      "faqLink": "Frequently asked questions →"
+      "label": "সরাসরি চ্যানেল",
+      "title": "সরাসরি আমাদের সঙ্গে যোগাযোগ করুন।",
+      "faqLink": "সাধারণ জিজ্ঞাসা →"
     },
     "info": {
-      "email": "Email",
+      "email": "ইমেইল",
       "whatsapp": "WhatsApp",
-      "location": "Location",
-      "locationValue": "Bangladesh",
-      "hours": "Business Hours",
-      "hoursValue": "Sun–Thu, 9 AM–6 PM (Dhaka, GMT+6)"
+      "location": "অবস্থান",
+      "locationValue": "বাংলাদেশ",
+      "hours": "কর্মঘণ্টা",
+      "hoursValue": "রবি–বৃহস্পতি, সকাল ৯টা–সন্ধ্যা ৬টা (ঢাকা, GMT+6)"
     },
     "form": {
-      "name": "Name",
-      "namePlaceholder": "Your name",
-      "email": "Email",
+      "name": "নাম",
+      "namePlaceholder": "আপনার নাম",
+      "email": "ইমেইল",
       "emailPlaceholder": "you@company.com",
-      "company": "Company",
-      "optional": "(optional)",
-      "companyPlaceholder": "Your company",
-      "service": "Service Interest",
-      "servicePlaceholder": "Select a service",
+      "company": "কোম্পানি",
+      "optional": "(ঐচ্ছিক)",
+      "companyPlaceholder": "আপনার কোম্পানি",
+      "service": "আগ্রহী সার্ভিস",
+      "servicePlaceholder": "একটি সার্ভিস নির্বাচন করুন",
       "serviceOptions": {
-        "web": "Web Development",
-        "android": "Android Development",
-        "ios": "iOS Development",
-        "support": "Support & Maintenance",
-        "productInquiry": "Product Inquiry",
-        "other": "Other"
+        "web": "ওয়েব ডেভেলপমেন্ট",
+        "android": "Android ডেভেলপমেন্ট",
+        "ios": "iOS ডেভেলপমেন্ট",
+        "support": "সাপোর্ট ও রক্ষণাবেক্ষণ",
+        "productInquiry": "প্রোডাক্ট অনুসন্ধান",
+        "other": "অন্যান্য"
       },
-      "message": "Message",
-      "messagePlaceholder": "Tell us about your project...",
-      "send": "Send Message",
-      "sending": "Sending...",
-      "success": "Message sent! We'll be in touch soon.",
-      "error": "Something went wrong. Please try again or email us directly."
+      "message": "বার্তা",
+      "messagePlaceholder": "আপনার প্রজেক্ট সম্পর্কে আমাদের বলুন...",
+      "send": "বার্তা পাঠান",
+      "sending": "পাঠানো হচ্ছে...",
+      "success": "বার্তা পাঠানো হয়েছে! আমরা শীঘ্রই আপনার সঙ্গে যোগাযোগ করব।",
+      "error": "কিছু একটা সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন অথবা সরাসরি ইমেইল করুন।"
     }
   },
   "Quote": {
     "hero": {
-      "eyebrow": "Estimate",
-      "title": "Get your project built by AI agents.",
-      "lede": "Tell us what you need. Our agents analyze the brief and a senior engineer delivers a fixed-scope quote within 24 hours."
+      "eyebrow": "এস্টিমেট",
+      "title": "আপনার প্রজেক্ট AI এজেন্ট দিয়ে তৈরি করান।",
+      "lede": "আপনার যা প্রয়োজন আমাদের জানান। আমাদের এজেন্টরা ব্রিফ বিশ্লেষণ করে এবং একজন সিনিয়র ইঞ্জিনিয়ার ২৪ ঘণ্টার মধ্যে একটি নির্দিষ্ট-পরিধির কোটেশন ডেলিভার করেন।"
     },
     "stepTitles": [
-      "Select Services",
-      "Project Details",
-      "Investment",
-      "Contact Info",
-      "Review"
+      "সার্ভিস নির্বাচন",
+      "প্রজেক্টের বিবরণ",
+      "বিনিয়োগ",
+      "যোগাযোগের তথ্য",
+      "পর্যালোচনা"
     ],
     "success": {
-      "label": "Submitted",
-      "title": "Quote request received.",
-      "backHome": "Back to home",
-      "viewWork": "View our work"
+      "label": "জমা হয়েছে",
+      "title": "কোটেশনের অনুরোধ গৃহীত হয়েছে।",
+      "backHome": "হোমে ফিরুন",
+      "viewWork": "আমাদের কাজ দেখুন"
     },
     "nav": {
-      "back": "Back",
-      "continue": "Continue",
-      "submitting": "Submitting...",
-      "submit": "Get My Free Quote",
-      "submitShort": "Submit"
+      "back": "পূর্ববর্তী",
+      "continue": "পরবর্তী",
+      "submitting": "জমা হচ্ছে...",
+      "submit": "আমার বিনামূল্যের কোটেশন নিন",
+      "submitShort": "জমা দিন"
     },
     "trust": {
-      "secure": "Secure & encrypted",
-      "response": "Response within 24 hours",
-      "noSpam": "No spam, ever"
+      "secure": "নিরাপদ ও এনক্রিপ্টেড",
+      "response": "২৪ ঘণ্টার মধ্যে উত্তর",
+      "noSpam": "কখনো স্প্যাম নয়"
     },
     "validation": {
-      "services": "Please select at least one service",
-      "description": "Please describe your project (minimum 20 characters)",
-      "budget": "Please select your investment level",
-      "contactName": "Your name is required",
-      "email": "Valid email is required",
-      "terms": "Please agree to the terms"
+      "services": "অনুগ্রহ করে অন্তত একটি সার্ভিস নির্বাচন করুন",
+      "description": "অনুগ্রহ করে আপনার প্রজেক্টের বিবরণ দিন (সর্বনিম্ন ২০ অক্ষর)",
+      "budget": "অনুগ্রহ করে আপনার বিনিয়োগের স্তর নির্বাচন করুন",
+      "contactName": "আপনার নাম আবশ্যক",
+      "email": "একটি বৈধ ইমেইল আবশ্যক",
+      "terms": "অনুগ্রহ করে শর্তাবলীতে সম্মতি দিন"
     },
     "status": {
-      "success": "Quote request submitted! We'll review your requirements and contact you within 24 hours.",
-      "fixFields": "Please fix the highlighted fields and try again.",
-      "genericError": "Something went wrong. Please try again.",
-      "networkError": "Network error. Please check your connection and try again."
+      "success": "কোটেশনের অনুরোধ জমা হয়েছে! আমরা আপনার চাহিদা পর্যালোচনা করে ২৪ ঘণ্টার মধ্যে আপনার সঙ্গে যোগাযোগ করব।",
+      "fixFields": "অনুগ্রহ করে চিহ্নিত ঘরগুলো ঠিক করে আবার চেষ্টা করুন।",
+      "genericError": "কিছু একটা সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।",
+      "networkError": "নেটওয়ার্ক সমস্যা। অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।"
     },
     "step1": {
-      "title": "What do you need built?",
-      "subtitle": "Select all the services that apply to your project",
-      "timelineLabel": "Timeline:",
-      "selected": "Selected",
-      "tapToSelect": "Tap to select",
+      "title": "আপনার কী তৈরি করা প্রয়োজন?",
+      "subtitle": "আপনার প্রজেক্টে প্রযোজ্য সব সার্ভিস নির্বাচন করুন",
+      "timelineLabel": "টাইমলাইন:",
+      "selected": "নির্বাচিত",
+      "tapToSelect": "নির্বাচন করতে ট্যাপ করুন",
       "services": {
         "web-development": {
-          "name": "Web Development",
-          "description": "Full-stack web apps with React, Next.js, and modern APIs",
+          "name": "ওয়েব ডেভেলপমেন্ট",
+          "description": "React, Next.js এবং আধুনিক API দিয়ে ফুল-স্ট্যাক ওয়েব অ্যাপ",
           "deliverables": [
-            "React/Next.js Apps",
-            "API Development",
-            "Database Design",
-            "Cloud Deployment"
+            "React/Next.js অ্যাপ",
+            "API ডেভেলপমেন্ট",
+            "ডেটাবেস ডিজাইন",
+            "ক্লাউড ডেপ্লয়মেন্ট"
           ],
-          "timeline": "2-6 weeks",
-          "perfectFor": "SaaS platforms, dashboards, e-commerce"
+          "timeline": "২–৬ সপ্তাহ",
+          "perfectFor": "SaaS প্ল্যাটফর্ম, ড্যাশবোর্ড, ই-কমার্স"
         },
         "android-development": {
-          "name": "Android Development",
-          "description": "Native Android apps with Kotlin and Jetpack Compose",
+          "name": "Android ডেভেলপমেন্ট",
+          "description": "Kotlin ও Jetpack Compose দিয়ে নেটিভ Android অ্যাপ",
           "deliverables": [
-            "Native Kotlin Apps",
+            "নেটিভ Kotlin অ্যাপ",
             "Material Design 3",
-            "Play Store Ready",
-            "Firebase Backend"
+            "Play Store-এর জন্য প্রস্তুত",
+            "Firebase ব্যাকএন্ড"
           ],
-          "timeline": "4-8 weeks",
-          "perfectFor": "Consumer apps, B2B mobile tools"
+          "timeline": "৪–৮ সপ্তাহ",
+          "perfectFor": "কনজিউমার অ্যাপ, B2B মোবাইল টুল"
         },
         "ios-development": {
-          "name": "iOS Development",
-          "description": "Native iOS apps with Swift and SwiftUI for iPhone and iPad",
+          "name": "iOS ডেভেলপমেন্ট",
+          "description": "iPhone ও iPad-এর জন্য Swift ও SwiftUI দিয়ে নেটিভ iOS অ্যাপ",
           "deliverables": [
-            "Swift/SwiftUI Apps",
-            "App Store Ready",
-            "TestFlight Beta",
-            "CloudKit Integration"
+            "Swift/SwiftUI অ্যাপ",
+            "App Store-এর জন্য প্রস্তুত",
+            "TestFlight বিটা",
+            "CloudKit ইন্টিগ্রেশন"
           ],
-          "timeline": "4-8 weeks",
-          "perfectFor": "Consumer apps, enterprise iOS tools"
+          "timeline": "৪–৮ সপ্তাহ",
+          "perfectFor": "কনজিউমার অ্যাপ, এন্টারপ্রাইজ iOS টুল"
         },
         "product-inquiry": {
-          "name": "Product Inquiry",
-          "description": "Explore our ready-made products or request customization",
+          "name": "প্রোডাক্ট অনুসন্ধান",
+          "description": "আমাদের রেডিমেড প্রোডাক্ট দেখুন অথবা কাস্টমাইজেশনের অনুরোধ করুন",
           "deliverables": [
-            "Product Demo",
-            "Custom Branding",
-            "Feature Add-ons",
-            "Deployment Support"
+            "প্রোডাক্ট ডেমো",
+            "কাস্টম ব্র্যান্ডিং",
+            "ফিচার অ্যাড-অন",
+            "ডেপ্লয়মেন্ট সাপোর্ট"
           ],
-          "timeline": "1-3 weeks",
-          "perfectFor": "Quick launch with proven solutions"
+          "timeline": "১–৩ সপ্তাহ",
+          "perfectFor": "প্রমাণিত সমাধান দিয়ে দ্রুত লঞ্চ"
         }
       }
     },
     "step2": {
-      "title": "Tell us about your project",
-      "subtitle": "The more details you share, the better quote we can provide",
-      "scaleLabel": "Project Scale",
+      "title": "আপনার প্রজেক্ট সম্পর্কে আমাদের বলুন",
+      "subtitle": "আপনি যত বেশি বিবরণ দেবেন, আমরা তত ভালো কোটেশন দিতে পারব",
+      "scaleLabel": "প্রজেক্টের পরিসর",
       "scaleOptions": {
         "mvp": {
           "label": "MVP",
-          "desc": "Quick validation"
+          "desc": "দ্রুত যাচাই"
         },
         "standard": {
-          "label": "Standard",
-          "desc": "Full features"
+          "label": "স্ট্যান্ডার্ড",
+          "desc": "সম্পূর্ণ ফিচার"
         },
         "advanced": {
-          "label": "Advanced",
-          "desc": "Complex logic"
+          "label": "অ্যাডভান্সড",
+          "desc": "জটিল লজিক"
         },
         "enterprise": {
-          "label": "Enterprise",
-          "desc": "Mission-critical"
+          "label": "এন্টারপ্রাইজ",
+          "desc": "মিশন-ক্রিটিক্যাল"
         }
       },
-      "descriptionLabel": "Project Description *",
-      "descriptionPlaceholder": "Describe your project goals, target users, and key features you need...",
-      "requirementsLabel": "Special Requirements (Optional)",
-      "requirementsPlaceholder": "Any technical requirements, integrations, or specific technologies you need...",
-      "timelineLabel": "Preferred Timeline",
+      "descriptionLabel": "প্রজেক্টের বিবরণ *",
+      "descriptionPlaceholder": "আপনার প্রজেক্টের লক্ষ্য, টার্গেট ইউজার এবং প্রয়োজনীয় মূল ফিচারগুলো বর্ণনা করুন...",
+      "requirementsLabel": "বিশেষ প্রয়োজনীয়তা (ঐচ্ছিক)",
+      "requirementsPlaceholder": "কোনো টেকনিক্যাল প্রয়োজন, ইন্টিগ্রেশন, অথবা নির্দিষ্ট প্রযুক্তি প্রয়োজন হলে...",
+      "timelineLabel": "পছন্দের টাইমলাইন",
       "timelineOptions": {
         "urgent": {
-          "label": "ASAP",
-          "desc": "2-4 weeks",
-          "badge": "Priority"
+          "label": "যত দ্রুত সম্ভব",
+          "desc": "২–৪ সপ্তাহ",
+          "badge": "অগ্রাধিকার"
         },
         "standard": {
-          "label": "Standard",
-          "desc": "4-8 weeks",
-          "badge": "Recommended"
+          "label": "স্ট্যান্ডার্ড",
+          "desc": "৪–৮ সপ্তাহ",
+          "badge": "প্রস্তাবিত"
         },
         "flexible": {
-          "label": "Flexible",
-          "desc": "8+ weeks",
-          "badge": "Best Value"
+          "label": "নমনীয়",
+          "desc": "৮+ সপ্তাহ",
+          "badge": "সেরা মূল্য"
         }
       }
     },
     "step3": {
-      "title": "What's your investment level?",
-      "subtitle": "We work with startups at every stage. Pick what fits your budget.",
-      "mostPopular": "Most Popular",
+      "title": "আপনার বিনিয়োগের স্তর কী?",
+      "subtitle": "আমরা প্রতিটি পর্যায়ের স্টার্টআপের সঙ্গে কাজ করি। আপনার বাজেটের সঙ্গে যা মানানসই তা বেছে নিন।",
+      "mostPopular": "সবচেয়ে জনপ্রিয়",
       "budgetOptions": {
         "bootstrap": {
-          "label": "Bootstrap",
+          "label": "বুটস্ট্র্যাপ",
           "range": "$2K - $8K",
-          "desc": "Perfect for MVPs and validation",
+          "desc": "MVP ও যাচাইয়ের জন্য উপযুক্ত",
           "features": [
-            "Core features only",
-            "2-4 week delivery",
-            "Essential support"
+            "শুধু মূল ফিচার",
+            "২–৪ সপ্তাহে ডেলিভারি",
+            "প্রয়োজনীয় সাপোর্ট"
           ]
         },
         "seed": {
-          "label": "Seed Stage",
+          "label": "সিড স্টেজ",
           "range": "$8K - $25K",
-          "desc": "Full-featured product launch",
+          "desc": "সম্পূর্ণ ফিচারযুক্ত প্রোডাক্ট লঞ্চ",
           "features": [
-            "Complete feature set",
-            "Premium design",
-            "60-day support"
+            "সম্পূর্ণ ফিচার সেট",
+            "প্রিমিয়াম ডিজাইন",
+            "৬০ দিনের সাপোর্ট"
           ]
         },
         "growth": {
-          "label": "Growth",
+          "label": "গ্রোথ",
           "range": "$25K - $75K",
-          "desc": "Scalable enterprise solution",
+          "desc": "স্কেলযোগ্য এন্টারপ্রাইজ সমাধান",
           "features": [
-            "Advanced features",
-            "Custom integrations",
-            "90-day support"
+            "অ্যাডভান্সড ফিচার",
+            "কাস্টম ইন্টিগ্রেশন",
+            "৯০ দিনের সাপোর্ট"
           ]
         },
         "enterprise": {
-          "label": "Enterprise",
+          "label": "এন্টারপ্রাইজ",
           "range": "$75K+",
-          "desc": "Mission-critical systems",
+          "desc": "মিশন-ক্রিটিক্যাল সিস্টেম",
           "features": [
-            "Full customization",
-            "Dedicated team",
-            "Ongoing partnership"
+            "সম্পূর্ণ কাস্টমাইজেশন",
+            "নিবেদিত টিম",
+            "চলমান অংশীদারিত্ব"
           ]
         }
       },
-      "notSureTitle": "Not sure about budget?",
-      "notSureBody": "No worries! We'll provide a detailed quote based on your requirements. We also offer flexible payment plans and equity arrangements for early-stage startups."
+      "notSureTitle": "বাজেট নিয়ে নিশ্চিত নন?",
+      "notSureBody": "চিন্তা নেই! আমরা আপনার চাহিদার ভিত্তিতে একটি বিস্তারিত কোটেশন দেব। প্রাথমিক পর্যায়ের স্টার্টআপের জন্য আমরা নমনীয় পেমেন্ট প্ল্যান ও ইকুইটি ব্যবস্থাও অফার করি।"
     },
     "step4": {
-      "title": "How can we reach you?",
-      "subtitle": "We'll send your personalized quote to this email",
-      "nameLabel": "Your Name *",
+      "title": "আমরা কীভাবে আপনার সঙ্গে যোগাযোগ করব?",
+      "subtitle": "আমরা এই ইমেইলে আপনার ব্যক্তিগত কোটেশন পাঠাব",
+      "nameLabel": "আপনার নাম *",
       "namePlaceholder": "John Smith",
-      "emailLabel": "Email Address *",
+      "emailLabel": "ইমেইল ঠিকানা *",
       "emailPlaceholder": "john@company.com",
-      "companyLabel": "Company Name",
-      "optional": "(Optional)",
+      "companyLabel": "কোম্পানির নাম",
+      "optional": "(ঐচ্ছিক)",
       "companyPlaceholder": "Acme Inc.",
-      "phoneLabel": "Phone Number",
+      "phoneLabel": "ফোন নম্বর",
       "phonePlaceholder": "+880 1XXX-XXXXXX"
     },
     "step5": {
-      "title": "Review Your Quote Request",
-      "subtitle": "Make sure everything looks good before submitting",
-      "services": "Services",
-      "projectScale": "Project Scale",
-      "timeline": "Timeline",
-      "investmentLevel": "Investment Level",
-      "contact": "Contact",
-      "terms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>. This is a quote request, not a binding contract.",
-      "whatNextTitle": "What happens next?",
+      "title": "আপনার কোটেশন অনুরোধ পর্যালোচনা করুন",
+      "subtitle": "জমা দেওয়ার আগে নিশ্চিত করুন সবকিছু ঠিক আছে",
+      "services": "সার্ভিস",
+      "projectScale": "প্রজেক্টের পরিসর",
+      "timeline": "টাইমলাইন",
+      "investmentLevel": "বিনিয়োগের স্তর",
+      "contact": "যোগাযোগ",
+      "terms": "আমি <terms>সার্ভিস শর্তাবলী</terms> এবং <privacy>প্রাইভেসি পলিসি</privacy>-তে সম্মত। এটি একটি কোটেশন অনুরোধ, কোনো বাধ্যতামূলক চুক্তি নয়।",
+      "whatNextTitle": "এরপর কী হবে?",
       "whatNext": [
-        "Our AI analyzes your requirements (instant)",
-        "You receive a detailed quote (within 24 hours)",
-        "Free consultation call (optional)"
+        "আমাদের AI আপনার চাহিদা বিশ্লেষণ করে (তাৎক্ষণিক)",
+        "আপনি একটি বিস্তারিত কোটেশন পান (২৪ ঘণ্টার মধ্যে)",
+        "বিনামূল্যে পরামর্শ কল (ঐচ্ছিক)"
       ]
     }
   },
@@ -1768,32 +1768,35 @@
     "secondaryLabel": "সাপোর্টে যোগাযোগ করুন"
   },
   "Chatbot": {
-    "openLabel": "Open CraftsAI Help Assistant",
-    "headerTitle": "Help Assistant",
-    "headerSubtitle": "CraftsAI · guided FAQ",
-    "onlineStatus": "Online",
-    "welcome": "👋 Hi! I'm the CraftsAI Help Assistant — a guided FAQ that answers common questions about our services. (For anything specific, our team is one message away via the contact page.)\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
-    "quickQuestionsLabel": "Quick questions:",
+    "openLabel": "CraftsAI হেল্প অ্যাসিস্ট্যান্ট খুলুন",
+    "headerTitle": "হেল্প অ্যাসিস্ট্যান্ট",
+    "headerSubtitle": "CraftsAI · গাইডেড FAQ",
+    "onlineStatus": "অনলাইন",
+    "welcome": "👋 নমস্কার! আমি CraftsAI হেল্প অ্যাসিস্ট্যান্ট — একটি গাইডেড FAQ, যা আমাদের সার্ভিস নিয়ে সাধারণ প্রশ্নের উত্তর দেয়। (নির্দিষ্ট কিছু জানতে চাইলে, যোগাযোগ পেজের মাধ্যমে আমাদের টিম মাত্র একটি বার্তা দূরে।)\n\nআপনি আমাকে জিজ্ঞাসা করতে পারেন:\n• আমাদের সার্ভিস ও সক্ষমতা সম্পর্কে\n• মূল্য ও প্রজেক্টের টাইমলাইন সম্পর্কে\n• আমরা যে প্রযুক্তি ব্যবহার করি\n• পোর্টফোলিও ও কেস স্টাডি\n• কীভাবে শুরু করবেন\n\nআপনি কী জানতে চান?",
+    "quickQuestionsLabel": "দ্রুত প্রশ্ন:",
     "quickQuestions": [
-      "What services do you offer?",
-      "How much does a project cost?",
-      "What technologies do you use?",
-      "Can I see your portfolio?",
-      "How do I get started?"
+      "আপনারা কী কী সার্ভিস দেন?",
+      "একটি প্রজেক্টের খরচ কত?",
+      "আপনারা কোন প্রযুক্তি ব্যবহার করেন?",
+      "আপনাদের পোর্টফোলিও দেখতে পারি?",
+      "কীভাবে শুরু করব?"
     ],
-    "inputPlaceholder": "Ask me anything...",
-    "inputAriaLabel": "Chat message",
-    "sendLabel": "Send message",
+    "inputPlaceholder": "যেকোনো কিছু জিজ্ঞাসা করুন...",
+    "inputAriaLabel": "চ্যাট বার্তা",
+    "sendLabel": "বার্তা পাঠান",
     "qa": [
       {
         "id": "services",
         "keywords": [
           "services",
-          "what do you do",
-          "capabilities",
-          "offerings"
+          "সার্ভিস",
+          "সেবা",
+          "কী কী করেন",
+          "কি কি করেন",
+          "সক্ষমতা",
+          "অফার"
         ],
-        "response": "We're an AI agent development studio. Our AI agents build your software, with human review on every release. We offer:\n\n• Custom AI agents built for your workflows\n• AI-built websites & web applications\n• Android apps (Kotlin, Jetpack Compose)\n• iOS apps (Swift, SwiftUI)\n• AI agent integration into your existing systems\n• Ongoing support & maintenance\n\nWould you like to know more about any specific service?"
+        "response": "আমরা একটি AI এজেন্ট ডেভেলপমেন্ট স্টুডিও। আমাদের AI এজেন্টরা আপনার সফটওয়্যার তৈরি করে, এবং প্রতিটি রিলিজে মানুষের পর্যালোচনা থাকে। আমরা যা অফার করি:\n\n• আপনার ওয়ার্কফ্লোর জন্য তৈরি কাস্টম AI এজেন্ট\n• AI-নির্মিত ওয়েবসাইট ও ওয়েব অ্যাপ্লিকেশন\n• Android অ্যাপ (Kotlin, Jetpack Compose)\n• iOS অ্যাপ (Swift, SwiftUI)\n• আপনার বিদ্যমান সিস্টেমে AI এজেন্ট ইন্টিগ্রেশন\n• চলমান সাপোর্ট ও রক্ষণাবেক্ষণ\n\nকোনো নির্দিষ্ট সার্ভিস সম্পর্কে আরও জানতে চান?"
       },
       {
         "id": "pricing",
@@ -1802,78 +1805,104 @@
           "cost",
           "pricing",
           "budget",
-          "quote"
+          "quote",
+          "দাম",
+          "মূল্য",
+          "খরচ",
+          "বাজেট",
+          "কত টাকা",
+          "কত খরচ",
+          "কোটেশন"
         ],
-        "response": "Our pricing is tailored to each project's scope and complexity. We offer:\n\n• Free initial consultation\n• Custom project quotes\n• Flexible engagement options\n• Ongoing support packages\n\nI'd be happy to connect you with our team for a personalized quote. What type of project are you considering?"
+        "response": "আমাদের মূল্য প্রতিটি প্রজেক্টের পরিধি ও জটিলতা অনুযায়ী নির্ধারিত হয়। আমরা অফার করি:\n\n• বিনামূল্যে প্রাথমিক পরামর্শ\n• কাস্টম প্রজেক্ট কোটেশন\n• নমনীয় এনগেজমেন্ট অপশন\n• চলমান সাপোর্ট প্যাকেজ\n\nআপনার জন্য একটি ব্যক্তিগত কোটেশন পেতে আমি সানন্দে আপনাকে আমাদের টিমের সঙ্গে সংযুক্ত করব। আপনি কী ধরনের প্রজেক্ট ভাবছেন?"
       },
       {
         "id": "technologies",
         "keywords": [
           "technology",
-          "tech stack",
-          "tools",
-          "frameworks"
+          "tech",
+          "প্রযুক্তি",
+          "টেকনোলজি",
+          "টুল",
+          "ফ্রেমওয়ার্ক",
+          "স্ট্যাক"
         ],
-        "response": "We build with a modern, production-grade stack:\n\n**Web:** React, Next.js, Node.js, TypeScript\n**Android:** Kotlin, Jetpack Compose\n**iOS:** Swift, SwiftUI\n**AI:** custom AI agents integrated into your build and product workflows\n\nWe choose the right tools for your specific project needs."
+        "response": "আমরা একটি আধুনিক, প্রোডাকশন-গ্রেড স্ট্যাক দিয়ে নির্মাণ করি:\n\n**ওয়েব:** React, Next.js, Node.js, TypeScript\n**Android:** Kotlin, Jetpack Compose\n**iOS:** Swift, SwiftUI\n**AI:** আপনার বিল্ড ও প্রোডাক্ট ওয়ার্কফ্লোতে ইন্টিগ্রেট করা কাস্টম AI এজেন্ট\n\nআমরা আপনার নির্দিষ্ট প্রজেক্টের প্রয়োজন অনুযায়ী সঠিক টুল বেছে নিই।"
       },
       {
         "id": "portfolio",
         "keywords": [
           "portfolio",
-          "projects",
-          "examples",
-          "work",
-          "case studies"
+          "পোর্টফোলিও",
+          "প্রজেক্ট",
+          "কাজ",
+          "উদাহরণ",
+          "কেস স্টাডি",
+          "নমুনা"
         ],
-        "response": "Here are live products we've built:\n\n• **TaxoMind** — AI-powered learning platform (taxomind.com)\n• **TaxoMind Schools** — cognitive learning for schools (taxomindsc.com)\n• **Book-AI** — interactive AI & math lessons (book-ai.org)\n• **File2Insight** — turn documents into insight (file2insight.com)\n• **Banglu** — type Bangla from an English keyboard (bangluweb.com)\n\nVisit our Products, Portfolio, and Case Studies pages for the full stories!"
+        "response": "আমরা যে লাইভ প্রোডাক্টগুলো তৈরি করেছি তার কয়েকটি:\n\n• **TaxoMind** — AI-চালিত লার্নিং প্ল্যাটফর্ম (taxomind.com)\n• **TaxoMind Schools** — স্কুলের জন্য কগনিটিভ লার্নিং (taxomindsc.com)\n• **Book-AI** — ইন্টারঅ্যাকটিভ AI ও গণিত পাঠ (book-ai.org)\n• **File2Insight** — ডকুমেন্টকে ইনসাইটে রূপান্তর (file2insight.com)\n• **Banglu** — ইংরেজি কিবোর্ড থেকে বাংলা টাইপ করুন (bangluweb.com)\n\nপূর্ণ গল্পের জন্য আমাদের প্রোডাক্ট, পোর্টফোলিও এবং কেস স্টাডি পেজ দেখুন!"
       },
       {
         "id": "contact",
         "keywords": [
           "contact",
-          "reach",
           "email",
-          "phone",
-          "meeting",
-          "location",
-          "where"
+          "যোগাযোগ",
+          "ইমেইল",
+          "ফোন",
+          "ঠিকানা",
+          "কোথায়",
+          "মিটিং",
+          "হোয়াটসঅ্যাপ"
         ],
-        "response": "I'd love to connect you with our team! Here's how to reach us:\n\n📧 **Email:** hello@craftsai.org\n💬 **WhatsApp:** tap the green button at the bottom-right\n📍 **Based in:** Dhaka, Bangladesh — working with clients worldwide\n\nOr click the 'Get a Quote' button to start a free consultation!"
+        "response": "আমাদের টিমের সঙ্গে আপনাকে সংযুক্ত করতে পেরে আমি আনন্দিত হব! আমাদের সঙ্গে যোগাযোগের উপায়:\n\n📧 **ইমেইল:** hello@craftsai.org\n💬 **WhatsApp:** নিচের ডানদিকে সবুজ বোতামে ট্যাপ করুন\n📍 **অবস্থান:** ঢাকা, বাংলাদেশ — বিশ্বজুড়ে ক্লায়েন্টদের সঙ্গে কাজ করছি\n\nঅথবা বিনামূল্যে পরামর্শ শুরু করতে 'কোটেশন নিন' বোতামে ক্লিক করুন!"
       },
       {
         "id": "timeline",
         "keywords": [
           "timeline",
-          "duration",
-          "how long",
-          "delivery",
-          "time"
+          "টাইমলাইন",
+          "কত সময়",
+          "কতদিন",
+          "কত দিন",
+          "সময়সীমা",
+          "ডেলিভারি"
         ],
-        "response": "Project timelines depend on scope. Typical ranges:\n\n• **Website / landing site:** 1-4 weeks\n• **Custom web application:** 4-12 weeks\n• **Mobile app (Android/iOS):** 6-14 weeks\n• **AI agent integration:** scoped per project\n\nWe'll give you a detailed timeline during your consultation."
+        "response": "প্রজেক্টের টাইমলাইন পরিধির উপর নির্ভর করে। সাধারণ সময়সীমা:\n\n• **ওয়েবসাইট / ল্যান্ডিং সাইট:** ১–৪ সপ্তাহ\n• **কাস্টম ওয়েব অ্যাপ্লিকেশন:** ৪–১২ সপ্তাহ\n• **মোবাইল অ্যাপ (Android/iOS):** ৬–১৪ সপ্তাহ\n• **AI এজেন্ট ইন্টিগ্রেশন:** প্রজেক্ট অনুযায়ী নির্ধারিত\n\nআপনার পরামর্শকালে আমরা আপনাকে একটি বিস্তারিত টাইমলাইন জানাব।"
       },
       {
         "id": "greeting",
         "keywords": [
           "hello",
-          "hi"
+          "hi",
+          "হ্যালো",
+          "হেলো",
+          "হাই",
+          "আসসালামু",
+          "নমস্কার"
         ],
-        "response": "Hello! I'm here to help you learn about CraftsAI. What would you like to know about our AI and web development services?"
+        "response": "নমস্কার! আমি CraftsAI সম্পর্কে জানতে আপনাকে সাহায্য করতে এখানে আছি। আমাদের AI ও ওয়েব ডেভেলপমেন্ট সার্ভিস সম্পর্কে আপনি কী জানতে চান?"
       },
       {
         "id": "help",
         "keywords": [
-          "help"
+          "help",
+          "সাহায্য",
+          "সহায়তা",
+          "হেল্প"
         ],
-        "response": "I can help you with information about:\n\n• Our AI and web development services\n• Project pricing and timelines\n• Technologies and capabilities\n• Portfolio and case studies\n• Getting started with your project\n\nWhat specific area interests you most?"
+        "response": "আমি আপনাকে এসব বিষয়ে তথ্য দিয়ে সাহায্য করতে পারি:\n\n• আমাদের AI ও ওয়েব ডেভেলপমেন্ট সার্ভিস\n• প্রজেক্টের মূল্য ও টাইমলাইন\n• প্রযুক্তি ও সক্ষমতা\n• পোর্টফোলিও ও কেস স্টাডি\n• আপনার প্রজেক্ট শুরু করা\n\nকোন বিষয়টি সম্পর্কে আপনি সবচেয়ে বেশি আগ্রহী?"
       },
       {
         "id": "thanks",
         "keywords": [
-          "thank"
+          "thank",
+          "ধন্যবাদ",
+          "থ্যাঙ্ক"
         ],
-        "response": "You're welcome! Is there anything else you'd like to know about our services? I'm here to help! 😊"
+        "response": "আপনাকে স্বাগতম! আমাদের সার্ভিস সম্পর্কে আর কিছু জানতে চান? আমি সাহায্য করতে এখানেই আছি! 😊"
       }
     ],
-    "fallback": "I'd be happy to help you with that! For detailed information about your specific needs, I recommend:\n\n• Checking our Services or Portfolio pages\n• Scheduling a free consultation with our team\n• Emailing us at hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything specific about our AI, web, or mobile development services you'd like to know?"
+    "fallback": "এ বিষয়ে আপনাকে সাহায্য করতে পেরে আমি আনন্দিত হব! আপনার নির্দিষ্ট প্রয়োজন সম্পর্কে বিস্তারিত তথ্যের জন্য আমি সুপারিশ করছি:\n\n• আমাদের সার্ভিস বা পোর্টফোলিও পেজ দেখুন\n• আমাদের টিমের সঙ্গে বিনামূল্যে একটি পরামর্শ নির্ধারণ করুন\n• hello@craftsai.org-এ ইমেইল করুন অথবা WhatsApp-এ আমাদের বার্তা দিন\n\nআমাদের AI, ওয়েব বা মোবাইল ডেভেলপমেন্ট সার্ভিস সম্পর্কে নির্দিষ্ট কিছু জানতে চান কি?"
   }
 }
