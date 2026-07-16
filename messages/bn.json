@@ -294,16 +294,16 @@
   "Services": {
     "index": {
       "hero": {
-        "eyebrow": "Services / overview",
-        "title": "We build agents. The agents build your software.",
-        "lede": "Four services, one workflow. Custom agents do the heavy lifting; senior engineers own the architecture, the review, and what ships.",
-        "primaryCta": "Start a project",
-        "secondaryCta": "Get an estimate"
+        "eyebrow": "সার্ভিস / ওভারভিউ",
+        "title": "আমরা এজেন্ট তৈরি করি। এজেন্টরা আপনার সফটওয়্যার তৈরি করে।",
+        "lede": "চারটি সার্ভিস, একটি ওয়ার্কফ্লো। কাস্টম এজেন্টরা কঠিন কাজটি করে; সিনিয়র ইঞ্জিনিয়াররা আর্কিটেকচার, পর্যালোচনা এবং যা ডেলিভার হয় তার দায়িত্ব নেন।",
+        "primaryCta": "প্রজেক্ট শুরু করুন",
+        "secondaryCta": "এস্টিমেট নিন"
       },
       "pillars": {
-        "eyebrow": "What we build",
-        "title": "Pick where an agent goes to work.",
-        "description": "Not sure which fits? Start a project and we'll map it with you."
+        "eyebrow": "আমরা যা তৈরি করি",
+        "title": "একটি এজেন্ট কোথায় কাজ করবে তা বেছে নিন।",
+        "description": "কোনটি মানানসই নিশ্চিত নন? একটি প্রজেক্ট শুরু করুন, আমরা আপনার সঙ্গে মিলে সেটি ঠিক করব।"
       }
     },
     "web": {
@@ -426,52 +426,52 @@
     },
     "ios": {
       "hero": {
-        "eyebrow": "Services / iOS",
-        "title": "iOS Development",
-        "lede": "Native iOS apps with Swift and SwiftUI — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
-        "secondaryCta": "Get an estimate"
+        "eyebrow": "সার্ভিস / iOS",
+        "title": "iOS ডেভেলপমেন্ট",
+        "lede": "Swift এবং SwiftUI দিয়ে তৈরি নেটিভ iOS অ্যাপ — আমাদের এজেন্টদের তৈরি এবং দ্রুত ডেলিভার করা, প্রতিটি রিলিজ সিনিয়র ইঞ্জিনিয়াররা পর্যালোচনা করেন।",
+        "primaryCta": "প্রজেক্ট শুরু করুন",
+        "secondaryCta": "এস্টিমেট নিন"
       },
       "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent drafts the app. Engineers ship it.",
-        "description": "Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance.",
+        "eyebrow": "যেভাবে ডেলিভার হয়",
+        "title": "একটি ব্রিফ। একটি এজেন্ট অ্যাপটির খসড়া তৈরি করে। ইঞ্জিনিয়াররা এটি ডেলিভার করেন।",
+        "description": "আমাদের এজেন্টরা কয়েক ঘণ্টায় SwiftUI ভিউ এবং ডেটা মডেল তৈরি করে — সিনিয়র ইঞ্জিনিয়াররা UX এবং App Store কমপ্লায়েন্স সামলান।",
         "stages": [
-          "Brief",
-          "Design",
-          "Build",
-          "Review",
-          "Ship"
+          "ব্রিফ",
+          "ডিজাইন",
+          "নির্মাণ",
+          "পর্যালোচনা",
+          "ডেলিভার"
         ]
       },
       "spec": {
-        "eyebrow": "What you get",
-        "title": "Scope, stack, and delivery — in writing."
+        "eyebrow": "আপনি যা পান",
+        "title": "স্কোপ, স্ট্যাক এবং ডেলিভারি — লিখিতভাবে।"
       },
       "specRows": [
         {
           "slug": "scope",
-          "label": "Scope",
-          "value": "Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst."
+          "label": "স্কোপ",
+          "value": "বিজনেস, কনজিউমার, হেলথ, এডুকেশন, ফিনটেক এবং মিডিয়া অ্যাপ — iPhone, iPad, Apple Watch এবং Catalyst-এর জন্য ডিজাইন করা।"
         },
         {
           "slug": "stack",
-          "label": "Stack"
+          "label": "স্ট্যাক"
         },
         {
           "slug": "timeline",
-          "label": "Timeline",
-          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
+          "label": "টাইমলাইন",
+          "value": "4–8 weeks, স্কোপের উপর নির্ভর করে — একটি সাধারণ এজেন্সি নির্মাণের চেয়ে প্রায় 8x দ্রুত এবং 75% সস্তা।"
         },
         {
           "slug": "automated",
-          "label": "Automated by agents",
-          "value": "SwiftUI views, Core Data models, networking layers, and navigation stacks — generated from your requirements, following Apple's Human Interface Guidelines."
+          "label": "এজেন্ট দ্বারা স্বয়ংক্রিয়",
+          "value": "SwiftUI ভিউ, Core Data মডেল, নেটওয়ার্কিং লেয়ার এবং নেভিগেশন স্ট্যাক — আপনার রিকোয়ারমেন্ট থেকে তৈরি, Apple-এর Human Interface Guidelines অনুসরণ করে।"
         },
         {
           "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "UX refinement, App Store compliance, and rigorous testing on every build before it reaches your users."
+          "label": "ইঞ্জিনিয়ার দ্বারা পর্যালোচিত",
+          "value": "UX পরিমার্জন, App Store কমপ্লায়েন্স এবং প্রতিটি বিল্ডে কঠোর টেস্টিং — আপনার ইউজারদের কাছে পৌঁছানোর আগে।"
         }
       ],
       "techStack": [
@@ -487,107 +487,107 @@
         "Core ML"
       ],
       "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the apps we build most often — not an exhaustive list."
+        "eyebrow": "ব্যবহারের ক্ষেত্র",
+        "title": "কোথায় এটি মানানসই।",
+        "description": "আমরা সবচেয়ে বেশি যেসব অ্যাপ তৈরি করি তার একটি নমুনা — সম্পূর্ণ তালিকা নয়।"
       },
       "useCases": [
         {
-          "title": "Business Apps",
-          "description": "Enterprise tools, CRM mobile clients, and field-service apps with secure data handling."
+          "title": "বিজনেস অ্যাপ",
+          "description": "নিরাপদ ডেটা হ্যান্ডলিংসহ এন্টারপ্রাইজ টুল, CRM মোবাইল ক্লায়েন্ট এবং ফিল্ড-সার্ভিস অ্যাপ।"
         },
         {
-          "title": "Health & Fitness",
-          "description": "HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines."
+          "title": "হেলথ ও ফিটনেস",
+          "description": "HIPAA নির্দেশিকা মেনে চলা HealthKit ইন্টিগ্রেশন, ওয়ার্কআউট ট্র্যাকিং এবং টেলিহেলথ ফিচার।"
         },
         {
-          "title": "Fintech",
-          "description": "Secure financial apps with biometric auth, real-time data, and Apple Pay integration."
+          "title": "ফিনটেক",
+          "description": "বায়োমেট্রিক অথ, রিয়েল-টাইম ডেটা এবং Apple Pay ইন্টিগ্রেশনসহ নিরাপদ ফিনান্সিয়াল অ্যাপ।"
         },
         {
-          "title": "Consumer Apps",
-          "description": "Polished consumer experiences with elegant animations and seamless onboarding."
+          "title": "কনজিউমার অ্যাপ",
+          "description": "মার্জিত অ্যানিমেশন এবং নিরবচ্ছিন্ন অনবোর্ডিংসহ পরিশীলিত কনজিউমার অভিজ্ঞতা।"
         }
       ],
       "faq": {
         "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "সাধারণ প্রশ্ন।"
       },
       "faqItems": [
         {
           "id": "swiftui-uikit",
-          "question": "Do you build with SwiftUI or UIKit?",
-          "answer": "We use SwiftUI for all new projects because it provides a modern, declarative approach to UI development and is Apple's recommended framework going forward. For projects that need to support older iOS versions or require features not yet available in SwiftUI, we use UIKit or a hybrid approach."
+          "question": "আপনি কি SwiftUI নাকি UIKit দিয়ে তৈরি করেন?",
+          "answer": "আমরা সব নতুন প্রজেক্টে SwiftUI ব্যবহার করি, কারণ এটি UI ডেভেলপমেন্টে একটি আধুনিক, ডিক্লারেটিভ পদ্ধতি দেয় এবং সামনের দিকে Apple-এর সুপারিশকৃত ফ্রেমওয়ার্ক। যেসব প্রজেক্টে পুরোনো iOS ভার্সন সাপোর্ট করতে হয় বা SwiftUI-তে এখনও নেই এমন ফিচার প্রয়োজন, সেখানে আমরা UIKit অথবা একটি হাইব্রিড পদ্ধতি ব্যবহার করি।"
         },
         {
           "id": "app-store-submission",
-          "question": "Can you submit to the App Store for us?",
-          "answer": "Yes. We manage the entire submission process including App Store Connect setup, screenshots, metadata, and review compliance. We also handle TestFlight distribution for beta testing with your team or early users."
+          "question": "আপনি কি আমাদের হয়ে App Store-এ সাবমিট করতে পারবেন?",
+          "answer": "হ্যাঁ। App Store Connect সেটআপ, স্ক্রিনশট, মেটাডেটা এবং রিভিউ কমপ্লায়েন্সসহ পুরো সাবমিশন প্রক্রিয়া আমরা সামলাই। আপনার টিম বা প্রাথমিক ইউজারদের সঙ্গে বিটা টেস্টিংয়ের জন্য TestFlight ডিস্ট্রিবিউশনও আমরা সামলাই।"
         },
         {
           "id": "ipad-watch",
-          "question": "Do you support iPad and Apple Watch?",
-          "answer": "Absolutely. Our SwiftUI layouts adapt to iPad, Apple Watch, and even macOS via Catalyst. We design for the full Apple ecosystem from day one, so your app feels native on every device."
+          "question": "আপনি কি iPad এবং Apple Watch সাপোর্ট করেন?",
+          "answer": "অবশ্যই। আমাদের SwiftUI লেআউট iPad, Apple Watch এমনকি Catalyst-এর মাধ্যমে macOS-এর সঙ্গেও খাপ খাইয়ে নেয়। আমরা প্রথম দিন থেকেই সম্পূর্ণ Apple ইকোসিস্টেমের জন্য ডিজাইন করি, যাতে আপনার অ্যাপ প্রতিটি ডিভাইসে নেটিভ অনুভূত হয়।"
         },
         {
           "id": "iap",
-          "question": "What about in-app purchases and subscriptions?",
-          "answer": "StoreKit 2 is part of our standard toolkit. We implement subscriptions, consumables, and non-consumable purchases with server-side receipt validation. We also handle the App Store pricing and tax configuration."
+          "question": "ইন-অ্যাপ পারচেজ এবং সাবস্ক্রিপশনের ব্যাপারটি কী?",
+          "answer": "StoreKit 2 আমাদের স্ট্যান্ডার্ড টুলকিটের অংশ। আমরা সার্ভার-সাইড রিসিট ভ্যালিডেশনসহ সাবস্ক্রিপশন, কনজিউমেবল এবং নন-কনজিউমেবল পারচেজ ইমপ্লিমেন্ট করি। App Store প্রাইসিং এবং ট্যাক্স কনফিগারেশনও আমরা সামলাই।"
         }
       ],
       "cta": {
-        "title": "Ready to build your iOS app?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "আপনার iOS অ্যাপ তৈরি করতে প্রস্তুত?",
+        "lede": "আপনার প্রজেক্ট সম্পর্কে আমাদের জানান। আমরা একটি পরিকল্পনা, টাইমলাইন এবং নির্দিষ্ট এস্টিমেট নিয়ে ফিরে আসব।"
       }
     },
     "android": {
       "hero": {
-        "eyebrow": "Services / Android",
-        "title": "Android Development",
-        "lede": "Native Android apps with Kotlin and Jetpack Compose — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
-        "secondaryCta": "Get an estimate"
+        "eyebrow": "সার্ভিস / Android",
+        "title": "Android ডেভেলপমেন্ট",
+        "lede": "Kotlin এবং Jetpack Compose দিয়ে তৈরি নেটিভ Android অ্যাপ — আমাদের এজেন্টদের তৈরি এবং দ্রুত ডেলিভার করা, প্রতিটি রিলিজ সিনিয়র ইঞ্জিনিয়াররা পর্যালোচনা করেন।",
+        "primaryCta": "প্রজেক্ট শুরু করুন",
+        "secondaryCta": "এস্টিমেট নিন"
       },
       "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent drafts the app. Engineers ship it.",
-        "description": "Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance.",
+        "eyebrow": "যেভাবে ডেলিভার হয়",
+        "title": "একটি ব্রিফ। একটি এজেন্ট অ্যাপটির খসড়া তৈরি করে। ইঞ্জিনিয়াররা এটি ডেলিভার করেন।",
+        "description": "আমাদের এজেন্টরা কয়েক ঘণ্টায় Compose স্ক্রিন এবং ডেটা লেয়ার তৈরি করে — সিনিয়র ইঞ্জিনিয়াররা UX পরিমার্জন এবং Play Store কমপ্লায়েন্স সামলান।",
         "stages": [
-          "Brief",
-          "Design",
-          "Build",
-          "Review",
-          "Release"
+          "ব্রিফ",
+          "ডিজাইন",
+          "নির্মাণ",
+          "পর্যালোচনা",
+          "রিলিজ"
         ]
       },
       "spec": {
-        "eyebrow": "What you get",
-        "title": "Scope, stack, and delivery — in writing."
+        "eyebrow": "আপনি যা পান",
+        "title": "স্কোপ, স্ট্যাক এবং ডেলিভারি — লিখিতভাবে।"
       },
       "specRows": [
         {
           "slug": "scope",
-          "label": "Scope",
-          "value": "Business, social, e-commerce, health, education, and productivity apps — responsive across phones, tablets, and foldables."
+          "label": "স্কোপ",
+          "value": "বিজনেস, সোশ্যাল, ই-কমার্স, হেলথ, এডুকেশন এবং প্রোডাক্টিভিটি অ্যাপ — ফোন, ট্যাবলেট এবং ফোল্ডেবলে রেসপনসিভ।"
         },
         {
           "slug": "stack",
-          "label": "Stack"
+          "label": "স্ট্যাক"
         },
         {
           "slug": "timeline",
-          "label": "Timeline",
-          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
+          "label": "টাইমলাইন",
+          "value": "4–8 weeks, স্কোপের উপর নির্ভর করে — একটি সাধারণ এজেন্সি নির্মাণের চেয়ে প্রায় 8x দ্রুত এবং 75% সস্তা।"
         },
         {
           "slug": "automated",
-          "label": "Automated by agents",
-          "value": "Kotlin modules, Compose screens, Room database entities, and Hilt dependency graphs — generated from your requirements, following Google's MVVM + Repository architecture."
+          "label": "এজেন্ট দ্বারা স্বয়ংক্রিয়",
+          "value": "Kotlin মডিউল, Compose স্ক্রিন, Room ডেটাবেস এনটিটি এবং Hilt ডিপেন্ডেন্সি গ্রাফ — আপনার রিকোয়ারমেন্ট থেকে তৈরি, Google-এর MVVM + Repository আর্কিটেকচার অনুসরণ করে।"
         },
         {
           "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "UX polish, edge-case testing, and Play Store compliance on every release before it reaches production."
+          "label": "ইঞ্জিনিয়ার দ্বারা পর্যালোচিত",
+          "value": "UX পরিমার্জন, এজ-কেস টেস্টিং এবং প্রতিটি রিলিজে Play Store কমপ্লায়েন্স — প্রোডাকশনে পৌঁছানোর আগে।"
         }
       ],
       "techStack": [
@@ -603,103 +603,103 @@
         "Hilt"
       ],
       "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the apps we build most often — not an exhaustive list."
+        "eyebrow": "ব্যবহারের ক্ষেত্র",
+        "title": "কোথায় এটি মানানসই।",
+        "description": "আমরা সবচেয়ে বেশি যেসব অ্যাপ তৈরি করি তার একটি নমুনা — সম্পূর্ণ তালিকা নয়।"
       },
       "useCases": [
         {
-          "title": "Business Apps",
-          "description": "Internal tools, CRM integrations, and field-service apps that streamline operations."
+          "title": "বিজনেস অ্যাপ",
+          "description": "অপারেশন সহজ করে তোলে এমন ইন্টারনাল টুল, CRM ইন্টিগ্রেশন এবং ফিল্ড-সার্ভিস অ্যাপ।"
         },
         {
-          "title": "E-Commerce Mobile",
-          "description": "Shopping apps with product catalogs, in-app payments, and push notification campaigns."
+          "title": "ই-কমার্স মোবাইল",
+          "description": "প্রোডাক্ট ক্যাটালগ, ইন-অ্যাপ পেমেন্ট এবং পুশ নোটিফিকেশন ক্যাম্পেইনসহ শপিং অ্যাপ।"
         },
         {
-          "title": "Social & Community",
-          "description": "Chat, feeds, and real-time features that keep users engaged and connected."
+          "title": "সোশ্যাল ও কমিউনিটি",
+          "description": "চ্যাট, ফিড এবং রিয়েল-টাইম ফিচার যা ইউজারদের যুক্ত এবং সংযুক্ত রাখে।"
         },
         {
-          "title": "Health & Fitness",
-          "description": "Wearable integrations, workout trackers, and telehealth experiences."
+          "title": "হেলথ ও ফিটনেস",
+          "description": "ওয়্যারেবল ইন্টিগ্রেশন, ওয়ার্কআউট ট্র্যাকার এবং টেলিহেলথ অভিজ্ঞতা।"
         }
       ],
       "faq": {
         "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "সাধারণ প্রশ্ন।"
       },
       "faqItems": [
         {
           "id": "kotlin-java",
-          "question": "Do you build with Kotlin or Java?",
-          "answer": "We build exclusively with Kotlin and Jetpack Compose for all new projects. Kotlin is the official recommended language for Android development, and Compose provides a modern, declarative UI toolkit. If you have an existing Java codebase, we can maintain it or help you migrate incrementally."
+          "question": "আপনি কি Kotlin নাকি Java দিয়ে তৈরি করেন?",
+          "answer": "আমরা সব নতুন প্রজেক্টে শুধুমাত্র Kotlin এবং Jetpack Compose দিয়ে তৈরি করি। Android ডেভেলপমেন্টের জন্য Kotlin হলো অফিসিয়াল সুপারিশকৃত ভাষা, এবং Compose একটি আধুনিক, ডিক্লারেটিভ UI টুলকিট দেয়। আপনার যদি বিদ্যমান Java কোডবেস থাকে, আমরা সেটি রক্ষণাবেক্ষণ করতে পারি অথবা ধাপে ধাপে মাইগ্রেট করতে সাহায্য করতে পারি।"
         },
         {
           "id": "play-store",
-          "question": "Can you publish to the Google Play Store?",
-          "answer": "Yes. We handle the entire release process including Play Store listing, screenshots, app signing, and compliance review. We also set up staged rollouts and crash monitoring so you can ship with confidence."
+          "question": "আপনি কি Google Play Store-এ পাবলিশ করতে পারবেন?",
+          "answer": "হ্যাঁ। Play Store লিস্টিং, স্ক্রিনশট, অ্যাপ সাইনিং এবং কমপ্লায়েন্স রিভিউসহ পুরো রিলিজ প্রক্রিয়া আমরা সামলাই। আপনি যাতে আত্মবিশ্বাসের সঙ্গে ডেলিভার করতে পারেন, সেজন্য আমরা স্টেজড রোলআউট এবং ক্র্যাশ মনিটরিংও সেটআপ করি।"
         },
         {
           "id": "tablets-foldables",
-          "question": "Do you support tablets and foldables?",
-          "answer": "Absolutely. Our Compose-based layouts are responsive by default. We test on phones, tablets, and foldable devices to ensure a great experience across the entire Android ecosystem."
+          "question": "আপনি কি ট্যাবলেট এবং ফোল্ডেবল সাপোর্ট করেন?",
+          "answer": "অবশ্যই। আমাদের Compose-ভিত্তিক লেআউট ডিফল্টভাবেই রেসপনসিভ। সম্পূর্ণ Android ইকোসিস্টেম জুড়ে একটি দুর্দান্ত অভিজ্ঞতা নিশ্চিত করতে আমরা ফোন, ট্যাবলেট এবং ফোল্ডেবল ডিভাইসে টেস্ট করি।"
         },
         {
           "id": "offline",
-          "question": "What about offline functionality?",
-          "answer": "Room database and WorkManager are part of our standard stack. We architect every app with offline-first principles so users can keep working even without an internet connection. Data syncs automatically when connectivity returns."
+          "question": "অফলাইন ফাংশনালিটির ব্যাপারটি কী?",
+          "answer": "Room ডেটাবেস এবং WorkManager আমাদের স্ট্যান্ডার্ড স্ট্যাকের অংশ। আমরা প্রতিটি অ্যাপ অফলাইন-ফার্স্ট নীতিতে তৈরি করি, যাতে ইন্টারনেট সংযোগ ছাড়াও ইউজাররা কাজ চালিয়ে যেতে পারেন। সংযোগ ফিরে এলে ডেটা স্বয়ংক্রিয়ভাবে সিঙ্ক হয়।"
         }
       ],
       "cta": {
-        "title": "Ready to build your Android app?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "আপনার Android অ্যাপ তৈরি করতে প্রস্তুত?",
+        "lede": "আপনার প্রজেক্ট সম্পর্কে আমাদের জানান। আমরা একটি পরিকল্পনা, টাইমলাইন এবং নির্দিষ্ট এস্টিমেট নিয়ে ফিরে আসব।"
       }
     },
     "support": {
       "hero": {
-        "eyebrow": "Services / Support",
-        "title": "Support & Maintenance",
-        "lede": "Ongoing support retainers so your product stays fast, secure, and up to date — without hiring a full-time team.",
-        "primaryCta": "Start a project",
-        "secondaryCta": "Get an estimate"
+        "eyebrow": "সার্ভিস / সাপোর্ট",
+        "title": "সাপোর্ট ও রক্ষণাবেক্ষণ",
+        "lede": "চলমান সাপোর্ট রিটেইনার, যাতে আপনার প্রোডাক্ট দ্রুত, নিরাপদ এবং হালনাগাদ থাকে — পূর্ণ-সময়ের একটি টিম নিয়োগ ছাড়াই।",
+        "primaryCta": "প্রজেক্ট শুরু করুন",
+        "secondaryCta": "এস্টিমেট নিন"
       },
       "spec": {
-        "eyebrow": "Snapshot",
-        "title": "Coverage, response time, and billing — in writing."
+        "eyebrow": "সংক্ষিপ্ত চিত্র",
+        "title": "কভারেজ, রেসপন্স টাইম এবং বিলিং — লিখিতভাবে।"
       },
       "specRows": [
         {
           "slug": "monitoring",
-          "label": "Monitoring",
-          "value": "24/7 automated monitoring and alerting, with a 4-hour response SLA on Enterprise."
+          "label": "মনিটরিং",
+          "value": "24/7 স্বয়ংক্রিয় মনিটরিং এবং অ্যালার্টিং, Enterprise-এ 4-ঘণ্টার রেসপন্স SLA সহ।"
         },
         {
           "slug": "uptime",
-          "label": "Uptime SLA",
-          "value": "99.9% — backed by quarterly architecture reviews on Enterprise plans."
+          "label": "আপটাইম SLA",
+          "value": "99.9% — Enterprise প্ল্যানে ত্রৈমাসিক আর্কিটেকচার পর্যালোচনা দ্বারা সমর্থিত।"
         },
         {
           "slug": "included",
-          "label": "Included"
+          "label": "অন্তর্ভুক্ত"
         },
         {
           "slug": "stacks",
-          "label": "Stacks supported"
+          "label": "সমর্থিত স্ট্যাক"
         },
         {
           "slug": "billing",
-          "label": "Billing",
-          "value": "A fixed monthly fee per tier — no surprise charges. Work beyond retainer scope is quoted before we proceed. Change tiers any time with 30 days notice."
+          "label": "বিলিং",
+          "value": "প্রতি টিয়ারে একটি নির্দিষ্ট মাসিক ফি — কোনো অপ্রত্যাশিত চার্জ নেই। রিটেইনার স্কোপের বাইরের কাজ শুরু করার আগে কোট করা হয়। 30 দিনের নোটিশে যেকোনো সময় টিয়ার পরিবর্তন করুন।"
         }
       ],
       "included": [
-        "Bug Fixes",
-        "Security Patches",
-        "Performance Monitoring",
-        "Feature Updates",
-        "Database Maintenance",
-        "Backup Management"
+        "বাগ ফিক্স",
+        "সিকিউরিটি প্যাচ",
+        "পারফরম্যান্স মনিটরিং",
+        "ফিচার আপডেট",
+        "ডেটাবেস রক্ষণাবেক্ষণ",
+        "ব্যাকআপ ম্যানেজমেন্ট"
       ],
       "coverage": [
         "React",
@@ -714,98 +714,98 @@
         "Firebase"
       ],
       "plans": {
-        "eyebrow": "Plans",
-        "title": "Choose your tier.",
-        "description": "Every tier is a monthly retainer. Upgrade, downgrade, or cancel with 30 days notice."
+        "eyebrow": "প্ল্যান",
+        "title": "আপনার টিয়ার বেছে নিন।",
+        "description": "প্রতিটি টিয়ার একটি মাসিক রিটেইনার। 30 দিনের নোটিশে আপগ্রেড, ডাউনগ্রেড অথবা বাতিল করুন।"
       },
       "tiers": [
         {
           "slug": "basic",
-          "name": "Basic",
-          "description": "Bug fixes and routine updates for smaller applications.",
+          "name": "বেসিক",
+          "description": "ছোট অ্যাপ্লিকেশনের জন্য বাগ ফিক্স এবং নিয়মিত আপডেট।",
           "features": [
-            "Bug fixes within 48 hours",
-            "Dependency updates",
-            "Monthly health report",
-            "Email support"
+            "48 ঘণ্টার মধ্যে বাগ ফিক্স",
+            "ডিপেন্ডেন্সি আপডেট",
+            "মাসিক হেলথ রিপোর্ট",
+            "ইমেইল সাপোর্ট"
           ]
         },
         {
           "slug": "professional",
-          "name": "Professional",
-          "description": "Priority support with proactive monitoring for growing products.",
+          "name": "প্রফেশনাল",
+          "description": "বেড়ে ওঠা প্রোডাক্টের জন্য প্রোঅ্যাক্টিভ মনিটরিংসহ অগ্রাধিকার সাপোর্ট।",
           "features": [
-            "Bug fixes within 24 hours",
-            "Performance monitoring",
-            "Security patches",
-            "Weekly health reports",
-            "WhatsApp & email support"
+            "24 ঘণ্টার মধ্যে বাগ ফিক্স",
+            "পারফরম্যান্স মনিটরিং",
+            "সিকিউরিটি প্যাচ",
+            "সাপ্তাহিক হেলথ রিপোর্ট",
+            "WhatsApp ও ইমেইল সাপোর্ট"
           ]
         },
         {
           "slug": "enterprise",
-          "name": "Enterprise",
-          "description": "Dedicated team with SLA guarantees for mission-critical systems.",
+          "name": "এন্টারপ্রাইজ",
+          "description": "মিশন-ক্রিটিক্যাল সিস্টেমের জন্য SLA গ্যারান্টিসহ ডেডিকেটেড টিম।",
           "features": [
-            "4-hour response SLA",
-            "24/7 monitoring & alerting",
-            "Dedicated support engineer",
-            "Quarterly architecture reviews",
-            "Priority feature development",
-            "Custom SLA terms"
+            "4-ঘণ্টার রেসপন্স SLA",
+            "24/7 মনিটরিং ও অ্যালার্টিং",
+            "ডেডিকেটেড সাপোর্ট ইঞ্জিনিয়ার",
+            "ত্রৈমাসিক আর্কিটেকচার পর্যালোচনা",
+            "অগ্রাধিকার ফিচার ডেভেলপমেন্ট",
+            "কাস্টম SLA শর্তাবলী"
           ]
         }
       ],
       "onboardingSection": {
-        "eyebrow": "Onboarding",
-        "title": "Three steps to your first retainer month."
+        "eyebrow": "অনবোর্ডিং",
+        "title": "আপনার প্রথম রিটেইনার মাসের জন্য তিনটি ধাপ।"
       },
       "onboarding": [
         {
           "index": "01",
-          "title": "Audit",
-          "detail": "We review your existing codebase, infrastructure, and monitoring setup to identify risks and quick wins."
+          "title": "অডিট",
+          "detail": "ঝুঁকি এবং দ্রুত সুযোগ চিহ্নিত করতে আমরা আপনার বিদ্যমান কোডবেস, ইনফ্রাস্ট্রাকচার এবং মনিটরিং সেটআপ পর্যালোচনা করি।"
         },
         {
           "index": "02",
-          "title": "Setup",
-          "detail": "We configure monitoring, alerting, CI/CD pipelines, and backup systems tailored to your stack."
+          "title": "সেটআপ",
+          "detail": "আমরা আপনার স্ট্যাক অনুযায়ী মনিটরিং, অ্যালার্টিং, CI/CD পাইপলাইন এবং ব্যাকআপ সিস্টেম কনফিগার করি।"
         },
         {
           "index": "03",
-          "title": "Launch",
-          "detail": "Your retainer begins. You get a dedicated channel for requests and a dashboard to track every issue."
+          "title": "লঞ্চ",
+          "detail": "আপনার রিটেইনার শুরু হয়। আপনি রিকোয়েস্টের জন্য একটি ডেডিকেটেড চ্যানেল এবং প্রতিটি ইস্যু ট্র্যাক করার জন্য একটি ড্যাশবোর্ড পান।"
         }
       ],
       "faq": {
         "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "সাধারণ প্রশ্ন।"
       },
       "faqItems": [
         {
           "id": "other-teams",
-          "question": "Can you support apps you did not build?",
-          "answer": "Yes. We regularly take over maintenance for applications built by other teams. Our onboarding audit identifies technical debt and risks so we can hit the ground running."
+          "question": "আপনি কি এমন অ্যাপ সাপোর্ট করেন যেগুলো আপনি তৈরি করেননি?",
+          "answer": "হ্যাঁ। অন্য টিমের তৈরি অ্যাপ্লিকেশনের রক্ষণাবেক্ষণ আমরা নিয়মিতভাবে গ্রহণ করি। আমাদের অনবোর্ডিং অডিট টেকনিক্যাল ডেট এবং ঝুঁকি চিহ্নিত করে, যাতে আমরা দ্রুত কাজ শুরু করতে পারি।"
         },
         {
           "id": "technologies",
-          "question": "What technologies do you support?",
-          "answer": "We support React, Next.js, Node.js, Kotlin, Swift, PostgreSQL, MongoDB, AWS, Vercel, Firebase, and more. If your stack is not listed, ask us — we are happy to evaluate."
+          "question": "আপনি কোন প্রযুক্তিগুলো সাপোর্ট করেন?",
+          "answer": "আমরা React, Next.js, Node.js, Kotlin, Swift, PostgreSQL, MongoDB, AWS, Vercel, Firebase এবং আরও অনেক কিছু সাপোর্ট করি। আপনার স্ট্যাক তালিকায় না থাকলে আমাদের জিজ্ঞাসা করুন — আমরা সানন্দে মূল্যায়ন করব।"
         },
         {
           "id": "billing",
-          "question": "How does billing work?",
-          "answer": "Support retainers are billed monthly with a fixed fee based on your chosen tier. There are no surprise charges. If an issue requires work beyond the retainer scope, we provide a quote before proceeding."
+          "question": "বিলিং কীভাবে কাজ করে?",
+          "answer": "সাপোর্ট রিটেইনার আপনার বেছে নেওয়া টিয়ারের ভিত্তিতে একটি নির্দিষ্ট ফিতে মাসিকভাবে বিল করা হয়। কোনো অপ্রত্যাশিত চার্জ নেই। কোনো ইস্যুতে রিটেইনার স্কোপের বাইরের কাজ প্রয়োজন হলে, আমরা শুরু করার আগে একটি কোট দিই।"
         },
         {
           "id": "change-plan",
-          "question": "Can I upgrade or downgrade my plan?",
-          "answer": "Absolutely. You can change tiers at any time with 30 days notice. We will help you transition smoothly and adjust monitoring and SLA terms accordingly."
+          "question": "আমি কি আমার প্ল্যান আপগ্রেড বা ডাউনগ্রেড করতে পারি?",
+          "answer": "অবশ্যই। আপনি 30 দিনের নোটিশে যেকোনো সময় টিয়ার পরিবর্তন করতে পারেন। আমরা আপনাকে সহজে পরিবর্তনে সাহায্য করব এবং সেই অনুযায়ী মনিটরিং ও SLA শর্তাবলী সমন্বয় করব।"
         }
       ],
       "cta": {
-        "title": "Ready to secure your product?",
-        "lede": "Tell us about your application and we'll recommend the right support tier."
+        "title": "আপনার প্রোডাক্ট সুরক্ষিত করতে প্রস্তুত?",
+        "lede": "আপনার অ্যাপ্লিকেশন সম্পর্কে আমাদের জানান, আমরা সঠিক সাপোর্ট টিয়ার সুপারিশ করব।"
       }
     }
   },
