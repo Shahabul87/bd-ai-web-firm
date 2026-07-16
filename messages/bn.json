@@ -5,211 +5,290 @@
     "switchToBengali": "বাংলায় দেখুন"
   },
   "Nav": {
-    "services": "Services",
-    "studio": "Studio",
-    "contact": "Contact",
-    "aiAgents": "AI Agents",
-    "webDevelopment": "Web Development",
-    "mobileApps": "Mobile Apps",
-    "agentIntegration": "Agent Integration",
-    "products": "Products",
-    "process": "Process",
-    "resources": "Resources",
-    "about": "About"
+    "services": "সার্ভিস",
+    "studio": "স্টুডিও",
+    "contact": "যোগাযোগ",
+    "aiAgents": "AI এজেন্ট",
+    "webDevelopment": "ওয়েব ডেভেলপমেন্ট",
+    "mobileApps": "মোবাইল অ্যাপ",
+    "agentIntegration": "এজেন্ট ইন্টিগ্রেশন",
+    "products": "প্রোডাক্ট",
+    "process": "প্রক্রিয়া",
+    "resources": "রিসোর্স",
+    "about": "আমাদের সম্পর্কে"
   },
   "Header": {
-    "primaryNavLabel": "Primary",
-    "mobileNavLabel": "Mobile",
-    "getEstimate": "Get estimate",
-    "startProject": "Start a project",
-    "openMenu": "Open menu",
-    "closeMenu": "Close menu",
-    "menuToggleOpen": "Menu ≡",
-    "menuToggleClose": "Close ×",
-    "mobileBadge": "● CRAFTS.AI — DHAKA / WORLDWIDE"
+    "primaryNavLabel": "প্রধান",
+    "mobileNavLabel": "মোবাইল",
+    "getEstimate": "এস্টিমেট নিন",
+    "startProject": "প্রজেক্ট শুরু করুন",
+    "openMenu": "মেনু খুলুন",
+    "closeMenu": "মেনু বন্ধ করুন",
+    "menuToggleOpen": "মেনু ≡",
+    "menuToggleClose": "বন্ধ ×",
+    "mobileBadge": "● CRAFTS.AI — ঢাকা / বিশ্বজুড়ে"
   },
   "Footer": {
-    "ticker": "● ACCEPTING PROJECTS — DHAKA — WORLDWIDE — AI AGENTS — WEB — MOBILE — INTEGRATION — ",
-    "tagline": "We build AI agents. Our agents build your software.",
-    "careers": "Careers",
-    "contactForm": "Contact form",
-    "getEstimate": "Get an estimate",
-    "location": "Dhaka, Bangladesh",
-    "timezone": "GMT+6 — worldwide",
-    "copyright": "© {year} CraftsAI — All systems nominal",
-    "privacy": "Privacy",
-    "terms": "Terms",
-    "cookies": "Cookies"
+    "ticker": "● প্রজেক্ট গ্রহণ করছি — ঢাকা — বিশ্বজুড়ে — AI এজেন্ট — WEB — MOBILE — ইন্টিগ্রেশন — ",
+    "tagline": "আমরা AI এজেন্ট তৈরি করি। আমাদের এজেন্ট আপনার সফটওয়্যার তৈরি করে।",
+    "careers": "ক্যারিয়ার",
+    "contactForm": "যোগাযোগ ফর্ম",
+    "getEstimate": "এস্টিমেট নিন",
+    "location": "ঢাকা, বাংলাদেশ",
+    "timezone": "GMT+6 — বিশ্বজুড়ে",
+    "copyright": "© {year} CraftsAI — সব সিস্টেম স্বাভাবিক",
+    "privacy": "প্রাইভেসি",
+    "terms": "শর্তাবলী",
+    "cookies": "কুকিজ"
   },
   "CTABand": {
-    "eyebrow": "● accepting projects",
-    "title": "Have something to build?",
-    "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
-    "primaryLabel": "Start a project",
-    "secondaryLabel": "Get an estimate"
+    "eyebrow": "● প্রজেক্ট গ্রহণ করছি",
+    "title": "কিছু তৈরি করতে চান?",
+    "lede": "আপনার ব্রিফ আমাদের জানান। আমরা একটি পরিকল্পনা, টাইমলাইন এবং নির্দিষ্ট এস্টিমেট নিয়ে ফিরে আসব — সাধারণত দুই কর্মদিবসের মধ্যে।",
+    "primaryLabel": "প্রজেক্ট শুরু করুন",
+    "secondaryLabel": "এস্টিমেট নিন"
   },
   "PillarCards": {
-    "flagship": "Flagship",
-    "explore": "Explore",
+    "flagship": "ফ্ল্যাগশিপ",
+    "explore": "দেখুন",
     "aiAgents": {
-      "title": "AI Agents",
-      "blurb": "Custom agents that plan, write, and ship software — supervised by a senior engineer at every step.",
-      "stage1": "Brief",
-      "stage2": "Plan",
-      "stage3": "Build",
-      "stage4": "Review",
-      "stage5": "Ship"
+      "title": "AI এজেন্ট",
+      "blurb": "কাস্টম এজেন্ট যা সফটওয়্যার পরিকল্পনা করে, কোড লেখে এবং ডেলিভার করে — প্রতিটি ধাপে একজন সিনিয়র ইঞ্জিনিয়ারের তত্ত্বাবধানে।",
+      "stage1": "ব্রিফ",
+      "stage2": "পরিকল্পনা",
+      "stage3": "নির্মাণ",
+      "stage4": "পর্যালোচনা",
+      "stage5": "ডেলিভার"
     },
     "webDevelopment": {
-      "title": "Web Development",
-      "blurb": "Production web apps built by our agents and shipped fast, from marketing sites to full platforms.",
-      "stage1": "Design",
-      "stage2": "Build",
-      "stage3": "Test",
-      "stage4": "Deploy"
+      "title": "ওয়েব ডেভেলপমেন্ট",
+      "blurb": "আমাদের এজেন্টদের তৈরি প্রোডাকশন ওয়েব অ্যাপ, দ্রুত ডেলিভার করা — মার্কেটিং সাইট থেকে পূর্ণাঙ্গ প্ল্যাটফর্ম পর্যন্ত।",
+      "stage1": "ডিজাইন",
+      "stage2": "নির্মাণ",
+      "stage3": "টেস্ট",
+      "stage4": "ডিপ্লয়"
     },
     "mobileApps": {
-      "title": "Mobile Apps",
-      "blurb": "Native iOS and Android apps from one agent workflow — one brief, both platforms.",
-      "stage1": "Spec",
-      "stage2": "Build",
+      "title": "মোবাইল অ্যাপ",
+      "blurb": "একটি এজেন্ট ওয়ার্কফ্লো থেকে নেটিভ iOS এবং Android অ্যাপ — একটি ব্রিফ, দুই প্ল্যাটফর্ম।",
+      "stage1": "স্পেক",
+      "stage2": "নির্মাণ",
       "stage3": "QA",
-      "stage4": "Release"
+      "stage4": "রিলিজ"
     },
     "agentIntegration": {
-      "title": "Agent Integration",
-      "blurb": "Wire agents into the tools you already run — CRM, ERP, WhatsApp, and your internal systems.",
-      "stage1": "Audit",
-      "stage2": "Connect",
-      "stage3": "Automate",
-      "stage4": "Monitor"
+      "title": "এজেন্ট ইন্টিগ্রেশন",
+      "blurb": "আপনি ইতিমধ্যে যে টুলগুলো ব্যবহার করছেন সেগুলোর সঙ্গে এজেন্ট যুক্ত করুন — CRM, ERP, WhatsApp এবং আপনার অভ্যন্তরীণ সিস্টেম।",
+      "stage1": "অডিট",
+      "stage2": "সংযোগ",
+      "stage3": "অটোমেট",
+      "stage4": "মনিটর"
     }
   },
   "Home": {
     "hero": {
-      "titleLine1": "We draft agents.",
-      "titleLine2": "The agents build <accent>the rest.</accent>",
-      "lede": "CraftsAI is an engineering studio in Dhaka. We design custom AI agents that plan, write, and ship your websites, mobile apps, and integrations — every drawing reviewed by a senior engineer.",
-      "ctaPrimary": "Start a project",
-      "ctaSecondary": "See the process ↓",
-      "schematicLabel": "Engineering schematic: a brief flows into an AI agent, which produces a website, a mobile app, and an integration"
+      "titleLine1": "আমরা এজেন্ট তৈরি করি।",
+      "titleLine2": "এজেন্টরা তৈরি করে <accent>বাকি সবকিছু।</accent>",
+      "lede": "CraftsAI ঢাকায় অবস্থিত একটি ইঞ্জিনিয়ারিং স্টুডিও। আমরা কাস্টম AI এজেন্ট ডিজাইন করি যা আপনার ওয়েবসাইট, মোবাইল অ্যাপ এবং ইন্টিগ্রেশন পরিকল্পনা করে, কোড লেখে এবং ডেলিভার করে — প্রতিটি নকশা একজন সিনিয়র ইঞ্জিনিয়ার পর্যালোচনা করেন।",
+      "ctaPrimary": "প্রজেক্ট শুরু করুন",
+      "ctaSecondary": "প্রক্রিয়াটি দেখুন ↓",
+      "schematicLabel": "ইঞ্জিনিয়ারিং স্কিম্যাটিক: একটি ব্রিফ একটি AI এজেন্টে প্রবাহিত হয়, যা একটি ওয়েবসাইট, একটি মোবাইল অ্যাপ এবং একটি ইন্টিগ্রেশন তৈরি করে।"
     },
     "proof": {
-      "label": "● what we've shipped",
+      "label": "● আমরা যা ডেলিভার করেছি",
       "facts": [
-        "4 products shipped",
-        "web · ios · android",
-        "human-reviewed code",
-        "dhaka → worldwide"
+        "৪টি প্রোডাক্ট ডেলিভার করা হয়েছে",
+        "ওয়েব · iOS · Android",
+        "মানব-পর্যালোচিত কোড",
+        "ঢাকা → বিশ্বজুড়ে"
       ]
     },
     "pillars": {
-      "eyebrow": "What we build",
-      "title": "Four ways we put agents to work.",
-      "description": "Every engagement runs on the same idea: agents do the heavy lifting, engineers own the outcome."
+      "eyebrow": "আমরা যা তৈরি করি",
+      "title": "এজেন্টদের কাজে লাগানোর চারটি উপায়।",
+      "description": "প্রতিটি কাজ একই ধারণায় চলে: ভারী কাজগুলো এজেন্টরা করে, ফলাফলের দায়িত্ব নেন ইঞ্জিনিয়াররা।"
     },
     "build": {
-      "eyebrow": "How agents build",
-      "title": "Watch a brief become shipped software.",
-      "description": "This is the real shape of a build: the agent plans and writes, the checks run, and nothing ships until an engineer signs off.",
-      "terminalTitle": "crafts.ai — agent build",
+      "eyebrow": "এজেন্টরা যেভাবে তৈরি করে",
+      "title": "দেখুন কীভাবে একটি ব্রিফ ডেলিভার করা সফটওয়্যারে রূপ নেয়।",
+      "description": "একটি নির্মাণের আসল রূপ এটাই: এজেন্ট পরিকল্পনা করে ও কোড লেখে, চেকগুলো চলে, এবং একজন ইঞ্জিনিয়ার অনুমোদন না দেওয়া পর্যন্ত কিছুই ডেলিভার হয় না।",
+      "terminalTitle": "crafts.ai — এজেন্ট নির্মাণ",
       "terminal": [
-        { "text": "agent run --brief ./client-brief.md", "tone": "cmd" },
-        { "text": "Parsing brief… 4 requirements found", "tone": "out" },
-        { "text": "Planning build — 12 tasks across 3 modules", "tone": "out" },
-        { "text": "Writing src/checkout/payment.ts", "tone": "out" },
-        { "text": "Writing tests/checkout.test.ts", "tone": "out" },
-        { "text": "Running checks — lint ✓  types ✓  tests 34/34 ✓", "tone": "ok" },
-        { "text": "Human review requested — payment flow", "tone": "warn" },
-        { "text": "Approved. Shipped to staging.", "tone": "ok" }
+        {
+          "text": "agent run --brief ./client-brief.md",
+          "tone": "cmd"
+        },
+        {
+          "text": "ব্রিফ পার্স করা হচ্ছে… ৪টি রিকোয়ারমেন্ট পাওয়া গেছে",
+          "tone": "out"
+        },
+        {
+          "text": "নির্মাণ পরিকল্পনা — ৩টি মডিউলে ১২টি টাস্ক",
+          "tone": "out"
+        },
+        {
+          "text": "Writing src/checkout/payment.ts",
+          "tone": "out"
+        },
+        {
+          "text": "Writing tests/checkout.test.ts",
+          "tone": "out"
+        },
+        {
+          "text": "Running checks — lint ✓  types ✓  tests 34/34 ✓",
+          "tone": "ok"
+        },
+        {
+          "text": "মানব পর্যালোচনা চাওয়া হয়েছে — পেমেন্ট ফ্লো",
+          "tone": "warn"
+        },
+        {
+          "text": "অনুমোদিত। staging-এ ডেলিভার করা হয়েছে।",
+          "tone": "ok"
+        }
       ],
       "notes": [
         {
-          "label": "Agents do",
-          "body": "Read the brief, plan the work, write code and tests, run the checks, and open the change for review."
+          "label": "এজেন্টরা যা করে",
+          "body": "ব্রিফ পড়ে, কাজের পরিকল্পনা করে, কোড ও টেস্ট লেখে, চেকগুলো চালায় এবং পরিবর্তনটি পর্যালোচনার জন্য খোলে।"
         },
         {
-          "label": "Engineers do",
-          "body": "Set the direction, review every diff, own the architecture and the security-sensitive paths."
+          "label": "ইঞ্জিনিয়াররা যা করে",
+          "body": "দিকনির্দেশনা ঠিক করেন, প্রতিটি ডিফ পর্যালোচনা করেন, আর্কিটেকচার এবং নিরাপত্তা-সংবেদনশীল অংশগুলোর দায়িত্ব নেন।"
         },
         {
-          "label": "You get",
-          "body": "Working software in weeks, not months — with a person accountable for what ships."
+          "label": "আপনি যা পান",
+          "body": "কয়েক মাসে নয়, কয়েক সপ্তাহে কার্যকর সফটওয়্যার — যা ডেলিভার হয় তার জন্য একজন দায়বদ্ধ ব্যক্তিসহ।"
         }
       ]
     },
     "advantage": {
-      "title": "The same software, drafted differently.",
-      "colSpec": "Spec",
-      "colTraditional": "Traditional agency",
+      "title": "একই সফটওয়্যার, ভিন্নভাবে তৈরি।",
+      "colSpec": "বিষয়",
+      "colTraditional": "প্রথাগত এজেন্সি",
       "colCrafts": "CraftsAI",
       "rows": [
-        { "label": "Timeline", "traditional": "3–6 months", "crafts": "2–6 weeks" },
-        { "label": "Cost", "traditional": "$50K–200K", "crafts": "~80% less" },
-        { "label": "Team", "traditional": "Large agency team", "crafts": "Agents + senior engineer" },
-        { "label": "Review", "traditional": "Manual, occasional", "crafts": "Every change reviewed" },
-        { "label": "Process", "traditional": "Rigid milestones", "crafts": "Ship continuously" }
+        {
+          "label": "টাইমলাইন",
+          "traditional": "3–6 months",
+          "crafts": "2–6 weeks"
+        },
+        {
+          "label": "খরচ",
+          "traditional": "$50K–200K",
+          "crafts": "~80% less"
+        },
+        {
+          "label": "টিম",
+          "traditional": "বড় এজেন্সি টিম",
+          "crafts": "এজেন্ট + সিনিয়র ইঞ্জিনিয়ার"
+        },
+        {
+          "label": "পর্যালোচনা",
+          "traditional": "ম্যানুয়াল, মাঝেমধ্যে",
+          "crafts": "প্রতিটি পরিবর্তন পর্যালোচিত"
+        },
+        {
+          "label": "প্রক্রিয়া",
+          "traditional": "কঠোর মাইলস্টোন",
+          "crafts": "ধারাবাহিকভাবে ডেলিভার"
+        }
       ],
-      "footnote": "Figures are typical ranges for the projects we take on, not a guarantee — every scope is estimated up front, in writing."
+      "footnote": "এই সংখ্যাগুলো আমরা যেসব প্রজেক্ট গ্রহণ করি তার সাধারণ পরিসর, কোনো নিশ্চয়তা নয় — প্রতিটি স্কোপ আগে থেকেই লিখিতভাবে এস্টিমেট করা হয়।"
     },
     "work": {
-      "eyebrow": "Selected work",
-      "title": "Software our agents have shipped.",
-      "allWork": "All work →",
-      "readCaseStudy": "Read case study",
+      "eyebrow": "নির্বাচিত কাজ",
+      "title": "আমাদের এজেন্টদের ডেলিভার করা সফটওয়্যার।",
+      "allWork": "সব কাজ →",
+      "readCaseStudy": "কেস স্টাডি পড়ুন",
       "projects": [
         {
           "slug": "taxomind",
           "sector": "EdTech",
           "platform": "Web",
           "name": "TaxoMind",
-          "outcome": "An AI learning platform built on Bloom's Taxonomy for personalized education."
+          "outcome": "ব্যক্তিগতকৃত শিক্ষার জন্য ব্লুমস ট্যাক্সোনমির উপর নির্মিত একটি AI লার্নিং প্ল্যাটফর্ম।"
         },
         {
           "slug": "fincoach-ai",
           "sector": "FinTech",
           "platform": "Android",
           "name": "FinCoach AI",
-          "outcome": "An AI financial coach that helps people build better money habits, day by day."
+          "outcome": "একটি AI ফিনান্সিয়াল কোচ যা মানুষকে দিনে দিনে আরও ভালো অর্থ-অভ্যাস গড়ে তুলতে সাহায্য করে।"
         },
         {
           "slug": "mathphysics",
           "sector": "EdTech",
           "platform": "Android",
           "name": "MathPhysics",
-          "outcome": "Interactive math and physics practice for grade 9–12 students."
+          "outcome": "grade 9–12 শিক্ষার্থীদের জন্য ইন্টারেক্টিভ গণিত ও পদার্থবিজ্ঞান অনুশীলন।"
         }
       ]
     },
     "process": {
-      "eyebrow": "How we work",
-      "title": "Five steps, start to ship.",
-      "fullProcess": "The full process →",
+      "eyebrow": "আমরা যেভাবে কাজ করি",
+      "title": "পাঁচটি ধাপ, শুরু থেকে ডেলিভার।",
+      "fullProcess": "সম্পূর্ণ প্রক্রিয়া →",
       "steps": [
-        { "index": "01", "title": "Discover", "detail": "Free consultation to scope the problem." },
-        { "index": "02", "title": "Plan", "detail": "Written scope, estimate, and timeline." },
-        { "index": "03", "title": "Build", "detail": "Agents write; engineers review." },
-        { "index": "04", "title": "Test", "detail": "Automated checks plus human QA." },
-        { "index": "05", "title": "Launch", "detail": "Deploy, then ongoing support." }
+        {
+          "index": "০১",
+          "title": "আবিষ্কার",
+          "detail": "সমস্যার পরিধি নির্ধারণে বিনামূল্যে পরামর্শ।"
+        },
+        {
+          "index": "০২",
+          "title": "পরিকল্পনা",
+          "detail": "লিখিত স্কোপ, এস্টিমেট এবং টাইমলাইন।"
+        },
+        {
+          "index": "০৩",
+          "title": "নির্মাণ",
+          "detail": "এজেন্টরা কোড লেখে; ইঞ্জিনিয়াররা পর্যালোচনা করেন।"
+        },
+        {
+          "index": "০৪",
+          "title": "টেস্ট",
+          "detail": "স্বয়ংক্রিয় চেকের সঙ্গে মানব QA।"
+        },
+        {
+          "index": "০৫",
+          "title": "লঞ্চ",
+          "detail": "ডিপ্লয়, এরপর চলমান সহায়তা।"
+        }
       ]
     },
     "resources": {
-      "eyebrow": "Field notes",
-      "title": "What we're writing about.",
-      "allResources": "All resources →",
+      "eyebrow": "ফিল্ড নোটস",
+      "title": "আমরা যা নিয়ে লিখছি।",
+      "allResources": "সব রিসোর্স →",
       "items": [
-        { "slug": "ai-agents-software-development", "type": "Blog", "title": "How AI agents are changing software development in 2026", "readTime": "5 min" },
-        { "slug": "taxomind", "type": "Case study", "title": "How TaxoMind reached 10× faster content generation", "readTime": "8 min" },
-        { "slug": "ai-powered-development", "type": "Guide", "title": "The complete guide to AI-powered app development", "readTime": "12 min" }
+        {
+          "slug": "ai-agents-software-development",
+          "type": "ব্লগ",
+          "title": "২০২৬ সালে AI এজেন্ট কীভাবে সফটওয়্যার ডেভেলপমেন্ট বদলে দিচ্ছে",
+          "readTime": "5 মিনিট"
+        },
+        {
+          "slug": "taxomind",
+          "type": "কেস স্টাডি",
+          "title": "TaxoMind কীভাবে 10× দ্রুত কনটেন্ট জেনারেশনে পৌঁছাল",
+          "readTime": "8 মিনিট"
+        },
+        {
+          "slug": "ai-powered-development",
+          "type": "গাইড",
+          "title": "AI-চালিত অ্যাপ ডেভেলপমেন্টের সম্পূর্ণ গাইড",
+          "readTime": "12 মিনিট"
+        }
       ]
     },
     "finalCta": {
-      "eyebrow": "● accepting projects",
-      "title": "Have something to build?",
-      "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
-      "primaryLabel": "Start a project",
-      "secondaryLabel": "Get an estimate",
-      "emailPrefix": "or email"
+      "eyebrow": "● প্রজেক্ট গ্রহণ করছি",
+      "title": "কিছু তৈরি করতে চান?",
+      "lede": "আপনার ব্রিফ আমাদের জানান। আমরা একটি পরিকল্পনা, টাইমলাইন এবং নির্দিষ্ট এস্টিমেট নিয়ে ফিরে আসব — সাধারণত দুই কর্মদিবসের মধ্যে।",
+      "primaryLabel": "প্রজেক্ট শুরু করুন",
+      "secondaryLabel": "এস্টিমেট নিন",
+      "emailPrefix": "অথবা ইমেইল করুন"
     }
   },
   "Services": {
@@ -229,40 +308,52 @@
     },
     "web": {
       "hero": {
-        "eyebrow": "Services / Web",
-        "title": "Web Development",
-        "lede": "Full-stack web applications built with React, Next.js, and modern cloud infrastructure — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
-        "secondaryCta": "Get an estimate"
+        "eyebrow": "সার্ভিস / ওয়েব",
+        "title": "ওয়েব ডেভেলপমেন্ট",
+        "lede": "React, Next.js এবং আধুনিক ক্লাউড ইনফ্রাস্ট্রাকচার দিয়ে তৈরি ফুল-স্ট্যাক ওয়েব অ্যাপ্লিকেশন — আমাদের এজেন্টদের তৈরি এবং দ্রুত ডেলিভার করা, প্রতিটি রিলিজ সিনিয়র ইঞ্জিনিয়াররা পর্যালোচনা করেন।",
+        "primaryCta": "প্রজেক্ট শুরু করুন",
+        "secondaryCta": "এস্টিমেট নিন"
       },
       "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent scaffolds it. Engineers ship it.",
-        "description": "Our agents turn your requirements into a working codebase in hours — senior engineers take it from there.",
-        "stages": ["Brief", "Scaffold", "Build", "Review", "Ship"]
+        "eyebrow": "যেভাবে ডেলিভার হয়",
+        "title": "একটি ব্রিফ। একটি এজেন্ট এটির কাঠামো তৈরি করে। ইঞ্জিনিয়াররা এটি ডেলিভার করেন।",
+        "description": "আমাদের এজেন্টরা আপনার রিকোয়ারমেন্টকে কয়েক ঘণ্টায় একটি কার্যকর কোডবেসে রূপান্তরিত করে — এরপর সিনিয়র ইঞ্জিনিয়াররা দায়িত্ব নেন।",
+        "stages": [
+          "ব্রিফ",
+          "স্ক্যাফোল্ড",
+          "নির্মাণ",
+          "পর্যালোচনা",
+          "ডেলিভার"
+        ]
       },
-      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": {
+        "eyebrow": "আপনি যা পান",
+        "title": "স্কোপ, স্ট্যাক এবং ডেলিভারি — লিখিতভাবে।"
+      },
       "specRows": [
         {
           "slug": "scope",
-          "label": "Scope",
-          "value": "SaaS platforms, e-commerce, enterprise dashboards, MVPs, APIs, and progressive web apps — full-stack, schema to deploy."
+          "label": "স্কোপ",
+          "value": "SaaS প্ল্যাটফর্ম, ই-কমার্স, এন্টারপ্রাইজ ড্যাশবোর্ড, MVP, API এবং প্রোগ্রেসিভ ওয়েব অ্যাপ — ফুল-স্ট্যাক, স্কিমা থেকে ডিপ্লয় পর্যন্ত।"
         },
-        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "stack",
+          "label": "স্ট্যাক"
+        },
         {
           "slug": "timeline",
-          "label": "Timeline",
-          "value": "2–6 weeks, depending on scope — roughly 10x faster and 80% cheaper than a typical agency build."
+          "label": "টাইমলাইন",
+          "value": "2–6 weeks, স্কোপের উপর নির্ভর করে — একটি সাধারণ এজেন্সি নির্মাণের চেয়ে প্রায় 10x দ্রুত এবং 80% সস্তা।"
         },
         {
           "slug": "automated",
-          "label": "Automated by agents",
-          "value": "Next.js page structures, API routes, database schemas, and Tailwind component libraries, generated from a plain-English brief."
+          "label": "এজেন্ট দ্বারা স্বয়ংক্রিয়",
+          "value": "সরল ইংরেজিতে লেখা একটি ব্রিফ থেকে তৈরি Next.js পেজ স্ট্রাকচার, API রুট, ডেটাবেস স্কিমা এবং Tailwind কম্পোনেন্ট লাইব্রেরি।"
         },
         {
           "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "Every pull request, integration test, and product decision that only a person can make — before anything ships."
+          "label": "ইঞ্জিনিয়ার দ্বারা পর্যালোচিত",
+          "value": "প্রতিটি পুল রিকোয়েস্ট, ইন্টিগ্রেশন টেস্ট এবং কেবল একজন মানুষই নিতে পারে এমন প্রোডাক্ট সিদ্ধান্ত — কিছু ডেলিভার হওয়ার আগে।"
         }
       ],
       "techStack": [
@@ -280,54 +371,57 @@
         "Tailwind CSS"
       ],
       "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the products we build most often — not an exhaustive list."
+        "eyebrow": "ব্যবহারের ক্ষেত্র",
+        "title": "কোথায় এটি মানানসই।",
+        "description": "আমরা সবচেয়ে বেশি যেসব প্রোডাক্ট তৈরি করি তার একটি নমুনা — সম্পূর্ণ তালিকা নয়।"
       },
       "useCases": [
         {
-          "title": "SaaS Platforms",
-          "description": "Multi-tenant applications with subscription billing, user management, and analytics dashboards."
+          "title": "SaaS প্ল্যাটফর্ম",
+          "description": "সাবস্ক্রিপশন বিলিং, ইউজার ম্যানেজমেন্ট এবং অ্যানালিটিক্স ড্যাশবোর্ডসহ মাল্টি-টেন্যান্ট অ্যাপ্লিকেশন।"
         },
         {
-          "title": "E-Commerce",
-          "description": "Online stores with inventory management, payment processing, and order fulfillment."
+          "title": "ই-কমার্স",
+          "description": "ইনভেন্টরি ম্যানেজমেন্ট, পেমেন্ট প্রসেসিং এবং অর্ডার ফুলফিলমেন্টসহ অনলাইন স্টোর।"
         },
         {
-          "title": "Enterprise Dashboards",
-          "description": "Data-rich dashboards with real-time charts, role-based access, and reporting tools."
+          "title": "এন্টারপ্রাইজ ড্যাশবোর্ড",
+          "description": "রিয়েল-টাইম চার্ট, রোল-ভিত্তিক অ্যাক্সেস এবং রিপোর্টিং টুলসহ ডেটা-সমৃদ্ধ ড্যাশবোর্ড।"
         },
         {
-          "title": "MVPs & Prototypes",
-          "description": "Rapid prototypes to validate your idea and attract funding in weeks, not months."
+          "title": "MVP ও প্রোটোটাইপ",
+          "description": "আপনার আইডিয়া যাচাই করতে এবং কয়েক মাসে নয়, কয়েক সপ্তাহে ফান্ডিং আকর্ষণ করতে দ্রুত প্রোটোটাইপ।"
         }
       ],
-      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "সাধারণ প্রশ্ন।"
+      },
       "faqItems": [
         {
           "id": "ai-speed",
-          "question": "How does AI speed up web development?",
-          "answer": "Our agents generate boilerplate code, database schemas, and component scaffolding in minutes. Human engineers then review, refine, and customize everything to your exact requirements. This eliminates repetitive work and lets us focus on what makes your product unique."
+          "question": "AI কীভাবে ওয়েব ডেভেলপমেন্ট দ্রুত করে?",
+          "answer": "আমাদের এজেন্টরা কয়েক মিনিটে বয়লারপ্লেট কোড, ডেটাবেস স্কিমা এবং কম্পোনেন্ট স্ক্যাফোল্ডিং তৈরি করে। এরপর মানব ইঞ্জিনিয়াররা আপনার সুনির্দিষ্ট প্রয়োজন অনুযায়ী সবকিছু পর্যালোচনা, পরিমার্জন এবং কাস্টমাইজ করেন। এটি পুনরাবৃত্তিমূলক কাজ দূর করে এবং আপনার প্রোডাক্টকে যা অনন্য করে তোলে সেদিকে মনোযোগ দিতে সাহায্য করে।"
         },
         {
           "id": "existing-codebase",
-          "question": "Can you work with my existing codebase?",
-          "answer": "Absolutely. We regularly join projects mid-stream. Our onboarding process includes a thorough code audit, and our AI agent adapts to your existing patterns, conventions, and tech stack."
+          "question": "আপনি কি আমার বিদ্যমান কোডবেসের সঙ্গে কাজ করতে পারবেন?",
+          "answer": "অবশ্যই। আমরা নিয়মিতভাবে চলমান প্রজেক্টে যুক্ত হই। আমাদের অনবোর্ডিং প্রক্রিয়ায় একটি পূর্ণাঙ্গ কোড অডিট অন্তর্ভুক্ত থাকে, এবং আমাদের AI এজেন্ট আপনার বিদ্যমান প্যাটার্ন, কনভেনশন এবং টেক স্ট্যাকের সঙ্গে খাপ খাইয়ে নেয়।"
         },
         {
           "id": "timeline",
-          "question": "What does the delivery timeline look like?",
-          "answer": "Most web projects ship in 2 to 6 weeks depending on complexity. MVPs and prototypes can launch in as little as 2 weeks. Enterprise platforms with complex integrations typically take 4 to 6 weeks. You will receive weekly progress demos throughout."
+          "question": "ডেলিভারি টাইমলাইন কেমন হয়?",
+          "answer": "জটিলতার উপর নির্ভর করে বেশিরভাগ ওয়েব প্রজেক্ট 2 থেকে 6 সপ্তাহে ডেলিভার হয়। MVP এবং প্রোটোটাইপ মাত্র 2 সপ্তাহেই লঞ্চ হতে পারে। জটিল ইন্টিগ্রেশনসহ এন্টারপ্রাইজ প্ল্যাটফর্ম সাধারণত 4 থেকে 6 সপ্তাহ সময় নেয়। পুরো সময়জুড়ে আপনি সাপ্তাহিক অগ্রগতির ডেমো পাবেন।"
         },
         {
           "id": "deployment",
-          "question": "Do you handle deployment and hosting?",
-          "answer": "Yes. We deploy to Vercel, AWS, or your preferred cloud provider. Every project includes CI/CD pipelines, monitoring, and a production-ready infrastructure setup at no extra charge."
+          "question": "আপনি কি ডিপ্লয়মেন্ট এবং হোস্টিং সামলান?",
+          "answer": "হ্যাঁ। আমরা Vercel, AWS অথবা আপনার পছন্দের ক্লাউড প্রোভাইডারে ডিপ্লয় করি। প্রতিটি প্রজেক্টে CI/CD পাইপলাইন, মনিটরিং এবং একটি প্রোডাকশন-রেডি ইনফ্রাস্ট্রাকচার সেটআপ অতিরিক্ত খরচ ছাড়াই অন্তর্ভুক্ত থাকে।"
         }
       ],
       "cta": {
-        "title": "Ready to build your web application?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "আপনার ওয়েব অ্যাপ্লিকেশন তৈরি করতে প্রস্তুত?",
+        "lede": "আপনার প্রজেক্ট সম্পর্কে আমাদের জানান। আমরা একটি পরিকল্পনা, টাইমলাইন এবং নির্দিষ্ট এস্টিমেট নিয়ে ফিরে আসব।"
       }
     },
     "ios": {
@@ -342,16 +436,28 @@
         "eyebrow": "How it ships",
         "title": "One brief. An agent drafts the app. Engineers ship it.",
         "description": "Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance.",
-        "stages": ["Brief", "Design", "Build", "Review", "Ship"]
+        "stages": [
+          "Brief",
+          "Design",
+          "Build",
+          "Review",
+          "Ship"
+        ]
       },
-      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": {
+        "eyebrow": "What you get",
+        "title": "Scope, stack, and delivery — in writing."
+      },
       "specRows": [
         {
           "slug": "scope",
           "label": "Scope",
           "value": "Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst."
         },
-        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "stack",
+          "label": "Stack"
+        },
         {
           "slug": "timeline",
           "label": "Timeline",
@@ -403,7 +509,10 @@
           "description": "Polished consumer experiences with elegant animations and seamless onboarding."
         }
       ],
-      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Common questions."
+      },
       "faqItems": [
         {
           "id": "swiftui-uikit",
@@ -443,16 +552,28 @@
         "eyebrow": "How it ships",
         "title": "One brief. An agent drafts the app. Engineers ship it.",
         "description": "Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance.",
-        "stages": ["Brief", "Design", "Build", "Review", "Release"]
+        "stages": [
+          "Brief",
+          "Design",
+          "Build",
+          "Review",
+          "Release"
+        ]
       },
-      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": {
+        "eyebrow": "What you get",
+        "title": "Scope, stack, and delivery — in writing."
+      },
       "specRows": [
         {
           "slug": "scope",
           "label": "Scope",
           "value": "Business, social, e-commerce, health, education, and productivity apps — responsive across phones, tablets, and foldables."
         },
-        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "stack",
+          "label": "Stack"
+        },
         {
           "slug": "timeline",
           "label": "Timeline",
@@ -504,7 +625,10 @@
           "description": "Wearable integrations, workout trackers, and telehealth experiences."
         }
       ],
-      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Common questions."
+      },
       "faqItems": [
         {
           "id": "kotlin-java",
@@ -540,7 +664,10 @@
         "primaryCta": "Start a project",
         "secondaryCta": "Get an estimate"
       },
-      "spec": { "eyebrow": "Snapshot", "title": "Coverage, response time, and billing — in writing." },
+      "spec": {
+        "eyebrow": "Snapshot",
+        "title": "Coverage, response time, and billing — in writing."
+      },
       "specRows": [
         {
           "slug": "monitoring",
@@ -552,8 +679,14 @@
           "label": "Uptime SLA",
           "value": "99.9% — backed by quarterly architecture reviews on Enterprise plans."
         },
-        { "slug": "included", "label": "Included" },
-        { "slug": "stacks", "label": "Stacks supported" },
+        {
+          "slug": "included",
+          "label": "Included"
+        },
+        {
+          "slug": "stacks",
+          "label": "Stacks supported"
+        },
         {
           "slug": "billing",
           "label": "Billing",
@@ -568,7 +701,18 @@
         "Database Maintenance",
         "Backup Management"
       ],
-      "coverage": ["React", "Next.js", "Node.js", "Kotlin", "Swift", "PostgreSQL", "MongoDB", "AWS", "Vercel", "Firebase"],
+      "coverage": [
+        "React",
+        "Next.js",
+        "Node.js",
+        "Kotlin",
+        "Swift",
+        "PostgreSQL",
+        "MongoDB",
+        "AWS",
+        "Vercel",
+        "Firebase"
+      ],
       "plans": {
         "eyebrow": "Plans",
         "title": "Choose your tier.",
@@ -579,7 +723,12 @@
           "slug": "basic",
           "name": "Basic",
           "description": "Bug fixes and routine updates for smaller applications.",
-          "features": ["Bug fixes within 48 hours", "Dependency updates", "Monthly health report", "Email support"]
+          "features": [
+            "Bug fixes within 48 hours",
+            "Dependency updates",
+            "Monthly health report",
+            "Email support"
+          ]
         },
         {
           "slug": "professional",
@@ -607,7 +756,10 @@
           ]
         }
       ],
-      "onboardingSection": { "eyebrow": "Onboarding", "title": "Three steps to your first retainer month." },
+      "onboardingSection": {
+        "eyebrow": "Onboarding",
+        "title": "Three steps to your first retainer month."
+      },
       "onboarding": [
         {
           "index": "01",
@@ -625,7 +777,10 @@
           "detail": "Your retainer begins. You get a dedicated channel for requests and a dashboard to track every issue."
         }
       ],
-      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Common questions."
+      },
       "faqItems": [
         {
           "id": "other-teams",
@@ -679,10 +834,22 @@
       "eyebrow": "By the numbers",
       "title": "What that looks like in practice.",
       "items": [
-        { "value": "4", "label": "Products Built" },
-        { "value": "3", "label": "Platforms" },
-        { "value": "10x", "label": "Faster Delivery" },
-        { "value": "80%", "label": "Cost Savings" }
+        {
+          "value": "4",
+          "label": "Products Built"
+        },
+        {
+          "value": "3",
+          "label": "Platforms"
+        },
+        {
+          "value": "10x",
+          "label": "Faster Delivery"
+        },
+        {
+          "value": "80%",
+          "label": "Cost Savings"
+        }
       ]
     },
     "products": {
@@ -690,10 +857,22 @@
       "title": "What we've built for ourselves.",
       "viewAll": "View all →",
       "items": [
-        { "name": "Banglu", "description": "Bengali phonetic keyboard for web and Android." },
-        { "name": "Taxomind", "description": "AI-powered tax preparation platform." },
-        { "name": "CraftsAI Studio", "description": "Internal tooling for AI-assisted development." },
-        { "name": "Client Projects", "description": "Custom web and mobile apps for businesses worldwide." }
+        {
+          "name": "Banglu",
+          "description": "Bengali phonetic keyboard for web and Android."
+        },
+        {
+          "name": "Taxomind",
+          "description": "AI-powered tax preparation platform."
+        },
+        {
+          "name": "CraftsAI Studio",
+          "description": "Internal tooling for AI-assisted development."
+        },
+        {
+          "name": "Client Projects",
+          "description": "Custom web and mobile apps for businesses worldwide."
+        }
       ]
     },
     "cta": {
@@ -712,10 +891,22 @@
       "eyebrow": "Why CraftsAI",
       "title": "What it's like to work here.",
       "cards": [
-        { "title": "AI-First Culture", "description": "We embrace AI as a core tool in every workflow. You will work alongside cutting-edge coding agents and shape how humans and AI collaborate." },
-        { "title": "Remote Friendly", "description": "Work from anywhere in the world. We communicate asynchronously and value output over hours. Flexible schedules that fit your life." },
-        { "title": "Cutting-Edge Tech", "description": "Next.js, Kotlin, Swift, LLM integrations, cloud-native architectures. You will always be working with the latest technologies and frameworks." },
-        { "title": "Impact-Driven Work", "description": "Every product we build solves real problems for real users. From education platforms to finance apps, your work will make a tangible difference." }
+        {
+          "title": "AI-First Culture",
+          "description": "We embrace AI as a core tool in every workflow. You will work alongside cutting-edge coding agents and shape how humans and AI collaborate."
+        },
+        {
+          "title": "Remote Friendly",
+          "description": "Work from anywhere in the world. We communicate asynchronously and value output over hours. Flexible schedules that fit your life."
+        },
+        {
+          "title": "Cutting-Edge Tech",
+          "description": "Next.js, Kotlin, Swift, LLM integrations, cloud-native architectures. You will always be working with the latest technologies and frameworks."
+        },
+        {
+          "title": "Impact-Driven Work",
+          "description": "Every product we build solves real problems for real users. From education platforms to finance apps, your work will make a tangible difference."
+        }
       ]
     },
     "openPositions": {
@@ -793,10 +984,22 @@
       "title": "Transparency is how we work.",
       "description": "You will always know where your project stands.",
       "items": [
-        { "title": "Weekly Progress Reports", "description": "Detailed updates on what was completed, what is next, and any blockers." },
-        { "title": "Direct Messaging", "description": "Reach us anytime via WhatsApp or email. No ticketing queues." },
-        { "title": "Live Demos at Milestones", "description": "See working software at every major milestone, not just at the end." },
-        { "title": "Dedicated Project Channel", "description": "A shared channel for your team and ours to keep everything in one place." }
+        {
+          "title": "Weekly Progress Reports",
+          "description": "Detailed updates on what was completed, what is next, and any blockers."
+        },
+        {
+          "title": "Direct Messaging",
+          "description": "Reach us anytime via WhatsApp or email. No ticketing queues."
+        },
+        {
+          "title": "Live Demos at Milestones",
+          "description": "See working software at every major milestone, not just at the end."
+        },
+        {
+          "title": "Dedicated Project Channel",
+          "description": "A shared channel for your team and ours to keep everything in one place."
+        }
       ]
     },
     "cta": {
