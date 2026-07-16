@@ -39,6 +39,28 @@ Meta.about.title, Meta.about.description   -> every page's metadata
 
 **Arrays**: next-intl returns arrays via `t.raw('useCases')`. It is NOT type-safe — cast the result to the existing local type (e.g. `t.raw('useCases') as UseCase[]`). That cast is permitted ONLY here and ONLY to a concrete named type; `as any`/`as unknown` remain forbidden. Keep the existing `SpecRow`/`AccordionItem` types.
 
+## Server vs client — verified 2026-07-16, do not guess
+
+Choosing wrong fails the build: `getTranslations` is server-only, and an `async` client
+component is invalid React. This map is measured, not assumed:
+
+| Component | | Use |
+|---|---|---|
+| `shared/CTABand.tsx` | **client** | `useTranslations` (sync) |
+| `shared/PillarCards.tsx` | **client** | `useTranslations` (sync) |
+| `layout/Header.tsx` | **client** | `useTranslations` (sync) |
+| `layout/MobileMenu.tsx` | **client** | `useTranslations` (sync) |
+| `layout/LocaleToggle.tsx` | **client** | already done in Stage 1 |
+| `shared/PageHero.tsx` | server | `await getTranslations` (async) |
+| `layout/Footer.tsx` | server | `await getTranslations` (async) |
+| `layout/PageLayout.tsx` | server | no copy — leave alone |
+| `(site)/[locale]/**` pages | server | `await getTranslations` (async) |
+| …EXCEPT `contact/`, `quote/`, `error.tsx` | **client** | `useTranslations` (sync) |
+| `components/home/*` | mixed | **check line 1 of each** — the hero is client (framer-motion) |
+
+The two shared copy-carriers differ (`CTABand` client, `PageHero` server), so the pattern from
+one does NOT carry to the other.
+
 ## File Structure
 
 | Path | Responsibility |
