@@ -1,4 +1,14 @@
-import { getTranslations } from 'next-intl/server';
+'use client';
+
+/* Client, not server, and deliberately so. PageLayout renders this Footer, and
+ * PageLayout is imported by the two 'use client' pages (contact, quote) — which
+ * makes everything they import a client component too. `getTranslations` is
+ * server-only and throws there ("getTranslations is not supported in Client
+ * Components"), so this must use the hook. That failure was invisible until the
+ * spinner gate was removed from CrossPlatformWrapper (PR #7): before that, those
+ * pages never rendered their tree during prerender, so the build reported 110/110
+ * while /en/contact was broken. */
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import MonoLabel from '../../design/ui/MonoLabel';
 import { PRIMARY_LINKS, SERVICE_LINKS } from './nav';
@@ -10,9 +20,9 @@ const LEGAL_LINKS = [
   { labelKey: 'cookies', href: '/cookies' },
 ];
 
-export default async function Footer() {
-  const t = await getTranslations('Footer');
-  const tNav = await getTranslations('Nav');
+export default function Footer() {
+  const t = useTranslations('Footer');
+  const tNav = useTranslations('Nav');
   const ticker = t('ticker');
 
   return (
