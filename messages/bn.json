@@ -211,5 +211,459 @@
       "secondaryLabel": "Get an estimate",
       "emailPrefix": "or email"
     }
+  },
+  "Services": {
+    "index": {
+      "hero": {
+        "eyebrow": "Services / overview",
+        "title": "We build agents. The agents build your software.",
+        "lede": "Four services, one workflow. Custom agents do the heavy lifting; senior engineers own the architecture, the review, and what ships.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "pillars": {
+        "index": "fig. 01",
+        "eyebrow": "What we build",
+        "title": "Pick where an agent goes to work.",
+        "description": "Not sure which fits? Start a project and we'll map it with you."
+      }
+    },
+    "web": {
+      "hero": {
+        "eyebrow": "Services / Web",
+        "title": "Web Development",
+        "lede": "Full-stack web applications built with React, Next.js, and modern cloud infrastructure — built by our agents and shipped fast, with senior engineers reviewing every release.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "pipeline": {
+        "index": "fig. 01",
+        "eyebrow": "How it ships",
+        "title": "One brief. An agent scaffolds it. Engineers ship it.",
+        "description": "Our agents turn your requirements into a working codebase in hours — senior engineers take it from there.",
+        "stages": ["Brief", "Scaffold", "Build", "Review", "Ship"]
+      },
+      "spec": { "index": "fig. 02", "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "specRows": [
+        {
+          "slug": "scope",
+          "label": "Scope",
+          "value": "SaaS platforms, e-commerce, enterprise dashboards, MVPs, APIs, and progressive web apps — full-stack, schema to deploy."
+        },
+        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "timeline",
+          "label": "Timeline",
+          "value": "2–6 weeks, depending on scope — roughly 10x faster and 80% cheaper than a typical agency build."
+        },
+        {
+          "slug": "automated",
+          "label": "Automated by agents",
+          "value": "Next.js page structures, API routes, database schemas, and Tailwind component libraries, generated from a plain-English brief."
+        },
+        {
+          "slug": "reviewed",
+          "label": "Reviewed by engineers",
+          "value": "Every pull request, integration test, and product decision that only a person can make — before anything ships."
+        }
+      ],
+      "techStack": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "MongoDB",
+        "AWS",
+        "Vercel",
+        "Docker",
+        "GraphQL",
+        "REST APIs",
+        "Tailwind CSS"
+      ],
+      "useCasesSection": {
+        "index": "fig. 03",
+        "eyebrow": "Use cases",
+        "title": "Where this fits.",
+        "description": "A sample of the products we build most often — not an exhaustive list."
+      },
+      "useCases": [
+        {
+          "title": "SaaS Platforms",
+          "description": "Multi-tenant applications with subscription billing, user management, and analytics dashboards."
+        },
+        {
+          "title": "E-Commerce",
+          "description": "Online stores with inventory management, payment processing, and order fulfillment."
+        },
+        {
+          "title": "Enterprise Dashboards",
+          "description": "Data-rich dashboards with real-time charts, role-based access, and reporting tools."
+        },
+        {
+          "title": "MVPs & Prototypes",
+          "description": "Rapid prototypes to validate your idea and attract funding in weeks, not months."
+        }
+      ],
+      "faq": { "index": "fig. 04", "eyebrow": "FAQ", "title": "Common questions." },
+      "faqItems": [
+        {
+          "id": "ai-speed",
+          "question": "How does AI speed up web development?",
+          "answer": "Our agents generate boilerplate code, database schemas, and component scaffolding in minutes. Human engineers then review, refine, and customize everything to your exact requirements. This eliminates repetitive work and lets us focus on what makes your product unique."
+        },
+        {
+          "id": "existing-codebase",
+          "question": "Can you work with my existing codebase?",
+          "answer": "Absolutely. We regularly join projects mid-stream. Our onboarding process includes a thorough code audit, and our AI agent adapts to your existing patterns, conventions, and tech stack."
+        },
+        {
+          "id": "timeline",
+          "question": "What does the delivery timeline look like?",
+          "answer": "Most web projects ship in 2 to 6 weeks depending on complexity. MVPs and prototypes can launch in as little as 2 weeks. Enterprise platforms with complex integrations typically take 4 to 6 weeks. You will receive weekly progress demos throughout."
+        },
+        {
+          "id": "deployment",
+          "question": "Do you handle deployment and hosting?",
+          "answer": "Yes. We deploy to Vercel, AWS, or your preferred cloud provider. Every project includes CI/CD pipelines, monitoring, and a production-ready infrastructure setup at no extra charge."
+        }
+      ],
+      "cta": {
+        "title": "Ready to build your web application?",
+        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+      }
+    },
+    "ios": {
+      "hero": {
+        "eyebrow": "Services / iOS",
+        "title": "iOS Development",
+        "lede": "Native iOS apps with Swift and SwiftUI — built by our agents and shipped fast, with senior engineers reviewing every release.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "pipeline": {
+        "index": "fig. 01",
+        "eyebrow": "How it ships",
+        "title": "One brief. An agent drafts the app. Engineers ship it.",
+        "description": "Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance.",
+        "stages": ["Brief", "Design", "Build", "Review", "Ship"]
+      },
+      "spec": { "index": "fig. 02", "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "specRows": [
+        {
+          "slug": "scope",
+          "label": "Scope",
+          "value": "Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst."
+        },
+        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "timeline",
+          "label": "Timeline",
+          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
+        },
+        {
+          "slug": "automated",
+          "label": "Automated by agents",
+          "value": "SwiftUI views, Core Data models, networking layers, and navigation stacks — generated from your requirements, following Apple's Human Interface Guidelines."
+        },
+        {
+          "slug": "reviewed",
+          "label": "Reviewed by engineers",
+          "value": "UX refinement, App Store compliance, and rigorous testing on every build before it reaches your users."
+        }
+      ],
+      "techStack": [
+        "Swift",
+        "SwiftUI",
+        "UIKit",
+        "Core Data",
+        "CloudKit",
+        "Combine",
+        "MapKit",
+        "HealthKit",
+        "StoreKit",
+        "Core ML"
+      ],
+      "useCasesSection": {
+        "index": "fig. 03",
+        "eyebrow": "Use cases",
+        "title": "Where this fits.",
+        "description": "A sample of the apps we build most often — not an exhaustive list."
+      },
+      "useCases": [
+        {
+          "title": "Business Apps",
+          "description": "Enterprise tools, CRM mobile clients, and field-service apps with secure data handling."
+        },
+        {
+          "title": "Health & Fitness",
+          "description": "HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines."
+        },
+        {
+          "title": "Fintech",
+          "description": "Secure financial apps with biometric auth, real-time data, and Apple Pay integration."
+        },
+        {
+          "title": "Consumer Apps",
+          "description": "Polished consumer experiences with elegant animations and seamless onboarding."
+        }
+      ],
+      "faq": { "index": "fig. 04", "eyebrow": "FAQ", "title": "Common questions." },
+      "faqItems": [
+        {
+          "id": "swiftui-uikit",
+          "question": "Do you build with SwiftUI or UIKit?",
+          "answer": "We use SwiftUI for all new projects because it provides a modern, declarative approach to UI development and is Apple's recommended framework going forward. For projects that need to support older iOS versions or require features not yet available in SwiftUI, we use UIKit or a hybrid approach."
+        },
+        {
+          "id": "app-store-submission",
+          "question": "Can you submit to the App Store for us?",
+          "answer": "Yes. We manage the entire submission process including App Store Connect setup, screenshots, metadata, and review compliance. We also handle TestFlight distribution for beta testing with your team or early users."
+        },
+        {
+          "id": "ipad-watch",
+          "question": "Do you support iPad and Apple Watch?",
+          "answer": "Absolutely. Our SwiftUI layouts adapt to iPad, Apple Watch, and even macOS via Catalyst. We design for the full Apple ecosystem from day one, so your app feels native on every device."
+        },
+        {
+          "id": "iap",
+          "question": "What about in-app purchases and subscriptions?",
+          "answer": "StoreKit 2 is part of our standard toolkit. We implement subscriptions, consumables, and non-consumable purchases with server-side receipt validation. We also handle the App Store pricing and tax configuration."
+        }
+      ],
+      "cta": {
+        "title": "Ready to build your iOS app?",
+        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+      }
+    },
+    "android": {
+      "hero": {
+        "eyebrow": "Services / Android",
+        "title": "Android Development",
+        "lede": "Native Android apps with Kotlin and Jetpack Compose — built by our agents and shipped fast, with senior engineers reviewing every release.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "pipeline": {
+        "index": "fig. 01",
+        "eyebrow": "How it ships",
+        "title": "One brief. An agent drafts the app. Engineers ship it.",
+        "description": "Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance.",
+        "stages": ["Brief", "Design", "Build", "Review", "Release"]
+      },
+      "spec": { "index": "fig. 02", "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "specRows": [
+        {
+          "slug": "scope",
+          "label": "Scope",
+          "value": "Business, social, e-commerce, health, education, and productivity apps — responsive across phones, tablets, and foldables."
+        },
+        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "timeline",
+          "label": "Timeline",
+          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
+        },
+        {
+          "slug": "automated",
+          "label": "Automated by agents",
+          "value": "Kotlin modules, Compose screens, Room database entities, and Hilt dependency graphs — generated from your requirements, following Google's MVVM + Repository architecture."
+        },
+        {
+          "slug": "reviewed",
+          "label": "Reviewed by engineers",
+          "value": "UX polish, edge-case testing, and Play Store compliance on every release before it reaches production."
+        }
+      ],
+      "techStack": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Material Design 3",
+        "Firebase",
+        "Room DB",
+        "Retrofit",
+        "ML Kit",
+        "Google Play Services",
+        "Coroutines",
+        "Hilt"
+      ],
+      "useCasesSection": {
+        "index": "fig. 03",
+        "eyebrow": "Use cases",
+        "title": "Where this fits.",
+        "description": "A sample of the apps we build most often — not an exhaustive list."
+      },
+      "useCases": [
+        {
+          "title": "Business Apps",
+          "description": "Internal tools, CRM integrations, and field-service apps that streamline operations."
+        },
+        {
+          "title": "E-Commerce Mobile",
+          "description": "Shopping apps with product catalogs, in-app payments, and push notification campaigns."
+        },
+        {
+          "title": "Social & Community",
+          "description": "Chat, feeds, and real-time features that keep users engaged and connected."
+        },
+        {
+          "title": "Health & Fitness",
+          "description": "Wearable integrations, workout trackers, and telehealth experiences."
+        }
+      ],
+      "faq": { "index": "fig. 04", "eyebrow": "FAQ", "title": "Common questions." },
+      "faqItems": [
+        {
+          "id": "kotlin-java",
+          "question": "Do you build with Kotlin or Java?",
+          "answer": "We build exclusively with Kotlin and Jetpack Compose for all new projects. Kotlin is the official recommended language for Android development, and Compose provides a modern, declarative UI toolkit. If you have an existing Java codebase, we can maintain it or help you migrate incrementally."
+        },
+        {
+          "id": "play-store",
+          "question": "Can you publish to the Google Play Store?",
+          "answer": "Yes. We handle the entire release process including Play Store listing, screenshots, app signing, and compliance review. We also set up staged rollouts and crash monitoring so you can ship with confidence."
+        },
+        {
+          "id": "tablets-foldables",
+          "question": "Do you support tablets and foldables?",
+          "answer": "Absolutely. Our Compose-based layouts are responsive by default. We test on phones, tablets, and foldable devices to ensure a great experience across the entire Android ecosystem."
+        },
+        {
+          "id": "offline",
+          "question": "What about offline functionality?",
+          "answer": "Room database and WorkManager are part of our standard stack. We architect every app with offline-first principles so users can keep working even without an internet connection. Data syncs automatically when connectivity returns."
+        }
+      ],
+      "cta": {
+        "title": "Ready to build your Android app?",
+        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+      }
+    },
+    "support": {
+      "hero": {
+        "eyebrow": "Services / Support",
+        "title": "Support & Maintenance",
+        "lede": "Ongoing support retainers so your product stays fast, secure, and up to date — without hiring a full-time team.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "spec": {
+        "index": "fig. 01",
+        "eyebrow": "Snapshot",
+        "title": "Coverage, response time, and billing — in writing."
+      },
+      "specRows": [
+        {
+          "slug": "monitoring",
+          "label": "Monitoring",
+          "value": "24/7 automated monitoring and alerting, with a 4-hour response SLA on Enterprise."
+        },
+        {
+          "slug": "uptime",
+          "label": "Uptime SLA",
+          "value": "99.9% — backed by quarterly architecture reviews on Enterprise plans."
+        },
+        { "slug": "included", "label": "Included" },
+        { "slug": "stacks", "label": "Stacks supported" },
+        {
+          "slug": "billing",
+          "label": "Billing",
+          "value": "A fixed monthly fee per tier — no surprise charges. Work beyond retainer scope is quoted before we proceed. Change tiers any time with 30 days notice."
+        }
+      ],
+      "included": [
+        "Bug Fixes",
+        "Security Patches",
+        "Performance Monitoring",
+        "Feature Updates",
+        "Database Maintenance",
+        "Backup Management"
+      ],
+      "coverage": ["React", "Next.js", "Node.js", "Kotlin", "Swift", "PostgreSQL", "MongoDB", "AWS", "Vercel", "Firebase"],
+      "plans": {
+        "index": "fig. 02",
+        "eyebrow": "Plans",
+        "title": "Choose your tier.",
+        "description": "Every tier is a monthly retainer. Upgrade, downgrade, or cancel with 30 days notice."
+      },
+      "tiers": [
+        {
+          "slug": "basic",
+          "name": "Basic",
+          "description": "Bug fixes and routine updates for smaller applications.",
+          "features": ["Bug fixes within 48 hours", "Dependency updates", "Monthly health report", "Email support"]
+        },
+        {
+          "slug": "professional",
+          "name": "Professional",
+          "description": "Priority support with proactive monitoring for growing products.",
+          "features": [
+            "Bug fixes within 24 hours",
+            "Performance monitoring",
+            "Security patches",
+            "Weekly health reports",
+            "WhatsApp & email support"
+          ]
+        },
+        {
+          "slug": "enterprise",
+          "name": "Enterprise",
+          "description": "Dedicated team with SLA guarantees for mission-critical systems.",
+          "features": [
+            "4-hour response SLA",
+            "24/7 monitoring & alerting",
+            "Dedicated support engineer",
+            "Quarterly architecture reviews",
+            "Priority feature development",
+            "Custom SLA terms"
+          ]
+        }
+      ],
+      "onboardingSection": { "index": "fig. 03", "eyebrow": "Onboarding", "title": "Three steps to your first retainer month." },
+      "onboarding": [
+        {
+          "index": "01",
+          "title": "Audit",
+          "detail": "We review your existing codebase, infrastructure, and monitoring setup to identify risks and quick wins."
+        },
+        {
+          "index": "02",
+          "title": "Setup",
+          "detail": "We configure monitoring, alerting, CI/CD pipelines, and backup systems tailored to your stack."
+        },
+        {
+          "index": "03",
+          "title": "Launch",
+          "detail": "Your retainer begins. You get a dedicated channel for requests and a dashboard to track every issue."
+        }
+      ],
+      "faq": { "index": "fig. 04", "eyebrow": "FAQ", "title": "Common questions." },
+      "faqItems": [
+        {
+          "id": "other-teams",
+          "question": "Can you support apps you did not build?",
+          "answer": "Yes. We regularly take over maintenance for applications built by other teams. Our onboarding audit identifies technical debt and risks so we can hit the ground running."
+        },
+        {
+          "id": "technologies",
+          "question": "What technologies do you support?",
+          "answer": "We support React, Next.js, Node.js, Kotlin, Swift, PostgreSQL, MongoDB, AWS, Vercel, Firebase, and more. If your stack is not listed, ask us — we are happy to evaluate."
+        },
+        {
+          "id": "billing",
+          "question": "How does billing work?",
+          "answer": "Support retainers are billed monthly with a fixed fee based on your chosen tier. There are no surprise charges. If an issue requires work beyond the retainer scope, we provide a quote before proceeding."
+        },
+        {
+          "id": "change-plan",
+          "question": "Can I upgrade or downgrade my plan?",
+          "answer": "Absolutely. You can change tiers at any time with 30 days notice. We will help you transition smoothly and adjust monitoring and SLA terms accordingly."
+        }
+      ],
+      "cta": {
+        "title": "Ready to secure your product?",
+        "lede": "Tell us about your application and we'll recommend the right support tier."
+      }
+    }
   }
 }

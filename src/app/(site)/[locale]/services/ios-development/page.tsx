@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import { getTranslations } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -9,7 +11,7 @@ import SpecTable from '@/app/design/ui/SpecTable';
 import Accordion from '@/app/design/ui/Accordion';
 import Pipeline from '@/app/design/ui/Pipeline';
 import type { AccordionItem } from '@/app/design/ui/Accordion';
-import type { SpecRow } from '@/app/design/ui/SpecTable';
+import type { SpecRow, SpecRowMessage } from '@/app/design/ui/SpecTable';
 
 export const metadata: Metadata = {
   title: 'iOS Development Services',
@@ -25,51 +27,22 @@ export const metadata: Metadata = {
   },
 };
 
-const useCases = [
-  {
-    title: 'Business Apps',
-    description:
-      'Enterprise tools, CRM mobile clients, and field-service apps with secure data handling.',
-  },
-  {
-    title: 'Health & Fitness',
-    description:
-      "HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines.",
-  },
-  {
-    title: 'Fintech',
-    description:
-      'Secure financial apps with biometric auth, real-time data, and Apple Pay integration.',
-  },
-  {
-    title: 'Consumer Apps',
-    description:
-      'Polished consumer experiences with elegant animations and seamless onboarding.',
-  },
-];
+interface UseCase {
+  title: string;
+  description: string;
+}
 
-const techStack = [
-  'Swift',
-  'SwiftUI',
-  'UIKit',
-  'Core Data',
-  'CloudKit',
-  'Combine',
-  'MapKit',
-  'HealthKit',
-  'StoreKit',
-  'Core ML',
-];
+export default async function IOSDevelopmentPage() {
+  const t = await getTranslations('Services.ios');
 
-const specRows: SpecRow[] = [
-  {
-    label: 'Scope',
-    value:
-      'Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst.',
-  },
-  {
-    label: 'Stack',
-    value: (
+  const techStack = t.raw('techStack') as string[];
+  const useCases = t.raw('useCases') as UseCase[];
+  const faqItems = t.raw('faqItems') as AccordionItem[];
+
+  /* Rows whose value is a rendered node rather than a string, keyed by the
+     row's stable slug — never by array position, which a translator can reorder. */
+  const specRowNodes: Record<string, ReactNode> = {
+    stack: (
       <div className="flex flex-wrap gap-2">
         {techStack.map((tech) => (
           <span
@@ -81,76 +54,37 @@ const specRows: SpecRow[] = [
         ))}
       </div>
     ),
-  },
-  {
-    label: 'Timeline',
-    value: '4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build.',
-  },
-  {
-    label: 'Automated by agents',
-    value:
-      "SwiftUI views, Core Data models, networking layers, and navigation stacks — generated from your requirements, following Apple's Human Interface Guidelines.",
-  },
-  {
-    label: 'Reviewed by engineers',
-    value:
-      'UX refinement, App Store compliance, and rigorous testing on every build before it reaches your users.',
-  },
-];
+  };
 
-const faqItems: AccordionItem[] = [
-  {
-    id: 'swiftui-uikit',
-    question: 'Do you build with SwiftUI or UIKit?',
-    answer:
-      "We use SwiftUI for all new projects because it provides a modern, declarative approach to UI development and is Apple's recommended framework going forward. For projects that need to support older iOS versions or require features not yet available in SwiftUI, we use UIKit or a hybrid approach.",
-  },
-  {
-    id: 'app-store-submission',
-    question: 'Can you submit to the App Store for us?',
-    answer:
-      'Yes. We manage the entire submission process including App Store Connect setup, screenshots, metadata, and review compliance. We also handle TestFlight distribution for beta testing with your team or early users.',
-  },
-  {
-    id: 'ipad-watch',
-    question: 'Do you support iPad and Apple Watch?',
-    answer:
-      'Absolutely. Our SwiftUI layouts adapt to iPad, Apple Watch, and even macOS via Catalyst. We design for the full Apple ecosystem from day one, so your app feels native on every device.',
-  },
-  {
-    id: 'iap',
-    question: 'What about in-app purchases and subscriptions?',
-    answer:
-      'StoreKit 2 is part of our standard toolkit. We implement subscriptions, consumables, and non-consumable purchases with server-side receipt validation. We also handle the App Store pricing and tax configuration.',
-  },
-];
+  const specRows: SpecRow[] = (t.raw('specRows') as SpecRowMessage[]).map((row) => {
+    const value = specRowNodes[row.slug] ?? row.value;
+    if (value === undefined) {
+      throw new Error(`Services.ios.specRows: row "${row.slug}" has neither a value nor a node`);
+    }
+    return { label: row.label, value };
+  });
 
-export default function IOSDevelopmentPage() {
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="Services / iOS"
-        title="iOS Development"
-        lede="Native iOS apps with Swift and SwiftUI — built by our agents and shipped fast, with senior engineers reviewing every release."
-      >
+      <PageHero eyebrow={t('hero.eyebrow')} title={t('hero.title')} lede={t('hero.lede')}>
         <Button variant="amber" size="lg" href="/contact">
-          Start a project
+          {t('hero.primaryCta')}
         </Button>
         <Button variant="chalk" size="lg" href="/quote">
-          Get an estimate
+          {t('hero.secondaryCta')}
         </Button>
       </PageHero>
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
-          index="fig. 01"
-          eyebrow="How it ships"
-          title="One brief. An agent drafts the app. Engineers ship it."
-          description="Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance."
+          index={t('pipeline.index')}
+          eyebrow={t('pipeline.eyebrow')}
+          title={t('pipeline.title')}
+          description={t('pipeline.description')}
         />
         <div className="mt-14">
           <Card>
-            <Pipeline stages={['Brief', 'Design', 'Build', 'Review', 'Ship']} />
+            <Pipeline stages={t.raw('pipeline.stages') as string[]} />
           </Card>
         </div>
       </section>
@@ -158,9 +92,9 @@ export default function IOSDevelopmentPage() {
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
           <SectionHeader
-            index="fig. 02"
-            eyebrow="What you get"
-            title="Scope, stack, and delivery — in writing."
+            index={t('spec.index')}
+            eyebrow={t('spec.eyebrow')}
+            title={t('spec.title')}
           />
           <div className="mt-14">
             <SpecTable rows={specRows} />
@@ -170,10 +104,10 @@ export default function IOSDevelopmentPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
-          index="fig. 03"
-          eyebrow="Use cases"
-          title="Where this fits."
-          description="A sample of the apps we build most often — not an exhaustive list."
+          index={t('useCasesSection.index')}
+          eyebrow={t('useCasesSection.eyebrow')}
+          title={t('useCasesSection.title')}
+          description={t('useCasesSection.description')}
         />
         <div className="mt-14 grid gap-6 sm:grid-cols-2">
           {useCases.map((useCase) => (
@@ -187,17 +121,14 @@ export default function IOSDevelopmentPage() {
 
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-          <SectionHeader index="fig. 04" eyebrow="FAQ" title="Common questions." />
+          <SectionHeader index={t('faq.index')} eyebrow={t('faq.eyebrow')} title={t('faq.title')} />
           <div className="mt-14">
             <Accordion items={faqItems} />
           </div>
         </div>
       </section>
 
-      <CTABand
-        title="Ready to build your iOS app?"
-        lede="Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
-      />
+      <CTABand title={t('cta.title')} lede={t('cta.lede')} />
     </PageLayout>
   );
 }

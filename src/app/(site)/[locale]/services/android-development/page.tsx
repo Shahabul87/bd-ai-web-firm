@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import { getTranslations } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -9,7 +11,7 @@ import SpecTable from '@/app/design/ui/SpecTable';
 import Accordion from '@/app/design/ui/Accordion';
 import Pipeline from '@/app/design/ui/Pipeline';
 import type { AccordionItem } from '@/app/design/ui/Accordion';
-import type { SpecRow } from '@/app/design/ui/SpecTable';
+import type { SpecRow, SpecRowMessage } from '@/app/design/ui/SpecTable';
 
 export const metadata: Metadata = {
   title: 'Android Development Services',
@@ -25,50 +27,22 @@ export const metadata: Metadata = {
   },
 };
 
-const useCases = [
-  {
-    title: 'Business Apps',
-    description:
-      'Internal tools, CRM integrations, and field-service apps that streamline operations.',
-  },
-  {
-    title: 'E-Commerce Mobile',
-    description:
-      'Shopping apps with product catalogs, in-app payments, and push notification campaigns.',
-  },
-  {
-    title: 'Social & Community',
-    description:
-      'Chat, feeds, and real-time features that keep users engaged and connected.',
-  },
-  {
-    title: 'Health & Fitness',
-    description: 'Wearable integrations, workout trackers, and telehealth experiences.',
-  },
-];
+interface UseCase {
+  title: string;
+  description: string;
+}
 
-const techStack = [
-  'Kotlin',
-  'Jetpack Compose',
-  'Material Design 3',
-  'Firebase',
-  'Room DB',
-  'Retrofit',
-  'ML Kit',
-  'Google Play Services',
-  'Coroutines',
-  'Hilt',
-];
+export default async function AndroidDevelopmentPage() {
+  const t = await getTranslations('Services.android');
 
-const specRows: SpecRow[] = [
-  {
-    label: 'Scope',
-    value:
-      'Business, social, e-commerce, health, education, and productivity apps — responsive across phones, tablets, and foldables.',
-  },
-  {
-    label: 'Stack',
-    value: (
+  const techStack = t.raw('techStack') as string[];
+  const useCases = t.raw('useCases') as UseCase[];
+  const faqItems = t.raw('faqItems') as AccordionItem[];
+
+  /* Rows whose value is a rendered node rather than a string, keyed by the
+     row's stable slug — never by array position, which a translator can reorder. */
+  const specRowNodes: Record<string, ReactNode> = {
+    stack: (
       <div className="flex flex-wrap gap-2">
         {techStack.map((tech) => (
           <span
@@ -80,76 +54,39 @@ const specRows: SpecRow[] = [
         ))}
       </div>
     ),
-  },
-  {
-    label: 'Timeline',
-    value: '4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build.',
-  },
-  {
-    label: 'Automated by agents',
-    value:
-      "Kotlin modules, Compose screens, Room database entities, and Hilt dependency graphs — generated from your requirements, following Google's MVVM + Repository architecture.",
-  },
-  {
-    label: 'Reviewed by engineers',
-    value:
-      'UX polish, edge-case testing, and Play Store compliance on every release before it reaches production.',
-  },
-];
+  };
 
-const faqItems: AccordionItem[] = [
-  {
-    id: 'kotlin-java',
-    question: 'Do you build with Kotlin or Java?',
-    answer:
-      'We build exclusively with Kotlin and Jetpack Compose for all new projects. Kotlin is the official recommended language for Android development, and Compose provides a modern, declarative UI toolkit. If you have an existing Java codebase, we can maintain it or help you migrate incrementally.',
-  },
-  {
-    id: 'play-store',
-    question: 'Can you publish to the Google Play Store?',
-    answer:
-      'Yes. We handle the entire release process including Play Store listing, screenshots, app signing, and compliance review. We also set up staged rollouts and crash monitoring so you can ship with confidence.',
-  },
-  {
-    id: 'tablets-foldables',
-    question: 'Do you support tablets and foldables?',
-    answer:
-      'Absolutely. Our Compose-based layouts are responsive by default. We test on phones, tablets, and foldable devices to ensure a great experience across the entire Android ecosystem.',
-  },
-  {
-    id: 'offline',
-    question: 'What about offline functionality?',
-    answer:
-      'Room database and WorkManager are part of our standard stack. We architect every app with offline-first principles so users can keep working even without an internet connection. Data syncs automatically when connectivity returns.',
-  },
-];
+  const specRows: SpecRow[] = (t.raw('specRows') as SpecRowMessage[]).map((row) => {
+    const value = specRowNodes[row.slug] ?? row.value;
+    if (value === undefined) {
+      throw new Error(
+        `Services.android.specRows: row "${row.slug}" has neither a value nor a node`,
+      );
+    }
+    return { label: row.label, value };
+  });
 
-export default function AndroidDevelopmentPage() {
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="Services / Android"
-        title="Android Development"
-        lede="Native Android apps with Kotlin and Jetpack Compose — built by our agents and shipped fast, with senior engineers reviewing every release."
-      >
+      <PageHero eyebrow={t('hero.eyebrow')} title={t('hero.title')} lede={t('hero.lede')}>
         <Button variant="amber" size="lg" href="/contact">
-          Start a project
+          {t('hero.primaryCta')}
         </Button>
         <Button variant="chalk" size="lg" href="/quote">
-          Get an estimate
+          {t('hero.secondaryCta')}
         </Button>
       </PageHero>
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
-          index="fig. 01"
-          eyebrow="How it ships"
-          title="One brief. An agent drafts the app. Engineers ship it."
-          description="Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance."
+          index={t('pipeline.index')}
+          eyebrow={t('pipeline.eyebrow')}
+          title={t('pipeline.title')}
+          description={t('pipeline.description')}
         />
         <div className="mt-14">
           <Card>
-            <Pipeline stages={['Brief', 'Design', 'Build', 'Review', 'Release']} />
+            <Pipeline stages={t.raw('pipeline.stages') as string[]} />
           </Card>
         </div>
       </section>
@@ -157,9 +94,9 @@ export default function AndroidDevelopmentPage() {
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
           <SectionHeader
-            index="fig. 02"
-            eyebrow="What you get"
-            title="Scope, stack, and delivery — in writing."
+            index={t('spec.index')}
+            eyebrow={t('spec.eyebrow')}
+            title={t('spec.title')}
           />
           <div className="mt-14">
             <SpecTable rows={specRows} />
@@ -169,10 +106,10 @@ export default function AndroidDevelopmentPage() {
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
-          index="fig. 03"
-          eyebrow="Use cases"
-          title="Where this fits."
-          description="A sample of the apps we build most often — not an exhaustive list."
+          index={t('useCasesSection.index')}
+          eyebrow={t('useCasesSection.eyebrow')}
+          title={t('useCasesSection.title')}
+          description={t('useCasesSection.description')}
         />
         <div className="mt-14 grid gap-6 sm:grid-cols-2">
           {useCases.map((useCase) => (
@@ -186,17 +123,14 @@ export default function AndroidDevelopmentPage() {
 
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-          <SectionHeader index="fig. 04" eyebrow="FAQ" title="Common questions." />
+          <SectionHeader index={t('faq.index')} eyebrow={t('faq.eyebrow')} title={t('faq.title')} />
           <div className="mt-14">
             <Accordion items={faqItems} />
           </div>
         </div>
       </section>
 
-      <CTABand
-        title="Ready to build your Android app?"
-        lede="Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
-      />
+      <CTABand title={t('cta.title')} lede={t('cta.lede')} />
     </PageLayout>
   );
 }

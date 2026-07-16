@@ -5,6 +5,14 @@ export interface SpecRow {
   value: ReactNode;
 }
 
+/** A spec row as it lives in a message file. `value` is absent when the row
+ *  renders a node the JSON cannot hold; the page supplies it, keyed by `slug`. */
+export interface SpecRowMessage {
+  slug: string;
+  label: string;
+  value?: string;
+}
+
 interface SpecTableProps {
   rows: SpecRow[];
   className?: string;
