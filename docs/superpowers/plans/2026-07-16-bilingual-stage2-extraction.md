@@ -34,6 +34,10 @@
     test that pins its own copy of the messages stops testing the messages.
   - Baseline entering Task 3: **27 suites / 123 tests**.
 - Do NOT touch `src/app/(internal)/` (admin/portal — never localized), `src/app/analytics.tsx`, or anything under `src/app/components/mdx/`.
+- ⚠️ **Do NOT run `prettier`.** This repo does not use it — there is no config and it is not a
+  dependency (verified 2026-07-16). Running `prettier --write` reformats files this stage never
+  touched, producing a diff nobody asked for. Task 4 did this and had to unpick it by hand.
+  `npm run lint` is the only formatter authority here.
 
 ## Namespace Convention (binding — every task follows this)
 
