@@ -1,6 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import Header from '../Header';
+// The real message file, so this fixture cannot drift from the shipped copy.
+// These tests assert ROUTING, not translation, so English messages are used at
+// both locales — as the inline LocaleToggle fixture they replace already did.
+import messages from '../../../../../messages/en.json';
 
 // `usePathname` from @/i18n/navigation is locale-STRIPPED: it returns '/services'
 // for a visitor on /bn/services just as it does for one on /services. Mocking it
@@ -25,14 +29,6 @@ jest.mock('@/i18n/navigation', () => ({
   ),
   usePathname: () => '/services',
 }));
-
-const messages = {
-  LocaleToggle: {
-    label: 'Language',
-    switchToEnglish: 'Switch to English',
-    switchToBengali: 'Switch to Bengali',
-  },
-};
 
 function renderAt(locale: string) {
   return render(

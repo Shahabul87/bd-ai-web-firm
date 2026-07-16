@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import Button from '../../design/ui/Button';
 import LocaleToggle from './LocaleToggle';
@@ -8,6 +9,8 @@ import MobileMenu from './MobileMenu';
 import { PRIMARY_LINKS, SERVICE_LINKS } from './nav';
 
 export default function Header() {
+  const t = useTranslations('Header');
+  const tNav = useTranslations('Nav');
   const [servicesOpen, setServicesOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -62,7 +65,7 @@ export default function Header() {
           CRAFTS.AI<span aria-hidden className="cursor-blink">▮</span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
+        <nav aria-label={t('primaryNavLabel')} className="hidden items-center gap-8 lg:flex">
           <div ref={servicesRef} className="relative">
             <button
               type="button"
@@ -72,7 +75,7 @@ export default function Header() {
                 pathname.startsWith('/services') ? 'text-signal' : 'text-bone'
               }`}
             >
-              Services {servicesOpen ? '−' : '+'}
+              {tNav('services')} {servicesOpen ? '−' : '+'}
             </button>
             {servicesOpen ? (
               <div className="absolute left-0 top-full mt-4 w-72 border border-line bg-ink-900 p-2">
@@ -83,7 +86,7 @@ export default function Header() {
                     className="flex items-baseline gap-3 px-3 py-2.5 transition-colors duration-150 hover:bg-ink-800"
                   >
                     <span className="font-mono text-xs text-signal">{link.index}</span>
-                    <span className="text-sm text-bone">{link.label}</span>
+                    <span className="text-sm text-bone">{tNav(link.labelKey)}</span>
                   </Link>
                 ))}
               </div>
@@ -98,26 +101,26 @@ export default function Header() {
                 pathname.startsWith(link.href) ? 'text-signal' : 'text-bone'
               }`}
             >
-              {link.label}
+              {tNav(link.labelKey)}
             </Link>
           ))}
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
           <LocaleToggle />
-          <Button variant="ghost" href="/quote">Get estimate</Button>
-          <Button variant="signal" href="/contact">Start a project</Button>
+          <Button variant="ghost" href="/quote">{t('getEstimate')}</Button>
+          <Button variant="signal" href="/contact">{t('startProject')}</Button>
         </div>
 
         <button
           ref={menuToggleRef}
           type="button"
           aria-expanded={menuOpen}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-label={menuOpen ? t('closeMenu') : t('openMenu')}
           onClick={() => setMenuOpen((o) => !o)}
           className="font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 hover:text-signal lg:hidden"
         >
-          {menuOpen ? 'Close ×' : 'Menu ≡'}
+          {menuOpen ? t('menuToggleClose') : t('menuToggleOpen')}
         </button>
       </div>
       </header>

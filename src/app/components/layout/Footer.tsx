@@ -1,26 +1,30 @@
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import MonoLabel from '../../design/ui/MonoLabel';
 import { PRIMARY_LINKS, SERVICE_LINKS } from './nav';
 
-const TICKER = '● ACCEPTING PROJECTS — DHAKA — WORLDWIDE — AI AGENTS — WEB — MOBILE — INTEGRATION — ';
-
+/** labelKey resolves within the `Footer` namespace. */
 const LEGAL_LINKS = [
-  { label: 'Privacy', href: '/privacy' },
-  { label: 'Terms', href: '/terms' },
-  { label: 'Cookies', href: '/cookies' },
+  { labelKey: 'privacy', href: '/privacy' },
+  { labelKey: 'terms', href: '/terms' },
+  { labelKey: 'cookies', href: '/cookies' },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const t = await getTranslations('Footer');
+  const tNav = await getTranslations('Nav');
+  const ticker = t('ticker');
+
   return (
     <footer className="border-t border-line bg-ink-950">
       {/* Marquee status ticker (CSS loop; killed globally by prefers-reduced-motion) */}
       <div className="overflow-hidden border-b border-line py-3" aria-hidden>
         <div className="marquee-track">
           <span className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            {TICKER.repeat(3)}
+            {ticker.repeat(3)}
           </span>
           <span className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            {TICKER.repeat(3)}
+            {ticker.repeat(3)}
           </span>
         </div>
       </div>
@@ -31,12 +35,12 @@ export default function Footer() {
             CRAFTS.AI<span aria-hidden className="cursor-blink">▮</span>
           </p>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-steel">
-            We build AI agents. Our agents build your software.
+            {t('tagline')}
           </p>
         </div>
 
         <div>
-          <MonoLabel>Services</MonoLabel>
+          <MonoLabel>{tNav('services')}</MonoLabel>
           <ul className="mt-4 space-y-2.5">
             {SERVICE_LINKS.map((link) => (
               <li key={link.index}>
@@ -44,7 +48,7 @@ export default function Footer() {
                   href={link.href}
                   className="text-sm text-bone transition-colors duration-150 hover:text-signal"
                 >
-                  {link.label}
+                  {tNav(link.labelKey)}
                 </Link>
               </li>
             ))}
@@ -52,7 +56,7 @@ export default function Footer() {
         </div>
 
         <div>
-          <MonoLabel>Studio</MonoLabel>
+          <MonoLabel>{tNav('studio')}</MonoLabel>
           <ul className="mt-4 space-y-2.5">
             {PRIMARY_LINKS.map((link) => (
               <li key={link.href}>
@@ -60,7 +64,7 @@ export default function Footer() {
                   href={link.href}
                   className="text-sm text-bone transition-colors duration-150 hover:text-signal"
                 >
-                  {link.label}
+                  {tNav(link.labelKey)}
                 </Link>
               </li>
             ))}
@@ -69,14 +73,14 @@ export default function Footer() {
                 href="/careers"
                 className="text-sm text-bone transition-colors duration-150 hover:text-signal"
               >
-                Careers
+                {t('careers')}
               </Link>
             </li>
           </ul>
         </div>
 
         <div>
-          <MonoLabel>Contact</MonoLabel>
+          <MonoLabel>{tNav('contact')}</MonoLabel>
           <ul className="mt-4 space-y-2.5">
             <li>
               <a
@@ -91,7 +95,7 @@ export default function Footer() {
                 href="/contact"
                 className="text-sm text-bone transition-colors duration-150 hover:text-signal"
               >
-                Contact form
+                {t('contactForm')}
               </Link>
             </li>
             <li>
@@ -99,14 +103,14 @@ export default function Footer() {
                 href="/quote"
                 className="text-sm text-bone transition-colors duration-150 hover:text-signal"
               >
-                Get an estimate
+                {t('getEstimate')}
               </Link>
             </li>
           </ul>
           <p className="mt-6 font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            Dhaka, Bangladesh
+            {t('location')}
             <br />
-            GMT+6 — worldwide
+            {t('timezone')}
           </p>
         </div>
       </div>
@@ -114,7 +118,8 @@ export default function Footer() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            © {new Date().getFullYear()} CraftsAI — All systems nominal
+            {/* year as a string: an ICU number arg would render grouped, e.g. "2,026" */}
+            {t('copyright', { year: String(new Date().getFullYear()) })}
           </p>
           <div className="flex gap-6">
             {LEGAL_LINKS.map((link) => (
@@ -123,7 +128,7 @@ export default function Footer() {
                 href={link.href}
                 className="font-mono text-xs uppercase tracking-[0.15em] text-steel transition-colors duration-150 hover:text-signal"
               >
-                {link.label}
+                {t(link.labelKey)}
               </Link>
             ))}
           </div>

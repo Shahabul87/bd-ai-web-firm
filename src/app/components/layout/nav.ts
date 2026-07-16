@@ -1,6 +1,7 @@
 export interface NavLink {
   index?: string;
-  label: string;
+  /** Key within the `Nav` namespace. Resolved by the consuming component. */
+  labelKey: string;
   href: string;
 }
 
@@ -10,17 +11,17 @@ export interface NavLink {
  * existing page so no nav link 404s. Stage 3 flips these to the real routes.
  */
 export const SERVICE_LINKS: NavLink[] = [
-  { index: '01', label: 'AI Agents', href: '/services' },
-  { index: '02', label: 'Web Development', href: '/services/web-development' },
-  { index: '03', label: 'Mobile Apps', href: '/services/ios-development' },
-  { index: '04', label: 'Agent Integration', href: '/services' },
+  { index: '01', labelKey: 'aiAgents', href: '/services' },
+  { index: '02', labelKey: 'webDevelopment', href: '/services/web-development' },
+  { index: '03', labelKey: 'mobileApps', href: '/services/ios-development' },
+  { index: '04', labelKey: 'agentIntegration', href: '/services' },
 ];
 
 export const PRIMARY_LINKS: NavLink[] = [
   // "Work" and "Products" were the same thing (our built products ARE our work),
   // so they're merged into a single Products entry pointing at /products.
-  { label: 'Products', href: '/products' },
-  { label: 'Process', href: '/process' },
-  { label: 'Resources', href: '/resources' },
-  { label: 'About', href: '/about' },
+  { labelKey: 'products', href: '/products' },
+  { labelKey: 'process', href: '/process' },
+  { labelKey: 'resources', href: '/resources' },
+  { labelKey: 'about', href: '/about' },
 ];

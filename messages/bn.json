@@ -3,5 +3,86 @@
     "label": "ভাষা",
     "switchToEnglish": "ইংরেজিতে দেখুন",
     "switchToBengali": "বাংলায় দেখুন"
+  },
+  "Nav": {
+    "services": "Services",
+    "studio": "Studio",
+    "contact": "Contact",
+    "aiAgents": "AI Agents",
+    "webDevelopment": "Web Development",
+    "mobileApps": "Mobile Apps",
+    "agentIntegration": "Agent Integration",
+    "products": "Products",
+    "process": "Process",
+    "resources": "Resources",
+    "about": "About"
+  },
+  "Header": {
+    "primaryNavLabel": "Primary",
+    "mobileNavLabel": "Mobile",
+    "getEstimate": "Get estimate",
+    "startProject": "Start a project",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menuToggleOpen": "Menu ≡",
+    "menuToggleClose": "Close ×",
+    "mobileBadge": "● CRAFTS.AI — DHAKA / WORLDWIDE"
+  },
+  "Footer": {
+    "ticker": "● ACCEPTING PROJECTS — DHAKA — WORLDWIDE — AI AGENTS — WEB — MOBILE — INTEGRATION — ",
+    "tagline": "We build AI agents. Our agents build your software.",
+    "careers": "Careers",
+    "contactForm": "Contact form",
+    "getEstimate": "Get an estimate",
+    "location": "Dhaka, Bangladesh",
+    "timezone": "GMT+6 — worldwide",
+    "copyright": "© {year} CraftsAI — All systems nominal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies"
+  },
+  "CTABand": {
+    "eyebrow": "● accepting projects",
+    "title": "Have something to build?",
+    "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
+    "primaryLabel": "Start a project",
+    "secondaryLabel": "Get an estimate"
+  },
+  "PillarCards": {
+    "flagship": "Flagship",
+    "explore": "Explore",
+    "aiAgents": {
+      "title": "AI Agents",
+      "blurb": "Custom agents that plan, write, and ship software — supervised by a senior engineer at every step.",
+      "stage1": "Brief",
+      "stage2": "Plan",
+      "stage3": "Build",
+      "stage4": "Review",
+      "stage5": "Ship"
+    },
+    "webDevelopment": {
+      "title": "Web Development",
+      "blurb": "Production web apps built by our agents and shipped fast, from marketing sites to full platforms.",
+      "stage1": "Design",
+      "stage2": "Build",
+      "stage3": "Test",
+      "stage4": "Deploy"
+    },
+    "mobileApps": {
+      "title": "Mobile Apps",
+      "blurb": "Native iOS and Android apps from one agent workflow — one brief, both platforms.",
+      "stage1": "Spec",
+      "stage2": "Build",
+      "stage3": "QA",
+      "stage4": "Release"
+    },
+    "agentIntegration": {
+      "title": "Agent Integration",
+      "blurb": "Wire agents into the tools you already run — CRM, ERP, WhatsApp, and your internal systems.",
+      "stage1": "Audit",
+      "stage2": "Connect",
+      "stage3": "Automate",
+      "stage4": "Monitor"
+    }
   }
 }
