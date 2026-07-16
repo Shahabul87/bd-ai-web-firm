@@ -2,47 +2,61 @@
 
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import SectionHeader from '../../design/ui/SectionHeader';
 import { rise, riseStagger, viewportOnce } from '../../design/motion';
 
-interface Resource {
+interface ResourceCopy {
+  slug: string;
   type: string;
   title: string;
   readTime: string;
+}
+
+interface Resource extends ResourceCopy {
   href: string;
 }
 
-const RESOURCES: Resource[] = [
-  {
-    type: 'Blog',
-    title: 'How AI agents are changing software development in 2026',
-    readTime: '5 min',
-    href: '/resources/blog/ai-agents-software-development',
-  },
-  {
-    type: 'Case study',
-    title: 'How TaxoMind reached 10× faster content generation',
-    readTime: '8 min',
-    href: '/resources/case-studies/taxomind',
-  },
-  {
-    type: 'Guide',
-    title: 'The complete guide to AI-powered app development',
-    readTime: '12 min',
-    href: '/resources/guides/ai-powered-development',
-  },
-];
+/* Routing data stays in code — hrefs must never vary by locale, so they are not
+   exposed to translators. Paired by stable `slug`, never by array position: a
+   translator reordering the message array is natural and length-preserving, so
+   positional pairing would silently repoint every row at the wrong URL. */
+const RESOURCE_HREFS: Record<string, string> = {
+  'ai-agents-software-development': '/resources/blog/ai-agents-software-development',
+  taxomind: '/resources/case-studies/taxomind',
+  'ai-powered-development': '/resources/guides/ai-powered-development',
+};
+
+/* An unknown slug is a bug, not a fallback case. Throwing surfaces it at
+   render; a placeholder href would ship a wrong link to users instead. */
+function resourceHref(slug: string): string {
+  const href = RESOURCE_HREFS[slug];
+  if (!href) {
+    throw new Error(
+      `ResourcesRow: no route for resource slug "${slug}". Routes are defined in ` +
+        'RESOURCE_HREFS; messages must not add or rename slugs.'
+    );
+  }
+  return href;
+}
 
 export default function ResourcesRow() {
+  const t = useTranslations('Home.resources');
+  const RESOURCES: Resource[] = (t.raw('items') as ResourceCopy[]).map((resource) => ({
+    ...resource,
+    href: resourceHref(resource.slug),
+  }));
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
       <div className="flex flex-wrap items-end justify-between gap-6">
-        <SectionHeader index="fig. 07" eyebrow="Field notes" title="What we're writing about." />
+        {/* `index` is a drafting ornament: it stays English in both locales. */}
+        <SectionHeader index="fig. 07" eyebrow={t('eyebrow')} title={t('title')} />
         <Link
           href="/resources"
           className="font-mono text-xs uppercase tracking-[0.15em] text-signal underline-offset-4 hover:underline"
         >
-          All resources →
+          {t('allResources')}
         </Link>
       </div>
 

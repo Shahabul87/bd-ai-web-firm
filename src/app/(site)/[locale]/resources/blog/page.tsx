@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -6,22 +7,29 @@ import CTABand from '@/app/components/shared/CTABand';
 import Card from '@/app/design/ui/Card';
 import { getAllBlogs } from '@/app/lib/content';
 
-export const metadata: Metadata = {
-  title: 'Blog - AI Development Insights',
-  description:
-    'Read our latest articles on AI-powered development, web and mobile strategy, cost savings, and technology trends.',
-  openGraph: {
-    title: 'Blog | CraftsAI',
-    description:
-      'Articles on AI-powered development, strategy, and technology.',
-    url: 'https://www.craftsai.org/resources/blog',
-    siteName: 'CraftsAI',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://www.craftsai.org/resources/blog',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.resourcesBlog' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Blog | CraftsAI',
+      description:
+        'Articles on AI-powered development, strategy, and technology.',
+      url: 'https://www.craftsai.org/resources/blog',
+      siteName: 'CraftsAI',
+      type: 'website',
+    },
+    alternates: {
+      canonical: 'https://www.craftsai.org/resources/blog',
+    },
+  };
+}
 
 function formatDate(dateString: string): string {
   return new Date(dateString).toLocaleDateString('en-US', {
@@ -31,20 +39,27 @@ function formatDate(dateString: string): string {
   });
 }
 
-export default function BlogListingPage() {
+export default async function BlogListingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('Resources.blog');
   const blogs = getAllBlogs();
 
   return (
     <PageLayout>
       <PageHero
-        eyebrow="Resources / Blog"
-        title="Field notes from the build."
-        lede="Insights on AI-powered development, business strategy, and technology trends from the CraftsAI team."
+        eyebrow={t('hero.eyebrow')}
+        title={t('hero.title')}
+        lede={t('hero.lede')}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         {blogs.length === 0 ? (
-          <p className="text-base text-steel">No posts yet — check back soon.</p>
+          <p className="text-base text-steel">{t('empty')}</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {blogs.map((blog) => (
@@ -55,8 +70,8 @@ export default function BlogListingPage() {
               >
                 <Card interactive className="flex h-full flex-col">
                   <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em] text-steel">
-                    <span className="text-signal">Blog</span>
-                    <span>{blog.readTime} min read</span>
+                    <span className="text-signal">{t('badge')}</span>
+                    <span>{t('readTime', { count: blog.readTime })}</span>
                   </div>
                   <h2 className="mt-6 font-display text-xl font-medium text-bone">{blog.title}</h2>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-steel">{blog.excerpt}</p>
@@ -68,7 +83,7 @@ export default function BlogListingPage() {
                       {formatDate(blog.date)}
                     </time>
                     <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
-                      Read
+                      {t('readMore')}
                       <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-1">
                         →
                       </span>

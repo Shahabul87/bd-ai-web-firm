@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { caseStudies } from '#content';
 import { getCaseStudyBySlug } from '@/app/lib/content';
@@ -10,7 +11,7 @@ import MdxContent from '@/app/components/mdx/MdxContent';
 import ArticleJsonLd from '@/app/components/ArticleJsonLd';
 
 interface CaseStudyDetailPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -43,7 +44,9 @@ export async function generateMetadata({
 export default async function CaseStudyDetailPage({
   params,
 }: CaseStudyDetailPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('Resources.caseStudies');
   const cs = getCaseStudyBySlug(slug);
 
   if (!cs) {
@@ -57,14 +60,14 @@ export default async function CaseStudyDetailPage({
         description={cs.excerpt}
         urlPath={`/resources/case-studies/${cs.slug}`}
       />
-      <PageHero eyebrow="Resources / Case studies" title={cs.title} lede={cs.excerpt} />
+      <PageHero eyebrow={t('hero.eyebrow')} title={cs.title} lede={cs.excerpt} />
 
       <section className="border-b border-line bg-ink-950">
         <div className="mx-auto max-w-3xl px-6 py-8">
           <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-steel">
             <span className="text-signal">{cs.industry}</span>
             <span aria-hidden>·</span>
-            <span>Client: {cs.client}</span>
+            <span>{t('detail.client', { client: cs.client })}</span>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {cs.services.map((service) => (
@@ -111,11 +114,11 @@ export default async function CaseStudyDetailPage({
       </section>
 
       <CTABand
-        title="Ready to build something similar?"
-        lede="Let us help you bring your idea to life with the same quality and expertise."
-        primaryLabel="Start your project"
+        title={t('detail.cta.title')}
+        lede={t('detail.cta.lede')}
+        primaryLabel={t('detail.cta.primaryLabel')}
         primaryHref="/contact"
-        secondaryLabel="View all case studies"
+        secondaryLabel={t('detail.cta.secondaryLabel')}
         secondaryHref="/resources/case-studies"
       />
     </PageLayout>

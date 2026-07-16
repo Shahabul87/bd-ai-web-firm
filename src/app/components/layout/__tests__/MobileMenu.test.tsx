@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import MobileMenu from '../MobileMenu';
+// The real message file, so this fixture cannot drift from the shipped copy.
+import messages from '../../../../../messages/en.json';
 
 jest.mock('@/i18n/navigation', () => ({
   Link: ({
@@ -15,14 +17,6 @@ jest.mock('@/i18n/navigation', () => ({
   ),
   usePathname: () => '/services',
 }));
-
-const messages = {
-  LocaleToggle: {
-    label: 'Language',
-    switchToEnglish: 'Switch to English',
-    switchToBengali: 'Switch to Bengali',
-  },
-};
 
 function renderMenu(onClose: () => void) {
   return render(

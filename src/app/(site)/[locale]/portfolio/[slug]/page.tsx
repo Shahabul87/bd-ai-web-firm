@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 import { caseStudies } from '#content';
@@ -12,7 +13,7 @@ import SpecTable from '@/app/design/ui/SpecTable';
 import Card from '@/app/design/ui/Card';
 
 interface CaseStudyPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -43,7 +44,9 @@ export async function generateMetadata({
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('Portfolio.detail');
   const cs = getCaseStudyBySlug(slug);
 
   if (!cs) {
@@ -63,15 +66,15 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
   return (
     <PageLayout>
-      <PageHero eyebrow={`Portfolio / ${cs.industry}`} title={cs.title} lede={cs.excerpt} />
+      <PageHero eyebrow={t('hero.eyebrow', { industry: cs.industry })} title={cs.title} lede={cs.excerpt} />
 
       <section className="mx-auto max-w-4xl px-6 pt-14">
         <SpecTable
           rows={[
-            { label: 'Client', value: cs.client },
-            { label: 'Industry', value: cs.industry },
-            { label: 'Services', value: cs.services.join(', ') },
-            { label: 'Tags', value: cs.tags.join(', ') },
+            { label: t('spec.client'), value: cs.client },
+            { label: t('spec.industry'), value: cs.industry },
+            { label: t('spec.services'), value: cs.services.join(', ') },
+            { label: t('spec.tags'), value: cs.tags.join(', ') },
           ]}
         />
       </section>
@@ -99,8 +102,8 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
         <section className="mx-auto max-w-5xl px-6 py-20 sm:py-28">
           <SectionHeader
             index="fig. 01"
-            eyebrow="Related work"
-            title="More projects like this."
+            eyebrow={t('related.eyebrow')}
+            title={t('related.title')}
             align="center"
           />
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -120,11 +123,11 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       ) : null}
 
       <CTABand
-        title="Ready to build something similar?"
-        lede="Let us help you bring your idea to life with the same quality and expertise."
-        primaryLabel="Start your project"
+        title={t('cta.title')}
+        lede={t('cta.lede')}
+        primaryLabel={t('cta.primaryLabel')}
         primaryHref="/quote"
-        secondaryLabel="View all projects"
+        secondaryLabel={t('cta.secondaryLabel')}
         secondaryHref="/portfolio"
       />
     </PageLayout>

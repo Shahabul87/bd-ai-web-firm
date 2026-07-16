@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Button from '../../design/ui/Button';
 import MonoLabel from '../../design/ui/MonoLabel';
 import { rise, riseStagger, viewportOnce } from '../../design/motion';
@@ -16,13 +17,20 @@ interface CTABandProps {
 
 /** Reusable closing CTA for inner pages — blueprint grid on ink. */
 export default function CTABand({
-  title = 'Have something to build?',
-  lede = "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
-  primaryLabel = 'Start a project',
+  title,
+  lede,
+  primaryLabel,
   primaryHref = '/contact',
-  secondaryLabel = 'Get an estimate',
+  secondaryLabel,
   secondaryHref = '/quote',
 }: CTABandProps) {
+  // Copy fallbacks resolve here rather than as default params: a default cannot call a hook.
+  const t = useTranslations('CTABand');
+  const resolvedTitle = title ?? t('title');
+  const resolvedLede = lede ?? t('lede');
+  const resolvedPrimaryLabel = primaryLabel ?? t('primaryLabel');
+  const resolvedSecondaryLabel = secondaryLabel ?? t('secondaryLabel');
+
   return (
     <section className="border-t border-line">
       <div className="blueprint-grid bg-ink-950">
@@ -34,20 +42,20 @@ export default function CTABand({
           viewport={viewportOnce}
         >
           <motion.div variants={rise}>
-            <MonoLabel className="text-signal">● accepting projects</MonoLabel>
+            <MonoLabel className="text-signal">{t('eyebrow')}</MonoLabel>
           </motion.div>
           <motion.h2 variants={rise} className="mx-auto mt-6 max-w-2xl font-display text-3xl font-medium text-bone sm:text-4xl md:text-5xl">
-            {title}
+            {resolvedTitle}
           </motion.h2>
           <motion.p variants={rise} className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-steel">
-            {lede}
+            {resolvedLede}
           </motion.p>
           <motion.div variants={rise} className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
             <Button variant="signal" size="lg" href={primaryHref}>
-              {primaryLabel}
+              {resolvedPrimaryLabel}
             </Button>
             <Button variant="ghost" size="lg" href={secondaryHref}>
-              {secondaryLabel}
+              {resolvedSecondaryLabel}
             </Button>
           </motion.div>
         </motion.div>

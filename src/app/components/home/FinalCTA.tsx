@@ -1,11 +1,14 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import Button from '../../design/ui/Button';
 import MonoLabel from '../../design/ui/MonoLabel';
 import { rise, riseStagger, viewportOnce } from '../../design/motion';
 
 export default function FinalCTA() {
+  const t = useTranslations('Home.finalCta');
+
   return (
     <section className="border-t border-line">
       <div className="blueprint-grid relative bg-ink-950">
@@ -17,28 +20,27 @@ export default function FinalCTA() {
           viewport={viewportOnce}
         >
           <motion.div variants={rise}>
-            <MonoLabel className="text-signal">● accepting projects</MonoLabel>
+            <MonoLabel className="text-signal">{t('eyebrow')}</MonoLabel>
           </motion.div>
           <motion.h2
             variants={rise}
             className="mx-auto mt-6 max-w-2xl font-display text-4xl font-medium text-bone sm:text-5xl md:text-6xl"
           >
-            Have something to build?
+            {t('title')}
           </motion.h2>
           <motion.p variants={rise} className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-steel">
-            Tell us the brief. We&apos;ll come back with a plan, a timeline, and a fixed estimate —
-            usually within two business days.
+            {t('lede')}
           </motion.p>
           <motion.div variants={rise} className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
             <Button variant="signal" size="lg" href="/contact">
-              Start a project
+              {t('primaryLabel')}
             </Button>
             <Button variant="ghost" size="lg" href="/quote">
-              Get an estimate
+              {t('secondaryLabel')}
             </Button>
           </motion.div>
           <motion.p variants={rise} className="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            or email{' '}
+            {t('emailPrefix')}{' '}
             <a href="mailto:hello@craftsai.org" className="text-bone hover:text-signal">
               hello@craftsai.org
             </a>

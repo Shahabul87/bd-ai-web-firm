@@ -3,5 +3,1674 @@
     "label": "ভাষা",
     "switchToEnglish": "ইংরেজিতে দেখুন",
     "switchToBengali": "বাংলায় দেখুন"
+  },
+  "Nav": {
+    "services": "Services",
+    "studio": "Studio",
+    "contact": "Contact",
+    "aiAgents": "AI Agents",
+    "webDevelopment": "Web Development",
+    "mobileApps": "Mobile Apps",
+    "agentIntegration": "Agent Integration",
+    "products": "Products",
+    "process": "Process",
+    "resources": "Resources",
+    "about": "About"
+  },
+  "Header": {
+    "primaryNavLabel": "Primary",
+    "mobileNavLabel": "Mobile",
+    "getEstimate": "Get estimate",
+    "startProject": "Start a project",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "menuToggleOpen": "Menu ≡",
+    "menuToggleClose": "Close ×",
+    "mobileBadge": "● CRAFTS.AI — DHAKA / WORLDWIDE"
+  },
+  "Footer": {
+    "ticker": "● ACCEPTING PROJECTS — DHAKA — WORLDWIDE — AI AGENTS — WEB — MOBILE — INTEGRATION — ",
+    "tagline": "We build AI agents. Our agents build your software.",
+    "careers": "Careers",
+    "contactForm": "Contact form",
+    "getEstimate": "Get an estimate",
+    "location": "Dhaka, Bangladesh",
+    "timezone": "GMT+6 — worldwide",
+    "copyright": "© {year} CraftsAI — All systems nominal",
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "cookies": "Cookies"
+  },
+  "CTABand": {
+    "eyebrow": "● accepting projects",
+    "title": "Have something to build?",
+    "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
+    "primaryLabel": "Start a project",
+    "secondaryLabel": "Get an estimate"
+  },
+  "PillarCards": {
+    "flagship": "Flagship",
+    "explore": "Explore",
+    "aiAgents": {
+      "title": "AI Agents",
+      "blurb": "Custom agents that plan, write, and ship software — supervised by a senior engineer at every step.",
+      "stage1": "Brief",
+      "stage2": "Plan",
+      "stage3": "Build",
+      "stage4": "Review",
+      "stage5": "Ship"
+    },
+    "webDevelopment": {
+      "title": "Web Development",
+      "blurb": "Production web apps built by our agents and shipped fast, from marketing sites to full platforms.",
+      "stage1": "Design",
+      "stage2": "Build",
+      "stage3": "Test",
+      "stage4": "Deploy"
+    },
+    "mobileApps": {
+      "title": "Mobile Apps",
+      "blurb": "Native iOS and Android apps from one agent workflow — one brief, both platforms.",
+      "stage1": "Spec",
+      "stage2": "Build",
+      "stage3": "QA",
+      "stage4": "Release"
+    },
+    "agentIntegration": {
+      "title": "Agent Integration",
+      "blurb": "Wire agents into the tools you already run — CRM, ERP, WhatsApp, and your internal systems.",
+      "stage1": "Audit",
+      "stage2": "Connect",
+      "stage3": "Automate",
+      "stage4": "Monitor"
+    }
+  },
+  "Home": {
+    "hero": {
+      "titleLine1": "We draft agents.",
+      "titleLine2": "The agents build <accent>the rest.</accent>",
+      "lede": "CraftsAI is an engineering studio in Dhaka. We design custom AI agents that plan, write, and ship your websites, mobile apps, and integrations — every drawing reviewed by a senior engineer.",
+      "ctaPrimary": "Start a project",
+      "ctaSecondary": "See the process ↓",
+      "schematicLabel": "Engineering schematic: a brief flows into an AI agent, which produces a website, a mobile app, and an integration"
+    },
+    "proof": {
+      "label": "● what we've shipped",
+      "facts": [
+        "4 products shipped",
+        "web · ios · android",
+        "human-reviewed code",
+        "dhaka → worldwide"
+      ]
+    },
+    "pillars": {
+      "eyebrow": "What we build",
+      "title": "Four ways we put agents to work.",
+      "description": "Every engagement runs on the same idea: agents do the heavy lifting, engineers own the outcome."
+    },
+    "build": {
+      "eyebrow": "How agents build",
+      "title": "Watch a brief become shipped software.",
+      "description": "This is the real shape of a build: the agent plans and writes, the checks run, and nothing ships until an engineer signs off.",
+      "terminalTitle": "crafts.ai — agent build",
+      "terminal": [
+        { "text": "agent run --brief ./client-brief.md", "tone": "cmd" },
+        { "text": "Parsing brief… 4 requirements found", "tone": "out" },
+        { "text": "Planning build — 12 tasks across 3 modules", "tone": "out" },
+        { "text": "Writing src/checkout/payment.ts", "tone": "out" },
+        { "text": "Writing tests/checkout.test.ts", "tone": "out" },
+        { "text": "Running checks — lint ✓  types ✓  tests 34/34 ✓", "tone": "ok" },
+        { "text": "Human review requested — payment flow", "tone": "warn" },
+        { "text": "Approved. Shipped to staging.", "tone": "ok" }
+      ],
+      "notes": [
+        {
+          "label": "Agents do",
+          "body": "Read the brief, plan the work, write code and tests, run the checks, and open the change for review."
+        },
+        {
+          "label": "Engineers do",
+          "body": "Set the direction, review every diff, own the architecture and the security-sensitive paths."
+        },
+        {
+          "label": "You get",
+          "body": "Working software in weeks, not months — with a person accountable for what ships."
+        }
+      ]
+    },
+    "advantage": {
+      "title": "The same software, drafted differently.",
+      "colSpec": "Spec",
+      "colTraditional": "Traditional agency",
+      "colCrafts": "CraftsAI",
+      "rows": [
+        { "label": "Timeline", "traditional": "3–6 months", "crafts": "2–6 weeks" },
+        { "label": "Cost", "traditional": "$50K–200K", "crafts": "~80% less" },
+        { "label": "Team", "traditional": "Large agency team", "crafts": "Agents + senior engineer" },
+        { "label": "Review", "traditional": "Manual, occasional", "crafts": "Every change reviewed" },
+        { "label": "Process", "traditional": "Rigid milestones", "crafts": "Ship continuously" }
+      ],
+      "footnote": "Figures are typical ranges for the projects we take on, not a guarantee — every scope is estimated up front, in writing."
+    },
+    "work": {
+      "eyebrow": "Selected work",
+      "title": "Software our agents have shipped.",
+      "allWork": "All work →",
+      "readCaseStudy": "Read case study",
+      "projects": [
+        {
+          "slug": "taxomind",
+          "sector": "EdTech",
+          "platform": "Web",
+          "name": "TaxoMind",
+          "outcome": "An AI learning platform built on Bloom's Taxonomy for personalized education."
+        },
+        {
+          "slug": "fincoach-ai",
+          "sector": "FinTech",
+          "platform": "Android",
+          "name": "FinCoach AI",
+          "outcome": "An AI financial coach that helps people build better money habits, day by day."
+        },
+        {
+          "slug": "mathphysics",
+          "sector": "EdTech",
+          "platform": "Android",
+          "name": "MathPhysics",
+          "outcome": "Interactive math and physics practice for grade 9–12 students."
+        }
+      ]
+    },
+    "process": {
+      "eyebrow": "How we work",
+      "title": "Five steps, start to ship.",
+      "fullProcess": "The full process →",
+      "steps": [
+        { "index": "01", "title": "Discover", "detail": "Free consultation to scope the problem." },
+        { "index": "02", "title": "Plan", "detail": "Written scope, estimate, and timeline." },
+        { "index": "03", "title": "Build", "detail": "Agents write; engineers review." },
+        { "index": "04", "title": "Test", "detail": "Automated checks plus human QA." },
+        { "index": "05", "title": "Launch", "detail": "Deploy, then ongoing support." }
+      ]
+    },
+    "resources": {
+      "eyebrow": "Field notes",
+      "title": "What we're writing about.",
+      "allResources": "All resources →",
+      "items": [
+        { "slug": "ai-agents-software-development", "type": "Blog", "title": "How AI agents are changing software development in 2026", "readTime": "5 min" },
+        { "slug": "taxomind", "type": "Case study", "title": "How TaxoMind reached 10× faster content generation", "readTime": "8 min" },
+        { "slug": "ai-powered-development", "type": "Guide", "title": "The complete guide to AI-powered app development", "readTime": "12 min" }
+      ]
+    },
+    "finalCta": {
+      "eyebrow": "● accepting projects",
+      "title": "Have something to build?",
+      "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
+      "primaryLabel": "Start a project",
+      "secondaryLabel": "Get an estimate",
+      "emailPrefix": "or email"
+    }
+  },
+  "Services": {
+    "index": {
+      "hero": {
+        "eyebrow": "Services / overview",
+        "title": "We build agents. The agents build your software.",
+        "lede": "Four services, one workflow. Custom agents do the heavy lifting; senior engineers own the architecture, the review, and what ships.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "pillars": {
+        "eyebrow": "What we build",
+        "title": "Pick where an agent goes to work.",
+        "description": "Not sure which fits? Start a project and we'll map it with you."
+      }
+    },
+    "web": {
+      "hero": {
+        "eyebrow": "Services / Web",
+        "title": "Web Development",
+        "lede": "Full-stack web applications built with React, Next.js, and modern cloud infrastructure — built by our agents and shipped fast, with senior engineers reviewing every release.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "pipeline": {
+        "eyebrow": "How it ships",
+        "title": "One brief. An agent scaffolds it. Engineers ship it.",
+        "description": "Our agents turn your requirements into a working codebase in hours — senior engineers take it from there.",
+        "stages": ["Brief", "Scaffold", "Build", "Review", "Ship"]
+      },
+      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "specRows": [
+        {
+          "slug": "scope",
+          "label": "Scope",
+          "value": "SaaS platforms, e-commerce, enterprise dashboards, MVPs, APIs, and progressive web apps — full-stack, schema to deploy."
+        },
+        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "timeline",
+          "label": "Timeline",
+          "value": "2–6 weeks, depending on scope — roughly 10x faster and 80% cheaper than a typical agency build."
+        },
+        {
+          "slug": "automated",
+          "label": "Automated by agents",
+          "value": "Next.js page structures, API routes, database schemas, and Tailwind component libraries, generated from a plain-English brief."
+        },
+        {
+          "slug": "reviewed",
+          "label": "Reviewed by engineers",
+          "value": "Every pull request, integration test, and product decision that only a person can make — before anything ships."
+        }
+      ],
+      "techStack": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Node.js",
+        "PostgreSQL",
+        "MongoDB",
+        "AWS",
+        "Vercel",
+        "Docker",
+        "GraphQL",
+        "REST APIs",
+        "Tailwind CSS"
+      ],
+      "useCasesSection": {
+        "eyebrow": "Use cases",
+        "title": "Where this fits.",
+        "description": "A sample of the products we build most often — not an exhaustive list."
+      },
+      "useCases": [
+        {
+          "title": "SaaS Platforms",
+          "description": "Multi-tenant applications with subscription billing, user management, and analytics dashboards."
+        },
+        {
+          "title": "E-Commerce",
+          "description": "Online stores with inventory management, payment processing, and order fulfillment."
+        },
+        {
+          "title": "Enterprise Dashboards",
+          "description": "Data-rich dashboards with real-time charts, role-based access, and reporting tools."
+        },
+        {
+          "title": "MVPs & Prototypes",
+          "description": "Rapid prototypes to validate your idea and attract funding in weeks, not months."
+        }
+      ],
+      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faqItems": [
+        {
+          "id": "ai-speed",
+          "question": "How does AI speed up web development?",
+          "answer": "Our agents generate boilerplate code, database schemas, and component scaffolding in minutes. Human engineers then review, refine, and customize everything to your exact requirements. This eliminates repetitive work and lets us focus on what makes your product unique."
+        },
+        {
+          "id": "existing-codebase",
+          "question": "Can you work with my existing codebase?",
+          "answer": "Absolutely. We regularly join projects mid-stream. Our onboarding process includes a thorough code audit, and our AI agent adapts to your existing patterns, conventions, and tech stack."
+        },
+        {
+          "id": "timeline",
+          "question": "What does the delivery timeline look like?",
+          "answer": "Most web projects ship in 2 to 6 weeks depending on complexity. MVPs and prototypes can launch in as little as 2 weeks. Enterprise platforms with complex integrations typically take 4 to 6 weeks. You will receive weekly progress demos throughout."
+        },
+        {
+          "id": "deployment",
+          "question": "Do you handle deployment and hosting?",
+          "answer": "Yes. We deploy to Vercel, AWS, or your preferred cloud provider. Every project includes CI/CD pipelines, monitoring, and a production-ready infrastructure setup at no extra charge."
+        }
+      ],
+      "cta": {
+        "title": "Ready to build your web application?",
+        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+      }
+    },
+    "ios": {
+      "hero": {
+        "eyebrow": "Services / iOS",
+        "title": "iOS Development",
+        "lede": "Native iOS apps with Swift and SwiftUI — built by our agents and shipped fast, with senior engineers reviewing every release.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "pipeline": {
+        "eyebrow": "How it ships",
+        "title": "One brief. An agent drafts the app. Engineers ship it.",
+        "description": "Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance.",
+        "stages": ["Brief", "Design", "Build", "Review", "Ship"]
+      },
+      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "specRows": [
+        {
+          "slug": "scope",
+          "label": "Scope",
+          "value": "Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst."
+        },
+        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "timeline",
+          "label": "Timeline",
+          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
+        },
+        {
+          "slug": "automated",
+          "label": "Automated by agents",
+          "value": "SwiftUI views, Core Data models, networking layers, and navigation stacks — generated from your requirements, following Apple's Human Interface Guidelines."
+        },
+        {
+          "slug": "reviewed",
+          "label": "Reviewed by engineers",
+          "value": "UX refinement, App Store compliance, and rigorous testing on every build before it reaches your users."
+        }
+      ],
+      "techStack": [
+        "Swift",
+        "SwiftUI",
+        "UIKit",
+        "Core Data",
+        "CloudKit",
+        "Combine",
+        "MapKit",
+        "HealthKit",
+        "StoreKit",
+        "Core ML"
+      ],
+      "useCasesSection": {
+        "eyebrow": "Use cases",
+        "title": "Where this fits.",
+        "description": "A sample of the apps we build most often — not an exhaustive list."
+      },
+      "useCases": [
+        {
+          "title": "Business Apps",
+          "description": "Enterprise tools, CRM mobile clients, and field-service apps with secure data handling."
+        },
+        {
+          "title": "Health & Fitness",
+          "description": "HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines."
+        },
+        {
+          "title": "Fintech",
+          "description": "Secure financial apps with biometric auth, real-time data, and Apple Pay integration."
+        },
+        {
+          "title": "Consumer Apps",
+          "description": "Polished consumer experiences with elegant animations and seamless onboarding."
+        }
+      ],
+      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faqItems": [
+        {
+          "id": "swiftui-uikit",
+          "question": "Do you build with SwiftUI or UIKit?",
+          "answer": "We use SwiftUI for all new projects because it provides a modern, declarative approach to UI development and is Apple's recommended framework going forward. For projects that need to support older iOS versions or require features not yet available in SwiftUI, we use UIKit or a hybrid approach."
+        },
+        {
+          "id": "app-store-submission",
+          "question": "Can you submit to the App Store for us?",
+          "answer": "Yes. We manage the entire submission process including App Store Connect setup, screenshots, metadata, and review compliance. We also handle TestFlight distribution for beta testing with your team or early users."
+        },
+        {
+          "id": "ipad-watch",
+          "question": "Do you support iPad and Apple Watch?",
+          "answer": "Absolutely. Our SwiftUI layouts adapt to iPad, Apple Watch, and even macOS via Catalyst. We design for the full Apple ecosystem from day one, so your app feels native on every device."
+        },
+        {
+          "id": "iap",
+          "question": "What about in-app purchases and subscriptions?",
+          "answer": "StoreKit 2 is part of our standard toolkit. We implement subscriptions, consumables, and non-consumable purchases with server-side receipt validation. We also handle the App Store pricing and tax configuration."
+        }
+      ],
+      "cta": {
+        "title": "Ready to build your iOS app?",
+        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+      }
+    },
+    "android": {
+      "hero": {
+        "eyebrow": "Services / Android",
+        "title": "Android Development",
+        "lede": "Native Android apps with Kotlin and Jetpack Compose — built by our agents and shipped fast, with senior engineers reviewing every release.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "pipeline": {
+        "eyebrow": "How it ships",
+        "title": "One brief. An agent drafts the app. Engineers ship it.",
+        "description": "Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance.",
+        "stages": ["Brief", "Design", "Build", "Review", "Release"]
+      },
+      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "specRows": [
+        {
+          "slug": "scope",
+          "label": "Scope",
+          "value": "Business, social, e-commerce, health, education, and productivity apps — responsive across phones, tablets, and foldables."
+        },
+        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "timeline",
+          "label": "Timeline",
+          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
+        },
+        {
+          "slug": "automated",
+          "label": "Automated by agents",
+          "value": "Kotlin modules, Compose screens, Room database entities, and Hilt dependency graphs — generated from your requirements, following Google's MVVM + Repository architecture."
+        },
+        {
+          "slug": "reviewed",
+          "label": "Reviewed by engineers",
+          "value": "UX polish, edge-case testing, and Play Store compliance on every release before it reaches production."
+        }
+      ],
+      "techStack": [
+        "Kotlin",
+        "Jetpack Compose",
+        "Material Design 3",
+        "Firebase",
+        "Room DB",
+        "Retrofit",
+        "ML Kit",
+        "Google Play Services",
+        "Coroutines",
+        "Hilt"
+      ],
+      "useCasesSection": {
+        "eyebrow": "Use cases",
+        "title": "Where this fits.",
+        "description": "A sample of the apps we build most often — not an exhaustive list."
+      },
+      "useCases": [
+        {
+          "title": "Business Apps",
+          "description": "Internal tools, CRM integrations, and field-service apps that streamline operations."
+        },
+        {
+          "title": "E-Commerce Mobile",
+          "description": "Shopping apps with product catalogs, in-app payments, and push notification campaigns."
+        },
+        {
+          "title": "Social & Community",
+          "description": "Chat, feeds, and real-time features that keep users engaged and connected."
+        },
+        {
+          "title": "Health & Fitness",
+          "description": "Wearable integrations, workout trackers, and telehealth experiences."
+        }
+      ],
+      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faqItems": [
+        {
+          "id": "kotlin-java",
+          "question": "Do you build with Kotlin or Java?",
+          "answer": "We build exclusively with Kotlin and Jetpack Compose for all new projects. Kotlin is the official recommended language for Android development, and Compose provides a modern, declarative UI toolkit. If you have an existing Java codebase, we can maintain it or help you migrate incrementally."
+        },
+        {
+          "id": "play-store",
+          "question": "Can you publish to the Google Play Store?",
+          "answer": "Yes. We handle the entire release process including Play Store listing, screenshots, app signing, and compliance review. We also set up staged rollouts and crash monitoring so you can ship with confidence."
+        },
+        {
+          "id": "tablets-foldables",
+          "question": "Do you support tablets and foldables?",
+          "answer": "Absolutely. Our Compose-based layouts are responsive by default. We test on phones, tablets, and foldable devices to ensure a great experience across the entire Android ecosystem."
+        },
+        {
+          "id": "offline",
+          "question": "What about offline functionality?",
+          "answer": "Room database and WorkManager are part of our standard stack. We architect every app with offline-first principles so users can keep working even without an internet connection. Data syncs automatically when connectivity returns."
+        }
+      ],
+      "cta": {
+        "title": "Ready to build your Android app?",
+        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+      }
+    },
+    "support": {
+      "hero": {
+        "eyebrow": "Services / Support",
+        "title": "Support & Maintenance",
+        "lede": "Ongoing support retainers so your product stays fast, secure, and up to date — without hiring a full-time team.",
+        "primaryCta": "Start a project",
+        "secondaryCta": "Get an estimate"
+      },
+      "spec": { "eyebrow": "Snapshot", "title": "Coverage, response time, and billing — in writing." },
+      "specRows": [
+        {
+          "slug": "monitoring",
+          "label": "Monitoring",
+          "value": "24/7 automated monitoring and alerting, with a 4-hour response SLA on Enterprise."
+        },
+        {
+          "slug": "uptime",
+          "label": "Uptime SLA",
+          "value": "99.9% — backed by quarterly architecture reviews on Enterprise plans."
+        },
+        { "slug": "included", "label": "Included" },
+        { "slug": "stacks", "label": "Stacks supported" },
+        {
+          "slug": "billing",
+          "label": "Billing",
+          "value": "A fixed monthly fee per tier — no surprise charges. Work beyond retainer scope is quoted before we proceed. Change tiers any time with 30 days notice."
+        }
+      ],
+      "included": [
+        "Bug Fixes",
+        "Security Patches",
+        "Performance Monitoring",
+        "Feature Updates",
+        "Database Maintenance",
+        "Backup Management"
+      ],
+      "coverage": ["React", "Next.js", "Node.js", "Kotlin", "Swift", "PostgreSQL", "MongoDB", "AWS", "Vercel", "Firebase"],
+      "plans": {
+        "eyebrow": "Plans",
+        "title": "Choose your tier.",
+        "description": "Every tier is a monthly retainer. Upgrade, downgrade, or cancel with 30 days notice."
+      },
+      "tiers": [
+        {
+          "slug": "basic",
+          "name": "Basic",
+          "description": "Bug fixes and routine updates for smaller applications.",
+          "features": ["Bug fixes within 48 hours", "Dependency updates", "Monthly health report", "Email support"]
+        },
+        {
+          "slug": "professional",
+          "name": "Professional",
+          "description": "Priority support with proactive monitoring for growing products.",
+          "features": [
+            "Bug fixes within 24 hours",
+            "Performance monitoring",
+            "Security patches",
+            "Weekly health reports",
+            "WhatsApp & email support"
+          ]
+        },
+        {
+          "slug": "enterprise",
+          "name": "Enterprise",
+          "description": "Dedicated team with SLA guarantees for mission-critical systems.",
+          "features": [
+            "4-hour response SLA",
+            "24/7 monitoring & alerting",
+            "Dedicated support engineer",
+            "Quarterly architecture reviews",
+            "Priority feature development",
+            "Custom SLA terms"
+          ]
+        }
+      ],
+      "onboardingSection": { "eyebrow": "Onboarding", "title": "Three steps to your first retainer month." },
+      "onboarding": [
+        {
+          "index": "01",
+          "title": "Audit",
+          "detail": "We review your existing codebase, infrastructure, and monitoring setup to identify risks and quick wins."
+        },
+        {
+          "index": "02",
+          "title": "Setup",
+          "detail": "We configure monitoring, alerting, CI/CD pipelines, and backup systems tailored to your stack."
+        },
+        {
+          "index": "03",
+          "title": "Launch",
+          "detail": "Your retainer begins. You get a dedicated channel for requests and a dashboard to track every issue."
+        }
+      ],
+      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faqItems": [
+        {
+          "id": "other-teams",
+          "question": "Can you support apps you did not build?",
+          "answer": "Yes. We regularly take over maintenance for applications built by other teams. Our onboarding audit identifies technical debt and risks so we can hit the ground running."
+        },
+        {
+          "id": "technologies",
+          "question": "What technologies do you support?",
+          "answer": "We support React, Next.js, Node.js, Kotlin, Swift, PostgreSQL, MongoDB, AWS, Vercel, Firebase, and more. If your stack is not listed, ask us — we are happy to evaluate."
+        },
+        {
+          "id": "billing",
+          "question": "How does billing work?",
+          "answer": "Support retainers are billed monthly with a fixed fee based on your chosen tier. There are no surprise charges. If an issue requires work beyond the retainer scope, we provide a quote before proceeding."
+        },
+        {
+          "id": "change-plan",
+          "question": "Can I upgrade or downgrade my plan?",
+          "answer": "Absolutely. You can change tiers at any time with 30 days notice. We will help you transition smoothly and adjust monitoring and SLA terms accordingly."
+        }
+      ],
+      "cta": {
+        "title": "Ready to secure your product?",
+        "lede": "Tell us about your application and we'll recommend the right support tier."
+      }
+    }
+  },
+  "About": {
+    "hero": {
+      "eyebrow": "About",
+      "title": "An AI-first studio, built in Dhaka, shipping worldwide.",
+      "lede": "We build web, Android, and iOS products at startup speed with enterprise quality — agents write, senior engineers own every line that ships."
+    },
+    "story": {
+      "eyebrow": "Our story",
+      "title": "Why we started CraftsAI.",
+      "p1": "CraftsAI was founded in 2025 with a simple thesis: most software development time is spent on repetitive, predictable tasks that AI can handle better and faster than humans.",
+      "p2": "Based in Bangladesh, we built a studio around that idea. Our AI agents generate boilerplate code, database schemas, and component libraries while human engineers focus on architecture, product decisions, and the nuanced craft that machines cannot replicate.",
+      "p3": "The result is enterprise-grade software delivered at a fraction of the traditional cost and timeline — without compromising on quality, security, or maintainability."
+    },
+    "approach": {
+      "eyebrow": "Our approach",
+      "title": "Agents plus engineers, not agents instead of engineers.",
+      "agentsTitle": "AI Agents",
+      "agentsBody": "Our AI agents handle the repetitive coding tasks that traditionally consume most of development time. They generate clean, typed, well-structured code from plain-English requirements, following best practices for each platform.",
+      "humanTitle": "Human Oversight",
+      "humanBody": "Every line of AI-generated code is reviewed by experienced engineers. They make architectural decisions, write integration tests, handle edge cases, and ensure the final product meets production standards. AI amplifies their output; it does not replace their judgment."
+    },
+    "stats": {
+      "eyebrow": "By the numbers",
+      "title": "What that looks like in practice.",
+      "items": [
+        { "value": "4", "label": "Products Built" },
+        { "value": "3", "label": "Platforms" },
+        { "value": "10x", "label": "Faster Delivery" },
+        { "value": "80%", "label": "Cost Savings" }
+      ]
+    },
+    "products": {
+      "eyebrow": "Our products",
+      "title": "What we've built for ourselves.",
+      "viewAll": "View all →",
+      "items": [
+        { "name": "Banglu", "description": "Bengali phonetic keyboard for web and Android." },
+        { "name": "Taxomind", "description": "AI-powered tax preparation platform." },
+        { "name": "CraftsAI Studio", "description": "Internal tooling for AI-assisted development." },
+        { "name": "Client Projects", "description": "Custom web and mobile apps for businesses worldwide." }
+      ]
+    },
+    "cta": {
+      "title": "Ready to work with us?",
+      "lede": "Tell us about your project and get a free, no-obligation quote within 24 hours.",
+      "primaryLabel": "Get a free quote"
+    }
+  },
+  "Careers": {
+    "hero": {
+      "eyebrow": "Careers",
+      "title": "Build the future with us.",
+      "lede": "We're a small, AI-first studio where engineers work alongside intelligent agents to ship products faster than anyone thought possible. If you thrive at the intersection of craftsmanship and automation, you'll fit right in."
+    },
+    "culture": {
+      "eyebrow": "Why CraftsAI",
+      "title": "What it's like to work here.",
+      "cards": [
+        { "title": "AI-First Culture", "description": "We embrace AI as a core tool in every workflow. You will work alongside cutting-edge coding agents and shape how humans and AI collaborate." },
+        { "title": "Remote Friendly", "description": "Work from anywhere in the world. We communicate asynchronously and value output over hours. Flexible schedules that fit your life." },
+        { "title": "Cutting-Edge Tech", "description": "Next.js, Kotlin, Swift, LLM integrations, cloud-native architectures. You will always be working with the latest technologies and frameworks." },
+        { "title": "Impact-Driven Work", "description": "Every product we build solves real problems for real users. From education platforms to finance apps, your work will make a tangible difference." }
+      ]
+    },
+    "openPositions": {
+      "eyebrow": "Open positions",
+      "title": "Nothing open right now.",
+      "cardLead": "We are always looking for talented people. There are no open positions right now, but we would love to hear from you — send your CV and a note to"
+    },
+    "cta": {
+      "title": "Interested in joining?",
+      "lede": "Send your CV and a brief introduction. Tell us what excites you about AI-powered development.",
+      "primaryLabel": "Email careers@craftsai.org",
+      "secondaryLabel": "See our work"
+    }
+  },
+  "Process": {
+    "hero": {
+      "eyebrow": "Process",
+      "title": "Your project rides the line.",
+      "lede": "Five stations between idea and launch. Watch it move — no black boxes, no surprises, just a build you can follow with your own eyes."
+    },
+    "line": {
+      "eyebrow": "The line",
+      "title": "How a project moves through CraftsAI.",
+      "totalNote": "05 stations · typical total 2–6 weeks"
+    },
+    "phases": [
+      {
+        "number": "01",
+        "title": "Discovery",
+        "label": "DISCOVERY",
+        "what": "Free consultation to understand your needs. We discuss your goals, target audience, and success criteria to make sure we are aligned before any code is written.",
+        "deliverables": "Requirements document, project scope",
+        "yourRole": "Share your vision and goals",
+        "timeline": "1–2 days"
+      },
+      {
+        "number": "02",
+        "title": "Planning",
+        "label": "PLANNING",
+        "what": "Architecture design, technology selection, and milestone planning. We map out the entire project so there are no surprises down the road.",
+        "deliverables": "Technical spec, project timeline, cost estimate",
+        "yourRole": "Review and approve plan",
+        "timeline": "2–3 days"
+      },
+      {
+        "number": "03",
+        "title": "Development",
+        "label": "DEVELOPMENT",
+        "what": "AI agents generate code while engineers review and refine. You see working features early and often through regular demos.",
+        "deliverables": "Working features, regular demos",
+        "yourRole": "Weekly check-ins, feedback",
+        "timeline": "1–4 weeks"
+      },
+      {
+        "number": "04",
+        "title": "Testing",
+        "label": "TESTING",
+        "what": "Comprehensive QA, performance testing, and security audit. We catch issues before your users do.",
+        "deliverables": "Test reports, bug-free application",
+        "yourRole": "User acceptance testing",
+        "timeline": "3–5 days"
+      },
+      {
+        "number": "05",
+        "title": "Launch & Support",
+        "label": "LAUNCH",
+        "what": "Deployment, monitoring setup, and handoff. We make sure everything runs smoothly and your team is fully equipped to take over.",
+        "deliverables": "Live application, documentation, training",
+        "yourRole": "Final approval",
+        "timeline": "1–2 days"
+      }
+    ],
+    "communication": {
+      "eyebrow": "How we communicate",
+      "title": "Transparency is how we work.",
+      "description": "You will always know where your project stands.",
+      "items": [
+        { "title": "Weekly Progress Reports", "description": "Detailed updates on what was completed, what is next, and any blockers." },
+        { "title": "Direct Messaging", "description": "Reach us anytime via WhatsApp or email. No ticketing queues." },
+        { "title": "Live Demos at Milestones", "description": "See working software at every major milestone, not just at the end." },
+        { "title": "Dedicated Project Channel", "description": "A shared channel for your team and ours to keep everything in one place." }
+      ]
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "lede": "Phase 1 is free. Tell us about your project and we'll schedule a discovery call within 24 hours.",
+      "primaryLabel": "Start your project",
+      "secondaryLabel": "See our services"
+    }
+  },
+  "Products": {
+    "hero": {
+      "eyebrow": "Products",
+      "title": "Ready-made solutions, battle-tested and production-ready.",
+      "lede": "Our product lineup spans web platforms and Android apps, built and maintained by the same agent workflow we use for client work."
+    },
+    "platformLabels": {
+      "web": "Web",
+      "android": "Android",
+      "ios": "iOS",
+      "desktop": "Desktop"
+    },
+    "learnMore": "Learn more",
+    "more": "more",
+    "cta": {
+      "title": "Need a custom solution?",
+      "lede": "Our products showcase what we can build. Let us create something tailored to your specific needs.",
+      "primaryLabel": "Get a free quote"
+    },
+    "detail": {
+      "platformLabels": {
+        "web": "Web Platform",
+        "android": "Android App",
+        "ios": "iOS App",
+        "desktop": "Desktop App"
+      },
+      "hero": {
+        "eyebrow": "Products / {platforms}",
+        "viewDemo": "View live demo",
+        "getOnPlayStore": "Get on Play Store",
+        "downloadDesktop": "Download desktop app",
+        "requestCustomization": "Request customization"
+      },
+      "downloads": {
+        "eyebrow": "Downloads",
+        "title": "Install it on your computer.",
+        "download": "Download"
+      },
+      "features": {
+        "eyebrow": "Features",
+        "title": "Everything you need, built in from day one."
+      },
+      "techStack": {
+        "eyebrow": "Tech stack",
+        "title": "Built with."
+      },
+      "useCases": {
+        "eyebrow": "Use cases",
+        "title": "Who is it for?"
+      },
+      "cta": {
+        "title": "Interested in {title}?",
+        "lede": "Get in touch to learn more, request a demo, or discuss customization options for your needs.",
+        "primaryLabel": "Get in touch",
+        "secondaryLabel": "View all products"
+      }
+    }
+  },
+  "Portfolio": {
+    "hero": {
+      "eyebrow": "Portfolio",
+      "title": "Software our agents have shipped.",
+      "lede": "Real projects built by our team. From web apps to Android — see what's possible when agents do the coding."
+    },
+    "cta": {
+      "title": "Your project could be next.",
+      "lede": "Tell us the brief and we'll come back with a plan, a timeline, and a fixed estimate."
+    },
+    "detail": {
+      "hero": {
+        "eyebrow": "Portfolio / {industry}"
+      },
+      "spec": {
+        "client": "Client",
+        "industry": "Industry",
+        "services": "Services",
+        "tags": "Tags"
+      },
+      "related": {
+        "eyebrow": "Related work",
+        "title": "More projects like this."
+      },
+      "cta": {
+        "title": "Ready to build something similar?",
+        "lede": "Let us help you bring your idea to life with the same quality and expertise.",
+        "primaryLabel": "Start your project",
+        "secondaryLabel": "View all projects"
+      }
+    }
+  },
+  "Resources": {
+    "hero": {
+      "eyebrow": "Resources",
+      "title": "Field notes from the studio.",
+      "lede": "Blog posts, case studies, and guides on AI-powered development — written by the team that ships it.",
+      "primaryCta": "Start a project"
+    },
+    "browse": {
+      "eyebrow": "Browse by type",
+      "title": "Three ways into the archive.",
+      "cta": "Browse"
+    },
+    "categories": {
+      "blog": {
+        "title": "Blog",
+        "description": "Insights on AI development, strategy, and technology trends."
+      },
+      "case-studies": {
+        "title": "Case studies",
+        "description": "Real results from our AI-powered development projects."
+      },
+      "guides": {
+        "title": "Guides",
+        "description": "In-depth guides on web development, mobile apps, and choosing the right approach."
+      }
+    },
+    "latest": {
+      "eyebrow": "Latest",
+      "title": "Everything we've published."
+    },
+    "typeLabels": {
+      "blog": "Blog",
+      "caseStudy": "Case study",
+      "guide": "Guide"
+    },
+    "blog": {
+      "hero": {
+        "eyebrow": "Resources / Blog",
+        "title": "Field notes from the build.",
+        "lede": "Insights on AI-powered development, business strategy, and technology trends from the CraftsAI team."
+      },
+      "empty": "No posts yet — check back soon.",
+      "badge": "Blog",
+      "readTime": "{count} min read",
+      "readMore": "Read",
+      "detail": {
+        "by": "By {author}",
+        "cta": {
+          "title": "Ready to build your next project?",
+          "lede": "Let our AI-powered team turn your idea into production-ready software at a fraction of the traditional cost.",
+          "primaryLabel": "Get a free quote",
+          "secondaryLabel": "Back to blog"
+        }
+      }
+    },
+    "caseStudies": {
+      "hero": {
+        "eyebrow": "Resources / Case studies",
+        "title": "Real projects, real results.",
+        "lede": "See how AI-powered development delivers measurable outcomes for businesses across industries."
+      },
+      "empty": "No case studies yet — check back soon.",
+      "readMore": "Read case study",
+      "detail": {
+        "client": "Client: {client}",
+        "cta": {
+          "title": "Ready to build something similar?",
+          "lede": "Let us help you bring your idea to life with the same quality and expertise.",
+          "primaryLabel": "Start your project",
+          "secondaryLabel": "View all case studies"
+        }
+      }
+    },
+    "guides": {
+      "hero": {
+        "eyebrow": "Resources / Guides",
+        "title": "Guides & whitepapers.",
+        "lede": "In-depth resources to help you plan, build, and ship successful software products."
+      },
+      "empty": "No guides yet — check back soon.",
+      "badge": "Guide",
+      "readTime": "{count} min read",
+      "readMore": "Read",
+      "detail": {
+        "cta": {
+          "title": "Need expert help with your project?",
+          "lede": "Our AI-powered team can help you go from idea to launch faster and more affordably than you thought possible.",
+          "primaryLabel": "Get a free quote",
+          "secondaryLabel": "Back to guides"
+        }
+      }
+    }
+  },
+  "Faq": {
+    "hero": {
+      "eyebrow": "FAQ",
+      "title": "Questions, answered.",
+      "lede": "Everything you need to know about working with CraftsAI.",
+      "primaryCta": "Ask us directly"
+    },
+    "cta": {
+      "title": "Still have questions?",
+      "lede": "We're happy to help. Get in touch and we'll respond within 24 hours.",
+      "primaryLabel": "Contact us",
+      "secondaryLabel": "Get an estimate"
+    }
+  },
+  "Legal": {
+    "privacy": {
+      "hero": {
+        "eyebrow": "Legal",
+        "title": "Privacy Policy",
+        "lede": "Last updated: July 5, 2026"
+      },
+      "sections": {
+        "informationWeCollect": {
+          "label": "01 / Information we collect",
+          "title": "Information We Collect",
+          "intro": "We collect information in the following ways:",
+          "items": [
+            {
+              "term": "Enquiry & lead forms.",
+              "detail": "When you use our contact, quote, or demo forms we collect the details you provide — such as your name, email address, company, phone number, project requirements, and message — together with technical metadata (your IP address and browser user-agent) used for spam prevention and security."
+            },
+            {
+              "term": "Client portal.",
+              "detail": "If you are an active client, we process your account email, your projects, invoices we issue to you, and any messages you exchange with us through the portal."
+            },
+            {
+              "term": "Authentication.",
+              "detail": "We use passwordless login. To sign you in we process your email address and one-time login codes / magic links, and — if you choose “remember this device” — a trusted-device token."
+            },
+            {
+              "term": "Push notifications (optional).",
+              "detail": "If you opt in to browser notifications, we store a device push token so we can deliver them."
+            },
+            {
+              "term": "Analytics (optional).",
+              "detail": "Where enabled and where you consent, we collect usage analytics such as pages visited and device type."
+            }
+          ]
+        },
+        "howWeUse": {
+          "label": "02 / How we use your information",
+          "title": "How We Use Your Information",
+          "intro": "We use the information we collect to:",
+          "items": [
+            "Respond to your inquiries and provide requested services",
+            "Process and manage project quotes, contracts, and invoices",
+            "Authenticate you and secure your account and our systems",
+            "Send project updates, transactional emails, and (if opted in) push notifications",
+            "Improve our website, services, and user experience",
+            "Comply with legal obligations and protect our rights"
+          ]
+        },
+        "serviceProviders": {
+          "label": "03 / Service providers & data sharing",
+          "title": "Service Providers & Data Sharing",
+          "intro": "We do not sell, rent, or trade your personal information. We share data only with the service providers needed to run our business, each of which processes it on our behalf:",
+          "items": [
+            {
+              "term": "Cloud hosting & database",
+              "detail": "— [hosting/database provider] hosts our application and stores lead, client, project, and invoice records."
+            },
+            {
+              "term": "Notifications & login",
+              "detail": "— our notification service delivers transactional email and login codes via [email delivery provider], and delivers browser push via Google Firebase Cloud Messaging."
+            },
+            {
+              "term": "Analytics",
+              "detail": "— where enabled, Google Analytics helps us understand site usage."
+            }
+          ],
+          "outro": "We may also disclose information when required by law or to protect our rights, safety, or property."
+        },
+        "cookies": {
+          "label": "04 / Cookies & analytics",
+          "title": "Cookies & Analytics",
+          "body": "We use strictly-necessary cookies for authentication and security, and — only with your consent — analytics cookies to understand site usage. You can control cookie preferences through the consent banner and your browser settings. For more details, please review our",
+          "linkLabel": "Cookie Policy"
+        },
+        "dataRetention": {
+          "label": "05 / Data retention",
+          "title": "Data Retention",
+          "body": "We keep personal data only as long as necessary for the purposes above or as required by law. Indicatively: lead enquiries are retained for [retention period]; client project, invoice, and message records for [retention period, e.g. as required for tax/accounting]; and optional push tokens until you disable notifications. You can request earlier deletion as described below."
+        },
+        "yourRights": {
+          "label": "06 / Your rights",
+          "title": "Your Rights",
+          "bodyBefore": "Depending on your location, you may have the right to access, correct, delete, or export your personal data, and to restrict or object to certain processing. To exercise any of these rights — including deleting your lead record or client-portal data — email us at",
+          "bodyAfter": "from the address associated with your data. We will verify your identity and respond within 30 days."
+        },
+        "dataSecurity": {
+          "label": "07 / Data security",
+          "title": "Data Security",
+          "body": "We implement industry-standard security measures to protect your personal information, including encryption in transit (TLS), passwordless authentication, access controls, and separation between our public site, admin, and client-portal systems. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security."
+        },
+        "contactUs": {
+          "label": "08 / Contact us",
+          "title": "Contact Us",
+          "body": "If you have any questions about this Privacy Policy or our data practices, please contact us at"
+        }
+      }
+    },
+    "terms": {
+      "hero": {
+        "eyebrow": "Legal",
+        "title": "Terms of Service",
+        "lede": "Last updated: April 1, 2026"
+      },
+      "sections": {
+        "serviceTerms": {
+          "label": "01 / Service terms",
+          "title": "Service Terms",
+          "body": "By engaging CraftsAI for software development services, you agree to these terms. Our services include web development, mobile application development, product customization, and ongoing support as outlined in individual project proposals. All project scopes, timelines, and deliverables are defined in a signed Statement of Work (SOW) prior to commencement."
+        },
+        "intellectualProperty": {
+          "label": "02 / Intellectual property",
+          "title": "Intellectual Property",
+          "body": "Upon full payment, all custom code, designs, and deliverables created specifically for your project are transferred to you. CraftsAI retains ownership of proprietary tools, frameworks, and reusable components developed independently of your project. We reserve the right to showcase completed work in our portfolio unless a non-disclosure agreement is in place."
+        },
+        "paymentTerms": {
+          "label": "03 / Payment terms",
+          "title": "Payment Terms",
+          "body": "Payment schedules are defined in the project SOW. Standard terms require 30% upfront, 40% at the mid-project milestone, and 30% upon final delivery. Invoices are due within 14 days of issue unless otherwise agreed. Late payments may result in project suspension after a 7-day grace period and written notice."
+        },
+        "limitationOfLiability": {
+          "label": "04 / Limitation of liability",
+          "title": "Limitation of Liability",
+          "body": "CraftsAI provides services on an \"as is\" basis to the extent permitted by law. Our total liability for any claim arising from our services shall not exceed the total fees paid for the specific project in question. We are not liable for indirect, incidental, or consequential damages including lost profits, data loss, or business interruption."
+        },
+        "termination": {
+          "label": "05 / Termination",
+          "title": "Termination",
+          "body": "Either party may terminate a project with 14 days written notice. Upon termination, the client is responsible for payment of all work completed up to the termination date. CraftsAI will deliver all completed work and source code for paid milestones. Refunds for prepaid but undelivered work will be issued within 30 days of termination."
+        },
+        "governingLaw": {
+          "label": "06 / Governing law",
+          "title": "Governing Law",
+          "body": "These terms are governed by the laws of Bangladesh. Any disputes arising from these terms or our services shall be resolved through good-faith negotiation first, followed by binding arbitration if necessary."
+        },
+        "contact": {
+          "label": "07 / Contact",
+          "title": "Contact",
+          "body": "For questions about these terms, contact us at"
+        }
+      }
+    },
+    "cookies": {
+      "hero": {
+        "eyebrow": "Legal",
+        "title": "Cookie Policy",
+        "lede": "Last updated: July 5, 2026"
+      },
+      "cookieTypes": [
+        {
+          "title": "Essential Cookies",
+          "description": "Required for the site to function and stay secure. These carry your authenticated admin or client-portal session, short-lived login challenge state, an optional \"remember this device\" token, and your cookie-consent choice. They cannot be disabled."
+        },
+        {
+          "title": "Analytics Cookies (optional)",
+          "description": "If — and only if — you accept analytics in our consent banner, we use Google Analytics to understand how visitors interact with the site (pages visited, session duration, referral sources). You can decline these, and no analytics cookies are set until you consent."
+        }
+      ],
+      "sections": {
+        "whatAreCookies": {
+          "label": "01 / What are cookies",
+          "title": "What Are Cookies",
+          "body": "Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work efficiently, provide a better user experience, and supply information to site owners. Cookies may be set by the website you are visiting (first-party cookies) or by third-party services embedded on the page."
+        },
+        "typesOfCookies": {
+          "label": "02 / Types of cookies we use",
+          "title": "Types of Cookies We Use",
+          "intro": "We use the following categories of cookies on our website:"
+        },
+        "managingCookies": {
+          "label": "03 / Managing cookies",
+          "title": "Managing Cookies",
+          "body": "Most web browsers allow you to control cookies through their settings. You can configure your browser to block or delete cookies, or to alert you when a cookie is being set. Please note that disabling essential cookies may affect the functionality of our website. Refer to your browser's help documentation for instructions on managing cookie preferences."
+        },
+        "updates": {
+          "label": "04 / Updates to this policy",
+          "title": "Updates to This Policy",
+          "body": "We may update this Cookie Policy from time to time to reflect changes in technology, legislation, or our business practices. The \"Last updated\" date at the top of this page indicates when the policy was most recently revised."
+        },
+        "contact": {
+          "label": "05 / Contact",
+          "title": "Contact",
+          "bodyBefore": "If you have questions about our use of cookies, please contact us at",
+          "bodyMiddle": "or review our",
+          "linkLabel": "Privacy Policy",
+          "bodyAfter": "for more information about how we handle your data."
+        }
+      }
+    }
+  },
+  "Meta": {
+    "about": {
+      "title": "About - AI-First Software Studio",
+      "description": "Founded in 2025, CraftsAI is a Bangladesh-based software studio that combines AI agents with human engineers to deliver web, Android, and iOS products 10x faster."
+    },
+    "careers": {
+      "title": "Careers",
+      "description": "Join the CraftsAI team. We are building the future of AI-powered software development. Explore our culture and open positions."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Get in touch with CraftsAI for web, Android, iOS development or support inquiries."
+    },
+    "cookies": {
+      "title": "Cookie Policy",
+      "description": "CraftsAI cookie policy. Learn about the cookies we use and how to manage your preferences."
+    },
+    "faq": {
+      "title": "FAQ",
+      "description": "Frequently asked questions about CraftsAI services, pricing, process, and support. Find answers to common questions about AI-powered development."
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "description": "Explore CraftsAI projects — web apps, Android apps, and iOS apps built with AI-powered development."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "CraftsAI privacy policy. Learn how we collect, use, and protect your personal information."
+    },
+    "process": {
+      "title": "Our Development Process",
+      "description": "From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication."
+    },
+    "products": {
+      "title": "Our Products",
+      "description": "Ready-made solutions, battle-tested and production-ready. Explore our product lineup spanning web platforms and Android apps."
+    },
+    "quote": {
+      "title": "Get a Quote",
+      "description": "Request a free quote for your web, Android, or iOS development project from CraftsAI."
+    },
+    "resources": {
+      "title": "Resources - Blog, Case Studies & Guides",
+      "description": "Explore our blog posts, case studies, and in-depth guides on AI-powered software development, web apps, mobile apps, and business strategy."
+    },
+    "resourcesBlog": {
+      "title": "Blog - AI Development Insights",
+      "description": "Read our latest articles on AI-powered development, web and mobile strategy, cost savings, and technology trends."
+    },
+    "resourcesCaseStudies": {
+      "title": "Case Studies - Real AI Development Results",
+      "description": "See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more."
+    },
+    "resourcesGuides": {
+      "title": "Guides & Whitepapers - In-Depth Development Resources",
+      "description": "Comprehensive guides on web app development, choosing a development partner, and building successful software products."
+    },
+    "servicesLayout": {
+      "title": "Our Services",
+      "description": "CraftsAI offers AI-powered web development, Android development, iOS development, and ongoing support."
+    },
+    "services": {
+      "title": "Services",
+      "description": "What CraftsAI builds: custom AI agents, agent-built websites and mobile apps, and agent integration into your existing systems."
+    },
+    "servicesAndroid": {
+      "title": "Android Development Services",
+      "description": "Native Android apps with Kotlin and Jetpack Compose. Material Design 3, Firebase integration — built by our AI agents and reviewed by senior engineers."
+    },
+    "servicesIos": {
+      "title": "iOS Development Services",
+      "description": "Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready — built by our AI agents and reviewed by senior engineers."
+    },
+    "servicesSupport": {
+      "title": "Support & Maintenance Services",
+      "description": "Ongoing support retainers with bug fixes, security patches, performance monitoring, and feature updates. 24/7 monitoring with 4-hour response time."
+    },
+    "servicesWeb": {
+      "title": "Web Development Services",
+      "description": "Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "CraftsAI terms of service. Read the terms and conditions governing the use of our website and services."
+    }
+  },
+  "Contact": {
+    "hero": {
+      "eyebrow": "Contact",
+      "title": "Get in touch.",
+      "lede": "Have a project in mind? Send a message and we'll get back to you within 24 hours."
+    },
+    "directChannels": {
+      "label": "Direct channels",
+      "title": "Reach us directly.",
+      "faqLink": "Frequently asked questions →"
+    },
+    "info": {
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "location": "Location",
+      "locationValue": "Bangladesh",
+      "hours": "Business Hours",
+      "hoursValue": "Sun–Thu, 9 AM–6 PM (Dhaka, GMT+6)"
+    },
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@company.com",
+      "company": "Company",
+      "optional": "(optional)",
+      "companyPlaceholder": "Your company",
+      "service": "Service Interest",
+      "servicePlaceholder": "Select a service",
+      "serviceOptions": {
+        "web": "Web Development",
+        "android": "Android Development",
+        "ios": "iOS Development",
+        "support": "Support & Maintenance",
+        "productInquiry": "Product Inquiry",
+        "other": "Other"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success": "Message sent! We'll be in touch soon.",
+      "error": "Something went wrong. Please try again or email us directly."
+    }
+  },
+  "Quote": {
+    "hero": {
+      "eyebrow": "Estimate",
+      "title": "Get your project built by AI agents.",
+      "lede": "Tell us what you need. Our agents analyze the brief and a senior engineer delivers a fixed-scope quote within 24 hours."
+    },
+    "stepTitles": [
+      "Select Services",
+      "Project Details",
+      "Investment",
+      "Contact Info",
+      "Review"
+    ],
+    "success": {
+      "label": "Submitted",
+      "title": "Quote request received.",
+      "backHome": "Back to home",
+      "viewWork": "View our work"
+    },
+    "nav": {
+      "back": "Back",
+      "continue": "Continue",
+      "submitting": "Submitting...",
+      "submit": "Get My Free Quote",
+      "submitShort": "Submit"
+    },
+    "trust": {
+      "secure": "Secure & encrypted",
+      "response": "Response within 24 hours",
+      "noSpam": "No spam, ever"
+    },
+    "validation": {
+      "services": "Please select at least one service",
+      "description": "Please describe your project (minimum 20 characters)",
+      "budget": "Please select your investment level",
+      "contactName": "Your name is required",
+      "email": "Valid email is required",
+      "terms": "Please agree to the terms"
+    },
+    "status": {
+      "success": "Quote request submitted! We'll review your requirements and contact you within 24 hours.",
+      "fixFields": "Please fix the highlighted fields and try again.",
+      "genericError": "Something went wrong. Please try again.",
+      "networkError": "Network error. Please check your connection and try again."
+    },
+    "step1": {
+      "title": "What do you need built?",
+      "subtitle": "Select all the services that apply to your project",
+      "timelineLabel": "Timeline:",
+      "selected": "Selected",
+      "tapToSelect": "Tap to select",
+      "services": {
+        "web-development": {
+          "name": "Web Development",
+          "description": "Full-stack web apps with React, Next.js, and modern APIs",
+          "deliverables": [
+            "React/Next.js Apps",
+            "API Development",
+            "Database Design",
+            "Cloud Deployment"
+          ],
+          "timeline": "2-6 weeks",
+          "perfectFor": "SaaS platforms, dashboards, e-commerce"
+        },
+        "android-development": {
+          "name": "Android Development",
+          "description": "Native Android apps with Kotlin and Jetpack Compose",
+          "deliverables": [
+            "Native Kotlin Apps",
+            "Material Design 3",
+            "Play Store Ready",
+            "Firebase Backend"
+          ],
+          "timeline": "4-8 weeks",
+          "perfectFor": "Consumer apps, B2B mobile tools"
+        },
+        "ios-development": {
+          "name": "iOS Development",
+          "description": "Native iOS apps with Swift and SwiftUI for iPhone and iPad",
+          "deliverables": [
+            "Swift/SwiftUI Apps",
+            "App Store Ready",
+            "TestFlight Beta",
+            "CloudKit Integration"
+          ],
+          "timeline": "4-8 weeks",
+          "perfectFor": "Consumer apps, enterprise iOS tools"
+        },
+        "product-inquiry": {
+          "name": "Product Inquiry",
+          "description": "Explore our ready-made products or request customization",
+          "deliverables": [
+            "Product Demo",
+            "Custom Branding",
+            "Feature Add-ons",
+            "Deployment Support"
+          ],
+          "timeline": "1-3 weeks",
+          "perfectFor": "Quick launch with proven solutions"
+        }
+      }
+    },
+    "step2": {
+      "title": "Tell us about your project",
+      "subtitle": "The more details you share, the better quote we can provide",
+      "scaleLabel": "Project Scale",
+      "scaleOptions": {
+        "mvp": {
+          "label": "MVP",
+          "desc": "Quick validation"
+        },
+        "standard": {
+          "label": "Standard",
+          "desc": "Full features"
+        },
+        "advanced": {
+          "label": "Advanced",
+          "desc": "Complex logic"
+        },
+        "enterprise": {
+          "label": "Enterprise",
+          "desc": "Mission-critical"
+        }
+      },
+      "descriptionLabel": "Project Description *",
+      "descriptionPlaceholder": "Describe your project goals, target users, and key features you need...",
+      "requirementsLabel": "Special Requirements (Optional)",
+      "requirementsPlaceholder": "Any technical requirements, integrations, or specific technologies you need...",
+      "timelineLabel": "Preferred Timeline",
+      "timelineOptions": {
+        "urgent": {
+          "label": "ASAP",
+          "desc": "2-4 weeks",
+          "badge": "Priority"
+        },
+        "standard": {
+          "label": "Standard",
+          "desc": "4-8 weeks",
+          "badge": "Recommended"
+        },
+        "flexible": {
+          "label": "Flexible",
+          "desc": "8+ weeks",
+          "badge": "Best Value"
+        }
+      }
+    },
+    "step3": {
+      "title": "What's your investment level?",
+      "subtitle": "We work with startups at every stage. Pick what fits your budget.",
+      "mostPopular": "Most Popular",
+      "budgetOptions": {
+        "bootstrap": {
+          "label": "Bootstrap",
+          "range": "$2K - $8K",
+          "desc": "Perfect for MVPs and validation",
+          "features": [
+            "Core features only",
+            "2-4 week delivery",
+            "Essential support"
+          ]
+        },
+        "seed": {
+          "label": "Seed Stage",
+          "range": "$8K - $25K",
+          "desc": "Full-featured product launch",
+          "features": [
+            "Complete feature set",
+            "Premium design",
+            "60-day support"
+          ]
+        },
+        "growth": {
+          "label": "Growth",
+          "range": "$25K - $75K",
+          "desc": "Scalable enterprise solution",
+          "features": [
+            "Advanced features",
+            "Custom integrations",
+            "90-day support"
+          ]
+        },
+        "enterprise": {
+          "label": "Enterprise",
+          "range": "$75K+",
+          "desc": "Mission-critical systems",
+          "features": [
+            "Full customization",
+            "Dedicated team",
+            "Ongoing partnership"
+          ]
+        }
+      },
+      "notSureTitle": "Not sure about budget?",
+      "notSureBody": "No worries! We'll provide a detailed quote based on your requirements. We also offer flexible payment plans and equity arrangements for early-stage startups."
+    },
+    "step4": {
+      "title": "How can we reach you?",
+      "subtitle": "We'll send your personalized quote to this email",
+      "nameLabel": "Your Name *",
+      "namePlaceholder": "John Smith",
+      "emailLabel": "Email Address *",
+      "emailPlaceholder": "john@company.com",
+      "companyLabel": "Company Name",
+      "optional": "(Optional)",
+      "companyPlaceholder": "Acme Inc.",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+880 1XXX-XXXXXX"
+    },
+    "step5": {
+      "title": "Review Your Quote Request",
+      "subtitle": "Make sure everything looks good before submitting",
+      "services": "Services",
+      "projectScale": "Project Scale",
+      "timeline": "Timeline",
+      "investmentLevel": "Investment Level",
+      "contact": "Contact",
+      "terms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>. This is a quote request, not a binding contract.",
+      "whatNextTitle": "What happens next?",
+      "whatNext": [
+        "Our AI analyzes your requirements (instant)",
+        "You receive a detailed quote (within 24 hours)",
+        "Free consultation call (optional)"
+      ]
+    }
+  },
+  "ErrorPage": {
+    "label": "500 / Something broke",
+    "title": "A build step hit an error.",
+    "body": "Something went wrong on our end. You can retry, or head back home and try again in a moment.",
+    "reference": "Reference:",
+    "tryAgain": "Try again",
+    "backHome": "Back to home"
+  },
+  "NotFound": {
+    "eyebrow": "404 / Not found",
+    "title": "This page went off the blueprint.",
+    "lede": "The page you're looking for doesn't exist or has been moved.",
+    "primaryLabel": "Back to home",
+    "secondaryLabel": "Contact support"
+  },
+  "Chatbot": {
+    "openLabel": "Open CraftsAI Help Assistant",
+    "headerTitle": "Help Assistant",
+    "headerSubtitle": "CraftsAI · guided FAQ",
+    "onlineStatus": "Online",
+    "welcome": "👋 Hi! I'm the CraftsAI Help Assistant — a guided FAQ that answers common questions about our services. (For anything specific, our team is one message away via the contact page.)\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
+    "quickQuestionsLabel": "Quick questions:",
+    "quickQuestions": [
+      "What services do you offer?",
+      "How much does a project cost?",
+      "What technologies do you use?",
+      "Can I see your portfolio?",
+      "How do I get started?"
+    ],
+    "inputPlaceholder": "Ask me anything...",
+    "inputAriaLabel": "Chat message",
+    "sendLabel": "Send message",
+    "qa": [
+      {
+        "id": "services",
+        "keywords": [
+          "services",
+          "what do you do",
+          "capabilities",
+          "offerings"
+        ],
+        "response": "We're an AI agent development studio. Our AI agents build your software, with human review on every release. We offer:\n\n• Custom AI agents built for your workflows\n• AI-built websites & web applications\n• Android apps (Kotlin, Jetpack Compose)\n• iOS apps (Swift, SwiftUI)\n• AI agent integration into your existing systems\n• Ongoing support & maintenance\n\nWould you like to know more about any specific service?"
+      },
+      {
+        "id": "pricing",
+        "keywords": [
+          "price",
+          "cost",
+          "pricing",
+          "budget",
+          "quote"
+        ],
+        "response": "Our pricing is tailored to each project's scope and complexity. We offer:\n\n• Free initial consultation\n• Custom project quotes\n• Flexible engagement options\n• Ongoing support packages\n\nI'd be happy to connect you with our team for a personalized quote. What type of project are you considering?"
+      },
+      {
+        "id": "technologies",
+        "keywords": [
+          "technology",
+          "tech stack",
+          "tools",
+          "frameworks"
+        ],
+        "response": "We build with a modern, production-grade stack:\n\n**Web:** React, Next.js, Node.js, TypeScript\n**Android:** Kotlin, Jetpack Compose\n**iOS:** Swift, SwiftUI\n**AI:** custom AI agents integrated into your build and product workflows\n\nWe choose the right tools for your specific project needs."
+      },
+      {
+        "id": "portfolio",
+        "keywords": [
+          "portfolio",
+          "projects",
+          "examples",
+          "work",
+          "case studies"
+        ],
+        "response": "Here are live products we've built:\n\n• **TaxoMind** — AI-powered learning platform (taxomind.com)\n• **TaxoMind Schools** — cognitive learning for schools (taxomindsc.com)\n• **Book-AI** — interactive AI & math lessons (book-ai.org)\n• **File2Insight** — turn documents into insight (file2insight.com)\n• **Banglu** — type Bangla from an English keyboard (bangluweb.com)\n\nVisit our Products, Portfolio, and Case Studies pages for the full stories!"
+      },
+      {
+        "id": "contact",
+        "keywords": [
+          "contact",
+          "reach",
+          "email",
+          "phone",
+          "meeting",
+          "location",
+          "where"
+        ],
+        "response": "I'd love to connect you with our team! Here's how to reach us:\n\n📧 **Email:** hello@craftsai.org\n💬 **WhatsApp:** tap the green button at the bottom-right\n📍 **Based in:** Dhaka, Bangladesh — working with clients worldwide\n\nOr click the 'Get a Quote' button to start a free consultation!"
+      },
+      {
+        "id": "timeline",
+        "keywords": [
+          "timeline",
+          "duration",
+          "how long",
+          "delivery",
+          "time"
+        ],
+        "response": "Project timelines depend on scope. Typical ranges:\n\n• **Website / landing site:** 1-4 weeks\n• **Custom web application:** 4-12 weeks\n• **Mobile app (Android/iOS):** 6-14 weeks\n• **AI agent integration:** scoped per project\n\nWe'll give you a detailed timeline during your consultation."
+      },
+      {
+        "id": "greeting",
+        "keywords": [
+          "hello",
+          "hi"
+        ],
+        "response": "Hello! I'm here to help you learn about CraftsAI. What would you like to know about our AI and web development services?"
+      },
+      {
+        "id": "help",
+        "keywords": [
+          "help"
+        ],
+        "response": "I can help you with information about:\n\n• Our AI and web development services\n• Project pricing and timelines\n• Technologies and capabilities\n• Portfolio and case studies\n• Getting started with your project\n\nWhat specific area interests you most?"
+      },
+      {
+        "id": "thanks",
+        "keywords": [
+          "thank"
+        ],
+        "response": "You're welcome! Is there anything else you'd like to know about our services? I'm here to help! 😊"
+      }
+    ],
+    "fallback": "I'd be happy to help you with that! For detailed information about your specific needs, I recommend:\n\n• Checking our Services or Portfolio pages\n• Scheduling a free consultation with our team\n• Emailing us at hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything specific about our AI, web, or mobile development services you'd like to know?"
   }
 }

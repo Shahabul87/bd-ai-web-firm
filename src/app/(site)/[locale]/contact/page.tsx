@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -8,21 +9,21 @@ import Button from '@/app/design/ui/Button';
 import MonoLabel from '@/app/design/ui/MonoLabel';
 import Card from '@/app/design/ui/Card';
 
-const serviceOptions = [
-  'Web Development',
-  'Android Development',
-  'iOS Development',
-  'Support & Maintenance',
-  'Product Inquiry',
-  'Other',
+// The `value` submitted to /api/contact must stay stable and translator-proof,
+// so the option values live in code keyed by a stable slug; only the visible
+// label is read from the message files (Contact.form.serviceOptions.<slug>).
+const serviceOptions: ReadonlyArray<{ slug: string; value: string }> = [
+  { slug: 'web', value: 'Web Development' },
+  { slug: 'android', value: 'Android Development' },
+  { slug: 'ios', value: 'iOS Development' },
+  { slug: 'support', value: 'Support & Maintenance' },
+  { slug: 'productInquiry', value: 'Product Inquiry' },
+  { slug: 'other', value: 'Other' },
 ];
 
-const contactInfo = [
-  {
-    label: 'Email',
-    value: 'hello@craftsai.org',
-    href: 'mailto:hello@craftsai.org',
-    icon: (
+// Presentation-only channel icons; label + prose values come from messages.
+const channelIcons = {
+  email: (
       <svg
         className="h-5 w-5"
         fill="none"
@@ -37,12 +38,7 @@ const contactInfo = [
         />
       </svg>
     ),
-  },
-  {
-    label: 'WhatsApp',
-    value: '+1 775 338 2146',
-    href: 'https://wa.me/17753382146',
-    icon: (
+  whatsapp: (
       <svg
         className="h-5 w-5"
         fill="none"
@@ -57,12 +53,7 @@ const contactInfo = [
         />
       </svg>
     ),
-  },
-  {
-    label: 'Location',
-    value: 'Bangladesh',
-    href: undefined,
-    icon: (
+  location: (
       <svg
         className="h-5 w-5"
         fill="none"
@@ -82,12 +73,7 @@ const contactInfo = [
         />
       </svg>
     ),
-  },
-  {
-    label: 'Business Hours',
-    value: 'Sun–Thu, 9 AM–6 PM (Dhaka, GMT+6)',
-    href: undefined,
-    icon: (
+  hours: (
       <svg
         className="h-5 w-5"
         fill="none"
@@ -102,8 +88,7 @@ const contactInfo = [
         />
       </svg>
     ),
-  },
-];
+} as const;
 
 interface FormData {
   name: string;
@@ -114,6 +99,21 @@ interface FormData {
 }
 
 export default function ContactPage() {
+  const t = useTranslations('Contact');
+  const serviceLabels = t.raw('form.serviceOptions') as Record<string, string>;
+
+  const contactInfo: ReadonlyArray<{
+    label: string;
+    value: string;
+    href: string | undefined;
+    icon: React.ReactNode;
+  }> = [
+    { label: t('info.email'), value: 'hello@craftsai.org', href: 'mailto:hello@craftsai.org', icon: channelIcons.email },
+    { label: t('info.whatsapp'), value: '+1 775 338 2146', href: 'https://wa.me/17753382146', icon: channelIcons.whatsapp },
+    { label: t('info.location'), value: t('info.locationValue'), href: undefined, icon: channelIcons.location },
+    { label: t('info.hours'), value: t('info.hoursValue'), href: undefined, icon: channelIcons.hours },
+  ];
+
   const [form, setForm] = useState<FormData>({
     name: '',
     email: '',
@@ -159,9 +159,9 @@ export default function ContactPage() {
   return (
     <PageLayout>
       <PageHero
-        eyebrow="Contact"
-        title="Get in touch."
-        lede="Have a project in mind? Send a message and we&apos;ll get back to you within 24 hours."
+        eyebrow={t('hero.eyebrow')}
+        title={t('hero.title')}
+        lede={t('hero.lede')}
       />
 
       <section className="bg-ink-950">
@@ -169,9 +169,9 @@ export default function ContactPage() {
           <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
             {/* Direct channels */}
             <div className="lg:col-span-2">
-              <MonoLabel>Direct channels</MonoLabel>
+              <MonoLabel>{t('directChannels.label')}</MonoLabel>
               <h2 className="mt-4 font-display text-2xl font-medium text-bone sm:text-3xl">
-                Reach us directly.
+                {t('directChannels.title')}
               </h2>
 
               <Card className="mt-8">
@@ -214,7 +214,7 @@ export default function ContactPage() {
                   href="/faq"
                   className="font-mono text-xs uppercase tracking-[0.15em] text-signal hover:underline"
                 >
-                  Frequently asked questions &rarr;
+                  {t('directChannels.faqLink')}
                 </Link>
               </Card>
             </div>
@@ -224,7 +224,7 @@ export default function ContactPage() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className={labelStyles}>
-                    Name
+                    {t('form.name')}
                   </label>
                   <input
                     id="name"
@@ -234,13 +234,13 @@ export default function ContactPage() {
                     value={form.name}
                     onChange={handleChange}
                     className={inputStyles}
-                    placeholder="Your name"
+                    placeholder={t('form.namePlaceholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="email" className={labelStyles}>
-                    Email
+                    {t('form.email')}
                   </label>
                   <input
                     id="email"
@@ -250,15 +250,15 @@ export default function ContactPage() {
                     value={form.email}
                     onChange={handleChange}
                     className={inputStyles}
-                    placeholder="you@company.com"
+                    placeholder={t('form.emailPlaceholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="company" className={labelStyles}>
-                    Company{' '}
+                    {t('form.company')}{' '}
                     <span className="normal-case tracking-normal text-steel/70">
-                      (optional)
+                      {t('form.optional')}
                     </span>
                   </label>
                   <input
@@ -268,13 +268,13 @@ export default function ContactPage() {
                     value={form.company}
                     onChange={handleChange}
                     className={inputStyles}
-                    placeholder="Your company"
+                    placeholder={t('form.companyPlaceholder')}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="service" className={labelStyles}>
-                    Service Interest
+                    {t('form.service')}
                   </label>
                   <select
                     id="service"
@@ -284,18 +284,24 @@ export default function ContactPage() {
                     onChange={handleChange}
                     className={inputStyles}
                   >
-                    <option value="">Select a service</option>
-                    {serviceOptions.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
+                    <option value="">{t('form.servicePlaceholder')}</option>
+                    {serviceOptions.map(({ slug, value }) => {
+                      const label = serviceLabels[slug];
+                      if (label === undefined) {
+                        throw new Error(`Missing contact service label for slug: ${slug}`);
+                      }
+                      return (
+                        <option key={slug} value={value}>
+                          {label}
+                        </option>
+                      );
+                    })}
                   </select>
                 </div>
 
                 <div>
                   <label htmlFor="message" className={labelStyles}>
-                    Message
+                    {t('form.message')}
                   </label>
                   <textarea
                     id="message"
@@ -305,7 +311,7 @@ export default function ContactPage() {
                     value={form.message}
                     onChange={handleChange}
                     className={inputStyles}
-                    placeholder="Tell us about your project..."
+                    placeholder={t('form.messagePlaceholder')}
                   />
                 </div>
 
@@ -315,17 +321,17 @@ export default function ContactPage() {
                   size="lg"
                   disabled={status === 'loading'}
                 >
-                  {status === 'loading' ? 'Sending...' : 'Send Message'}
+                  {status === 'loading' ? t('form.sending') : t('form.send')}
                 </Button>
 
                 {status === 'success' && (
                   <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
-                    Message sent! We&apos;ll be in touch soon.
+                    {t('form.success')}
                   </p>
                 )}
                 {status === 'error' && (
                   <p className="font-mono text-xs uppercase tracking-[0.15em] text-amber">
-                    Something went wrong. Please try again or email us directly.
+                    {t('form.error')}
                   </p>
                 )}
               </form>

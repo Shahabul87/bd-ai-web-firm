@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -6,37 +7,51 @@ import CTABand from '@/app/components/shared/CTABand';
 import Card from '@/app/design/ui/Card';
 import { getAllCaseStudies } from '@/app/lib/content';
 
-export const metadata: Metadata = {
-  title: 'Case Studies - Real AI Development Results',
-  description:
-    'See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more.',
-  openGraph: {
-    title: 'Case Studies | CraftsAI',
-    description:
-      'Real results from our AI-powered development projects.',
-    url: 'https://www.craftsai.org/resources/case-studies',
-    siteName: 'CraftsAI',
-    type: 'website',
-  },
-  alternates: {
-    canonical: 'https://www.craftsai.org/resources/case-studies',
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.resourcesCaseStudies' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Case Studies | CraftsAI',
+      description:
+        'Real results from our AI-powered development projects.',
+      url: 'https://www.craftsai.org/resources/case-studies',
+      siteName: 'CraftsAI',
+      type: 'website',
+    },
+    alternates: {
+      canonical: 'https://www.craftsai.org/resources/case-studies',
+    },
+  };
+}
 
-export default function CaseStudiesListingPage() {
+export default async function CaseStudiesListingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('Resources.caseStudies');
   const caseStudies = getAllCaseStudies();
 
   return (
     <PageLayout>
       <PageHero
-        eyebrow="Resources / Case studies"
-        title="Real projects, real results."
-        lede="See how AI-powered development delivers measurable outcomes for businesses across industries."
+        eyebrow={t('hero.eyebrow')}
+        title={t('hero.title')}
+        lede={t('hero.lede')}
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         {caseStudies.length === 0 ? (
-          <p className="text-base text-steel">No case studies yet — check back soon.</p>
+          <p className="text-base text-steel">{t('empty')}</p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {caseStudies.map((cs) => (
@@ -63,7 +78,7 @@ export default function CaseStudiesListingPage() {
                     ))}
                   </div>
                   <span className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
-                    Read case study
+                    {t('readMore')}
                     <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-1">
                       →
                     </span>

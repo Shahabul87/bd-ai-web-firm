@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -7,29 +8,40 @@ import MonoLabel from '@/app/design/ui/MonoLabel';
 import Accordion from '@/app/design/ui/Accordion';
 import faqData from '@content/faq/faq.json';
 
-export const metadata: Metadata = {
-  title: 'FAQ',
-  description:
-    'Frequently asked questions about CraftsAI services, pricing, process, and support. Find answers to common questions about AI-powered development.',
-  openGraph: {
-    title: 'FAQ',
-    description:
-      'Frequently asked questions about CraftsAI services, pricing, process, and support.',
-    url: 'https://www.craftsai.org/faq',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/faq' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.faq' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'FAQ',
+      description:
+        'Frequently asked questions about CraftsAI services, pricing, process, and support.',
+      url: 'https://www.craftsai.org/faq',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/faq' },
+  };
+}
 
-export default function FAQPage() {
+export default async function FAQPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('Faq');
+
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="FAQ"
-        title="Questions, answered."
-        lede="Everything you need to know about working with CraftsAI."
-      >
+      <PageHero eyebrow={t('hero.eyebrow')} title={t('hero.title')} lede={t('hero.lede')}>
         <Button variant="amber" size="lg" href="/contact">
-          Ask us directly
+          {t('hero.primaryCta')}
         </Button>
       </PageHero>
 
@@ -56,11 +68,11 @@ export default function FAQPage() {
       </section>
 
       <CTABand
-        title="Still have questions?"
-        lede="We're happy to help. Get in touch and we'll respond within 24 hours."
-        primaryLabel="Contact us"
+        title={t('cta.title')}
+        lede={t('cta.lede')}
+        primaryLabel={t('cta.primaryLabel')}
         primaryHref="/contact"
-        secondaryLabel="Get an estimate"
+        secondaryLabel={t('cta.secondaryLabel')}
         secondaryHref="/quote"
       />
     </PageLayout>

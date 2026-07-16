@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -6,61 +7,65 @@ import CTABand from '@/app/components/shared/CTABand';
 import MonoLabel from '@/app/design/ui/MonoLabel';
 import Card from '@/app/design/ui/Card';
 
-export const metadata: Metadata = {
-  title: 'Cookie Policy',
-  description:
-    'CraftsAI cookie policy. Learn about the cookies we use and how to manage your preferences.',
-  openGraph: {
-    title: 'Cookie Policy',
-    description: 'How CraftsAI uses cookies and tracking technologies.',
-    url: 'https://www.craftsai.org/cookies',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/cookies' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.cookies' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Cookie Policy',
+      description: 'How CraftsAI uses cookies and tracking technologies.',
+      url: 'https://www.craftsai.org/cookies',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/cookies' },
+  };
+}
 
-const COOKIE_TYPES = [
-  {
-    title: 'Essential Cookies',
-    description:
-      'Required for the site to function and stay secure. These carry your authenticated admin or client-portal session, short-lived login challenge state, an optional "remember this device" token, and your cookie-consent choice. They cannot be disabled.',
-  },
-  {
-    title: 'Analytics Cookies (optional)',
-    description:
-      'If — and only if — you accept analytics in our consent banner, we use Google Analytics to understand how visitors interact with the site (pages visited, session duration, referral sources). You can decline these, and no analytics cookies are set until you consent.',
-  },
-];
+type CookieType = { title: string; description: string };
 
-export default function CookiesPage() {
+export default async function CookiesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('Legal.cookies');
+  const cookieTypes = t.raw('cookieTypes') as CookieType[];
+
   return (
     <PageLayout>
-      <PageHero eyebrow="Legal" title="Cookie Policy" lede="Last updated: July 5, 2026" />
+      <PageHero
+        eyebrow={t('hero.eyebrow')}
+        title={t('hero.title')}
+        lede={t('hero.lede')}
+      />
 
       <section className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
         <div className="space-y-12">
           <div>
-            <MonoLabel>01 / What are cookies</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">What Are Cookies</h2>
+            <MonoLabel>{t('sections.whatAreCookies.label')}</MonoLabel>
+            <h2 className="mt-3 font-display text-2xl font-medium text-bone">{t('sections.whatAreCookies.title')}</h2>
             <p className="mt-4 text-base leading-relaxed text-steel">
-              Cookies are small text files placed on your device when you
-              visit a website. They are widely used to make websites work
-              efficiently, provide a better user experience, and supply
-              information to site owners. Cookies may be set by the website
-              you are visiting (first-party cookies) or by third-party
-              services embedded on the page.
+              {t('sections.whatAreCookies.body')}
             </p>
           </div>
 
           <div>
-            <MonoLabel>02 / Types of cookies we use</MonoLabel>
+            <MonoLabel>{t('sections.typesOfCookies.label')}</MonoLabel>
             <h2 className="mt-3 font-display text-2xl font-medium text-bone">
-              Types of Cookies We Use
+              {t('sections.typesOfCookies.title')}
             </h2>
             <p className="mt-4 text-base leading-relaxed text-steel">
-              We use the following categories of cookies on our website:
+              {t('sections.typesOfCookies.intro')}
             </p>
             <div className="mt-6 space-y-4">
-              {COOKIE_TYPES.map((cookieType) => (
+              {cookieTypes.map((cookieType) => (
                 <Card key={cookieType.title}>
                   <h3 className="font-display text-base font-medium text-bone">
                     {cookieType.title}
@@ -74,51 +79,42 @@ export default function CookiesPage() {
           </div>
 
           <div>
-            <MonoLabel>03 / Managing cookies</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">Managing Cookies</h2>
+            <MonoLabel>{t('sections.managingCookies.label')}</MonoLabel>
+            <h2 className="mt-3 font-display text-2xl font-medium text-bone">{t('sections.managingCookies.title')}</h2>
             <p className="mt-4 text-base leading-relaxed text-steel">
-              Most web browsers allow you to control cookies through their
-              settings. You can configure your browser to block or delete
-              cookies, or to alert you when a cookie is being set. Please note
-              that disabling essential cookies may affect the functionality of
-              our website. Refer to your browser&apos;s help documentation for
-              instructions on managing cookie preferences.
+              {t('sections.managingCookies.body')}
             </p>
           </div>
 
           <div>
-            <MonoLabel>04 / Updates to this policy</MonoLabel>
+            <MonoLabel>{t('sections.updates.label')}</MonoLabel>
             <h2 className="mt-3 font-display text-2xl font-medium text-bone">
-              Updates to This Policy
+              {t('sections.updates.title')}
             </h2>
             <p className="mt-4 text-base leading-relaxed text-steel">
-              We may update this Cookie Policy from time to time to reflect
-              changes in technology, legislation, or our business practices.
-              The &quot;Last updated&quot; date at the top of this page
-              indicates when the policy was most recently revised.
+              {t('sections.updates.body')}
             </p>
           </div>
 
           <div>
-            <MonoLabel>05 / Contact</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">Contact</h2>
+            <MonoLabel>{t('sections.contact.label')}</MonoLabel>
+            <h2 className="mt-3 font-display text-2xl font-medium text-bone">{t('sections.contact.title')}</h2>
             <p className="mt-4 text-base leading-relaxed text-steel">
-              If you have questions about our use of cookies, please contact
-              us at{' '}
+              {t('sections.contact.bodyBefore')}{' '}
               <a
                 href="mailto:hello@craftsai.org"
                 className="text-signal underline-offset-4 hover:underline"
               >
                 hello@craftsai.org
               </a>{' '}
-              or review our{' '}
+              {t('sections.contact.bodyMiddle')}{' '}
               <Link
                 href="/privacy"
                 className="text-signal underline-offset-4 hover:underline"
               >
-                Privacy Policy
+                {t('sections.contact.linkLabel')}
               </Link>{' '}
-              for more information about how we handle your data.
+              {t('sections.contact.bodyAfter')}
             </p>
           </div>
         </div>

@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -9,68 +11,50 @@ import SpecTable from '@/app/design/ui/SpecTable';
 import Accordion from '@/app/design/ui/Accordion';
 import Pipeline from '@/app/design/ui/Pipeline';
 import type { AccordionItem } from '@/app/design/ui/Accordion';
-import type { SpecRow } from '@/app/design/ui/SpecTable';
+import type { SpecRow, SpecRowMessage } from '@/app/design/ui/SpecTable';
 
-export const metadata: Metadata = {
-  title: 'Web Development Services',
-  description:
-    'Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers.',
-  openGraph: {
-    title: 'Web Development Services',
-    description:
-      'Full-stack web applications built with React, Next.js, and modern cloud infrastructure.',
-    url: 'https://www.craftsai.org/services/web-development',
-  },
-  alternates: { canonical: 'https://www.craftsai.org/services/web-development' },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'Meta.servicesWeb' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: 'Web Development Services',
+      description:
+        'Full-stack web applications built with React, Next.js, and modern cloud infrastructure.',
+      url: 'https://www.craftsai.org/services/web-development',
+    },
+    alternates: { canonical: 'https://www.craftsai.org/services/web-development' },
+  };
+}
 
-const useCases = [
-  {
-    title: 'SaaS Platforms',
-    description:
-      'Multi-tenant applications with subscription billing, user management, and analytics dashboards.',
-  },
-  {
-    title: 'E-Commerce',
-    description:
-      'Online stores with inventory management, payment processing, and order fulfillment.',
-  },
-  {
-    title: 'Enterprise Dashboards',
-    description:
-      'Data-rich dashboards with real-time charts, role-based access, and reporting tools.',
-  },
-  {
-    title: 'MVPs & Prototypes',
-    description:
-      'Rapid prototypes to validate your idea and attract funding in weeks, not months.',
-  },
-];
+interface UseCase {
+  title: string;
+  description: string;
+}
 
-const techStack = [
-  'React',
-  'Next.js',
-  'TypeScript',
-  'Node.js',
-  'PostgreSQL',
-  'MongoDB',
-  'AWS',
-  'Vercel',
-  'Docker',
-  'GraphQL',
-  'REST APIs',
-  'Tailwind CSS',
-];
+export default async function WebDevelopmentPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('Services.web');
 
-const specRows: SpecRow[] = [
-  {
-    label: 'Scope',
-    value:
-      'SaaS platforms, e-commerce, enterprise dashboards, MVPs, APIs, and progressive web apps — full-stack, schema to deploy.',
-  },
-  {
-    label: 'Stack',
-    value: (
+  const techStack = t.raw('techStack') as string[];
+  const useCases = t.raw('useCases') as UseCase[];
+  const faqItems = t.raw('faqItems') as AccordionItem[];
+
+  /* Rows whose value is a rendered node rather than a string, keyed by the
+     row's stable slug — never by array position, which a translator can reorder. */
+  const specRowNodes: Record<string, ReactNode> = {
+    stack: (
       <div className="flex flex-wrap gap-2">
         {techStack.map((tech) => (
           <span
@@ -82,76 +66,39 @@ const specRows: SpecRow[] = [
         ))}
       </div>
     ),
-  },
-  {
-    label: 'Timeline',
-    value: '2–6 weeks, depending on scope — roughly 10x faster and 80% cheaper than a typical agency build.',
-  },
-  {
-    label: 'Automated by agents',
-    value:
-      'Next.js page structures, API routes, database schemas, and Tailwind component libraries, generated from a plain-English brief.',
-  },
-  {
-    label: 'Reviewed by engineers',
-    value:
-      'Every pull request, integration test, and product decision that only a person can make — before anything ships.',
-  },
-];
+  };
 
-const faqItems: AccordionItem[] = [
-  {
-    id: 'ai-speed',
-    question: 'How does AI speed up web development?',
-    answer:
-      'Our agents generate boilerplate code, database schemas, and component scaffolding in minutes. Human engineers then review, refine, and customize everything to your exact requirements. This eliminates repetitive work and lets us focus on what makes your product unique.',
-  },
-  {
-    id: 'existing-codebase',
-    question: 'Can you work with my existing codebase?',
-    answer:
-      'Absolutely. We regularly join projects mid-stream. Our onboarding process includes a thorough code audit, and our AI agent adapts to your existing patterns, conventions, and tech stack.',
-  },
-  {
-    id: 'timeline',
-    question: 'What does the delivery timeline look like?',
-    answer:
-      'Most web projects ship in 2 to 6 weeks depending on complexity. MVPs and prototypes can launch in as little as 2 weeks. Enterprise platforms with complex integrations typically take 4 to 6 weeks. You will receive weekly progress demos throughout.',
-  },
-  {
-    id: 'deployment',
-    question: 'Do you handle deployment and hosting?',
-    answer:
-      'Yes. We deploy to Vercel, AWS, or your preferred cloud provider. Every project includes CI/CD pipelines, monitoring, and a production-ready infrastructure setup at no extra charge.',
-  },
-];
+  const specRows: SpecRow[] = (t.raw('specRows') as SpecRowMessage[]).map((row) => {
+    const value = specRowNodes[row.slug] ?? row.value;
+    if (value === undefined) {
+      throw new Error(`Services.web.specRows: row "${row.slug}" has neither a value nor a node`);
+    }
+    return { label: row.label, value };
+  });
 
-export default function WebDevelopmentPage() {
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="Services / Web"
-        title="Web Development"
-        lede="Full-stack web applications built with React, Next.js, and modern cloud infrastructure — built by our agents and shipped fast, with senior engineers reviewing every release."
-      >
+      <PageHero eyebrow={t('hero.eyebrow')} title={t('hero.title')} lede={t('hero.lede')}>
         <Button variant="amber" size="lg" href="/contact">
-          Start a project
+          {t('hero.primaryCta')}
         </Button>
         <Button variant="chalk" size="lg" href="/quote">
-          Get an estimate
+          {t('hero.secondaryCta')}
         </Button>
       </PageHero>
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
+        {/* `index` is a drafting ornament: it stays English in both locales, on
+            this page and on the three service pages that mirror it. */}
         <SectionHeader
           index="fig. 01"
-          eyebrow="How it ships"
-          title="One brief. An agent scaffolds it. Engineers ship it."
-          description="Our agents turn your requirements into a working codebase in hours — senior engineers take it from there."
+          eyebrow={t('pipeline.eyebrow')}
+          title={t('pipeline.title')}
+          description={t('pipeline.description')}
         />
         <div className="mt-14">
           <Card>
-            <Pipeline stages={['Brief', 'Scaffold', 'Build', 'Review', 'Ship']} />
+            <Pipeline stages={t.raw('pipeline.stages') as string[]} />
           </Card>
         </div>
       </section>
@@ -160,8 +107,8 @@ export default function WebDevelopmentPage() {
         <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
           <SectionHeader
             index="fig. 02"
-            eyebrow="What you get"
-            title="Scope, stack, and delivery — in writing."
+            eyebrow={t('spec.eyebrow')}
+            title={t('spec.title')}
           />
           <div className="mt-14">
             <SpecTable rows={specRows} />
@@ -172,9 +119,9 @@ export default function WebDevelopmentPage() {
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
           index="fig. 03"
-          eyebrow="Use cases"
-          title="Where this fits."
-          description="A sample of the products we build most often — not an exhaustive list."
+          eyebrow={t('useCasesSection.eyebrow')}
+          title={t('useCasesSection.title')}
+          description={t('useCasesSection.description')}
         />
         <div className="mt-14 grid gap-6 sm:grid-cols-2">
           {useCases.map((useCase) => (
@@ -188,17 +135,14 @@ export default function WebDevelopmentPage() {
 
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-          <SectionHeader index="fig. 04" eyebrow="FAQ" title="Common questions." />
+          <SectionHeader index="fig. 04" eyebrow={t('faq.eyebrow')} title={t('faq.title')} />
           <div className="mt-14">
             <Accordion items={faqItems} />
           </div>
         </div>
       </section>
 
-      <CTABand
-        title="Ready to build your web application?"
-        lede="Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
-      />
+      <CTABand title={t('cta.title')} lede={t('cta.lede')} />
     </PageLayout>
   );
 }

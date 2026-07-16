@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { products } from '#content';
 import { getProductBySlug } from '@/app/lib/content';
@@ -11,7 +12,7 @@ import Card from '@/app/design/ui/Card';
 import Button from '@/app/design/ui/Button';
 
 interface ProductPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -41,13 +42,6 @@ export async function generateMetadata({
   };
 }
 
-const PLATFORM_LABELS: Record<string, string> = {
-  web: 'Web Platform',
-  android: 'Android App',
-  ios: 'iOS App',
-  desktop: 'Desktop App',
-};
-
 /* Matches Button's amber/chalk variants at size="lg" — used here because
    demoUrl/storeUrl are external links that need target="_blank", which the
    Button primitive (Link-only) does not support. */
@@ -57,12 +51,19 @@ const EXTERNAL_LINK_AMBER = `${EXTERNAL_LINK_BASE} bg-amber text-ink-950 hover:o
 const EXTERNAL_LINK_CHALK = `${EXTERNAL_LINK_BASE} border border-[#EDEDE3]/45 text-[#EDEDE3] hover:border-amber hover:text-amber`;
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('Products');
   const product = getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
+
+  const platformLabels = t.raw('detail.platformLabels') as Record<string, string>;
+  const platforms = product.platforms
+    .map((p) => platformLabels[p] ?? p)
+    .join(' + ');
 
   const downloads = product.downloads ?? [];
   // Section indexes shift by one when the Downloads section is present.
@@ -72,27 +73,27 @@ export default async function ProductPage({ params }: ProductPageProps) {
   return (
     <PageLayout>
       <PageHero
-        eyebrow={`Products / ${product.platforms.map((p) => PLATFORM_LABELS[p] ?? p).join(' + ')}`}
+        eyebrow={t('detail.hero.eyebrow', { platforms })}
         title={product.title}
         lede={product.tagline}
       >
         {product.demoUrl ? (
           <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" className={EXTERNAL_LINK_AMBER}>
-            View live demo
+            {t('detail.hero.viewDemo')}
           </a>
         ) : null}
         {product.storeUrl ? (
           <a href={product.storeUrl} target="_blank" rel="noopener noreferrer" className={EXTERNAL_LINK_CHALK}>
-            Get on Play Store
+            {t('detail.hero.getOnPlayStore')}
           </a>
         ) : null}
         {downloads.length > 0 ? (
           <a href="#downloads" className={product.demoUrl ? EXTERNAL_LINK_CHALK : EXTERNAL_LINK_AMBER}>
-            Download desktop app
+            {t('detail.hero.downloadDesktop')}
           </a>
         ) : null}
         <Button variant="chalk" size="lg" href="/quote">
-          Request customization
+          {t('detail.hero.requestCustomization')}
         </Button>
       </PageHero>
 
@@ -101,8 +102,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
             <SectionHeader
               index="fig. 01"
-              eyebrow="Downloads"
-              title="Install it on your computer."
+              eyebrow={t('detail.downloads.eyebrow')}
+              title={t('detail.downloads.title')}
             />
             <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {downloads.map((d) => (
@@ -122,7 +123,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                       href={d.url}
                       className={`${EXTERNAL_LINK_BASE} bg-amber px-5 py-2.5 text-ink-950 hover:opacity-90`}
                     >
-                      Download
+                      {t('detail.downloads.download')}
                     </a>
                   </div>
                 </Card>
@@ -135,8 +136,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
         <SectionHeader
           index={fig(1)}
-          eyebrow="Features"
-          title="Everything you need, built in from day one."
+          eyebrow={t('detail.features.eyebrow')}
+          title={t('detail.features.title')}
         />
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {product.features.map((feature) => (
@@ -151,7 +152,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
       <section className="border-t border-line bg-ink-900">
         <div className="mx-auto max-w-5xl px-6 py-20 text-center sm:py-28">
-          <SectionHeader index={fig(2)} eyebrow="Tech stack" title="Built with." align="center" />
+          <SectionHeader index={fig(2)} eyebrow={t('detail.techStack.eyebrow')} title={t('detail.techStack.title')} align="center" />
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             {product.techStack.map((tech) => (
               <span
@@ -166,7 +167,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-        <SectionHeader index={fig(3)} eyebrow="Use cases" title="Who is it for?" align="center" />
+        <SectionHeader index={fig(3)} eyebrow={t('detail.useCases.eyebrow')} title={t('detail.useCases.title')} align="center" />
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {product.useCases.map((useCase) => (
             <Card key={useCase.title} className="text-center">
@@ -184,11 +185,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
       </section>
 
       <CTABand
-        title={`Interested in ${product.title}?`}
-        lede="Get in touch to learn more, request a demo, or discuss customization options for your needs."
-        primaryLabel="Get in touch"
+        title={t('detail.cta.title', { title: product.title })}
+        lede={t('detail.cta.lede')}
+        primaryLabel={t('detail.cta.primaryLabel')}
         primaryHref="/quote"
-        secondaryLabel="View all products"
+        secondaryLabel={t('detail.cta.secondaryLabel')}
         secondaryHref="/products"
       />
     </PageLayout>

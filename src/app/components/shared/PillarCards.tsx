@@ -2,57 +2,54 @@
 
 import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Pipeline from '../../design/ui/Pipeline';
 import { rise, riseStagger, viewportOnce } from '../../design/motion';
 
 export interface Pillar {
   index: string;
-  title: string;
-  blurb: string;
-  stages: string[];
+  /** Group key within the `PillarCards` namespace; holds title, blurb and stages. */
+  key: string;
+  /** Stage keys within this pillar's group, in render order. */
+  stageKeys: string[];
   href: string;
   flagship?: boolean;
 }
 
 /* The four service pillars. hrefs use the stage-1 fallback routes from nav.ts
    until dedicated pillar pages ship. Single source of truth for homepage +
-   /services. */
+   /services. Copy lives in the `PillarCards` namespace. */
 export const PILLARS: Pillar[] = [
   {
     index: '01',
-    title: 'AI Agents',
-    blurb:
-      'Custom agents that plan, write, and ship software — supervised by a senior engineer at every step.',
-    stages: ['Brief', 'Plan', 'Build', 'Review', 'Ship'],
+    key: 'aiAgents',
+    stageKeys: ['stage1', 'stage2', 'stage3', 'stage4', 'stage5'],
     href: '/services',
     flagship: true,
   },
   {
     index: '02',
-    title: 'Web Development',
-    blurb:
-      'Production web apps built by our agents and shipped fast, from marketing sites to full platforms.',
-    stages: ['Design', 'Build', 'Test', 'Deploy'],
+    key: 'webDevelopment',
+    stageKeys: ['stage1', 'stage2', 'stage3', 'stage4'],
     href: '/services/web-development',
   },
   {
     index: '03',
-    title: 'Mobile Apps',
-    blurb: 'Native iOS and Android apps from one agent workflow — one brief, both platforms.',
-    stages: ['Spec', 'Build', 'QA', 'Release'],
+    key: 'mobileApps',
+    stageKeys: ['stage1', 'stage2', 'stage3', 'stage4'],
     href: '/services/ios-development',
   },
   {
     index: '04',
-    title: 'Agent Integration',
-    blurb:
-      'Wire agents into the tools you already run — CRM, ERP, WhatsApp, and your internal systems.',
-    stages: ['Audit', 'Connect', 'Automate', 'Monitor'],
+    key: 'agentIntegration',
+    stageKeys: ['stage1', 'stage2', 'stage3', 'stage4'],
     href: '/services',
   },
 ];
 
 export default function PillarCards() {
+  const t = useTranslations('PillarCards');
+
   return (
     <motion.div
       className="grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2"
@@ -73,20 +70,24 @@ export default function PillarCards() {
               </span>
               {pillar.flagship ? (
                 <span className="border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-steel">
-                  Flagship
+                  {t('flagship')}
                 </span>
               ) : null}
             </div>
 
-            <h3 className="mt-5 font-display text-2xl font-medium text-bone">{pillar.title}</h3>
-            <p className="mt-3 flex-1 text-sm leading-relaxed text-steel">{pillar.blurb}</p>
+            <h3 className="mt-5 font-display text-2xl font-medium text-bone">
+              {t(`${pillar.key}.title`)}
+            </h3>
+            <p className="mt-3 flex-1 text-sm leading-relaxed text-steel">
+              {t(`${pillar.key}.blurb`)}
+            </p>
 
             <div className="mt-7 opacity-80 transition-opacity duration-150 group-hover:opacity-100">
-              <Pipeline stages={pillar.stages} />
+              <Pipeline stages={pillar.stageKeys.map((s) => t(`${pillar.key}.${s}`))} />
             </div>
 
             <span className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
-              Explore
+              {t('explore')}
               <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-1">
                 →
               </span>
