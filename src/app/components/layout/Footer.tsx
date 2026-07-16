@@ -118,7 +118,11 @@ export default async function Footer() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            {/* year as a string: an ICU number arg would render grouped, e.g. "2,026" */}
+            {/* Passed as a string so the year can never be number-formatted by the
+                message itself. A bare `{year}` is NOT formatted regardless of arg type
+                (verified: both String(2026) and 2026 render "2026") — but `{year, number}`
+                WOULD be, producing "2,026" in en and Bengali numerals in bn. A string arg
+                makes that unreachable no matter what a translator writes in bn.json. */}
             {t('copyright', { year: String(new Date().getFullYear()) })}
           </p>
           <div className="flex gap-6">
