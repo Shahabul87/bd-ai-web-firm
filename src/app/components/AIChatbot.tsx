@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface Message {
   id: string;
@@ -10,32 +11,14 @@ interface Message {
   typing?: boolean;
 }
 
-const knowledgeBase = {
-  services: {
-    keywords: ['services', 'what do you do', 'capabilities', 'offerings'],
-    response: "We're an AI agent development studio. Our AI agents build your software, with human review on every release. We offer:\n\n• Custom AI agents built for your workflows\n• AI-built websites & web applications\n• Android apps (Kotlin, Jetpack Compose)\n• iOS apps (Swift, SwiftUI)\n• AI agent integration into your existing systems\n• Ongoing support & maintenance\n\nWould you like to know more about any specific service?"
-  },
-  pricing: {
-    keywords: ['price', 'cost', 'pricing', 'budget', 'quote'],
-    response: "Our pricing is tailored to each project's scope and complexity. We offer:\n\n• Free initial consultation\n• Custom project quotes\n• Flexible engagement options\n• Ongoing support packages\n\nI'd be happy to connect you with our team for a personalized quote. What type of project are you considering?"
-  },
-  technologies: {
-    keywords: ['technology', 'tech stack', 'tools', 'frameworks'],
-    response: "We build with a modern, production-grade stack:\n\n**Web:** React, Next.js, Node.js, TypeScript\n**Android:** Kotlin, Jetpack Compose\n**iOS:** Swift, SwiftUI\n**AI:** custom AI agents integrated into your build and product workflows\n\nWe choose the right tools for your specific project needs."
-  },
-  portfolio: {
-    keywords: ['portfolio', 'projects', 'examples', 'work', 'case studies'],
-    response: "Here are live products we've built:\n\n• **TaxoMind** — AI-powered learning platform (taxomind.com)\n• **TaxoMind Schools** — cognitive learning for schools (taxomindsc.com)\n• **Book-AI** — interactive AI & math lessons (book-ai.org)\n• **File2Insight** — turn documents into insight (file2insight.com)\n• **Banglu** — type Bangla from an English keyboard (bangluweb.com)\n\nVisit our Products, Portfolio, and Case Studies pages for the full stories!"
-  },
-  contact: {
-    keywords: ['contact', 'reach', 'email', 'phone', 'meeting', 'location', 'where'],
-    response: "I'd love to connect you with our team! Here's how to reach us:\n\n📧 **Email:** hello@craftsai.org\n💬 **WhatsApp:** tap the green button at the bottom-right\n📍 **Based in:** Dhaka, Bangladesh — working with clients worldwide\n\nOr click the 'Get a Quote' button to start a free consultation!"
-  },
-  timeline: {
-    keywords: ['timeline', 'duration', 'how long', 'delivery', 'time'],
-    response: "Project timelines depend on scope. Typical ranges:\n\n• **Website / landing site:** 1-4 weeks\n• **Custom web application:** 4-12 weeks\n• **Mobile app (Android/iOS):** 6-14 weeks\n• **AI agent integration:** scoped per project\n\nWe'll give you a detailed timeline during your consultation."
-  }
-};
+// Stage 2 i18n: the canned Q&A now lives in messages/*.json. `id` is a stable,
+// code-owned key (never translated); `keywords` and `response` are per-locale so
+// the matcher below (lowerInput.includes(keyword)) becomes locale-aware for free.
+interface ChatbotQA {
+  id: string;
+  keywords: string[];
+  response: string;
+}
 
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +26,11 @@ export default function AIChatbot() {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const t = useTranslations('Chatbot');
+  const qa = t.raw('qa') as ChatbotQA[];
+  const quickQuestions = t.raw('quickQuestions') as string[];
+  const welcomeText = t('welcome');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -58,40 +46,27 @@ export default function AIChatbot() {
       setTimeout(() => {
         const welcomeMessage: Message = {
           id: 'welcome',
-          text: "👋 Hi! I'm the CraftsAI Help Assistant — a guided FAQ that answers common questions about our services. (For anything specific, our team is one message away via the contact page.)\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
+          text: welcomeText,
           sender: 'bot',
           timestamp: new Date()
         };
         setMessages([welcomeMessage]);
       }, 500);
     }
-  }, [isOpen, messages.length]);
+  }, [isOpen, messages.length, welcomeText]);
 
   const findResponse = (input: string): string => {
     const lowerInput = input.toLowerCase();
-    
-    // Check each knowledge base category
-    for (const [, data] of Object.entries(knowledgeBase)) {
-      if (data.keywords.some(keyword => lowerInput.includes(keyword))) {
-        return data.response;
+
+    // Locale-agnostic once keywords are per-locale: iterate the Q&A in order and
+    // return the first entry whose keyword list matches the (lowercased) input.
+    for (const entry of qa) {
+      if (entry.keywords.some(keyword => lowerInput.includes(keyword))) {
+        return entry.response;
       }
     }
 
-    // Default responses for common patterns
-    if (lowerInput.includes('hello') || lowerInput.includes('hi')) {
-      return "Hello! I'm here to help you learn about CraftsAI. What would you like to know about our AI and web development services?";
-    }
-
-    if (lowerInput.includes('help')) {
-      return "I can help you with information about:\n\n• Our AI and web development services\n• Project pricing and timelines\n• Technologies and capabilities\n• Portfolio and case studies\n• Getting started with your project\n\nWhat specific area interests you most?";
-    }
-
-    if (lowerInput.includes('thank')) {
-      return "You're welcome! Is there anything else you'd like to know about our services? I'm here to help! 😊";
-    }
-
-    // Default response
-    return "I'd be happy to help you with that! For detailed information about your specific needs, I recommend:\n\n• Checking our Services or Portfolio pages\n• Scheduling a free consultation with our team\n• Emailing us at hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything specific about our AI, web, or mobile development services you'd like to know?";
+    return t('fallback');
   };
 
   const sendMessage = async () => {
@@ -130,21 +105,13 @@ export default function AIChatbot() {
     }
   };
 
-  const quickQuestions = [
-    "What services do you offer?",
-    "How much does a project cost?",
-    "What technologies do you use?",
-    "Can I see your portfolio?",
-    "How do I get started?"
-  ];
-
   return (
     <>
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-6 right-6 z-50 h-14 w-14 border border-signal-dim bg-signal text-ink-950 shadow-lg transition-colors duration-150 hover:bg-signal-dim"
-        aria-label="Open CraftsAI Help Assistant"
+        aria-label={t('openLabel')}
       >
         {isOpen ? (
           <svg className="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -167,12 +134,12 @@ export default function AIChatbot() {
                 <span className="text-lg">🤖</span>
               </div>
               <div>
-                <h3 className="font-semibold">Help Assistant</h3>
-                <p className="text-sm opacity-90">CraftsAI · guided FAQ</p>
+                <h3 className="font-semibold">{t('headerTitle')}</h3>
+                <p className="text-sm opacity-90">{t('headerSubtitle')}</p>
               </div>
               <div className="ml-auto flex items-center gap-1">
                 <div className="w-2 h-2 bg-signal rounded-full animate-pulse"></div>
-                <span className="text-xs">Online</span>
+                <span className="text-xs">{t('onlineStatus')}</span>
               </div>
             </div>
           </div>
@@ -221,7 +188,7 @@ export default function AIChatbot() {
           {/* Quick Questions */}
           {messages.length <= 1 && (
             <div className="p-4 border-t border-line">
-              <div className="text-xs text-steel mb-2">Quick questions:</div>
+              <div className="text-xs text-steel mb-2">{t('quickQuestionsLabel')}</div>
               <div className="flex flex-wrap gap-2">
                 {quickQuestions.slice(0, 3).map((question, index) => (
                   <button
@@ -247,15 +214,15 @@ export default function AIChatbot() {
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask me anything..."
-                aria-label="Chat message"
+                placeholder={t('inputPlaceholder')}
+                aria-label={t('inputAriaLabel')}
                 className="flex-1 bg-ink-800 border border-line rounded-full px-3 sm:px-4 py-2 text-bone text-xs sm:text-sm focus:outline-none focus:border-signal transition-colors duration-200"
                 disabled={isTyping}
               />
               <button
                 onClick={sendMessage}
                 disabled={!inputText.trim() || isTyping}
-                aria-label="Send message"
+                aria-label={t('sendLabel')}
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
                   inputText.trim() && !isTyping
                     ? 'bg-signal text-ink-950 hover:bg-signal-dim'
