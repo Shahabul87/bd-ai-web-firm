@@ -19,7 +19,20 @@
 - TypeScript strict. **No `any`, no `unknown`.**
 - NEVER use `git checkout --`, `git restore`, `git stash`, `git reset --hard`. Undo with the Edit tool.
 - Use `npm run type-check`, NEVER `npx tsc --noEmit`.
-- ⚠️ **`npm test` cannot gate page changes** — zero suites touch `src/app` pages/components. The binding gate is a **COLD** `npm run build` (`rm -rf .next`), which must exit 0 and prerender **110/110** pages. Exactly **2 pre-existing `jose`/`@auth/core` Edge warnings** are expected on a cold build — not yours, do not fix. A warm `.next` prints a misleading OK.
+- ⚠️ **Two gates, both binding — `npm test` AND a COLD `npm run build`.**
+  - **`npm run build`, run COLD** (`rm -rf .next`): must exit 0 and prerender **110/110** pages.
+    Exactly **2 pre-existing `jose`/`@auth/core` Edge warnings** are expected — not yours, do not
+    fix. A warm `.next` prints a misleading OK, which is why cold matters.
+  - **`npm test`**: **CORRECTED 2026-07-16.** An earlier draft of this plan said "zero suites touch
+    pages/components". That was measured before Stage 1, and Stage 1 then ADDED three component
+    suites: `Header.test.tsx`, `MobileMenu.test.tsx`, `LocaleToggle.test.tsx` (all under
+    `src/app/components/layout/__tests__/`). They DO exercise the chrome you are extracting, and
+    Task 2 broke two of them with `MISSING_MESSAGE: Nav (bn)`. **Run `npm test` and believe it.**
+  - Task 2 fixed the root cause: `Header.test.tsx` and `MobileMenu.test.tsx` now import the real
+    `messages/en.json` instead of pinning an inline fixture, so they cannot silently drift from the
+    message files again. **Do not reintroduce inline message fixtures** in any test you touch — a
+    test that pins its own copy of the messages stops testing the messages.
+  - Baseline entering Task 3: **27 suites / 123 tests**.
 - Do NOT touch `src/app/(internal)/` (admin/portal — never localized), `src/app/analytics.tsx`, or anything under `src/app/components/mdx/`.
 
 ## Namespace Convention (binding — every task follows this)
