@@ -653,5 +653,238 @@
         "lede": "Tell us about your application and we'll recommend the right support tier."
       }
     }
+  },
+  "About": {
+    "hero": {
+      "eyebrow": "About",
+      "title": "An AI-first studio, built in Dhaka, shipping worldwide.",
+      "lede": "We build web, Android, and iOS products at startup speed with enterprise quality — agents write, senior engineers own every line that ships."
+    },
+    "story": {
+      "eyebrow": "Our story",
+      "title": "Why we started CraftsAI.",
+      "p1": "CraftsAI was founded in 2025 with a simple thesis: most software development time is spent on repetitive, predictable tasks that AI can handle better and faster than humans.",
+      "p2": "Based in Bangladesh, we built a studio around that idea. Our AI agents generate boilerplate code, database schemas, and component libraries while human engineers focus on architecture, product decisions, and the nuanced craft that machines cannot replicate.",
+      "p3": "The result is enterprise-grade software delivered at a fraction of the traditional cost and timeline — without compromising on quality, security, or maintainability."
+    },
+    "approach": {
+      "eyebrow": "Our approach",
+      "title": "Agents plus engineers, not agents instead of engineers.",
+      "agentsTitle": "AI Agents",
+      "agentsBody": "Our AI agents handle the repetitive coding tasks that traditionally consume most of development time. They generate clean, typed, well-structured code from plain-English requirements, following best practices for each platform.",
+      "humanTitle": "Human Oversight",
+      "humanBody": "Every line of AI-generated code is reviewed by experienced engineers. They make architectural decisions, write integration tests, handle edge cases, and ensure the final product meets production standards. AI amplifies their output; it does not replace their judgment."
+    },
+    "stats": {
+      "eyebrow": "By the numbers",
+      "title": "What that looks like in practice.",
+      "items": [
+        { "value": "4", "label": "Products Built" },
+        { "value": "3", "label": "Platforms" },
+        { "value": "10x", "label": "Faster Delivery" },
+        { "value": "80%", "label": "Cost Savings" }
+      ]
+    },
+    "products": {
+      "eyebrow": "Our products",
+      "title": "What we've built for ourselves.",
+      "viewAll": "View all →",
+      "items": [
+        { "name": "Banglu", "description": "Bengali phonetic keyboard for web and Android." },
+        { "name": "Taxomind", "description": "AI-powered tax preparation platform." },
+        { "name": "CraftsAI Studio", "description": "Internal tooling for AI-assisted development." },
+        { "name": "Client Projects", "description": "Custom web and mobile apps for businesses worldwide." }
+      ]
+    },
+    "cta": {
+      "title": "Ready to work with us?",
+      "lede": "Tell us about your project and get a free, no-obligation quote within 24 hours.",
+      "primaryLabel": "Get a free quote"
+    }
+  },
+  "Careers": {
+    "hero": {
+      "eyebrow": "Careers",
+      "title": "Build the future with us.",
+      "lede": "We're a small, AI-first studio where engineers work alongside intelligent agents to ship products faster than anyone thought possible. If you thrive at the intersection of craftsmanship and automation, you'll fit right in."
+    },
+    "culture": {
+      "eyebrow": "Why CraftsAI",
+      "title": "What it's like to work here.",
+      "cards": [
+        { "title": "AI-First Culture", "description": "We embrace AI as a core tool in every workflow. You will work alongside cutting-edge coding agents and shape how humans and AI collaborate." },
+        { "title": "Remote Friendly", "description": "Work from anywhere in the world. We communicate asynchronously and value output over hours. Flexible schedules that fit your life." },
+        { "title": "Cutting-Edge Tech", "description": "Next.js, Kotlin, Swift, LLM integrations, cloud-native architectures. You will always be working with the latest technologies and frameworks." },
+        { "title": "Impact-Driven Work", "description": "Every product we build solves real problems for real users. From education platforms to finance apps, your work will make a tangible difference." }
+      ]
+    },
+    "openPositions": {
+      "eyebrow": "Open positions",
+      "title": "Nothing open right now.",
+      "cardLead": "We are always looking for talented people. There are no open positions right now, but we would love to hear from you — send your CV and a note to"
+    },
+    "cta": {
+      "title": "Interested in joining?",
+      "lede": "Send your CV and a brief introduction. Tell us what excites you about AI-powered development.",
+      "primaryLabel": "Email careers@craftsai.org",
+      "secondaryLabel": "See our work"
+    }
+  },
+  "Process": {
+    "hero": {
+      "eyebrow": "Process",
+      "title": "Your project rides the line.",
+      "lede": "Five stations between idea and launch. Watch it move — no black boxes, no surprises, just a build you can follow with your own eyes."
+    },
+    "line": {
+      "eyebrow": "The line",
+      "title": "How a project moves through CraftsAI.",
+      "totalNote": "05 stations · typical total 2–6 weeks"
+    },
+    "phases": [
+      {
+        "number": "01",
+        "title": "Discovery",
+        "label": "DISCOVERY",
+        "what": "Free consultation to understand your needs. We discuss your goals, target audience, and success criteria to make sure we are aligned before any code is written.",
+        "deliverables": "Requirements document, project scope",
+        "yourRole": "Share your vision and goals",
+        "timeline": "1–2 days"
+      },
+      {
+        "number": "02",
+        "title": "Planning",
+        "label": "PLANNING",
+        "what": "Architecture design, technology selection, and milestone planning. We map out the entire project so there are no surprises down the road.",
+        "deliverables": "Technical spec, project timeline, cost estimate",
+        "yourRole": "Review and approve plan",
+        "timeline": "2–3 days"
+      },
+      {
+        "number": "03",
+        "title": "Development",
+        "label": "DEVELOPMENT",
+        "what": "AI agents generate code while engineers review and refine. You see working features early and often through regular demos.",
+        "deliverables": "Working features, regular demos",
+        "yourRole": "Weekly check-ins, feedback",
+        "timeline": "1–4 weeks"
+      },
+      {
+        "number": "04",
+        "title": "Testing",
+        "label": "TESTING",
+        "what": "Comprehensive QA, performance testing, and security audit. We catch issues before your users do.",
+        "deliverables": "Test reports, bug-free application",
+        "yourRole": "User acceptance testing",
+        "timeline": "3–5 days"
+      },
+      {
+        "number": "05",
+        "title": "Launch & Support",
+        "label": "LAUNCH",
+        "what": "Deployment, monitoring setup, and handoff. We make sure everything runs smoothly and your team is fully equipped to take over.",
+        "deliverables": "Live application, documentation, training",
+        "yourRole": "Final approval",
+        "timeline": "1–2 days"
+      }
+    ],
+    "communication": {
+      "eyebrow": "How we communicate",
+      "title": "Transparency is how we work.",
+      "description": "You will always know where your project stands.",
+      "items": [
+        { "title": "Weekly Progress Reports", "description": "Detailed updates on what was completed, what is next, and any blockers." },
+        { "title": "Direct Messaging", "description": "Reach us anytime via WhatsApp or email. No ticketing queues." },
+        { "title": "Live Demos at Milestones", "description": "See working software at every major milestone, not just at the end." },
+        { "title": "Dedicated Project Channel", "description": "A shared channel for your team and ours to keep everything in one place." }
+      ]
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "lede": "Phase 1 is free. Tell us about your project and we'll schedule a discovery call within 24 hours.",
+      "primaryLabel": "Start your project",
+      "secondaryLabel": "See our services"
+    }
+  },
+  "Products": {
+    "hero": {
+      "eyebrow": "Products",
+      "title": "Ready-made solutions, battle-tested and production-ready.",
+      "lede": "Our product lineup spans web platforms and Android apps, built and maintained by the same agent workflow we use for client work."
+    },
+    "platformLabels": {
+      "web": "Web",
+      "android": "Android",
+      "ios": "iOS",
+      "desktop": "Desktop"
+    },
+    "learnMore": "Learn more",
+    "more": "more",
+    "cta": {
+      "title": "Need a custom solution?",
+      "lede": "Our products showcase what we can build. Let us create something tailored to your specific needs.",
+      "primaryLabel": "Get a free quote"
+    }
+  },
+  "Portfolio": {
+    "hero": {
+      "eyebrow": "Portfolio",
+      "title": "Software our agents have shipped.",
+      "lede": "Real projects built by our team. From web apps to Android — see what's possible when agents do the coding."
+    },
+    "cta": {
+      "title": "Your project could be next.",
+      "lede": "Tell us the brief and we'll come back with a plan, a timeline, and a fixed estimate."
+    }
+  },
+  "Resources": {
+    "hero": {
+      "eyebrow": "Resources",
+      "title": "Field notes from the studio.",
+      "lede": "Blog posts, case studies, and guides on AI-powered development — written by the team that ships it.",
+      "primaryCta": "Start a project"
+    },
+    "browse": {
+      "eyebrow": "Browse by type",
+      "title": "Three ways into the archive.",
+      "cta": "Browse"
+    },
+    "categories": {
+      "blog": {
+        "title": "Blog",
+        "description": "Insights on AI development, strategy, and technology trends."
+      },
+      "case-studies": {
+        "title": "Case studies",
+        "description": "Real results from our AI-powered development projects."
+      },
+      "guides": {
+        "title": "Guides",
+        "description": "In-depth guides on web development, mobile apps, and choosing the right approach."
+      }
+    },
+    "latest": {
+      "eyebrow": "Latest",
+      "title": "Everything we've published."
+    },
+    "typeLabels": {
+      "blog": "Blog",
+      "caseStudy": "Case study",
+      "guide": "Guide"
+    }
+  },
+  "Faq": {
+    "hero": {
+      "eyebrow": "FAQ",
+      "title": "Questions, answered.",
+      "lede": "Everything you need to know about working with CraftsAI.",
+      "primaryCta": "Ask us directly"
+    },
+    "cta": {
+      "title": "Still have questions?",
+      "lede": "We're happy to help. Get in touch and we'll respond within 24 hours.",
+      "primaryLabel": "Contact us",
+      "secondaryLabel": "Get an estimate"
+    }
   }
 }

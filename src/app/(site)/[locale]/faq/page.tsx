@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -20,16 +21,14 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.craftsai.org/faq' },
 };
 
-export default function FAQPage() {
+export default async function FAQPage() {
+  const t = await getTranslations('Faq');
+
   return (
     <PageLayout>
-      <PageHero
-        eyebrow="FAQ"
-        title="Questions, answered."
-        lede="Everything you need to know about working with CraftsAI."
-      >
+      <PageHero eyebrow={t('hero.eyebrow')} title={t('hero.title')} lede={t('hero.lede')}>
         <Button variant="amber" size="lg" href="/contact">
-          Ask us directly
+          {t('hero.primaryCta')}
         </Button>
       </PageHero>
 
@@ -56,11 +55,11 @@ export default function FAQPage() {
       </section>
 
       <CTABand
-        title="Still have questions?"
-        lede="We're happy to help. Get in touch and we'll respond within 24 hours."
-        primaryLabel="Contact us"
+        title={t('cta.title')}
+        lede={t('cta.lede')}
+        primaryLabel={t('cta.primaryLabel')}
         primaryHref="/contact"
-        secondaryLabel="Get an estimate"
+        secondaryLabel={t('cta.secondaryLabel')}
         secondaryHref="/quote"
       />
     </PageLayout>
