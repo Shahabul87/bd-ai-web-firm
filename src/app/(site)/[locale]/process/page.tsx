@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -23,7 +23,13 @@ interface CommunicationItem {
   description: string;
 }
 
-export default async function ProcessPage() {
+export default async function ProcessPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('Process');
 
   /* A real sequence — station numbers encode the order the work happens in. */

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -31,7 +32,13 @@ function formatDate(dateString: string): string {
   });
 }
 
-export default function GuidesListingPage() {
+export default async function GuidesListingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const guides = getAllGuides();
 
   return (

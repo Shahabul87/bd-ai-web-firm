@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -57,7 +57,13 @@ function ChipList({ items }: { items: string[] }) {
   );
 }
 
-export default async function SupportPage() {
+export default async function SupportPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('Services.support');
 
   const included = t.raw('included') as string[];

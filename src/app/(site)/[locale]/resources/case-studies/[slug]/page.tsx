@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { caseStudies } from '#content';
 import { getCaseStudyBySlug } from '@/app/lib/content';
@@ -10,7 +11,7 @@ import MdxContent from '@/app/components/mdx/MdxContent';
 import ArticleJsonLd from '@/app/components/ArticleJsonLd';
 
 interface CaseStudyDetailPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -43,7 +44,8 @@ export async function generateMetadata({
 export default async function CaseStudyDetailPage({
   params,
 }: CaseStudyDetailPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const cs = getCaseStudyBySlug(slug);
 
   if (!cs) {

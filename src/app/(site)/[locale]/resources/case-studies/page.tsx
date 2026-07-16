@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -23,7 +24,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CaseStudiesListingPage() {
+export default async function CaseStudiesListingPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const caseStudies = getAllCaseStudies();
 
   return (

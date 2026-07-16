@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -31,7 +31,13 @@ interface UseCase {
   description: string;
 }
 
-export default async function WebDevelopmentPage() {
+export default async function WebDevelopmentPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('Services.web');
 
   const techStack = t.raw('techStack') as string[];

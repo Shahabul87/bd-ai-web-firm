@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { guides } from '#content';
 import { getGuideBySlug } from '@/app/lib/content';
@@ -9,7 +10,7 @@ import MdxContent from '@/app/components/mdx/MdxContent';
 import ArticleJsonLd from '@/app/components/ArticleJsonLd';
 
 interface GuideDetailPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -50,7 +51,8 @@ function formatDate(dateString: string): string {
 export default async function GuideDetailPage({
   params,
 }: GuideDetailPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const guide = getGuideBySlug(slug);
 
   if (!guide) {

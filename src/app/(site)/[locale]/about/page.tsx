@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -29,7 +29,13 @@ interface Product {
   description: string;
 }
 
-export default async function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('About');
 
   const stats = t.raw('stats.items') as Stat[];

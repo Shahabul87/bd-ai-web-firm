@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import PillarCards from '@/app/components/shared/PillarCards';
@@ -13,7 +13,13 @@ export const metadata: Metadata = {
     'What CraftsAI builds: custom AI agents, agent-built websites and mobile apps, and agent integration into your existing systems.',
 };
 
-export default async function ServicesPage() {
+export default async function ServicesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('Services.index');
 
   return (

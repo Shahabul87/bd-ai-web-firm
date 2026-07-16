@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { blogs } from '#content';
 import { getBlogBySlug } from '@/app/lib/content';
@@ -9,7 +10,7 @@ import MdxContent from '@/app/components/mdx/MdxContent';
 import ArticleJsonLd from '@/app/components/ArticleJsonLd';
 
 interface BlogPostPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -50,7 +51,8 @@ function formatDate(dateString: string): string {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const blog = getBlogBySlug(slug);
 
   if (!blog) {

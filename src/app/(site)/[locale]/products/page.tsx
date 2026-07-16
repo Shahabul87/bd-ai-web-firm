@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { products } from '#content';
 import PageLayout from '@/app/components/layout/PageLayout';
@@ -21,7 +21,13 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.craftsai.org/products' },
 };
 
-export default async function ProductsPage() {
+export default async function ProductsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('Products');
 
   const platformLabels = t.raw('platformLabels') as Record<string, string>;

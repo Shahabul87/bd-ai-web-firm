@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { products } from '#content';
 import { getProductBySlug } from '@/app/lib/content';
@@ -11,7 +12,7 @@ import Card from '@/app/design/ui/Card';
 import Button from '@/app/design/ui/Button';
 
 interface ProductPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -57,7 +58,8 @@ const EXTERNAL_LINK_AMBER = `${EXTERNAL_LINK_BASE} bg-amber text-ink-950 hover:o
 const EXTERNAL_LINK_CHALK = `${EXTERNAL_LINK_BASE} border border-[#EDEDE3]/45 text-[#EDEDE3] hover:border-amber hover:text-amber`;
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const product = getProductBySlug(slug);
 
   if (!product) {

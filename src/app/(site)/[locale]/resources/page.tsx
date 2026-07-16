@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -53,7 +53,13 @@ function formatDate(dateString: string): string {
   });
 }
 
-export default async function ResourcesPage() {
+export default async function ResourcesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('Resources');
   const latestContent = getLatestContent(12);
 

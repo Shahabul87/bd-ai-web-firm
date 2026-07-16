@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -31,7 +32,13 @@ const COOKIE_TYPES = [
   },
 ];
 
-export default function CookiesPage() {
+export default async function CookiesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <PageLayout>
       <PageHero eyebrow="Legal" title="Cookie Policy" lede="Last updated: July 5, 2026" />

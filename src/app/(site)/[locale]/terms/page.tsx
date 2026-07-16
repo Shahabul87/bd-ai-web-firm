@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -16,7 +17,13 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.craftsai.org/terms' },
 };
 
-export default function TermsPage() {
+export default async function TermsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <PageLayout>
       <PageHero eyebrow="Legal" title="Terms of Service" lede="Last updated: April 1, 2026" />

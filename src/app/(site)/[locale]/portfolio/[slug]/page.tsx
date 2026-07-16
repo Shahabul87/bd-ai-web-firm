@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 import { caseStudies } from '#content';
@@ -12,7 +13,7 @@ import SpecTable from '@/app/design/ui/SpecTable';
 import Card from '@/app/design/ui/Card';
 
 interface CaseStudyPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export function generateStaticParams() {
@@ -43,7 +44,8 @@ export async function generateMetadata({
 }
 
 export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
   const cs = getCaseStudyBySlug(slug);
 
   if (!cs) {

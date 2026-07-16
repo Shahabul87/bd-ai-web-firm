@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -23,7 +23,13 @@ interface CultureCard {
   description: string;
 }
 
-export default async function CareersPage() {
+export default async function CareersPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   const t = await getTranslations('Careers');
 
   const cultureCards = t.raw('culture.cards') as CultureCard[];

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -17,7 +18,13 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.craftsai.org/privacy' },
 };
 
-export default function PrivacyPage() {
+export default async function PrivacyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
   return (
     <PageLayout>
       <PageHero eyebrow="Legal" title="Privacy Policy" lede="Last updated: July 5, 2026" />
