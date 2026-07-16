@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -25,9 +26,9 @@ export async function generateMetadata({
     openGraph: {
       title: 'Support & Maintenance Services',
       description: 'Ongoing support retainers. Bug fixes, updates, performance monitoring.',
-      url: 'https://www.craftsai.org/services/support',
+      ...localeOpenGraph('/services/support', locale),
     },
-    alternates: { canonical: 'https://www.craftsai.org/services/support' },
+    alternates: localeAlternates('/services/support', locale),
   };
 }
 

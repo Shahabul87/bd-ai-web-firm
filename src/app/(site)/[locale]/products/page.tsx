@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
 import { products } from '#content';
 import PageLayout from '@/app/components/layout/PageLayout';
@@ -20,11 +21,11 @@ export async function generateMetadata({
     openGraph: {
       title: 'Our Products',
       description: 'Ready-made solutions, battle-tested and production-ready.',
-      url: 'https://www.craftsai.org/products',
+      ...localeOpenGraph('/products', locale),
       siteName: 'CraftsAI',
       type: 'website',
     },
-    alternates: { canonical: 'https://www.craftsai.org/products' },
+    alternates: localeAlternates('/products', locale),
   };
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import PillarCards from '@/app/components/shared/PillarCards';
@@ -17,6 +18,10 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
+    openGraph: {
+      ...localeOpenGraph('/services', locale),
+    },
+    alternates: localeAlternates('/services', locale),
   };
 }
 

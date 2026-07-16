@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -26,11 +27,9 @@ export async function generateMetadata({
     openGraph: {
       title: 'iOS Development Services',
       description: 'Native iOS apps with Swift and SwiftUI. 8x faster delivery.',
-      url: 'https://www.craftsai.org/services/ios-development',
+      ...localeOpenGraph('/services/ios-development', locale),
     },
-    alternates: {
-      canonical: 'https://www.craftsai.org/services/ios-development',
-    },
+    alternates: localeAlternates('/services/ios-development', locale),
   };
 }
 

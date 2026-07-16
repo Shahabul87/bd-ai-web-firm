@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { notFound } from 'next/navigation';
 import { guides } from '#content';
 import { getGuideBySlug } from '@/app/lib/content';
@@ -20,7 +21,7 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: GuideDetailPageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const guide = getGuideBySlug(slug);
   if (!guide) return {};
 
@@ -30,13 +31,11 @@ export async function generateMetadata({
     openGraph: {
       title: `${guide.title} | CraftsAI`,
       description: guide.excerpt,
-      url: `https://www.craftsai.org/resources/guides/${guide.slug}`,
+      ...localeOpenGraph(`/resources/guides/${guide.slug}`, locale),
       siteName: 'CraftsAI',
       type: 'article',
     },
-    alternates: {
-      canonical: `https://www.craftsai.org/resources/guides/${guide.slug}`,
-    },
+    alternates: localeAlternates(`/resources/guides/${guide.slug}`, locale),
   };
 }
 

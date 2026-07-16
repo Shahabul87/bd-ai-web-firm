@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
 import CTABand from '@/app/components/shared/CTABand';
@@ -19,9 +20,9 @@ export async function generateMetadata({
     openGraph: {
       title: 'Careers',
       description: 'Join the CraftsAI team and build the future of AI-powered software development.',
-      url: 'https://www.craftsai.org/careers',
+      ...localeOpenGraph('/careers', locale),
     },
-    alternates: { canonical: 'https://www.craftsai.org/careers' },
+    alternates: localeAlternates('/careers', locale),
   };
 }
 

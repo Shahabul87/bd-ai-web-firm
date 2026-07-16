@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
 import PageHero from '@/app/components/shared/PageHero';
@@ -20,9 +21,9 @@ export async function generateMetadata({
     openGraph: {
       title: 'Cookie Policy',
       description: 'How CraftsAI uses cookies and tracking technologies.',
-      url: 'https://www.craftsai.org/cookies',
+      ...localeOpenGraph('/cookies', locale),
     },
-    alternates: { canonical: 'https://www.craftsai.org/cookies' },
+    alternates: localeAlternates('/cookies', locale),
   };
 }
 
