@@ -70,6 +70,7 @@ export default function Header() {
             <button
               type="button"
               aria-expanded={servicesOpen}
+              aria-controls="header-services-menu"
               onClick={() => setServicesOpen((o) => !o)}
               className={`font-mono text-xs uppercase tracking-[0.15em] transition-colors duration-150 hover:text-signal ${
                 pathname.startsWith('/services') ? 'text-signal' : 'text-bone'
@@ -78,7 +79,7 @@ export default function Header() {
               {tNav('services')} {servicesOpen ? '−' : '+'}
             </button>
             {servicesOpen ? (
-              <div className="absolute left-0 top-full mt-4 w-72 border border-line bg-ink-900 p-2">
+              <div id="header-services-menu" className="absolute left-0 top-full mt-4 w-72 border border-line bg-ink-900 p-2">
                 {SERVICE_LINKS.map((link) => (
                   <Link
                     key={link.index}
@@ -116,6 +117,7 @@ export default function Header() {
           ref={menuToggleRef}
           type="button"
           aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
           aria-label={menuOpen ? t('closeMenu') : t('openMenu')}
           onClick={() => setMenuOpen((o) => !o)}
           className="font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 hover:text-signal lg:hidden"

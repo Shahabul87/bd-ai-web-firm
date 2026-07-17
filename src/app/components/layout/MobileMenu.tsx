@@ -33,7 +33,13 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
   if (!open) return null;
 
   return (
-    <div className="blueprint-grid fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-ink-950 lg:hidden">
+    <div
+      id="mobile-menu"
+      role="dialog"
+      aria-modal="true"
+      aria-label={t('mobileNavLabel')}
+      className="blueprint-grid fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto bg-ink-950 lg:hidden"
+    >
       <nav
         ref={navRef}
         aria-label={t('mobileNavLabel')}
