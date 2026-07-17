@@ -1549,6 +1549,25 @@
       ]
     }
   },
+  "FormErrors": {
+    "name_too_short": "Name must be at least 2 characters",
+    "email_invalid": "Please enter a valid email address",
+    "message_too_short": "Message must be at least 10 characters",
+    "services_required": "Please select at least one service",
+    "project_type_required": "Please specify your project type",
+    "description_required": "Please provide a detailed project description",
+    "company_name_required": "Company name is required",
+    "contact_name_required": "Contact name is required",
+    "email_required": "Valid email address is required",
+    "rate_limited_seconds": "Too many requests. Please try again in {seconds} seconds.",
+    "rate_limited_minutes": "Too many requests. Please try again in {minutes} minutes.",
+    "contact_submit_failed": "We could not submit your message right now. Please try again in a moment.",
+    "quote_submit_failed": "We could not submit your quote request right now. Please try again in a moment.",
+    "contact_server_error": "An error occurred while sending your message. Please try again.",
+    "quote_server_error": "An error occurred while submitting your quote request. Please try again.",
+    "contact_success": "Your message has been sent successfully! We'll get back to you within 24 hours.",
+    "quote_success": "Your quote request has been submitted successfully! We'll review your requirements and contact you within 24 hours with a detailed proposal."
+  },
   "ErrorPage": {
     "label": "500 / Something broke",
     "title": "A build step hit an error.",

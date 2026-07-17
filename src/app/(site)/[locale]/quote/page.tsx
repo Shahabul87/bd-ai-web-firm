@@ -10,6 +10,7 @@ import PageHero from '@/app/components/shared/PageHero';
 import Button from '@/app/design/ui/Button';
 import Stepper from '@/app/design/ui/Stepper';
 import MonoLabel from '@/app/design/ui/MonoLabel';
+import type { QuoteResponse } from '@/app/lib/formErrors';
 
 // Types
 interface ProjectDetails {
@@ -131,6 +132,8 @@ const BUDGET_META: ReadonlyArray<{ value: string; icon: string; popular: boolean
 
 export default function QuotePage() {
   const t = useTranslations('Quote');
+  // Maps stable API error/success codes to translated strings (see formErrors.ts).
+  const tError = useTranslations('FormErrors');
   const [formData, setFormData] = useState<QuoteFormData>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -236,21 +239,31 @@ export default function QuotePage() {
         }),
       });
 
-      const result = await response.json();
+      const result = (await response.json()) as QuoteResponse;
 
       if (result.success) {
         setSubmitStatus('success');
-        setSubmitMessage(result.message || t('status.success'));
+        setSubmitMessage(tError(result.code));
         setFormData(initialFormData);
         if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
       } else if (result.errors) {
-        setErrors(result.errors);
+        // Field errors arrive as codes; translate each to a display string so the
+        // step components (which render errors[field] verbatim) show localized text.
+        const translated: Record<string, string> = {};
+        for (const [field, code] of Object.entries(result.errors)) {
+          if (code) translated[field] = tError(code);
+        }
+        setErrors(translated);
         setFormData(prev => ({ ...prev, currentStep: 1 }));
         setSubmitStatus('error');
         setSubmitMessage(t('status.fixFields'));
+      } else if (result.code) {
+        setSubmitStatus('error');
+        // retryMinutes is only present on rate-limit responses; harmless otherwise.
+        setSubmitMessage(tError(result.code, { minutes: result.retryMinutes ?? 0 }));
       } else {
         setSubmitStatus('error');
-        setSubmitMessage(result.message || t('status.genericError'));
+        setSubmitMessage(t('status.genericError'));
       }
     } catch {
       setSubmitStatus('error');
