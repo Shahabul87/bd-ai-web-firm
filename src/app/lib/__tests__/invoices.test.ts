@@ -3,7 +3,14 @@ jest.mock('../db', () => {
   // the status check, the tenant check and the writes now all run inside ONE
   // transaction.
   const tx = {
-    invoice: { aggregate: jest.fn(), create: jest.fn(), findUnique: jest.fn(), update: jest.fn() },
+    invoice: {
+      aggregate: jest.fn(),
+      create: jest.fn(),
+      findUnique: jest.fn(),
+      update: jest.fn(),
+      // sendInvoice flips status and enqueues its notifications in ONE tx.
+      updateMany: jest.fn().mockResolvedValue({ count: 1 }),
+    },
     invoiceLine: { deleteMany: jest.fn() },
     project: { findFirst: jest.fn() },
   };
@@ -28,9 +35,14 @@ jest.mock('../db', () => {
 jest.mock('../audit', () => ({ writeAudit: jest.fn() }));
 jest.mock('../notify', () => ({ sendAnnouncement: jest.fn(), sendPush: jest.fn() }));
 jest.mock('../email', () => ({ SITE_URL: 'https://www.craftsai.org', CONTACT_EMAIL: 'o@c.org' }));
+jest.mock('../outbox', () => ({
+  enqueueOutbox: jest.fn().mockResolvedValue(undefined),
+  dispatchOutbox: jest.fn().mockResolvedValue({ claimed: 0, delivered: 0, failed: 0, dead: 0 }),
+}));
 
 import { prisma } from '../db';
 import { sendAnnouncement } from '../notify';
+import { enqueueOutbox } from '../outbox';
 import {
   createInvoice,
   updateInvoiceDraft,
@@ -45,7 +57,13 @@ import {
 const db = prisma as unknown as {
   invoice: { findUnique: jest.Mock; findFirst: jest.Mock; update: jest.Mock; updateMany: jest.Mock };
   __tx: {
-    invoice: { aggregate: jest.Mock; create: jest.Mock; findUnique: jest.Mock; update: jest.Mock };
+    invoice: {
+      aggregate: jest.Mock;
+      create: jest.Mock;
+      findUnique: jest.Mock;
+      update: jest.Mock;
+      updateMany: jest.Mock;
+    };
     invoiceLine: { deleteMany: jest.Mock };
     project: { findFirst: jest.Mock };
   };
@@ -95,15 +113,32 @@ describe('invoices', () => {
 
   it('sendInvoice moves DRAFT -> SENT with a status-conditional update', async () => {
     db.invoice.findUnique.mockResolvedValue({ id: 'inv1', status: 'DRAFT', number: 5, currency: 'USD', totalMinor: 115000, client: { email: 'c@x.com', name: 'C' } });
+    db.__tx.invoice.updateMany.mockResolvedValue({ count: 1 });
     await sendInvoice('inv1', 'admin@x.com');
     // The update must be conditional on status: an unconditional update by id
     // lets two concurrent sends both dispatch an email.
-    expect(db.invoice.updateMany).toHaveBeenCalledWith(
+    expect(db.__tx.invoice.updateMany).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { id: 'inv1', status: 'DRAFT' },
         data: expect.objectContaining({ status: 'SENT' }),
       }),
     );
+  });
+
+  it('sendInvoice enqueues its notifications in the SAME transaction as the status flip', async () => {
+    db.invoice.findUnique.mockResolvedValue({ id: 'inv1', status: 'DRAFT', number: 5, currency: 'USD', totalMinor: 115000, clientId: 'c1', client: { email: 'c@x.com', name: 'C' } });
+    db.__tx.invoice.updateMany.mockResolvedValue({ count: 1 });
+    await sendInvoice('inv1', 'admin@x.com');
+
+    // Both the email and the push must be durably queued — and enqueued with the
+    // TRANSACTION client, so a rollback takes the notifications with it.
+    expect(enqueueOutbox).toHaveBeenCalledTimes(2);
+    for (const call of (enqueueOutbox as jest.Mock).mock.calls) {
+      expect(call[0]).toBe(db.__tx); // the tx client, not the global one
+    }
+    const keys = (enqueueOutbox as jest.Mock).mock.calls.map((c) => c[1].idempotencyKey);
+    // Stable keys derived from the business fact, so a retry cannot double-send.
+    expect(keys).toEqual(['invoice.sent:email:inv1', 'invoice.sent:push:inv1']);
   });
 
   it('sendInvoice refuses a non-DRAFT invoice', async () => {
@@ -184,12 +219,13 @@ describe('invoice state machine', () => {
 describe('concurrent transitions', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it('a duplicate send loses the race and throws instead of emailing twice', async () => {
+  it('a duplicate send loses the race and queues NO second notification', async () => {
     db.invoice.findUnique.mockResolvedValue({ id: 'inv1', status: 'DRAFT', number: 5, currency: 'USD', totalMinor: 1, client: { email: 'c@x.com', name: 'C' } });
     // Someone else already flipped DRAFT -> SENT, so the conditional update
     // affects zero rows.
-    db.invoice.updateMany.mockResolvedValue({ count: 0 });
+    db.__tx.invoice.updateMany.mockResolvedValue({ count: 0 });
     await expect(sendInvoice('inv1', 'a@x.com')).rejects.toThrow(/Only draft invoices can be sent/i);
+    expect(enqueueOutbox).not.toHaveBeenCalled();
     expect(sendAnnouncement).not.toHaveBeenCalled();
   });
 

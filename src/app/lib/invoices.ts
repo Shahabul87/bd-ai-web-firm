@@ -5,6 +5,7 @@ import { sendAnnouncement, sendPush } from './notify';
 import { SITE_URL } from './email';
 import { computeTotals, formatMoney } from './money';
 import { assertProjectBelongsToClient } from './tenantAuthz';
+import { enqueueOutbox, dispatchOutbox } from './outbox';
 
 export type InvoiceStatusValue = 'DRAFT' | 'SENT' | 'PAID' | 'VOID';
 
@@ -263,22 +264,50 @@ export async function sendInvoice(id: string, actorEmail: string): Promise<void>
   const inv = await prisma.invoice.findUnique({ where: { id }, include: { client: true } });
   if (!inv) throw new Error('Invoice not found.');
   assertTransition(inv.status as InvoiceStatusValue, 'SENT');
-  // Conditional on still being DRAFT: two concurrent sends previously could both
-  // pass the read above and both dispatch an email to the client.
-  if (!(await transition(id, 'DRAFT', 'SENT', { issueDate: new Date() }))) {
-    throw new Error('Only draft invoices can be sent.');
-  }
+
+  // The status flip and BOTH notifications are enqueued in one transaction:
+  // either the invoice is sent and its notifications are durably queued, or
+  // neither happened. Previously the emails were fire-and-forget, so a
+  // notify-svc outage silently left the client never knowing they were invoiced
+  // while the invoice showed as SENT.
+  const sent = await prisma.$transaction(async (tx) => {
+    const flip = await tx.invoice.updateMany({
+      // Conditional on still being DRAFT: two concurrent sends previously could
+      // both pass the read above and both dispatch an email.
+      where: { id, status: 'DRAFT' },
+      data: { status: 'SENT', issueDate: new Date() },
+    });
+    if (flip.count !== 1) return false;
+
+    await enqueueOutbox(tx, {
+      type: 'invoice.sent',
+      aggregateId: id,
+      idempotencyKey: `invoice.sent:email:${id}`,
+      payload: {
+        channel: 'email',
+        to: inv.client.email,
+        subject: `Invoice ${invNo(inv.number)} from CraftsAI`,
+        body: `Hi ${inv.client.name},\n\nInvoice ${invNo(inv.number)} for ${formatMoney(inv.totalMinor, inv.currency)} is ready. View and print it in your portal: ${SITE_URL}/portal/invoices/${inv.id}\n\n— The CraftsAI Team`,
+      },
+    });
+    await enqueueOutbox(tx, {
+      type: 'invoice.sent',
+      aggregateId: id,
+      idempotencyKey: `invoice.sent:push:${id}`,
+      payload: {
+        channel: 'push',
+        to: `client:${inv.clientId}`,
+        subject: `Invoice ${invNo(inv.number)}`,
+        body: `${formatMoney(inv.totalMinor, inv.currency)} — view it in your portal.`,
+      },
+    });
+    return true;
+  });
+
+  if (!sent) throw new Error('Only draft invoices can be sent.');
   await writeAudit('invoice.send', { actorEmail, meta: { id } });
-  void sendAnnouncement(
-    inv.client.email,
-    `Invoice ${invNo(inv.number)} from CraftsAI`,
-    `Hi ${inv.client.name},\n\nInvoice ${invNo(inv.number)} for ${formatMoney(inv.totalMinor, inv.currency)} is ready. View and print it in your portal: ${SITE_URL}/portal/invoices/${inv.id}\n\n— The CraftsAI Team`,
-  );
-  void sendPush(
-    `client:${inv.clientId}`,
-    `Invoice ${invNo(inv.number)}`,
-    `${formatMoney(inv.totalMinor, inv.currency)} — view it in your portal.`,
-  );
+  // Deliver promptly; the worker retries anything this pass does not land.
+  void dispatchOutbox();
 }
 
 export async function markInvoicePaid(id: string, paymentRef: string, actorEmail: string): Promise<void> {
