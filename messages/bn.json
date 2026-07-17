@@ -1928,7 +1928,8 @@
     "whatsapp": {
       "tooltip": "WhatsApp-এ আমাদের সাথে চ্যাট করুন!",
       "ariaLabel": "WhatsApp-এ চ্যাট করুন",
-      "closeTooltip": "টুলটিপ বন্ধ করুন"
+      "closeTooltip": "টুলটিপ বন্ধ করুন",
+      "defaultMessage": "হ্যালো! আমি আপনাদের AI ডেভেলপমেন্ট সার্ভিসে আগ্রহী। আমরা কি আমার প্রজেক্ট নিয়ে আলোচনা করতে পারি?"
     },
     "cookies": {
       "dialogLabel": "কুকি সম্মতি",
