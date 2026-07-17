@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { signInWithTicket } from './actions';
 
-type Step = 'email' | 'code' | 'magiclink_sent' | 'enroll' | 'totp';
+type Step = 'email' | 'code' | 'magiclink_sent' | 'enroll' | 'totp' | 'recovery';
 
 const inputCls =
   'w-full border border-line bg-ink-900 px-4 py-3 text-sm text-bone placeholder:text-steel/50 focus:border-signal focus:outline-none';
@@ -28,6 +28,8 @@ export default function LoginFlow({ initialToken }: { initialToken?: string }) {
   const [remember, setRemember] = useState(false);
   const [otpauthUri, setOtpauthUri] = useState('');
   const [recoveryCodes, setRecoveryCodes] = useState<string[]>([]);
+  const [pendingTicket, setPendingTicket] = useState('');
+  const [useRecovery, setUseRecovery] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const ranInitial = useRef(false);
@@ -43,8 +45,10 @@ export default function LoginFlow({ initialToken }: { initialToken?: string }) {
         const e = await postJson('/api/admin/login/enroll-totp', {});
         if (e.status === 200 && e.json.ok) {
           setOtpauthUri(String(e.json.otpauthUri ?? ''));
-          setRecoveryCodes((e.json.recoveryCodes as string[]) ?? []);
           setStep('enroll');
+        } else if (e.status === 409) {
+          // Already enrolled — go straight to the authenticator prompt.
+          setStep('totp');
         } else {
           setError('Could not start authenticator setup.');
         }
@@ -100,8 +104,20 @@ export default function LoginFlow({ initialToken }: { initialToken?: string }) {
     setBusy(true);
     const r = await postJson('/api/admin/login/verify-totp', { code, remember });
     setBusy(false);
-    if (r.status === 200 && r.json.ok) await finish(String(r.json.ticket));
-    else setError('Invalid authenticator code.');
+    if (r.status === 200 && r.json.ok) {
+      const codes = Array.isArray(r.json.recoveryCodes) ? (r.json.recoveryCodes as string[]) : [];
+      if (codes.length > 0) {
+        // First enrollment just confirmed — show the recovery codes once before
+        // completing sign-in.
+        setRecoveryCodes(codes);
+        setPendingTicket(String(r.json.ticket));
+        setStep('recovery');
+      } else {
+        await finish(String(r.json.ticket));
+      }
+    } else {
+      setError('Invalid authenticator code.');
+    }
   }
 
   return (
@@ -150,22 +166,42 @@ export default function LoginFlow({ initialToken }: { initialToken?: string }) {
       {(step === 'code' || step === 'totp') && (
         <div className="mt-8 space-y-3">
           <label htmlFor="adm-code" className="block font-mono text-xs uppercase tracking-[0.15em] text-steel">
-            {step === 'code' ? 'Code from your email' : 'Authenticator code'}
+            {step === 'code'
+              ? 'Code from your email'
+              : useRecovery
+                ? 'Recovery code'
+                : 'Authenticator code'}
           </label>
           <input
             id="adm-code"
-            inputMode="numeric"
+            inputMode={step === 'totp' && useRecovery ? 'text' : 'numeric'}
             autoComplete="one-time-code"
             value={code}
-            onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 8))}
-            placeholder="123456"
+            onChange={(e) => {
+              const raw = e.target.value;
+              setCode(step === 'totp' && useRecovery ? raw.slice(0, 64) : raw.replace(/\D/g, '').slice(0, 8));
+            }}
+            placeholder={step === 'totp' && useRecovery ? 'recovery code' : '123456'}
             className={inputCls}
           />
           {step === 'totp' && (
-            <label className="flex items-center gap-2 text-sm text-steel">
-              <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
-              Trust this device for 30 days
-            </label>
+            <>
+              <label className="flex items-center gap-2 text-sm text-steel">
+                <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
+                Trust this device for 30 days
+              </label>
+              <button
+                type="button"
+                onClick={() => {
+                  setUseRecovery((v) => !v);
+                  setCode('');
+                  setError('');
+                }}
+                className="font-mono text-xs uppercase tracking-[0.15em] text-steel underline-offset-2 hover:text-signal hover:underline"
+              >
+                {useRecovery ? 'Use authenticator code' : 'Use a recovery code'}
+              </button>
+            </>
           )}
           <button
             disabled={busy || code.length < 6}
@@ -185,18 +221,30 @@ export default function LoginFlow({ initialToken }: { initialToken?: string }) {
           <a href={otpauthUri} className="block break-all border border-line bg-ink-900 px-4 py-3 font-mono text-xs text-signal">
             {otpauthUri || 'otpauth://…'}
           </a>
-          {recoveryCodes.length > 0 && (
-            <div className="border border-line bg-ink-900 p-4">
-              <p className="font-mono text-xs uppercase tracking-[0.15em] text-steel">Recovery codes — save these</p>
-              <div className="mt-2 grid grid-cols-2 gap-1 font-mono text-xs text-bone">
-                {recoveryCodes.map((c) => (
-                  <span key={c}>{c}</span>
-                ))}
-              </div>
-            </div>
-          )}
+          <p className="text-steel">
+            After confirming a code, you&apos;ll get one-time recovery codes to save.
+          </p>
           <button onClick={() => setStep('totp')} className={primaryBtn}>
             I&apos;ve added it — continue
+          </button>
+        </div>
+      )}
+
+      {step === 'recovery' && (
+        <div className="mt-8 space-y-4 text-sm">
+          <p className="text-steel">
+            Save these recovery codes somewhere safe. Each works once if you lose your
+            authenticator — they will not be shown again.
+          </p>
+          <div className="border border-line bg-ink-900 p-4">
+            <div className="grid grid-cols-2 gap-1 font-mono text-xs text-bone">
+              {recoveryCodes.map((c) => (
+                <span key={c}>{c}</span>
+              ))}
+            </div>
+          </div>
+          <button disabled={busy} onClick={() => finish(pendingTicket)} className={primaryBtn}>
+            I&apos;ve saved them — continue
           </button>
         </div>
       )}
