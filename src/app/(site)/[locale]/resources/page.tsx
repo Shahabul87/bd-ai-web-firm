@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { formatContentDate } from '@/app/lib/formatDate';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
@@ -49,14 +50,6 @@ function typeHref(item: LatestContentItem): string {
   if (item.type === 'blog') return `/resources/blog/${item.slug}`;
   if (item.type === 'case-study') return `/resources/case-studies/${item.slug}`;
   return `/resources/guides/${item.slug}`;
-}
-
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
 }
 
 export default async function ResourcesPage({
@@ -137,7 +130,7 @@ export default async function ResourcesPage({
                   {item.title}
                 </span>
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-steel">
-                  {formatDate(item.date)}
+                  {formatContentDate(item.date, locale, 'short')}
                 </span>
               </Link>
             ))}

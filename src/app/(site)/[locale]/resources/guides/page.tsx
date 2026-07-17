@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { formatContentDate } from '@/app/lib/formatDate';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
@@ -28,14 +29,6 @@ export async function generateMetadata({
     },
     alternates: localeAlternates('/resources/guides', locale),
   };
-}
-
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
 }
 
 export default async function GuidesListingPage({
@@ -79,7 +72,7 @@ export default async function GuidesListingPage({
                       dateTime={guide.date}
                       className="font-mono text-[10px] uppercase tracking-[0.18em] text-steel"
                     >
-                      {formatDate(guide.date)}
+                      {formatContentDate(guide.date, locale, 'short')}
                     </time>
                     <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
                       {t('readMore')}
