@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from '@/i18n/navigation';
 import faqData from '../../../content/faq/faq.json';
+import { SITE_URL } from '@/app/lib/siteUrl';
 
 interface LocalizedString {
   en: string;
@@ -32,16 +33,16 @@ export default function StructuredData() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "https://www.craftsai.org/#organization",
+    "@id": `${SITE_URL}/#organization`,
     "name": "CraftsAI",
-    "url": "https://www.craftsai.org",
+    "url": `${SITE_URL}`,
     "logo": {
       "@type": "ImageObject",
-      "url": "https://www.craftsai.org/icon-512.png",
+      "url": `${SITE_URL}/icon-512.png`,
       "width": 512,
       "height": 512
     },
-    "image": "https://www.craftsai.org/opengraph-image",
+    "image": `${SITE_URL}/opengraph-image`,
     "description": t('org.description'),
     "inLanguage": locale,
     "foundingDate": "2025",
@@ -106,12 +107,12 @@ export default function StructuredData() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://www.craftsai.org/#website",
+    "@id": `${SITE_URL}/#website`,
     "name": "CraftsAI",
-    "url": "https://www.craftsai.org",
+    "url": `${SITE_URL}`,
     "description": t('website.description'),
     "publisher": {
-      "@id": "https://www.craftsai.org/#organization"
+      "@id": `${SITE_URL}/#organization`
     },
     "inLanguage": locale
   };
@@ -148,12 +149,12 @@ export default function StructuredData() {
           "@type": "ListItem",
           "position": 1,
           "name": t('breadcrumb.home'),
-          "item": "https://www.craftsai.org"
+          "item": `${SITE_URL}`
         }
       ]
     };
 
-    let currentPath = 'https://www.craftsai.org';
+    let currentPath = `${SITE_URL}`;
     pathSegments.forEach((segment, index) => {
       currentPath += `/${segment}`;
       const breadcrumbKey = `breadcrumb.${segment}`;
@@ -180,8 +181,8 @@ export default function StructuredData() {
           "@type": "Service",
           "name": t('page.services.name'),
           "description": t('page.services.description'),
-          "url": "https://www.craftsai.org/services",
-          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "url": `${SITE_URL}/services`,
+          "provider": { "@id": `${SITE_URL}/#organization` },
           "inLanguage": locale
         };
       case '/services/web-development':
@@ -190,8 +191,8 @@ export default function StructuredData() {
           "@type": "Service",
           "name": t('page.webDevelopment.name'),
           "description": t('page.webDevelopment.description'),
-          "url": "https://www.craftsai.org/services/web-development",
-          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "url": `${SITE_URL}/services/web-development`,
+          "provider": { "@id": `${SITE_URL}/#organization` },
           "serviceType": "Web Development",
           "inLanguage": locale
         };
@@ -201,8 +202,8 @@ export default function StructuredData() {
           "@type": "Service",
           "name": t('page.androidDevelopment.name'),
           "description": t('page.androidDevelopment.description'),
-          "url": "https://www.craftsai.org/services/android-development",
-          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "url": `${SITE_URL}/services/android-development`,
+          "provider": { "@id": `${SITE_URL}/#organization` },
           "serviceType": "Android Development",
           "inLanguage": locale
         };
@@ -212,8 +213,8 @@ export default function StructuredData() {
           "@type": "Service",
           "name": t('page.iosDevelopment.name'),
           "description": t('page.iosDevelopment.description'),
-          "url": "https://www.craftsai.org/services/ios-development",
-          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "url": `${SITE_URL}/services/ios-development`,
+          "provider": { "@id": `${SITE_URL}/#organization` },
           "serviceType": "iOS Development",
           "inLanguage": locale
         };
@@ -223,8 +224,8 @@ export default function StructuredData() {
           "@type": "Service",
           "name": t('page.support.name'),
           "description": t('page.support.description'),
-          "url": "https://www.craftsai.org/services/support",
-          "provider": { "@id": "https://www.craftsai.org/#organization" },
+          "url": `${SITE_URL}/services/support`,
+          "provider": { "@id": `${SITE_URL}/#organization` },
           "serviceType": "Support & Maintenance",
           "inLanguage": locale
         };
@@ -234,7 +235,7 @@ export default function StructuredData() {
           "@type": "CollectionPage",
           "name": t('page.products.name'),
           "description": t('page.products.description'),
-          "url": "https://www.craftsai.org/products",
+          "url": `${SITE_URL}/products`,
           "inLanguage": locale
         };
       case '/portfolio':
@@ -243,7 +244,7 @@ export default function StructuredData() {
           "@type": "CollectionPage",
           "name": t('page.portfolio.name'),
           "description": t('page.portfolio.description'),
-          "url": "https://www.craftsai.org/portfolio",
+          "url": `${SITE_URL}/portfolio`,
           "inLanguage": locale
         };
       case '/resources':
@@ -252,7 +253,7 @@ export default function StructuredData() {
           "@type": "CollectionPage",
           "name": t('page.resources.name'),
           "description": t('page.resources.description'),
-          "url": "https://www.craftsai.org/resources",
+          "url": `${SITE_URL}/resources`,
           "inLanguage": locale
         };
       case '/resources/blog':
@@ -261,8 +262,8 @@ export default function StructuredData() {
           "@type": "Blog",
           "name": t('page.blog.name'),
           "description": t('page.blog.description'),
-          "url": "https://www.craftsai.org/resources/blog",
-          "publisher": { "@id": "https://www.craftsai.org/#organization" },
+          "url": `${SITE_URL}/resources/blog`,
+          "publisher": { "@id": `${SITE_URL}/#organization` },
           "inLanguage": locale
         };
       case '/contact':
@@ -271,7 +272,7 @@ export default function StructuredData() {
           "@type": "ContactPage",
           "name": t('page.contact.name'),
           "description": t('page.contact.description'),
-          "url": "https://www.craftsai.org/contact",
+          "url": `${SITE_URL}/contact`,
           "inLanguage": locale
         };
       case '/quote':
@@ -280,7 +281,7 @@ export default function StructuredData() {
           "@type": "ContactPage",
           "name": t('page.quote.name'),
           "description": t('page.quote.description'),
-          "url": "https://www.craftsai.org/quote",
+          "url": `${SITE_URL}/quote`,
           "inLanguage": locale
         };
       case '/faq':
@@ -292,7 +293,7 @@ export default function StructuredData() {
           "@type": "WebPage",
           "name": t('page.faq.name'),
           "description": t('page.faq.description'),
-          "url": "https://www.craftsai.org/faq",
+          "url": `${SITE_URL}/faq`,
           "inLanguage": locale
         };
       case '/about':
@@ -301,8 +302,8 @@ export default function StructuredData() {
           "@type": "AboutPage",
           "name": t('page.about.name'),
           "description": t('page.about.description'),
-          "url": "https://www.craftsai.org/about",
-          "mainEntity": { "@id": "https://www.craftsai.org/#organization" },
+          "url": `${SITE_URL}/about`,
+          "mainEntity": { "@id": `${SITE_URL}/#organization` },
           "inLanguage": locale
         };
       case '/process':
@@ -311,7 +312,7 @@ export default function StructuredData() {
           "@type": "WebPage",
           "name": t('page.process.name'),
           "description": t('page.process.description'),
-          "url": "https://www.craftsai.org/process",
+          "url": `${SITE_URL}/process`,
           "inLanguage": locale
         };
       case '/careers':
@@ -320,7 +321,7 @@ export default function StructuredData() {
           "@type": "WebPage",
           "name": t('page.careers.name'),
           "description": t('page.careers.description'),
-          "url": "https://www.craftsai.org/careers",
+          "url": `${SITE_URL}/careers`,
           "inLanguage": locale
         };
       default:

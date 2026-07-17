@@ -1,4 +1,4 @@
-const SITE_URL = 'https://www.craftsai.org';
+import { SITE_URL } from '@/app/lib/siteUrl';
 
 interface ArticleJsonLdProps {
   headline: string;

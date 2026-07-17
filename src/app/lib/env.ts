@@ -82,6 +82,11 @@ const prodSchema = z
         return allValid && noDuplicates;
       }, 'ADMIN_EMAILS must be a comma-separated list of unique, valid email addresses'),
     NOTIFY_URL: httpsUrl('NOTIFY_URL'),
+    // The canonical origin this deployment advertises in emails, sitemap,
+    // canonical tags and JSON-LD. Optional so an existing deploy keeps its
+    // built-in default, but if set it must be a real URL — a typo here would
+    // silently poison every outbound link and every SEO signal at once.
+    NEXT_PUBLIC_SITE_URL: httpsUrl('NEXT_PUBLIC_SITE_URL').optional(),
     NOTIFY_API_KEY: z
       .string()
       .min(1, 'NOTIFY_API_KEY is required')

@@ -1,6 +1,6 @@
 import { blogs, caseStudies } from '#content';
 
-const SITE_URL = 'https://www.craftsai.org';
+import { SITE_URL } from '@/app/lib/siteUrl';
 
 function escapeXml(text: string): string {
   return text

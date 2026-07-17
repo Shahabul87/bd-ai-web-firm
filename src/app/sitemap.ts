@@ -1,8 +1,10 @@
 import { MetadataRoute } from 'next';
 import { blogs, caseStudies, guides, products } from '#content';
+import { SITE_URL } from '@/app/lib/siteUrl';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.craftsai.org';
+  // One canonical origin: a staging sitemap must not advertise production URLs.
+  const baseUrl = SITE_URL;
   const currentDate = new Date().toISOString();
 
   // Build the en/bn hreflang alternates for a given path (e.g. '' for home, '/about' for /about)

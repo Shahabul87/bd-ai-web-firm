@@ -29,6 +29,11 @@ export CONTACT_EMAIL="founder@ci.test"
 export AUTH_SECRET="ci-only-auth-secret-not-a-real-secret-000000"
 export PORTAL_AUTH_SECRET="ci-only-portal-secret-not-a-real-secret-11"
 export AUTH_URL="http://localhost:3101"
+# The canonical origin this build advertises. Without it the suite would build
+# sitemap/JSON-LD/emails pointing at PRODUCTION while serving localhost.
+export NEXT_PUBLIC_SITE_URL="http://localhost:3101"
+# Identify the artifact under test, exactly as a release build would.
+export APP_COMMIT_SHA="$(git rev-parse HEAD 2>/dev/null || echo unknown)"
 export E2E_PORT="${E2E_PORT:-3101}"
 export E2E_BASE_URL="http://localhost:${E2E_PORT}"
 # This IS CI: it makes Playwright run single-worker (the authenticated specs
