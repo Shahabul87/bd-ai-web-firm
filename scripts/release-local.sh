@@ -39,8 +39,13 @@ BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 [[ "$BRANCH" == "$RELEASE_BRANCH" ]] || die "on branch '$BRANCH', expected '$RELEASE_BRANCH'"
 git fetch --quiet origin "$RELEASE_BRANCH" 2>/dev/null || warn "could not fetch origin (offline?)"
 LOCAL="$(git rev-parse HEAD)"
-REMOTE="$(git rev-parse "origin/$RELEASE_BRANCH" 2>/dev/null || echo '')"
-if [[ -n "$REMOTE" && "$LOCAL" != "$REMOTE" ]]; then
+# --verify -q: plain `git rev-parse <unknown-ref>` ECHOES the ref name back on
+# stdout, which would make this comparison fail against a literal string and
+# refuse every release on a branch with no upstream.
+REMOTE="$(git rev-parse --verify -q "origin/$RELEASE_BRANCH" 2>/dev/null || true)"
+if [[ -z "$REMOTE" ]]; then
+  warn "no origin/$RELEASE_BRANCH to compare against — cannot confirm this commit is pushed"
+elif [[ "$LOCAL" != "$REMOTE" ]]; then
   die "local $RELEASE_BRANCH is not in sync with origin/$RELEASE_BRANCH — push or pull first"
 fi
 SHA="$LOCAL"
