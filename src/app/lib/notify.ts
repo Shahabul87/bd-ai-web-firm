@@ -5,6 +5,10 @@ import { reportError } from './report';
 const NOTIFY_URL = () => process.env.NOTIFY_URL ?? '';
 const NOTIFY_API_KEY = () => process.env.NOTIFY_API_KEY ?? '';
 
+/** Bounded timeout for every outbound notify-svc call — a hung dependency must
+ *  never stall a login/verify request indefinitely. */
+const NOTIFY_TIMEOUT_MS = 8000;
+
 /** True only when both notify-svc URL and API key are configured. */
 export const isNotifyConfigured = (): boolean => Boolean(NOTIFY_URL() && NOTIFY_API_KEY());
 
@@ -15,6 +19,7 @@ async function post(path: string, body: unknown): Promise<Response | null> {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json', 'X-API-Key': NOTIFY_API_KEY() },
       body: JSON.stringify(body),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     });
     // A non-2xx from notify-svc is an operational failure worth surfacing (auth
     // challenges, founder alerts and pushes all depend on it). Never include the
@@ -203,6 +208,7 @@ export async function trustRevoke(userRef: string, token: string): Promise<void>
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json', 'X-API-Key': NOTIFY_API_KEY() },
       body: JSON.stringify({ user_ref: userRef, token }),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     });
   } catch {
     // swallow — logout must still clear the cookie and complete

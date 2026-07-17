@@ -52,3 +52,38 @@ describe('validateEnv — ADMIN_EMAILS', () => {
     expect(() => validateEnv()).toThrow(/ADMIN_EMAILS/);
   });
 });
+
+describe('validateEnv — secret and URL hardening', () => {
+  it('accepts the fully-valid baseline', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com' });
+    expect(() => validateEnv()).not.toThrow();
+  });
+
+  it('rejects a placeholder AUTH_SECRET', async () => {
+    const { validateEnv } = await loadWith({
+      ADMIN_EMAILS: 'a@b.com',
+      AUTH_SECRET: 'dev-only-insecure-secret-do-not-use-000',
+    });
+    expect(() => validateEnv()).toThrow(/AUTH_SECRET/);
+  });
+
+  it('rejects identical admin and portal secrets', async () => {
+    const same = 'z'.repeat(40);
+    const { validateEnv } = await loadWith({
+      ADMIN_EMAILS: 'a@b.com',
+      AUTH_SECRET: same,
+      PORTAL_AUTH_SECRET: same,
+    });
+    expect(() => validateEnv()).toThrow(/PORTAL_AUTH_SECRET/);
+  });
+
+  it('rejects a non-postgres DATABASE_URL', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com', DATABASE_URL: 'mysql://u:p@h/db' });
+    expect(() => validateEnv()).toThrow(/DATABASE_URL/);
+  });
+
+  it('rejects a non-https NOTIFY_URL in production', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com', NOTIFY_URL: 'http://notify.example.com' });
+    expect(() => validateEnv()).toThrow(/NOTIFY_URL/);
+  });
+});

@@ -168,8 +168,15 @@ export async function addLeadNote(id: string, authorEmail: string, body: string)
 }
 
 function csvCell(v: unknown): string {
-  const s = v == null ? '' : String(v);
-  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  let s = v == null ? '' : String(v);
+  // Neutralize spreadsheet formula injection: Excel/Sheets execute a cell that
+  // begins with = + - @, a tab, or a carriage return as a formula. Lead name,
+  // company, and email are attacker-controlled (public forms), so prefix such a
+  // cell with a single quote to force literal-text interpretation.
+  if (/^[=+\-@\t\r]/.test(s)) {
+    s = `'${s}`;
+  }
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
 export function leadsToCsv(rows: LeadListItem[]): string {

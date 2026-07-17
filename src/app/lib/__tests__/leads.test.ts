@@ -16,7 +16,7 @@ jest.mock('../email', () => ({
 
 import { prisma } from '../db';
 import { sendAnnouncement } from '../notify';
-import { createLead } from '../leads';
+import { createLead, leadsToCsv } from '../leads';
 
 const createMock = prisma.lead.create as jest.Mock;
 
@@ -67,5 +67,37 @@ describe('createLead', () => {
     expect(r).toEqual({ id: 'lead_2' });
     expect(createMock).toHaveBeenCalledTimes(2);
     expect(sendAnnouncement).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('leadsToCsv — formula-injection neutralization', () => {
+  const row = (over: Partial<Parameters<typeof leadsToCsv>[0][number]>) => ({
+    id: 'l1',
+    source: 'CONTACT' as const,
+    name: 'Ada',
+    email: 'ada@x.com',
+    company: null,
+    status: 'NEW' as const,
+    createdAt: new Date('2026-07-16T00:00:00.000Z'),
+    ...over,
+  });
+
+  it.each([
+    ['=1+1', "'="],
+    ['+1', "'+"],
+    ['-1', "'-"],
+    ['@X', "'@"],
+  ])('prefixes a formula-triggering value %j so spreadsheets treat it as text', (name, marker) => {
+    const dataLine = leadsToCsv([row({ name })]).trim().split('\n')[1];
+    // The neutralizing single quote precedes the formula character...
+    expect(dataLine).toContain(marker);
+    // ...and no cell begins with a bare formula character right after a comma.
+    expect(dataLine).not.toContain(`,${name[0]}`);
+  });
+
+  it('leaves ordinary values unprefixed', () => {
+    const csv = leadsToCsv([row({ name: 'Ada Lovelace' })]);
+    expect(csv).toContain('Ada Lovelace');
+    expect(csv).not.toContain("'Ada");
   });
 });

@@ -25,27 +25,59 @@ const isTest = process.env.NODE_ENV === 'test';
 /** Secrets must carry at least 32 bytes of entropy (openssl rand -base64 32). */
 const MIN_SECRET_LEN = 32;
 
-const prodSchema = z.object({
-  DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
-  AUTH_SECRET: z.string().min(MIN_SECRET_LEN, `AUTH_SECRET must be at least ${MIN_SECRET_LEN} characters`),
-  PORTAL_AUTH_SECRET: z
+/** Obvious placeholder/example values that must never reach production. */
+const PLACEHOLDER_RE =
+  /(dev-only|change[-_ ]?me|placeholder|example|your[-_ ]?secret|xxxx|secret123|todo|replace[-_ ]?me)/i;
+
+const strongSecret = (name: string) =>
+  z
     .string()
-    .min(MIN_SECRET_LEN, `PORTAL_AUTH_SECRET must be at least ${MIN_SECRET_LEN} characters`),
-  AUTH_URL: z.string().url('AUTH_URL must be a valid URL'),
-  ADMIN_EMAILS: z
+    .min(MIN_SECRET_LEN, `${name} must be at least ${MIN_SECRET_LEN} characters`)
+    .refine((v) => !PLACEHOLDER_RE.test(v), `${name} looks like a placeholder — set a real secret`);
+
+const httpsUrl = (name: string) =>
+  z
     .string()
-    .min(1, 'ADMIN_EMAILS is required')
-    .refine((raw) => {
-      const entries = raw.split(',').map((e) => e.trim()).filter(Boolean);
-      if (entries.length === 0) return false;
-      const normalized = entries.map(normalizeEmail);
-      const allValid = normalized.every((e) => EMAIL_RE.test(e));
-      const noDuplicates = new Set(normalized).size === normalized.length;
-      return allValid && noDuplicates;
-    }, 'ADMIN_EMAILS must be a comma-separated list of unique, valid email addresses'),
-  NOTIFY_URL: z.string().url('NOTIFY_URL must be a valid URL'),
-  NOTIFY_API_KEY: z.string().min(1, 'NOTIFY_API_KEY is required'),
-});
+    .url(`${name} must be a valid URL`)
+    .refine((v) => v.startsWith('https://'), `${name} must use https:// in production`);
+
+const prodSchema = z
+  .object({
+    DATABASE_URL: z
+      .string()
+      .min(1, 'DATABASE_URL is required')
+      .refine((v) => /^postgres(ql)?:\/\//.test(v), 'DATABASE_URL must be a postgres:// connection string'),
+    AUTH_SECRET: strongSecret('AUTH_SECRET'),
+    PORTAL_AUTH_SECRET: strongSecret('PORTAL_AUTH_SECRET'),
+    AUTH_URL: httpsUrl('AUTH_URL'),
+    ADMIN_EMAILS: z
+      .string()
+      .min(1, 'ADMIN_EMAILS is required')
+      .refine((raw) => {
+        const entries = raw.split(',').map((e) => e.trim()).filter(Boolean);
+        if (entries.length === 0) return false;
+        const normalized = entries.map(normalizeEmail);
+        const allValid = normalized.every((e) => EMAIL_RE.test(e));
+        const noDuplicates = new Set(normalized).size === normalized.length;
+        return allValid && noDuplicates;
+      }, 'ADMIN_EMAILS must be a comma-separated list of unique, valid email addresses'),
+    NOTIFY_URL: httpsUrl('NOTIFY_URL'),
+    NOTIFY_API_KEY: z
+      .string()
+      .min(1, 'NOTIFY_API_KEY is required')
+      .refine((v) => !PLACEHOLDER_RE.test(v), 'NOTIFY_API_KEY looks like a placeholder — set a real key'),
+  })
+  .superRefine((env, ctx) => {
+    // The admin and portal login systems must not share signing material, or a
+    // token minted for one could be replayed against the other.
+    if (env.AUTH_SECRET && env.PORTAL_AUTH_SECRET && env.AUTH_SECRET === env.PORTAL_AUTH_SECRET) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['PORTAL_AUTH_SECRET'],
+        message: 'PORTAL_AUTH_SECRET must differ from AUTH_SECRET',
+      });
+    }
+  });
 
 let validated = false;
 
