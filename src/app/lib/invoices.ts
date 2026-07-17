@@ -3,6 +3,7 @@ import { writeAudit } from './audit';
 import { sendAnnouncement, sendPush } from './notify';
 import { SITE_URL } from './email';
 import { computeTotals, formatMoney } from './money';
+import { assertProjectBelongsToClient } from './tenantAuthz';
 
 export type InvoiceStatusValue = 'DRAFT' | 'SENT' | 'PAID' | 'VOID';
 
@@ -107,6 +108,9 @@ export async function getClientInvoice(clientId: string, invoiceId: string) {
 export async function createInvoice(input: InvoiceInput, actorEmail: string): Promise<{ id: string }> {
   const totals = computeTotals(input.lines, input.taxRateBps);
   const created = await prisma.$transaction(async (tx) => {
+    // Prove the project belongs to the client in the SAME transaction as the
+    // write — the dropdown filtering that pairs them is browser-side only.
+    await assertProjectBelongsToClient(tx, input.clientId, input.projectId);
     const agg = await tx.invoice.aggregate({ _max: { number: true } });
     const number = (agg._max.number ?? 0) + 1;
     return tx.invoice.create({
@@ -139,12 +143,17 @@ export async function createInvoice(input: InvoiceInput, actorEmail: string): Pr
 }
 
 export async function updateInvoiceDraft(id: string, input: InvoiceInput, actorEmail: string): Promise<void> {
-  const inv = await prisma.invoice.findUnique({ where: { id }, select: { status: true } });
-  if (!inv || inv.status !== 'DRAFT') throw new Error('Only draft invoices can be edited.');
   const totals = computeTotals(input.lines, input.taxRateBps);
-  await prisma.$transaction([
-    prisma.invoiceLine.deleteMany({ where: { invoiceId: id } }),
-    prisma.invoice.update({
+  // The status check, the tenant check and the writes all live in ONE
+  // transaction: the status read used to happen outside it, so an invoice could
+  // be sent between the check and the update. This also re-assigns clientId, so
+  // the project/client pairing must be re-proven on every edit.
+  await prisma.$transaction(async (tx) => {
+    const inv = await tx.invoice.findUnique({ where: { id }, select: { status: true } });
+    if (!inv || inv.status !== 'DRAFT') throw new Error('Only draft invoices can be edited.');
+    await assertProjectBelongsToClient(tx, input.clientId, input.projectId);
+    await tx.invoiceLine.deleteMany({ where: { invoiceId: id } });
+    await tx.invoice.update({
       where: { id },
       data: {
         clientId: input.clientId,
@@ -166,8 +175,8 @@ export async function updateInvoiceDraft(id: string, input: InvoiceInput, actorE
           })),
         },
       },
-    }),
-  ]);
+    });
+  });
   await writeAudit('invoice.update', { actorEmail, meta: { id } });
 }
 
