@@ -1,6 +1,7 @@
 import 'server-only';
 import { Prisma } from '@prisma/client';
 import { prisma } from './db';
+import { redactMeta } from './redact';
 
 /**
  * Self-hosted observability / incident reporting — runs entirely on our own
@@ -20,11 +21,19 @@ import { prisma } from './db';
 
 const WEBHOOK = () => process.env.OBSERVABILITY_WEBHOOK_URL ?? '';
 
+/** A hung collector must never stall the caller. */
+const WEBHOOK_TIMEOUT_MS = 5000;
+
 export type Severity = 'error' | 'warn';
 
 export interface ReportContext {
   severity?: Severity;
   meta?: Record<string, unknown>;
+  /**
+   * Correlation id tying this incident to the request, its logs, and any outbox
+   * event it produced, so an operator can follow one failure across all three.
+   */
+  requestId?: string;
 }
 
 /**
@@ -35,12 +44,17 @@ export interface ReportContext {
 export function reportError(scope: string, error: unknown, ctx: ReportContext = {}): void {
   const severity = ctx.severity ?? 'error';
   const message = error instanceof Error ? error.message : String(error);
+  // Redact centrally at the sink: callers must not be trusted to remember, and a
+  // single `meta: { token }` would otherwise persist auth material in plaintext.
+  const meta = redactMeta(
+    ctx.requestId ? { ...(ctx.meta ?? {}), requestId: ctx.requestId } : ctx.meta,
+  );
   const event = {
     ts: new Date().toISOString(),
     level: severity,
     scope,
     message,
-    ...(ctx.meta ? { meta: ctx.meta } : {}),
+    ...(meta ? { meta } : {}),
   };
 
   // 1. Structured single-line log — never include secret values in meta.
@@ -57,7 +71,7 @@ export function reportError(scope: string, error: unknown, ctx: ReportContext = 
           scope,
           severity: severity === 'warn' ? 'WARN' : 'ERROR',
           message,
-          meta: ctx.meta ? (ctx.meta as Prisma.InputJsonValue) : Prisma.JsonNull,
+          meta: meta ? (meta as Prisma.InputJsonValue) : Prisma.JsonNull,
         },
       })
       .catch((e) => {
@@ -67,7 +81,10 @@ export function reportError(scope: string, error: unknown, ctx: ReportContext = 
     /* never let incident persistence break the caller */
   }
 
-  // 3. Optional forward to a self-owned collector/webhook.
+  // 3. Forward to a self-owned collector/webhook. This is the INDEPENDENT alert
+  //    path: a plain HTTP POST that touches neither Postgres nor the admin UI,
+  //    so it still reaches the operator when the database is the thing that is
+  //    down (exactly when step 2 above cannot work).
   const url = WEBHOOK();
   if (!url) return;
   void fetch(url, {
@@ -75,6 +92,7 @@ export function reportError(scope: string, error: unknown, ctx: ReportContext = 
     cache: 'no-store',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(event),
+    signal: AbortSignal.timeout(WEBHOOK_TIMEOUT_MS),
   }).catch(() => {
     /* swallow — reporting the reporter would loop */
   });
@@ -99,7 +117,21 @@ export async function listIncidents(opts: { take?: number; scope?: string } = {}
   return rows as IncidentRow[];
 }
 
-/** Count recent incidents (optionally by severity) for the dashboard header. */
-export async function countIncidents(opts: { severity?: 'WARN' | 'ERROR' } = {}): Promise<number> {
-  return prisma.incident.count({ where: opts.severity ? { severity: opts.severity } : undefined });
+/**
+ * Count incidents for the dashboard header, WITHIN A WINDOW.
+ *
+ * This used to count every incident ever recorded, so the number only grew and
+ * an operator could not tell "3 problems right now" from "3 problems last
+ * quarter". Defaults to the last 24 hours; pass `sinceHours: 0` for all time.
+ */
+export async function countIncidents(
+  opts: { severity?: 'WARN' | 'ERROR'; sinceHours?: number } = {},
+): Promise<number> {
+  const sinceHours = opts.sinceHours ?? 24;
+  return prisma.incident.count({
+    where: {
+      ...(opts.severity ? { severity: opts.severity } : {}),
+      ...(sinceHours > 0 ? { createdAt: { gte: new Date(Date.now() - sinceHours * 3_600_000) } } : {}),
+    },
+  });
 }
