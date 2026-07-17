@@ -1,3 +1,24 @@
+> # 📎 HISTORICAL — superseded 2026-07-16
+>
+> **This report's "production-ready" conclusion no longer describes the
+> application, and its counts are out of date.** It is kept as context for what
+> was true on 2026-07-05, not as a statement of current readiness.
+>
+> Superseded by
+> [`docs/superpowers/plans/2026-07-16-production-readiness-remediation-and-local-cicd.md`](superpowers/plans/2026-07-16-production-readiness-remediation-and-local-cicd.md),
+> which found that at the time of writing: every quote submission was rejected,
+> all six homepage cards 404'd, magic-link tokens could reach Google Analytics,
+> concurrent invoice creation lost invoices, and `/api/health` returned 404.
+>
+> **Current evidence lives in the artifacts, not in prose:**
+> `npm run ci:local` → `.artifacts/ci/<git-sha>/summary.txt`
+> `npm run release:prod` → `.artifacts/releases/<git-sha>/manifest.txt`
+>
+> Specific claims below that are now false: `next lint` has been replaced by the
+> ESLint CLI; the test counts are superseded; the readiness verdict is withdrawn.
+
+---
+
 # Production Readiness Report - CraftsAI
 
 Report date: 2026-07-05
