@@ -187,3 +187,24 @@ export async function trustCheck(
   const res = await post('/v1/auth/trust/check', { user_ref: userRef, token });
   return (await jsonOk(res, (j) => ({ trusted: Boolean(j.trusted) }))) ?? { trusted: false };
 }
+
+/**
+ * Best-effort revoke of a trusted-device token at notify-svc (on logout).
+ * Never throws and — unlike {@link post} — never reports, so a not-yet-supported
+ * revoke endpoint cannot spam incidents or block logout. Clearing the trust
+ * COOKIE is the guaranteed effect; this is defense-in-depth for a token that may
+ * have been copied off the device.
+ */
+export async function trustRevoke(userRef: string, token: string): Promise<void> {
+  if (devMode() || !isNotifyConfigured()) return;
+  try {
+    await fetch(`${NOTIFY_URL()}/v1/auth/trust/revoke`, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': NOTIFY_API_KEY() },
+      body: JSON.stringify({ user_ref: userRef, token }),
+    });
+  } catch {
+    // swallow — logout must still clear the cookie and complete
+  }
+}
