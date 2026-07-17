@@ -1,6 +1,7 @@
 jest.mock('../db', () => ({
   prisma: {
-    lead: { create: jest.fn() },
+    // findFirst backs the rapid-repeat duplicate check.
+    lead: { create: jest.fn(), findFirst: jest.fn() },
     // reportError persists incidents on the final-failure path.
     incident: { create: jest.fn().mockResolvedValue({}) },
   },
@@ -19,9 +20,13 @@ import { sendAnnouncement } from '../notify';
 import { createLead, leadsToCsv } from '../leads';
 
 const createMock = prisma.lead.create as jest.Mock;
+const findFirstMock = prisma.lead.findFirst as unknown as jest.Mock;
 
 describe('createLead', () => {
-  beforeEach(() => jest.clearAllMocks());
+  beforeEach(() => {
+    jest.clearAllMocks();
+    findFirstMock.mockResolvedValue(null); // no recent duplicate by default
+  });
 
   it('persists a lead and alerts the founder', async () => {
     createMock.mockResolvedValue({ id: 'lead_1' });
@@ -67,6 +72,57 @@ describe('createLead', () => {
     expect(r).toEqual({ id: 'lead_2' });
     expect(createMock).toHaveBeenCalledTimes(2);
     expect(sendAnnouncement).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('createLead — rapid-repeat idempotency', () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  it('returns the existing lead instead of creating a duplicate', async () => {
+    findFirstMock.mockResolvedValue({ id: 'lead_existing' });
+    const r = await createLead({
+      source: 'CONTACT',
+      name: 'Ada',
+      email: 'ada@x.com',
+      message: 'hi',
+      payload: { message: 'hi' },
+    });
+    expect(r).toEqual({ id: 'lead_existing' });
+    expect(createMock).not.toHaveBeenCalled();
+    expect(sendAnnouncement).not.toHaveBeenCalled(); // no second founder alert
+  });
+
+  it('still captures the lead if the duplicate lookup fails', async () => {
+    findFirstMock.mockRejectedValue(new Error('db hiccup'));
+    createMock.mockResolvedValue({ id: 'lead_2' });
+    const r = await createLead({
+      source: 'CONTACT',
+      name: 'Ada',
+      email: 'ada@x.com',
+      payload: { message: 'hi' },
+    });
+    expect(r).toEqual({ id: 'lead_2' });
+    expect(createMock).toHaveBeenCalled();
+  });
+});
+
+describe('createLead — founder alert completeness', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    findFirstMock.mockResolvedValue(null);
+  });
+
+  it('includes payload fields beyond the core four (e.g. service interest)', async () => {
+    createMock.mockResolvedValue({ id: 'lead_3' });
+    await createLead({
+      source: 'CONTACT',
+      name: 'Ada',
+      email: 'ada@x.com',
+      message: 'hi',
+      payload: { name: 'Ada', email: 'ada@x.com', message: 'hi', service: 'web-development' },
+    });
+    const body = (sendAnnouncement as jest.Mock).mock.calls[0][2] as string;
+    expect(body).toContain('service: web-development');
   });
 });
 

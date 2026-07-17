@@ -26,6 +26,42 @@ function isTransientDbError(msg: string): boolean {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** Fields rendered explicitly in the founder alert; everything else in the
+ *  payload is appended generically so no collected field is ever invisible. */
+const ALERT_CORE_FIELDS = new Set(['name', 'email', 'company', 'message']);
+
+function payloadExtras(payload: Record<string, unknown>): string {
+  const lines = Object.entries(payload)
+    .filter(([k, v]) => !ALERT_CORE_FIELDS.has(k) && v !== '' && v != null)
+    .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : String(v)}`);
+  return lines.length ? `\n${lines.join('\n')}` : '';
+}
+
+/**
+ * A repeat submission of the SAME content within this window is treated as a
+ * double-click / retry rather than a new lead.
+ */
+const DUPLICATE_WINDOW_MS = 2 * 60_000;
+
+/** Returns the existing lead if an identical one was just created. */
+async function findRecentDuplicate(input: CreateLeadInput): Promise<{ id: string } | null> {
+  try {
+    return await prisma.lead.findFirst({
+      where: {
+        source: input.source,
+        email: input.email,
+        message: input.message ?? null,
+        createdAt: { gt: new Date(Date.now() - DUPLICATE_WINDOW_MS) },
+      },
+      orderBy: { createdAt: 'desc' },
+      select: { id: true },
+    });
+  } catch {
+    // A dedupe-lookup failure must never block capturing a real lead.
+    return null;
+  }
+}
+
 /**
  * Persists a lead and fires the founder alert. Fail-open: returns `null`
  * (never throws) so public form routes still succeed for the visitor.
@@ -33,6 +69,12 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
  * a cold deploy is not lost.
  */
 export async function createLead(input: CreateLeadInput): Promise<{ id: string } | null> {
+  // Idempotency for rapid repeats (double-clicked submit, client retry): an
+  // identical submission inside the window returns the original lead instead of
+  // creating a duplicate the founder would have to triage twice.
+  const duplicate = await findRecentDuplicate(input);
+  if (duplicate) return { id: duplicate.id };
+
   const maxAttempts = 3;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
@@ -57,6 +99,9 @@ export async function createLead(input: CreateLeadInput): Promise<{ id: string }
         `${subject}\n\nName: ${input.name}\nEmail: ${input.email}` +
         (input.company ? `\nCompany: ${input.company}` : '') +
         (input.message ? `\nMessage: ${input.message}` : '') +
+        // Everything else collected (contact: service; demo: product; quote:
+        // services/budget/timeline/…) so the alert is never missing a field.
+        payloadExtras(input.payload) +
         `\n\nView: ${SITE_URL}/admin/leads/${lead.id}`;
       void sendAnnouncement(CONTACT_EMAIL, subject, body);
       void sendPush('admin', `New ${input.source} lead`, `${input.name} — ${input.email}`);

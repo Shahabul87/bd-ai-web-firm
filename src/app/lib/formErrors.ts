@@ -80,6 +80,9 @@ export interface ContactErrorResponse {
 export interface ContactSuccessResponse {
   success: true;
   code: typeof CONTACT_SUCCESS;
+  /** Stable id for this submission — quotable by the visitor, traceable by the
+   *  operator to the persisted lead and its logs. */
+  submissionId?: string;
 }
 
 export type ContactResponse = ContactSuccessResponse | ContactErrorResponse;

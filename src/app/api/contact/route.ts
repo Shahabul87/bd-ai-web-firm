@@ -3,15 +3,12 @@ import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
 import { createLead } from '@/app/lib/leads';
 import { sendAnnouncement } from '@/app/lib/notify';
 import { SITE_URL } from '@/app/lib/email';
-import { sanitizeInput, validateEmail } from '@/app/lib/sanitize';
+import { ContactSchema, contactFieldErrors } from '@/app/lib/formSchemas';
 import {
-  CONTACT_FIELD_CODES,
   CONTACT_SUCCESS,
   CONTACT_SUBMIT_FAILED,
   CONTACT_SERVER_ERROR,
   RATE_LIMITED_SECONDS,
-  type ContactField,
-  type ContactFieldCode,
 } from '@/app/lib/formErrors';
 
 export async function POST(request: NextRequest) {
@@ -42,35 +39,27 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Extract and sanitize form data
-    const name = sanitizeInput(body.name, 100);
-    const email = sanitizeInput(body.email, 100);
-    const message = sanitizeInput(body.message, 2000);
-
-    // Validate required fields
-    const errors: Partial<Record<ContactField, ContactFieldCode>> = {};
-
-    if (!name || name.length < 2) {
-      errors.name = CONTACT_FIELD_CODES.name;
+    // One shared contract with the client: normalizes (no HTML-escaping) and
+    // validates in one pass.
+    const parsed = ContactSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { success: false, errors: contactFieldErrors(parsed.error) },
+        { status: 400 },
+      );
     }
-    if (!email || !validateEmail(email)) {
-      errors.email = CONTACT_FIELD_CODES.email;
-    }
-    if (!message || message.length < 10) {
-      errors.message = CONTACT_FIELD_CODES.message;
-    }
-
-    if (Object.keys(errors).length > 0) {
-      return NextResponse.json({ success: false, errors }, { status: 400 });
-    }
+    const { name, email, message, company, service } = parsed.data;
 
     // Persist the lead (retries transient errors) + alert the founder.
+    // company and service were previously collected by the form and then
+    // silently dropped here; both are now stored.
     const lead = await createLead({
       source: 'CONTACT',
       name,
       email,
+      company: company || undefined,
       message,
-      payload: { name, email, message },
+      payload: { name, email, message, company, service },
       ip: clientIP,
       userAgent: request.headers.get('user-agent') ?? undefined,
     });
@@ -97,6 +86,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       code: CONTACT_SUCCESS,
+      submissionId: lead.id,
     });
   } catch (error) {
     console.error('Contact form error:', error);
