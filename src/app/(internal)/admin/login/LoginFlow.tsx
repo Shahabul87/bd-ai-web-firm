@@ -59,6 +59,11 @@ export default function LoginFlow({ initialToken }: { initialToken?: string }) {
   useEffect(() => {
     if (!initialToken || ranInitial.current) return;
     ranInitial.current = true;
+    // Scrub the token from the address bar/history before doing anything else,
+    // so it cannot leak via Referer, browser history, or extensions.
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', '/admin/login/callback');
+    }
     (async () => {
       setBusy(true);
       const r = await postJson('/api/admin/login/verify', { token: initialToken });

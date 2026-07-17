@@ -1,23 +1,24 @@
 'use client';
 
 import { useEffect } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 export default function Analytics() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    // Google Analytics 4 - Replace 'GA_MEASUREMENT_ID' with your actual ID
     const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-    
+
     if (GA_MEASUREMENT_ID && typeof window !== 'undefined') {
-      // Track page views
+      // page_path is the pathname ONLY. Query strings, URL fragments, and any
+      // user-controlled identifiers (auth tokens, emails, IDs) must never be
+      // sent to analytics — magic-link callbacks carry the token in the query
+      // string, so including it would disclose the token to Google.
       window.gtag?.('config', GA_MEASUREMENT_ID, {
-        page_path: pathname + (searchParams ? `?${searchParams.toString()}` : ''),
+        page_path: pathname,
       });
     }
-  }, [pathname, searchParams]);
+  }, [pathname]);
 
   return null;
 }

@@ -16,5 +16,9 @@ export const viewport = {
 /** Root layout for /admin and /portal. Never localized, never indexed,
  *  no marketing chrome (no chatbot, WhatsApp button, or cookie banner). */
 export default function InternalLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <AppShell lang="en">{children}</AppShell>;
+  return (
+    <AppShell lang="en" analytics={false}>
+      {children}
+    </AppShell>
+  );
 }
