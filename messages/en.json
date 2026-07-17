@@ -1757,9 +1757,7 @@
     "email_invalid": "Please enter a valid email address",
     "message_too_short": "Message must be at least 10 characters",
     "services_required": "Please select at least one service",
-    "project_type_required": "Please specify your project type",
     "description_required": "Please provide a detailed project description",
-    "company_name_required": "Company name is required",
     "contact_name_required": "Contact name is required",
     "email_required": "Valid email address is required",
     "rate_limited_seconds": "Too many requests. Please try again in {seconds} seconds.",
@@ -1769,7 +1767,9 @@
     "contact_server_error": "An error occurred while sending your message. Please try again.",
     "quote_server_error": "An error occurred while submitting your quote request. Please try again.",
     "contact_success": "Your message has been sent successfully! We'll get back to you within 24 hours.",
-    "quote_success": "Your quote request has been submitted successfully! We'll review your requirements and contact you within 24 hours with a detailed proposal."
+    "quote_success": "Your quote request has been submitted successfully! We'll review your requirements and contact you within 24 hours with a detailed proposal.",
+    "budget_required": "Please select your investment level",
+    "terms_required": "Please agree to the terms"
   },
   "ErrorPage": {
     "label": "500 / Something broke",
