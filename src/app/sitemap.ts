@@ -5,7 +5,12 @@ import { SITE_URL } from '@/app/lib/siteUrl';
 export default function sitemap(): MetadataRoute.Sitemap {
   // One canonical origin: a staging sitemap must not advertise production URLs.
   const baseUrl = SITE_URL;
-  const currentDate = new Date().toISOString();
+
+  // NOTE: static marketing pages deliberately carry NO lastModified. It used to
+  // be `new Date()` at build time, so every page claimed to change on every
+  // deploy — a signal crawlers learn to distrust. Only pages with a REAL source
+  // date (Velite content, below) advertise one. Absent lastModified is valid and
+  // lets the crawler judge freshness itself.
 
   // Build the en/bn hreflang alternates for a given path (e.g. '' for home, '/about' for /about)
   const alt = (path: string): { languages: Record<string, string> } => ({
@@ -19,35 +24,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const corePages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
-      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 1.0,
       alternates: alt(''),
     },
     {
       url: `${baseUrl}/services`,
-      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
       alternates: alt('/services'),
     },
     {
       url: `${baseUrl}/quote`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.9,
       alternates: alt('/quote'),
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.9,
       alternates: alt('/contact'),
     },
     {
       url: `${baseUrl}/process`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: alt('/process'),
@@ -58,28 +58,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const companyPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/about`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: alt('/about'),
     },
     {
       url: `${baseUrl}/portfolio`,
-      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
       alternates: alt('/portfolio'),
     },
     {
       url: `${baseUrl}/careers`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.6,
       alternates: alt('/careers'),
     },
     {
       url: `${baseUrl}/faq`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
       alternates: alt('/faq'),
@@ -90,28 +86,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const servicePages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/services/web-development`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: alt('/services/web-development'),
     },
     {
       url: `${baseUrl}/services/android-development`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: alt('/services/android-development'),
     },
     {
       url: `${baseUrl}/services/ios-development`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.8,
       alternates: alt('/services/ios-development'),
     },
     {
       url: `${baseUrl}/services/support`,
-      lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
       alternates: alt('/services/support'),
@@ -122,14 +114,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const productPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/products`,
-      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
       alternates: alt('/products'),
     },
     ...products.map((product) => ({
       url: `${baseUrl}/products/${product.slug}`,
-      lastModified: currentDate,
       changeFrequency: 'monthly' as const,
       priority: 0.7,
       alternates: alt(`/products/${product.slug}`),
@@ -140,28 +130,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const resourcePages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/resources`,
-      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
       alternates: alt('/resources'),
     },
     {
       url: `${baseUrl}/resources/blog`,
-      lastModified: currentDate,
       changeFrequency: 'daily',
       priority: 0.9,
       alternates: alt('/resources/blog'),
     },
     {
       url: `${baseUrl}/resources/case-studies`,
-      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
       alternates: alt('/resources/case-studies'),
     },
     {
       url: `${baseUrl}/resources/guides`,
-      lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
       alternates: alt('/resources/guides'),
@@ -199,21 +185,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const legalPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/privacy`,
-      lastModified: currentDate,
       changeFrequency: 'yearly',
       priority: 0.3,
       alternates: alt('/privacy'),
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: currentDate,
       changeFrequency: 'yearly',
       priority: 0.3,
       alternates: alt('/terms'),
     },
     {
       url: `${baseUrl}/cookies`,
-      lastModified: currentDate,
       changeFrequency: 'yearly',
       priority: 0.3,
       alternates: alt('/cookies'),
