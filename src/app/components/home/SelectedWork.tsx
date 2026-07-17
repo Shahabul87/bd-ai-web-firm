@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import SectionHeader from '../../design/ui/SectionHeader';
 import Card from '../../design/ui/Card';
 import { rise, riseStagger, viewportOnce } from '../../design/motion';
+import { projectHref } from './homeRouting';
 
 interface ProjectCopy {
   slug: string;
@@ -17,29 +18,6 @@ interface ProjectCopy {
 
 interface Project extends ProjectCopy {
   href: string;
-}
-
-/* Routing data stays in code — hrefs must never vary by locale, so they are not
-   exposed to translators. Paired by stable `slug`, never by array position: a
-   translator reordering the message array is natural and length-preserving, so
-   positional pairing would silently repoint every card at the wrong URL. */
-const PROJECT_HREFS: Record<string, string> = {
-  taxomind: '/portfolio/taxomind',
-  'fincoach-ai': '/portfolio/fincoach-ai',
-  mathphysics: '/portfolio/mathphysics',
-};
-
-/* An unknown slug is a bug, not a fallback case. Throwing surfaces it at
-   render; a placeholder href would ship a wrong link to users instead. */
-function projectHref(slug: string): string {
-  const href = PROJECT_HREFS[slug];
-  if (!href) {
-    throw new Error(
-      `SelectedWork: no route for project slug "${slug}". Routes are defined in ` +
-        'PROJECT_HREFS; messages must not add or rename slugs.'
-    );
-  }
-  return href;
 }
 
 export default function SelectedWork() {

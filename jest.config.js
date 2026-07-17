@@ -13,6 +13,10 @@ const customJestConfig = {
     // Handle module aliases (this will be automatically configured for you soon)
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@content/(.*)$': '<rootDir>/content/$1',
+    // Velite's generated content manifest. Tests that validate internal links
+    // against real content import it via this alias; it must be generated
+    // (`npx velite`) before the suite runs — the local-CI script does this.
+    '^#content$': '<rootDir>/.velite',
     // server-only throws outside a server bundle; no-op it under Jest.
     '^server-only$': '<rootDir>/__mocks__/server-only.js',
   },
