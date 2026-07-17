@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import { pickClientMessages } from '@/i18n/clientMessages';
 import { Anek_Bangla } from 'next/font/google';
 import '../../globals.css';
 import AppShell from '@/app/components/AppShell';
 import StructuredData from '@/app/components/StructuredData';
 import CookieConsent from '@/app/components/CookieConsent';
-import AIChatbot from '@/app/components/AIChatbot';
-import WhatsAppButton from '@/app/components/WhatsAppButton';
+import DeferredWidgets from '@/app/components/DeferredWidgets';
 import { routing } from '@/i18n/routing';
 
 // Anek Bangla ships subsets [bengali, latin, latin-ext]. `wght` is implicit for
@@ -129,13 +129,17 @@ export default async function SiteLayout({
   // Opts these routes into static rendering instead of forcing dynamic.
   setRequestLocale(locale);
 
+  // Serialize ONLY client-used namespaces into the RSC/HTML payload. Passing
+  // the full catalog (next-intl v4's default) shipped every server-only
+  // namespace to the browser on every page — see pickClientMessages.
+  const messages = await getMessages();
+
   return (
     <AppShell lang={locale} bodyClassName={anekBangla.variable}>
-      <NextIntlClientProvider>
+      <NextIntlClientProvider messages={pickClientMessages(messages)}>
         <StructuredData />
         {children}
-        <WhatsAppButton />
-        <AIChatbot />
+        <DeferredWidgets />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && <CookieConsent />}
       </NextIntlClientProvider>
     </AppShell>
