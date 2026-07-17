@@ -73,6 +73,10 @@ model VerificationToken {
 
 model AuthTicket {
   id        String    @id @default(cuid())
+  // SHA-256 hash of the opaque bearer token handed to the client. The raw token
+  // is never persisted, so DB-read or log access cannot redeem a live ticket.
+  // Nullable so pre-existing (id-based) rows remain valid; new tickets always set it.
+  tokenHash String?   @unique
   email     String
   scope     String    @default("admin")
   usedAt    DateTime?
