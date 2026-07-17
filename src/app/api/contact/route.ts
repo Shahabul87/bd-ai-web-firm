@@ -4,6 +4,15 @@ import { createLead } from '@/app/lib/leads';
 import { sendAnnouncement } from '@/app/lib/notify';
 import { SITE_URL } from '@/app/lib/email';
 import { sanitizeInput, validateEmail } from '@/app/lib/sanitize';
+import {
+  CONTACT_FIELD_CODES,
+  CONTACT_SUCCESS,
+  CONTACT_SUBMIT_FAILED,
+  CONTACT_SERVER_ERROR,
+  RATE_LIMITED_SECONDS,
+  type ContactField,
+  type ContactFieldCode,
+} from '@/app/lib/formErrors';
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +24,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: `Too many requests. Please try again in ${rateLimit.resetIn} seconds.`,
+          code: RATE_LIMITED_SECONDS,
+          retrySeconds: rateLimit.resetIn,
         },
         { status: 429 },
       );
@@ -28,7 +38,7 @@ export async function POST(request: NextRequest) {
       // Silently reject but return success to fool the bot
       return NextResponse.json({
         success: true,
-        message: 'Your message has been sent successfully!',
+        code: CONTACT_SUCCESS,
       });
     }
 
@@ -38,16 +48,16 @@ export async function POST(request: NextRequest) {
     const message = sanitizeInput(body.message, 2000);
 
     // Validate required fields
-    const errors: Record<string, string> = {};
+    const errors: Partial<Record<ContactField, ContactFieldCode>> = {};
 
     if (!name || name.length < 2) {
-      errors.name = 'Name must be at least 2 characters';
+      errors.name = CONTACT_FIELD_CODES.name;
     }
     if (!email || !validateEmail(email)) {
-      errors.email = 'Please enter a valid email address';
+      errors.email = CONTACT_FIELD_CODES.email;
     }
     if (!message || message.length < 10) {
-      errors.message = 'Message must be at least 10 characters';
+      errors.message = CONTACT_FIELD_CODES.message;
     }
 
     if (Object.keys(errors).length > 0) {
@@ -71,7 +81,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: 'We could not submit your message right now. Please try again in a moment.',
+          code: CONTACT_SUBMIT_FAILED,
         },
         { status: 503 },
       );
@@ -86,12 +96,12 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "Your message has been sent successfully! We'll get back to you within 24 hours.",
+      code: CONTACT_SUCCESS,
     });
   } catch (error) {
     console.error('Contact form error:', error);
     return NextResponse.json(
-      { success: false, message: 'An error occurred while sending your message. Please try again.' },
+      { success: false, code: CONTACT_SERVER_ERROR },
       { status: 500 },
     );
   }

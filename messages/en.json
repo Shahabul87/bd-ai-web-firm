@@ -114,14 +114,38 @@
       "description": "This is the real shape of a build: the agent plans and writes, the checks run, and nothing ships until an engineer signs off.",
       "terminalTitle": "crafts.ai — agent build",
       "terminal": [
-        { "text": "agent run --brief ./client-brief.md", "tone": "cmd" },
-        { "text": "Parsing brief… 4 requirements found", "tone": "out" },
-        { "text": "Planning build — 12 tasks across 3 modules", "tone": "out" },
-        { "text": "Writing src/checkout/payment.ts", "tone": "out" },
-        { "text": "Writing tests/checkout.test.ts", "tone": "out" },
-        { "text": "Running checks — lint ✓  types ✓  tests 34/34 ✓", "tone": "ok" },
-        { "text": "Human review requested — payment flow", "tone": "warn" },
-        { "text": "Approved. Shipped to staging.", "tone": "ok" }
+        {
+          "text": "agent run --brief ./client-brief.md",
+          "tone": "cmd"
+        },
+        {
+          "text": "Parsing brief… 4 requirements found",
+          "tone": "out"
+        },
+        {
+          "text": "Planning build — 12 tasks across 3 modules",
+          "tone": "out"
+        },
+        {
+          "text": "Writing src/checkout/payment.ts",
+          "tone": "out"
+        },
+        {
+          "text": "Writing tests/checkout.test.ts",
+          "tone": "out"
+        },
+        {
+          "text": "Running checks — lint ✓  types ✓  tests 34/34 ✓",
+          "tone": "ok"
+        },
+        {
+          "text": "Human review requested — payment flow",
+          "tone": "warn"
+        },
+        {
+          "text": "Approved. Shipped to staging.",
+          "tone": "ok"
+        }
       ],
       "notes": [
         {
@@ -144,11 +168,31 @@
       "colTraditional": "Traditional agency",
       "colCrafts": "CraftsAI",
       "rows": [
-        { "label": "Timeline", "traditional": "3–6 months", "crafts": "2–6 weeks" },
-        { "label": "Cost", "traditional": "$50K–200K", "crafts": "~80% less" },
-        { "label": "Team", "traditional": "Large agency team", "crafts": "Agents + senior engineer" },
-        { "label": "Review", "traditional": "Manual, occasional", "crafts": "Every change reviewed" },
-        { "label": "Process", "traditional": "Rigid milestones", "crafts": "Ship continuously" }
+        {
+          "label": "Timeline",
+          "traditional": "3–6 months",
+          "crafts": "2–6 weeks"
+        },
+        {
+          "label": "Cost",
+          "traditional": "$50K–200K",
+          "crafts": "~80% less"
+        },
+        {
+          "label": "Team",
+          "traditional": "Large agency team",
+          "crafts": "Agents + senior engineer"
+        },
+        {
+          "label": "Review",
+          "traditional": "Manual, occasional",
+          "crafts": "Every change reviewed"
+        },
+        {
+          "label": "Process",
+          "traditional": "Rigid milestones",
+          "crafts": "Ship continuously"
+        }
       ],
       "footnote": "Figures are typical ranges for the projects we take on, not a guarantee — every scope is estimated up front, in writing."
     },
@@ -186,11 +230,31 @@
       "title": "Five steps, start to ship.",
       "fullProcess": "The full process →",
       "steps": [
-        { "index": "01", "title": "Discover", "detail": "Free consultation to scope the problem." },
-        { "index": "02", "title": "Plan", "detail": "Written scope, estimate, and timeline." },
-        { "index": "03", "title": "Build", "detail": "Agents write; engineers review." },
-        { "index": "04", "title": "Test", "detail": "Automated checks plus human QA." },
-        { "index": "05", "title": "Launch", "detail": "Deploy, then ongoing support." }
+        {
+          "index": "01",
+          "title": "Discover",
+          "detail": "Free consultation to scope the problem."
+        },
+        {
+          "index": "02",
+          "title": "Plan",
+          "detail": "Written scope, estimate, and timeline."
+        },
+        {
+          "index": "03",
+          "title": "Build",
+          "detail": "Agents write; engineers review."
+        },
+        {
+          "index": "04",
+          "title": "Test",
+          "detail": "Automated checks plus human QA."
+        },
+        {
+          "index": "05",
+          "title": "Launch",
+          "detail": "Deploy, then ongoing support."
+        }
       ]
     },
     "resources": {
@@ -198,9 +262,24 @@
       "title": "What we're writing about.",
       "allResources": "All resources →",
       "items": [
-        { "slug": "ai-agents-software-development", "type": "Blog", "title": "How AI agents are changing software development in 2026", "readTime": "5 min" },
-        { "slug": "taxomind", "type": "Case study", "title": "How TaxoMind reached 10× faster content generation", "readTime": "8 min" },
-        { "slug": "ai-powered-development", "type": "Guide", "title": "The complete guide to AI-powered app development", "readTime": "12 min" }
+        {
+          "slug": "ai-agents-software-development",
+          "type": "Blog",
+          "title": "How AI agents are changing software development in 2026",
+          "readTime": "5 min"
+        },
+        {
+          "slug": "taxomind",
+          "type": "Case study",
+          "title": "How TaxoMind reached 10× faster content generation",
+          "readTime": "8 min"
+        },
+        {
+          "slug": "ai-powered-development",
+          "type": "Guide",
+          "title": "The complete guide to AI-powered app development",
+          "readTime": "12 min"
+        }
       ]
     },
     "finalCta": {
@@ -239,16 +318,28 @@
         "eyebrow": "How it ships",
         "title": "One brief. An agent scaffolds it. Engineers ship it.",
         "description": "Our agents turn your requirements into a working codebase in hours — senior engineers take it from there.",
-        "stages": ["Brief", "Scaffold", "Build", "Review", "Ship"]
+        "stages": [
+          "Brief",
+          "Scaffold",
+          "Build",
+          "Review",
+          "Ship"
+        ]
       },
-      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": {
+        "eyebrow": "What you get",
+        "title": "Scope, stack, and delivery — in writing."
+      },
       "specRows": [
         {
           "slug": "scope",
           "label": "Scope",
           "value": "SaaS platforms, e-commerce, enterprise dashboards, MVPs, APIs, and progressive web apps — full-stack, schema to deploy."
         },
-        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "stack",
+          "label": "Stack"
+        },
         {
           "slug": "timeline",
           "label": "Timeline",
@@ -302,7 +393,10 @@
           "description": "Rapid prototypes to validate your idea and attract funding in weeks, not months."
         }
       ],
-      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Common questions."
+      },
       "faqItems": [
         {
           "id": "ai-speed",
@@ -342,16 +436,28 @@
         "eyebrow": "How it ships",
         "title": "One brief. An agent drafts the app. Engineers ship it.",
         "description": "Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance.",
-        "stages": ["Brief", "Design", "Build", "Review", "Ship"]
+        "stages": [
+          "Brief",
+          "Design",
+          "Build",
+          "Review",
+          "Ship"
+        ]
       },
-      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": {
+        "eyebrow": "What you get",
+        "title": "Scope, stack, and delivery — in writing."
+      },
       "specRows": [
         {
           "slug": "scope",
           "label": "Scope",
           "value": "Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst."
         },
-        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "stack",
+          "label": "Stack"
+        },
         {
           "slug": "timeline",
           "label": "Timeline",
@@ -403,7 +509,10 @@
           "description": "Polished consumer experiences with elegant animations and seamless onboarding."
         }
       ],
-      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Common questions."
+      },
       "faqItems": [
         {
           "id": "swiftui-uikit",
@@ -443,16 +552,28 @@
         "eyebrow": "How it ships",
         "title": "One brief. An agent drafts the app. Engineers ship it.",
         "description": "Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance.",
-        "stages": ["Brief", "Design", "Build", "Review", "Release"]
+        "stages": [
+          "Brief",
+          "Design",
+          "Build",
+          "Review",
+          "Release"
+        ]
       },
-      "spec": { "eyebrow": "What you get", "title": "Scope, stack, and delivery — in writing." },
+      "spec": {
+        "eyebrow": "What you get",
+        "title": "Scope, stack, and delivery — in writing."
+      },
       "specRows": [
         {
           "slug": "scope",
           "label": "Scope",
           "value": "Business, social, e-commerce, health, education, and productivity apps — responsive across phones, tablets, and foldables."
         },
-        { "slug": "stack", "label": "Stack" },
+        {
+          "slug": "stack",
+          "label": "Stack"
+        },
         {
           "slug": "timeline",
           "label": "Timeline",
@@ -504,7 +625,10 @@
           "description": "Wearable integrations, workout trackers, and telehealth experiences."
         }
       ],
-      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Common questions."
+      },
       "faqItems": [
         {
           "id": "kotlin-java",
@@ -540,7 +664,10 @@
         "primaryCta": "Start a project",
         "secondaryCta": "Get an estimate"
       },
-      "spec": { "eyebrow": "Snapshot", "title": "Coverage, response time, and billing — in writing." },
+      "spec": {
+        "eyebrow": "Snapshot",
+        "title": "Coverage, response time, and billing — in writing."
+      },
       "specRows": [
         {
           "slug": "monitoring",
@@ -552,8 +679,14 @@
           "label": "Uptime SLA",
           "value": "99.9% — backed by quarterly architecture reviews on Enterprise plans."
         },
-        { "slug": "included", "label": "Included" },
-        { "slug": "stacks", "label": "Stacks supported" },
+        {
+          "slug": "included",
+          "label": "Included"
+        },
+        {
+          "slug": "stacks",
+          "label": "Stacks supported"
+        },
         {
           "slug": "billing",
           "label": "Billing",
@@ -568,7 +701,18 @@
         "Database Maintenance",
         "Backup Management"
       ],
-      "coverage": ["React", "Next.js", "Node.js", "Kotlin", "Swift", "PostgreSQL", "MongoDB", "AWS", "Vercel", "Firebase"],
+      "coverage": [
+        "React",
+        "Next.js",
+        "Node.js",
+        "Kotlin",
+        "Swift",
+        "PostgreSQL",
+        "MongoDB",
+        "AWS",
+        "Vercel",
+        "Firebase"
+      ],
       "plans": {
         "eyebrow": "Plans",
         "title": "Choose your tier.",
@@ -579,7 +723,12 @@
           "slug": "basic",
           "name": "Basic",
           "description": "Bug fixes and routine updates for smaller applications.",
-          "features": ["Bug fixes within 48 hours", "Dependency updates", "Monthly health report", "Email support"]
+          "features": [
+            "Bug fixes within 48 hours",
+            "Dependency updates",
+            "Monthly health report",
+            "Email support"
+          ]
         },
         {
           "slug": "professional",
@@ -607,7 +756,10 @@
           ]
         }
       ],
-      "onboardingSection": { "eyebrow": "Onboarding", "title": "Three steps to your first retainer month." },
+      "onboardingSection": {
+        "eyebrow": "Onboarding",
+        "title": "Three steps to your first retainer month."
+      },
       "onboarding": [
         {
           "index": "01",
@@ -625,7 +777,10 @@
           "detail": "Your retainer begins. You get a dedicated channel for requests and a dashboard to track every issue."
         }
       ],
-      "faq": { "eyebrow": "FAQ", "title": "Common questions." },
+      "faq": {
+        "eyebrow": "FAQ",
+        "title": "Common questions."
+      },
       "faqItems": [
         {
           "id": "other-teams",
@@ -679,10 +834,22 @@
       "eyebrow": "By the numbers",
       "title": "What that looks like in practice.",
       "items": [
-        { "value": "4", "label": "Products Built" },
-        { "value": "3", "label": "Platforms" },
-        { "value": "10x", "label": "Faster Delivery" },
-        { "value": "80%", "label": "Cost Savings" }
+        {
+          "value": "4",
+          "label": "Products Built"
+        },
+        {
+          "value": "3",
+          "label": "Platforms"
+        },
+        {
+          "value": "10x",
+          "label": "Faster Delivery"
+        },
+        {
+          "value": "80%",
+          "label": "Cost Savings"
+        }
       ]
     },
     "products": {
@@ -690,10 +857,22 @@
       "title": "What we've built for ourselves.",
       "viewAll": "View all →",
       "items": [
-        { "name": "Banglu", "description": "Bengali phonetic keyboard for web and Android." },
-        { "name": "Taxomind", "description": "AI-powered tax preparation platform." },
-        { "name": "CraftsAI Studio", "description": "Internal tooling for AI-assisted development." },
-        { "name": "Client Projects", "description": "Custom web and mobile apps for businesses worldwide." }
+        {
+          "name": "Banglu",
+          "description": "Bengali phonetic keyboard for web and Android."
+        },
+        {
+          "name": "Taxomind",
+          "description": "AI-powered tax preparation platform."
+        },
+        {
+          "name": "CraftsAI Studio",
+          "description": "Internal tooling for AI-assisted development."
+        },
+        {
+          "name": "Client Projects",
+          "description": "Custom web and mobile apps for businesses worldwide."
+        }
       ]
     },
     "cta": {
@@ -712,10 +891,22 @@
       "eyebrow": "Why CraftsAI",
       "title": "What it's like to work here.",
       "cards": [
-        { "title": "AI-First Culture", "description": "We embrace AI as a core tool in every workflow. You will work alongside cutting-edge coding agents and shape how humans and AI collaborate." },
-        { "title": "Remote Friendly", "description": "Work from anywhere in the world. We communicate asynchronously and value output over hours. Flexible schedules that fit your life." },
-        { "title": "Cutting-Edge Tech", "description": "Next.js, Kotlin, Swift, LLM integrations, cloud-native architectures. You will always be working with the latest technologies and frameworks." },
-        { "title": "Impact-Driven Work", "description": "Every product we build solves real problems for real users. From education platforms to finance apps, your work will make a tangible difference." }
+        {
+          "title": "AI-First Culture",
+          "description": "We embrace AI as a core tool in every workflow. You will work alongside cutting-edge coding agents and shape how humans and AI collaborate."
+        },
+        {
+          "title": "Remote Friendly",
+          "description": "Work from anywhere in the world. We communicate asynchronously and value output over hours. Flexible schedules that fit your life."
+        },
+        {
+          "title": "Cutting-Edge Tech",
+          "description": "Next.js, Kotlin, Swift, LLM integrations, cloud-native architectures. You will always be working with the latest technologies and frameworks."
+        },
+        {
+          "title": "Impact-Driven Work",
+          "description": "Every product we build solves real problems for real users. From education platforms to finance apps, your work will make a tangible difference."
+        }
       ]
     },
     "openPositions": {
@@ -793,10 +984,22 @@
       "title": "Transparency is how we work.",
       "description": "You will always know where your project stands.",
       "items": [
-        { "title": "Weekly Progress Reports", "description": "Detailed updates on what was completed, what is next, and any blockers." },
-        { "title": "Direct Messaging", "description": "Reach us anytime via WhatsApp or email. No ticketing queues." },
-        { "title": "Live Demos at Milestones", "description": "See working software at every major milestone, not just at the end." },
-        { "title": "Dedicated Project Channel", "description": "A shared channel for your team and ours to keep everything in one place." }
+        {
+          "title": "Weekly Progress Reports",
+          "description": "Detailed updates on what was completed, what is next, and any blockers."
+        },
+        {
+          "title": "Direct Messaging",
+          "description": "Reach us anytime via WhatsApp or email. No ticketing queues."
+        },
+        {
+          "title": "Live Demos at Milestones",
+          "description": "See working software at every major milestone, not just at the end."
+        },
+        {
+          "title": "Dedicated Project Channel",
+          "description": "A shared channel for your team and ours to keep everything in one place."
+        }
       ]
     },
     "cta": {
@@ -1549,6 +1752,25 @@
       ]
     }
   },
+  "FormErrors": {
+    "name_too_short": "Name must be at least 2 characters",
+    "email_invalid": "Please enter a valid email address",
+    "message_too_short": "Message must be at least 10 characters",
+    "services_required": "Please select at least one service",
+    "project_type_required": "Please specify your project type",
+    "description_required": "Please provide a detailed project description",
+    "company_name_required": "Company name is required",
+    "contact_name_required": "Contact name is required",
+    "email_required": "Valid email address is required",
+    "rate_limited_seconds": "Too many requests. Please try again in {seconds} seconds.",
+    "rate_limited_minutes": "Too many requests. Please try again in {minutes} minutes.",
+    "contact_submit_failed": "We could not submit your message right now. Please try again in a moment.",
+    "quote_submit_failed": "We could not submit your quote request right now. Please try again in a moment.",
+    "contact_server_error": "An error occurred while sending your message. Please try again.",
+    "quote_server_error": "An error occurred while submitting your quote request. Please try again.",
+    "contact_success": "Your message has been sent successfully! We'll get back to you within 24 hours.",
+    "quote_success": "Your quote request has been submitted successfully! We'll review your requirements and contact you within 24 hours with a detailed proposal."
+  },
   "ErrorPage": {
     "label": "500 / Something broke",
     "title": "A build step hit an error.",
@@ -1677,7 +1899,8 @@
     "whatsapp": {
       "tooltip": "Chat with us on WhatsApp!",
       "ariaLabel": "Chat on WhatsApp",
-      "closeTooltip": "Close tooltip"
+      "closeTooltip": "Close tooltip",
+      "defaultMessage": "Hi! I am interested in your AI development services. Can we discuss my project?"
     },
     "cookies": {
       "dialogLabel": "Cookie consent",

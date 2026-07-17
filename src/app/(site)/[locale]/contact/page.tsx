@@ -8,6 +8,7 @@ import PageHero from '@/app/components/shared/PageHero';
 import Button from '@/app/design/ui/Button';
 import MonoLabel from '@/app/design/ui/MonoLabel';
 import Card from '@/app/design/ui/Card';
+import type { ContactResponse } from '@/app/lib/formErrors';
 
 // The `value` submitted to /api/contact must stay stable and translator-proof,
 // so the option values live in code keyed by a stable slug; only the visible
@@ -100,6 +101,8 @@ interface FormData {
 
 export default function ContactPage() {
   const t = useTranslations('Contact');
+  // Maps stable API error/success codes to translated strings (see formErrors.ts).
+  const tError = useTranslations('FormErrors');
   const serviceLabels = t.raw('form.serviceOptions') as Record<string, string>;
 
   const contactInfo: ReadonlyArray<{
@@ -124,6 +127,8 @@ export default function ContactPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
     'idle'
   );
+  // Specific translated error surfaced from the API code; empty => generic error.
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -133,9 +138,24 @@ export default function ContactPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // Turns a coded API failure into a translated string, falling back to '' so the
+  // render shows the generic Contact.form.error message.
+  const resolveError = (data: ContactResponse | null): string => {
+    if (!data || data.success) return '';
+    if (data.errors) {
+      const firstCode = Object.values(data.errors).find(Boolean);
+      return firstCode ? tError(firstCode) : '';
+    }
+    if (data.code) {
+      return tError(data.code, { seconds: data.retrySeconds ?? 0 });
+    }
+    return '';
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setStatus('loading');
+    setErrorMessage('');
 
     try {
       const res = await fetch('/api/contact', {
@@ -144,11 +164,19 @@ export default function ContactPage() {
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) throw new Error('Failed to send message');
-      setStatus('success');
-      setForm({ name: '', email: '', company: '', service: '', message: '' });
+      const data = (await res.json().catch(() => null)) as ContactResponse | null;
+
+      if (res.ok && data?.success) {
+        setStatus('success');
+        setForm({ name: '', email: '', company: '', service: '', message: '' });
+        return;
+      }
+
+      setStatus('error');
+      setErrorMessage(resolveError(data));
     } catch {
       setStatus('error');
+      setErrorMessage('');
     }
   };
 
@@ -331,7 +359,7 @@ export default function ContactPage() {
                 )}
                 {status === 'error' && (
                   <p className="font-mono text-xs uppercase tracking-[0.15em] text-amber">
-                    {t('form.error')}
+                    {errorMessage || t('form.error')}
                   </p>
                 )}
               </form>

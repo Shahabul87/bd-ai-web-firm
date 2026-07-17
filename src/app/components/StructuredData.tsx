@@ -4,14 +4,23 @@ import { useLocale, useTranslations } from 'next-intl';
 import { usePathname } from '@/i18n/navigation';
 import faqData from '../../../content/faq/faq.json';
 
+interface LocalizedString {
+  en: string;
+  bn: string;
+}
+
 interface FaqQuestion {
-  question: string;
-  answer: string;
+  question: LocalizedString;
+  answer: LocalizedString;
 }
 
 interface FaqCategory {
-  category: string;
+  category: LocalizedString;
   questions: FaqQuestion[];
+}
+
+function pickLocale(value: LocalizedString, locale: string): string {
+  return locale === 'bn' ? value.bn : value.en;
 }
 
 export default function StructuredData() {
@@ -115,10 +124,10 @@ export default function StructuredData() {
     "mainEntity": (faqData as FaqCategory[]).flatMap((category) =>
       category.questions.map((q) => ({
         "@type": "Question",
-        "name": q.question,
+        "name": pickLocale(q.question, locale),
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": q.answer
+          "text": pickLocale(q.answer, locale)
         }
       }))
     )

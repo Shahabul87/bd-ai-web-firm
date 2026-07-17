@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 
 const WHATSAPP_NUMBER = '17753382146'; // Format: country code + number without spaces or symbols
-const DEFAULT_MESSAGE = 'Hi! I am interested in your AI development services. Can we discuss my project?';
 
 export default function WhatsAppButton() {
   const t = useTranslations('Chrome.whatsapp');
@@ -26,7 +25,8 @@ export default function WhatsAppButton() {
 
   if (!mounted) return null;
 
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(DEFAULT_MESSAGE)}`;
+  // Pre-filled message the visitor sends — localized so a Bengali visitor drafts in Bengali.
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t('defaultMessage'))}`;
 
   return (
     <>

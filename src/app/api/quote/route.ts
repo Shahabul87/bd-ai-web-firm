@@ -3,6 +3,15 @@ import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
 import { createLead } from '@/app/lib/leads';
 import { sendAnnouncement } from '@/app/lib/notify';
 import { sanitizeInput, validateEmail } from '@/app/lib/sanitize';
+import {
+  QUOTE_FIELD_CODES,
+  QUOTE_SUCCESS,
+  QUOTE_SUBMIT_FAILED,
+  QUOTE_SERVER_ERROR,
+  RATE_LIMITED_MINUTES,
+  type QuoteField,
+  type QuoteFieldCode,
+} from '@/app/lib/formErrors';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +23,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: `Too many requests. Please try again in ${Math.ceil(rateLimit.resetIn / 60)} minutes.`,
+          code: RATE_LIMITED_MINUTES,
+          retryMinutes: Math.ceil(rateLimit.resetIn / 60),
         },
         { status: 429 },
       );
@@ -26,7 +36,7 @@ export async function POST(request: NextRequest) {
     if (body.website || body.fax || body.company_url) {
       return NextResponse.json({
         success: true,
-        message: 'Your quote request has been submitted successfully!',
+        code: QUOTE_SUCCESS,
       });
     }
 
@@ -34,25 +44,25 @@ export async function POST(request: NextRequest) {
     const companyInfo = body.companyInfo ?? {};
 
     // Validate required fields (against raw values)
-    const errors: Record<string, string> = {};
+    const errors: Partial<Record<QuoteField, QuoteFieldCode>> = {};
 
     if (!Array.isArray(projectDetails.services) || projectDetails.services.length === 0) {
-      errors.services = 'Please select at least one service';
+      errors.services = QUOTE_FIELD_CODES.services;
     }
     if (!projectDetails.projectType) {
-      errors.projectType = 'Please specify your project type';
+      errors.projectType = QUOTE_FIELD_CODES.projectType;
     }
     if (!projectDetails.description || String(projectDetails.description).length < 20) {
-      errors.description = 'Please provide a detailed project description';
+      errors.description = QUOTE_FIELD_CODES.description;
     }
     if (!companyInfo.companyName) {
-      errors.companyName = 'Company name is required';
+      errors.companyName = QUOTE_FIELD_CODES.companyName;
     }
     if (!companyInfo.contactName) {
-      errors.contactName = 'Contact name is required';
+      errors.contactName = QUOTE_FIELD_CODES.contactName;
     }
     if (!companyInfo.email || !validateEmail(String(companyInfo.email))) {
-      errors.email = 'Valid email address is required';
+      errors.email = QUOTE_FIELD_CODES.email;
     }
 
     if (Object.keys(errors).length > 0) {
@@ -108,7 +118,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message: 'We could not submit your quote request right now. Please try again in a moment.',
+          code: QUOTE_SUBMIT_FAILED,
         },
         { status: 503 },
       );
@@ -125,13 +135,12 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message:
-        "Your quote request has been submitted successfully! We'll review your requirements and contact you within 24 hours with a detailed proposal.",
+      code: QUOTE_SUCCESS,
     });
   } catch (error) {
     console.error('Quote form error:', error);
     return NextResponse.json(
-      { success: false, message: 'An error occurred while submitting your quote request. Please try again.' },
+      { success: false, code: QUOTE_SERVER_ERROR },
       { status: 500 },
     );
   }

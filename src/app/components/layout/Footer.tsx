@@ -8,10 +8,11 @@
  * spinner gate was removed from CrossPlatformWrapper (PR #7): before that, those
  * pages never rendered their tree during prerender, so the build reported 110/110
  * while /en/contact was broken. */
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import MonoLabel from '../../design/ui/MonoLabel';
 import { PRIMARY_LINKS, SERVICE_LINKS } from './nav';
+import { toBengaliDigits } from '@/app/lib/numerals';
 
 /** labelKey resolves within the `Footer` namespace. */
 const LEGAL_LINKS = [
@@ -23,6 +24,13 @@ const LEGAL_LINKS = [
 export default function Footer() {
   const t = useTranslations('Footer');
   const tNav = useTranslations('Nav');
+  const locale = useLocale();
+  // The year is a date, so it follows the numeral convention: Bengali numerals
+  // (২০২৬) on /bn, Latin on /en. Passed as a pre-formatted string so the ICU
+  // message never number-formats it (which would group as "2,026").
+  const year = locale === 'bn'
+    ? toBengaliDigits(new Date().getFullYear())
+    : String(new Date().getFullYear());
   const ticker = t('ticker');
 
   return (
@@ -128,12 +136,7 @@ export default function Footer() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            {/* Passed as a string so the year can never be number-formatted by the
-                message itself. A bare `{year}` is NOT formatted regardless of arg type
-                (verified: both String(2026) and 2026 render "2026") — but `{year, number}`
-                WOULD be, producing "2,026" in en and Bengali numerals in bn. A string arg
-                makes that unreachable no matter what a translator writes in bn.json. */}
-            {t('copyright', { year: String(new Date().getFullYear()) })}
+            {t('copyright', { year })}
           </p>
           <div className="flex gap-6">
             {LEGAL_LINKS.map((link) => (
