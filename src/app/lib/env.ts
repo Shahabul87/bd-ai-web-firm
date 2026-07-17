@@ -1,5 +1,8 @@
 import 'server-only';
 import { z } from 'zod';
+import { normalizeEmail } from './normalizeEmail';
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
  * Centralised, server-only runtime environment validation.
@@ -29,7 +32,17 @@ const prodSchema = z.object({
     .string()
     .min(MIN_SECRET_LEN, `PORTAL_AUTH_SECRET must be at least ${MIN_SECRET_LEN} characters`),
   AUTH_URL: z.string().url('AUTH_URL must be a valid URL'),
-  ADMIN_EMAILS: z.string().min(1, 'ADMIN_EMAILS is required'),
+  ADMIN_EMAILS: z
+    .string()
+    .min(1, 'ADMIN_EMAILS is required')
+    .refine((raw) => {
+      const entries = raw.split(',').map((e) => e.trim()).filter(Boolean);
+      if (entries.length === 0) return false;
+      const normalized = entries.map(normalizeEmail);
+      const allValid = normalized.every((e) => EMAIL_RE.test(e));
+      const noDuplicates = new Set(normalized).size === normalized.length;
+      return allValid && noDuplicates;
+    }, 'ADMIN_EMAILS must be a comma-separated list of unique, valid email addresses'),
   NOTIFY_URL: z.string().url('NOTIFY_URL must be a valid URL'),
   NOTIFY_API_KEY: z.string().min(1, 'NOTIFY_API_KEY is required'),
 });

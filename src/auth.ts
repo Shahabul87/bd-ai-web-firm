@@ -4,6 +4,7 @@ import authConfig from './auth.config';
 import { prisma } from '@/app/lib/db';
 import { redeemTicket } from '@/app/lib/authTicket';
 import { isAdminEmail } from '@/app/lib/adminAuth';
+import { normalizeEmail } from '@/app/lib/normalizeEmail';
 
 /**
  * Full server-side admin auth (Node runtime). The Credentials provider trusts
@@ -21,8 +22,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(creds) {
         const ticket = typeof creds?.ticket === 'string' ? creds.ticket : '';
         if (!ticket) return null;
-        const email = await redeemTicket(ticket);
-        if (!email || !isAdminEmail(email)) return null;
+        const redeemed = await redeemTicket(ticket);
+        if (!redeemed) return null;
+        const email = normalizeEmail(redeemed);
+        if (!isAdminEmail(email)) return null;
         const user = await prisma.user.upsert({
           where: { email },
           update: {},

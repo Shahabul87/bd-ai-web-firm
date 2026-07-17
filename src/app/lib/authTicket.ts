@@ -1,15 +1,17 @@
 import { prisma } from './db';
+import { normalizeEmail } from './normalizeEmail';
 
 /**
  * Single-use proof that ALL login factors passed for `email`. Auth.js's
  * Credentials provider trusts nothing except a freshly-redeemed ticket.
+ * The email is stored normalized so the redeemed identity is always canonical.
  */
 export async function issueTicket(
   email: string,
   scope: 'admin' | 'portal' = 'admin',
 ): Promise<string> {
   const t = await prisma.authTicket.create({
-    data: { email, scope, expiresAt: new Date(Date.now() + 2 * 60_000) },
+    data: { email: normalizeEmail(email), scope, expiresAt: new Date(Date.now() + 2 * 60_000) },
     select: { id: true },
   });
   return t.id;

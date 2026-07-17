@@ -3,6 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 import authPortalConfig from './authPortal.config';
 import { prisma } from '@/app/lib/db';
 import { redeemTicket } from '@/app/lib/authTicket';
+import { normalizeEmail } from '@/app/lib/normalizeEmail';
 
 /**
  * Client-portal auth (Node runtime), separate from admin. Trusts ONLY a freshly
@@ -19,8 +20,9 @@ export const { handlers, signIn, signOut, auth: authPortal } = NextAuth({
       async authorize(creds) {
         const ticket = typeof creds?.ticket === 'string' ? creds.ticket : '';
         if (!ticket) return null;
-        const email = await redeemTicket(ticket, 'portal');
-        if (!email) return null;
+        const redeemed = await redeemTicket(ticket, 'portal');
+        if (!redeemed) return null;
+        const email = normalizeEmail(redeemed);
         const client = await prisma.client.findFirst({
           where: { email, status: 'ACTIVE', portalEnabled: true },
           orderBy: { createdAt: 'asc' },

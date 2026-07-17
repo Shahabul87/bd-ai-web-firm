@@ -44,6 +44,14 @@ describe('authTicket', () => {
     expect(t.create.mock.calls[0][0].data).toEqual(expect.objectContaining({ scope: 'admin' }));
   });
 
+  it('normalizes the email before storing it on the ticket', async () => {
+    t.create.mockResolvedValue({ id: 'tk_1' });
+    await issueTicket('  Bob@Example.COM ');
+    expect(t.create.mock.calls[0][0].data).toEqual(
+      expect.objectContaining({ email: 'bob@example.com' }),
+    );
+  });
+
   it('rejects a ticket redeemed with the wrong scope (does not burn)', async () => {
     t.findUnique.mockResolvedValue({
       id: 'tk_1',

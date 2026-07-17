@@ -5,6 +5,7 @@ import { prisma } from '@/app/lib/db';
 import { trustCheck } from '@/app/lib/notify';
 import { issueTicket } from '@/app/lib/authTicket';
 import { startPortalLogin } from '@/app/lib/portalLogin';
+import { normalizeEmail } from '@/app/lib/normalizeEmail';
 import { setPortalChallenge, readPortalTrustCookie } from '@/app/lib/portalLoginCookie';
 import { writeAudit } from '@/app/lib/audit';
 
@@ -19,7 +20,8 @@ export async function POST(req: NextRequest) {
   }
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ ok: false }, { status: 400 });
-  const { email, method } = parsed.data;
+  const { method } = parsed.data;
+  const email = normalizeEmail(parsed.data.email);
 
   // Trusted-device fast path: if a valid trust token maps to an enabled client,
   // mint a ticket directly (the portal Credentials provider re-checks the client).

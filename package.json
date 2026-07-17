@@ -20,6 +20,7 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
+    "report:dup-emails": "node scripts/report-duplicate-emails.mjs",
     "postinstall": "prisma generate"
   },
   "dependencies": {
