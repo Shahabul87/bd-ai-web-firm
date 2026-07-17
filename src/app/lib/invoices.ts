@@ -1,7 +1,9 @@
 import { Prisma } from '@prisma/client';
 import { prisma } from './db';
 import { writeAudit } from './audit';
-import { sendAnnouncement, sendPush } from './notify';
+// Push is delivered through the outbox now (see sendInvoice); only the direct
+// payment-receipt email remains here.
+import { sendAnnouncement } from './notify';
 import { SITE_URL } from './email';
 import { computeTotals, formatMoney } from './money';
 import { assertProjectBelongsToClient } from './tenantAuthz';
