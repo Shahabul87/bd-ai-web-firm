@@ -1,91 +1,199 @@
 [
   {
-    "category": "General",
+    "category": {
+      "en": "General",
+      "bn": "সাধারণ"
+    },
     "questions": [
       {
-        "question": "What is CraftsAI?",
-        "answer": "CraftsAI is an AI-powered software studio based in Bangladesh. We combine AI coding agents with experienced human engineers to deliver web, Android, and iOS applications up to 10x faster than traditional studios, while maintaining enterprise-grade quality."
+        "question": {
+          "en": "What is CraftsAI?",
+          "bn": "CraftsAI কী?"
+        },
+        "answer": {
+          "en": "CraftsAI is an AI-powered software studio based in Bangladesh. We combine AI coding agents with experienced human engineers to deliver web, Android, and iOS applications up to 10x faster than traditional studios, while maintaining enterprise-grade quality.",
+          "bn": "CraftsAI হলো বাংলাদেশ-ভিত্তিক একটি AI-চালিত সফটওয়্যার স্টুডিও। আমরা AI কোডিং এজেন্টের সঙ্গে অভিজ্ঞ মানব ইঞ্জিনিয়ারদের সমন্বয় ঘটিয়ে ওয়েব, Android এবং iOS অ্যাপ্লিকেশন প্রচলিত স্টুডিওগুলোর চেয়ে 10x পর্যন্ত দ্রুত সরবরাহ করি, একই সঙ্গে এন্টারপ্রাইজ-গ্রেড মান বজায় রাখি।"
+        }
       },
       {
-        "question": "How does AI-powered development work?",
-        "answer": "Our engineers work alongside AI coding agents that handle repetitive tasks such as boilerplate generation, test writing, and code review. The human team focuses on architecture decisions, business logic, and quality assurance. This hybrid approach accelerates delivery without sacrificing craftsmanship."
+        "question": {
+          "en": "How does AI-powered development work?",
+          "bn": "AI-চালিত ডেভেলপমেন্ট কীভাবে কাজ করে?"
+        },
+        "answer": {
+          "en": "Our engineers work alongside AI coding agents that handle repetitive tasks such as boilerplate generation, test writing, and code review. The human team focuses on architecture decisions, business logic, and quality assurance. This hybrid approach accelerates delivery without sacrificing craftsmanship.",
+          "bn": "আমাদের ইঞ্জিনিয়াররা AI কোডিং এজেন্টের সঙ্গে কাজ করেন, যেগুলো বয়লারপ্লেট তৈরি, টেস্ট লেখা এবং কোড পর্যালোচনার মতো পুনরাবৃত্তিমূলক কাজ সামলায়। মানব দলটি আর্কিটেকচার সিদ্ধান্ত, বিজনেস লজিক এবং কোয়ালিটি অ্যাসুরেন্সে মনোনিবেশ করে। এই হাইব্রিড পদ্ধতি কারিগরি নৈপুণ্যের সঙ্গে আপস না করেই সরবরাহ ত্বরান্বিত করে।"
+        }
       },
       {
-        "question": "Where is CraftsAI based?",
-        "answer": "CraftsAI is headquartered in Bangladesh with a fully remote team. We serve clients worldwide and communicate across time zones through asynchronous updates, scheduled calls, and real-time project dashboards."
+        "question": {
+          "en": "Where is CraftsAI based?",
+          "bn": "CraftsAI কোথায় অবস্থিত?"
+        },
+        "answer": {
+          "en": "CraftsAI is headquartered in Bangladesh with a fully remote team. We serve clients worldwide and communicate across time zones through asynchronous updates, scheduled calls, and real-time project dashboards.",
+          "bn": "CraftsAI-এর সদর দপ্তর বাংলাদেশে এবং এর দলটি সম্পূর্ণ রিমোট। আমরা বিশ্বজুড়ে ক্লায়েন্টদের সেবা দিই এবং অ্যাসিনক্রোনাস আপডেট, নির্ধারিত কল এবং রিয়েল-টাইম প্রজেক্ট ড্যাশবোর্ডের মাধ্যমে বিভিন্ন টাইম জোন জুড়ে যোগাযোগ করি।"
+        }
       }
     ]
   },
   {
-    "category": "Services",
+    "category": {
+      "en": "Services",
+      "bn": "সার্ভিস"
+    },
     "questions": [
       {
-        "question": "What services do you offer?",
-        "answer": "We offer full-stack web development (React, Next.js, Node.js), native Android development (Kotlin, Jetpack Compose), iOS development (Swift, SwiftUI), and ongoing support and maintenance plans. Every project includes cloud deployment, testing, and documentation."
+        "question": {
+          "en": "What services do you offer?",
+          "bn": "আপনারা কী কী সার্ভিস দেন?"
+        },
+        "answer": {
+          "en": "We offer full-stack web development (React, Next.js, Node.js), native Android development (Kotlin, Jetpack Compose), iOS development (Swift, SwiftUI), and ongoing support and maintenance plans. Every project includes cloud deployment, testing, and documentation.",
+          "bn": "আমরা ফুল-স্ট্যাক ওয়েব ডেভেলপমেন্ট (React, Next.js, Node.js), নেটিভ Android ডেভেলপমেন্ট (Kotlin, Jetpack Compose), iOS ডেভেলপমেন্ট (Swift, SwiftUI) এবং চলমান সাপোর্ট ও রক্ষণাবেক্ষণ প্ল্যান দিয়ে থাকি। প্রতিটি প্রজেক্টে ক্লাউড ডিপ্লয়মেন্ট, টেস্টিং এবং ডকুমেন্টেশন অন্তর্ভুক্ত থাকে।"
+        }
       },
       {
-        "question": "Do you build iOS apps?",
-        "answer": "Yes. We build native iOS apps using Swift and SwiftUI, targeting iPhone, iPad, and Apple Watch. Our iOS projects include App Store submission, TestFlight beta testing, and post-launch monitoring."
+        "question": {
+          "en": "Do you build iOS apps?",
+          "bn": "আপনারা কি iOS অ্যাপ তৈরি করেন?"
+        },
+        "answer": {
+          "en": "Yes. We build native iOS apps using Swift and SwiftUI, targeting iPhone, iPad, and Apple Watch. Our iOS projects include App Store submission, TestFlight beta testing, and post-launch monitoring.",
+          "bn": "হ্যাঁ। আমরা Swift এবং SwiftUI ব্যবহার করে নেটিভ iOS অ্যাপ তৈরি করি, যা iPhone, iPad এবং Apple Watch-এর জন্য উপযোগী। আমাদের iOS প্রজেক্টে App Store সাবমিশন, TestFlight বেটা টেস্টিং এবং লঞ্চ-পরবর্তী মনিটরিং অন্তর্ভুক্ত থাকে।"
+        }
       },
       {
-        "question": "Do you offer ongoing support?",
-        "answer": "Absolutely. We offer monthly support plans that cover bug fixes, performance monitoring, security patches, feature enhancements, and server maintenance. Plans start with basic monitoring and scale up to dedicated engineering hours."
+        "question": {
+          "en": "Do you offer ongoing support?",
+          "bn": "আপনারা কি চলমান সাপোর্ট দেন?"
+        },
+        "answer": {
+          "en": "Absolutely. We offer monthly support plans that cover bug fixes, performance monitoring, security patches, feature enhancements, and server maintenance. Plans start with basic monitoring and scale up to dedicated engineering hours.",
+          "bn": "অবশ্যই। আমরা মাসিক সাপোর্ট প্ল্যান দিই, যা বাগ ফিক্স, পারফরম্যান্স মনিটরিং, সিকিউরিটি প্যাচ, ফিচার উন্নতি এবং সার্ভার রক্ষণাবেক্ষণ কভার করে। প্ল্যানগুলো বেসিক মনিটরিং থেকে শুরু হয়ে ডেডিকেটেড ইঞ্জিনিয়ারিং আওয়ার পর্যন্ত বিস্তৃত হয়।"
+        }
       }
     ]
   },
   {
-    "category": "Products",
+    "category": {
+      "en": "Products",
+      "bn": "প্রোডাক্ট"
+    },
     "questions": [
       {
-        "question": "What ready-made products do you sell?",
-        "answer": "We offer several ready-made products including TaxoMind (an AI-powered tax management platform), TaxoMind Schools (school management system), FinCoach AI (personal finance coaching app), and MathPhysics (an interactive STEM learning tool). Each product is production-ready and continuously updated."
+        "question": {
+          "en": "What ready-made products do you sell?",
+          "bn": "আপনারা কী কী রেডিমেড প্রোডাক্ট বিক্রি করেন?"
+        },
+        "answer": {
+          "en": "We offer several ready-made products including TaxoMind (an AI-powered tax management platform), TaxoMind Schools (school management system), FinCoach AI (personal finance coaching app), and MathPhysics (an interactive STEM learning tool). Each product is production-ready and continuously updated.",
+          "bn": "আমরা বেশ কয়েকটি রেডিমেড প্রোডাক্ট অফার করি, যার মধ্যে রয়েছে TaxoMind (একটি AI-চালিত ট্যাক্স ম্যানেজমেন্ট প্ল্যাটফর্ম), TaxoMind Schools (স্কুল ম্যানেজমেন্ট সিস্টেম), FinCoach AI (ব্যক্তিগত ফিন্যান্স কোচিং অ্যাপ) এবং MathPhysics (একটি ইন্টারঅ্যাক্টিভ STEM লার্নিং টুল)। প্রতিটি প্রোডাক্ট প্রোডাকশন-রেডি এবং নিয়মিত আপডেট করা হয়।"
+        }
       },
       {
-        "question": "Can products be customized?",
-        "answer": "Yes. All our products can be white-labeled and customized to match your brand, workflows, and specific requirements. We offer customization packages that range from simple branding changes to deep feature additions tailored to your industry."
+        "question": {
+          "en": "Can products be customized?",
+          "bn": "প্রোডাক্টগুলো কি কাস্টমাইজ করা যায়?"
+        },
+        "answer": {
+          "en": "Yes. All our products can be white-labeled and customized to match your brand, workflows, and specific requirements. We offer customization packages that range from simple branding changes to deep feature additions tailored to your industry.",
+          "bn": "হ্যাঁ। আমাদের সব প্রোডাক্ট হোয়াইট-লেবেল করা যায় এবং আপনার ব্র্যান্ড, ওয়ার্কফ্লো ও নির্দিষ্ট প্রয়োজন অনুযায়ী কাস্টমাইজ করা যায়। আমরা কাস্টমাইজেশন প্যাকেজ অফার করি, যা সাধারণ ব্র্যান্ডিং পরিবর্তন থেকে শুরু করে আপনার ইন্ডাস্ট্রির উপযোগী গভীর ফিচার সংযোজন পর্যন্ত বিস্তৃত।"
+        }
       }
     ]
   },
   {
-    "category": "Process",
+    "category": {
+      "en": "Process",
+      "bn": "প্রক্রিয়া"
+    },
     "questions": [
       {
-        "question": "How long does a typical project take?",
-        "answer": "Timelines depend on scope. An MVP web application typically takes 2 to 4 weeks. A standard mobile app runs 4 to 8 weeks. Enterprise platforms with complex integrations may take 8 to 16 weeks. We provide a detailed timeline estimate during the free consultation."
+        "question": {
+          "en": "How long does a typical project take?",
+          "bn": "একটি সাধারণ প্রজেক্ট শেষ করতে কতদিন লাগে?"
+        },
+        "answer": {
+          "en": "Timelines depend on scope. An MVP web application typically takes 2 to 4 weeks. A standard mobile app runs 4 to 8 weeks. Enterprise platforms with complex integrations may take 8 to 16 weeks. We provide a detailed timeline estimate during the free consultation.",
+          "bn": "সময়সীমা প্রজেক্টের পরিধির উপর নির্ভর করে। একটি MVP ওয়েব অ্যাপ্লিকেশনে সাধারণত ২ থেকে ৪ সপ্তাহ লাগে। একটি স্ট্যান্ডার্ড মোবাইল অ্যাপে ৪ থেকে ৮ সপ্তাহ লাগে। জটিল ইন্টিগ্রেশনসহ এন্টারপ্রাইজ প্ল্যাটফর্মে ৮ থেকে ১৬ সপ্তাহ পর্যন্ত লাগতে পারে। আমরা বিনামূল্যের পরামর্শের সময় একটি বিস্তারিত সময়সীমার এস্টিমেট দিই।"
+        }
       },
       {
-        "question": "How do you communicate during projects?",
-        "answer": "We use a combination of weekly video calls, a shared project dashboard with real-time progress tracking, and instant messaging through Slack or WhatsApp. You receive daily summary updates and can review work-in-progress at any time."
+        "question": {
+          "en": "How do you communicate during projects?",
+          "bn": "প্রজেক্ট চলাকালীন আপনারা কীভাবে যোগাযোগ করেন?"
+        },
+        "answer": {
+          "en": "We use a combination of weekly video calls, a shared project dashboard with real-time progress tracking, and instant messaging through Slack or WhatsApp. You receive daily summary updates and can review work-in-progress at any time.",
+          "bn": "আমরা সাপ্তাহিক ভিডিও কল, রিয়েল-টাইম অগ্রগতি ট্র্যাকিংসহ একটি শেয়ার্ড প্রজেক্ট ড্যাশবোর্ড এবং Slack বা WhatsApp-এর মাধ্যমে ইনস্ট্যান্ট মেসেজিংয়ের সমন্বয় ব্যবহার করি। আপনি প্রতিদিন সারসংক্ষেপ আপডেট পাবেন এবং যেকোনো সময় চলমান কাজ পর্যালোচনা করতে পারবেন।"
+        }
       },
       {
-        "question": "What if I need changes after launch?",
-        "answer": "Post-launch changes are covered under our support plans or handled as change requests. Minor tweaks within the first 30 days after launch are included at no extra cost. Larger feature additions are scoped and quoted separately."
+        "question": {
+          "en": "What if I need changes after launch?",
+          "bn": "লঞ্চের পর আমার যদি পরিবর্তন প্রয়োজন হয়?"
+        },
+        "answer": {
+          "en": "Post-launch changes are covered under our support plans or handled as change requests. Minor tweaks within the first 30 days after launch are included at no extra cost. Larger feature additions are scoped and quoted separately.",
+          "bn": "লঞ্চ-পরবর্তী পরিবর্তন আমাদের সাপোর্ট প্ল্যানের আওতায় থাকে অথবা চেঞ্জ রিকোয়েস্ট হিসেবে সামলানো হয়। লঞ্চের পর প্রথম ৩০ দিনের মধ্যে ছোটখাটো সংশোধন কোনো অতিরিক্ত খরচ ছাড়াই অন্তর্ভুক্ত থাকে। বড় ফিচার সংযোজন আলাদাভাবে নির্ধারণ ও কোট করা হয়।"
+        }
       }
     ]
   },
   {
-    "category": "Pricing",
+    "category": {
+      "en": "Pricing",
+      "bn": "মূল্য নির্ধারণ"
+    },
     "questions": [
       {
-        "question": "How much does a project cost?",
-        "answer": "Project costs vary by scope and complexity. MVPs typically start from $2,000, standard web apps from $5,000, and enterprise solutions from $15,000. We provide a free, no-obligation quote tailored to your exact requirements after an initial consultation."
+        "question": {
+          "en": "How much does a project cost?",
+          "bn": "একটি প্রজেক্টের খরচ কত?"
+        },
+        "answer": {
+          "en": "Project costs vary by scope and complexity. MVPs typically start from $2,000, standard web apps from $5,000, and enterprise solutions from $15,000. We provide a free, no-obligation quote tailored to your exact requirements after an initial consultation.",
+          "bn": "প্রজেক্টের খরচ এর পরিধি ও জটিলতা অনুযায়ী পরিবর্তিত হয়। MVP সাধারণত $2,000 থেকে, স্ট্যান্ডার্ড ওয়েব অ্যাপ $5,000 থেকে এবং এন্টারপ্রাইজ সমাধান $15,000 থেকে শুরু হয়। প্রাথমিক পরামর্শের পর আমরা আপনার সুনির্দিষ্ট প্রয়োজন অনুযায়ী একটি বিনামূল্যের, বাধ্যবাধকতাহীন কোট প্রদান করি।"
+        }
       },
       {
-        "question": "Do you offer payment plans?",
-        "answer": "Yes. We offer milestone-based payment plans where you pay in stages as the project progresses. A typical split is 30% upfront, 40% at mid-project milestone, and 30% upon delivery. Custom arrangements are available for larger projects."
+        "question": {
+          "en": "Do you offer payment plans?",
+          "bn": "আপনারা কি পেমেন্ট প্ল্যান দেন?"
+        },
+        "answer": {
+          "en": "Yes. We offer milestone-based payment plans where you pay in stages as the project progresses. A typical split is 30% upfront, 40% at mid-project milestone, and 30% upon delivery. Custom arrangements are available for larger projects.",
+          "bn": "হ্যাঁ। আমরা মাইলস্টোন-ভিত্তিক পেমেন্ট প্ল্যান দিই, যেখানে প্রজেক্ট এগিয়ে যাওয়ার সঙ্গে সঙ্গে আপনি ধাপে ধাপে পরিশোধ করেন। সাধারণ বিভাজন হলো ৩০% আগাম, ৪০% প্রজেক্টের মধ্যবর্তী মাইলস্টোনে এবং ৩০% ডেলিভারির সময়। বড় প্রজেক্টের জন্য কাস্টম ব্যবস্থা উপলব্ধ।"
+        }
       }
     ]
   },
   {
-    "category": "Support",
+    "category": {
+      "en": "Support",
+      "bn": "সাপোর্ট"
+    },
     "questions": [
       {
-        "question": "What does your support include?",
-        "answer": "Our support plans include server monitoring, bug fixes, security patches, dependency updates, performance optimization, and a monthly allocation of feature development hours. We also provide incident response for critical issues."
+        "question": {
+          "en": "What does your support include?",
+          "bn": "আপনাদের সাপোর্টে কী কী অন্তর্ভুক্ত থাকে?"
+        },
+        "answer": {
+          "en": "Our support plans include server monitoring, bug fixes, security patches, dependency updates, performance optimization, and a monthly allocation of feature development hours. We also provide incident response for critical issues.",
+          "bn": "আমাদের সাপোর্ট প্ল্যানে সার্ভার মনিটরিং, বাগ ফিক্স, সিকিউরিটি প্যাচ, ডিপেন্ডেন্সি আপডেট, পারফরম্যান্স অপটিমাইজেশন এবং মাসিক ফিচার ডেভেলপমেন্ট আওয়ারের বরাদ্দ অন্তর্ভুক্ত থাকে। আমরা জটিল সমস্যার জন্য ইনসিডেন্ট রেসপন্সও প্রদান করি।"
+        }
       },
       {
-        "question": "What is your response time?",
-        "answer": "Critical issues receive a response within 2 hours during business hours and within 6 hours outside business hours. Standard requests are acknowledged within 24 hours. Enterprise support clients receive a dedicated Slack channel with priority routing."
+        "question": {
+          "en": "What is your response time?",
+          "bn": "আপনাদের রেসপন্স টাইম কত?"
+        },
+        "answer": {
+          "en": "Critical issues receive a response within 2 hours during business hours and within 6 hours outside business hours. Standard requests are acknowledged within 24 hours. Enterprise support clients receive a dedicated Slack channel with priority routing.",
+          "bn": "জটিল সমস্যার ক্ষেত্রে কর্মঘণ্টার মধ্যে ২ ঘণ্টার মধ্যে এবং কর্মঘণ্টার বাইরে ৬ ঘণ্টার মধ্যে রেসপন্স দেওয়া হয়। স্ট্যান্ডার্ড অনুরোধ ২৪ ঘণ্টার মধ্যে স্বীকৃতি দেওয়া হয়। এন্টারপ্রাইজ সাপোর্ট ক্লায়েন্টরা প্রায়োরিটি রাউটিংসহ একটি ডেডিকেটেড Slack চ্যানেল পান।"
+        }
       }
     ]
   }

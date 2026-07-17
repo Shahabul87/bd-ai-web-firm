@@ -9,6 +9,20 @@ import MonoLabel from '@/app/design/ui/MonoLabel';
 import Accordion from '@/app/design/ui/Accordion';
 import faqData from '@content/faq/faq.json';
 
+interface LocalizedString {
+  en: string;
+  bn: string;
+}
+
+interface FaqCategory {
+  category: LocalizedString;
+  questions: { question: LocalizedString; answer: LocalizedString }[];
+}
+
+function pickLocale(value: LocalizedString, locale: string): string {
+  return locale === 'bn' ? value.bn : value.en;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -47,20 +61,21 @@ export default async function FAQPage({
       </PageHero>
 
       <section className="mx-auto max-w-4xl px-6 py-20 sm:py-28">
-        {faqData.map((category, categoryIndex) => (
-          <div key={category.category} className="mb-16 last:mb-0">
+        {(faqData as FaqCategory[]).map((category, categoryIndex) => (
+          <div key={category.category.en} className="mb-16 last:mb-0">
             <MonoLabel>
-              {String(categoryIndex + 1).padStart(2, '0')} / {category.category}
+              {String(categoryIndex + 1).padStart(2, '0')} /{' '}
+              {pickLocale(category.category, locale)}
             </MonoLabel>
             <h2 className="mt-3 font-display text-2xl font-medium text-bone sm:text-3xl">
-              {category.category}
+              {pickLocale(category.category, locale)}
             </h2>
             <div className="mt-6">
               <Accordion
                 items={category.questions.map((q, questionIndex) => ({
-                  id: `${category.category}-${questionIndex}`,
-                  question: q.question,
-                  answer: q.answer,
+                  id: `${category.category.en}-${questionIndex}`,
+                  question: pickLocale(q.question, locale),
+                  answer: pickLocale(q.answer, locale),
                 }))}
               />
             </div>
