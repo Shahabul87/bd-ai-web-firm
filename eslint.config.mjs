@@ -19,8 +19,15 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "coverage/**",
-      ".artifacts/**",
+      ".artifacts/**", // local CI/release evidence
       ".velite/**", // generated content manifest
+      // Playwright output: traces, screenshots and error-context dumps. These
+      // are generated artifacts, not source — linting them reported thousands
+      // of problems from minified bundles captured in traces.
+      "test-results/**",
+      "playwright-report/**",
+      "blob-report/**",
+      "playwright/.cache/**",
       "next-env.d.ts",
       "public/**",
     ],

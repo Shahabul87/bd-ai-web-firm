@@ -31,6 +31,11 @@ export PORTAL_AUTH_SECRET="ci-only-portal-secret-not-a-real-secret-11"
 export AUTH_URL="http://localhost:3101"
 export E2E_PORT="${E2E_PORT:-3101}"
 export E2E_BASE_URL="http://localhost:${E2E_PORT}"
+# This IS CI: it makes Playwright run single-worker (the authenticated specs
+# share one notify double, one rate-limit bucket and one loopback IP, so
+# concurrent PROJECTS would stomp on each other's state), forbid .only, and
+# retry a genuine flake.
+export CI=1
 # Not granted until the preflight passes (see step 5).
 unset ALLOW_TEST_WRITES || true
 

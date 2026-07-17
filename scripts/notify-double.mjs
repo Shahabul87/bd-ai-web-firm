@@ -107,8 +107,13 @@ const routes = {
 
   'POST /v1/auth/totp/verify': (b) => {
     const st = totpState.get(b.user_ref);
-    if (!st?.confirmed || b.code !== DETERMINISTIC_CODE) return [401, { ok: false }];
-    return [200, { ok: true }];
+    // Mid-enrollment (enrolled but not yet confirmed) must still fail.
+    if (st && !st.confirmed) return [401, { ok: false }];
+    // A user this in-memory double has never seen is one the SEED marked as
+    // already enrolled — real notify-svc persists that secret across restarts,
+    // so treat an unknown user_ref as enrolled rather than locking the fixture
+    // out of every test.
+    return b.code === DETERMINISTIC_CODE ? [200, { ok: true }] : [401, { ok: false }];
   },
 
   'POST /v1/auth/recovery/generate': (b) => {
