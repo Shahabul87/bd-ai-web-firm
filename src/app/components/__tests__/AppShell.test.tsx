@@ -11,12 +11,15 @@ jest.mock('../../analytics', () => ({
   __esModule: true,
   default: () => <span data-marker="analytics-component" />,
 }));
+// Render Script as a non-<script> marker element (a real <script> would trip
+// the @next/next/no-sync-scripts lint rule); the src is preserved as an
+// attribute so the assertions can still detect the GA loader.
 jest.mock('next/script', () => ({
   __esModule: true,
   default: (props: { src?: string; children?: React.ReactNode }) => (
-    <script data-marker="ga-script" src={props.src}>
+    <span data-marker="ga-script" data-src={props.src}>
       {props.children}
-    </script>
+    </span>
   ),
 }));
 
