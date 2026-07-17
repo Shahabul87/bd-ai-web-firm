@@ -33,7 +33,11 @@
     "retention": "node scripts/retention.mjs",
     "postinstall": "prisma generate",
     "ci:local": "bash scripts/ci-local.sh",
-    "check:fast": "bash scripts/check-fast.sh"
+    "check:fast": "bash scripts/check-fast.sh",
+    "release:prod": "bash scripts/release-local.sh",
+    "smoke:prod": "bash scripts/smoke-production.sh",
+    "backup": "bash scripts/backup.sh",
+    "restore:drill": "bash scripts/restore-drill.sh"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",
