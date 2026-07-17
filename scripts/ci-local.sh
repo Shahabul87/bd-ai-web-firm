@@ -165,6 +165,10 @@ npx jest --coverage --ci >"$ARTIFACTS/coverage.log" 2>&1 || { tail -30 "$ARTIFAC
 step "Build the production artifact"
 npm run build >"$ARTIFACTS/build.log" 2>&1 || { tail -30 "$ARTIFACTS/build.log"; fail "build"; }
 
+step "Enforce performance budgets (first-load JS, HTML, image weight)"
+npm run check:budgets >"$ARTIFACTS/budgets.log" 2>&1 || { tail -30 "$ARTIFACTS/budgets.log"; fail "performance budget breach"; }
+grep -E '✓|✗' "$ARTIFACTS/budgets.log" | sed 's/^/  /'
+
 step "Start the PRODUCTION server (next start, never next dev)"
 npx next start --port "$E2E_PORT" >"$ARTIFACTS/next-start.log" 2>&1 &
 APP_PID=$!
