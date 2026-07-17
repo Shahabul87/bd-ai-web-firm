@@ -63,6 +63,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <PageLayout>
       <ArticleJsonLd
         type="BlogPosting"
+        locale={locale}
         headline={blog.title}
         description={blog.excerpt}
         urlPath={`/resources/blog/${blog.slug}`}

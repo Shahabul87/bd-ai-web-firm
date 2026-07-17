@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
+import { SITE_URL } from './siteUrl';
 
-const BASE = 'https://www.craftsai.org';
+// One canonical origin. This was hardcoded to the production URL, so canonical
+// tags, hreflang alternates, and og:url on EVERY page pointed at production even
+// on staging (or a local production build).
+const BASE = SITE_URL;
 
 /**
  * Per-locale canonical + hreflang alternates for a page at the given UNPREFIXED

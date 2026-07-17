@@ -65,6 +65,7 @@ export default async function GuideDetailPage({
         headline={guide.title}
         description={guide.excerpt}
         urlPath={`/resources/guides/${guide.slug}`}
+        locale={locale}
         datePublished={guide.date}
       />
       <PageHero eyebrow={t('hero.eyebrow')} title={guide.title} lede={guide.excerpt} />
