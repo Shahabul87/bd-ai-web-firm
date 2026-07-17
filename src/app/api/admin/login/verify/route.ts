@@ -9,7 +9,7 @@ import {
 } from '@/app/lib/adminLoginCookie';
 import { issueTicket } from '@/app/lib/authTicket';
 import { writeAudit } from '@/app/lib/audit';
-import { prisma } from '@/app/lib/db';
+import { findAdminUser } from '@/app/lib/adminIdentity';
 
 export const runtime = 'nodejs';
 
@@ -33,10 +33,7 @@ export async function POST(req: NextRequest) {
   }
   await writeAudit('login.email.success', { actorEmail: chal.email, ip });
 
-  const user = await prisma.user.findUnique({
-    where: { email: chal.email },
-    select: { totpEnrolled: true },
-  });
+  const user = await findAdminUser(chal.email);
 
   // Trusted device → skip TOTP.
   const trustTok = readTrustCookie(req);

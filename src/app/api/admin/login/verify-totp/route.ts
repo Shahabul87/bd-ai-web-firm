@@ -9,7 +9,7 @@ import {
 } from '@/app/lib/adminLoginCookie';
 import { issueTicket } from '@/app/lib/authTicket';
 import { writeAudit } from '@/app/lib/audit';
-import { prisma } from '@/app/lib/db';
+import { findAdminUser, findOrCreateAdminUser } from '@/app/lib/adminIdentity';
 
 export const runtime = 'nodejs';
 
@@ -33,10 +33,7 @@ export async function POST(req: NextRequest) {
   if (!parsed.success) return NextResponse.json({ ok: false }, { status: 400 });
   const { code, remember } = parsed.data;
 
-  const user = await prisma.user.findUnique({
-    where: { email: chal.email },
-    select: { totpEnrolled: true },
-  });
+  const user = await findAdminUser(chal.email);
 
   let recoveryCodes: string[] | undefined;
 
@@ -48,11 +45,7 @@ export async function POST(req: NextRequest) {
       await writeAudit('mfa.enroll.confirm.fail', { actorEmail: chal.email, ip });
       return NextResponse.json({ ok: false, message: 'Invalid authenticator code.' }, { status: 401 });
     }
-    await prisma.user.upsert({
-      where: { email: chal.email },
-      update: { totpEnrolled: true },
-      create: { email: chal.email, role: 'ADMIN', totpEnrolled: true },
-    });
+    await findOrCreateAdminUser(chal.email, { totpEnrolled: true });
     const rec = await recoveryGenerate(chal.email);
     recoveryCodes = rec?.codes ?? [];
     await writeAudit('mfa.enroll.confirm', { actorEmail: chal.email, ip });

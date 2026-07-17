@@ -26,8 +26,11 @@ jest.mock('@/app/lib/notify', () => ({
 }));
 jest.mock('@/app/lib/audit', () => ({ writeAudit: jest.fn().mockResolvedValue(undefined) }));
 jest.mock('@/app/lib/authTicket', () => ({ issueTicket: jest.fn().mockResolvedValue('tk_1') }));
-jest.mock('@/app/lib/db', () => ({
-  prisma: { user: { findUnique: jest.fn(), upsert: jest.fn().mockResolvedValue({}) } },
+// Identity resolution lives in adminIdentity (resolves on normalizedEmail and
+// fails closed on ambiguity); the routes no longer touch prisma.user directly.
+jest.mock('@/app/lib/adminIdentity', () => ({
+  findAdminUser: jest.fn(),
+  findOrCreateAdminUser: jest.fn().mockResolvedValue({ id: 'u1', email: 'admin@x.com', totpEnrolled: true }),
 }));
 
 import { NextRequest } from 'next/server';
@@ -40,14 +43,14 @@ import {
   recoveryVerify,
   recoveryGenerate,
 } from '@/app/lib/notify';
-import { prisma } from '@/app/lib/db';
+import { findAdminUser, findOrCreateAdminUser } from '@/app/lib/adminIdentity';
 import { POST as enrollPOST } from '../enroll-totp/route';
 import { POST as verifyTotpPOST } from '../verify-totp/route';
 
 const cookieMock = readChallengeCookie as jest.Mock;
 const rlMock = checkRateLimit as jest.Mock;
-const findUnique = (prisma.user as unknown as { findUnique: jest.Mock }).findUnique;
-const upsert = (prisma.user as unknown as { upsert: jest.Mock }).upsert;
+const findUnique = findAdminUser as jest.Mock;
+const upsert = findOrCreateAdminUser as jest.Mock;
 
 function post(url: string, body?: unknown): NextRequest {
   return new NextRequest(new URL(url), {

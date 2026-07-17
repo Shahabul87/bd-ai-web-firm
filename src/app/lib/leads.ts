@@ -4,6 +4,7 @@ import { sendAnnouncement, sendPush } from './notify';
 import { SITE_URL, CONTACT_EMAIL } from './email';
 import { writeAudit } from './audit';
 import { reportError } from './report';
+import { normalizeEmail } from './normalizeEmail';
 
 export interface CreateLeadInput {
   source: 'CONTACT' | 'QUOTE' | 'DEMO';
@@ -274,7 +275,15 @@ export async function convertLeadToClient(
   try {
     const result = await prisma.$transaction(async (tx) => {
       const client = await tx.client.create({
-        data: { name: lead.name, email: lead.email, company: lead.company ?? null, sourceLeadId: lead.id },
+        data: {
+          name: lead.name,
+          email: lead.email,
+          // Identity key: portal login resolves on this, so a converted client
+          // without it could never sign in.
+          normalizedEmail: normalizeEmail(lead.email),
+          company: lead.company ?? null,
+          sourceLeadId: lead.id,
+        },
         select: { id: true },
       });
       const project = await tx.project.create({

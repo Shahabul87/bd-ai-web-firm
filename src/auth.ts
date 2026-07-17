@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import authConfig from './auth.config';
-import { prisma } from '@/app/lib/db';
 import { redeemTicket } from '@/app/lib/authTicket';
 import { isAdminEmail } from '@/app/lib/adminAuth';
 import { normalizeEmail } from '@/app/lib/normalizeEmail';
+import { findOrCreateAdminUser } from '@/app/lib/adminIdentity';
 
 /**
  * Full server-side admin auth (Node runtime). The Credentials provider trusts
@@ -26,12 +26,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!redeemed) return null;
         const email = normalizeEmail(redeemed);
         if (!isAdminEmail(email)) return null;
-        const user = await prisma.user.upsert({
-          where: { email },
-          update: {},
-          create: { email, role: 'ADMIN' },
-          select: { id: true, email: true },
-        });
+        // Resolves on normalizedEmail, so a pre-existing mixed-case row is
+        // found rather than duplicated with a fresh MFA state.
+        const user = await findOrCreateAdminUser(email);
+        if (!user) return null;
         return { id: user.id, email: user.email };
       },
     }),

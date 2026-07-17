@@ -30,11 +30,16 @@ enum LeadStatus {
 model User {
   id           String    @id @default(cuid())
   email        String    @unique
+  /// lower(btrim(email)) — the canonical identity key; see Client.normalizedEmail
+  /// for why identity lookups must use this rather than `email` or ILIKE.
+  normalizedEmail String?
   role         Role      @default(ADMIN)
   totpEnrolled Boolean   @default(false)
   createdAt    DateTime  @default(now())
   accounts     Account[]
   sessions     Session[]
+
+  @@index([normalizedEmail])
 }
 
 model Account {
@@ -157,6 +162,13 @@ model Client {
   id           String       @id @default(cuid())
   name         String
   email        String
+  /// lower(btrim(email)) — the canonical identity key. Identity lookups MUST use
+  /// this (exact match) and never the display `email`, which is case-sensitive in
+  /// PostgreSQL, nor Prisma's `mode:'insensitive'`, which compiles to ILIKE and
+  /// treats `_`/`%` in an address as wildcards (verified: 'wild_test@x.com'
+  /// matched 'wildXtest@x.com'). Nullable until the duplicate audit permits a
+  /// unique constraint — see docs/runbooks/email-identity-migration.md.
+  normalizedEmail String?
   company      String?
   phone        String?
   notes        String?      @db.Text
@@ -171,6 +183,7 @@ model Client {
 
   @@index([status])
   @@index([createdAt])
+  @@index([normalizedEmail])
 }
 
 model Project {

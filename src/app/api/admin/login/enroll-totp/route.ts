@@ -3,7 +3,7 @@ import { getClientIP, checkRateLimit } from '@/app/utils/rateLimit';
 import { readChallengeCookie } from '@/app/lib/adminLoginCookie';
 import { totpEnroll } from '@/app/lib/notify';
 import { writeAudit } from '@/app/lib/audit';
-import { prisma } from '@/app/lib/db';
+import { findAdminUser } from '@/app/lib/adminIdentity';
 
 export const runtime = 'nodejs';
 
@@ -31,10 +31,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, message: 'Too many attempts.' }, { status: 429 });
   }
 
-  const user = await prisma.user.findUnique({
-    where: { email: chal.email },
-    select: { totpEnrolled: true },
-  });
+  const user = await findAdminUser(chal.email);
   if (user?.totpEnrolled) {
     await writeAudit('mfa.enroll.blocked', { actorEmail: chal.email, ip });
     return NextResponse.json({ ok: false, code: 'ALREADY_ENROLLED' }, { status: 409 });
