@@ -69,12 +69,19 @@ export default function AIChatbot() {
     return t('fallback');
   };
 
-  const sendMessage = async () => {
-    if (!inputText.trim()) return;
+  // Accept the message text EXPLICITLY. Quick-question buttons previously did
+  // `setInputText(q); setTimeout(sendMessage, 100)`, but setInputText is async,
+  // so the scheduled sendMessage still closed over the pre-update (empty)
+  // inputText and dropped the question. Passing the text directly removes the
+  // race entirely; the send button and Enter key pass no argument and fall back
+  // to the current input value.
+  const sendMessage = (text?: string) => {
+    const content = (text ?? inputText).trim();
+    if (!content || isTyping) return;
 
     const userMessage: Message = {
       id: `user-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-      text: inputText,
+      text: content,
       sender: 'user',
       timestamp: new Date()
     };
@@ -85,7 +92,7 @@ export default function AIChatbot() {
 
     // Simulate AI thinking time with fixed delay
     setTimeout(() => {
-      const response = findResponse(inputText);
+      const response = findResponse(content);
       const botMessage: Message = {
         id: `bot-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
         text: response,
@@ -193,10 +200,7 @@ export default function AIChatbot() {
                 {quickQuestions.slice(0, 3).map((question, index) => (
                   <button
                     key={index}
-                    onClick={() => {
-                      setInputText(question);
-                      setTimeout(sendMessage, 100);
-                    }}
+                    onClick={() => sendMessage(question)}
                     className="text-xs px-3 py-1 bg-ink-800 hover:bg-line text-bone rounded-full transition-colors duration-200"
                   >
                     {question}
@@ -220,7 +224,7 @@ export default function AIChatbot() {
                 disabled={isTyping}
               />
               <button
-                onClick={sendMessage}
+                onClick={() => sendMessage()}
                 disabled={!inputText.trim() || isTyping}
                 aria-label={t('sendLabel')}
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
