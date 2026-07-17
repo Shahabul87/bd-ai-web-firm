@@ -11,10 +11,13 @@ import { reportError } from './report';
  * IP or an email — a privacy problem, since "we keep it only as long as we need
  * it" has to be true in the code, not just in the policy.
  *
- * Business records (Lead, Client, Project, Invoice, Message) are deliberately
- * NOT touched here: invoices in particular are subject to accounting retention
- * and must never be swept automatically. Deleting those is an explicit,
- * operator-driven workflow.
+ * Client, Project, Invoice and Message are deliberately NOT touched: they carry
+ * a 7-year accounting retention and must never be swept automatically. Removing
+ * those is an explicit, operator-driven workflow.
+ *
+ * UNCONVERTED leads ARE swept, because the privacy policy makes a public
+ * 24-month commitment about them — a promise the code has to keep. A lead that
+ * became a client is held indefinitely by that same accounting rule.
  */
 
 export interface RetentionPolicy {
@@ -26,6 +29,11 @@ export interface RetentionPolicy {
   outboxDeadDays: number;
   /** Sessions/tokens/tickets are removed once expired (plus a small grace). */
   expiredGraceDays: number;
+  /**
+   * Unconverted lead enquiries. The published privacy policy commits to 24
+   * months, so this is a PROMISE, not a preference — keep them in step.
+   */
+  leadDays: number;
 }
 
 export const DEFAULT_RETENTION: RetentionPolicy = {
@@ -34,6 +42,7 @@ export const DEFAULT_RETENTION: RetentionPolicy = {
   outboxDeliveredDays: 30,
   outboxDeadDays: 90,
   expiredGraceDays: 1,
+  leadDays: 730, // 24 months — matches Legal.privacy.sections.dataRetention
 };
 
 export interface RetentionReport {
@@ -106,6 +115,22 @@ export async function runRetention(
       },
       run: (w) => prisma.outboxEvent.deleteMany({ where: w }),
       count: (w) => prisma.outboxEvent.count({ where: w }),
+    },
+    {
+      // The ONE business record swept here, because the privacy policy makes a
+      // public 24-month promise about it.
+      //
+      // LEGAL HOLD: a lead that became a client is no longer just an enquiry —
+      // it is the origin record of an engagement whose invoices carry a 7-year
+      // accounting retention. `convertedClient: null` enforces that; deleting a
+      // converted lead would also break Client.sourceLeadId.
+      name: 'Lead',
+      where: {
+        createdAt: { lt: daysAgo(p.leadDays) },
+        convertedClient: null,
+      },
+      run: (w) => prisma.lead.deleteMany({ where: w }),
+      count: (w) => prisma.lead.count({ where: w }),
     },
   ];
 

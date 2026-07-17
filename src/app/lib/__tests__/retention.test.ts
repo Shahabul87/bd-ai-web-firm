@@ -9,6 +9,7 @@ jest.mock('../db', () => {
       verificationToken: table(),
       rateLimit: table(),
       outboxEvent: table(),
+      lead: table(),
     },
   };
 });
@@ -19,7 +20,7 @@ import { reportError } from '../report';
 import { runRetention, DEFAULT_RETENTION } from '../retention';
 
 const db = prisma as unknown as Record<string, { deleteMany: jest.Mock; count: jest.Mock }>;
-const ALL_TABLES = ['incident', 'auditLog', 'authTicket', 'session', 'verificationToken', 'rateLimit', 'outboxEvent'];
+const ALL_TABLES = ['incident', 'auditLog', 'authTicket', 'session', 'verificationToken', 'rateLimit', 'outboxEvent', 'lead'];
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -37,7 +38,7 @@ describe('runRetention', () => {
       expect(db[t].count).toHaveBeenCalled();
       expect(db[t].deleteMany).not.toHaveBeenCalled(); // nothing destroyed
     }
-    expect(r.total).toBe(14); // 7 tables x 2
+    expect(r.total).toBe(ALL_TABLES.length * 2);
   });
 
   it('deletes only when explicitly asked', async () => {
@@ -49,15 +50,15 @@ describe('runRetention', () => {
   it('covers every operational table the plan lists', async () => {
     const r = await runRetention();
     expect(Object.keys(r.counts).sort()).toEqual(
-      ['AuditLog', 'AuthTicket', 'Incident', 'OutboxEvent', 'RateLimit', 'Session', 'VerificationToken'].sort(),
+      ['AuditLog', 'AuthTicket', 'Incident', 'Lead', 'OutboxEvent', 'RateLimit', 'Session', 'VerificationToken'].sort(),
     );
   });
 
-  it('NEVER touches business records (leads, clients, invoices, messages)', async () => {
+  it('NEVER touches client, invoice, project or message records', async () => {
     await runRetention({ dryRun: false });
-    // Those tables are not even present on the mocked client — accounting and
-    // client data must only ever be removed by an explicit operator workflow.
-    for (const forbidden of ['lead', 'client', 'invoice', 'message', 'project']) {
+    // Not even present on the mocked client: these carry a 7-year accounting
+    // retention and may only be removed by an explicit operator workflow.
+    for (const forbidden of ['client', 'invoice', 'message', 'project']) {
       expect(db[forbidden]).toBeUndefined();
     }
   });
@@ -82,6 +83,26 @@ describe('runRetention', () => {
     const cutoff = db.incident.count.mock.calls[0][0].where.createdAt.lt as Date;
     // ~1 day ago, not the 90-day default.
     expect(Date.now() - cutoff.getTime()).toBeLessThan(2 * 86_400_000);
+  });
+
+  /**
+   * The privacy policy publicly commits to deleting unconverted lead enquiries
+   * after 24 months. The code has to keep that promise — and must NOT keep it so
+   * enthusiastically that it destroys a record under an accounting hold.
+   */
+  it('sweeps unconverted leads at the 24 months the privacy policy promises', async () => {
+    await runRetention();
+    const where = db.lead.count.mock.calls[0][0].where;
+    const cutoffDaysAgo = (Date.now() - (where.createdAt.lt as Date).getTime()) / 86_400_000;
+    expect(Math.round(cutoffDaysAgo)).toBe(730); // 24 months, matching the policy
+    expect(DEFAULT_RETENTION.leadDays).toBe(730);
+  });
+
+  it('LEGAL HOLD: never deletes a lead that became a client', async () => {
+    await runRetention({ dryRun: false });
+    // A converted lead is the origin record of an engagement whose invoices are
+    // kept 7 years — and Client.sourceLeadId points at it.
+    expect(db.lead.deleteMany.mock.calls[0][0].where.convertedClient).toBeNull();
   });
 
   it('continues sweeping when one table fails, and reports it', async () => {

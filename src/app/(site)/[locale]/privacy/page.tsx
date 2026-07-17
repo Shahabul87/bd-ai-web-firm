@@ -49,16 +49,30 @@ export default async function PrivacyPage({
       />
 
       {/*
-        FOUNDER TODO before public launch — finalize the bracketed [placeholders]
-        below with your real details and have this reviewed by a lawyer:
-          • Named sub-processors (hosting/database provider, email provider).
-          • Concrete data-retention periods per data category.
-          • Your registered legal/business entity name & jurisdiction.
-        The data categories and processor *types* described here are accurate to
-        what the application actually collects and transmits as of this date.
+        FOUNDER TODO before public launch — the remaining bracketed placeholders
+        are ONLY in the "Who we are" section below:
+          • registered legal entity name
+          • jurisdiction of registration
+          • privacy contact address
+        RESOLVED: sub-processors are named (Railway, Cloudflare, Brevo, Firebase
+        Cloud Messaging, Google Analytics) and retention periods are concrete
+        (leads 24 months; client/invoice records 7 years; logs 12 months).
+        Everything here matches what the application actually collects and
+        transmits. Engineering completion is NOT legal approval — this still
+        needs a qualified review.
       */}
       <section className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
         <div className="space-y-12">
+          <div>
+            <MonoLabel>{t('sections.controller.label')}</MonoLabel>
+            <h2 className="mt-3 font-display text-2xl font-medium text-bone">
+              {t('sections.controller.title')}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-steel">
+              {t('sections.controller.body')}
+            </p>
+          </div>
+
           <div>
             <MonoLabel>{t('sections.informationWeCollect.label')}</MonoLabel>
             <h2 className="mt-3 font-display text-2xl font-medium text-bone">

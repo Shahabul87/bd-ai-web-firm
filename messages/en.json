@@ -1214,6 +1214,11 @@
         "lede": "Last updated: July 5, 2026"
       },
       "sections": {
+        "controller": {
+          "label": "00 / Who we are",
+          "title": "Who We Are",
+          "body": "CraftsAI (\"we\", \"us\") is the data controller responsible for the personal data described in this policy. [LEGAL ENTITY NAME — to be confirmed] is registered in [JURISDICTION — to be confirmed]. For any privacy question, or to exercise the rights described below, contact us at [PRIVACY CONTACT EMAIL — to be confirmed]. We will respond within 30 days."
+        },
         "informationWeCollect": {
           "label": "01 / Information we collect",
           "title": "Information We Collect",
@@ -1261,11 +1266,15 @@
           "items": [
             {
               "term": "Cloud hosting & database",
-              "detail": "— [hosting/database provider] hosts our application and stores lead, client, project, and invoice records."
+              "detail": "— Railway hosts our application and its PostgreSQL database, which stores lead, client, project, and invoice records."
+            },
+            {
+              "term": "Content delivery & security",
+              "detail": "— Cloudflare provides DNS, TLS, and CDN/proxy services in front of our application, and processes visitor IP addresses and request metadata in transit."
             },
             {
               "term": "Notifications & login",
-              "detail": "— our notification service delivers transactional email and login codes via [email delivery provider], and delivers browser push via Google Firebase Cloud Messaging."
+              "detail": "— our notification service delivers transactional email and login codes via Brevo (Sendinblue), and delivers browser push via Google Firebase Cloud Messaging."
             },
             {
               "term": "Analytics",
@@ -1283,7 +1292,7 @@
         "dataRetention": {
           "label": "05 / Data retention",
           "title": "Data Retention",
-          "body": "We keep personal data only as long as necessary for the purposes above or as required by law. Indicatively: lead enquiries are retained for [retention period]; client project, invoice, and message records for [retention period, e.g. as required for tax/accounting]; and optional push tokens until you disable notifications. You can request earlier deletion as described below."
+          "body": "We keep personal data only as long as necessary for the purposes above or as required by law. Specifically: lead enquiries are retained for 24 months from your last contact with us; client project, invoice, and message records are retained for 7 years after the engagement ends, as required for tax and accounting purposes; operational logs and security audit records are retained for up to 12 months; and optional push tokens are kept until you disable notifications. You can request earlier deletion as described below, except where we are legally required to keep a record."
         },
         "yourRights": {
           "label": "06 / Your rights",

@@ -22,7 +22,8 @@ const daysAgo = (n) => new Date(Date.now() - n * 86_400_000);
 const now = new Date();
 const grace = daysAgo(1);
 
-const POLICY = { incidentDays: 90, auditLogDays: 365, outboxDeliveredDays: 30, outboxDeadDays: 90 };
+// leadDays MUST match the public commitment in Legal.privacy.sections.dataRetention.
+const POLICY = { incidentDays: 90, auditLogDays: 365, outboxDeliveredDays: 30, outboxDeadDays: 90, leadDays: 730 };
 
 const targets = [
   ['Incident', prisma.incident, { createdAt: { lt: daysAgo(POLICY.incidentDays) } }],
@@ -41,6 +42,10 @@ const targets = [
       ],
     },
   ],
+  // Unconverted lead enquiries only. A lead that became a client is the origin
+  // record of an engagement whose invoices are kept 7 years — convertedClient:null
+  // is the legal hold.
+  ['Lead (unconverted)', prisma.lead, { createdAt: { lt: daysAgo(POLICY.leadDays) }, convertedClient: null }],
 ];
 
 console.log(apply ? '=== RETENTION SWEEP (APPLYING) ===' : '=== RETENTION SWEEP (dry run — nothing will be deleted) ===');
