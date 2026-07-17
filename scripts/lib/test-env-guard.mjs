@@ -51,9 +51,15 @@ function parseUrl(raw) {
 
 /**
  * @param {Record<string,string|undefined>} env
+ * @param {{ requireWriteGrant?: boolean }} [opts]
+ *   requireWriteGrant=false checks only whether the ENVIRONMENT is safe, without
+ *   requiring the write grant itself. ci-local.sh uses that mode to decide
+ *   whether it may grant ALLOW_TEST_WRITES — otherwise the grant would be a
+ *   precondition of earning the grant.
  * @returns {{ ok: boolean, failures: string[], checks: {name: string, status: string}[] }}
  */
-export function inspectTestEnv(env) {
+export function inspectTestEnv(env, opts = {}) {
+  const requireWriteGrant = opts.requireWriteGrant ?? true;
   const failures = [];
   const checks = [];
   const record = (name, status) => checks.push({ name, status });
@@ -120,12 +126,15 @@ export function inspectTestEnv(env) {
     record('ADMIN_EMAILS', 'test domains only');
   }
 
-  // 5. The write capability itself is opt-in, granted only by the guarded script.
-  if (env.ALLOW_TEST_WRITES !== '1') {
+  // 5. The write capability itself is opt-in, granted only by the guarded script
+  //    once checks 1-4 have passed.
+  if (env.ALLOW_TEST_WRITES === '1') {
+    record('ALLOW_TEST_WRITES', 'granted');
+  } else if (requireWriteGrant) {
     failures.push('ALLOW_TEST_WRITES=1 is required (it is set by scripts/ci-local.sh AFTER these checks pass)');
     record('ALLOW_TEST_WRITES', 'not granted');
   } else {
-    record('ALLOW_TEST_WRITES', 'granted');
+    record('ALLOW_TEST_WRITES', 'pending (will be granted if the checks above pass)');
   }
 
   return { ok: failures.length === 0, failures, checks };

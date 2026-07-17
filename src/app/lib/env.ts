@@ -35,11 +35,31 @@ const strongSecret = (name: string) =>
     .min(MIN_SECRET_LEN, `${name} must be at least ${MIN_SECRET_LEN} characters`)
     .refine((v) => !PLACEHOLDER_RE.test(v), `${name} looks like a placeholder — set a real secret`);
 
+/** Loopback: no network exists to intercept, so plaintext is acceptable there. */
+const LOOPBACK_HOST = /^(localhost|127\.0\.0\.1|\[::1\])$/i;
+
+/**
+ * Requires TLS for any REAL host, while still permitting http://localhost.
+ *
+ * A blanket https-only rule also rejected `next start` on localhost — which is
+ * how local CI runs the production build (the plan requires Playwright to run
+ * against the production server, never `next dev`). Loopback is not a public
+ * URL, so allowing plaintext there costs nothing; http://notify.craftsai.org is
+ * still rejected.
+ */
 const httpsUrl = (name: string) =>
   z
     .string()
     .url(`${name} must be a valid URL`)
-    .refine((v) => v.startsWith('https://'), `${name} must use https:// in production`);
+    .refine((v) => {
+      try {
+        const u = new URL(v);
+        if (u.protocol === 'https:') return true;
+        return u.protocol === 'http:' && LOOPBACK_HOST.test(u.hostname);
+      } catch {
+        return false;
+      }
+    }, `${name} must use https:// (plaintext http:// is allowed only for localhost)`);
 
 const prodSchema = z
   .object({

@@ -8,12 +8,15 @@
  *
  *   node scripts/preflight-test-env.mjs
  */
-import { inspectTestEnv, formatChecks } from './lib/test-env-guard.mjs';
+import { inspectTestEnv } from './lib/test-env-guard.mjs';
 
-const { ok, failures } = inspectTestEnv(process.env);
+// --pre-grant: validate that the ENVIRONMENT is safe, without demanding the
+// write grant that ci-local.sh only issues once these checks pass.
+const preGrant = process.argv.includes('--pre-grant');
+const { ok, failures, checks } = inspectTestEnv(process.env, { requireWriteGrant: !preGrant });
 
 console.log('=== test environment preflight (values never printed) ===');
-console.log(formatChecks(process.env));
+console.log(checks.map((c) => `  ${c.name.padEnd(20)} ${c.status}`).join('\n'));
 
 if (!ok) {
   console.error('\nREFUSING TO RUN — the environment is not safe for test writes:');

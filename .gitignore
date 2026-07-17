@@ -62,3 +62,6 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# local CI/release evidence (keyed by commit sha)
+.artifacts/

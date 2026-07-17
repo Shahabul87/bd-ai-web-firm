@@ -31,7 +31,9 @@
     "ci:preflight": "node scripts/preflight-test-env.mjs",
     "report:dup-emails": "node scripts/report-duplicate-emails.mjs",
     "retention": "node scripts/retention.mjs",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "ci:local": "bash scripts/ci-local.sh",
+    "check:fast": "bash scripts/check-fast.sh"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",

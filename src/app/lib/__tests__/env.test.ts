@@ -82,8 +82,25 @@ describe('validateEnv — secret and URL hardening', () => {
     expect(() => validateEnv()).toThrow(/DATABASE_URL/);
   });
 
-  it('rejects a non-https NOTIFY_URL in production', async () => {
+  it('rejects plaintext http:// to a REAL host', async () => {
     const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com', NOTIFY_URL: 'http://notify.example.com' });
     expect(() => validateEnv()).toThrow(/NOTIFY_URL/);
+  });
+
+  it('rejects plaintext http:// to a real host even for AUTH_URL', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com', AUTH_URL: 'http://app.example.com' });
+    expect(() => validateEnv()).toThrow(/AUTH_URL/);
+  });
+
+  it('ALLOWS http:// on loopback, so `next start` can serve the production build locally', async () => {
+    // Local CI runs Playwright against the production server (never next dev),
+    // and next start forces NODE_ENV=production — a blanket https-only rule
+    // made that impossible. Loopback has no network to intercept.
+    const { validateEnv } = await loadWith({
+      ADMIN_EMAILS: 'a@b.com',
+      AUTH_URL: 'http://localhost:3101',
+      NOTIFY_URL: 'http://127.0.0.1:4010',
+    });
+    expect(() => validateEnv()).not.toThrow();
   });
 });
