@@ -1,8 +1,6 @@
 import { Suspense } from 'react';
 import { Space_Grotesk, Instrument_Sans, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
-import CrossPlatformWrapper from './CrossPlatformWrapper';
-import BrowserCompatibilityFallback from './BrowserCompatibilityFallback';
 import ErrorBoundary from './ErrorBoundary';
 import Analytics from '../analytics';
 
@@ -74,19 +72,17 @@ export default function AppShell({ lang, bodyClassName = '', analytics = true, c
         suppressHydrationWarning
       >
         <ErrorBoundary>
-          <CrossPlatformWrapper fallback={<BrowserCompatibilityFallback />}>
-            {/* Analytics is scoped to marketing routes only (analytics=true).
-                Internal routes pass analytics={false} so no marketing tracker
-                ever loads on /admin, /portal, or auth-callback pages. The
-                Suspense boundary keeps any client-hook bailout scoped to
-                Analytics (which renders null) instead of {children}. */}
-            {analytics && (
-              <Suspense fallback={null}>
-                <Analytics />
-              </Suspense>
-            )}
-            {children}
-          </CrossPlatformWrapper>
+          {/* Analytics is scoped to marketing routes only (analytics=true).
+              Internal routes pass analytics={false} so no marketing tracker
+              ever loads on /admin, /portal, or auth-callback pages. The
+              Suspense boundary keeps any client-hook bailout scoped to
+              Analytics (which renders null) instead of {children}. */}
+          {analytics && (
+            <Suspense fallback={null}>
+              <Analytics />
+            </Suspense>
+          )}
+          {children}
         </ErrorBoundary>
 
         {/* Google Analytics with Consent Mode v2 (default DENIED until the user
