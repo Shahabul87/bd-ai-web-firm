@@ -25,6 +25,9 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
+    "db:seed": "node scripts/seed-ci.mjs",
+    "ci:up": "docker compose -f compose.ci.yml up -d --wait",
+    "ci:down": "docker compose -f compose.ci.yml down -v",
     "report:dup-emails": "node scripts/report-duplicate-emails.mjs",
     "retention": "node scripts/retention.mjs",
     "postinstall": "prisma generate"

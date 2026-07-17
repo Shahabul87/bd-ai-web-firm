@@ -1,0 +1,62 @@
+# Isolated services for `npm run ci:local`.
+#
+# Deliberately separate from docker-compose.dev.yml: CI must never touch the
+# developer's dev database (port 5438) or leave their data mutated. Everything
+# here is namespaced `craftsai-ci-*` and on its own port/volume/network, so a CI
+# run and a dev session can coexist, and `down -v` destroys ONLY CI state.
+name: craftsai-ci
+
+services:
+  ci-db:
+    image: postgres:16
+    container_name: craftsai-ci-db
+    environment:
+      POSTGRES_USER: ci
+      POSTGRES_PASSWORD: ci
+      # The env preflight only accepts a database whose name matches an approved
+      # test pattern; `craftsai_ci` is that pattern. A production URL therefore
+      # cannot be substituted without failing the guard first.
+      POSTGRES_DB: craftsai_ci
+    ports:
+      - '5439:5432' # 5438 is the dev DB — never collide with it
+    # tmpfs: the CI database is throwaway. Nothing survives the run, so a stale
+    # volume can never make one run's result depend on a previous one.
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      # ci-local.sh waits on THIS, not a fixed sleep — a slow first start
+      # otherwise produces a flaky "can't reach database" failure.
+      test: ['CMD-SHELL', 'pg_isready -U ci -d craftsai_ci']
+      interval: 1s
+      timeout: 3s
+      retries: 30
+      start_period: 2s
+    networks:
+      - ci-net
+
+  # Notify capture double: stands in for notify-svc so a test can NEVER send a
+  # real email or push to a founder/client address. It records every request and
+  # exposes them for assertions.
+  ci-notify:
+    image: node:22-alpine
+    container_name: craftsai-ci-notify
+    working_dir: /srv
+    volumes:
+      - ./scripts/notify-double.mjs:/srv/notify-double.mjs:ro
+    command: ['node', '/srv/notify-double.mjs']
+    environment:
+      PORT: '4010'
+    ports:
+      - '4010:4010'
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://localhost:4010/__health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+      start_period: 1s
+    networks:
+      - ci-net
+
+networks:
+  ci-net:
+    name: craftsai-ci-net
