@@ -620,6 +620,8 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
           <textarea
             id="project-description"
             data-quote-field="description"
+            aria-invalid={errors.description ? true : undefined}
+            aria-describedby={errors.description ? 'error-description' : undefined}
             value={formData.projectDetails.description}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -630,7 +632,7 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
             className={`${inputStyles} resize-none ${errors.description ? 'border-amber' : ''}`}
           />
           {errors.description && (
-            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.description}</p>
+            <p id="error-description" className="mt-2 text-xs text-amber sm:text-sm">{errors.description}</p>
           )}
         </div>
 
@@ -785,6 +787,8 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
             data-quote-field="contactName"
             type="text"
             autoComplete="name"
+            aria-invalid={errors.contactName ? true : undefined}
+            aria-describedby={errors.contactName ? 'error-contactName' : undefined}
             value={formData.companyInfo.contactName}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -794,7 +798,7 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
             className={`${inputStyles} min-h-[44px] ${errors.contactName ? 'border-amber' : ''}`}
           />
           {errors.contactName && (
-            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.contactName}</p>
+            <p id="error-contactName" className="mt-2 text-xs text-amber sm:text-sm">{errors.contactName}</p>
           )}
         </div>
 
@@ -806,6 +810,8 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
             data-quote-field="email"
             type="email"
             autoComplete="email"
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? 'error-email' : undefined}
             value={formData.companyInfo.email}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -815,7 +821,7 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
             className={`${inputStyles} min-h-[44px] ${errors.email ? 'border-amber' : ''}`}
           />
           {errors.email && (
-            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.email}</p>
+            <p id="error-email" className="mt-2 text-xs text-amber sm:text-sm">{errors.email}</p>
           )}
         </div>
 
