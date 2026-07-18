@@ -1,4 +1,14 @@
 import { test, expect } from '@playwright/test';
+import en from '../messages/en.json';
+import bn from '../messages/bn.json';
+
+// The locale toggle is localized: on an English page the switch control reads
+// the EN catalog ("Switch to Bengali"); on a Bengali page it reads the BN
+// catalog ("ইংরেজিতে দেখুন"). Reference the catalogs, never hardcode, so the
+// test tracks the real accessible names — the same source of truth the
+// component (LocaleToggle) resolves its aria-label from.
+const SWITCH_TO_BN = en.LocaleToggle.switchToBengali;
+const SWITCH_TO_EN_FROM_BN = bn.LocaleToggle.switchToEnglish;
 
 /**
  * Interactive-chrome smoke tests (Phase 7 Task 7.4): menus, dialogs, locale
@@ -68,11 +78,11 @@ test.describe('Locale switching', () => {
     await page.goto('/services');
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 
-    await page.getByRole('link', { name: 'Switch to Bengali' }).click();
+    await page.getByRole('link', { name: SWITCH_TO_BN }).click();
     await expect(page).toHaveURL(/\/bn\/services$/);
     await expect(page.locator('html')).toHaveAttribute('lang', 'bn');
 
-    await page.getByRole('link', { name: 'Switch to English' }).click();
+    await page.getByRole('link', { name: SWITCH_TO_EN_FROM_BN }).click();
     await expect(page).toHaveURL(/\/services$/);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   });
