@@ -5,23 +5,26 @@ yet are marked **NOT DONE** with what's required, never guessed. Complete the
 remaining fields at the actual release and re-issue the verdict; retain the
 final version with the release artifacts.
 
-## Snapshot — 2026-07-18 (NO-GO)
+## Snapshot — 2026-07-18 (NO-GO; local CI gate now green)
 
 ```text
-Release commit SHA:            2f3f160fe53e922f43d472522dc0e20d1270fb37
+Release commit SHA:            de680e8b5cff964631a29763f6d846f6b0faa57c
                                (branch feat/production-readiness-remediation, PR #13)
 Release tag:                   NONE — not tagged
-Local CI artifact:             NONE for this SHA — `npm run ci:local` has NOT run on 2f3f160
-                               (.artifacts/ci/ holds only earlier commits 6608900, cb6c7bb)
-Local CI result and timestamp: PARTIAL / not the authoritative gate.
-                               Ran this session on the 2f3f160 tree (2026-07-18 ~01:37Z):
-                                 ESLint --max-warnings=0 → 0
-                                 tsc --noEmit           → 0
-                                 jest                   → 362/362 passed
-                                 next build             → success
-                                 check:budgets          → all enforced budgets pass
-                               NOT run: full `npm run ci:local` (isolated Postgres + notify
-                               double + coverage ratchet + Playwright vs `next start`).
+Local CI artifact:             .artifacts/ci/de680e8 — full `npm run ci:local` ran on the
+                               COMMITTED tree (dirty_files=0), clean-tree authoritative pass
+Local CI result and timestamp: PASS — full `npm run ci:local`, the authoritative gate.
+                               git_sha=de680e8, dirty_files=0, result=PASS, duration 77s,
+                               started 2026-07-18T04:31:49Z / finished 2026-07-18T04:33:06Z.
+                               All 19 steps green:
+                                 lockfile in sync · isolated Postgres + notify double up ·
+                                 env preflight · prisma validate/migrate deploy/status ·
+                                 seed (2 users/4 clients/2 projects/2 invoices/1 lead) ·
+                                 ESLint 0 · tsc 0 · jest 362/362 (55 suites) ·
+                                 coverage thresholds met · production build ·
+                                 performance budgets (45 routes ≤230kB, 81 pages ≤170/40kB,
+                                 images ≤300kB) · Playwright 58/58 vs `next start` ·
+                                 prod-dep audit (no high/critical).
 Dependency audit result:       PASS — `npm audit --omit=dev --audit-level=high`
 and timestamp                  found 0 vulnerabilities, 2026-07-18T01:37Z
 Migration plan reviewed by:    NOT DONE — no reviewer assigned
@@ -48,23 +51,34 @@ Known accepted risks and owner: (owner = founder, isham251087@gmail.com)
                                  magic-link tokens
 Production-write confirmation:  N/A — no production writes attempted
 Final decision:                NO-GO
-Decision timestamp:            2026-07-18T01:37Z
+Decision timestamp:            2026-07-18T04:33Z (updated: local CI gate now PASS on
+                               committed tree de680e8; operator gates still incomplete)
 ```
 
 ## Why NO-GO
 
 The release is **NO-GO by default if any required test, restore proof, rollback
-target, readiness check, or manual browser gate is incomplete** (plan §14). All
-of those are currently incomplete. Implementation of Phases 1–7 is done and every
-*local* gate is green, but the operational proofs that make a release safe do not
-exist yet.
+target, readiness check, or manual browser gate is incomplete** (plan §14).
+
+The **local CI gate is now genuinely green** — a full `npm run ci:local` passed
+on the committed tree (de680e8, dirty_files=0). Getting there caught two real
+test-only defects a bare `jest` run could not: `seo.test.ts` hardcoded the
+production origin (failed once NEXT_PUBLIC_SITE_URL mirrored a deployment), and
+a locale-switch E2E test asserted an English label on the Bengali page. Both
+fixed in de680e8; no production behaviour changed.
+
+But the **operational proofs that make a release safe still do not exist**:
+no backup or restore drill, no deployment, no live readiness check, no
+production smoke, no monitoring/alerting, and no manual browser pass. Those are
+what keep the verdict at NO-GO.
 
 ## Path to GO — the operator gate
 
 Do these in order; each is real work, not a checkbox to tick blindly:
 
-1. **`npm run ci:local`** from a clean install on the pinned runtime → capture
-   `.artifacts/ci/2f3f160.../` and paste its result + timestamp above.
+1. ~~**`npm run ci:local`** from a clean install on the pinned runtime → capture
+   the artifact and paste its result + timestamp above.~~ **DONE** —
+   `.artifacts/ci/de680e8`, result=PASS, 2026-07-18T04:33:06Z (clean tree).
 2. **Full browser matrix** (`E2E_ALL_BROWSERS=1`, after `npx playwright install
    firefox webkit`) green against `next start`; **Lighthouse mobile** LCP ≤ 2.5 s,
    CLS ≤ 0.1, INP ≤ 200 ms, a11y ≥ 95.
