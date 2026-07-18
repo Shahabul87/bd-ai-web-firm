@@ -63,4 +63,23 @@ describe('AIChatbot canned-response matcher (real messages/en.json)', () => {
       screen.queryByText((_, node) => node?.textContent === chatbot.fallback)
     ).toBeNull();
   });
+
+  it('sends the selected quick question (regression: stale-closure dropped it)', () => {
+    renderChatbot();
+    fireEvent.click(screen.getByRole('button', { name: chatbot.openLabel }));
+    // Let the welcome message render so the quick-question row is present.
+    act(() => {
+      jest.advanceTimersByTime(500);
+    });
+
+    const question = chatbot.quickQuestions[0];
+    fireEvent.click(screen.getByRole('button', { name: question }));
+
+    // The user's message must be the quick question itself. Under the old
+    // setInputText+setTimeout(sendMessage) code, sendMessage read the stale
+    // (empty) inputText and dropped the question — so no such message appeared.
+    expect(
+      screen.getByText((_, node) => node?.textContent === question),
+    ).toBeInTheDocument();
+  });
 });

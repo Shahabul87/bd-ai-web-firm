@@ -2,6 +2,7 @@ import { prisma } from './db';
 import { writeAudit } from './audit';
 import { sendAnnouncement } from './notify';
 import { SITE_URL } from './email';
+import { normalizeEmail } from './normalizeEmail';
 
 export type ClientStatusValue = 'ACTIVE' | 'ARCHIVED';
 
@@ -67,6 +68,9 @@ export async function createClient(input: {
     data: {
       name: input.name,
       email: input.email,
+      // Identity key must be written alongside the display email — portal login
+      // resolves on this column, so a client without it could never sign in.
+      normalizedEmail: normalizeEmail(input.email),
       company: input.company ?? null,
       phone: input.phone ?? null,
       notes: input.notes ?? null,
@@ -81,7 +85,12 @@ export async function updateClient(
   patch: { name?: string; email?: string; company?: string; phone?: string; notes?: string },
   actorEmail: string,
 ): Promise<void> {
-  await prisma.client.update({ where: { id }, data: patch });
+  // Keep the identity key in lockstep with the display email on every change.
+  const data =
+    patch.email === undefined
+      ? patch
+      : { ...patch, normalizedEmail: normalizeEmail(patch.email) };
+  await prisma.client.update({ where: { id }, data });
   await writeAudit('client.update', { actorEmail, meta: { id } });
 }
 

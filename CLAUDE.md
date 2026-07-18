@@ -10,10 +10,37 @@ This is a Next.js 15.3.1 marketing website for CraftsAI, built with TypeScript a
 
 ### Development
 ```bash
-npm run dev          # Start development server at http://localhost:3000
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint checks
+npm run dev          # Dev server at http://localhost:3000
+npm run build        # Production build
+npm run start        # Serve the production build
+npm run lint         # ESLint CLI, zero warnings ('next lint' is gone — removed in Next 16)
+npm run type-check   # tsc --noEmit
+```
+
+### Gates — run these, don't reason about them
+```bash
+npm run check:fast   # ~4s: lint + types + unit tests. Before every push.
+npm run ci:local     # ~70s: THE gate. Isolated Postgres + notify double, migrations,
+                     # seed, coverage, production build, Playwright vs `next start`.
+                     # Evidence lands in .artifacts/ci/<git-sha>/
+```
+
+### Local services + data
+```bash
+npm run ci:up        # isolated CI Postgres (5439) + notify double (4010)
+npm run ci:down      # tear down (leaves the dev DB on 5438 alone)
+npm run db:seed      # deterministic ci_* fixtures (refuses a non-test database)
+npm run retention    # retention sweep — DRY RUN by default; -- --apply to delete
+npm run report:dup-emails   # read-only duplicate-identity audit
+```
+
+### Release (production writes — see docs/runbooks/release.md)
+```bash
+npm run release:prod -- --dry-run   # every precondition, writes nothing
+npm run release:prod                # requires typed confirmation
+npm run smoke:prod                  # read-only production smoke
+npm run backup                      # encrypted off-provider backup
+npm run restore:drill -- <archive>  # restore into a throwaway DB and count rows
 ```
 
 ### Common Development Tasks
@@ -148,9 +175,37 @@ const widths = [180, 220, 160, 200]; // Fixed array
 - Use slower timing for better UX: 8-10s cycles, 1000ms+ transitions
 - Avoid `animate-pulse` classes, use custom opacity transitions
 
-### Current Limitations
-- No testing framework configured
-- No environment variables setup
-- No API routes or backend integration
-- Forms are display-only (no submission handling)
-- No SEO optimization beyond basic metadata
+### Current State (was "Current Limitations" — every item below had become false)
+
+This section previously claimed there was no test framework, no env setup, no API
+routes, display-only forms, and no SEO. All five are wrong. What is actually true:
+
+- **Tests**: Jest (unit/integration) + Playwright (E2E against the **production**
+  build, never `next dev`). `npm run check:fast` (seconds) before a push;
+  `npm run ci:local` is the authoritative gate.
+- **Environment**: validated at boot by `src/app/lib/env.ts` (Zod). The app
+  **refuses to start** in production on invalid config. See `.env.example`.
+- **Backend**: Prisma + PostgreSQL. Admin + client-portal auth (separate
+  systems), leads, clients, projects, invoices, messages, a transactional
+  outbox, and health endpoints.
+- **Forms**: contact / quote / demo persist leads and return **503 rather than a
+  false success** if persistence fails. One shared Zod schema per form
+  (`src/app/lib/formSchemas.ts`) is used by both client and API.
+- **SEO**: sitemap, RSS, JSON-LD, canonical + hreflang, real 404s. All URLs come
+  from one canonical origin (`src/app/lib/siteUrl.ts`).
+
+### Known gaps (real ones)
+
+- CSP still allows `'unsafe-inline'` for scripts/styles; migrating to nonces is
+  pending a script audit.
+- `normalizedEmail` has no UNIQUE constraint yet — it needs a duplicate audit
+  first (`npm run report:dup-emails`).
+- No restore drill has been run; no independent uptime monitor exists.
+  See `docs/runbooks/rollback.md` and `incident-response.md`.
+
+### Where the truth lives
+
+Prose goes stale — the section above is proof. Prefer:
+- `npm run ci:local` → evidence in `.artifacts/ci/<git-sha>/`
+- `docs/runbooks/` → local-ci, release, rollback, migrations, incident-response,
+  deploy-contract, secret-rotation

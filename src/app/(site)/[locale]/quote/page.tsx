@@ -10,7 +10,7 @@ import PageHero from '@/app/components/shared/PageHero';
 import Button from '@/app/design/ui/Button';
 import Stepper from '@/app/design/ui/Stepper';
 import MonoLabel from '@/app/design/ui/MonoLabel';
-import type { QuoteResponse } from '@/app/lib/formErrors';
+import { QUOTE_FIELD_STEP, type QuoteField, type QuoteResponse } from '@/app/lib/formErrors';
 
 // Types
 interface ProjectDetails {
@@ -140,10 +140,21 @@ export default function QuotePage() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
   const [mounted, setMounted] = useState(false);
+  /** Field that failed server validation and should receive focus once its step renders. */
+  const [focusField, setFocusField] = useState<QuoteField | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Move keyboard focus to the first server-rejected field after its owning step
+  // has rendered, so a screen-reader/keyboard user lands on the input to fix.
+  useEffect(() => {
+    if (!focusField) return;
+    const el = document.querySelector<HTMLElement>(`[data-quote-field="${focusField}"]`);
+    el?.focus();
+    setFocusField(null);
+  }, [focusField, formData.currentStep]);
 
   const services = useMemo<ServiceOption[]>(() => {
     const copy = t.raw('step1.services') as Record<string, ServiceCopy>;
@@ -254,9 +265,20 @@ export default function QuotePage() {
           if (code) translated[field] = tError(code);
         }
         setErrors(translated);
-        setFormData(prev => ({ ...prev, currentStep: 1 }));
+        // Return to the EARLIEST step that owns a failing field and focus it,
+        // rather than always dumping the visitor back on step 1 with no clue
+        // which input to fix.
+        const failingSteps = Object.keys(result.errors)
+          .map((f) => QUOTE_FIELD_STEP[f as QuoteField])
+          .filter((s): s is number => typeof s === 'number');
+        const targetStep = failingSteps.length ? Math.min(...failingSteps) : 1;
+        const firstField = (Object.keys(result.errors) as QuoteField[])
+          .filter((f) => QUOTE_FIELD_STEP[f] === targetStep)
+          .sort()[0];
+        setFormData(prev => ({ ...prev, currentStep: targetStep }));
         setSubmitStatus('error');
         setSubmitMessage(t('status.fixFields'));
+        setFocusField(firstField ?? null);
       } else if (result.code) {
         setSubmitStatus('error');
         // retryMinutes is only present on rate-limit responses; harmless otherwise.
@@ -484,13 +506,25 @@ function Step1Services({ formData, services, handleServiceToggle, errors }: Step
         {services.map((service) => {
           const isSelected = formData.projectDetails.services.includes(service.id);
           return (
-            <div
+            <label
               key={service.id}
-              onClick={() => handleServiceToggle(service.id)}
-              className={`relative min-h-[120px] cursor-pointer border p-4 transition-colors duration-150 sm:p-5 md:p-6 ${
+              className={`relative block min-h-[120px] cursor-pointer border p-4 transition-colors duration-150 focus-within:ring-2 focus-within:ring-signal focus-within:ring-offset-2 focus-within:ring-offset-ink-950 sm:p-5 md:p-6 ${
                 isSelected ? 'border-signal bg-ink-800' : 'border-line hover:border-signal/50'
               }`}
             >
+              {/* A real checkbox drives selection: the card used to be a
+                  <div onClick>, which no keyboard or screen-reader user could
+                  operate. Visually hidden, but focusable — the ring above shows
+                  focus and the indicator below shows checked state. */}
+              <input
+                type="checkbox"
+                name="services"
+                value={service.id}
+                checked={isSelected}
+                onChange={() => handleServiceToggle(service.id)}
+                data-quote-field="services"
+                className="sr-only"
+              />
               {/* Selection Indicator */}
               <div
                 className={`absolute right-3 top-3 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-colors sm:right-4 sm:top-4 sm:h-6 sm:w-6 ${
@@ -531,7 +565,7 @@ function Step1Services({ formData, services, handleServiceToggle, errors }: Step
                   </div>
                 </div>
               </div>
-            </div>
+            </label>
           );
         })}
       </div>
@@ -585,6 +619,9 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
           <label htmlFor="project-description" className={labelStyles}>{t('step2.descriptionLabel')}</label>
           <textarea
             id="project-description"
+            data-quote-field="description"
+            aria-invalid={errors.description ? true : undefined}
+            aria-describedby={errors.description ? 'error-description' : undefined}
             value={formData.projectDetails.description}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -595,7 +632,7 @@ function Step2Details({ formData, setFormData, errors }: StepProps) {
             className={`${inputStyles} resize-none ${errors.description ? 'border-amber' : ''}`}
           />
           {errors.description && (
-            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.description}</p>
+            <p id="error-description" className="mt-2 text-xs text-amber sm:text-sm">{errors.description}</p>
           )}
         </div>
 
@@ -678,6 +715,9 @@ function Step3Investment({ formData, setFormData, errors }: StepProps) {
         {budgetOptions.map((option) => (
           <button
             key={option.value}
+            type="button"
+            data-quote-field="budget"
+            aria-pressed={formData.projectDetails.budget === option.value}
             onClick={() => setFormData((prev) => ({
               ...prev,
               projectDetails: { ...prev.projectDetails, budget: option.value }
@@ -744,8 +784,11 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
           <label htmlFor="contact-name" className={labelStyles}>{t('step4.nameLabel')}</label>
           <input
             id="contact-name"
+            data-quote-field="contactName"
             type="text"
             autoComplete="name"
+            aria-invalid={errors.contactName ? true : undefined}
+            aria-describedby={errors.contactName ? 'error-contactName' : undefined}
             value={formData.companyInfo.contactName}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -755,7 +798,7 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
             className={`${inputStyles} min-h-[44px] ${errors.contactName ? 'border-amber' : ''}`}
           />
           {errors.contactName && (
-            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.contactName}</p>
+            <p id="error-contactName" className="mt-2 text-xs text-amber sm:text-sm">{errors.contactName}</p>
           )}
         </div>
 
@@ -764,8 +807,11 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
           <label htmlFor="contact-email" className={labelStyles}>{t('step4.emailLabel')}</label>
           <input
             id="contact-email"
+            data-quote-field="email"
             type="email"
             autoComplete="email"
+            aria-invalid={errors.email ? true : undefined}
+            aria-describedby={errors.email ? 'error-email' : undefined}
             value={formData.companyInfo.email}
             onChange={(e) => setFormData((prev) => ({
               ...prev,
@@ -775,7 +821,7 @@ function Step4Contact({ formData, setFormData, errors }: StepProps) {
             className={`${inputStyles} min-h-[44px] ${errors.email ? 'border-amber' : ''}`}
           />
           {errors.email && (
-            <p className="mt-2 text-xs text-amber sm:text-sm">{errors.email}</p>
+            <p id="error-email" className="mt-2 text-xs text-amber sm:text-sm">{errors.email}</p>
           )}
         </div>
 
@@ -892,6 +938,7 @@ function Step5Review({ formData, setFormData, services, errors }: Step5Props) {
         <label className="flex cursor-pointer items-start gap-2 border border-line bg-ink-800/50 p-3 sm:gap-3 sm:p-4">
           <input
             type="checkbox"
+            data-quote-field="terms"
             checked={formData.agreedToTerms}
             onChange={(e) => setFormData((prev) => ({
               ...prev,

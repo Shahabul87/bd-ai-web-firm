@@ -167,22 +167,34 @@ export async function checkRateLimit(
   return shared ?? checkRateLimitMemory(identifier, options);
 }
 
+/** Reject spoofed/garbage values before they are used as a rate-limit bucket. */
+function isValidIp(ip: string): boolean {
+  const v4 = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(ip);
+  if (v4) return v4.slice(1).every((o) => Number(o) <= 255);
+  // Loose IPv6 sanity check (hex groups + at least one colon); rejects header
+  // injection and arbitrary strings without a full RFC parser.
+  return /^[0-9a-fA-F:]+:[0-9a-fA-F:]*$/.test(ip);
+}
+
 /**
- * Get client IP from request headers.
- * Note: trusts x-forwarded-for / x-real-ip — only reliable behind a trusted
- * proxy (Vercel sets these). Returns 'unknown' if absent, so all
- * header-less callers share one bucket (fail-closed-ish for spam).
+ * Best-trusted client IP behind Cloudflare → Railway.
+ *
+ * `CF-Connecting-IP` is set by Cloudflare to the real client IP and OVERWRITES
+ * any client-supplied value, so it is trustworthy at the edge. `x-real-ip` is
+ * set by Railway's proxy. `x-forwarded-for` is client-appendable, so its
+ * left-most value is used only as a last resort. The chosen value is validated;
+ * an invalid/absent IP falls back to the shared 'unknown' bucket (fail-closed
+ * for spam) rather than trusting a spoofable string.
  */
 export function getClientIP(request: Request): string {
-  const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded) {
-    return forwarded.split(',')[0].trim();
+  const candidates = [
+    request.headers.get('cf-connecting-ip'),
+    request.headers.get('x-real-ip'),
+    request.headers.get('x-forwarded-for')?.split(',')[0],
+  ];
+  for (const c of candidates) {
+    const ip = c?.trim();
+    if (ip && isValidIp(ip)) return ip;
   }
-
-  const realIP = request.headers.get('x-real-ip');
-  if (realIP) {
-    return realIP;
-  }
-
   return 'unknown';
 }

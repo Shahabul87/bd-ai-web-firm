@@ -58,6 +58,8 @@ export default async function CaseStudyDetailPage({
         headline={cs.title}
         description={cs.excerpt}
         urlPath={`/resources/case-studies/${cs.slug}`}
+        locale={locale}
+        datePublished={cs.date}
       />
       <PageHero eyebrow={t('hero.eyebrow')} title={cs.title} lede={cs.excerpt} />
 

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { formatContentDate } from '@/app/lib/formatDate';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { notFound } from 'next/navigation';
@@ -39,14 +40,6 @@ export async function generateMetadata({
   };
 }
 
-function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
-
 export default async function GuideDetailPage({
   params,
 }: GuideDetailPageProps) {
@@ -65,6 +58,7 @@ export default async function GuideDetailPage({
         headline={guide.title}
         description={guide.excerpt}
         urlPath={`/resources/guides/${guide.slug}`}
+        locale={locale}
         datePublished={guide.date}
       />
       <PageHero eyebrow={t('hero.eyebrow')} title={guide.title} lede={guide.excerpt} />
@@ -73,7 +67,7 @@ export default async function GuideDetailPage({
         <div className="mx-auto max-w-3xl px-6 py-8">
           <div className="flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-steel">
             <time dateTime={guide.date} className="text-signal">
-              {formatDate(guide.date)}
+              {formatContentDate(guide.date, locale)}
             </time>
             <span aria-hidden>·</span>
             <span>{t('readTime', { count: guide.readTime })}</span>

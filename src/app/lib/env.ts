@@ -1,5 +1,8 @@
 import 'server-only';
 import { z } from 'zod';
+import { normalizeEmail } from './normalizeEmail';
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
  * Centralised, server-only runtime environment validation.
@@ -22,17 +25,84 @@ const isTest = process.env.NODE_ENV === 'test';
 /** Secrets must carry at least 32 bytes of entropy (openssl rand -base64 32). */
 const MIN_SECRET_LEN = 32;
 
-const prodSchema = z.object({
-  DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
-  AUTH_SECRET: z.string().min(MIN_SECRET_LEN, `AUTH_SECRET must be at least ${MIN_SECRET_LEN} characters`),
-  PORTAL_AUTH_SECRET: z
+/** Obvious placeholder/example values that must never reach production. */
+const PLACEHOLDER_RE =
+  /(dev-only|change[-_ ]?me|placeholder|example|your[-_ ]?secret|xxxx|secret123|todo|replace[-_ ]?me)/i;
+
+const strongSecret = (name: string) =>
+  z
     .string()
-    .min(MIN_SECRET_LEN, `PORTAL_AUTH_SECRET must be at least ${MIN_SECRET_LEN} characters`),
-  AUTH_URL: z.string().url('AUTH_URL must be a valid URL'),
-  ADMIN_EMAILS: z.string().min(1, 'ADMIN_EMAILS is required'),
-  NOTIFY_URL: z.string().url('NOTIFY_URL must be a valid URL'),
-  NOTIFY_API_KEY: z.string().min(1, 'NOTIFY_API_KEY is required'),
-});
+    .min(MIN_SECRET_LEN, `${name} must be at least ${MIN_SECRET_LEN} characters`)
+    .refine((v) => !PLACEHOLDER_RE.test(v), `${name} looks like a placeholder — set a real secret`);
+
+/** Loopback: no network exists to intercept, so plaintext is acceptable there. */
+const LOOPBACK_HOST = /^(localhost|127\.0\.0\.1|\[::1\])$/i;
+
+/**
+ * Requires TLS for any REAL host, while still permitting http://localhost.
+ *
+ * A blanket https-only rule also rejected `next start` on localhost — which is
+ * how local CI runs the production build (the plan requires Playwright to run
+ * against the production server, never `next dev`). Loopback is not a public
+ * URL, so allowing plaintext there costs nothing; http://notify.craftsai.org is
+ * still rejected.
+ */
+const httpsUrl = (name: string) =>
+  z
+    .string()
+    .url(`${name} must be a valid URL`)
+    .refine((v) => {
+      try {
+        const u = new URL(v);
+        if (u.protocol === 'https:') return true;
+        return u.protocol === 'http:' && LOOPBACK_HOST.test(u.hostname);
+      } catch {
+        return false;
+      }
+    }, `${name} must use https:// (plaintext http:// is allowed only for localhost)`);
+
+const prodSchema = z
+  .object({
+    DATABASE_URL: z
+      .string()
+      .min(1, 'DATABASE_URL is required')
+      .refine((v) => /^postgres(ql)?:\/\//.test(v), 'DATABASE_URL must be a postgres:// connection string'),
+    AUTH_SECRET: strongSecret('AUTH_SECRET'),
+    PORTAL_AUTH_SECRET: strongSecret('PORTAL_AUTH_SECRET'),
+    AUTH_URL: httpsUrl('AUTH_URL'),
+    ADMIN_EMAILS: z
+      .string()
+      .min(1, 'ADMIN_EMAILS is required')
+      .refine((raw) => {
+        const entries = raw.split(',').map((e) => e.trim()).filter(Boolean);
+        if (entries.length === 0) return false;
+        const normalized = entries.map(normalizeEmail);
+        const allValid = normalized.every((e) => EMAIL_RE.test(e));
+        const noDuplicates = new Set(normalized).size === normalized.length;
+        return allValid && noDuplicates;
+      }, 'ADMIN_EMAILS must be a comma-separated list of unique, valid email addresses'),
+    NOTIFY_URL: httpsUrl('NOTIFY_URL'),
+    // The canonical origin this deployment advertises in emails, sitemap,
+    // canonical tags and JSON-LD. Optional so an existing deploy keeps its
+    // built-in default, but if set it must be a real URL — a typo here would
+    // silently poison every outbound link and every SEO signal at once.
+    NEXT_PUBLIC_SITE_URL: httpsUrl('NEXT_PUBLIC_SITE_URL').optional(),
+    NOTIFY_API_KEY: z
+      .string()
+      .min(1, 'NOTIFY_API_KEY is required')
+      .refine((v) => !PLACEHOLDER_RE.test(v), 'NOTIFY_API_KEY looks like a placeholder — set a real key'),
+  })
+  .superRefine((env, ctx) => {
+    // The admin and portal login systems must not share signing material, or a
+    // token minted for one could be replayed against the other.
+    if (env.AUTH_SECRET && env.PORTAL_AUTH_SECRET && env.AUTH_SECRET === env.PORTAL_AUTH_SECRET) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['PORTAL_AUTH_SECRET'],
+        message: 'PORTAL_AUTH_SECRET must differ from AUTH_SECRET',
+      });
+    }
+  });
 
 let validated = false;
 

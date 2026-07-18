@@ -1,6 +1,13 @@
 import { localeAlternates, localeOpenGraph } from '../seo';
+import { SITE_URL } from '../siteUrl';
 
-const BASE = 'https://www.craftsai.org';
+// Derive the expected origin from the SAME source the code uses. These tests
+// verify URL *composition* (the /bn prefix, trailing-slash stripping, and
+// x-default → English), not the origin value — which is environment-dependent
+// (NEXT_PUBLIC_SITE_URL). Hardcoding the production origin here made the suite
+// fail under `ci:local`, which sets NEXT_PUBLIC_SITE_URL=http://localhost:3101
+// to mirror the deployed environment; siteUrl.ts owns origin resolution.
+const BASE = SITE_URL;
 
 describe('localeAlternates', () => {
   it('en canonical is the unprefixed URL', () => {

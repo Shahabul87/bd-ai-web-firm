@@ -1,3 +1,20 @@
+> # ⚠️ SUPERSEDED — DO NOT FOLLOW
+>
+> **Archived 2026-07-17.** This guide describes an SMTP/Gmail email path
+> (`SMTP_HOST`, `SMTP_USER`, app passwords) that **no longer exists in the code**.
+> All transactional email now flows through notify-svc (`src/app/lib/notify.ts`);
+> there is no SMTP transport, and setting these variables does nothing.
+>
+> Following this document would cost you an afternoon configuring settings the
+> application never reads.
+>
+> **Current instructions:** `README.md` (setup), `.env.example` (real variables),
+> `docs/runbooks/local-ci.md` (running the gate).
+>
+> Kept only as a record of how contact forms were originally wired.
+
+---
+
 # 📧 Contact Forms Setup Guide
 
 Your contact forms are now fully functional! Here's how to complete the setup so people can actually contact you.

@@ -1,50 +1,84 @@
 # End-to-end tests (Playwright)
 
-Smoke tests for the production flows. Unit tests (Jest) cover the libraries; these
-prove the pieces work together through a real browser + HTTP.
+These prove the pieces work together through a real browser + HTTP, against the
+**production build** (`next start`) — never `next dev`. Dev mode differs from
+what ships (route caching, error overlays, no minification, different
+prerendering), so a green dev-mode suite proves nothing about the artifact being
+released. Unit tests (Jest) cover the libraries.
 
 ## Running
 
+The supported way is the full gate, which builds the app, brings up the isolated
+services, seeds fixtures, and points the suite at the production server:
+
 ```bash
-npx playwright install chromium   # one-time: download the browser
-npm run test:e2e                  # starts `npm run dev` and runs the suite
-npm run test:e2e:ui               # interactive UI mode
+npm run ci:local
 ```
 
-By default Playwright starts the dev server on `http://localhost:3000`. To run
-against an already-running or remote deployment:
+To iterate on a spec by hand, start the services first — the authenticated specs
+**skip themselves** (loudly) if the notify double is not reachable:
+
+```bash
+npm run ci:up                       # isolated Postgres (5439) + notify double (4010)
+npx playwright install chromium     # one-time
+npm run test:e2e                    # builds + starts the production server
+npm run test:e2e:ui                 # interactive
+npm run ci:down                     # tear down
+```
+
+Against a deployed environment:
 
 ```bash
 E2E_BASE_URL=https://staging.craftsai.org npm run test:e2e
 ```
 
-## What's covered now
+## Browser matrix
 
-`public-forms.spec.ts` — **DB-independent** smoke coverage that runs anywhere:
+`chromium` and `mobile-chrome` (Pixel 7) run by default. The rest are opt-in
+because they need an extra download and triple the runtime:
 
-- Contact form UI round-trip (fill → submit → terminal status renders).
-- Contact / quote / demo API validation returns `400` with field errors.
-- Honeypot submissions return `200` without persisting.
-- CORS preflight (`OPTIONS`) returns `200`.
-- Quote multi-step wizard mounts.
+```bash
+npx playwright install firefox webkit
+E2E_ALL_BROWSERS=1 npm run test:e2e   # + firefox, webkit, mobile-safari
+```
 
-> The contact UI test tolerates the graceful `503` "try again" path when no
-> database is configured. Once you point it at a seeded test DB, tighten it to
-> assert the success message specifically.
+## What's covered
 
-## What still needs a test environment (`authenticated-flows.spec.ts`)
+`public-forms.spec.ts` — DB-independent smoke coverage: contact UI round-trip,
+contact/quote/demo validation, honeypot, CORS preflight, quote wizard mount.
 
-These are `test.fixme` stubs. To implement them you need:
+`authenticated-flows.spec.ts` — real multi-factor login driven through the UI (no
+session is forged):
 
-1. **A seeded test Postgres** with:
-   - an admin email present in `ADMIN_EMAILS`,
-   - a client with `enabled = true`, at least one project, and one invoice.
-2. **Deterministic auth** — either rely on the built-in dev auth fallback
-   (`src/app/lib/devAuth.ts`, active when notify-svc is unconfigured outside
-   production) or a notify-svc **test tenant** whose challenge codes the test can
-   read back.
-3. Saved auth `storageState` per role (admin, client) to skip re-login per test.
+| Scenario | Asserts |
+|---|---|
+| Admin OTP login | email factor alone is not enough; the second factor is demanded |
+| Non-allowlisted email | enumeration-safe response, yet **no challenge is issued** and a guessed code fails |
+| Already-enrolled admin | never offered enrollment — email access alone cannot reset MFA |
+| Lead triage | the seeded lead lists on `/admin` and its detail opens |
+| Portal login | a client sees only their OWN project |
+| Cross-tenant project | Client A gets 404 for Client B's project id |
+| Portal-disabled client | no challenge issued; cannot sign in |
+| Draft invoice | a client sees their SENT invoice, never the DRAFT — by list or direct URL |
+| Cross-tenant invoice | Client B gets 404 for Client A's invoice |
+| notify isolation | every recipient the suite touches is a `.test` address |
 
-Flows to implement: admin login (allowlisted + rejected), lead triage + status
-change, client portal login + project scoping (incl. cross-client access denial),
-and invoice create → send → client view.
+## How authentication is testable
+
+`scripts/notify-double.mjs` stands in for notify-svc: it records every request,
+**sends nothing**, and issues a deterministic challenge code that the test reads
+back via `__captured/latest`. Fixtures come from `scripts/seed-ci.mjs` (fixed
+`ci_*` ids). See `e2e/helpers/auth.ts`.
+
+## Gotchas worth knowing
+
+- **Serial by necessity.** Every test drives a real login from the same loopback
+  IP and shares the double's captured state, so the file runs `mode: 'serial'`
+  and `ci:local` sets `CI=1` (single worker). Concurrent *projects* otherwise
+  stomp on each other's challenges.
+- **Rate limits are reset per test.** Login allows 10 requests / 5 min per IP;
+  the suite would throttle itself and report false failures.
+- **Wait for the UI before inspecting the double.** A click fires an async POST;
+  querying `__captured` immediately races the request.
+- **Wait for the post-login redirect.** Sign-in completes via a server action; a
+  `goto()` straight after can race the session cookie and land back on login.

@@ -2,6 +2,10 @@ import { render, screen } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import SelectedWork from '../SelectedWork';
 import ResourcesRow from '../ResourcesRow';
+// The REAL href maps that ship, so a divergence between what the components use
+// and what these tests assert is impossible.
+import { PROJECT_HREFS, RESOURCE_HREFS } from '../homeRouting';
+import { getBlogBySlug, getCaseStudyBySlug, getGuideBySlug } from '@/app/lib/content';
 // The real message files, so these fixtures cannot drift from the shipped copy.
 import enMessages from '../../../../../messages/en.json';
 import bnMessages from '../../../../../messages/bn.json';
@@ -33,17 +37,11 @@ const wrap = (messages: Messages, ui: React.ReactElement) =>
     </NextIntlClientProvider>
   );
 
-/** The single source of truth for what each card must link to. */
-const PROJECT_ROUTES: Record<string, string> = {
-  taxomind: '/portfolio/taxomind',
-  'fincoach-ai': '/portfolio/fincoach-ai',
-  mathphysics: '/portfolio/mathphysics',
-};
-const RESOURCE_ROUTES: Record<string, string> = {
-  'ai-agents-software-development': '/resources/blog/ai-agents-software-development',
-  taxomind: '/resources/case-studies/taxomind',
-  'ai-powered-development': '/resources/guides/ai-powered-development',
-};
+// The shipped maps ARE the source of truth (imported above); the reorder/throw
+// tests below guard HOW copy is paired to them, and the content-manifest suite
+// at the bottom guards that every href actually resolves.
+const PROJECT_ROUTES = PROJECT_HREFS;
+const RESOURCE_ROUTES = RESOURCE_HREFS;
 
 describe('homepage card routing is keyed by slug, not array position', () => {
   describe('SelectedWork', () => {
@@ -140,5 +138,26 @@ describe('homepage card routing is keyed by slug, not array position', () => {
     expect(bnMessages.Home.resources.items.map((r) => r.slug)).toEqual(
       enMessages.Home.resources.items.map((r) => r.slug)
     );
+  });
+});
+
+/* The guard that was missing: every homepage href must resolve to real Velite
+ * content. Previously all six cards 404'd because the hardcoded slugs had
+ * drifted from the content manifest and no test checked the destination. */
+function contentExistsFor(href: string): boolean {
+  let m;
+  if ((m = href.match(/^\/portfolio\/(.+)$/))) return Boolean(getCaseStudyBySlug(m[1]));
+  if ((m = href.match(/^\/resources\/blog\/(.+)$/))) return Boolean(getBlogBySlug(m[1]));
+  if ((m = href.match(/^\/resources\/case-studies\/(.+)$/))) return Boolean(getCaseStudyBySlug(m[1]));
+  if ((m = href.match(/^\/resources\/guides\/(.+)$/))) return Boolean(getGuideBySlug(m[1]));
+  return false;
+}
+
+describe('homepage hrefs resolve to real Velite content (no soft 404s)', () => {
+  it.each(Object.entries(PROJECT_HREFS))('project card "%s" -> %s exists', (_slug, href) => {
+    expect(contentExistsFor(href)).toBe(true);
+  });
+  it.each(Object.entries(RESOURCE_HREFS))('resource card "%s" -> %s exists', (_slug, href) => {
+    expect(contentExistsFor(href)).toBe(true);
   });
 });

@@ -98,7 +98,17 @@ const nextConfig: NextConfig = {
             value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
           }
         ]
-      }
+      },
+      {
+        // Auth callback routes carry a magic-link token in the query string.
+        // Never cache them, and never emit the token as a Referer to any
+        // subresource. (History/URL scrubbing happens client-side on mount.)
+        source: '/:path(admin/login/callback|portal/auth/callback)',
+        headers: [
+          { key: 'Cache-Control', value: 'no-store, max-age=0' },
+          { key: 'Referrer-Policy', value: 'no-referrer' },
+        ],
+      },
     ];
   },
   webpack(config) {

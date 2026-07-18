@@ -38,6 +38,11 @@ export default function PortalLoginFlow({ initialToken }: { initialToken?: strin
   useEffect(() => {
     if (!initialToken || ranInitial.current) return;
     ranInitial.current = true;
+    // Scrub the token from the address bar/history before doing anything else,
+    // so it cannot leak via Referer, browser history, or extensions.
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', '/portal/auth/callback');
+    }
     (async () => {
       setBusy(true);
       const r = await postJson('/api/user/login/verify', { token: initialToken });

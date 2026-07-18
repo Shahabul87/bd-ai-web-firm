@@ -4,10 +4,10 @@
  * PageLayout is imported by the two 'use client' pages (contact, quote) — which
  * makes everything they import a client component too. `getTranslations` is
  * server-only and throws there ("getTranslations is not supported in Client
- * Components"), so this must use the hook. That failure was invisible until the
- * spinner gate was removed from CrossPlatformWrapper (PR #7): before that, those
- * pages never rendered their tree during prerender, so the build reported 110/110
- * while /en/contact was broken. */
+ * Components"), so this must use the hook. That failure was once invisible: a
+ * former global wrapper (since removed) gated rendering behind a client effect,
+ * so those pages never rendered their tree during prerender and the build
+ * reported 110/110 while /en/contact was broken. */
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import MonoLabel from '../../design/ui/MonoLabel';

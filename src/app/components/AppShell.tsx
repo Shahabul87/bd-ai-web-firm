@@ -1,8 +1,6 @@
 import { Suspense } from 'react';
 import { Space_Grotesk, Instrument_Sans, JetBrains_Mono } from 'next/font/google';
 import Script from 'next/script';
-import CrossPlatformWrapper from './CrossPlatformWrapper';
-import BrowserCompatibilityFallback from './BrowserCompatibilityFallback';
 import ErrorBoundary from './ErrorBoundary';
 import Analytics from '../analytics';
 
@@ -35,10 +33,16 @@ interface AppShellProps {
   lang: string;
   /** Extra font variable classes appended to <body> (e.g. Bengali font). */
   bodyClassName?: string;
+  /**
+   * Render marketing analytics (Google Analytics). MUST be false for internal
+   * routes (/admin, /portal, auth callbacks): magic-link callbacks carry the
+   * auth token in the URL, and analytics must never observe those routes.
+   */
+  analytics?: boolean;
   children: React.ReactNode;
 }
 
-export default function AppShell({ lang, bodyClassName = '', children }: AppShellProps) {
+export default function AppShell({ lang, bodyClassName = '', analytics = true, children }: AppShellProps) {
   return (
     <html lang={lang} className="dark" suppressHydrationWarning>
       <head>
@@ -68,21 +72,23 @@ export default function AppShell({ lang, bodyClassName = '', children }: AppShel
         suppressHydrationWarning
       >
         <ErrorBoundary>
-          <CrossPlatformWrapper fallback={<BrowserCompatibilityFallback />}>
-            {/* Analytics calls useSearchParams(), which opts its subtree out of
-                static rendering. It must stay inside its own Suspense boundary so
-                the bailout is scoped to Analytics (which renders null) and never
-                reaches {children} — without this, prerendering every page fails. */}
+          {/* Analytics is scoped to marketing routes only (analytics=true).
+              Internal routes pass analytics={false} so no marketing tracker
+              ever loads on /admin, /portal, or auth-callback pages. The
+              Suspense boundary keeps any client-hook bailout scoped to
+              Analytics (which renders null) instead of {children}. */}
+          {analytics && (
             <Suspense fallback={null}>
               <Analytics />
             </Suspense>
-            {children}
-          </CrossPlatformWrapper>
+          )}
+          {children}
         </ErrorBoundary>
 
         {/* Google Analytics with Consent Mode v2 (default DENIED until the user
-            opts in via the CookieConsent banner). Loaded only when configured. */}
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+            opts in via the CookieConsent banner). Loaded only when configured
+            AND on marketing routes (never on internal/auth routes). */}
+        {analytics && process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <>
             <Script id="ga-consent-default" strategy="beforeInteractive">
               {`

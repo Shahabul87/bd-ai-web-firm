@@ -28,13 +28,18 @@ enum LeadStatus {
 }
 
 model User {
-  id           String    @id @default(cuid())
-  email        String    @unique
-  role         Role      @default(ADMIN)
-  totpEnrolled Boolean   @default(false)
-  createdAt    DateTime  @default(now())
-  accounts     Account[]
-  sessions     Session[]
+  id              String    @id @default(cuid())
+  email           String    @unique
+  /// lower(btrim(email)) — the canonical identity key; see Client.normalizedEmail
+  /// for why identity lookups must use this rather than `email` or ILIKE.
+  normalizedEmail String?
+  role            Role      @default(ADMIN)
+  totpEnrolled    Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  accounts        Account[]
+  sessions        Session[]
+
+  @@index([normalizedEmail])
 }
 
 model Account {
@@ -73,6 +78,10 @@ model VerificationToken {
 
 model AuthTicket {
   id        String    @id @default(cuid())
+  // SHA-256 hash of the opaque bearer token handed to the client. The raw token
+  // is never persisted, so DB-read or log access cannot redeem a live ticket.
+  // Nullable so pre-existing (id-based) rows remain valid; new tickets always set it.
+  tokenHash String?   @unique
   email     String
   scope     String    @default("admin")
   usedAt    DateTime?
@@ -83,20 +92,20 @@ model AuthTicket {
 }
 
 model Lead {
-  id        String     @id @default(cuid())
-  source    LeadSource
-  name      String
-  email     String
-  company   String?
-  message   String?    @db.Text
-  payload   Json
-  status    LeadStatus @default(NEW)
-  ip        String?
-  userAgent String?    @db.Text
-  notes     LeadNote[]
-  convertedClient Client? @relation("LeadClient")
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id              String     @id @default(cuid())
+  source          LeadSource
+  name            String
+  email           String
+  company         String?
+  message         String?    @db.Text
+  payload         Json
+  status          LeadStatus @default(NEW)
+  ip              String?
+  userAgent       String?    @db.Text
+  notes           LeadNote[]
+  convertedClient Client?    @relation("LeadClient")
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
 
   @@index([status])
   @@index([source])
@@ -150,23 +159,31 @@ enum UpdateVisibility {
 }
 
 model Client {
-  id           String       @id @default(cuid())
-  name         String
-  email        String
-  company      String?
-  phone        String?
-  notes        String?      @db.Text
-  status        ClientStatus @default(ACTIVE)
-  portalEnabled Boolean      @default(false)
-  sourceLeadId String?      @unique
-  sourceLead   Lead?        @relation("LeadClient", fields: [sourceLeadId], references: [id])
-  projects     Project[]
-  invoices     Invoice[]
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  id              String       @id @default(cuid())
+  name            String
+  email           String
+  /// lower(btrim(email)) — the canonical identity key. Identity lookups MUST use
+  /// this (exact match) and never the display `email`, which is case-sensitive in
+  /// PostgreSQL, nor Prisma's `mode:'insensitive'`, which compiles to ILIKE and
+  /// treats `_`/`%` in an address as wildcards (verified: 'wild_test@x.com'
+  /// matched 'wildXtest@x.com'). Nullable until the duplicate audit permits a
+  /// unique constraint — see docs/runbooks/email-identity-migration.md.
+  normalizedEmail String?
+  company         String?
+  phone           String?
+  notes           String?      @db.Text
+  status          ClientStatus @default(ACTIVE)
+  portalEnabled   Boolean      @default(false)
+  sourceLeadId    String?      @unique
+  sourceLead      Lead?        @relation("LeadClient", fields: [sourceLeadId], references: [id])
+  projects        Project[]
+  invoices        Invoice[]
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 
   @@index([status])
   @@index([createdAt])
+  @@index([normalizedEmail])
 }
 
 model Project {
@@ -313,4 +330,45 @@ model Incident {
 
   @@index([createdAt])
   @@index([scope])
+}
+
+// ── Phase 4: transactional outbox ───────────────────────────────────────────
+// Founder alerts, invoice emails and portal invitations were dispatched
+// fire-and-forget: if notify-svc was down (or the process died) at that moment,
+// the notification was simply lost, with the business row already committed.
+// An OutboxEvent is enqueued in the SAME transaction as its business mutation,
+// so either both land or neither does, and a worker retries delivery
+// independently of the request.
+enum OutboxStatus {
+  PENDING
+  DELIVERED
+  DEAD // exhausted max attempts — visible + retryable by an admin
+}
+
+model OutboxEvent {
+  id             String       @id @default(cuid())
+  /// Event type, e.g. 'lead.alert' | 'invoice.sent' | 'portal.invite'.
+  type           String
+  /// The business row this event is about (invoice id, lead id, …).
+  aggregateId    String?
+  /// Schema version of `payload`, so a worker can evolve the shape safely.
+  payloadVersion Int          @default(1)
+  /// Delivery instructions ONLY. Never bearer tokens, auth codes, or personal
+  /// data beyond what the message itself must contain.
+  payload        Json
+  /// Stable key for at-most-once delivery: a retry of the same event must not
+  /// send a second email/push.
+  idempotencyKey String       @unique
+  status         OutboxStatus @default(PENDING)
+  attempts       Int          @default(0)
+  nextAttemptAt  DateTime     @default(now())
+  /// Truncated last error, for operator diagnosis. Never a secret.
+  lastError      String?      @db.Text
+  deliveredAt    DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@index([status, nextAttemptAt])
+  @@index([aggregateId])
+  @@index([createdAt])
 }

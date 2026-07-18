@@ -4,6 +4,7 @@ import { sendAnnouncement, sendPush } from './notify';
 import { SITE_URL, CONTACT_EMAIL } from './email';
 import { writeAudit } from './audit';
 import { reportError } from './report';
+import { normalizeEmail } from './normalizeEmail';
 
 export interface CreateLeadInput {
   source: 'CONTACT' | 'QUOTE' | 'DEMO';
@@ -26,6 +27,42 @@ function isTransientDbError(msg: string): boolean {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** Fields rendered explicitly in the founder alert; everything else in the
+ *  payload is appended generically so no collected field is ever invisible. */
+const ALERT_CORE_FIELDS = new Set(['name', 'email', 'company', 'message']);
+
+function payloadExtras(payload: Record<string, unknown>): string {
+  const lines = Object.entries(payload)
+    .filter(([k, v]) => !ALERT_CORE_FIELDS.has(k) && v !== '' && v != null)
+    .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : String(v)}`);
+  return lines.length ? `\n${lines.join('\n')}` : '';
+}
+
+/**
+ * A repeat submission of the SAME content within this window is treated as a
+ * double-click / retry rather than a new lead.
+ */
+const DUPLICATE_WINDOW_MS = 2 * 60_000;
+
+/** Returns the existing lead if an identical one was just created. */
+async function findRecentDuplicate(input: CreateLeadInput): Promise<{ id: string } | null> {
+  try {
+    return await prisma.lead.findFirst({
+      where: {
+        source: input.source,
+        email: input.email,
+        message: input.message ?? null,
+        createdAt: { gt: new Date(Date.now() - DUPLICATE_WINDOW_MS) },
+      },
+      orderBy: { createdAt: 'desc' },
+      select: { id: true },
+    });
+  } catch {
+    // A dedupe-lookup failure must never block capturing a real lead.
+    return null;
+  }
+}
+
 /**
  * Persists a lead and fires the founder alert. Fail-open: returns `null`
  * (never throws) so public form routes still succeed for the visitor.
@@ -33,6 +70,12 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
  * a cold deploy is not lost.
  */
 export async function createLead(input: CreateLeadInput): Promise<{ id: string } | null> {
+  // Idempotency for rapid repeats (double-clicked submit, client retry): an
+  // identical submission inside the window returns the original lead instead of
+  // creating a duplicate the founder would have to triage twice.
+  const duplicate = await findRecentDuplicate(input);
+  if (duplicate) return { id: duplicate.id };
+
   const maxAttempts = 3;
   for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
@@ -57,6 +100,9 @@ export async function createLead(input: CreateLeadInput): Promise<{ id: string }
         `${subject}\n\nName: ${input.name}\nEmail: ${input.email}` +
         (input.company ? `\nCompany: ${input.company}` : '') +
         (input.message ? `\nMessage: ${input.message}` : '') +
+        // Everything else collected (contact: service; demo: product; quote:
+        // services/budget/timeline/…) so the alert is never missing a field.
+        payloadExtras(input.payload) +
         `\n\nView: ${SITE_URL}/admin/leads/${lead.id}`;
       void sendAnnouncement(CONTACT_EMAIL, subject, body);
       void sendPush('admin', `New ${input.source} lead`, `${input.name} — ${input.email}`);
@@ -168,8 +214,15 @@ export async function addLeadNote(id: string, authorEmail: string, body: string)
 }
 
 function csvCell(v: unknown): string {
-  const s = v == null ? '' : String(v);
-  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  let s = v == null ? '' : String(v);
+  // Neutralize spreadsheet formula injection: Excel/Sheets execute a cell that
+  // begins with = + - @, a tab, or a carriage return as a formula. Lead name,
+  // company, and email are attacker-controlled (public forms), so prefix such a
+  // cell with a single quote to force literal-text interpretation.
+  if (/^[=+\-@\t\r]/.test(s)) {
+    s = `'${s}`;
+  }
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
 export function leadsToCsv(rows: LeadListItem[]): string {
@@ -222,7 +275,15 @@ export async function convertLeadToClient(
   try {
     const result = await prisma.$transaction(async (tx) => {
       const client = await tx.client.create({
-        data: { name: lead.name, email: lead.email, company: lead.company ?? null, sourceLeadId: lead.id },
+        data: {
+          name: lead.name,
+          email: lead.email,
+          // Identity key: portal login resolves on this, so a converted client
+          // without it could never sign in.
+          normalizedEmail: normalizeEmail(lead.email),
+          company: lead.company ?? null,
+          sourceLeadId: lead.id,
+        },
         select: { id: true },
       });
       const project = await tx.project.create({

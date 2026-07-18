@@ -352,13 +352,17 @@ export default function ContactPage() {
                   {status === 'loading' ? t('form.sending') : t('form.send')}
                 </Button>
 
-                {status === 'success' && (
-                  <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
-                    {t('form.success')}
-                  </p>
-                )}
+                {/* Submission outcome is announced to screen readers: success
+                    politely, error assertively (a failed submit is urgent). */}
+                <div role="status" aria-live="polite" className="min-h-0">
+                  {status === 'success' && (
+                    <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
+                      {t('form.success')}
+                    </p>
+                  )}
+                </div>
                 {status === 'error' && (
-                  <p className="font-mono text-xs uppercase tracking-[0.15em] text-amber">
+                  <p role="alert" className="font-mono text-xs uppercase tracking-[0.15em] text-amber">
                     {errorMessage || t('form.error')}
                   </p>
                 )}

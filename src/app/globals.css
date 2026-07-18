@@ -472,6 +472,23 @@ body {
     -moz-appearance: none;
     appearance: none;
   }
+
+  /*
+   * Global keyboard-focus indicator.
+   *
+   * The `outline: none` resets above strip the native focus ring from EVERY
+   * button/select/input/textarea, and only some components restore one — so
+   * keyboard users had no visible focus on admin/portal inputs, the chatbot
+   * input, card links, and the mobile nav. This restores a visible ring for
+   * anything focused via the KEYBOARD (:focus-visible, so a mouse click does not
+   * draw it), unless a component already draws its own. Components that opt into
+   * a bespoke ring keep it (utilities win over @layer base).
+   */
+  :focus-visible {
+    outline: 2px solid var(--color-signal, #6ea8fe);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
 }
 
 /* Smooth click interactions */

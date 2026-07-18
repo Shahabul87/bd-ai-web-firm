@@ -18,15 +18,26 @@ export default async function NewInvoicePage({
   const clients = await listClientsForInvoice();
   const sp = await searchParams;
 
-  const initial: BuilderInitial | undefined =
-    sp.clientId && clients.some((c) => c.id === sp.clientId)
-      ? {
-          clientId: sp.clientId,
-          projectId: sp.projectId,
-          currency: 'USD',
-          lines: [{ description: '', quantity: '1', unitPrice: '' }],
-        }
+  // Both prefill params come from the URL. The clientId was already checked
+  // against the list; the projectId must be checked against THAT client's
+  // projects too, or /admin/invoices/new?clientId=A&projectId=<B's project>
+  // would prefill a cross-tenant pair. createInvoice re-proves the relationship
+  // server-side (tenantAuthz), so this is defence in depth against a confusing
+  // prefill rather than the security boundary itself.
+  const prefillClient = sp.clientId ? clients.find((c) => c.id === sp.clientId) : undefined;
+  const prefillProjectId =
+    sp.projectId && prefillClient?.projects.some((p) => p.id === sp.projectId)
+      ? sp.projectId
       : undefined;
+
+  const initial: BuilderInitial | undefined = prefillClient
+    ? {
+        clientId: prefillClient.id,
+        projectId: prefillProjectId,
+        currency: 'USD',
+        lines: [{ description: '', quantity: '1', unitPrice: '' }],
+      }
+    : undefined;
 
   return (
     <>

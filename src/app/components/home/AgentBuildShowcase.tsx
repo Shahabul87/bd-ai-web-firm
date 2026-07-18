@@ -40,7 +40,7 @@ export default function AgentBuildShowcase() {
           <motion.dl variants={rise} className="mt-10 space-y-6">
             {NOTES.map((note) => (
               <div key={note.label}>
-                <MonoLabel className="text-signal">{note.label}</MonoLabel>
+                <MonoLabel as="dt" className="text-signal">{note.label}</MonoLabel>
                 <dd className="mt-2 max-w-md text-sm leading-relaxed text-steel">
                   {note.body}
                 </dd>

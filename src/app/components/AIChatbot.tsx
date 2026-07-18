@@ -26,6 +26,8 @@ export default function AIChatbot() {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const t = useTranslations('Chatbot');
   const qa = t.raw('qa') as ChatbotQA[];
@@ -39,6 +41,26 @@ export default function AIChatbot() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Dialog behaviour: on open, move focus into the panel; on close (including
+  // Escape), return focus to the launcher so a keyboard user is never stranded.
+  useEffect(() => {
+    if (!isOpen) return;
+    inputRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+        launcherRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isOpen]);
+
+  const closeChat = () => {
+    setIsOpen(false);
+    launcherRef.current?.focus();
+  };
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -69,12 +91,19 @@ export default function AIChatbot() {
     return t('fallback');
   };
 
-  const sendMessage = async () => {
-    if (!inputText.trim()) return;
+  // Accept the message text EXPLICITLY. Quick-question buttons previously did
+  // `setInputText(q); setTimeout(sendMessage, 100)`, but setInputText is async,
+  // so the scheduled sendMessage still closed over the pre-update (empty)
+  // inputText and dropped the question. Passing the text directly removes the
+  // race entirely; the send button and Enter key pass no argument and fall back
+  // to the current input value.
+  const sendMessage = (text?: string) => {
+    const content = (text ?? inputText).trim();
+    if (!content || isTyping) return;
 
     const userMessage: Message = {
       id: `user-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
-      text: inputText,
+      text: content,
       sender: 'user',
       timestamp: new Date()
     };
@@ -85,7 +114,7 @@ export default function AIChatbot() {
 
     // Simulate AI thinking time with fixed delay
     setTimeout(() => {
-      const response = findResponse(inputText);
+      const response = findResponse(content);
       const botMessage: Message = {
         id: `bot-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
         text: response,
@@ -109,9 +138,12 @@ export default function AIChatbot() {
     <>
       {/* Chat Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        ref={launcherRef}
+        onClick={() => (isOpen ? closeChat() : setIsOpen(true))}
         className="fixed bottom-6 right-6 z-50 h-14 w-14 border border-signal-dim bg-signal text-ink-950 shadow-lg transition-colors duration-150 hover:bg-signal-dim"
         aria-label={t('openLabel')}
+        aria-expanded={isOpen}
+        aria-controls="craftsai-chatbot"
       >
         {isOpen ? (
           <svg className="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -126,7 +158,13 @@ export default function AIChatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-ink-900 border border-line shadow-2xl flex flex-col overflow-hidden">
+        <div
+          id="craftsai-chatbot"
+          role="dialog"
+          aria-modal="false"
+          aria-label={t('headerTitle')}
+          className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-ink-900 border border-line shadow-2xl flex flex-col overflow-hidden"
+        >
           {/* Header */}
           <div className="border-b border-line bg-ink-950 p-4 text-bone">
             <div className="flex items-center gap-3">
@@ -145,7 +183,14 @@ export default function AIChatbot() {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* Conversation log: aria-live so a screen reader announces new bot
+              replies as they arrive (polite = does not interrupt typing). */}
+          <div
+            className="flex-1 overflow-y-auto p-4 space-y-4"
+            role="log"
+            aria-live="polite"
+            aria-atomic="false"
+          >
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -193,10 +238,7 @@ export default function AIChatbot() {
                 {quickQuestions.slice(0, 3).map((question, index) => (
                   <button
                     key={index}
-                    onClick={() => {
-                      setInputText(question);
-                      setTimeout(sendMessage, 100);
-                    }}
+                    onClick={() => sendMessage(question)}
                     className="text-xs px-3 py-1 bg-ink-800 hover:bg-line text-bone rounded-full transition-colors duration-200"
                   >
                     {question}
@@ -210,6 +252,7 @@ export default function AIChatbot() {
           <div className="p-3 sm:p-4 border-t border-line">
             <div className="flex gap-2">
               <input
+                ref={inputRef}
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
@@ -220,7 +263,7 @@ export default function AIChatbot() {
                 disabled={isTyping}
               />
               <button
-                onClick={sendMessage}
+                onClick={() => sendMessage()}
                 disabled={!inputText.trim() || isTyping}
                 aria-label={t('sendLabel')}
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-200 ${

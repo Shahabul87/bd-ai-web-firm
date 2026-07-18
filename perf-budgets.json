@@ -1,0 +1,26 @@
+{
+  "$comment": "Performance budgets (Phase 7 Task 7.3). Two tiers: `enforced` budgets are checked deterministically from the production build by scripts/check-budgets.mjs (run `npm run check:budgets` after `npm run build`); `runtime` targets require a real browser / Lighthouse and are validated by the manual browser test plan (docs section 11) and the throttled-mobile Lighthouse run. Thresholds carry headroom above the measured baseline captured 2026-07-17 so they catch regressions, not normal variance.",
+  "enforced": {
+    "firstLoadJsKb": {
+      "perRoute": 230,
+      "$baseline": "max 207 kB (/quote wizard); most routes 161-166 kB. Measured as gzipped sum of the route's JS from .next/app-build-manifest.json (matches Next's reported First Load JS within ~3 kB)."
+    },
+    "htmlKb": {
+      "perPageRaw": 170,
+      "perPageGzip": 40,
+      "$baseline": "max 143 kB raw / 27 kB gzip (bn/products/banglu). Full message-catalog serialization previously pushed near-static bn/about to 222 kB raw; scoping the client provider (commit 3db5f9d) removed the server-only namespaces."
+    },
+    "imageKb": {
+      "perFile": 300,
+      "$baseline": "largest raster asset is icon-512.png at 24 kB; total public raster weight 36 kB. Budget guards against an unoptimized hero/screenshot landing in public/ unprocessed by next/image."
+    }
+  },
+  "runtime": {
+    "$comment": "Core Web Vitals + accessibility score. Not enforceable from a static build — measured with Lighthouse (mobile + desktop) against the local `next start` production build and in field data. Targets are Google 'good' thresholds.",
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "inpMs": 200,
+    "lighthouseAccessibility": 95,
+    "$axeNote": "Mechanical accessibility (0 axe violations) is already enforced in CI by src/app/components/__tests__/a11y.test.tsx; lighthouseAccessibility is the broader runtime audit."
+  }
+}

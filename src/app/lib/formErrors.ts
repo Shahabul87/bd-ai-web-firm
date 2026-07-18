@@ -23,18 +23,41 @@ export const CONTACT_FIELD_CODES = {
 export type ContactField = keyof typeof CONTACT_FIELD_CODES;
 export type ContactFieldCode = (typeof CONTACT_FIELD_CODES)[ContactField];
 
-/** Quote field-validation codes, keyed by the form field they belong to. */
+/**
+ * Quote field-validation codes, keyed by the form field they belong to.
+ *
+ * Only fields the wizard actually collects appear here. `projectType` and
+ * `companyName` were removed: the API required them, but the wizard has no
+ * projectType control (it duplicates `services`) and labels company "optional",
+ * so every submission failed on errors that had no field to render against.
+ * `budget` and `terms` were added — the wizard enforced them client-side while
+ * the API accepted a direct request without either.
+ */
 export const QUOTE_FIELD_CODES = {
   services: 'services_required',
-  projectType: 'project_type_required',
   description: 'description_required',
-  companyName: 'company_name_required',
+  budget: 'budget_required',
   contactName: 'contact_name_required',
   email: 'email_required',
+  terms: 'terms_required',
 } as const;
 
 export type QuoteField = keyof typeof QUOTE_FIELD_CODES;
 export type QuoteFieldCode = (typeof QUOTE_FIELD_CODES)[QuoteField];
+
+/**
+ * Which wizard step owns each quote field. A server-side validation failure
+ * returns the visitor to the step containing the offending input (and focuses
+ * it) instead of always bouncing to step 1 with no indication of what to fix.
+ */
+export const QUOTE_FIELD_STEP: Record<QuoteField, number> = {
+  services: 1,
+  description: 2,
+  budget: 3,
+  contactName: 4,
+  email: 4,
+  terms: 5,
+};
 
 /** Top-level (non field-specific) result codes. */
 export const CONTACT_SUCCESS = 'contact_success';
@@ -80,6 +103,9 @@ export interface ContactErrorResponse {
 export interface ContactSuccessResponse {
   success: true;
   code: typeof CONTACT_SUCCESS;
+  /** Stable id for this submission — quotable by the visitor, traceable by the
+   *  operator to the persisted lead and its logs. */
+  submissionId?: string;
 }
 
 export type ContactResponse = ContactSuccessResponse | ContactErrorResponse;
@@ -95,6 +121,9 @@ export interface QuoteErrorResponse {
 export interface QuoteSuccessResponse {
   success: true;
   code: typeof QUOTE_SUCCESS;
+  /** Stable id for this submission — quotable by the visitor, traceable by the
+   *  operator to the persisted lead and its logs. */
+  submissionId?: string;
 }
 
 export type QuoteResponse = QuoteSuccessResponse | QuoteErrorResponse;

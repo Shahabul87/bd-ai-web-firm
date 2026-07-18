@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getClientIP, checkRateLimit } from '@/app/utils/rateLimit';
 import { isAdminEmail } from '@/app/lib/adminAuth';
+import { normalizeEmail } from '@/app/lib/normalizeEmail';
 import { authChallenge } from '@/app/lib/notify';
 import { writeAudit } from '@/app/lib/audit';
 import { SITE_URL } from '@/app/lib/email';
@@ -18,7 +19,8 @@ export async function POST(req: NextRequest) {
   }
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ ok: false }, { status: 400 });
-  const { email, method } = parsed.data;
+  const { method } = parsed.data;
+  const email = normalizeEmail(parsed.data.email);
 
   // Enumeration-safe: identical body regardless of allowlist membership. The
   // challengeId is returned only via the httpOnly cookie, never in the body.

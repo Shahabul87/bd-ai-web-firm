@@ -5,6 +5,10 @@ import { reportError } from './report';
 const NOTIFY_URL = () => process.env.NOTIFY_URL ?? '';
 const NOTIFY_API_KEY = () => process.env.NOTIFY_API_KEY ?? '';
 
+/** Bounded timeout for every outbound notify-svc call — a hung dependency must
+ *  never stall a login/verify request indefinitely. */
+const NOTIFY_TIMEOUT_MS = 8000;
+
 /** True only when both notify-svc URL and API key are configured. */
 export const isNotifyConfigured = (): boolean => Boolean(NOTIFY_URL() && NOTIFY_API_KEY());
 
@@ -15,6 +19,7 @@ async function post(path: string, body: unknown): Promise<Response | null> {
       cache: 'no-store',
       headers: { 'Content-Type': 'application/json', 'X-API-Key': NOTIFY_API_KEY() },
       body: JSON.stringify(body),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
     });
     // A non-2xx from notify-svc is an operational failure worth surfacing (auth
     // challenges, founder alerts and pushes all depend on it). Never include the
@@ -186,4 +191,26 @@ export async function trustCheck(
   if (devMode()) return { trusted: token === `dev-trust-${userRef}` };
   const res = await post('/v1/auth/trust/check', { user_ref: userRef, token });
   return (await jsonOk(res, (j) => ({ trusted: Boolean(j.trusted) }))) ?? { trusted: false };
+}
+
+/**
+ * Best-effort revoke of a trusted-device token at notify-svc (on logout).
+ * Never throws and — unlike {@link post} — never reports, so a not-yet-supported
+ * revoke endpoint cannot spam incidents or block logout. Clearing the trust
+ * COOKIE is the guaranteed effect; this is defense-in-depth for a token that may
+ * have been copied off the device.
+ */
+export async function trustRevoke(userRef: string, token: string): Promise<void> {
+  if (devMode() || !isNotifyConfigured()) return;
+  try {
+    await fetch(`${NOTIFY_URL()}/v1/auth/trust/revoke`, {
+      method: 'POST',
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json', 'X-API-Key': NOTIFY_API_KEY() },
+      body: JSON.stringify({ user_ref: userRef, token }),
+      signal: AbortSignal.timeout(NOTIFY_TIMEOUT_MS),
+    });
+  } catch {
+    // swallow — logout must still clear the cookie and complete
+  }
 }

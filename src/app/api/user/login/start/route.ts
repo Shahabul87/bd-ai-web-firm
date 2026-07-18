@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getClientIP, checkRateLimit } from '@/app/utils/rateLimit';
-import { prisma } from '@/app/lib/db';
 import { trustCheck } from '@/app/lib/notify';
 import { issueTicket } from '@/app/lib/authTicket';
 import { startPortalLogin } from '@/app/lib/portalLogin';
+import { resolvePortalClient } from '@/app/lib/portalIdentity';
+import { normalizeEmail } from '@/app/lib/normalizeEmail';
 import { setPortalChallenge, readPortalTrustCookie } from '@/app/lib/portalLoginCookie';
 import { writeAudit } from '@/app/lib/audit';
 
@@ -19,16 +20,16 @@ export async function POST(req: NextRequest) {
   }
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ ok: false }, { status: 400 });
-  const { email, method } = parsed.data;
+  const { method } = parsed.data;
+  const email = normalizeEmail(parsed.data.email);
 
   // Trusted-device fast path: if a valid trust token maps to an enabled client,
   // mint a ticket directly (the portal Credentials provider re-checks the client).
   const trustTok = readPortalTrustCookie(req);
   if (trustTok) {
-    const client = await prisma.client.findFirst({
-      where: { email, status: 'ACTIVE', portalEnabled: true },
-      select: { id: true },
-    });
+    // Same unambiguous resolution as the session — a shared email must not
+    // fast-path into whichever tenant happens to sort first.
+    const client = await resolvePortalClient(email);
     if (client && (await trustCheck(email, trustTok)).trusted) {
       const ticket = await issueTicket(email, 'portal');
       await writeAudit('portal.login.trusted_device', { actorEmail: email, ip });

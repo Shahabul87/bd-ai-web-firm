@@ -1,6 +1,6 @@
-import { prisma } from './db';
 import { authChallenge } from './notify';
 import { SITE_URL } from './email';
+import { resolvePortalClient } from './portalIdentity';
 
 /**
  * The invite gate + challenge dispatch, factored out of the route so it is unit
@@ -12,10 +12,9 @@ export async function startPortalLogin(
   email: string,
   method: 'otp' | 'magic_link',
 ): Promise<{ challengeId: string; email: string } | null> {
-  const client = await prisma.client.findFirst({
-    where: { email, status: 'ACTIVE', portalEnabled: true },
-    select: { id: true, name: true },
-  });
+  // Resolves to exactly one active, portal-enabled client or nothing — so the
+  // invite gate and the session (authPortal) can never disagree about identity.
+  const client = await resolvePortalClient(email);
   if (!client) return null; // invite gate: not enabled → send nothing
   const chal = await authChallenge({
     method,

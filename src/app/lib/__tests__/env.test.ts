@@ -1,0 +1,106 @@
+/**
+ * Production environment validation (Phase 1 Tasks 1.2 / 1.6).
+ * validateEnv() only enforces in production runtime, so each case re-imports the
+ * module with NODE_ENV=production and a full set of otherwise-valid secrets.
+ */
+const BASE = {
+  DATABASE_URL: 'postgresql://u:p@localhost:5432/db',
+  AUTH_SECRET: 'a'.repeat(32),
+  PORTAL_AUTH_SECRET: 'b'.repeat(32),
+  AUTH_URL: 'https://app.example.com',
+  NOTIFY_URL: 'https://notify.example.com',
+  NOTIFY_API_KEY: 'notify-key',
+};
+
+const OLD = process.env;
+
+async function loadWith(overrides: Record<string, string>) {
+  jest.resetModules();
+  process.env = {
+    ...OLD,
+    NODE_ENV: 'production',
+    NEXT_PHASE: '',
+    ...BASE,
+    ...overrides,
+  };
+  return import('../env');
+}
+
+afterEach(() => {
+  process.env = OLD;
+  jest.resetModules();
+});
+
+describe('validateEnv — ADMIN_EMAILS', () => {
+  it('accepts a valid, unique comma-separated list', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com, c@d.com' });
+    expect(() => validateEnv()).not.toThrow();
+  });
+
+  it('rejects a case-variant duplicate', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com, A@B.com' });
+    expect(() => validateEnv()).toThrow(/ADMIN_EMAILS/);
+  });
+
+  it('rejects an invalid email entry', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com, not-an-email' });
+    expect(() => validateEnv()).toThrow(/ADMIN_EMAILS/);
+  });
+
+  it('rejects an empty list', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: '   ,  ' });
+    expect(() => validateEnv()).toThrow(/ADMIN_EMAILS/);
+  });
+});
+
+describe('validateEnv — secret and URL hardening', () => {
+  it('accepts the fully-valid baseline', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com' });
+    expect(() => validateEnv()).not.toThrow();
+  });
+
+  it('rejects a placeholder AUTH_SECRET', async () => {
+    const { validateEnv } = await loadWith({
+      ADMIN_EMAILS: 'a@b.com',
+      AUTH_SECRET: 'dev-only-insecure-secret-do-not-use-000',
+    });
+    expect(() => validateEnv()).toThrow(/AUTH_SECRET/);
+  });
+
+  it('rejects identical admin and portal secrets', async () => {
+    const same = 'z'.repeat(40);
+    const { validateEnv } = await loadWith({
+      ADMIN_EMAILS: 'a@b.com',
+      AUTH_SECRET: same,
+      PORTAL_AUTH_SECRET: same,
+    });
+    expect(() => validateEnv()).toThrow(/PORTAL_AUTH_SECRET/);
+  });
+
+  it('rejects a non-postgres DATABASE_URL', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com', DATABASE_URL: 'mysql://u:p@h/db' });
+    expect(() => validateEnv()).toThrow(/DATABASE_URL/);
+  });
+
+  it('rejects plaintext http:// to a REAL host', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com', NOTIFY_URL: 'http://notify.example.com' });
+    expect(() => validateEnv()).toThrow(/NOTIFY_URL/);
+  });
+
+  it('rejects plaintext http:// to a real host even for AUTH_URL', async () => {
+    const { validateEnv } = await loadWith({ ADMIN_EMAILS: 'a@b.com', AUTH_URL: 'http://app.example.com' });
+    expect(() => validateEnv()).toThrow(/AUTH_URL/);
+  });
+
+  it('ALLOWS http:// on loopback, so `next start` can serve the production build locally', async () => {
+    // Local CI runs Playwright against the production server (never next dev),
+    // and next start forces NODE_ENV=production — a blanket https-only rule
+    // made that impossible. Loopback has no network to intercept.
+    const { validateEnv } = await loadWith({
+      ADMIN_EMAILS: 'a@b.com',
+      AUTH_URL: 'http://localhost:3101',
+      NOTIFY_URL: 'http://127.0.0.1:4010',
+    });
+    expect(() => validateEnv()).not.toThrow();
+  });
+});

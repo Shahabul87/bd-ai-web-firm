@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit, getClientIP } from '@/app/utils/rateLimit';
 import { createLead } from '@/app/lib/leads';
 import { sendAnnouncement } from '@/app/lib/notify';
-import { sanitizeInput, validateEmail } from '@/app/lib/sanitize';
+import { DemoSchema } from '@/app/lib/formSchemas';
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,29 +27,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, message: 'Demo request received' });
     }
 
-    // Extract and sanitize form data
-    const name = sanitizeInput(body.name, 100);
-    const email = sanitizeInput(body.email, 100);
-    const product = sanitizeInput(body.product, 200);
-    const company = sanitizeInput(body.company || '', 200);
-    const message = sanitizeInput(body.message || '', 2000);
-
-    // Validate required fields
-    const errors: Record<string, string> = {};
-
-    if (!name || name.length < 2) {
-      errors.name = 'Name must be at least 2 characters';
-    }
-    if (!email || !validateEmail(email)) {
-      errors.email = 'Please enter a valid email address';
-    }
-    if (!product || product.length === 0) {
-      errors.product = 'Product is required';
-    }
-
-    if (Object.keys(errors).length > 0) {
+    // One shared contract: normalizes (no HTML-escaping) and validates in one pass.
+    const parsed = DemoSchema.safeParse(body);
+    if (!parsed.success) {
+      const errors: Record<string, string> = {};
+      for (const issue of parsed.error.issues) {
+        const field = issue.path[0];
+        if (typeof field === 'string' && !errors[field]) errors[field] = issue.message;
+      }
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
+    const { name, email, product, company, message } = parsed.data;
 
     // Persist the lead (retries transient errors) + alert the founder.
     const lead = await createLead({
@@ -81,7 +69,11 @@ export async function POST(request: NextRequest) {
       `Hi ${name},\n\nThank you for requesting a demo of ${product}! We've received your request and will be in touch shortly to schedule a personalized walkthrough.\n\n— The CraftsAI Team`,
     );
 
-    return NextResponse.json({ success: true, message: 'Demo request received' });
+    return NextResponse.json({
+      success: true,
+      message: 'Demo request received',
+      submissionId: lead.id,
+    });
   } catch (error) {
     console.error('Demo request error:', error);
     return NextResponse.json(

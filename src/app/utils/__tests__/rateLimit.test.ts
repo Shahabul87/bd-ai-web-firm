@@ -103,4 +103,25 @@ describe('getClientIP', () => {
   it("returns 'unknown' when no IP headers are present", () => {
     expect(getClientIP(reqWith())).toBe('unknown');
   });
+
+  it('prefers CF-Connecting-IP (unspoofable behind Cloudflare) over other headers', () => {
+    expect(
+      getClientIP(
+        reqWith({
+          'cf-connecting-ip': '203.0.113.9',
+          'x-real-ip': '198.51.100.4',
+          'x-forwarded-for': '10.0.0.1',
+        }),
+      ),
+    ).toBe('203.0.113.9');
+  });
+
+  it("rejects a spoofed/garbage IP value and falls back to 'unknown'", () => {
+    expect(getClientIP(reqWith({ 'cf-connecting-ip': 'not-an-ip; DROP TABLE' }))).toBe('unknown');
+    expect(getClientIP(reqWith({ 'x-forwarded-for': '999.999.999.999' }))).toBe('unknown');
+  });
+
+  it('accepts a valid IPv6 address', () => {
+    expect(getClientIP(reqWith({ 'cf-connecting-ip': '2001:db8::1' }))).toBe('2001:db8::1');
+  });
 });
