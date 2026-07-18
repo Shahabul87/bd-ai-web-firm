@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { resetRateLimits } from './helpers/auth';
 
 /**
  * Public lead-funnel smoke tests. These are intentionally DB-independent:
@@ -11,6 +12,16 @@ import { test, expect } from '@playwright/test';
  *    point of the smoke test is that the form talks to the API and renders the
  *    result. Tighten to expect success once you run against a seeded test DB.
  */
+
+// Every request here comes from the same loopback IP, and the funnel endpoints
+// rate-limit per IP. Under the full browser matrix (5 serial projects) the
+// bucket accumulates across projects, so the LAST projects (webkit,
+// mobile-safari) would otherwise hit 429 instead of the asserted 400/200. Reset
+// the (DB-backed) limiter before each test — this no-ops without a DATABASE_URL,
+// so a bare `npx playwright test` stays DB-independent.
+test.beforeEach(async () => {
+  await resetRateLimits();
+});
 
 test.describe('Contact form (UI)', () => {
   test('renders and completes a submit round-trip', async ({ page }) => {

@@ -31,7 +31,20 @@ test.describe.configure({ mode: 'serial' });
 
 // Skip (loudly, not silently) when the isolated services are not running, so a
 // bare `npx playwright test` does not report phantom failures.
-test.beforeEach(async ({ request }) => {
+test.beforeEach(async ({ request, browserName }) => {
+  // Multi-step admin/portal auth binds each step with Secure cookies
+  // (adm_chal / adm_trust / portal session — `secure` in production, and the
+  // harness serves the production build). WebKit/Safari drops Secure cookies
+  // delivered over http://localhost, while Chrome and Firefox accept them on
+  // localhost — so the cookie never survives here and the flow cannot advance.
+  // This is a test-environment limitation only: production is https, where
+  // Safari accepts the cookie and these flows work. We do NOT weaken the prod
+  // Secure guarantee to satisfy a test; Safari auth is covered by the operator
+  // manual-browser pass against the deployed https site.
+  test.skip(
+    browserName === 'webkit',
+    'Secure auth cookies do not survive over http://localhost in WebKit; verify Safari auth on https in the manual browser pass.',
+  );
   test.skip(!(await notifyDoubleUp(request)), 'notify double not running — use `npm run ci:local`');
   await resetNotify(request);
   // Otherwise the suite throttles itself: login allows 10 requests / 5 min per
