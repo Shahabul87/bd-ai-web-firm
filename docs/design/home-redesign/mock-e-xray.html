@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CraftsAI — X-Ray</title>
+<meta name="description" content="CraftsAI designs, builds, and runs AI systems for your business.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F4F8; --ink:#151827; --ink-2:#464B63; --rule:#D8DAE3; --accent:#2336C8; --accent-ink:#1A2AA3;
+  --void:#070B12; --cyan:#58E6F0; --amber:#FFB547; --magenta:#FF4FA3; --grid:rgba(88,230,240,.12);
+  --ghost:rgba(88,230,240,.66); --cyan-dim:rgba(88,230,240,.42);
+  --serif:"Newsreader", "Iowan Old Style", Georgia, serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --sans:"IBM Plex Sans", system-ui, sans-serif;
+  --gut:clamp(16px, 4vw, 56px);
+  --rail:clamp(0px, 14vw, 200px);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:clamp(17px,1.15vw,19px);line-height:1.5;overflow-x:hidden;text-rendering:optimizeLegibility}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-9999px;top:8px;z-index:100;background:var(--ink);color:var(--paper);padding:8px 12px;font-family:var(--sans)}
+.skip:focus{left:8px}
+
+/* ---------- the stacked-layer scaffold ---------- */
+.xr{position:relative;isolation:isolate}
+.lay{padding:clamp(72px,11vw,160px) var(--gut);max-width:1600px;margin:0 auto}
+.m{position:absolute;inset:0;margin:0 auto;pointer-events:none;background-color:var(--void);color:var(--ghost);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:40px 40px;clip-path:inset(0 0 100% 0);z-index:2;max-width:none;
+  padding-left:max(var(--gut), calc((100% - 1600px)/2 + var(--gut)));padding-right:max(var(--gut), calc((100% - 1600px)/2 + var(--gut)))}
+.m a,.m button{color:inherit}
+.anno{display:none}
+.m .anno{display:block}
+
+/* rail label (sentence case, not an eyebrow in caps) */
+.rail{font-family:var(--sans);font-size:14px;color:var(--ink-2);letter-spacing:.01em;margin:0 0 28px;display:flex;gap:12px;align-items:baseline}
+.rail b{font-weight:500;color:var(--ink)}
+.rail i{font-style:normal;font-variant-numeric:tabular-nums}
+.m .rail,.m .rail b{color:var(--amber);font-family:var(--mono);font-size:12px}
+
+/* ---------- hero ---------- */
+.hero .lay{min-height:100svh;display:grid;grid-template-rows:auto auto auto;align-content:start;padding-top:24px;padding-bottom:clamp(40px,6vw,72px)}
+.nav{display:flex;align-items:center;gap:clamp(14px,2.4vw,36px);font-family:var(--sans);font-size:15px;flex-wrap:wrap}
+.brand{font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-.01em;color:var(--ink);text-decoration:none;margin-right:auto}
+.nav a:not(.brand):not(.btn){color:var(--ink);text-decoration:none}
+.nav a:not(.brand):not(.btn):hover{color:var(--accent)}
+.hl{font-weight:350;font-size:clamp(3.3rem,12.2vw,12.4rem);line-height:.88;letter-spacing:-.035em;margin:clamp(48px,11.5vh,120px) 0 0;font-variation-settings:"opsz" 72;max-width:13ch}
+.hero-foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,34rem);gap:32px;align-items:end;margin-top:clamp(28px,4vw,48px);border-top:1px solid var(--rule);padding-top:24px}
+.lede{font-size:clamp(1.1rem,1.5vw,1.4rem);line-height:1.45;margin:0;color:var(--ink);grid-column:2}
+.actions{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;grid-column:2;grid-row:2;margin-top:8px}
+.hero-note{position:relative;grid-column:1;grid-row:1 / span 2;align-self:start;font-family:var(--sans);font-size:14px;color:var(--ink-2);max-width:22ch;margin:0}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:999px;background:var(--accent);color:#fff;font-family:var(--sans);font-weight:500;font-size:16px;text-decoration:none;border:1px solid var(--accent);transition:background .2s}
+.btn:hover{background:var(--accent-ink)}
+.btn.sm{min-height:40px;padding:0 16px;font-size:14px}
+.link{font-family:var(--sans);font-size:16px;font-weight:500;color:var(--accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px}
+.m .btn{background:transparent;border-color:var(--cyan);color:var(--cyan)}
+.m .link,.m .nav a,.m .brand{color:var(--ghost)}
+
+/* ---------- services index ---------- */
+.svc-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.svc{display:grid;grid-template-columns:clamp(40px,4vw,56px) minmax(0,1fr) minmax(0,17rem) minmax(0,17rem);gap:clamp(12px,2.4vw,36px);padding:clamp(22px,3vw,36px) 0;border-bottom:1px solid var(--rule);align-items:start;min-height:9.5rem}
+.svc-n{font-family:var(--sans);font-size:14px;color:var(--ink-2);font-variant-numeric:tabular-nums;padding-top:.6em}
+.svc-t{font-weight:350;font-size:clamp(1.9rem,4.3vw,3.9rem);line-height:.98;letter-spacing:-.025em;margin:0;font-variation-settings:"opsz" 60}
+.svc.flag{padding:clamp(30px,4vw,56px) 0}
+.svc.flag .svc-t{font-size:clamp(2.6rem,5.2vw,6.6rem);font-weight:330;letter-spacing:-.035em}
+.svc-d{position:relative;margin:0;color:var(--ink-2);font-size:1.02rem;padding-top:.5em}
+.svc.flag .svc-d{font-size:1.15rem;color:var(--ink)}
+.m .svc{border-color:var(--grid)}
+.m .svc-list{border-color:var(--cyan-dim)}
+.m .svc-n{color:var(--amber);font-family:var(--mono);font-size:12px}
+.svc-x{position:relative;display:block;min-height:1px}
+.svc .ro{font-size:11px;top:.55em;right:auto}
+
+/* machine readouts */
+.ro{position:absolute;left:0;right:0;top:.5em;font-family:var(--mono);font-size:12px;line-height:1.6;color:var(--cyan);white-space:pre;margin:0}
+.ro .k{color:var(--amber)} .ro .s{color:#C6F7FA} .ro .lo{color:var(--magenta)} .ro .c{color:var(--ghost)}
+.ro svg{display:block;width:100%;height:auto;margin-top:4px}
+
+/* ---------- principles ---------- */
+.pr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(40px,6vw,96px) clamp(24px,5vw,80px)}
+.pr{position:relative;margin:0;border-top:1px solid var(--ink);padding-top:22px}
+.pr h3{font-weight:350;font-size:clamp(2.2rem,5.2vw,4.8rem);line-height:.95;letter-spacing:-.03em;margin:0 0 18px;font-variation-settings:"opsz" 60}
+.pr p{margin:0;color:var(--ink-2);max-width:30ch;font-size:1.08rem}
+.m .pr{border-color:var(--cyan-dim)}
+.m .pr p{visibility:hidden}
+.pr .ro{top:auto;bottom:0}
+
+/* ---------- process ---------- */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.step{position:relative;padding:24px clamp(10px,1.6vw,24px) 28px 0;border-right:1px solid var(--rule);min-height:17rem}
+.step + .step{padding-left:clamp(10px,1.6vw,24px)}
+.step:last-child{border-right:0}
+.step-n{font-weight:300;font-size:clamp(3.6rem,6.5vw,6.4rem);line-height:.9;letter-spacing:-.04em;display:block;font-variation-settings:"opsz" 72;color:var(--ink)}
+.step h3{font-family:var(--sans);font-weight:600;font-size:18px;margin:18px 0 8px}
+.step p{margin:0;color:var(--ink-2);font-size:1rem}
+.m .step{border-color:var(--grid)} .m .steps{border-color:var(--cyan-dim)}
+.m .step p{visibility:hidden}
+.step .ro{top:auto;bottom:22px;left:clamp(10px,1.6vw,24px);right:8px}
+.step:first-child .ro{left:0}
+
+/* ---------- examples ---------- */
+.ex-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(24px,5vw,80px)}
+.ex{position:relative;border-top:1px solid var(--rule);padding:28px 0 150px}
+.ex h3{font-weight:400;font-size:clamp(1.9rem,3.6vw,3.2rem);line-height:1;letter-spacing:-.025em;margin:0 0 14px}
+.ex p{margin:0;font-size:1.12rem;max-width:32ch}
+.ex-tag{font-family:var(--sans);font-size:13px;color:var(--ink-2)}
+.m .ex{border-color:var(--grid)}
+.m .ex .ex-tag{color:var(--amber);font-family:var(--mono);font-size:12px}
+.ex .ro{top:auto;bottom:14px;left:auto;right:0;width:min(100%,21rem);background:rgba(7,11,18,.94);border:1px solid var(--cyan-dim);padding:10px 12px}
+[data-bb]{position:relative}
+.m [data-bb]{outline:1px solid var(--amber);outline-offset:2px;color:#FFE2B0}
+.m [data-bb]::before{content:attr(data-bb);position:absolute;left:-3px;bottom:100%;margin-bottom:3px;font:500 10px/1 var(--mono);color:var(--void);background:var(--amber);padding:2px 4px;white-space:nowrap}
+
+/* ---------- cta ---------- */
+.cta .lay{padding-top:clamp(96px,14vw,200px);padding-bottom:clamp(96px,14vw,200px)}
+.q{font-weight:330;font-size:clamp(2.9rem,9.2vw,9.4rem);line-height:.92;letter-spacing:-.035em;margin:0;max-width:14ch;font-variation-settings:"opsz" 72}
+.cta-foot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,34rem);gap:32px;margin-top:48px;position:relative}
+.cta-foot .lede{grid-column:2}
+.cta-foot .actions{grid-column:2;grid-row:auto}
+.m .cta-foot .lede{visibility:hidden}
+.cta-foot .ro{grid-column:2;top:0}
+
+/* ---------- footer ---------- */
+.foot .lay{padding-top:48px;padding-bottom:40px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px 40px;align-items:end;border-top:1px solid var(--ink)}
+.foot p{margin:0;font-family:var(--sans);font-size:14px;color:var(--ink-2)}
+.foot .brand{display:block;margin-bottom:8px}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px;font-family:var(--sans);font-size:15px}
+.foot ul a{color:var(--ink);text-decoration:none}
+.foot ul a:hover{color:var(--accent);text-decoration:underline}
+.lang{display:inline-flex;border:1px solid var(--rule);border-radius:999px;overflow:hidden;font-family:var(--sans);font-size:13px}
+.lang button{border:0;background:transparent;padding:6px 12px;font:inherit;color:var(--ink);cursor:pointer;min-height:32px}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.m .foot .lay,.m.lay{border-color:var(--cyan-dim)}
+
+/* ---------- tokens (machine) ---------- */
+.w{position:relative}
+.m .hl .w,.m .q .w{color:var(--cyan)}
+.m .hl .w.lo,.m .q .w.lo{color:var(--magenta)}
+.toks{position:absolute;inset:0;pointer-events:none}
+.tb{position:absolute;border:1px solid rgba(88,230,240,.6);border-radius:3px}
+.tb.lo{border-color:var(--magenta)}
+.tb i{position:absolute;left:-1px;font:500 10px/1 var(--mono);font-style:normal;padding:2px 4px;white-space:nowrap;letter-spacing:0}
+.tb .tid{color:var(--void);background:var(--amber)}
+.tb .tp{color:var(--cyan);background:var(--void)}
+.tb.lo .tp{color:var(--void);background:var(--magenta)}
+.tb .tid.out{bottom:100%;margin-bottom:2px}
+.tb .tid.in{top:2px;left:2px}
+.tb .tp.out{top:100%;margin-top:2px}
+.tb .tp.in{bottom:2px;left:2px}
+.m .lede .w{background:var(--heat) left bottom/100% 5px no-repeat;padding-bottom:6px}
+.attn{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.attn path{fill:none;stroke-width:1.2}
+
+/* ---------- lens chrome ---------- */
+.ring{position:fixed;left:0;top:0;width:var(--d,220px);height:var(--d,220px);margin:calc(var(--d,220px)/-2) 0 0 calc(var(--d,220px)/-2);border-radius:50%;pointer-events:none;z-index:40;opacity:0;transition:opacity .4s;will-change:transform;
+  box-shadow:0 0 0 1px rgba(88,230,240,.9),2px 0 0 1px rgba(255,79,163,.45),-2px 0 0 1px rgba(88,230,240,.45),0 0 28px rgba(88,230,240,.35),inset 0 0 22px rgba(88,230,240,.22)}
+.ring.on{opacity:1}
+.ring::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:1px dashed rgba(88,230,240,.35)}
+.scan{position:fixed;left:0;right:0;top:0;height:2px;background:var(--cyan);box-shadow:0 0 18px 2px rgba(88,230,240,.8),0 -1px 0 rgba(255,79,163,.6);z-index:41;pointer-events:none;opacity:0;will-change:transform}
+.scan span{position:absolute;right:var(--gut);top:8px;font:500 11px/1 var(--mono);color:var(--cyan);background:var(--void);padding:4px 6px}
+.hint{position:fixed;left:0;top:0;z-index:42;pointer-events:none;font-family:var(--sans);font-size:14px;color:var(--ink);background:var(--paper);border:1px solid var(--rule);padding:8px 14px;border-radius:999px;opacity:0;transition:opacity .5s;white-space:nowrap;will-change:transform}
+.hint.on{opacity:1}
+.pill{position:fixed;right:16px;bottom:16px;z-index:50;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 18px 0 14px;border-radius:999px;border:1px solid var(--ink);background:var(--paper);color:var(--ink);font:500 14px/1 var(--sans);cursor:pointer;box-shadow:0 8px 24px rgba(21,24,39,.14)}
+.pill .dot{width:12px;height:12px;border-radius:50%;border:1.5px solid currentColor;position:relative}
+.pill[aria-pressed="true"]{background:var(--void);color:var(--cyan);border-color:var(--cyan)}
+.pill[aria-pressed="true"] .dot{background:var(--cyan)}
+.pill:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pill[aria-pressed="true"]:focus-visible{outline-color:var(--cyan)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .svc{grid-template-columns:clamp(32px,6vw,56px) minmax(0,1fr)}
+  .svc-d,.svc-x{grid-column:2;grid-row:2}
+  .m .svc-d > span{visibility:hidden}
+}
+@media (max-width:900px){
+  .hero-foot,.cta-foot{grid-template-columns:minmax(0,1fr)}
+  .lede,.actions,.cta-foot .lede,.cta-foot .actions,.cta-foot .ro{grid-column:1}
+  .actions{grid-row:auto}
+  .hero-note{grid-row:auto;max-width:none}
+  .steps{grid-template-columns:minmax(0,1fr)}
+  .step{border-right:0;border-bottom:1px solid var(--rule);min-height:9.5rem;padding:22px 0 26px!important;display:grid;grid-template-columns:5.5rem minmax(0,1fr);column-gap:16px;align-content:start}
+  .step-n{grid-row:1 / span 2;font-size:4rem}
+  .step h3{margin-top:4px}
+  .step .ro{left:calc(5.5rem + 16px)!important;right:0;top:22px;bottom:auto}
+  .m .step h3{visibility:hidden}
+  .m .step{border-color:var(--grid)}
+}
+@media (max-width:720px){
+  .pr-grid,.ex-grid{grid-template-columns:minmax(0,1fr)}
+  .nav .nl{display:none}
+  .ex{padding-bottom:160px}
+  .ex .ro{width:100%}
+  .foot .lay{grid-template-columns:minmax(0,1fr)}
+  .pr{padding-bottom:0}
+  .hero-note .ro{display:none}
+}
+.m p,.m .hero-note{color:var(--ghost)}
+.m .hero-note{color:transparent}
+.m .lede{color:var(--ghost)}
+.m .step-n{color:var(--cyan)}
+.m .nav a:not(.brand):not(.btn),.m .foot ul a,.m ul a{color:var(--ghost)}
+.m .lang{border-color:var(--cyan-dim)}
+.m .lang button{color:var(--ghost)}
+.m .lang button[aria-pressed="true"]{background:var(--cyan);color:var(--void)}
+@media (prefers-reduced-motion:reduce){
+  .ring,.hint{transition:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="xr hero" aria-labelledby="h-hero">
+  <div class="h lay">
+    <nav class="nav" aria-label="Primary">
+      <a class="brand" href="#main">CraftsAI</a>
+      <a class="nl" href="#services">Services</a>
+      <a class="nl" href="#work">Work</a>
+      <a class="nl" href="#process">Process</a>
+      <a class="nl" href="#company">Company</a>
+      <a class="btn sm" href="#contact">Book a call</a>
+    </nav>
+    <h1 class="hl" id="h-hero" data-tok>We build AI that does real work.</h1>
+    <div class="hero-foot">
+      <p class="hero-note">AI development services, from first prototype to production.</p>
+      <p class="lede" data-tok>CraftsAI designs, builds, and runs AI systems for your business — agents that take action, assistants that know your data, and models tuned to your problem. From first prototype to production.</p>
+      <div class="actions">
+        <a class="btn" href="#contact">Book a discovery call</a>
+        <a class="link" href="#work">See what we build</a>
+      </div>
+    </div>
+  </div>
+  <template class="mt">
+    <pre class="ro anno" data-at=".hero-note" style="top:0"><span class="k">page.read</span>(<span class="s">"/"</span>)
+<span class="c">encoder    </span>layer 24 / 24
+<span class="c">h1.tokens  </span>7
+<span class="c">lede.emb   </span>[ 0.12, -0.41,  0.88,
+             0.03, -0.27,  0.64, … ]</pre>
+  </template>
+</section>
+
+<!-- SERVICES -->
+<section class="xr" id="services" aria-labelledby="h-svc">
+  <div class="h lay">
+    <p class="rail"><b id="h-svc">Services</b><i>Six ways we put AI to work</i></p>
+    <ol class="svc-list">
+      <li class="svc flag"><span class="svc-n">01</span><h3 class="svc-t">AI agents &amp; automation</h3><span class="svc-x" aria-hidden="true"></span><p class="svc-d"><span>Agents that plan and act inside your tools: they read tickets, update the CRM, draft replies, and hand off to a person when it matters.</span></p></li>
+      <li class="svc"><span class="svc-n">02</span><h3 class="svc-t">Assistants on your data</h3><span class="svc-x" aria-hidden="true"></span><p class="svc-d"><span>Chat and search over your documents, databases, and wikis, with answers that cite their sources.</span></p></li>
+      <li class="svc"><span class="svc-n">03</span><h3 class="svc-t">Custom models &amp; fine-tuning</h3><span class="svc-x" aria-hidden="true"></span><p class="svc-d"><span>When an off-the-shelf model isn&apos;t enough, we train, fine-tune, and distil models for your task and your budget.</span></p></li>
+      <li class="svc"><span class="svc-n">04</span><h3 class="svc-t">AI inside your product</h3><span class="svc-x" aria-hidden="true"></span><p class="svc-d"><span>We add AI features to the web and mobile apps you already have, or build new AI-first products end to end.</span></p></li>
+      <li class="svc"><span class="svc-n">05</span><h3 class="svc-t">Data &amp; evaluation pipelines</h3><span class="svc-x" aria-hidden="true"></span><p class="svc-d"><span>Clean data in, measurable quality out: datasets, test suites, and evals that tell you whether the AI is actually getting better.</span></p></li>
+      <li class="svc"><span class="svc-n">06</span><h3 class="svc-t">AI strategy sprint</h3><span class="svc-x" aria-hidden="true"></span><p class="svc-d"><span>Two weeks to find where AI pays off in your business, with a working prototype at the end, not a slide deck.</span></p></li>
+    </ol>
+  </div>
+  <template class="mt">
+<pre class="ro anno" data-at=".svc:nth-child(1) .svc-x"><span class="k">agent.run</span>(<span class="s">"support-queue"</span>)
+<span class="c">1 </span><span class="k">tickets.read</span>({id: 1042})
+<span class="c">2 </span><span class="k">crm.update</span>({ticket: 1042,
+               status: <span class="s">"resolved"</span>})
+<span class="c">3 </span><span class="k">reply.draft</span>()            <span class="c">p 0.94</span>
+<span class="c">4 </span><span class="k">handoff.person</span>()         <span class="lo">p 0.38</span></pre>
+<pre class="ro anno" data-at=".svc:nth-child(2) .svc-x"><span class="k">retrieve</span>(<span class="s">"leave policy"</span>, k=3)
+<span class="c">hit 1  </span>handbook.pdf §4.2  <span class="s">sim 0.91</span>
+<span class="c">hit 2  </span>wiki/hr/leave.md   <span class="s">sim 0.86</span>
+<span class="c">hit 3  </span>tickets/2291       <span class="lo">sim 0.52</span>
+<span class="c">answer.cite = </span>[1, 2]</pre>
+<div class="ro anno" data-at=".svc:nth-child(3) .svc-x"><span class="k">train</span>(base, lora_r=16) <span class="c">· eval loss</span>
+<svg viewBox="0 0 240 60" aria-hidden="true" style="width:240px"><path d="M0 4 C 20 26, 40 36, 70 42 S 140 52, 240 54" fill="none" stroke="#58E6F0" stroke-width="1.5"/><path d="M0 8 C 30 22, 60 40, 100 44 S 170 48, 240 49" fill="none" stroke="#FFB547" stroke-width="1" stroke-dasharray="3 3"/><line x1="0" y1="59.5" x2="240" y2="59.5" stroke="rgba(88,230,240,.3)"/></svg><span class="c">step 0 ……………………… step 4k</span></div>
+<pre class="ro anno" data-at=".svc:nth-child(4) .svc-x"><span class="k">app.mount</span>(&lt;<span class="s">AiSummary</span>&gt;)
+<span class="c">  target   </span>web · ios · android
+<span class="c">  stream   </span>true
+<span class="c">  latency  </span>p50 0.8s · <span class="lo">p99 3.1s</span>
+<span class="k">flag</span>(<span class="s">"ai_summary"</span>).rollout(0.1)</pre>
+<div class="ro anno" data-at=".svc:nth-child(5) .svc-x"><span class="k">eval.run</span>(suite=<span class="s">"regression"</span>)
+<svg viewBox="0 0 240 44" aria-hidden="true" class="pf" style="width:240px"></svg><span class="c">■ pass  </span><span class="lo">■ fail</span></div>
+<pre class="ro anno" data-at=".svc:nth-child(6) .svc-x"><span class="k">sprint.plan</span>({weeks: 2})
+<span class="c">wk1 </span>████████░░░░░░░░  map · rank
+<span class="c">wk2 </span>░░░░░░░░████████  prototype
+<span class="c">out </span><span class="s">"working prototype"</span>
+<span class="c">not </span><span class="lo">"slide deck"</span></pre>
+  </template>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="xr" id="company" aria-labelledby="h-pr">
+  <div class="h lay">
+    <p class="rail"><b id="h-pr">How we&apos;re different</b><i>Four rules we hold ourselves to</i></p>
+    <div class="pr-grid">
+      <article class="pr"><h3>Measured, not guessed.</h3><p>Every system ships with evaluations you can read.</p></article>
+      <article class="pr"><h3>Your data stays yours.</h3><p>Private deployments, no training on your data without consent.</p></article>
+      <article class="pr"><h3>Model-agnostic.</h3><p>We pick the model that fits the job, and can switch when a better one arrives.</p></article>
+      <article class="pr"><h3>People in the loop.</h3><p>The AI handles volume; your team keeps the judgement calls.</p></article>
+    </div>
+  </div>
+  <template class="mt">
+<pre class="ro anno" data-at=".pr:nth-child(1)"><span class="c"># system.yaml</span>
+<span class="k">eval</span>:
+  required: <span class="s">true</span>
+  report:   <span class="s">readable</span></pre>
+<pre class="ro anno" data-at=".pr:nth-child(2)"><span class="k">data</span>:
+  deployment:  <span class="s">private</span>
+  train_on_customer_data: <span class="lo">false</span>
+  unless: <span class="s">consent</span></pre>
+<pre class="ro anno" data-at=".pr:nth-child(3)"><span class="k">model</span>:
+  select: <span class="s">best_fit(task)</span>
+  hot_swap: <span class="s">true</span>
+  vendor_lock: <span class="lo">none</span></pre>
+<pre class="ro anno" data-at=".pr:nth-child(4)"><span class="k">escalate</span>:
+  if: <span class="s">confidence &lt; 0.7</span>
+  to: <span class="s">human.reviewer</span>
+  ai_handles: <span class="s">volume</span></pre>
+  </template>
+</section>
+
+<!-- PROCESS -->
+<section class="xr" id="process" aria-labelledby="h-proc">
+  <div class="h lay">
+    <p class="rail"><b id="h-proc">How we work</b><i>A real sequence, in order</i></p>
+    <ol class="steps">
+      <li class="step"><span class="step-n" aria-hidden="true">1</span><h3>Discover</h3><p>We map the workflow, the data, and what &ldquo;good&rdquo; looks like.</p></li>
+      <li class="step"><span class="step-n" aria-hidden="true">2</span><h3>Prototype</h3><p>A working demo on your real data within weeks.</p></li>
+      <li class="step"><span class="step-n" aria-hidden="true">3</span><h3>Evaluate</h3><p>We measure accuracy, cost, and speed against the bar we agreed.</p></li>
+      <li class="step"><span class="step-n" aria-hidden="true">4</span><h3>Build</h3><p>Production-grade integration, security, and monitoring.</p></li>
+      <li class="step"><span class="step-n" aria-hidden="true">5</span><h3>Run &amp; improve</h3><p>We watch it in production and keep making it better.</p></li>
+    </ol>
+  </div>
+  <template class="mt">
+<pre class="ro anno" data-at=".step:nth-child(1)"><span class="c">[stage 1]</span>
+<span class="k">map</span>(workflow)
+<span class="k">map</span>(data)
+<span class="k">define</span>(bar)  <span class="s">ok</span></pre>
+<pre class="ro anno" data-at=".step:nth-child(2)"><span class="c">[stage 2]</span>
+<span class="k">demo</span>(data=<span class="s">real</span>)
+eta: <span class="s">weeks</span>
+status <span class="s">ok</span></pre>
+<pre class="ro anno" data-at=".step:nth-child(3)"><span class="c">[stage 3]</span>
+accuracy <span class="s">≥ bar</span>
+cost     <span class="s">≥ bar</span>
+speed    <span class="lo">retry</span></pre>
+<pre class="ro anno" data-at=".step:nth-child(4)"><span class="c">[stage 4]</span>
+<span class="k">integrate</span>()
+<span class="k">secure</span>()
+<span class="k">monitor</span>()  <span class="s">ok</span></pre>
+<pre class="ro anno" data-at=".step:nth-child(5)"><span class="c">[stage 5]</span>
+<span class="k">while</span> live:
+  observe()
+  improve()</pre>
+  </template>
+</section>
+
+<!-- EXAMPLES -->
+<section class="xr" id="work" aria-labelledby="h-ex">
+  <div class="h lay">
+    <p class="rail"><b id="h-ex">What we build</b><i>Examples, not case studies</i></p>
+    <div class="ex-grid">
+      <article class="ex"><span class="ex-tag">Example</span><h3>Support agent</h3><p>Resolves routine <span data-bb="intent">tickets</span> end to end and escalates the rest with a <span data-bb="summary">summary</span>.</p></article>
+      <article class="ex"><span class="ex-tag">Example</span><h3>Document intelligence</h3><p>Reads <span data-bb="doc_type[0]">contracts</span>, <span data-bb="doc_type[1]">invoices</span>, and <span data-bb="doc_type[2]">forms</span> and turns them into <span data-bb="output">structured data</span>.</p></article>
+      <article class="ex"><span class="ex-tag">Example</span><h3>Sales copilot</h3><p>Researches <span data-bb="entity">accounts</span>, drafts <span data-bb="task">outreach</span>, and keeps the <span data-bb="tool">CRM</span> current.</p></article>
+      <article class="ex"><span class="ex-tag">Example</span><h3>Internal knowledge assistant</h3><p>Answers staff questions from <span data-bb="source">policies</span>, <span data-bb="source">handbooks</span>, and past <span data-bb="source">tickets</span>.</p></article>
+    </div>
+  </div>
+  <template class="mt">
+<pre class="ro anno" data-at=".ex:nth-child(1)">{ <span class="k">"action"</span>: <span class="s">"resolve"</span>,
+  <span class="k">"ticket"</span>: 1042,
+  <span class="k">"escalate"</span>: <span class="lo">false</span>,
+  <span class="k">"conf"</span>: 0.93 }</pre>
+<pre class="ro anno" data-at=".ex:nth-child(2)">{ <span class="k">"doc_type"</span>: <span class="s">"invoice"</span>,
+  <span class="k">"total"</span>:    { <span class="k">"conf"</span>: 0.97 },
+  <span class="k">"due_date"</span>: { <span class="k">"conf"</span>: 0.94 },
+  <span class="k">"party"</span>:    { <span class="k">"conf"</span>: <span class="lo">0.58</span> } }</pre>
+<pre class="ro anno" data-at=".ex:nth-child(3)">{ <span class="k">"account_id"</span>: <span class="s">"a-2291"</span>,
+  <span class="k">"brief"</span>: <span class="s">"ready"</span>,
+  <span class="k">"draft"</span>: <span class="s">"outreach_v1"</span>,
+  <span class="k">"crm_sync"</span>: <span class="s">true</span> }</pre>
+<pre class="ro anno" data-at=".ex:nth-child(4)">{ <span class="k">"answer"</span>: <span class="s">"…"</span>,
+  <span class="k">"sources"</span>: [<span class="s">"policy/leave.md"</span>,
+              <span class="s">"handbook §3.1"</span>],
+  <span class="k">"conf"</span>: 0.88 }</pre>
+  </template>
+</section>
+
+<!-- CTA -->
+<section class="xr cta" id="contact" aria-labelledby="h-cta">
+  <div class="h lay">
+    <h2 class="q" id="h-cta" data-tok>What should AI do for your business?</h2>
+    <div class="cta-foot">
+      <p class="lede">Tell us the workflow. We&apos;ll come back with an honest view of what AI can do there, what it will cost, and how we&apos;d measure it.</p>
+      <div class="actions">
+        <a class="btn" href="#contact">Book a discovery call</a>
+        <a class="link" href="mailto:hello@craftsai.example">Email us — hello@craftsai.example</a>
+      </div>
+    </div>
+  </div>
+  <template class="mt">
+<pre class="ro anno" data-at=".cta-foot"><span class="k">classify_intent</span>(query)
+<span class="c">automate_workflow   </span><span class="s">████████████░░░░  0.62</span>
+<span class="c">find_use_cases      </span>█████░░░░░░░░░░░  0.27
+<span class="c">estimate_cost       </span><span class="lo">██░░░░░░░░░░░░░░  0.11</span>
+<span class="k">route</span> <span class="s">"discovery_call"</span></pre>
+  </template>
+</section>
+
+</main>
+
+<footer class="xr foot">
+  <div class="h lay">
+    <div>
+      <a class="brand" href="#main">CraftsAI</a>
+      <p>CraftsAI — AI development services. &copy; 2026 CraftsAI.</p>
+    </div>
+    <div style="display:grid;gap:16px;justify-items:start">
+      <ul>
+        <li><a href="#services">Services</a></li><li><a href="#work">Work</a></li><li><a href="#process">Process</a></li>
+        <li><a href="#company">Company</a></li><li><a href="#company">Careers</a></li><li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language"><button type="button" aria-pressed="true">EN</button><button type="button" aria-pressed="false" lang="bn">বাং</button></div>
+    </div>
+  </div>
+</footer>
+
+<div class="ring" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"><span>reading page</span></div>
+<div class="hint" aria-hidden="true">Move to see what the AI sees</div>
+<button class="pill" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span><span class="pill-l">See what the AI sees</span></button>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  const FINE = matchMedia('(hover: hover) and (pointer: fine)');
+  const EMPTY = 'inset(0 0 100% 0)';
+  const BIG = 1e7;
+
+  const hash = (s) => { let h = 2166136261; for (const c of s) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+  const ease = (x) => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const lerp = (a, b, e) => a + (b - a) * e;
+
+  /* 1. split marked text into word spans (same markup in both layers) */
+  function tokenize(el) {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach((n) => {
+      const frag = document.createDocumentFragment();
+      n.textContent.split(/(\s+)/).forEach((p) => {
+        if (!p) return;
+        if (/^\s+$/.test(p)) { frag.append(p); return; }
+        const s = document.createElement('span');
+        s.className = 'w';
+        s.textContent = p;
+        frag.append(s);
+      });
+      n.replaceWith(frag);
+    });
+  }
+  $$('[data-tok]').forEach(tokenize);
+
+  /* 2. build each machine layer as a clone of its human layer, then annotate */
+  const LOW = new Set(['real', 'business?']);
+  function heat(seed) {
+    const stops = [];
+    for (let i = 0; i < 10; i++) {
+      const v = ((hash(seed + ':' + i) % 2001) / 1000) - 1;
+      const c = v > 0 ? `rgba(88,230,240,${(.15 + v * .85).toFixed(2)})` : `rgba(255,79,163,${(.15 - v * .75).toFixed(2)})`;
+      stops.push(`${c} ${i * 10}% ${(i + 1) * 10}%`);
+    }
+    return `linear-gradient(90deg,${stops.join(',')})`;
+  }
+
+  const secs = $$('.xr').map((sec) => {
+    const h = $('.h', sec);
+    const m = h.cloneNode(true);
+    m.classList.replace('h', 'm');
+    m.setAttribute('aria-hidden', 'true');
+    m.inert = true;
+    $$('[id]', m).forEach((e) => e.removeAttribute('id'));
+    $$('a, button', m).forEach((e) => { e.removeAttribute('href'); e.tabIndex = -1; });
+    $$('.hl .w, .q .w', m).forEach((w, i) => {
+      const t = w.textContent;
+      const hv = hash(t.toLowerCase() + '#' + i);
+      const low = LOW.has(t.toLowerCase());
+      const p = low ? .21 + (hv % 17) / 100 : .71 + (hv % 28) / 100;
+      w.dataset.id = String(hv % 50257).padStart(5, '0');
+      w.dataset.p = 'p ' + p.toFixed(2);
+      if (low) w.classList.add('lo');
+    });
+    $$('.lede .w', m).forEach((w, i) => w.style.setProperty('--heat', heat(w.textContent + i)));
+    const tpl = $('template.mt', sec);
+    if (tpl) {
+      Array.from(tpl.content.children).forEach((node) => {
+        const target = $(node.dataset.at, m);
+        if (target) target.append(node.cloneNode(true));
+      });
+    }
+    $$('svg.pf', m).forEach(passFail);
+    sec.append(m);
+    return { sec, m, top: 0, h: 0, cp: '' };
+  });
+
+  function passFail(svg) {
+    const NS = 'http://www.w3.org/2000/svg';
+    for (let r = 0; r < 4; r++) {
+      for (let c = 0; c < 24; c++) {
+        const fail = hash(r + ':' + c) % 9 === 0 && c < 18;
+        const rect = document.createElementNS(NS, 'rect');
+        rect.setAttribute('x', String(c * 10));
+        rect.setAttribute('y', String(r * 11));
+        rect.setAttribute('width', '8');
+        rect.setAttribute('height', '8');
+        rect.setAttribute('fill', fail ? '#FF4FA3' : 'rgba(88,230,240,.75)');
+        svg.append(rect);
+      }
+    }
+  }
+
+  /* attention arcs between headline tokens (measured on resize only) */
+  const heroM = secs[0].m;
+  const attn = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  attn.setAttribute('class', 'attn');
+  heroM.append(attn);
+  const PAIRS = [[0, 1, .88], [2, 6, .74], [4, 6, .61], [5, 6, .93], [2, 4, .47], [3, 2, .52], [1, 2, .69]];
+  /* token boxes sized to each word's glyph ink (Range + canvas metrics), labels placed by line gap */
+  const PAD = 4, LH = 16;
+  const cv = document.createElement('canvas').getContext('2d');
+  const tokLayers = secs.filter((s) => $('.hl .w, .q .w', s.m)).map((s) => {
+    const d = document.createElement('div');
+    d.className = 'toks';
+    s.m.append(d);
+    return { m: s.m, d, boxes: [] };
+  });
+  function inkBox(w, base) {
+    const range = document.createRange();
+    range.selectNodeContents(w);
+    const r = range.getClientRects()[0];
+    if (!r) return null;
+    const cs = getComputedStyle(w);
+    cv.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    if ('letterSpacing' in cv) cv.letterSpacing = cs.letterSpacing;
+    const mt = cv.measureText(w.textContent);
+    const fa = mt.fontBoundingBoxAscent || r.height * .8, fd = mt.fontBoundingBoxDescent || r.height * .2;
+    const baseline = r.top + fa * (r.height / (fa + fd));
+    const x0 = r.left - Math.max(0, mt.actualBoundingBoxLeft);
+    const x1 = Math.max(x0 + 8, Math.min(r.right + 4, r.left + mt.actualBoundingBoxRight));
+    return {
+      x0: x0 - base.left - PAD, x1: x1 - base.left + PAD,
+      y0: baseline - mt.actualBoundingBoxAscent - base.top - PAD,
+      y1: baseline + mt.actualBoundingBoxDescent - base.top + PAD,
+      line: Math.round(r.top)
+    };
+  }
+  function drawTokens() {
+    tokLayers.forEach((L) => {
+      const base = L.m.getBoundingClientRect();
+      const words = $$('.hl .w, .q .w', L.m);
+      const boxes = words.map((w) => inkBox(w, base));
+      const lineKeys = [...new Set(boxes.filter(Boolean).map((b) => b.line))].sort((a, b) => a - b);
+      const lines = lineKeys.map((k) => {
+        const bs = boxes.filter((b) => b && b.line === k);
+        return { top: Math.min(...bs.map((b) => b.y0)), bottom: Math.max(...bs.map((b) => b.y1)), idOut: true, pOut: true };
+      });
+      for (let i = 0; i < lines.length - 1; i++) {
+        const gap = lines[i + 1].top - lines[i].bottom;
+        if (gap >= 2 * LH + 4) continue;
+        lines[i + 1].idOut = false;
+        if (gap < LH + 2) lines[i].pOut = false;
+      }
+      let html = '';
+      words.forEach((w, i) => {
+        const b = boxes[i];
+        if (!b) return;
+        const ln = lines[lineKeys.indexOf(b.line)];
+        html += `<div class="tb${w.classList.contains('lo') ? ' lo' : ''}" style="left:${b.x0.toFixed(1)}px;top:${b.y0.toFixed(1)}px;width:${(b.x1 - b.x0).toFixed(1)}px;height:${(b.y1 - b.y0).toFixed(1)}px">` +
+          `<i class="tid ${ln.idOut ? 'out' : 'in'}">${w.dataset.id}</i><i class="tp ${ln.pOut ? 'out' : 'in'}">${w.dataset.p}</i></div>`;
+      });
+      L.d.innerHTML = html;
+      L.boxes = boxes;
+    });
+  }
+
+  function drawAttn() {
+    const hb = tokLayers.find((L) => L.m === heroM);
+    const pts = (hb ? hb.boxes : []).map((b) => b && { x: (b.x0 + b.x1) / 2, y: b.y0 });
+    let out = '';
+    PAIRS.forEach(([a, b, wgt]) => {
+      const A = pts[a], B = pts[b];
+      if (!A || !B) return;
+      const dx = B.x - A.x, dy = B.y - A.y;
+      const lift = Math.min(160, 40 + Math.hypot(dx, dy) * .22);
+      const cx = (A.x + B.x) / 2, cy = Math.min(A.y, B.y) - lift;
+      const col = wgt < .55 ? '255,79,163' : '88,230,240';
+      out += `<path d="M${A.x.toFixed(1)} ${A.y.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${B.x.toFixed(1)} ${B.y.toFixed(1)}" stroke="rgba(${col},${(.25 + wgt * .6).toFixed(2)})"/>`;
+      out += `<text x="${cx.toFixed(1)}" y="${(cy / 2 + Math.min(A.y, B.y) / 2 - 4).toFixed(1)}" fill="#FFB547" font-family="IBM Plex Mono, monospace" font-size="11" text-anchor="middle">${wgt.toFixed(2)}</text>`;
+    });
+    attn.innerHTML = out;
+  }
+
+  /* 3. geometry, cached; never read during pointer moves */
+  const ring = $('.ring'), scan = $('.scan'), scanLabel = $('.scan span'), hint = $('.hint'), pill = $('.pill'), pillLabel = $('.pill-l');
+  let W = 0, H = 0, R = 110;
+  function measure() {
+    W = document.documentElement.clientWidth;
+    H = innerHeight;
+    R = W < 640 ? 72 : W < 1024 ? 96 : 130;
+    ring.style.setProperty('--d', R * 2 + 'px');
+    const sy = scrollY;
+    secs.forEach((s) => { const r = s.sec.getBoundingClientRect(); s.top = r.top + sy; s.h = r.height; s.cp = ''; });
+    drawTokens();
+    drawAttn();
+  }
+
+  /* 4. state: the reveal shape lives in viewport coordinates */
+  const st = { shape: 'none', rect: null, lx: 0, ly: 0, tx: 0, ty: 0, full: false, lens: false };
+  let anim = null;
+
+  function applyClip() {
+    const sy = scrollY;
+    for (const s of secs) {
+      const top = s.top - sy;
+      let cp = EMPTY;
+      if (st.shape === 'circle') {
+        if (st.ly + R > top && st.ly - R < top + s.h) cp = `circle(${R}px at ${st.lx.toFixed(1)}px ${(st.ly - top).toFixed(1)}px)`;
+      } else if (st.shape === 'rect' && st.rect) {
+        const { x0, y0, x1, y1, rad } = st.rect;
+        const t = Math.max(0, y0 - top), b = Math.max(0, top + s.h - y1);
+        if (t + b < s.h) cp = `inset(${t.toFixed(1)}px ${Math.max(0, W - x1).toFixed(1)}px ${b.toFixed(1)}px ${Math.max(0, x0).toFixed(1)}px round ${rad.toFixed(1)}px)`;
+      }
+      if (cp !== s.cp) { s.m.style.clipPath = cp; s.cp = cp; }
+    }
+  }
+
+  function lensHome() { return RM.matches ? { x: W * .7, y: H * .42 } : { x: W / 2, y: H * .5 }; }
+
+  function driftTarget(t) {
+    const s = scrollY;
+    const amp = Math.max(0, W / 2 - R - 12);
+    st.tx = W / 2 + amp * Math.sin(s / 520 + t / 5200);
+    st.ty = H * .44 + H * .12 * Math.sin(s / 760 + 1.3 + t / 7100);
+  }
+
+  let hintW = 0;
+  function placeHint() {
+    const hw = hintW;
+    const x = Math.min(Math.max(12, st.lx - hw / 2), W - hw - 12);
+    hint.style.transform = `translate3d(${x.toFixed(1)}px,${(st.ly + R + 18).toFixed(1)}px,0)`;
+  }
+
+  let hintTimer = 0;
+  function showHint() {
+    hint.textContent = FINE.matches && !RM.matches ? 'Move to see what the AI sees' : 'Use the switch to see the whole page as the AI sees it';
+    hintW = hint.offsetWidth;
+    placeHint();
+    hint.classList.add('on');
+    clearTimeout(hintTimer);
+    hintTimer = setTimeout(() => hint.classList.remove('on'), 5200);
+  }
+
+  function enterLens() {
+    const p = lensHome();
+    st.lx = st.tx = p.x; st.ly = st.ty = p.y;
+    st.shape = 'circle'; st.lens = true;
+    ring.style.transform = `translate3d(${st.lx}px,${st.ly}px,0)`;
+    ring.classList.add('on');
+  }
+
+  /* 5. load sequence: scan sweep, then collapse into the lens */
+  function runScan() {
+    const band = Math.min(170, H * .24);
+    st.shape = 'rect';
+    scan.style.opacity = '1';
+    anim = {
+      start: performance.now(), dur: 1750,
+      step(e) {
+        const y = ease(e) * H;
+        st.rect = { x0: 0, y0: y - band, x1: W, y1: y, rad: 0 };
+        scan.style.transform = `translate3d(0,${y.toFixed(1)}px,0)`;
+        scanLabel.textContent = 'reading page · token ' + String(Math.round(e * 412)).padStart(3, '0');
+      },
+      done() {
+        const c = lensHome();
+        const from = { x0: 0, y0: H - band, x1: W, y1: H, rad: 0 };
+        const to = { x0: c.x - R, y0: c.y - R, x1: c.x + R, y1: c.y + R, rad: R };
+        scan.style.opacity = '0';
+        anim = {
+          start: performance.now(), dur: 720,
+          step(e) {
+            const k = ease(e);
+            st.rect = { x0: lerp(from.x0, to.x0, k), y0: lerp(from.y0, to.y0, k), x1: lerp(from.x1, to.x1, k), y1: lerp(from.y1, to.y1, k), rad: lerp(0, R, Math.min(1, k * 1.15)) };
+          },
+          done() { anim = null; enterLens(); showHint(); }
+        };
+      }
+    };
+  }
+
+  /* 6. full-page toggle: vertical wipe */
+  function setFull(on) {
+    st.full = on;
+    pill.setAttribute('aria-pressed', String(on));
+    pillLabel.textContent = on ? 'Back to the human view' : 'See what the AI sees';
+    hint.classList.remove('on');
+    ring.classList.toggle('on', !on);
+    if (!st.lens) { const p = lensHome(); st.lx = st.tx = p.x; st.ly = st.ty = p.y; st.lens = true; scan.style.opacity = '0'; }
+    if (RM.matches) {
+      anim = null;
+      st.shape = on ? 'rect' : 'circle';
+      st.rect = { x0: 0, y0: -BIG, x1: W, y1: BIG, rad: 0 };
+      return;
+    }
+    st.shape = 'rect';
+    anim = {
+      start: performance.now(), dur: 820,
+      step(e) {
+        const y = (on ? ease(e) : 1 - ease(e)) * H;
+        st.rect = { x0: 0, y0: -BIG, x1: W, y1: y, rad: 0 };
+        scan.style.opacity = e < 1 ? '1' : '0';
+        scan.style.transform = `translate3d(0,${y.toFixed(1)}px,0)`;
+        scanLabel.textContent = on ? 'machine view' : 'human view';
+      },
+      done() {
+        anim = null;
+        scan.style.opacity = '0';
+        if (on) st.rect = { x0: 0, y0: -BIG, x1: W, y1: BIG, rad: 0 };
+        else st.shape = 'circle';
+      }
+    };
+  }
+  pill.addEventListener('click', () => setFull(!st.full));
+
+  $$('.lang button').forEach((b) => b.addEventListener('click', () => {
+    $$('.lang button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  }));
+
+  /* 7. pointer = lens target (fine pointers only) */
+  let moved = 0, lastX = -1, lastY = -1;
+  addEventListener('pointermove', (ev) => {
+    if (ev.pointerType !== 'mouse' && ev.pointerType !== 'pen') return;
+    if (!FINE.matches || RM.matches) return;
+    st.tx = ev.clientX; st.ty = ev.clientY;
+    if (lastX >= 0) moved += Math.abs(ev.clientX - lastX) + Math.abs(ev.clientY - lastY);
+    lastX = ev.clientX; lastY = ev.clientY;
+    if (moved > 140 && hint.classList.contains('on')) hint.classList.remove('on');
+  }, { passive: true });
+
+  /* 8. one rAF loop; writes only transforms and clip-path strings */
+  function frame(now) {
+    if (anim) {
+      const e = Math.min(1, (now - anim.start) / anim.dur);
+      const a = anim;
+      a.step(e);
+      if (e >= 1) a.done();
+    }
+    if (st.lens && !st.full) {
+      if (!RM.matches && !FINE.matches) driftTarget(now);
+      const k = RM.matches ? 1 : FINE.matches ? .15 : .06;
+      st.lx += (st.tx - st.lx) * k;
+      st.ly += (st.ty - st.ly) * k;
+      ring.style.transform = `translate3d(${st.lx.toFixed(1)}px,${st.ly.toFixed(1)}px,0)`;
+      if (hint.classList.contains('on')) placeHint();
+    }
+    applyClip();
+    requestAnimationFrame(frame);
+  }
+
+  /* 9. boot */
+  measure();
+  let rT = 0;
+  const ro = new ResizeObserver(() => { cancelAnimationFrame(rT); rT = requestAnimationFrame(() => { measure(); if (st.lens && RM.matches) { const p = lensHome(); st.lx = st.tx = p.x; st.ly = st.ty = p.y; } }); });
+  ro.observe(document.body);
+  addEventListener('resize', () => { if (st.full && st.shape === 'rect' && !anim) st.rect = { x0: 0, y0: -BIG, x1: W, y1: BIG, rad: 0 }; });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+
+  if (RM.matches || scrollY > 40) { enterLens(); setTimeout(showHint, 300); }
+  else runScan();
+  RM.addEventListener('change', () => { if (RM.matches && st.lens && !st.full) { const p = lensHome(); st.tx = p.x; st.ty = p.y; } });
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
