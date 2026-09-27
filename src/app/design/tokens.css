@@ -12,6 +12,20 @@
   --line: #262B35;
   --amber: #FFB347;
 
+  /* "Attention" palette (home redesign, 2026-09). Deep forest ground, bone text,
+     gold attention arcs, mint for success/probability, rose for rejected
+     alternatives. Spec: docs/design/home-redesign/mock-a-attention.html */
+  --forest: #0E2621;
+  --forest-raised: #143129;
+  --parchment: #ECE9E0;
+  --sage: #9FB3AA;
+  --gold: #F2B33D;
+  --gold-hover: #F7C660;
+  --mint: #7FD6B5;
+  --rose: #E87A8C;
+  --forest-rule: rgba(236, 233, 224, 0.13);
+  --forest-faint: rgba(236, 233, 224, 0.28);
+
   color-scheme: dark;
 }
 
