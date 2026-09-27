@@ -99,7 +99,10 @@ export function createHeroController(el: HeroElements, data: HeroData, reducedMo
     const { boxes, lines, m } = layout();
     gBase = svg('g', { class: 'g-base' }, el.arcs);
     gQuery = svg('g', { class: 'g-q' }, el.arcs);
-    const pairs = restingPairs(data.weights);
+    // At rest, only words on the same line are linked: an S-curve squeezed
+    // through the gap between lines reads as a stray tick, not an arc. Those
+    // links still appear when a word is the query.
+    const pairs = restingPairs(data.weights).filter(({ i, j }) => boxes[i].line === boxes[j].line);
     pairs.forEach(({ i, j, w }, n) => {
       const g = arcBetween(boxes[i], boxes[j], lines, m);
       const stroke = restingStroke(w, g.cross);

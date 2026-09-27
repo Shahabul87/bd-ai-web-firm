@@ -56,12 +56,12 @@ export default function CookieConsent() {
       role="dialog"
       aria-label={t('dialogLabel')}
       aria-live="polite"
-      className="fixed inset-x-4 bottom-4 z-[60] border border-line bg-ink-900/95 p-4 shadow-2xl backdrop-blur sm:left-4 sm:right-auto sm:max-w-md"
+      className="fixed inset-x-4 bottom-4 z-[60] rounded-xl border border-forest-rule bg-forest-raised/95 p-4 shadow-2xl backdrop-blur sm:left-4 sm:right-auto sm:max-w-md"
     >
-      <p className="text-sm leading-relaxed text-bone">
+      <p className="text-sm leading-relaxed text-parchment">
         {t.rich('body', {
           policy: (chunks) => (
-            <Link href="/cookies" className="text-signal underline-offset-4 hover:underline">
+            <Link href="/cookies" className="text-gold underline-offset-4 hover:underline">
               {chunks}
             </Link>
           ),
@@ -70,13 +70,13 @@ export default function CookieConsent() {
       <div className="mt-4 flex gap-3">
         <button
           onClick={() => decide('granted')}
-          className="min-h-[40px] flex-1 bg-signal px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-ink-950 transition-colors hover:bg-signal-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+          className="min-h-[40px] flex-1 bg-gold px-4 py-2 text-sm font-semibold text-forest transition-colors hover:bg-gold-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
         >
           {t('accept')}
         </button>
         <button
           onClick={() => decide('denied')}
-          className="min-h-[40px] flex-1 border border-line px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors hover:border-signal hover:text-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
+          className="min-h-[40px] flex-1 border border-forest-rule px-4 py-2 text-sm font-semibold text-parchment transition-colors hover:border-gold hover:text-gold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
         >
           {t('decline')}
         </button>
