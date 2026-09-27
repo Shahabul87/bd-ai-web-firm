@@ -5,6 +5,9 @@ import { Link } from '@/i18n/navigation';
 import type { HeroData } from './attention/schema';
 import { createHeroController } from './attention/heroController';
 
+/** Latin full stop, question/exclamation mark, or the Bengali dari (।). */
+const SENTENCE_END = /[.!?।]$/;
+
 interface AttentionHeroProps {
   data: HeroData;
   hint: string;
@@ -77,6 +80,10 @@ export default function AttentionHero({ data, hint, lede, ctaPrimary, ctaSeconda
                   {token.text}
                 </span>
                 {i < data.tokens.length - 1 ? ' ' : null}
+                {/* Each sentence starts its own line. */}
+                {i < data.tokens.length - 1 && SENTENCE_END.test(token.text) ? (
+                  <br />
+                ) : null}
               </Fragment>
             ))}
           </h1>

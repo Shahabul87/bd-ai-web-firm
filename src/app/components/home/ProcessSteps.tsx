@@ -57,7 +57,7 @@ export default function ProcessSteps({ title, note, exampleLabel, steps, artifac
     });
     const path = (a: { x: number; y: number }, b: { x: number; y: number }, lift: number) => {
       if (horizontal) {
-        const h = Math.min(104, lift + Math.abs(b.x - a.x) * 0.22);
+        const h = Math.min(84, lift + Math.abs(b.x - a.x) * 0.2);
         return `M${f2(a.x)} ${f2(a.y)}Q${f2((a.x + b.x) / 2)} ${f2(a.y - 2 * h)} ${f2(b.x)} ${f2(b.y)}`;
       }
       const bulge = Math.min(a.x - 4, lift * 0.6 + Math.abs(b.y - a.y) * 0.08);
@@ -192,10 +192,21 @@ export default function ProcessSteps({ title, note, exampleLabel, steps, artifac
     <section ref={sectionRef} className="attn-process" id="process" aria-labelledby="attn-process-h">
       <div className="attn-process-pin">
         <div className="attn-wrap">
-          <h2 className="attn-sec-h" id="attn-process-h">
-            {title}
-          </h2>
-          <p className="attn-sec-note">{note}</p>
+          <div className="attn-process-top">
+            <div>
+              <h2 className="attn-sec-h" id="attn-process-h">
+                {title}
+              </h2>
+              <p className="attn-sec-note">{note}</p>
+            </div>
+            <div className="attn-art-stage" aria-hidden="true">
+              {steps.map((step) => (
+                <div key={step.key} className="attn-art">
+                  <StepArtifact step={step.key} copy={artifacts} label={exampleLabel} />
+                </div>
+              ))}
+            </div>
+          </div>
           <div ref={wrapRef} className="attn-steps-wrap">
             <svg ref={arcsRef} className="attn-parcs" aria-hidden="true" />
             <ol className="attn-steps">
@@ -214,13 +225,6 @@ export default function ProcessSteps({ title, note, exampleLabel, steps, artifac
                 </li>
               ))}
             </ol>
-          </div>
-          <div className="attn-art-stage" aria-hidden="true">
-            {steps.map((step) => (
-              <div key={step.key} className="attn-art">
-                <StepArtifact step={step.key} copy={artifacts} label={exampleLabel} />
-              </div>
-            ))}
           </div>
         </div>
       </div>
