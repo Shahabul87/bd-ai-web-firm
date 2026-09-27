@@ -14,7 +14,7 @@ export default function PageLayout({ children }: PageLayoutProps) {
           so a keyboard user can jump past the nav to the page content. */}
       <a
         href="#main-content"
-        className="sr-only rounded-sm focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-signal focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-[0.15em] focus:text-ink-950"
+        className="sr-only rounded-md focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-gold focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-forest"
       >
         {t('skipToContent')}
       </a>

@@ -18,7 +18,7 @@ import type { AbstractIntlMessages } from 'next-intl';
  * re-declare the shared "chrome" namespaces it renders and would break at
  * runtime (MISSING_MESSAGE) the moment a shared client component is added to a
  * page whose provider forgot its namespace. One allowlist covers every subtree
- * safely; the trade-off is that a couple of page-specific namespaces (Home,
+ * safely; the trade-off is that a couple of page-specific namespaces (Contact,
  * Quote) ride along on routes that do not render them.
  *
  * INVARIANT: every namespace read via `useTranslations`/`useFormatter` in a
@@ -38,8 +38,9 @@ export const CLIENT_NAMESPACES = [
   // Shared client sections used across multiple routes
   'CTABand',
   'PillarCards',
-  // Page-specific client components
-  'Home', // homepage sections (home/*)
+  // Page-specific client components. (Home is absent on purpose: the home
+  // sections are Server Components that pass plain props to their client
+  // islands, so its large catalog never ships to the browser.)
   'Contact', // contact form
   'Quote', // quote wizard
   'FormErrors', // contact + quote client-side validation

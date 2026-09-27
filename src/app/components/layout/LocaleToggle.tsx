@@ -5,7 +5,7 @@ import { Link, usePathname } from '@/i18n/navigation';
 
 const LOCALES = [
   { code: 'en', short: 'EN' },
-  { code: 'bn', short: 'BN' },
+  { code: 'bn', short: 'বাং' },
 ] as const;
 
 interface LocaleToggleProps {
@@ -34,7 +34,7 @@ export default function LocaleToggle({ className = '', onSelect }: LocaleToggleP
 
   return (
     <div
-      className={`flex items-center border border-line ${className}`}
+      className={`chrome-lang ${className}`}
       role="group"
       aria-label={t('label')}
     >
@@ -43,11 +43,7 @@ export default function LocaleToggle({ className = '', onSelect }: LocaleToggleP
 
         if (isActive) {
           return (
-            <span
-              key={code}
-              aria-current="true"
-              className="bg-signal px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.15em] text-ink-950"
-            >
+            <span key={code} aria-current="true" lang={code}>
               {short}
             </span>
           );
@@ -60,8 +56,8 @@ export default function LocaleToggle({ className = '', onSelect }: LocaleToggleP
             locale={code}
             hrefLang={code}
             onClick={onSelect}
+            lang={code}
             aria-label={code === 'bn' ? t('switchToBengali') : t('switchToEnglish')}
-            className="px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-bone transition-colors duration-150 hover:text-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
           >
             {short}
           </Link>

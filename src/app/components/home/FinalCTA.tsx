@@ -1,51 +1,28 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
-import { motion } from 'framer-motion';
-import Button from '../../design/ui/Button';
-import MonoLabel from '../../design/ui/MonoLabel';
-import { rise, riseStagger, viewportOnce } from '../../design/motion';
+import { Link } from '@/i18n/navigation';
+import GeneratedTitle from './GeneratedTitle';
+
+/** The studio's public inbox; the same address the footer lists. */
+export const CONTACT_EMAIL = 'hello@craftsai.org';
 
 export default function FinalCTA() {
   const t = useTranslations('Home.finalCta');
-
   return (
-    <section className="border-t border-line">
-      <div className="blueprint-grid relative bg-ink-950">
-        <motion.div
-          className="mx-auto max-w-4xl px-6 py-24 text-center sm:py-32"
-          variants={riseStagger}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-        >
-          <motion.div variants={rise}>
-            <MonoLabel className="text-signal">{t('eyebrow')}</MonoLabel>
-          </motion.div>
-          <motion.h2
-            variants={rise}
-            className="mx-auto mt-6 max-w-2xl font-display text-4xl font-medium text-bone sm:text-5xl md:text-6xl"
-          >
-            {t('title')}
-          </motion.h2>
-          <motion.p variants={rise} className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-steel">
-            {t('lede')}
-          </motion.p>
-          <motion.div variants={rise} className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
-            <Button variant="signal" size="lg" href="/contact">
-              {t('primaryLabel')}
-            </Button>
-            <Button variant="ghost" size="lg" href="/quote">
-              {t('secondaryLabel')}
-            </Button>
-          </motion.div>
-          <motion.p variants={rise} className="mt-8 font-mono text-xs uppercase tracking-[0.18em] text-steel">
-            {t('emailPrefix')}{' '}
-            <a href="mailto:hello@craftsai.org" className="text-bone hover:text-signal">
-              hello@craftsai.org
-            </a>
-          </motion.p>
-        </motion.div>
+    <section className="attn-cta" id="contact" aria-labelledby="attn-cta-h">
+      <div className="attn-wrap">
+        <GeneratedTitle id="attn-cta-h" text={t('title')} />
+        <p>{t('lede')}</p>
+        <div className="attn-actions">
+          <Link className="attn-btn attn-btn-primary" href="/contact">
+            {t('primary')}
+          </Link>
+          <a className="attn-btn attn-btn-secondary" href={`mailto:${CONTACT_EMAIL}`}>
+            {t('secondary')}
+          </a>
+        </div>
+        <span className="attn-mail">
+          {t('mailPrefix')} <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        </span>
       </div>
     </section>
   );

@@ -43,14 +43,15 @@ describe('Header on Bengali pages', () => {
     renderAt('bn');
     // A visitor on /bn/services must see the same active state as one on
     // /services: pathname.startsWith('/services') has to hold on both.
-    expect(screen.getByRole('button', { name: /Services/i })).toHaveClass('text-signal');
+    expect(screen.getByRole('link', { name: 'Services' })).toHaveAttribute('aria-current', 'page');
+    expect(screen.getByRole('link', { name: 'Work' })).not.toHaveAttribute('aria-current');
   });
 
   it('routes primary nav links through the locale-aware Link', () => {
     renderAt('bn');
     // Without this, an unprefixed href like /products sends a Bengali visitor
     // to the English page and silently loses their language.
-    expect(screen.getByRole('link', { name: 'Products' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Work' })).toHaveAttribute(
       'data-locale-aware',
       'true'
     );

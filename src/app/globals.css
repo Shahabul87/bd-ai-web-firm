@@ -2,6 +2,7 @@
 @plugin "@tailwindcss/typography";
 @import "./design/tokens.css";
 @import "./styles/animations.css";
+@import "./styles/home-attention.css";
 
 /* Tailwind v4 class-based dark variant — html always carries .dark (dark-only site),
    so legacy `dark:` utilities apply for every visitor regardless of OS preference. */
@@ -69,6 +70,16 @@
   --color-steel: var(--steel);
   --color-line: var(--line);
   --color-amber: var(--amber);
+  --color-forest: var(--forest);
+  --color-forest-raised: var(--forest-raised);
+  --color-parchment: var(--parchment);
+  --color-sage: var(--sage);
+  --color-gold: var(--gold);
+  --color-gold-hover: var(--gold-hover);
+  --color-mint: var(--mint);
+  --color-rose: var(--rose);
+  --color-forest-rule: var(--forest-rule);
+  --color-forest-faint: var(--forest-faint);
 
   --font-display: var(--font-space-grotesk);
   --font-sans: var(--font-instrument-sans);
@@ -88,21 +99,6 @@
 :lang(bn) {
   --font-display: var(--font-anek-bangla);
   --font-sans: var(--font-anek-bangla);
-}
-
-/* The hero headline is the one place using Archivo (loaded locally by
- * DraftingRoomHero, which puts --font-archivo in scope on its <section>).
- * It must NOT go through next/font's own .className, which hardcodes
- * font-family: Archivo and so cannot be swapped per-language. These are
- * deliberately plain rules, not @theme tokens: Tailwind v4's `@theme inline`
- * bakes a token's *referent* into the generated utility, so a :lang(bn)
- * override of the token would never reach the element. */
-.hero-display {
-  font-family: var(--font-archivo);
-}
-
-:lang(bn) .hero-display {
-  font-family: var(--font-anek-bangla);
 }
 
 /* Bengali renders optically smaller and taller than Latin at identical
