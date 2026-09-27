@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-import { Anek_Bangla } from 'next/font/google';
+import { Anek_Bangla, Instrument_Serif, Schibsted_Grotesk } from 'next/font/google';
 import '../../globals.css';
 import AppShell from '@/app/components/AppShell';
 import StructuredData from '@/app/components/StructuredData';
@@ -23,6 +23,24 @@ const anekBangla = Anek_Bangla({
   axes: ['wdth'],
   display: 'swap',
   preload: false,
+  fallback: ['system-ui', 'sans-serif'],
+});
+
+// The marketing pair. Instrument Serif is the display face (headings, the hero's
+// generated headline); Schibsted Grotesk carries body and interface text. Neither
+// has Bengali glyphs, so `:lang(bn)` swaps both to Anek Bangla (globals.css).
+const instrumentSerif = Instrument_Serif({
+  variable: '--font-instrument-serif',
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
+});
+
+const schibstedGrotesk = Schibsted_Grotesk({
+  variable: '--font-schibsted',
+  subsets: ['latin'],
+  display: 'swap',
   fallback: ['system-ui', 'sans-serif'],
 });
 
@@ -51,10 +69,10 @@ const anekBangla = Anek_Bangla({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.craftsai.org'),
   title: {
-    default: "CraftsAI | AI Agent Development Studio",
+    default: "CraftsAI | AI Development Services",
     template: "%s | CraftsAI"
   },
-  description: "CraftsAI is an AI agent development studio in Dhaka serving clients worldwide. We build custom AI agents, ship websites and mobile apps built by AI agents, and integrate agents into your existing systems.",
+  description: "CraftsAI designs, builds, and runs AI systems for your business — agents that take action, assistants that know your data, and models tuned to your problem. From first prototype to production.",
   keywords: [
     "AI agent development",
     "custom AI agents",
@@ -62,10 +80,11 @@ export const metadata: Metadata = {
     "AI web development",
     "mobile app development",
     "AI automation",
-    "autonomous coding",
-    "AI software studio",
-    "Bangladesh software company",
-    "AI development agency"
+    "AI assistants",
+    "RAG",
+    "fine-tuning",
+    "LLM evaluation",
+    "AI development services"
   ],
   authors: [{ name: "CraftsAI", url: "https://www.craftsai.org" }],
   creator: "CraftsAI",
@@ -85,15 +104,15 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://www.craftsai.org",
-    title: "CraftsAI | AI Agent Development Studio",
-    description: "We build AI agents. Our agents build your software — websites, mobile apps, and integrations, shipped fast with human review.",
+    title: "CraftsAI | AI Development Services",
+    description: "Stop demoing AI. Start profiting from it. CraftsAI designs, builds, and runs AI systems for your business.",
     siteName: "CraftsAI"
     // OG image is generated dynamically by src/app/(site)/[locale]/opengraph-image.tsx
   },
   twitter: {
     card: "summary_large_image",
-    title: "CraftsAI | AI Agent Development Studio",
-    description: "We build AI agents. Our agents build your software — websites, mobile apps, and integrations.",
+    title: "CraftsAI | AI Development Services",
+    description: "Stop demoing AI. Start profiting from it. CraftsAI designs, builds, and runs AI systems for your business.",
     creator: "@craftsai"
     // Twitter image is generated dynamically by src/app/(site)/[locale]/opengraph-image.tsx
   },
@@ -109,7 +128,7 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: '#0A0C10'
+  themeColor: '#0E2621'
 };
 
 export function generateStaticParams() {
@@ -130,7 +149,7 @@ export default async function SiteLayout({
   setRequestLocale(locale);
 
   return (
-    <AppShell lang={locale} bodyClassName={anekBangla.variable}>
+    <AppShell lang={locale} bodyClassName={`${anekBangla.variable} ${instrumentSerif.variable} ${schibstedGrotesk.variable}`}>
       <NextIntlClientProvider>
         <StructuredData />
         {children}

@@ -15,31 +15,32 @@
     "products": "Products",
     "process": "Process",
     "resources": "Resources",
-    "about": "About"
+    "about": "About",
+    "work": "Work",
+    "company": "Company"
   },
   "Header": {
     "primaryNavLabel": "Primary",
     "mobileNavLabel": "Mobile",
     "getEstimate": "Get estimate",
-    "startProject": "Start a project",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "menuToggleOpen": "Menu ≡",
     "menuToggleClose": "Close ×",
-    "mobileBadge": "● CRAFTS.AI — DHAKA / WORLDWIDE"
+    "mobileBadge": "CraftsAI — AI development services",
+    "bookCall": "Book a call"
   },
   "Footer": {
-    "ticker": "● ACCEPTING PROJECTS — DHAKA — WORLDWIDE — AI AGENTS — WEB — MOBILE — INTEGRATION — ",
-    "tagline": "We build AI agents. Our agents build your software.",
+    "tagline": "AI development services.",
     "careers": "Careers",
     "contactForm": "Contact form",
     "getEstimate": "Get an estimate",
-    "location": "Dhaka, Bangladesh",
-    "timezone": "GMT+6 — worldwide",
-    "copyright": "© {year} CraftsAI — All systems nominal",
+    "copyright": "© {year} CraftsAI",
     "privacy": "Privacy",
     "terms": "Terms",
-    "cookies": "Cookies"
+    "cookies": "Cookies",
+    "languageLabel": "Language",
+    "footerNavLabel": "Footer"
   },
   "CTABand": {
     "eyebrow": "● accepting projects",
@@ -87,208 +88,509 @@
   },
   "Home": {
     "hero": {
-      "titleLine1": "We draft agents.",
-      "titleLine2": "The agents build <accent>the rest.</accent>",
-      "lede": "CraftsAI is an engineering studio in Dhaka. We design custom AI agents that plan, write, and ship your websites, mobile apps, and integrations — every drawing reviewed by a senior engineer.",
-      "ctaPrimary": "Start a project",
-      "ctaSecondary": "See the process ↓",
-      "schematicLabel": "Engineering schematic: a brief flows into an AI agent, which produces a website, a mobile app, and an integration"
-    },
-    "proof": {
-      "label": "● what we've shipped",
-      "facts": [
-        "4 products shipped",
-        "web · ios · android",
-        "human-reviewed code",
-        "dhaka → worldwide"
-      ]
-    },
-    "pillars": {
-      "eyebrow": "What we build",
-      "title": "Four ways we put agents to work.",
-      "description": "Every engagement runs on the same idea: agents do the heavy lifting, engineers own the outcome."
-    },
-    "build": {
-      "eyebrow": "How agents build",
-      "title": "Watch a brief become shipped software.",
-      "description": "This is the real shape of a build: the agent plans and writes, the checks run, and nothing ships until an engineer signs off.",
-      "terminalTitle": "crafts.ai — agent build",
-      "terminal": [
+      "tokens": [
         {
-          "text": "agent run --brief ./client-brief.md",
-          "tone": "cmd"
+          "text": "Stop",
+          "think": 620,
+          "candidates": [
+            {
+              "word": "Stop",
+              "p": 0.64
+            },
+            {
+              "word": "Quit",
+              "p": 0.16
+            },
+            {
+              "word": "Enough",
+              "p": 0.11
+            },
+            {
+              "word": "Skip",
+              "p": 0.06
+            }
+          ]
         },
         {
-          "text": "Parsing brief… 4 requirements found",
-          "tone": "out"
+          "text": "demoing",
+          "think": 520,
+          "candidates": [
+            {
+              "word": "demoing",
+              "p": 0.52
+            },
+            {
+              "word": "testing",
+              "p": 0.23
+            },
+            {
+              "word": "piloting",
+              "p": 0.15
+            },
+            {
+              "word": "hyping",
+              "p": 0.07
+            }
+          ]
         },
         {
-          "text": "Planning build — 12 tasks across 3 modules",
-          "tone": "out"
+          "text": "AI.",
+          "think": 600,
+          "candidates": [
+            {
+              "word": "AI.",
+              "p": 0.81
+            },
+            {
+              "word": "models.",
+              "p": 0.08
+            },
+            {
+              "word": "bots.",
+              "p": 0.06
+            },
+            {
+              "word": "tools.",
+              "p": 0.04
+            }
+          ]
         },
         {
-          "text": "Writing src/checkout/payment.ts",
-          "tone": "out"
+          "text": "Start",
+          "think": 420,
+          "candidates": [
+            {
+              "word": "Start",
+              "p": 0.67
+            },
+            {
+              "word": "Begin",
+              "p": 0.18
+            },
+            {
+              "word": "Keep",
+              "p": 0.08
+            },
+            {
+              "word": "Try",
+              "p": 0.05
+            }
+          ]
         },
         {
-          "text": "Writing tests/checkout.test.ts",
-          "tone": "out"
+          "text": "profiting",
+          "think": 1350,
+          "candidates": [
+            {
+              "word": "profiting",
+              "p": 0.46
+            },
+            {
+              "word": "shipping",
+              "p": 0.27
+            },
+            {
+              "word": "scaling",
+              "p": 0.16
+            },
+            {
+              "word": "winning",
+              "p": 0.08
+            }
+          ]
         },
         {
-          "text": "Running checks — lint ✓  types ✓  tests 34/34 ✓",
-          "tone": "ok"
+          "text": "from",
+          "think": 380,
+          "candidates": [
+            {
+              "word": "from",
+              "p": 0.88
+            },
+            {
+              "word": "with",
+              "p": 0.07
+            },
+            {
+              "word": "off",
+              "p": 0.03
+            },
+            {
+              "word": "on",
+              "p": 0.01
+            }
+          ]
         },
         {
-          "text": "Human review requested — payment flow",
-          "tone": "warn"
-        },
-        {
-          "text": "Approved. Shipped to staging.",
-          "tone": "ok"
+          "text": "it.",
+          "think": 560,
+          "candidates": [
+            {
+              "word": "it.",
+              "p": 0.93
+            },
+            {
+              "word": "AI.",
+              "p": 0.04
+            },
+            {
+              "word": "that.",
+              "p": 0.02
+            },
+            {
+              "word": "this.",
+              "p": 0.01
+            }
+          ]
         }
       ],
-      "notes": [
-        {
-          "label": "Agents do",
-          "body": "Read the brief, plan the work, write code and tests, run the checks, and open the change for review."
-        },
-        {
-          "label": "Engineers do",
-          "body": "Set the direction, review every diff, own the architecture and the security-sensitive paths."
-        },
-        {
-          "label": "You get",
-          "body": "Working software in weeks, not months — with a person accountable for what ships."
-        }
-      ]
-    },
-    "advantage": {
-      "title": "The same software, drafted differently.",
-      "colSpec": "Spec",
-      "colTraditional": "Traditional agency",
-      "colCrafts": "CraftsAI",
-      "rows": [
-        {
-          "label": "Timeline",
-          "traditional": "3–6 months",
-          "crafts": "2–6 weeks"
-        },
-        {
-          "label": "Cost",
-          "traditional": "$50K–200K",
-          "crafts": "~80% less"
-        },
-        {
-          "label": "Team",
-          "traditional": "Large agency team",
-          "crafts": "Agents + senior engineer"
-        },
-        {
-          "label": "Review",
-          "traditional": "Manual, occasional",
-          "crafts": "Every change reviewed"
-        },
-        {
-          "label": "Process",
-          "traditional": "Rigid milestones",
-          "crafts": "Ship continuously"
-        }
+      "weights": [
+        [
+          0,
+          0.22,
+          0.08,
+          0.46,
+          0.1,
+          0.04,
+          0.1
+        ],
+        [
+          0.2,
+          0,
+          0.26,
+          0.06,
+          0.4,
+          0.02,
+          0.06
+        ],
+        [
+          0.08,
+          0.3,
+          0,
+          0.06,
+          0.22,
+          0.04,
+          0.3
+        ],
+        [
+          0.48,
+          0.06,
+          0.08,
+          0,
+          0.28,
+          0.04,
+          0.06
+        ],
+        [
+          0.06,
+          0.38,
+          0.14,
+          0.2,
+          0,
+          0.08,
+          0.14
+        ],
+        [
+          0.02,
+          0.04,
+          0.12,
+          0.06,
+          0.36,
+          0,
+          0.4
+        ],
+        [
+          0.04,
+          0.1,
+          0.56,
+          0.06,
+          0.14,
+          0.1,
+          0
+        ]
       ],
-      "footnote": "Figures are typical ranges for the projects we take on, not a guarantee — every scope is estimated up front, in writing."
+      "hint": "Hover, tab to, or tap a word to see what the model pays attention to.",
+      "lede": "CraftsAI designs, builds, and runs AI systems for your business — agents that take action, assistants that know your data, and models tuned to your problem. From first prototype to production.",
+      "ctaPrimary": "Book a discovery call",
+      "ctaSecondary": "See what we build"
     },
-    "work": {
-      "eyebrow": "Selected work",
-      "title": "Software our agents have shipped.",
-      "allWork": "All work →",
-      "readCaseStudy": "Read case study",
-      "projects": [
-        {
-          "slug": "taxomind",
-          "sector": "EdTech",
-          "platform": "Web",
-          "name": "TaxoMind",
-          "outcome": "An AI learning platform built on Bloom's Taxonomy for personalized education."
-        },
-        {
-          "slug": "fincoach-ai",
-          "sector": "FinTech",
-          "platform": "Android",
-          "name": "FinCoach AI",
-          "outcome": "An AI financial coach that helps people build better money habits, day by day."
-        },
-        {
-          "slug": "mathphysics",
-          "sector": "EdTech",
-          "platform": "Android",
-          "name": "MathPhysics",
-          "outcome": "Interactive math and physics practice for grade 9–12 students."
+    "services": {
+      "title": "Services",
+      "agents": {
+        "title": "AI agents & automation",
+        "body": "Agents that plan and act inside your tools: they read tickets, update the CRM, draft replies, and hand off to a person when it matters.",
+        "labels": {
+          "agent": "agent",
+          "tickets": "tickets",
+          "crm": "CRM",
+          "replies": "replies",
+          "person": "a person",
+          "handoff": "hand off when it matters"
         }
-      ]
+      },
+      "assistants": {
+        "title": "Assistants on your data",
+        "body": "Chat and search over your documents, databases, and wikis, with answers that cite their sources.",
+        "labels": {
+          "question": "What is our refund window?",
+          "sourceA": "policy.pdf",
+          "sourceB": "wiki page",
+          "sourceC": "tables"
+        }
+      },
+      "models": {
+        "title": "Custom models & fine-tuning",
+        "body": "When an off-the-shelf model isn't enough, we train, fine-tune, and distil models for your task and your budget.",
+        "labels": {
+          "loss": "loss",
+          "steps": "steps",
+          "baseline": "off-the-shelf",
+          "tuned": "tuned"
+        }
+      },
+      "product": {
+        "title": "AI inside your product",
+        "body": "We add AI features to the web and mobile apps you already have, or build new AI-first products end to end.",
+        "labels": {
+          "ai": "AI",
+          "web": "web",
+          "mobile": "mobile"
+        }
+      },
+      "evals": {
+        "title": "Data & evaluation pipelines",
+        "body": "Clean data in, measurable quality out: datasets, test suites, and evals that tell you whether the AI is actually getting better.",
+        "labels": {
+          "pass": "46 pass",
+          "fail": "4 fail",
+          "suite": "test suite"
+        }
+      },
+      "sprint": {
+        "title": "AI strategy sprint",
+        "body": "Two weeks to find where AI pays off in your business, with a working prototype at the end, not a slide deck.",
+        "labels": {
+          "weekOne": "week 1",
+          "weekTwo": "week 2",
+          "prototype": "prototype"
+        }
+      }
+    },
+    "principles": {
+      "title": "Principles",
+      "measured": {
+        "title": "Measured, not guessed",
+        "body": "Every system ships with evaluations you can read.",
+        "label": "eval score"
+      },
+      "private": {
+        "title": "Your data stays yours",
+        "body": "Private deployments, no training on your data without consent.",
+        "label": "your environment"
+      },
+      "agnostic": {
+        "title": "Model-agnostic",
+        "body": "We pick the model that fits the job, and can switch when a better one arrives.",
+        "system": "your system",
+        "models": [
+          "model A",
+          "model B",
+          "model C"
+        ]
+      },
+      "loop": {
+        "title": "People in the loop",
+        "body": "The AI handles volume; your team keeps the judgement calls.",
+        "label": "a person"
+      }
     },
     "process": {
-      "eyebrow": "How we work",
-      "title": "Five steps, start to ship.",
-      "fullProcess": "The full process →",
-      "steps": [
-        {
-          "index": "01",
-          "title": "Discover",
-          "detail": "Free consultation to scope the problem."
-        },
-        {
-          "index": "02",
-          "title": "Plan",
-          "detail": "Written scope, estimate, and timeline."
-        },
-        {
-          "index": "03",
-          "title": "Build",
-          "detail": "Agents write; engineers review."
-        },
-        {
-          "index": "04",
-          "title": "Test",
-          "detail": "Automated checks plus human QA."
-        },
-        {
-          "index": "05",
-          "title": "Launch",
-          "detail": "Deploy, then ongoing support."
+      "title": "How we work",
+      "note": "Five steps from idea to a product your team relies on. Scroll to watch each one produce its work.",
+      "exampleLabel": "What this step produces",
+      "research": {
+        "title": "Research",
+        "body": "We sit with your team, map the workflow, and find where AI actually pays off.",
+        "artifact": {
+          "heading": "Field notes",
+          "notes": [
+            "Most support tickets are refund questions",
+            "Answers already live in the policy docs",
+            "Escalations need a written summary"
+          ],
+          "finding": "Opportunity: an agent for routine refunds"
         }
-      ]
+      },
+      "plan": {
+        "title": "Plan",
+        "body": "A written plan: scope, data, cost, and the quality bar we will hold ourselves to.",
+        "artifact": {
+          "heading": "Plan",
+          "columns": [
+            "Week 1",
+            "Week 2",
+            "Week 3"
+          ],
+          "tasks": [
+            "Connect the ticket inbox",
+            "Index the policy docs",
+            "Draft replies",
+            "Hand-off to a person",
+            "Set the quality bar"
+          ]
+        }
+      },
+      "design": {
+        "title": "Design",
+        "body": "We design the product around the people who will use it, before any production code.",
+        "artifact": {
+          "heading": "Agent console",
+          "queue": "Queue",
+          "draft": "Drafted reply",
+          "approve": "Approve",
+          "escalate": "Hand to a person"
+        }
+      },
+      "build": {
+        "title": "Build",
+        "body": "Agents, integrations, and interfaces, built production-grade with security and monitoring.",
+        "artifact": {
+          "heading": "Build log",
+          "lines": [
+            "connect inbox",
+            "tools/refunds.lookup",
+            "agent/draft_reply",
+            "policy index: 312 documents",
+            "monitoring: on"
+          ]
+        }
+      },
+      "test": {
+        "title": "Test",
+        "body": "Every release is measured against real cases, and ships only when it clears the bar.",
+        "artifact": {
+          "heading": "Evaluation",
+          "cases": "real cases",
+          "bar": "quality bar",
+          "passed": "Cleared the bar, ready to ship"
+        }
+      }
     },
-    "resources": {
-      "eyebrow": "Field notes",
-      "title": "What we're writing about.",
-      "allResources": "All resources →",
-      "items": [
-        {
-          "slug": "ai-agents-software-development",
-          "type": "Blog",
-          "title": "How AI agents are changing software development in 2026",
-          "readTime": "5 min"
-        },
-        {
-          "slug": "taxomind",
-          "type": "Case study",
-          "title": "How TaxoMind reached 10× faster content generation",
-          "readTime": "8 min"
-        },
-        {
-          "slug": "ai-powered-development",
-          "type": "Guide",
-          "title": "The complete guide to AI-powered app development",
-          "readTime": "12 min"
-        }
-      ]
+    "work": {
+      "title": "What we build",
+      "note": "Examples of the systems we build. The traces below are illustrations, not client work.",
+      "tag": "Example",
+      "support": {
+        "title": "Support agent",
+        "body": "Resolves routine tickets end to end and escalates the rest with a summary.",
+        "trace": [
+          {
+            "text": "Ticket #1042: refund request",
+            "status": "received",
+            "kind": "head"
+          },
+          {
+            "text": "Checked order",
+            "status": "done",
+            "kind": "step"
+          },
+          {
+            "text": "Refund issued",
+            "status": "done",
+            "kind": "step"
+          },
+          {
+            "text": "Customer notified",
+            "status": "resolved",
+            "kind": "step"
+          },
+          {
+            "text": "Ticket #1043: billing dispute",
+            "status": "received",
+            "kind": "head"
+          },
+          {
+            "text": "Escalated to a person, with a summary",
+            "status": "handed off",
+            "kind": "escalate"
+          }
+        ]
+      },
+      "documents": {
+        "title": "Document intelligence",
+        "body": "Reads contracts, invoices, and forms and turns them into structured data.",
+        "file": "invoice.pdf",
+        "extracted": "14 fields extracted",
+        "flagged": "2 flagged for review",
+        "fields": [
+          {
+            "label": "vendor",
+            "value": "matched",
+            "flag": false
+          },
+          {
+            "label": "invoice date",
+            "value": "ok",
+            "flag": false
+          },
+          {
+            "label": "line items",
+            "value": "ok",
+            "flag": false
+          },
+          {
+            "label": "currency",
+            "value": "ok",
+            "flag": false
+          },
+          {
+            "label": "total",
+            "value": "check",
+            "flag": true
+          },
+          {
+            "label": "due date",
+            "value": "check",
+            "flag": true
+          }
+        ]
+      },
+      "sales": {
+        "title": "Sales copilot",
+        "body": "Researches accounts, drafts outreach, and keeps the CRM current.",
+        "steps": [
+          {
+            "title": "Account researched",
+            "detail": "public site, past notes"
+          },
+          {
+            "title": "Outreach drafted",
+            "detail": "ready for your review"
+          },
+          {
+            "title": "CRM updated",
+            "detail": "contact and next step"
+          }
+        ]
+      },
+      "knowledge": {
+        "title": "Internal knowledge assistant",
+        "body": "Answers staff questions from policies, handbooks, and past tickets.",
+        "question": "Can I carry over unused leave?",
+        "answer": "Yes, up to the limit set in the leave policy. Requests above it go to your manager.",
+        "sources": [
+          "handbook.pdf",
+          "leave policy",
+          "past ticket"
+        ]
+      }
     },
     "finalCta": {
-      "eyebrow": "● accepting projects",
-      "title": "Have something to build?",
-      "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
-      "primaryLabel": "Start a project",
-      "secondaryLabel": "Get an estimate",
-      "emailPrefix": "or email"
+      "title": "What should AI do for your business?",
+      "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+      "primary": "Book a discovery call",
+      "secondary": "Email us",
+      "mailPrefix": "or write to"
     }
   },
   "Services": {

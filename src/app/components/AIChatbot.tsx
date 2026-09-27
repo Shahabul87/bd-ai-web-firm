@@ -110,7 +110,7 @@ export default function AIChatbot() {
       {/* Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 h-14 w-14 border border-signal-dim bg-signal text-ink-950 shadow-lg transition-colors duration-150 hover:bg-signal-dim"
+        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full border border-gold bg-gold text-forest shadow-lg transition-colors duration-150 hover:bg-gold-hover"
         aria-label={t('openLabel')}
       >
         {isOpen ? (
@@ -126,9 +126,9 @@ export default function AIChatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-ink-900 border border-line shadow-2xl flex flex-col overflow-hidden">
+        <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] rounded-xl bg-forest-raised border border-forest-rule shadow-2xl flex flex-col overflow-hidden">
           {/* Header */}
-          <div className="border-b border-line bg-ink-950 p-4 text-bone">
+          <div className="border-b border-forest-rule bg-forest p-4 text-parchment">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                 <span className="text-lg">🤖</span>
@@ -138,7 +138,7 @@ export default function AIChatbot() {
                 <p className="text-sm opacity-90">{t('headerSubtitle')}</p>
               </div>
               <div className="ml-auto flex items-center gap-1">
-                <div className="w-2 h-2 bg-signal rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-gold rounded-full animate-pulse"></div>
                 <span className="text-xs">{t('onlineStatus')}</span>
               </div>
             </div>
@@ -154,15 +154,15 @@ export default function AIChatbot() {
                 <div
                   className={`max-w-[80%] p-3 ${
                     message.sender === 'user'
-                      ? 'bg-signal text-ink-950'
-                      : 'bg-ink-800 text-bone border border-line'
+                      ? 'bg-gold text-forest'
+                      : 'bg-forest text-parchment border border-forest-rule'
                   }`}
                 >
                   <div className="whitespace-pre-wrap text-sm leading-relaxed">
                     {message.text}
                   </div>
                   <div className={`text-xs mt-2 opacity-70 ${
-                    message.sender === 'user' ? 'text-ink-950' : 'text-steel'
+                    message.sender === 'user' ? 'text-forest' : 'text-sage'
                   }`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </div>
@@ -172,7 +172,7 @@ export default function AIChatbot() {
 
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-ink-800 border border-line p-3 rounded-2xl">
+                <div className="bg-forest border border-forest-rule p-3 rounded-2xl">
                   <div className="flex items-center gap-1">
                     <div className="w-2 h-2 bg-steel rounded-full animate-bounce"></div>
                     <div className="w-2 h-2 bg-steel rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -187,8 +187,8 @@ export default function AIChatbot() {
 
           {/* Quick Questions */}
           {messages.length <= 1 && (
-            <div className="p-4 border-t border-line">
-              <div className="text-xs text-steel mb-2">{t('quickQuestionsLabel')}</div>
+            <div className="p-4 border-t border-forest-rule">
+              <div className="text-xs text-sage mb-2">{t('quickQuestionsLabel')}</div>
               <div className="flex flex-wrap gap-2">
                 {quickQuestions.slice(0, 3).map((question, index) => (
                   <button
@@ -197,7 +197,7 @@ export default function AIChatbot() {
                       setInputText(question);
                       setTimeout(sendMessage, 100);
                     }}
-                    className="text-xs px-3 py-1 bg-ink-800 hover:bg-line text-bone rounded-full transition-colors duration-200"
+                    className="text-xs px-3 py-1 bg-forest hover:bg-forest-faint text-parchment rounded-full transition-colors duration-200"
                   >
                     {question}
                   </button>
@@ -207,7 +207,7 @@ export default function AIChatbot() {
           )}
 
           {/* Input */}
-          <div className="p-3 sm:p-4 border-t border-line">
+          <div className="p-3 sm:p-4 border-t border-forest-rule">
             <div className="flex gap-2">
               <input
                 type="text"
@@ -216,7 +216,7 @@ export default function AIChatbot() {
                 onKeyPress={handleKeyPress}
                 placeholder={t('inputPlaceholder')}
                 aria-label={t('inputAriaLabel')}
-                className="flex-1 bg-ink-800 border border-line rounded-full px-3 sm:px-4 py-2 text-bone text-xs sm:text-sm focus:outline-none focus:border-signal transition-colors duration-200"
+                className="flex-1 bg-forest border border-forest-rule rounded-full px-3 sm:px-4 py-2 text-parchment text-xs sm:text-sm focus:outline-none focus:border-gold transition-colors duration-200"
                 disabled={isTyping}
               />
               <button
@@ -225,8 +225,8 @@ export default function AIChatbot() {
                 aria-label={t('sendLabel')}
                 className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
                   inputText.trim() && !isTyping
-                    ? 'bg-signal text-ink-950 hover:bg-signal-dim'
-                    : 'bg-ink-800 text-steel cursor-not-allowed'
+                    ? 'bg-gold text-forest hover:bg-gold-hover'
+                    : 'bg-forest text-sage cursor-not-allowed'
                 }`}
               >
                 {/* Horizontal paper-plane = unambiguous "send" (the prior upward
