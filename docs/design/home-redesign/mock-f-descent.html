@@ -1,0 +1,858 @@
+<!doctype html>
+<html lang="en" class="static">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CraftsAI — The Descent</title>
+<meta name="description" content="CraftsAI designs, builds, and runs AI systems for your business.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<script>
+  /* Decide the path before first paint: WebGL journey, or stacked static fallback. */
+  (function () {
+    var html = document.documentElement;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var gl = false;
+    try { var c = document.createElement('canvas'); gl = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { gl = false; }
+    if (gl && !reduce) {
+      html.classList.remove('static'); html.classList.add('gl-mode');
+      setTimeout(function () { if (!html.classList.contains('gl-ready')) { html.classList.remove('gl-mode'); html.classList.add('static'); } }, 7000);
+    }
+  })();
+</script>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
+<style>
+:root{
+  --space:#0A0820; --space-2:#120E30;
+  --point:#EAF0FF; --violet:#7B5CFF; --cyan:#3FD8FF; --gold:#FFC46B;
+  --text:#F2F0FF; --muted:#A7A3C9; --line:rgba(167,163,201,.22);
+  --display:"Syne", "Manrope", system-ui, sans-serif;
+  --body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --nav-h:64px; --gut:clamp(16px, 4vw, 56px);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--space);color:var(--text)}
+body{font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.sr{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:fixed;left:12px;top:-60px;z-index:50;background:var(--gold);color:#1a1300;padding:10px 14px;border-radius:8px;font-weight:700;text-decoration:none}
+.skip:focus{top:12px}
+
+/* ---------- nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;height:var(--nav-h);z-index:20;display:flex;align-items:center;gap:28px;padding:0 var(--gut)}
+.brand{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand i{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px var(--gold),0 0 3px #fff inset}
+.nav > nav{margin-left:auto}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
+.nav .call{margin-left:8px}
+.nav ul a{text-decoration:none;color:var(--muted);font-size:14.5px;font-weight:500;transition:color .2s}
+.nav ul a:hover{color:var(--text)}
+.nav .call{font-size:14px;font-weight:700;text-decoration:none;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,196,107,.55);color:var(--gold);transition:background .2s,color .2s}
+.nav .call:hover{background:var(--gold);color:#1a1300}
+
+/* ---------- shared type ---------- */
+.kicker{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.02em;display:flex;gap:10px;align-items:center;margin:0 0 14px}
+.kicker b{font-family:var(--display);color:var(--gold);font-weight:700}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:.98;margin:0}
+h2{font-size:clamp(34px,4.6vw,64px)}
+.lede{font-size:clamp(16px,1.35vw,19px);color:var(--muted);max-width:40ch;margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;transition:transform .2s,background .2s,box-shadow .2s}
+.btn-gold{background:var(--gold);color:#1B1300;box-shadow:0 0 0 0 rgba(255,196,107,.5),0 10px 40px -12px rgba(255,196,107,.7)}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 0 0 6px rgba(255,196,107,.14),0 14px 44px -10px rgba(255,196,107,.85)}
+.btn-ghost{color:var(--text);border:1px solid var(--line);background:rgba(10,8,32,.35);backdrop-filter:blur(6px)}
+.btn-ghost:hover{border-color:rgba(242,240,255,.6)}
+
+/* hero */
+.hero-h{font-size:clamp(46px,8.4vw,128px);max-width:11ch}
+.hint{margin:28px 0 0;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.hint::before{content:"";width:1px;height:28px;background:linear-gradient(var(--muted),transparent);display:block}
+
+/* services */
+.svc{list-style:none;margin:22px 0 0;padding:0;border-top:1px solid var(--line)}
+.svc li{border-bottom:1px solid var(--line);padding:11px 0;cursor:default;transition:padding .3s}
+.svc h3{font-size:clamp(19px,1.7vw,24px);letter-spacing:-.02em;font-weight:700;display:flex;gap:12px;align-items:baseline;transition:color .25s}
+.svc h3 small{font-family:var(--body);font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0;min-width:1.6em}
+.svc p{margin:4px 0 0 calc(1.6em + 12px);font-size:14px;color:var(--muted);line-height:1.5;max-width:52ch}
+.svc li.flag h3{font-size:clamp(30px,3.2vw,46px);font-weight:800;letter-spacing:-.035em;line-height:1}
+.svc li.flag p{font-size:15.5px;color:#CFCBEA}
+.svc li.flag .tag{display:inline-block;font-size:12px;font-weight:700;color:#1B1300;background:var(--gold);border-radius:999px;padding:2px 9px;margin:0 0 8px calc(1.6em + 12px)}
+.svc li:hover h3,.svc li.sel h3,.svc li:focus-within h3{color:var(--gold)}
+.svc li:focus-visible{outline-offset:-2px}
+
+/* principles + process */
+.plist,.steps{list-style:none;margin:24px 0 0;padding:0;counter-reset:s}
+.plist li,.steps li{padding:14px 0;border-top:1px solid var(--line)}
+.plist h3,.steps h3{font-size:clamp(20px,2vw,28px);letter-spacing:-.025em;font-weight:700}
+.plist p,.steps p{margin:5px 0 0;color:var(--muted);font-size:15px;max-width:44ch}
+.steps li{display:grid;grid-template-columns:44px 1fr;column-gap:8px}
+.steps li::before{counter-increment:s;content:"0" counter(s);font-family:var(--display);font-weight:700;color:var(--cyan);font-size:14px;padding-top:7px}
+.steps li:hover h3,.plist li:hover h3{color:var(--cyan)}
+
+/* work */
+.work{list-style:none;margin:0;padding:0}
+.work li h3{font-size:clamp(19px,1.7vw,24px);letter-spacing:-.02em;font-weight:700;display:flex;gap:10px;align-items:center}
+.work li h3::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);flex:none}
+.work li p{margin:5px 0 0 17px;color:var(--muted);font-size:14.5px;max-width:30ch}
+.examples-note{font-size:13px;color:var(--muted);margin:10px 0 0}
+
+/* output */
+.cta h2{font-size:clamp(38px,6vw,92px);max-width:13ch;margin:0 auto}
+.cta .lede{margin:22px auto 0;text-align:center}
+.cta .actions{justify-content:center}
+.foot{display:flex;flex-wrap:wrap;gap:14px 26px;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted);padding:18px var(--gut);border-top:1px solid var(--line)}
+.foot ul{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0;padding:0}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--text)}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{font:inherit;font-size:12.5px;color:var(--muted);background:none;border:0;border-radius:999px;padding:4px 10px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:rgba(242,240,255,.12);color:var(--text)}
+
+/* rail */
+.rail{position:fixed;right:clamp(14px,2vw,30px);top:50%;transform:translateY(-50%);z-index:15}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
+.rail::before{content:"";position:absolute;right:4px;top:6px;bottom:6px;width:1px;background:var(--line)}
+.rail .fill{position:absolute;right:4px;top:6px;width:1px;height:0;background:linear-gradient(var(--violet),var(--cyan),var(--gold));box-shadow:0 0 8px var(--cyan)}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:12px;text-decoration:none;font-size:12.5px;font-weight:600;color:var(--muted);position:relative}
+.rail a span{opacity:.38;transition:opacity .3s,color .3s}
+.rail a i{width:9px;height:9px;border-radius:50%;border:1px solid var(--muted);background:var(--space);transition:all .3s;flex:none}
+.rail a:hover span,.rail a:focus-visible span{opacity:.75}
+.rail a[aria-current="step"] span{opacity:1}
+.rail a[aria-current="step"]{color:var(--text)}
+.rail a[aria-current="step"] i{background:var(--gold);border-color:var(--gold);box-shadow:0 0 12px var(--gold)}
+
+/* ================= STATIC FALLBACK (no WebGL / reduced motion / no JS) ================= */
+.static body{
+  background-color:var(--space);
+  background-image:
+    radial-gradient(1px 1px at 20px 30px,#EAF0FF 50%,transparent 51%),
+    radial-gradient(1px 1px at 140px 90px,#7B5CFF 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 90px 160px,#3FD8FF 50%,transparent 51%),
+    radial-gradient(1px 1px at 190px 210px,#EAF0FF 50%,transparent 51%),
+    radial-gradient(1px 1px at 60px 250px,#A7A3C9 50%,transparent 51%),
+    radial-gradient(2px 2px at 230px 40px,#EAF0FF 50%,transparent 51%);
+  background-size:260px 280px;background-attachment:fixed;
+}
+.static .nav{background:rgba(10,8,32,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.static #scene,.static #track,.static .rail{display:none}
+.static .ch{min-height:88vh;display:flex;align-items:center;padding:calc(var(--nav-h) + 56px) var(--gut) 72px;border-bottom:1px solid var(--line)}
+.static .ch > .inner{width:100%;max-width:1100px;margin:0 auto}
+.static #input{min-height:100vh}
+.static #output{flex-direction:column;justify-content:center;padding-bottom:0;border:0}
+.static #output .cta{text-align:center;margin-bottom:80px}
+.static #output .foot{width:100%;margin-top:auto}
+.static .work{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:28px;margin-top:28px}
+.static .hint{display:none}
+
+/* ================= WEBGL JOURNEY ================= */
+.gl-mode body{background:var(--space)}
+.gl-mode #scene{position:fixed;inset:0;width:100vw;height:100vh;height:100lvh;display:block;z-index:0}
+.gl-mode #track{height:700vh;pointer-events:none}
+.gl-mode .nav{background:linear-gradient(rgba(10,8,32,.7),rgba(10,8,32,0))}
+.gl-mode .nav,.gl-mode .rail{opacity:0;transition:opacity 1.2s ease 0s}
+.gl-ready.intro-done .nav,.gl-ready.intro-done .rail{opacity:1}
+.gl-mode .story{position:fixed;inset:0;z-index:5;pointer-events:none}
+.gl-mode .ch{position:absolute;inset:0;display:flex;padding:calc(var(--nav-h) + 24px) calc(var(--gut) + 64px) 48px var(--gut);visibility:hidden;transition:visibility 0s linear .7s}
+.gl-mode .ch.on{visibility:visible;transition:visibility 0s}
+.gl-mode .ch.on .inner{pointer-events:auto}
+.gl-mode .ln{opacity:0;transform:translateY(22px);filter:blur(8px);transition:opacity .5s ease,transform .6s ease,filter .5s ease}
+.gl-mode .ch.on .ln{opacity:1;transform:none;filter:none;transition:opacity .9s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 85ms + 120ms),transform 1s cubic-bezier(.2,.7,.2,1) calc(var(--i,0) * 85ms + 120ms),filter .9s ease calc(var(--i,0) * 85ms + 120ms)}
+.gl-mode .inner{text-shadow:0 2px 24px rgba(10,8,32,.9)}
+
+/* chapter placement: text on the side opposite its formation (camera is offset in JS) */
+.gl-mode #input{align-items:flex-end;justify-content:center;text-align:center;padding-bottom:9vh}
+.gl-mode #input .hero-h{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.gl-mode #input .lede{margin:0 auto;max-width:46ch}
+.gl-mode #input .actions{justify-content:center}
+.gl-mode #input .hint{justify-content:center;flex-direction:column;gap:8px}
+.gl-mode #services,.gl-mode #process{align-items:center}
+.gl-mode #services .inner,.gl-mode #process .inner{width:min(560px,44vw)}
+.gl-mode #principles{align-items:center;justify-content:flex-end}
+.gl-mode #principles .inner{width:min(520px,42vw)}
+.gl-mode #work{flex-direction:column}
+.gl-mode #work .inner{width:100%;height:100%;position:static}
+.gl-mode #work .work li{position:absolute;left:0;top:0;width:min(250px,22vw);will-change:transform;transition-property:opacity,filter!important}
+.gl-mode #output{flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:calc(var(--nav-h) + 12px) var(--gut) 0}
+.gl-mode #output .inner{display:flex;flex-direction:column;flex:1;width:100%}
+.gl-mode #output .cta{margin:auto 0}
+.gl-mode #output .foot{margin:0 calc(var(--gut) * -1);background:rgba(10,8,32,.6);backdrop-filter:blur(8px)}
+
+/* ---------- narrow screens ---------- */
+@media (max-width: 900px){
+  .nav ul{display:none}
+  .nav > nav{display:none}
+  .nav .call{margin-left:auto}
+  .gl-mode .ch{padding:calc(var(--nav-h) + 8px) var(--gut) 64px}
+  .gl-mode #services .inner,.gl-mode #process .inner,.gl-mode #principles .inner{width:100%}
+  .gl-mode #services,.gl-mode #process,.gl-mode #principles{align-items:flex-end}
+  .gl-mode .inner{background:radial-gradient(closest-side,rgba(10,8,32,.55),rgba(10,8,32,0));}
+  .gl-mode .svc li:not(.flag):not(.sel) p{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .gl-mode .svc:has(.sel) li.flag:not(.sel) p{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .gl-mode .svc li{padding:8px 0;cursor:pointer}
+  .gl-mode .svc li.flag p{font-size:14px}
+  .gl-mode .plist li,.gl-mode .steps li{padding:9px 0}
+  .gl-mode .plist p,.gl-mode .steps p{font-size:14px}
+  .gl-mode #work .inner{display:flex;flex-direction:column;justify-content:flex-end}
+  .gl-mode #work .work{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;margin-top:14px}
+  .gl-mode #work .work li{position:static;width:auto;transform:none!important}
+  .gl-mode #work .work li p{margin-left:0;font-size:13px}
+  .gl-mode #work .work li h3{font-size:16px}
+  .rail{top:auto;bottom:0;left:0;right:0;transform:none;padding:0 var(--gut) max(10px, env(safe-area-inset-bottom));background:linear-gradient(rgba(10,8,32,0),rgba(10,8,32,.85))}
+  .rail ol{flex-direction:row;justify-content:space-between;gap:0}
+  .rail::before{left:calc(var(--gut) + 4px);right:calc(var(--gut) + 4px);top:auto;bottom:calc(max(10px, env(safe-area-inset-bottom)) + 4px);width:auto;height:1px}
+  .rail .fill{left:calc(var(--gut) + 4px);right:auto;top:auto;bottom:calc(max(10px, env(safe-area-inset-bottom)) + 4px);height:1px!important;width:0}
+  .rail a{flex-direction:column-reverse;gap:6px;font-size:11px;padding-top:8px}
+}
+@media (max-width: 480px){
+  .gl-mode #work .work{grid-template-columns:1fr;gap:8px}
+  .gl-mode #work .work li p{display:none}
+  .actions .btn{flex:1 1 100%}
+  .foot{justify-content:center;text-align:center}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#services">Skip to content</a>
+
+<header class="nav">
+  <a class="brand" href="#input" aria-label="CraftsAI home"><i aria-hidden="true"></i>CraftsAI</a>
+  <nav aria-label="Primary">
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#principles">Company</a></li>
+    </ul>
+  </nav>
+  <a class="call" href="#output">Book a call</a>
+</header>
+
+<canvas id="scene" aria-hidden="true"></canvas>
+
+<nav class="rail" aria-label="Chapters">
+  <span class="fill" aria-hidden="true"></span>
+  <ol>
+    <li><a href="#input" data-go="0"><span>Input</span><i aria-hidden="true"></i></a></li>
+    <li><a href="#services" data-go="1"><span>Services</span><i aria-hidden="true"></i></a></li>
+    <li><a href="#principles" data-go="2"><span>Principles</span><i aria-hidden="true"></i></a></li>
+    <li><a href="#process" data-go="3"><span>Process</span><i aria-hidden="true"></i></a></li>
+    <li><a href="#work" data-go="4"><span>Work</span><i aria-hidden="true"></i></a></li>
+    <li><a href="#output" data-go="5"><span>Output</span><i aria-hidden="true"></i></a></li>
+  </ol>
+</nav>
+
+<main class="story" id="story">
+  <section class="ch" id="input" data-ch="0" aria-labelledby="h-input">
+    <div class="inner">
+      <h1 id="h-input" class="hero-h">We build AI that does real work.</h1>
+      <p class="lede ln">CraftsAI designs, builds, and runs AI systems for your business — agents that take action, assistants that know your data, and models tuned to your problem. From first prototype to production.</p>
+      <div class="actions ln">
+        <a class="btn btn-gold" href="#output">Book a discovery call</a>
+        <a class="btn btn-ghost" href="#work">See what we build</a>
+      </div>
+      <p class="hint ln">Scroll to go inside</p>
+    </div>
+  </section>
+
+  <section class="ch" id="services" data-ch="1" aria-labelledby="h-services">
+    <div class="inner">
+      <p class="kicker ln"><b>02</b> Layer two of six</p>
+      <h2 id="h-services" class="ln">Services</h2>
+      <ul class="svc">
+        <li class="flag ln" data-region="0" tabindex="0"><span class="tag">Flagship</span><h3><small>01</small>AI agents &amp; automation</h3><p>Agents that plan and act inside your tools: they read tickets, update the CRM, draft replies, and hand off to a person when it matters.</p></li>
+        <li class="ln" data-region="1" tabindex="0"><h3><small>02</small>Assistants on your data</h3><p>Chat and search over your documents, databases, and wikis, with answers that cite their sources.</p></li>
+        <li class="ln" data-region="2" tabindex="0"><h3><small>03</small>Custom models &amp; fine-tuning</h3><p>When an off-the-shelf model isn&apos;t enough, we train, fine-tune, and distil models for your task and your budget.</p></li>
+        <li class="ln" data-region="3" tabindex="0"><h3><small>04</small>AI inside your product</h3><p>We add AI features to the web and mobile apps you already have, or build new AI-first products end to end.</p></li>
+        <li class="ln" data-region="4" tabindex="0"><h3><small>05</small>Data &amp; evaluation pipelines</h3><p>Clean data in, measurable quality out: datasets, test suites, and evals that tell you whether the AI is actually getting better.</p></li>
+        <li class="ln" data-region="5" tabindex="0"><h3><small>06</small>AI strategy sprint</h3><p>Two weeks to find where AI pays off in your business, with a working prototype at the end, not a slide deck.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ch" id="principles" data-ch="2" aria-labelledby="h-principles">
+    <div class="inner">
+      <p class="kicker ln"><b>03</b> Layer three of six</p>
+      <h2 id="h-principles" class="ln">How we&apos;re different</h2>
+      <ul class="plist">
+        <li class="ln" data-region="20"><h3>Measured, not guessed</h3><p>Every system ships with evaluations you can read.</p></li>
+        <li class="ln" data-region="21"><h3>Your data stays yours</h3><p>Private deployments, no training on your data without consent.</p></li>
+        <li class="ln" data-region="22"><h3>Model-agnostic</h3><p>We pick the model that fits the job, and can switch when a better one arrives.</p></li>
+        <li class="ln" data-region="23"><h3>People in the loop</h3><p>The AI handles volume; your team keeps the judgement calls.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ch" id="process" data-ch="3" aria-labelledby="h-process">
+    <div class="inner">
+      <p class="kicker ln"><b>04</b> Layer four of six</p>
+      <h2 id="h-process" class="ln">How we work</h2>
+      <ol class="steps">
+        <li class="ln" data-region="10"><div><h3>Discover</h3><p>We map the workflow, the data, and what &ldquo;good&rdquo; looks like.</p></div></li>
+        <li class="ln" data-region="11"><div><h3>Prototype</h3><p>A working demo on your real data within weeks.</p></div></li>
+        <li class="ln" data-region="12"><div><h3>Evaluate</h3><p>We measure accuracy, cost, and speed against the bar we agreed.</p></div></li>
+        <li class="ln" data-region="13"><div><h3>Build</h3><p>Production-grade integration, security, and monitoring.</p></div></li>
+        <li class="ln" data-region="14"><div><h3>Run &amp; improve</h3><p>We watch it in production and keep making it better.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="ch" id="work" data-ch="4" aria-labelledby="h-work">
+    <div class="inner">
+      <div class="work-head">
+        <p class="kicker ln"><b>05</b> Layer five of six</p>
+        <h2 id="h-work" class="ln">What we build</h2>
+        <p class="examples-note ln">Examples of the systems we build, not client case studies.</p>
+      </div>
+      <ul class="work">
+        <li class="ln" data-region="30"><h3>Support agent</h3><p>Resolves routine tickets end to end and escalates the rest with a summary.</p></li>
+        <li class="ln" data-region="31"><h3>Document intelligence</h3><p>Reads contracts, invoices, and forms and turns them into structured data.</p></li>
+        <li class="ln" data-region="32"><h3>Sales copilot</h3><p>Researches accounts, drafts outreach, and keeps the CRM current.</p></li>
+        <li class="ln" data-region="33"><h3>Internal knowledge assistant</h3><p>Answers staff questions from policies, handbooks, and past tickets.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ch" id="output" data-ch="5" aria-labelledby="h-output">
+    <div class="inner">
+      <div class="cta">
+        <p class="kicker ln" style="justify-content:center"><b>06</b> Output layer</p>
+        <h2 id="h-output" class="ln">What should AI do for your business?</h2>
+        <p class="lede ln">Tell us the workflow. We&apos;ll come back with an honest view of what AI can do there, what it will cost, and how we&apos;d measure it.</p>
+        <div class="actions ln">
+          <a class="btn btn-gold" href="mailto:hello@craftsai.example?subject=Discovery%20call">Book a discovery call</a>
+          <a class="btn btn-ghost" href="mailto:hello@craftsai.example">Email us — hello@craftsai.example</a>
+        </div>
+      </div>
+      <footer class="foot ln">
+        <span>CraftsAI — AI development services. &copy; 2026 CraftsAI.</span>
+        <ul>
+          <li><a href="#services">Services</a></li><li><a href="#work">Work</a></li><li><a href="#process">Process</a></li>
+          <li><a href="#principles">Company</a></li><li><a href="#output">Careers</a></li><li><a href="mailto:hello@craftsai.example">Contact</a></li>
+        </ul>
+        <div class="lang" role="group" aria-label="Language"><button type="button" aria-pressed="true">EN</button><button type="button" aria-pressed="false" lang="bn">বাং</button></div>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<div id="track" aria-hidden="true"></div>
+
+<script type="module">
+import * as THREE from 'three';
+
+const html = document.documentElement;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); };
+const lerp = (a, b, t) => a + (b - a) * t;
+
+const SP = 80;          // distance between layers
+const VIEW_D = 28;      // camera distance in front of a layer when its chapter is read
+const LAST = 5;         // index of the output layer
+const LZ = (i) => -i * SP;
+
+function fallback() {
+  html.classList.remove('gl-mode', 'gl-ready', 'intro-done');
+  html.classList.add('static');
+  document.querySelectorAll('.ch[inert]').forEach((el) => el.removeAttribute('inert'));
+}
+
+/* Deterministic randomness so every visitor sees the same formations. */
+let seed = 20260927;
+const R = () => {
+  seed = (seed + 0x6D2B79F5) | 0;
+  let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+const gauss = () => { let u = 0; while (!u) u = R(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(6.2831853 * R()); };
+
+if (html.classList.contains('gl-mode')) boot().catch(fallback);
+
+async function boot() {
+  const canvas = $('#scene');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  const css = getComputedStyle(html);
+  const col = (n) => new THREE.Color(css.getPropertyValue(n).trim());
+  const C = { space: col('--space'), point: col('--point'), violet: col('--violet'), cyan: col('--cyan'), gold: col('--gold'), muted: col('--muted') };
+  renderer.setClearColor(C.space, 1);
+
+  await Promise.race([Promise.all([document.fonts.load('800 260px Manrope'), document.fonts.load('800 200px Syne')]), new Promise((r) => setTimeout(r, 2500))]).catch(() => {});
+  if (html.classList.contains('static')) { renderer.dispose(); return; }
+
+  /* ---------------- layout decided once, from the first viewport ---------------- */
+  const aspect0 = innerWidth / innerHeight;
+  const narrow = innerWidth <= 900;
+  const small = narrow || matchMedia('(pointer: coarse)').matches;
+  const fovFor = (a) => (a < 0.9 ? 62 : 50);
+  const visH = 2 * VIEW_D * Math.tan(THREE.MathUtils.degToRad(fovFor(aspect0) / 2));
+  const visW = visH * aspect0;
+  const sx = narrow ? 1 : Math.min(1, visW / 2 / 21.5);
+
+  const N = small ? 8000 : 32000;
+  const share = [0.40, 0.15, 0.12, 0.10, 0.07, 0.12, 0.04];
+  const cnt = share.map((s) => Math.floor(s * N));
+
+  const pos = new Float32Array(N * 3), st = new Float32Array(N * 3), cl = new Float32Array(N * 3);
+  const dt = new Float32Array(N * 4), ax = new Float32Array(N * 2);
+  let k = 0;
+  const tc = new THREE.Color();
+  const samples = [[], [], [], [], [], []]; // static anchor points per layer, used by the connections
+  function add(x, y, z, c, size, layer, region = -1, s = null, a0 = 0, a1 = 0) {
+    if (k >= N) return;
+    pos[k * 3] = x; pos[k * 3 + 1] = y; pos[k * 3 + 2] = z;
+    st[k * 3] = s ? s[0] : x; st[k * 3 + 1] = s ? s[1] : y; st[k * 3 + 2] = s ? s[2] : z;
+    cl[k * 3] = c.r; cl[k * 3 + 1] = c.g; cl[k * 3 + 2] = c.b;
+    dt[k * 4] = size; dt[k * 4 + 1] = layer; dt[k * 4 + 2] = R(); dt[k * 4 + 3] = region;
+    ax[k * 2] = a0; ax[k * 2 + 1] = a1;
+    k++;
+  }
+
+  /* ---- layer 0 · input: the headline, sampled from a 2D canvas ---- */
+  const lines = narrow ? ['We build AI', 'that does', 'real work.'] : ['We build AI', 'that does real work.'];
+  const tp = textPixels(lines);
+  const textW = Math.min(34, visW * (narrow ? 0.9 : 0.8));
+  const ts = textW / tp.w;
+  const yC = visH * (narrow ? 0.21 : 0.16);
+  for (let i = 0; i < cnt[0]; i++) {
+    const j = Math.floor(R() * (tp.pts.length / 2)) * 2;
+    const px = tp.pts[j] + (R() - 0.5) * tp.step * 0.6, py = tp.pts[j + 1] + (R() - 0.5) * tp.step * 0.6;
+    const x = (px - tp.w / 2) * ts, y = -(py - tp.h / 2) * ts + yC, z = 0;
+    const a = R() * 6.2831853, r = 2 + 26 * Math.sqrt(R());
+    tc.copy(C.point).lerp(C.violet, R() * 0.18).multiplyScalar(0.55);
+    add(x, y, z, tc, (small ? 0.1 : 0.072) + R() * 0.012, 0, -1, [Math.cos(a) * r, Math.sin(a) * r * 0.7, gauss() * 4]);
+    if (i % 12 === 0) samples[0].push([x, y, z]);
+  }
+
+  /* ---- layer 1 · services: a dense 3D lattice split into six regions ---- */
+  {
+    const Z = LZ(1), W = (narrow ? 11 : 17) * sx, H = narrow ? 13 : 15, D = 5, y0 = narrow ? 7.5 : 0;
+    const nx = narrow ? 8 : 12, ny = narrow ? 10 : 11, nz = 3, cols = narrow ? 2 : 3, rows = narrow ? 3 : 2;
+    const gx = (i) => -W / 2 + (i * W) / (nx - 1), gy = (j) => -H / 2 + (j * H) / (ny - 1) + y0, gz = (l) => Z - D / 2 + (l * D) / (nz - 1);
+    const region = (x, y) => {
+      const c = clamp(Math.floor(((x + W / 2) / W) * cols), 0, cols - 1);
+      const r = clamp(Math.floor(((y0 + H / 2 - y) / H) * rows), 0, rows - 1);
+      return r * cols + c;
+    };
+    for (let i = 0; i < cnt[1]; i++) {
+      const a = Math.floor(R() * nx), b = Math.floor(R() * ny), l = Math.floor(R() * nz);
+      let x = gx(a), y = gy(b), z = gz(l), size = 0.07, node = R() < 0.35;
+      if (node) { x += gauss() * 0.06; y += gauss() * 0.06; size = 0.17; }
+      else {
+        const t = R(), axis = Math.floor(R() * 3);
+        if (axis === 0 && a < nx - 1) x = lerp(gx(a), gx(a + 1), t);
+        else if (axis === 1 && b < ny - 1) y = lerp(gy(b), gy(b + 1), t);
+        else if (l < nz - 1) z = lerp(gz(l), gz(l + 1), t);
+      }
+      tc.copy(C.violet).lerp(C.cyan, (z - (Z - D / 2)) / D * 0.8).lerp(C.point, node ? 0.35 : 0).multiplyScalar(node ? 0.95 : 0.55);
+      add(x, y, z, tc, size, 1, region(x, y));
+      if (node && i % 6 === 0) samples[1].push([x, y, z]);
+    }
+  }
+
+  /* ---- layer 2 · principles: four orbiting clusters (orbit applied in the shader) ---- */
+  const orbitR = narrow ? 4.2 : 6.5;
+  const orbitY = narrow ? 8.5 : 0;
+  {
+    const Z = LZ(2), tints = [C.cyan, C.violet, C.point, C.gold];
+    for (let i = 0; i < cnt[2]; i++) {
+      const c = i % 4, nucleus = R() < 0.08;
+      const sg = narrow ? 0.8 : 1.15, shell = R() < 0.3;
+      let x = gauss() * sg, y = gauss() * sg, z = gauss() * sg;
+      if (shell) { const v = new THREE.Vector3(gauss(), gauss(), gauss()).setLength(sg * 1.9 + R() * 0.3); x = v.x; y = v.y; z = v.z; }
+      if (nucleus) {
+        tc.copy(C.point).multiplyScalar(0.5);
+        add(gauss() * 0.9, orbitY + gauss() * 0.9, Z + gauss() * 0.9, tc, 0.08, 2, -1, null, 0, 0);
+        continue;
+      }
+      tc.copy(tints[c]).lerp(C.point, shell ? 0 : 0.3).multiplyScalar(shell ? 0.5 : 0.9);
+      add(x, y + orbitY, Z + z, tc, shell ? 0.07 : 0.13, 2, 20 + c, null, c * Math.PI / 2 + 0.4, orbitR);
+      if (i % 40 === 0) samples[2].push([x + Math.cos(c * Math.PI / 2 + 0.4) * orbitR, y + orbitY + Math.sin(c * Math.PI / 2 + 0.4) * orbitR * 0.62, Z + z]);
+    }
+  }
+
+  /* ---- layer 3 · process: a five-node chain ---- */
+  const nodes = [];
+  {
+    const Z = LZ(3);
+    for (let i = 0; i < 5; i++) {
+      nodes.push(narrow ? [-4.6 + i * 2.3, 10.5 + (i % 2 ? 1.1 : -1.1), Z] : [(i % 2 ? 1.4 : -1.4), 8.4 - i * 4.2, Z + (i % 2 ? 1.5 : -1.5)]);
+    }
+    for (let i = 0; i < cnt[3]; i++) {
+      if (R() < 0.58) {
+        const n = i % 5, [cx, cy, cz] = nodes[n], s = narrow ? 0.45 : 0.62;
+        const shell = R() < 0.35, v = new THREE.Vector3(gauss(), gauss(), gauss());
+        shell ? v.setLength(s * 1.8) : v.multiplyScalar(s);
+        tc.copy(C.cyan).lerp(C.point, shell ? 0 : 0.45).multiplyScalar(shell ? 0.5 : 1);
+        add(cx + v.x, cy + v.y, cz + v.z, tc, shell ? 0.07 : 0.15, 3, 10 + n, null, n);
+        if (i % 30 === 0) samples[3].push([cx + v.x, cy + v.y, cz + v.z]);
+      } else {
+        const n = Math.floor(R() * 4), t = R(), a = nodes[n], b = nodes[n + 1];
+        tc.copy(C.cyan).lerp(C.violet, 0.4).multiplyScalar(0.5);
+        add(lerp(a[0], b[0], t) + gauss() * 0.09, lerp(a[1], b[1], t) + gauss() * 0.09, lerp(a[2], b[2], t) + gauss() * 0.09, tc, 0.06, 3, -1, null, n + t);
+      }
+    }
+  }
+
+  /* ---- layer 4 · what we build: four constellations ---- */
+  const conCenters = narrow
+    ? [[-3.2, 11.5], [3.4, 12], [-3.4, 6.3], [3.2, 6.8]]
+    : [[-15 * sx, 3], [0, 4.5], [-9 * sx, -7], [5 * sx, -6]];
+  const conLines = [];
+  {
+    const Z = LZ(4), rad = narrow ? 1.9 : 3;
+    const stars = conCenters.map(([cx, cy], c) => {
+      const s = [];
+      for (let j = 0; j < 8; j++) {
+        const a = (j / 8) * 6.2831853 + R() * 0.7, r = rad * (0.35 + R() * 0.65);
+        s.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r * 0.8, Z + gauss() * 0.8]);
+      }
+      s.forEach((p, j) => {
+        tc.copy(C.point).lerp(C.cyan, j % 3 ? 0.2 : 0.6);
+        add(p[0], p[1], p[2], tc, j === 0 ? 0.62 : 0.4, 4, 30 + c);
+        if (j > 0) {
+          let best = 0, bd = 1e9;
+          for (let m = 0; m < j; m++) { const d = (s[m][0] - p[0]) ** 2 + (s[m][1] - p[1]) ** 2; if (d < bd) { bd = d; best = m; } }
+          conLines.push(s[best], p);
+        }
+      });
+      samples[4].push(s[0], s[3]);
+      return s;
+    });
+    for (let i = 0; i < cnt[4] - 32; i++) {
+      const c = i % 4, [cx, cy] = conCenters[c];
+      tc.copy(C.violet).lerp(C.cyan, R() * 0.5).multiplyScalar(0.45);
+      add(cx + gauss() * rad * 0.7, cy + gauss() * rad * 0.6, Z + gauss() * 1.2, tc, 0.06, 4, 30 + c);
+    }
+    void stars;
+  }
+
+  /* ---- layer 5 · output: a vortex converging on one bright core ---- */
+  const coreY = narrow ? 11 : visH * 0.3;
+  {
+    const Z = LZ(5);
+    for (let i = 0; i < cnt[5]; i++) {
+      const u = R();
+      if (u < 0.1) {
+        tc.copy(C.gold).lerp(C.point, R() * 0.4);
+        add(gauss() * 0.3, coreY + gauss() * 0.3, Z + gauss() * 0.3, tc, 0.22, 5, 51);
+      } else if (u < 0.103) {
+        tc.copy(C.gold).multiplyScalar(0.55);
+        add(0, coreY, Z, tc, 2.2 + R() * 2.2, 5, 51);
+      } else {
+        tc.copy(C.gold).lerp(C.violet, R() * 0.8).multiplyScalar(0.8);
+        add(0, coreY, Z, tc, 0.08 + R() * 0.08, 5, 50, null, R(), R() * 6.2831853);
+      }
+    }
+    samples[5].push([0, coreY, Z], [0.2, coreY, Z], [-0.2, coreY, Z]);
+  }
+
+  /* ---- ambient dust through the whole depth ---- */
+  for (let i = 0; i < cnt[6]; i++) {
+    tc.copy(C.muted).lerp(C.violet, R() * 0.6).lerp(C.point, R() * 0.3).multiplyScalar(0.55);
+    add((R() - 0.5) * 110, (R() - 0.5) * 70, 40 - R() * 500, tc, 0.06 + R() * 0.12, 9);
+  }
+  while (k < N) add(0, 0, 60, C.space, 0, 9); // pad unused slots behind the camera
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  geo.setAttribute('aStart', new THREE.BufferAttribute(st, 3));
+  geo.setAttribute('aColor', new THREE.BufferAttribute(cl, 3));
+  geo.setAttribute('aData', new THREE.BufferAttribute(dt, 4));
+  geo.setAttribute('aAux', new THREE.BufferAttribute(ax, 2));
+
+  const U = {
+    uTime: { value: 0 }, uIgnite: { value: 0 }, uForm: { value: 0 }, uScale: { value: 800 },
+    uCamZ: { value: 50 }, uCamXY: { value: new THREE.Vector2() }, uRegion: { value: -9 }, uHl: { value: 0 },
+    uGold: { value: C.gold }, uViolet: { value: C.violet }, uPoint: { value: C.point },
+  };
+  const pointsMat = new THREE.ShaderMaterial({
+    uniforms: U, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
+    vertexShader: /* glsl */`
+      uniform float uTime, uIgnite, uForm, uScale, uCamZ, uRegion, uHl;
+      uniform vec2 uCamXY; uniform vec3 uGold, uViolet, uPoint;
+      attribute vec3 aStart; attribute vec3 aColor; attribute vec4 aData; attribute vec2 aAux;
+      varying vec3 vColor; varying float vAlpha;
+      float sq(float x){ return x * x; }
+      mat2 rot(float a){ float c = cos(a), s = sin(a); return mat2(c, -s, s, c); }
+      void main(){
+        float size = aData.x, layer = aData.y, seed = aData.z, region = aData.w;
+        vec3 p = position; vec3 c = aColor; float b = 1.0;
+
+        // ignition: a wave from the centre outward (deeper layers catch it a little later)
+        float r0 = length(aStart.xy) + max(-position.z, 0.0) * 0.03;
+        float front = uIgnite * 90.0;
+        float lit = 1.0 - smoothstep(front - 6.0, front + 1.0, r0);
+        float flash = exp(-sq((r0 - front) * 0.5)) * (1.0 - smoothstep(0.7, 1.0, uIgnite));
+
+        if (layer < 0.5) {
+          // swirl, then condense into the headline
+          float f = clamp(uForm * 1.5 - seed * 0.5, 0.0, 1.0);
+          f = f * f * (3.0 - 2.0 * f);
+          vec3 s = aStart; s.xy = rot(uTime * 0.12) * s.xy;
+          p = mix(s, position, f);
+          p.xy = rot((1.0 - f) * (1.8 + seed * 1.4)) * p.xy;
+          p += f * 0.035 * vec3(sin(uTime * 1.3 + seed * 40.0), cos(uTime * 1.1 + seed * 31.0), 0.0);
+          b *= mix(1.4, 1.0, f);
+        } else if (abs(layer - 2.0) < 0.5 && region > 0.0) {
+          float a = aAux.x + uTime * 0.12;
+          p += vec3(cos(a) * aAux.y, sin(a) * aAux.y * 0.62, sin(a) * 2.5);
+        } else if (abs(layer - 3.0) < 0.5) {
+          float s = fract(uTime * 0.14) * 6.0 - 0.5;
+          float sig = exp(-sq((aAux.x - s) * 2.2));
+          b += 1.8 * sig; c = mix(c, uPoint, sig * 0.6);
+        } else if (abs(layer - 5.0) < 0.5 && region < 50.5) {
+          float ph = fract(aAux.x - uTime * 0.045);
+          float r = 0.35 + 16.0 * ph * ph;
+          float a = aAux.y + ph * 7.0 + uTime * 0.08;
+          p += vec3(cos(a) * r, sin(a) * r * 0.9, ph * ph * 9.0);
+          b *= mix(1.8, 0.25, ph);
+          c = mix(uGold, c, smoothstep(0.0, 0.5, ph));
+        } else if (layer > 8.5) {
+          p.x += sin(uTime * 0.07 + seed * 30.0) * 0.8;
+        }
+
+        b *= 0.78 + 0.22 * sin(uTime * (0.8 + seed * 2.0) + seed * 60.0);
+
+        vec4 wp = modelMatrix * vec4(p, 1.0);
+        float dz = wp.z - uCamZ;
+        // points part around the camera as it flies through their layer
+        vec2 rel = wp.xy - uCamXY; float rr = length(rel) + 0.001;
+        float part = exp(-dz * dz / 70.0);
+        wp.xy += rel / rr * part * 8.0 / (1.0 + rr * 0.3);
+        // the layer being read breathes
+        float focus = exp(-sq((dz + ${VIEW_D.toFixed(1)}) / 20.0));
+        b *= 0.42 + 0.85 * focus + 0.4 * focus * (0.5 + 0.5 * sin(uTime * 1.6 - length(wp.xy - vec2(0.0, 0.0)) * 0.4));
+        b += part * 1.1;
+        if (layer < 0.5) b = min(b, 1.0 + part);
+
+        float hl = (1.0 - step(0.5, abs(region - uRegion))) * uHl;
+        c = mix(c, uGold, hl * 0.8); b *= 1.0 + hl * 1.6;
+
+        vec4 mv = viewMatrix * wp;
+        float d = -mv.z;
+        float fog = 1.0 - smoothstep(30.0, 250.0, d);
+        float near = smoothstep(0.8, 5.0, d);
+        gl_PointSize = min(size * (1.0 + hl * 0.5) * uScale / max(d, 0.5), 110.0);
+        gl_Position = projectionMatrix * mv;
+        vColor = c + flash * vec3(0.35, 0.3, 0.7);
+        vAlpha = (b * lit + flash * 1.6) * fog * near;
+      }`,
+    fragmentShader: /* glsl */`
+      varying vec3 vColor; varying float vAlpha;
+      void main(){
+        vec2 q = gl_PointCoord - 0.5; float d = length(q);
+        if (d > 0.5) discard;
+        float soft = pow(1.0 - d * 2.0, 1.8);
+        float core = exp(-d * d * 70.0);
+        gl_FragColor = vec4(vColor * (soft * 0.55 + core) * vAlpha, 1.0);
+      }`,
+  });
+  const points = new THREE.Points(geo, pointsMat);
+  points.frustumCulled = false;
+
+  /* ---------------- connections between layers, and constellation lines ---------------- */
+  const lineMat = (a, b, base, gain) => new THREE.ShaderMaterial({
+    uniforms: { uCamZ: U.uCamZ, uIn: { value: 0 }, uBase: { value: base }, uGain: { value: gain }, uA: { value: a }, uB: { value: b } },
+    transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending,
+    vertexShader: /* glsl */`
+      uniform float uCamZ, uIn, uBase, uGain; uniform vec3 uA, uB;
+      attribute float aK; varying vec3 vC; varying float vA;
+      float sq(float x){ return x * x; }
+      void main(){
+        vec4 wp = modelMatrix * vec4(position, 1.0);
+        float dz = wp.z - uCamZ;
+        float near = exp(-sq((dz + 45.0) / 30.0));
+        vA = (uBase + uGain * near) * uIn * smoothstep(14.0, 40.0, -dz) * (1.0 - smoothstep(60.0, 200.0, -dz));
+        vC = mix(uA, uB, aK);
+        gl_Position = projectionMatrix * viewMatrix * wp;
+      }`,
+    fragmentShader: /* glsl */`varying vec3 vC; varying float vA; void main(){ gl_FragColor = vec4(vC * vA, 1.0); }`,
+  });
+  const seg = (pairs) => {
+    const g = new THREE.BufferGeometry();
+    const p = new Float32Array(pairs.length * 3), kk = new Float32Array(pairs.length);
+    pairs.forEach((v, i) => { p.set(v, i * 3); kk[i] = i % 2; });
+    g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+    g.setAttribute('aK', new THREE.BufferAttribute(kk, 1));
+    return g;
+  };
+  const links = [];
+  const perGap = small ? 30 : 70;
+  for (let l = 0; l < LAST; l++) {
+    const A = samples[l], B = samples[l + 1];
+    if (!A.length || !B.length) continue;
+    for (let i = 0; i < perGap; i++) {
+      const a = A[Math.floor(R() * A.length)];
+      let best = null, bd = Infinity;
+      for (const b of B) { const d = (b[0] - a[0]) ** 2 + (b[1] - a[1]) ** 2; if (d < bd) { bd = d; best = b; } }
+      if (best && bd < 36) links.push(a, best);
+    }
+  }
+  const linkMat = lineMat(C.violet, C.cyan, 0.015, 0.13);
+  const linkLines = new THREE.LineSegments(seg(links), linkMat);
+  const conMat = lineMat(C.cyan, C.point, 0.05, 0.75);
+  const conLineObj = new THREE.LineSegments(seg(conLines), conMat);
+  linkLines.frustumCulled = conLineObj.frustumCulled = false;
+
+  const scene = new THREE.Scene();
+  scene.add(linkLines, conLineObj, points);
+  const camera = new THREE.PerspectiveCamera(fovFor(aspect0), aspect0, 0.1, 700);
+
+  /* ---------------- sizing ---------------- */
+  const size = new THREE.Vector2();
+  function resize() {
+    const w = innerWidth, h = innerHeight;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.fov = fovFor(w / h); camera.updateProjectionMatrix();
+    renderer.getDrawingBufferSize(size);
+    U.uScale.value = size.y / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
+  }
+  resize();
+  addEventListener('resize', resize);
+
+  /* ---------------- DOM wiring: chapters, rail, hover ---------------- */
+  const chs = $$('.ch');
+  chs.forEach((ch) => $$('.ln', ch).forEach((el, i) => el.style.setProperty('--i', i)));
+  const railLinks = $$('.rail a');
+  const fill = $('.rail .fill'), railList = $('.rail ol');
+  const workItems = $$('#work .work li');
+
+  let region = -9, hlTarget = 0;
+  $$('[data-region]').forEach((el) => {
+    const n = Number(el.dataset.region);
+    const on = () => { if (region !== n) { region = n; U.uHl.value = 0; } U.uRegion.value = n; hlTarget = 1; };
+    const off = () => { hlTarget = 0; };
+    el.addEventListener('pointerenter', on); el.addEventListener('focusin', on);
+    el.addEventListener('pointerleave', off); el.addEventListener('focusout', off);
+  });
+  $$('.svc li').forEach((li) => {
+    const pick = () => { $$('.svc li').forEach((o) => o.classList.toggle('sel', o === li)); };
+    li.addEventListener('click', pick);
+    li.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+  $$('.lang button').forEach((b) => b.addEventListener('click', () => $$('.lang button').forEach((o) => o.setAttribute('aria-pressed', String(o === b)))));
+
+  const maxScroll = () => Math.max(1, document.documentElement.scrollHeight - innerHeight);
+  let pendingFocus = -1;
+  function goTo(i) {
+    scrollTo({ top: (maxScroll() * i) / LAST, behavior: 'smooth' });
+    pendingFocus = i;
+  }
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const idx = chs.findIndex((c) => '#' + c.id === a.getAttribute('href'));
+    if (idx < 0) return;
+    e.preventDefault();
+    goTo(idx);
+  });
+
+  let mx = 0, my = 0, pmx = 0, pmy = 0;
+  addEventListener('pointermove', (e) => { mx = (e.clientX / innerWidth - 0.5) * 2; my = (e.clientY / innerHeight - 0.5) * 2; }, { passive: true });
+
+  history.scrollRestoration = 'manual';
+  scrollTo(0, 0);
+
+  /* ---------------- the loop ---------------- */
+  const shiftSide = [0, 1, -1, 1, 0, 0];
+  const shiftAmt = narrow ? 0 : 9.5 * sx;
+  const chapterFloat = (p) => { const c = p * LAST; const i = Math.min(Math.floor(c), LAST - 1); return i + smooth(0.12, 0.88, c - i); };
+  let cf = 0, t = 0, last = performance.now(), raf = 0, active = -2, introDone = false;
+  const v3 = new THREE.Vector3();
+
+  html.classList.add('gl-ready');
+
+  function setActive(n) {
+    if (n === active) return;
+    active = n;
+    chs.forEach((ch, i) => { ch.classList.toggle('on', i === n); ch.toggleAttribute('inert', i !== n); });
+    if (n >= 0) railLinks.forEach((a, i) => (i === n ? a.setAttribute('aria-current', 'step') : a.removeAttribute('aria-current')));
+    if (n >= 0 && n === pendingFocus) {
+      pendingFocus = -1;
+      const h = $('h1, h2', chs[n]);
+      if (h) { h.setAttribute('tabindex', '-1'); setTimeout(() => h.focus({ preventScroll: true }), 400); }
+    }
+  }
+  setActive(-1);
+
+  function frame(now) {
+    raf = requestAnimationFrame(frame);
+    const dtS = Math.min(0.05, (now - last) / 1000); last = now; t += dtS;
+
+    // intro: black, ignite from the centre, swirl, condense into the headline, slow dolly in
+    U.uTime.value = t;
+    U.uIgnite.value = smooth(0.35, 2.8, t);
+    U.uForm.value = clamp((t - 1.5) / 3.2);
+    const intro = 26 * Math.pow(1 - smooth(0.0, 6.0, t), 2);
+    linkMat.uniforms.uIn.value = conMat.uniforms.uIn.value = smooth(3.8, 5.5, t);
+    if (!introDone && t > 4.2) { introDone = true; html.classList.add('intro-done'); }
+
+    // scroll position to a damped chapter float with plateaus
+    const p = clamp(scrollY / maxScroll());
+    cf += (chapterFloat(p) - cf) * (1 - Math.exp(-dtS * 3.4));
+    const i = Math.min(Math.floor(cf), LAST), f = cf - i;
+    const side = lerp(shiftSide[i], shiftSide[Math.min(i + 1, LAST)], smooth(0.3, 0.7, f));
+    const camZ = VIEW_D - cf * SP + intro;
+    pmx += (mx - pmx) * (1 - Math.exp(-dtS * 2.5)); pmy += (my - pmy) * (1 - Math.exp(-dtS * 2.5));
+    const baseX = -side * shiftAmt;
+    camera.position.set(baseX + pmx * 1.8, -pmy * 1.1, camZ);
+    camera.lookAt(baseX, 0, camZ - 40);
+    U.uCamZ.value = camZ; U.uCamXY.value.set(camera.position.x, camera.position.y);
+    U.uHl.value += (hlTarget - U.uHl.value) * (1 - Math.exp(-dtS * 6));
+
+    // which chapter's words are on screen
+    if (t > 3.9) setActive(f < 0.3 ? i : f > 0.7 ? Math.min(i + 1, LAST) : -1);
+
+    // rail progress
+    if (narrow) fill.style.width = `${p * (railList.offsetWidth - 8)}px`;
+    else fill.style.height = `${p * (railList.offsetHeight - 12)}px`;
+
+    // captions follow their constellations
+    if (!narrow && cf > 3.2 && cf < 4.8) {
+      workItems.forEach((li, c) => {
+        const [x, y] = conCenters[c];
+        v3.set(x + (c % 2 ? 3.2 : 3.6), y + 0.9, LZ(4)).project(camera);
+        li.style.transform = `translate(${((v3.x * 0.5 + 0.5) * innerWidth).toFixed(1)}px, ${((-v3.y * 0.5 + 0.5) * innerHeight - 14).toFixed(1)}px)`;
+      });
+    }
+
+    renderer.render(scene, camera);
+  }
+  raf = requestAnimationFrame(frame);
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
+    else if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); }
+  });
+}
+
+/* Rasterise the headline and return the lit pixel coordinates. */
+function textPixels(lines) {
+  const cv = document.createElement('canvas');
+  const g = cv.getContext('2d', { willReadFrequently: true });
+  const fs = 260, lh = fs * 1.02, font = `800 ${fs}px Manrope, sans-serif`;
+  g.font = font;
+  if ('letterSpacing' in g) g.letterSpacing = '-4px';
+  const w = Math.ceil(Math.max(...lines.map((l) => g.measureText(l).width)) + 40);
+  const h = Math.ceil(lh * lines.length + 40);
+  cv.width = w; cv.height = h;
+  g.font = font;
+  if ('letterSpacing' in g) g.letterSpacing = '-4px';
+  g.fillStyle = '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  lines.forEach((l, i) => g.fillText(l, w / 2, 20 + lh * (i + 0.5)));
+  const d = g.getImageData(0, 0, w, h).data, pts = [], step = 2;
+  for (let y = 0; y < h; y += step) for (let x = 0; x < w; x += step) if (d[(y * w + x) * 4 + 3] > 170) pts.push(x, y);
+  if (!pts.length) throw new Error('headline raster empty');
+  return { pts, w, h, step };
+}
+</script>
+</body>
+</html>
