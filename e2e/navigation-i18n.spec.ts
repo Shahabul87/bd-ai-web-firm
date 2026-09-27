@@ -22,21 +22,20 @@ const SWITCH_TO_EN_FROM_BN = bn.LocaleToggle.switchToEnglish;
  * of the project's device.
  */
 
-test.describe('Header services dropdown (desktop width)', () => {
+test.describe('Header primary nav (desktop width)', () => {
   test.use({ viewport: { width: 1280, height: 800 } });
 
-  test('toggles as an aria-expanded disclosure and closes on Escape', async ({ page }) => {
-    await page.goto('/');
-    const toggle = page.getByRole('button', { name: /services/i });
-    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
-
-    await toggle.click();
-    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(page.locator('#header-services-menu')).toBeVisible();
-
-    await page.keyboard.press('Escape');
-    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    await expect(page.locator('#header-services-menu')).toBeHidden();
+  test('lists Services, Work, Process, Company and marks the current page', async ({ page }) => {
+    await page.goto('/services');
+    const nav = page.getByRole('navigation', { name: 'Primary' });
+    await expect(nav.getByRole('link', { name: 'Services' })).toHaveAttribute('aria-current', 'page');
+    await expect(nav.getByRole('link', { name: 'Work' })).toHaveAttribute('href', '/products');
+    await expect(nav.getByRole('link', { name: 'Process' })).toHaveAttribute('href', '/process');
+    await expect(nav.getByRole('link', { name: 'Company' })).toHaveAttribute('href', '/about');
+    await expect(page.getByRole('banner').getByRole('link', { name: 'Book a call' })).toHaveAttribute(
+      'href',
+      '/contact',
+    );
   });
 });
 
@@ -63,7 +62,7 @@ test.describe('Mobile menu dialog (narrow width)', () => {
     await page.goto('/');
     await page.getByRole('button', { name: /open menu/i }).click();
     const dialog = page.getByRole('dialog');
-    await dialog.getByRole('link', { name: /about/i }).first().click();
+    await dialog.getByRole('link', { name: /company/i }).first().click();
     await expect(page).toHaveURL(/\/about$/);
     await expect(page.getByRole('dialog')).toBeHidden();
   });
@@ -78,11 +77,12 @@ test.describe('Locale switching', () => {
     await page.goto('/services');
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
 
-    await page.getByRole('link', { name: SWITCH_TO_BN }).click();
+    // The toggle is in both the header and the footer; the header one is the contract.
+    await page.getByRole('banner').getByRole('link', { name: SWITCH_TO_BN }).click();
     await expect(page).toHaveURL(/\/bn\/services$/);
     await expect(page.locator('html')).toHaveAttribute('lang', 'bn');
 
-    await page.getByRole('link', { name: SWITCH_TO_EN_FROM_BN }).click();
+    await page.getByRole('banner').getByRole('link', { name: SWITCH_TO_EN_FROM_BN }).click();
     await expect(page).toHaveURL(/\/services$/);
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   });
