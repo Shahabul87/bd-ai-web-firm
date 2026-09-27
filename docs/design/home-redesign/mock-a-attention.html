@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CraftsAI — Attention</title>
+<meta name="description" content="CraftsAI designs, builds, and runs AI systems for your business.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#0E2621; --raised:#143129; --bone:#ECE9E0; --muted:#9FB3AA;
+  --amber:#F2B33D; --mint:#7FD6B5; --rose:#E87A8C;
+  --rule:rgba(236,233,224,.13); --faint:rgba(236,233,224,.28);
+  --serif:'Instrument Serif',Georgia,'Times New Roman',serif;
+  --sans:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --gut:clamp(16px,4vw,56px); --max:1320px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--bone);font:400 17px/1.6 var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gut)}
+.skip{position:absolute;left:12px;top:-60px;background:var(--amber);color:#1A1206;padding:10px 14px;border-radius:6px;z-index:99;text-decoration:none;font-weight:600}
+.skip:focus{top:12px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border-radius:6px;font:600 16px/1 var(--sans);text-decoration:none;transition:background-color .2s,box-shadow .2s,color .2s;white-space:nowrap}
+.btn-p{background:var(--amber);color:#1A1206}
+.btn-p:hover{background:#F7C660}
+.btn-p:focus-visible{outline-color:var(--bone)}
+.btn-s{color:var(--bone);box-shadow:inset 0 0 0 1px var(--faint)}
+.btn-s:hover{box-shadow:inset 0 0 0 1px var(--bone)}
+.btn-sm{min-height:38px;padding:0 16px;font-size:14px}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(14,38,33,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;gap:32px;min-height:62px}
+.brand{font:400 26px/1 var(--serif);text-decoration:none;letter-spacing:-.01em;margin-right:auto}
+.links{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.links a{text-decoration:none;color:var(--muted);font-size:15px;font-weight:500;transition:color .2s}
+.links a:hover{color:var(--bone)}
+
+/* hero */
+.hero{padding-top:clamp(28px,5vh,64px)}
+.stage{position:relative;padding-top:clamp(92px,12vw,200px);padding-bottom:clamp(34px,3vw,44px)}
+.headline{font:400 clamp(50px,8.6vw,150px)/1.08 var(--serif);letter-spacing:-.015em;margin:0;text-wrap:balance;max-width:12.5em;position:relative;z-index:2}
+.tok{display:inline-block;transition:opacity .34s cubic-bezier(.2,.7,.2,1),transform .42s cubic-bezier(.2,.7,.2,1),color .3s;border-radius:4px;cursor:default}
+.js .tok{opacity:0;transform:translateY(.16em)}
+.js .tok.on{opacity:1;transform:none}
+.tok:focus-visible{outline-offset:6px}
+.tok.q{text-decoration:underline 2px var(--amber);text-underline-offset:.1em}
+.arcs{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
+.arc{fill:none;stroke:var(--amber);stroke-linecap:round}
+.arc.draw{transition:stroke-dashoffset 1.2s cubic-bezier(.45,.05,.2,1)}
+.g-base{filter:drop-shadow(0 0 5px rgba(242,179,61,.35));transition:opacity .3s}
+.arcs.breathing .arc.base{animation:breathe 5.6s ease-in-out infinite}
+.arcs.querying .g-base{opacity:.06;filter:none}
+.arcs.querying .arc.base{animation:none}
+.g-q{filter:drop-shadow(0 0 6px rgba(242,179,61,.5))}
+.arc.qa{animation:qin .35s ease-out both}
+.wlg{animation:qin .35s ease-out both}
+.tok.q{color:var(--bone)}
+@keyframes breathe{0%,100%{opacity:1}50%{opacity:.42}}
+@keyframes qin{from{opacity:0}to{opacity:1}}
+.caret{position:absolute;width:3px;border-radius:2px;background:var(--amber);opacity:0;transition:left .24s cubic-bezier(.3,.7,.2,1),top .24s cubic-bezier(.3,.7,.2,1),opacity .3s;z-index:3;box-shadow:0 0 12px rgba(242,179,61,.6)}
+.caret.on{opacity:1}
+.caret.blink{animation:blink 1.05s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.cands{position:absolute;width:196px;font:500 14px/1 var(--sans);font-variant-numeric:tabular-nums;pointer-events:none;z-index:3}
+.cand{display:grid;grid-template-columns:70px 1fr 36px;align-items:center;gap:10px;height:24px;color:var(--muted);opacity:0;transform:translateY(5px);transition:opacity .18s,transform .2s,color .15s}
+.cand.in{opacity:1;transform:none}
+.cand.lead{color:var(--bone)}
+.cand .w{white-space:nowrap;overflow:hidden;text-overflow:clip}
+.cand .p{text-align:right}
+.cand .bar{height:2px;background:rgba(127,214,181,.16);position:relative;border-radius:2px}
+.cand .bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--mint);border-radius:2px;transition:width .12s linear}
+.cand.lead .bar i{box-shadow:0 0 8px rgba(127,214,181,.6)}
+.cand.pick{transform:translateY(-30px);opacity:0;color:var(--amber);transition:transform .34s cubic-bezier(.2,.7,.2,1),opacity .34s}
+.cand.drop{transform:translateY(16px);opacity:0;color:var(--rose);transition:transform .46s ease-in,opacity .46s ease-in,color .1s}
+.hero-foot{display:grid;grid-template-columns:minmax(0,40rem) auto;gap:32px 64px;align-items:end;padding-bottom:clamp(56px,8vw,112px)}
+.lede{font-size:clamp(18px,1.45vw,21px);line-height:1.6;color:var(--muted);margin:0;max-width:40rem}
+.js .lede{opacity:0}
+.js .lede.streaming{opacity:1}
+.lw{opacity:0;transition:opacity .22s}
+.lw.on{opacity:1}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.js .actions{opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.js .actions.on{opacity:1;transform:none}
+.hint{display:flex;align-items:center;gap:10px;margin:0 0 28px;font-size:14px;color:var(--muted);transition:opacity .6s}
+.hint::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px rgba(242,179,61,.7);flex:none}
+.js .hint{opacity:0}
+.js .hint.on{opacity:1}
+
+/* token stream band */
+.band{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);overflow:hidden;padding:14px 0;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.band-track{display:flex;gap:10px;width:max-content;animation:stream 80s linear infinite}
+.band span{font:500 13px/1 var(--sans);color:rgba(159,179,170,.62);padding:7px 10px;border:1px solid rgba(236,233,224,.08);border-radius:4px;white-space:nowrap}
+.band span:nth-child(7n+3){border-color:rgba(242,179,61,.22);color:rgba(242,179,61,.7)}
+@keyframes stream{to{transform:translateX(-50%)}}
+
+/* sections */
+section{scroll-margin-top:70px}
+.sec{padding:clamp(80px,11vw,160px) 0}
+.sec-h{font:400 clamp(40px,5vw,76px)/1.04 var(--serif);letter-spacing:-.01em;margin:0 0 clamp(36px,5vw,72px)}
+.sec-note{color:var(--muted);margin:-40px 0 48px;font-size:16px}
+
+/* services */
+.svc-list{border-bottom:1px solid var(--rule)}
+.svc{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,4vw,72px);align-items:center;border-top:1px solid var(--rule);padding:clamp(32px,4vw,56px) 0;min-width:0}
+.svc h3{font:400 clamp(34px,3.8vw,58px)/1.04 var(--serif);letter-spacing:-.01em;margin:0 0 14px}
+.svc p{color:var(--muted);margin:0;max-width:42ch}
+.svc-n{align-self:start;padding-top:.9em;font:500 13px/1 var(--sans);color:var(--muted);font-variant-numeric:tabular-nums}
+.svc-v{justify-self:end;width:100%;max-width:380px}
+.svc-flag{grid-template-columns:56px minmax(0,.85fr) minmax(0,1.15fr);padding:clamp(40px,5vw,80px) 0}
+.svc-flag h3{font-size:clamp(46px,5.8vw,92px);line-height:1.02}
+.svc-flag p{font-size:clamp(18px,1.4vw,20px)}
+.svc-flag .svc-v{max-width:600px}
+.dg{display:block;width:100%;height:auto;overflow:visible}
+.dg text{font:500 12px var(--sans);fill:var(--muted)}
+.dg .t-b{fill:var(--bone)}
+.dg .ln{stroke:rgba(236,233,224,.3);fill:none;stroke-width:1.2}
+.dg .box{fill:var(--ground);stroke:rgba(236,233,224,.26);stroke-width:1.2}
+.dg .am{stroke:var(--amber)}
+.dg .mi{stroke:var(--mint)}
+.dg .fa{fill:var(--amber)}
+.dg .fm{fill:var(--mint)}
+.dg .fr{fill:var(--rose)}
+.pulse{stroke-dasharray:10 400;stroke-dashoffset:10;stroke-width:2.4;fill:none;stroke-linecap:round}
+.vis .pulse{animation:pulse 3.6s cubic-bezier(.5,0,.3,1) infinite}
+@keyframes pulse{0%{stroke-dashoffset:10}60%,100%{stroke-dashoffset:-150}}
+.scan{opacity:.9}
+.vis .scan{animation:scan 5s steps(10) infinite}
+@keyframes scan{to{transform:translateX(240px)}}
+
+/* principles */
+.pr-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(24px,5vw,80px)}
+.pr{display:grid;grid-template-columns:minmax(0,1fr) 184px;gap:24px;align-items:center;border-top:1px solid var(--rule);padding:30px 0 34px}
+.pr h3{font:400 clamp(28px,2.6vw,38px)/1.08 var(--serif);margin:0 0 8px}
+.pr p{margin:0;color:var(--muted);max-width:34ch}
+.mv{width:184px;height:92px;display:block}
+.mv text{font:500 11px var(--sans);fill:var(--muted);font-variant-numeric:tabular-nums}
+.mv .big{font:400 30px var(--serif);fill:var(--bone)}
+
+/* process */
+.process{position:relative}
+.process-pin{padding:clamp(80px,11vw,140px) 0}
+.steps-wrap{position:relative;padding-top:150px}
+.parcs{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.parc{fill:none;stroke-linecap:round;transition:stroke-opacity .4s}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
+.step{min-width:0}
+.step .num{display:block;font:500 13px/1 var(--sans);color:var(--muted);font-variant-numeric:tabular-nums;margin-bottom:14px}
+.sw{font:400 clamp(30px,3vw,46px)/1.05 var(--serif);margin:0 0 14px;color:var(--muted);transition:color .4s;display:inline-block;position:relative}
+.sw::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.step p{margin:0;color:var(--muted);font-size:16px;opacity:.8;transition:opacity .4s;max-width:26ch}
+.step.is-past .sw{color:var(--bone)}
+.step.is-active .sw{color:var(--bone)}
+.step.is-active .sw::after{transform:scaleX(1)}
+.step.is-active p,.step.is-past p{opacity:1}
+@media (min-width:900px){
+  .process{height:180vh}
+  .process-pin{position:sticky;top:0;min-height:100vh;display:flex;align-items:center}
+  .process-pin>.wrap{width:100%}
+}
+
+/* work */
+.work-list{border-bottom:1px solid var(--rule)}
+.wk{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:clamp(28px,6vw,110px);align-items:start;border-top:1px solid var(--rule);padding:clamp(36px,5vw,72px) 0;min-width:0}
+.wk:nth-child(even) .wk-t{order:2}
+.wk:nth-child(even){grid-template-columns:minmax(0,1fr) minmax(0,.8fr)}
+.wk h3{font:400 clamp(34px,3.6vw,54px)/1.04 var(--serif);letter-spacing:-.01em;margin:0 0 12px}
+.wk-t p{color:var(--muted);margin:0;max-width:40ch}
+.wk-v{min-width:0;padding-top:6px}
+.tag{display:inline-block;font:500 12px/1 var(--sans);color:var(--mint);border:1px solid rgba(127,214,181,.35);border-radius:4px;padding:5px 8px;margin-bottom:18px}
+.trace{list-style:none;margin:0;padding:0;font-size:15px;font-variant-numeric:tabular-nums}
+.trace li{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:9px 0;border-top:1px dashed rgba(236,233,224,.1)}
+.trace li:first-child{border-top:0}
+.trace .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);align-self:center}
+.trace .dot.a{background:var(--amber)}
+.trace .dot.r{background:var(--rose)}
+.trace .sub{padding-left:0;color:var(--muted)}
+.trace .st{font-size:13px;color:var(--mint)}
+.trace .st.a{color:var(--amber)}
+.trace .head{color:var(--bone);font-weight:600}
+.js .rv>li{opacity:0;transition:opacity .45s ease calc(var(--d,0)*170ms)}
+.js .vis .rv>li{opacity:1}
+.pipe{display:grid;grid-template-columns:auto minmax(18px,1fr) auto;align-items:center;gap:10px;font-size:14px;margin-bottom:14px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--faint);border-radius:4px;padding:7px 10px;font-size:13px;white-space:nowrap}
+.chip.m{border-color:rgba(127,214,181,.45);color:var(--mint)}
+.chip.r{border-color:rgba(232,122,140,.5);color:var(--rose)}
+.wire{height:1px;background:var(--faint)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 18px;margin:0 0 16px;padding:14px;border:1px solid var(--rule);border-radius:4px;font-size:13px;color:var(--muted)}
+.fields span{display:flex;justify-content:space-between;gap:8px}
+.fields b{font-weight:500;color:var(--bone)}
+.fields .flag b{color:var(--rose)}
+.steps3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;counter-reset:s}
+.steps3 li{list-style:none;border-top:2px solid var(--mint);padding:12px 12px 0 0;font-size:14px;color:var(--bone)}
+.steps3 li span{display:block;color:var(--muted);font-size:13px;margin-top:4px}
+.qa{display:grid;gap:12px;font-size:15px}
+.qa .q{justify-self:end;background:rgba(236,233,224,.07);padding:10px 14px;border-radius:12px 12px 2px 12px;max-width:80%}
+.qa .a{padding:10px 0 0;max-width:52ch}
+.srcs{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+
+/* cta */
+.cta{padding:clamp(96px,13vw,190px) 0 clamp(80px,10vw,140px);border-top:1px solid var(--rule)}
+.cta-stage{position:relative}
+.cta-h{font:400 clamp(42px,6vw,100px)/1.06 var(--serif);letter-spacing:-.012em;margin:0 0 28px;max-width:13em;text-wrap:balance}
+.ctok{display:inline-block;transition:opacity .3s,transform .36s cubic-bezier(.2,.7,.2,1)}
+.js .ctok{opacity:0;transform:translateY(.12em)}
+.js .ctok.on{opacity:1;transform:none}
+.cta p{color:var(--muted);font-size:clamp(18px,1.4vw,20px);max-width:40rem;margin:0 0 36px}
+.mail{display:block;margin-top:18px;color:var(--muted);font-size:15px}
+.mail a{color:var(--bone);text-underline-offset:3px}
+
+/* footer */
+.foot{border-top:1px solid var(--rule);padding:48px 0 40px;font-size:15px;color:var(--muted)}
+.foot-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px 48px;align-items:start}
+.foot .brand{font-size:30px;color:var(--bone);display:inline-block;margin-bottom:8px}
+.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 26px}
+.foot ul a{text-decoration:none}
+.foot ul a:hover{color:var(--bone)}
+.lang{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--muted);font:500 14px var(--sans);padding:8px 14px;cursor:pointer;min-height:38px}
+.lang button[aria-pressed="true"]{background:var(--raised);color:var(--bone)}
+.foot-bot{grid-column:1/-1;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center;border-top:1px solid var(--rule);padding-top:24px;margin-top:8px}
+
+/* responsive */
+@media (max-width:1100px){
+  .svc,.svc-flag{grid-template-columns:44px minmax(0,1fr) minmax(0,1fr)}
+  .pr-list{grid-template-columns:1fr}
+  .wk,.wk:nth-child(even){grid-template-columns:1fr}
+  .wk:nth-child(even) .wk-t{order:0}
+}
+@media (max-width:899px){
+  .steps-wrap{padding-top:0;padding-left:56px}
+  .steps{grid-template-columns:1fr;gap:40px}
+  .step p{max-width:40ch}
+  .hero-foot{grid-template-columns:1fr}
+}
+@media (max-width:680px){
+  body{font-size:16px}
+  .nav-in{flex-wrap:wrap;gap:10px 16px;padding-top:10px;padding-bottom:10px}
+  .links{order:3;width:100%;gap:22px}
+  .svc,.svc-flag{grid-template-columns:1fr;gap:18px}
+  .svc-n{padding-top:0}
+  .svc-v{justify-self:start;max-width:340px}
+  .svc-flag .svc-v{max-width:100%}
+  .pr{grid-template-columns:1fr;gap:18px}
+  .pipe{grid-template-columns:1fr;justify-items:start}
+  .pipe .wire{display:none}
+  .fields{grid-template-columns:1fr}
+  .steps3{grid-template-columns:1fr;gap:14px}
+  .foot-in{grid-template-columns:1fr}
+  .cands{width:176px}
+  .cand{grid-template-columns:62px 1fr 34px;font-size:13px}
+  .sec-note{margin-top:-24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .process{height:auto!important}
+  .process-pin{position:static!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">CraftsAI</a>
+    <nav aria-label="Primary">
+      <ul class="links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#company">Company</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-p btn-sm" href="#contact">Book a call</a>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero" id="top" aria-labelledby="headline">
+  <div class="wrap">
+    <div class="stage" id="stage">
+      <svg class="arcs" id="arcs" aria-hidden="true"></svg>
+      <h1 class="headline" id="headline" aria-describedby="hint"><span class="tok" tabindex="0">We</span> <span class="tok" tabindex="0">build</span> <span class="tok" tabindex="0">AI</span> <span class="tok" tabindex="0">that</span> <span class="tok" tabindex="0">does</span> <span class="tok" tabindex="0">real</span> <span class="tok" tabindex="0">work.</span></h1>
+      <span class="caret" id="caret" aria-hidden="true"></span>
+      <div class="cands" id="cands" aria-hidden="true"></div>
+    </div>
+    <p class="hint" id="hint">Hover, tab to, or tap a word to see what it attends to.</p>
+    <div class="hero-foot">
+      <div>
+        <p class="lede" id="lede">CraftsAI designs, builds, and runs AI systems for your business — agents that take action, assistants that know your data, and models tuned to your problem. From first prototype to production.</p>
+      </div>
+      <div class="actions" id="actions">
+        <a class="btn btn-p" href="#contact">Book a discovery call</a>
+        <a class="btn btn-s" href="#work">See what we build</a>
+      </div>
+    </div>
+  </div>
+  <div class="band" aria-hidden="true"><div class="band-track" id="band"></div></div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services" aria-labelledby="svc-h">
+  <div class="wrap">
+    <h2 class="sec-h" id="svc-h">Services</h2>
+    <div class="svc-list">
+      <article class="svc svc-flag dgm">
+        <span class="svc-n">01</span>
+        <div class="svc-t">
+          <h3>AI agents &amp; automation</h3>
+          <p>Agents that plan and act inside your tools: they read tickets, update the CRM, draft replies, and hand off to a person when it matters.</p>
+        </div>
+        <div class="svc-v">
+          <svg class="dg" viewBox="0 0 520 250" aria-hidden="true">
+          <path class="ln" d="M260 125 C200 125 170 52 104 52"/><path class="ln" d="M260 125 C320 125 350 52 416 52"/>
+          <path class="ln" d="M260 125 C200 125 170 198 104 198"/><path class="ln am" stroke-dasharray="4 5" d="M260 125 C320 125 350 198 416 198"/>
+          <path class="pulse am" d="M260 125 C200 125 170 52 104 52"/>
+          <path class="pulse am" style="animation-delay:.9s" d="M260 125 C320 125 350 52 416 52"/>
+          <path class="pulse am" style="animation-delay:1.8s" d="M260 125 C200 125 170 198 104 198"/>
+          <path class="pulse mi" style="animation-delay:2.7s" d="M260 125 C320 125 350 198 416 198"/>
+          <circle cx="260" cy="125" r="40" class="box am" style="stroke-width:1.6"/>
+          <circle cx="260" cy="125" r="52" fill="none" stroke="rgba(242,179,61,.18)"/>
+          <text x="260" y="129" text-anchor="middle" class="t-b" style="font-size:14px">agent</text>
+          <rect x="24" y="34" width="80" height="36" rx="4" class="box"/><text x="64" y="57" text-anchor="middle">tickets</text>
+          <rect x="416" y="34" width="80" height="36" rx="4" class="box"/><text x="456" y="57" text-anchor="middle">CRM</text>
+          <rect x="24" y="180" width="80" height="36" rx="4" class="box"/><text x="64" y="203" text-anchor="middle">replies</text>
+          <rect x="416" y="180" width="80" height="36" rx="4" class="box mi"/><text x="456" y="203" text-anchor="middle" class="t-b">a person</text>
+          <text x="330" y="236" text-anchor="middle">hand off when it matters</text>
+        </svg>
+        </div>
+      </article>
+      <article class="svc">
+        <span class="svc-n">02</span>
+        <div class="svc-t">
+          <h3>Assistants on your data</h3>
+          <p>Chat and search over your documents, databases, and wikis, with answers that cite their sources.</p>
+        </div>
+        <div class="svc-v">
+          <svg class="dg" viewBox="0 0 250 160" aria-hidden="true">
+          <rect x="40" y="6" width="200" height="34" rx="14" class="box"/>
+          <text x="140" y="27" text-anchor="middle" class="t-b">What is our refund window?</text>
+          <rect x="10" y="56" width="170" height="6" rx="3" fill="rgba(236,233,224,.26)"/>
+          <rect x="10" y="70" width="140" height="6" rx="3" fill="rgba(236,233,224,.26)"/>
+          <rect x="10" y="84" width="104" height="6" rx="3" fill="rgba(236,233,224,.26)"/>
+          <text x="120" y="92" class="fa" style="font-size:11px">[1]</text><text x="140" y="92" class="fa" style="font-size:11px">[2]</text>
+          <path class="ln" d="M124 96 C124 112 48 110 48 124"/><path class="ln" d="M144 96 C144 112 138 112 138 124"/>
+          <rect x="10" y="124" width="78" height="26" rx="4" class="box mi"/><text x="49" y="141" text-anchor="middle">policy.pdf</text>
+          <rect x="98" y="124" width="80" height="26" rx="4" class="box mi"/><text x="138" y="141" text-anchor="middle">wiki page</text>
+          <rect x="188" y="124" width="56" height="26" rx="4" class="box"/><text x="216" y="141" text-anchor="middle">tables</text>
+        </svg>
+        </div>
+      </article>
+      <article class="svc">
+        <span class="svc-n">03</span>
+        <div class="svc-t">
+          <h3>Custom models &amp; fine-tuning</h3>
+          <p>When an off-the-shelf model isn&apos;t enough, we train, fine-tune, and distil models for your task and your budget.</p>
+        </div>
+        <div class="svc-v">
+          <svg class="dg" viewBox="0 0 250 160" aria-hidden="true">
+          <path class="ln" d="M28 10 V136 H244"/>
+          <text x="6" y="16">loss</text><text x="244" y="154" text-anchor="end">steps</text>
+          <path d="M30 26 C70 60 100 70 140 74 S220 80 242 80" fill="none" stroke="rgba(236,233,224,.4)" stroke-dasharray="3 4" stroke-width="1.4"/>
+          <path d="M30 26 C60 80 90 104 130 112 S210 120 242 121" fill="none" class="mi" stroke-width="2"/>
+          <circle cx="242" cy="121" r="3.5" class="fm"/>
+          <text x="236" y="70" text-anchor="end">off-the-shelf</text>
+          <text x="236" y="109" text-anchor="end" class="t-b">tuned</text>
+        </svg>
+        </div>
+      </article>
+      <article class="svc">
+        <span class="svc-n">04</span>
+        <div class="svc-t">
+          <h3>AI inside your product</h3>
+          <p>We add AI features to the web and mobile apps you already have, or build new AI-first products end to end.</p>
+        </div>
+        <div class="svc-v">
+          <svg class="dg" viewBox="0 0 250 160" aria-hidden="true">
+          <rect x="4" y="8" width="176" height="130" rx="6" class="box"/>
+          <path class="ln" d="M4 26 H180"/><circle cx="16" cy="17" r="3" fill="rgba(236,233,224,.3)"/><circle cx="27" cy="17" r="3" fill="rgba(236,233,224,.3)"/>
+          <rect x="16" y="38" width="72" height="6" rx="3" fill="rgba(236,233,224,.22)"/><rect x="16" y="52" width="92" height="6" rx="3" fill="rgba(236,233,224,.16)"/><rect x="16" y="66" width="60" height="6" rx="3" fill="rgba(236,233,224,.16)"/>
+          <rect x="112" y="34" width="60" height="96" rx="4" fill="none" class="am" stroke-width="1.4"/>
+          <text x="120" y="50" class="fa" style="font-size:11px">AI</text>
+          <rect x="120" y="60" width="44" height="5" rx="2.5" fill="rgba(242,179,61,.35)"/><rect x="120" y="71" width="36" height="5" rx="2.5" fill="rgba(242,179,61,.25)"/>
+          <rect x="120" y="112" width="44" height="12" rx="3" fill="none" stroke="rgba(242,179,61,.5)"/>
+          <rect x="194" y="30" width="52" height="108" rx="9" class="box"/>
+          <rect x="200" y="96" width="40" height="34" rx="4" fill="none" class="am" stroke-width="1.4"/>
+          <rect x="206" y="104" width="26" height="4" rx="2" fill="rgba(242,179,61,.35)"/>
+          <rect x="202" y="44" width="30" height="5" rx="2.5" fill="rgba(236,233,224,.2)"/>
+          <text x="92" y="156" text-anchor="middle">web</text><text x="220" y="156" text-anchor="middle">mobile</text>
+        </svg>
+        </div>
+      </article>
+      <article class="svc dgm">
+        <span class="svc-n">05</span>
+        <div class="svc-t">
+          <h3>Data &amp; evaluation pipelines</h3>
+          <p>Clean data in, measurable quality out: datasets, test suites, and evals that tell you whether the AI is actually getting better.</p>
+        </div>
+        <div class="svc-v">
+          <svg class="dg" viewBox="0 0 250 150" aria-hidden="true" id="evalgrid"></svg>
+        </div>
+      </article>
+      <article class="svc">
+        <span class="svc-n">06</span>
+        <div class="svc-t">
+          <h3>AI strategy sprint</h3>
+          <p>Two weeks to find where AI pays off in your business, with a working prototype at the end, not a slide deck.</p>
+        </div>
+        <div class="svc-v">
+          <svg class="dg" viewBox="0 0 250 150" aria-hidden="true">
+          <path class="ln" d="M8 86 H200"/>
+          <g id="days"></g>
+          <path class="ln" d="M8 56 V48 H100 V56"/><text x="54" y="40" text-anchor="middle">week 1</text>
+          <path class="ln" d="M112 56 V48 H200 V56"/><text x="156" y="40" text-anchor="middle">week 2</text>
+          <path class="ln am" d="M200 86 H214"/>
+          <rect x="214" y="66" width="32" height="40" rx="4" fill="none" class="am" stroke-width="1.6"/>
+          <path d="M214 76 H246" class="am" stroke-width="1.2"/>
+          <rect x="220" y="84" width="20" height="4" rx="2" class="fa" opacity=".6"/><rect x="220" y="93" width="14" height="4" rx="2" class="fa" opacity=".4"/>
+          <text x="230" y="126" text-anchor="middle" class="t-b">prototype</text>
+        </svg>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPLES -->
+<section class="sec" id="company" aria-labelledby="pr-h" style="padding-top:0">
+  <div class="wrap">
+    <h2 class="sec-h" id="pr-h">Principles</h2>
+    <ul class="pr-list">
+      <li class="pr">
+        <div><h3>Measured, not guessed</h3><p>Every system ships with evaluations you can read.</p></div>
+        <svg class="mv" viewBox="0 0 184 92" data-mv="score" aria-hidden="true">
+          <text x="0" y="34" class="big" id="mvScore">0.89</text>
+          <text x="0" y="54">eval score</text>
+          <path id="mvSpark" d="" fill="none" stroke="var(--mint)" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M84 84 H184" stroke="rgba(236,233,224,.14)"/>
+        </svg>
+      </li>
+      <li class="pr">
+        <div><h3>Your data stays yours</h3><p>Private deployments, no training on your data without consent.</p></div>
+        <svg class="mv" viewBox="0 0 184 92" data-mv="bound" aria-hidden="true">
+          <rect x="2" y="14" width="180" height="72" rx="6" fill="none" stroke="var(--mint)" stroke-dasharray="4 4" stroke-width="1.2"/>
+          <text x="2" y="9">your environment</text>
+          <g id="mvDots"></g>
+        </svg>
+      </li>
+      <li class="pr">
+        <div><h3>Model-agnostic</h3><p>We pick the model that fits the job, and can switch when a better one arrives.</p></div>
+        <svg class="mv" viewBox="0 0 184 92" data-mv="models" aria-hidden="true">
+          <rect x="0" y="32" width="64" height="28" rx="4" fill="none" stroke="rgba(236,233,224,.3)"/><text x="32" y="50" text-anchor="middle">your system</text>
+          <path id="mvLink" d="M64 46 C100 46 96 16 124 16" fill="none" stroke="var(--amber)" stroke-width="1.8" style="transition:d .6s cubic-bezier(.4,.1,.2,1)"/>
+          <g id="mvSlots"></g>
+        </svg>
+      </li>
+      <li class="pr">
+        <div><h3>People in the loop</h3><p>The AI handles volume; your team keeps the judgement calls.</p></div>
+        <svg class="mv" viewBox="0 0 184 92" data-mv="loop" aria-hidden="true">
+          <path d="M4 66 H180" stroke="rgba(236,233,224,.18)"/>
+          <circle cx="92" cy="14" r="5" fill="none" stroke="var(--amber)" stroke-width="1.4"/>
+          <path d="M83 30 C83 22 101 22 101 30" fill="none" stroke="var(--amber)" stroke-width="1.4"/>
+          <text x="112" y="24">a person</text>
+          <g id="mvItems"></g>
+        </svg>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process" aria-labelledby="pc-h">
+  <div class="process-pin">
+    <div class="wrap">
+      <h2 class="sec-h" id="pc-h">How we work</h2>
+      <div class="steps-wrap" id="stepsWrap">
+        <svg class="parcs" id="parcs" aria-hidden="true"></svg>
+        <ol class="steps">
+          <li class="step"><span class="num">1</span><h3 class="sw">Discover</h3><p>We map the workflow, the data, and what &ldquo;good&rdquo; looks like.</p></li>
+          <li class="step"><span class="num">2</span><h3 class="sw">Prototype</h3><p>A working demo on your real data within weeks.</p></li>
+          <li class="step"><span class="num">3</span><h3 class="sw">Evaluate</h3><p>We measure accuracy, cost, and speed against the bar we agreed.</p></li>
+          <li class="step"><span class="num">4</span><h3 class="sw">Build</h3><p>Production-grade integration, security, and monitoring.</p></li>
+          <li class="step"><span class="num">5</span><h3 class="sw">Run &amp; improve</h3><p>We watch it in production and keep making it better.</p></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="sec" id="work" aria-labelledby="wk-h">
+  <div class="wrap">
+    <h2 class="sec-h" id="wk-h">What we build</h2>
+    <p class="sec-note">Examples of the systems we build. The traces below are illustrations, not client work.</p>
+    <div class="work-list">
+      <article class="wk dgm">
+        <div class="wk-t">
+          <span class="tag">Example</span>
+          <h3>Support agent</h3>
+          <p>Resolves routine tickets end to end and escalates the rest with a summary.</p>
+        </div>
+        <div class="wk-v">
+        <ol class="trace rv">
+          <li style="--d:0"><span class="dot a"></span><span class="head">Ticket #1042: refund request</span><span class="st a">received</span></li>
+          <li style="--d:1"><span class="dot"></span><span class="sub">Checked order</span><span class="st">done</span></li>
+          <li style="--d:2"><span class="dot"></span><span class="sub">Refund issued</span><span class="st">done</span></li>
+          <li style="--d:3"><span class="dot"></span><span class="sub">Customer notified</span><span class="st">resolved</span></li>
+          <li style="--d:4"><span class="dot a"></span><span class="head">Ticket #1043: billing dispute</span><span class="st a">received</span></li>
+          <li style="--d:5"><span class="dot r"></span><span class="sub">Escalated to a person, with a summary</span><span class="st a">handed off</span></li>
+        </ol>
+        </div>
+      </article>
+      <article class="wk dgm">
+        <div class="wk-t">
+          <span class="tag">Example</span>
+          <h3>Document intelligence</h3>
+          <p>Reads contracts, invoices, and forms and turns them into structured data.</p>
+        </div>
+        <div class="wk-v">
+        <div class="pipe"><span class="chip">invoice.pdf</span><span class="wire"></span><span class="chip m">14 fields extracted</span></div>
+        <div class="fields">
+          <span>vendor <b>matched</b></span><span>invoice date <b>ok</b></span>
+          <span>line items <b>ok</b></span><span>currency <b>ok</b></span>
+          <span class="flag">total <b>check</b></span><span class="flag">due date <b>check</b></span>
+        </div>
+        <span class="chip r">2 flagged for review</span>
+        </div>
+      </article>
+      <article class="wk dgm">
+        <div class="wk-t">
+          <span class="tag">Example</span>
+          <h3>Sales copilot</h3>
+          <p>Researches accounts, drafts outreach, and keeps the CRM current.</p>
+        </div>
+        <div class="wk-v">
+        <ol class="steps3 rv">
+          <li style="--d:0">Account researched<span>public site, past notes</span></li>
+          <li style="--d:1">Outreach drafted<span>ready for your review</span></li>
+          <li style="--d:2">CRM updated<span>contact and next step</span></li>
+        </ol>
+        </div>
+      </article>
+      <article class="wk dgm">
+        <div class="wk-t">
+          <span class="tag">Example</span>
+          <h3>Internal knowledge assistant</h3>
+          <p>Answers staff questions from policies, handbooks, and past tickets.</p>
+        </div>
+        <div class="wk-v">
+        <div class="qa">
+          <div class="q">Can I carry over unused leave?</div>
+          <div class="a">Yes, up to the limit set in the leave policy. Requests above it go to your manager.
+            <div class="srcs"><span class="chip m">handbook.pdf</span><span class="chip m">leave policy</span><span class="chip">past ticket</span></div>
+          </div>
+        </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact" aria-labelledby="cta-h">
+  <div class="wrap">
+    <div class="cta-stage" id="ctaStage">
+      <h2 class="cta-h" id="cta-h"><span class="ctok">What</span> <span class="ctok">should</span> <span class="ctok">AI</span> <span class="ctok">do</span> <span class="ctok">for</span> <span class="ctok">your</span> <span class="ctok">business?</span></h2>
+      <span class="caret" id="ctaCaret" aria-hidden="true"></span>
+    </div>
+    <p>Tell us the workflow. We&apos;ll come back with an honest view of what AI can do there, what it will cost, and how we&apos;d measure it.</p>
+    <div class="actions on" style="opacity:1;transform:none">
+      <a class="btn btn-p" href="#contact">Book a discovery call</a>
+      <a class="btn btn-s" href="mailto:hello@craftsai.example">Email us</a>
+    </div>
+    <span class="mail">or write to <a href="mailto:hello@craftsai.example">hello@craftsai.example</a></span>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <a class="brand" href="#top">CraftsAI</a>
+      <div>AI development services.</div>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" aria-pressed="true" lang="en">EN</button>
+      <button type="button" aria-pressed="false" lang="bn">বাং</button>
+    </div>
+    <div class="foot-bot">
+      <nav aria-label="Footer">
+        <ul>
+          <li><a href="#services">Services</a></li><li><a href="#work">Work</a></li><li><a href="#process">Process</a></li>
+          <li><a href="#company">Company</a></li><li><a href="#careers">Careers</a></li><li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <span>&copy; 2026 CraftsAI</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const sleep = ms => new Promise(res => setTimeout(res, ms));
+const NS = 'http://www.w3.org/2000/svg';
+const svgEl = (tag, attrs, parent) => {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+};
+const f2 = n => n.toFixed(2);
+
+/* ---------- token stream band ---------- */
+const STREAM = ['AI', 'agents', '&', 'automation', 'assistants', 'on', 'your', 'data', 'custom', 'models', '&', 'fine-tuning',
+  'AI', 'inside', 'your', 'product', 'data', '&', 'evaluation', 'pipelines', 'AI', 'strategy', 'sprint'];
+const band = $('#band');
+[...STREAM, ...STREAM].forEach(t => { const s = document.createElement('span'); s.textContent = t; band.appendChild(s); });
+
+/* ---------- hero: generation + attention ---------- */
+const stage = $('#stage'), h1 = $('#headline'), toks = $$('.tok', h1), arcs = $('#arcs');
+const cands = $('#cands'), caret = $('#caret'), lede = $('#lede'), actions = $('#actions'), hint = $('#hint');
+// Hand-authored attention weights: row = query token, column = key token (rows sum to 1, self excluded).
+const W = [
+  [0, .34, .18, .04, .12, .06, .26],
+  [.30, 0, .38, .05, .07, .04, .16],
+  [.10, .31, 0, .14, .21, .06, .18],
+  [.03, .06, .52, 0, .27, .04, .08],
+  [.14, .09, .29, .12, 0, .08, .28],
+  [.04, .07, .12, .03, .22, 0, .52],
+  [.11, .24, .19, .02, .21, .23, 0]
+];
+const CANDS = [
+  [['We', .71], ['Our', .12], ['You', .09], ['AI', .05]],
+  [['build', .58], ['make', .19], ['ship', .14], ['design', .06]],
+  [['AI', .66], ['software', .17], ['agents', .11], ['tools', .04]],
+  [['that', .83], ['which', .09], ['to', .05]],
+  [['does', .54], ['can', .22], ['will', .13], ['gets', .08]],
+  [['real', .62], ['useful', .21], ['actual', .11], ['the', .04]],
+  [['work.', .91], ['things.', .04], ['jobs.', .03]]
+];
+const THINK = [620, 460, 640, 380, 540, 1350, 600];
+
+let ready = false, drawnOnce = false, qIdx = -1, pinned = false, gBase = null, gQ = null;
+
+function metrics() {
+  const fs = parseFloat(getComputedStyle(h1).fontSize);
+  const cs = getComputedStyle(stage);
+  return { fs, padTop: parseFloat(cs.paddingTop), padBot: parseFloat(cs.paddingBottom) };
+}
+// Token geometry from offset* (ignores the entrance transform). The headline has no descenders.
+function tokBox(t, fs) {
+  const x = t.offsetLeft + h1.offsetLeft, y = t.offsetTop + h1.offsetTop, w = t.offsetWidth;
+  return { cx: x + w / 2, left: x, capTop: y + fs * .2, base: y + fs * .86, rowTop: y };
+}
+function boxes() {
+  const { fs } = metrics();
+  const B = toks.map(t => tokBox(t, fs));
+  let line = -1, last = -1e9;
+  B.map((b, i) => [b, i]).sort((a, c) => a[0].rowTop - c[0].rowTop).forEach(([b]) => {
+    if (b.rowTop - last > fs * .5) { line++; last = b.rowTop; }
+    b.line = line;
+  });
+  return { B, lines: line + 1 };
+}
+function geom(a, b, lines, m) {
+  const k = m.fs * .07;
+  if (a.line === b.line) {
+    const mx = (a.cx + b.cx) / 2, dx = Math.abs(b.cx - a.cx);
+    if (a.line === lines - 1 && lines > 1) {
+      const y = a.base + k, h = Math.min(m.padBot * .8, 8 + dx * .28);
+      return { d: `M${f2(a.cx)} ${f2(y)}Q${f2(mx)} ${f2(y + 2 * h)} ${f2(b.cx)} ${f2(y)}`, mx, my: y + h, below: true };
+    }
+    const room = a.line === 0 ? m.padTop * .86 : m.fs * .26;
+    const y = a.capTop - k, h = Math.min(room, 8 + dx * .3);
+    return { d: `M${f2(a.cx)} ${f2(y)}Q${f2(mx)} ${f2(y - 2 * h)} ${f2(b.cx)} ${f2(y)}`, mx, my: y - h };
+  }
+  const u = a.line < b.line ? a : b, l = a.line < b.line ? b : a;
+  const y1 = u.base + k, y2 = l.capTop - k, g = Math.max(6, y2 - y1);
+  return {
+    d: `M${f2(u.cx)} ${f2(y1)}C${f2(u.cx)} ${f2(y1 + g * .95)} ${f2(l.cx)} ${f2(y2 - g * .95)} ${f2(l.cx)} ${f2(y2)}`,
+    mx: (u.cx + l.cx) / 2, my: (y1 + y2) / 2, cross: true
+  };
+}
+function buildArcs(animate) {
+  arcs.innerHTML = '';
+  const { B, lines } = boxes(), m = metrics();
+  gBase = svgEl('g', { class: 'g-base' }, arcs);
+  gQ = svgEl('g', { class: 'g-q' }, arcs);
+  let n = 0;
+  for (let i = 0; i < toks.length; i++) for (let j = i + 1; j < toks.length; j++) {
+    const w = (W[i][j] + W[j][i]) / 2;
+    if (w < .1) continue;
+    const g = geom(B[i], B[j], lines, m);
+    const p = svgEl('path', {
+      d: g.d, class: 'arc base',
+      'stroke-width': f2(.7 + w * 5), 'stroke-opacity': f2(Math.min(.9, (g.cross ? .1 : .16) + w * 1.5))
+    }, gBase);
+    p.style.animationDelay = `${-n * .8}s`;
+    if (animate) {
+      const len = p.getTotalLength();
+      p.style.strokeDasharray = `${len} ${len}`;
+      p.style.strokeDashoffset = `${len}`;
+      p.classList.add('draw');
+      const delay = 60 + n * 120;
+      setTimeout(() => { p.style.strokeDashoffset = '0'; }, delay);
+    }
+    n++;
+  }
+  if (animate) setTimeout(() => arcs.classList.add('breathing'), 60 + n * 120 + 1300);
+  if (qIdx >= 0) drawQuery(qIdx);
+}
+function drawQuery(i) {
+  if (!gQ) return;
+  gQ.innerHTML = '';
+  if (i < 0) return;
+  const { B, lines } = boxes(), m = metrics();
+  const labels = [];
+  for (let j = 0; j < toks.length; j++) {
+    if (j === i) continue;
+    const w = W[i][j], g = geom(B[i], B[j], lines, m);
+    const p = svgEl('path', { d: g.d, class: 'arc qa', stroke: '#F2B33D', 'stroke-width': f2(1.2 + w * 9), 'stroke-opacity': f2(Math.min(1, .7 + w * .8)) }, gQ);
+    p.style.opacity = '1';
+    labels.push([g, w]);
+  }
+  const small = m.fs < 80;
+  labels.forEach(([g, w]) => {
+    if (small && w < .05) return;
+    const lg = svgEl('g', { class: 'wlg' }, gQ);
+    const pill = svgEl('rect', { rx: 10, ry: 10, height: 20, fill: '#0E2621', stroke: 'rgba(242,179,61,.55)', 'stroke-width': 1 }, lg);
+    const t = svgEl('text', {
+      x: f2(g.mx), y: f2(g.my), 'text-anchor': 'middle', 'dominant-baseline': 'central',
+      'font-family': "'Schibsted Grotesk', system-ui, sans-serif", 'font-size': 13, 'font-weight': 600, fill: '#ECE9E0'
+    }, lg);
+    t.style.fontVariantNumeric = 'tabular-nums';
+    t.textContent = f2(w);
+    let tw = 30;
+    try { tw = t.getBBox().width || tw; } catch (e) { /* not rendered yet */ }
+    pill.setAttribute('x', f2(g.mx - tw / 2 - 8));
+    pill.setAttribute('y', f2(g.my - 10));
+    pill.setAttribute('width', f2(tw + 16));
+  });
+}
+function setQuery(i) {
+  if (!ready) return;
+  qIdx = i;
+  h1.classList.toggle('querying', i >= 0);
+  arcs.classList.toggle('querying', i >= 0);
+  if (gBase) gBase.style.opacity = i >= 0 ? '.06' : '';
+  toks.forEach((t, j) => {
+    t.classList.toggle('q', j === i);
+    t.style.opacity = i >= 0 && j !== i ? f2(.22 + Math.min(1, W[i][j] * 1.9) * .78) : '';
+  });
+  drawQuery(i);
+}
+toks.forEach((t, i) => {
+  t.addEventListener('mouseenter', () => { if (!pinned) setQuery(i); });
+  t.addEventListener('mouseleave', () => { if (!pinned) setQuery(-1); });
+  t.addEventListener('focus', () => setQuery(i));
+  t.addEventListener('blur', () => { if (!pinned) setQuery(-1); });
+  t.addEventListener('click', e => {
+    e.stopPropagation();
+    if (pinned && qIdx === i) { pinned = false; setQuery(-1); return; }
+    pinned = true; setQuery(i);
+  });
+});
+document.addEventListener('pointerdown', e => {
+  if (pinned && !h1.contains(e.target)) { pinned = false; setQuery(-1); }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && qIdx >= 0) { pinned = false; setQuery(-1); } });
+
+function placeCaret(c, t, fs) {
+  const b = tokBox(t, fs);
+  c.style.left = `${b.left - fs * .06}px`;
+  c.style.top = `${b.capTop}px`;
+  c.style.height = `${b.base - b.capTop}px`;
+  return b;
+}
+async function think(i, b, fs) {
+  const rows = CANDS[i].map(([w, p]) => {
+    const r = document.createElement('div');
+    r.className = 'cand';
+    r.innerHTML = '<span class="w"></span><span class="bar"><i></i></span><span class="p"></span>';
+    r.firstChild.textContent = w;
+    cands.appendChild(r);
+    return { r, p, bar: r.querySelector('i'), num: r.querySelector('.p') };
+  });
+  const colW = cands.offsetWidth || 196;
+  cands.style.left = `${Math.max(0, Math.min(b.left, stage.clientWidth - colW))}px`;
+  cands.style.top = `${b.base + fs * .16}px`;
+  rows.forEach((o, k) => setTimeout(() => o.r.classList.add('in'), 40 + k * 55));
+  const T = THINK[i], t0 = performance.now();
+  // Probabilities start noisy and converge; the lead flickers until it settles.
+  await new Promise(res => {
+    const step = () => {
+      const k = Math.min(1, (performance.now() - t0) / T), noise = Math.pow(1 - k, 1.4);
+      let best = 0, bestV = -1;
+      rows.forEach((o, idx) => {
+        const v = Math.max(.01, Math.min(.99, o.p + (Math.random() - .5) * .5 * noise + (idx === 1 ? .18 * noise : 0)));
+        o.bar.style.width = `${v * 100}%`;
+        o.num.textContent = f2(v);
+        if (v > bestV) { bestV = v; best = idx; }
+      });
+      rows.forEach((o, idx) => o.r.classList.toggle('lead', idx === best));
+      if (k < 1) setTimeout(step, 70 + Math.random() * 50); else res();
+    };
+    step();
+  });
+  rows.forEach((o, idx) => { o.bar.style.width = `${o.p * 100}%`; o.num.textContent = f2(o.p); o.r.classList.toggle('lead', idx === 0); });
+  await sleep(i === 5 ? 260 : 120);
+  return rows;
+}
+async function commit(rows, t) {
+  rows.forEach((o, idx) => o.r.classList.add(idx === 0 ? 'pick' : 'drop'));
+  t.classList.add('on');
+  await sleep(200);
+  setTimeout(() => rows.forEach(o => o.r.remove()), 320);
+}
+async function streamLede() {
+  const words = lede.textContent.trim().split(/\s+/);
+  lede.textContent = '';
+  const spans = words.map((w, i) => {
+    const s = document.createElement('span');
+    s.className = 'lw'; s.textContent = w;
+    lede.appendChild(s);
+    if (i < words.length - 1) lede.appendChild(document.createTextNode(' '));
+    return s;
+  });
+  lede.classList.add('streaming');
+  for (let i = 0; i < spans.length; i++) {
+    spans[i].classList.add('on');
+    await sleep(/[,.:—]$/.test(words[i]) || words[i] === '—' ? 150 : 22 + Math.random() * 30);
+  }
+}
+function finishHeroStatic() {
+  toks.forEach(t => t.classList.add('on'));
+  lede.classList.add('streaming');
+  actions.classList.add('on');
+  hint.classList.add('on');
+  ready = true;
+  buildArcs(false);
+  drawnOnce = true;
+}
+async function runHero() {
+  const { fs } = metrics();
+  await sleep(450);
+  caret.classList.add('on');
+  for (let i = 0; i < toks.length; i++) {
+    placeCaret(caret, toks[i], fs);
+    await sleep(i === 0 ? 380 : 90);
+    const rows = await think(i, tokBox(toks[i], fs), fs);
+    await commit(rows, toks[i]);
+    await sleep(60 + Math.random() * 120);
+  }
+  const lastB = tokBox(toks[toks.length - 1], fs);
+  caret.style.left = `${lastB.left + toks[toks.length - 1].offsetWidth + fs * .04}px`;
+  caret.classList.add('blink');
+  await sleep(420);
+  ready = true;
+  buildArcs(true);
+  drawnOnce = true;
+  await sleep(700);
+  caret.classList.remove('on', 'blink');
+  await streamLede();
+  actions.classList.add('on');
+  hint.classList.add('on');
+}
+const startHero = () => (RM ? finishHeroStatic() : runHero());
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(startHero);
+
+let rsT = 0;
+window.addEventListener('resize', () => {
+  clearTimeout(rsT);
+  rsT = setTimeout(() => { if (drawnOnce) buildArcs(false); drawProcess(); }, 140);
+});
+
+/* ---------- services: generated diagram parts ---------- */
+const eg = $('#evalgrid');
+const FAIL = new Set([7, 18, 33, 41]);
+for (let r = 0; r < 5; r++) for (let c = 0; c < 10; c++) {
+  const i = r * 10 + c;
+  svgEl('rect', {
+    x: 6 + c * 24, y: 8 + r * 20, width: 20, height: 15, rx: 2,
+    fill: FAIL.has(i) ? 'rgba(232,122,140,.75)' : 'rgba(127,214,181,.22)',
+    stroke: FAIL.has(i) ? 'none' : 'rgba(127,214,181,.45)'
+  }, eg);
+}
+svgEl('rect', { x: 3, y: 4, width: 26, height: 103, rx: 3, fill: 'none', stroke: 'var(--amber)', 'stroke-width': 1.4, class: 'scan' }, eg);
+svgEl('circle', { cx: 10, cy: 134, r: 4, fill: 'var(--mint)' }, eg);
+svgEl('text', { x: 20, y: 138 }, eg).textContent = '46 pass';
+svgEl('circle', { cx: 90, cy: 134, r: 4, fill: 'var(--rose)' }, eg);
+svgEl('text', { x: 100, y: 138 }, eg).textContent = '4 fail';
+svgEl('text', { x: 244, y: 138, 'text-anchor': 'end', class: 't-b' }, eg).textContent = 'test suite';
+const days = $('#days');
+[8, 31, 54, 77, 100, 112, 134, 156, 178, 200].forEach((x, i) => {
+  svgEl('circle', { cx: x, cy: 86, r: 3.2, fill: i === 9 ? 'var(--amber)' : 'rgba(236,233,224,.4)' }, days);
+});
+
+/* ---------- visibility ---------- */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.target.classList.contains('wk')) { if (e.isIntersecting) { e.target.classList.add('vis'); io.unobserve(e.target); } return; }
+    e.target.classList.toggle('vis', e.isIntersecting);
+  });
+}, { threshold: .25 });
+$$('.dgm').forEach(n => io.observe(n));
+
+/* ---------- principles: micro-visuals, live only while visible ---------- */
+const live = new Set();
+const MV = {};
+{ // measured: eval score ticking within a band
+  const num = $('#mvScore'), spark = $('#mvSpark');
+  const vals = Array.from({ length: 24 }, (_, i) => .885 + Math.sin(i * .9) * .015);
+  let acc = 0;
+  const draw = () => {
+    spark.setAttribute('d', vals.map((v, i) => `${i ? 'L' : 'M'}${f2(84 + i * (100 / 23))} ${f2(80 - (v - .84) / .1 * 60)}`).join(''));
+    num.textContent = f2(vals[vals.length - 1]);
+  };
+  MV.score = dt => {
+    acc += dt;
+    if (acc < 700) return;
+    acc = 0;
+    const last = vals[vals.length - 1];
+    vals.push(Math.max(.86, Math.min(.91, last + (Math.random() - .45) * .02)));
+    vals.shift();
+    draw();
+  };
+  draw();
+}
+{ // data stays yours: particles bounded by the environment
+  const g = $('#mvDots');
+  const dots = Array.from({ length: 7 }, (_, i) => ({
+    x: 20 + i * 22, y: 30 + (i * 17) % 44, vx: (i % 2 ? 1 : -1) * (14 + i * 3), vy: (i % 3 ? 1 : -1) * (10 + i * 2),
+    el: svgEl('circle', { r: i === 3 ? 3.4 : 2.6, fill: i === 3 ? 'var(--amber)' : 'var(--mint)' }, g)
+  }));
+  const place = () => dots.forEach(d => { d.el.setAttribute('cx', f2(d.x)); d.el.setAttribute('cy', f2(d.y)); });
+  MV.bound = dt => {
+    const s = dt / 1000;
+    dots.forEach(d => {
+      d.x += d.vx * s; d.y += d.vy * s;
+      if (d.x < 8 || d.x > 176) { d.vx *= -1; d.x = Math.max(8, Math.min(176, d.x)); }
+      if (d.y < 20 || d.y > 80) { d.vy *= -1; d.y = Math.max(20, Math.min(80, d.y)); }
+    });
+    place();
+  };
+  place();
+}
+{ // model-agnostic: the socket switches between models
+  const g = $('#mvSlots'), link = $('#mvLink');
+  const ys = [16, 46, 76];
+  const slots = ys.map((y, i) => {
+    const r = svgEl('rect', { x: 124, y: y - 11, width: 60, height: 22, rx: 4, fill: 'none', stroke: 'rgba(236,233,224,.25)' }, g);
+    svgEl('text', { x: 154, y: y + 4, 'text-anchor': 'middle' }, g).textContent = `model ${'ABC'[i]}`;
+    return r;
+  });
+  let cur = 0, acc = 0;
+  const set = i => {
+    cur = i;
+    link.setAttribute('d', `M64 46 C100 46 96 ${ys[i]} 124 ${ys[i]}`);
+    slots.forEach((r, k) => r.setAttribute('stroke', k === i ? 'var(--amber)' : 'rgba(236,233,224,.25)'));
+  };
+  MV.models = dt => { acc += dt; if (acc > 2400) { acc = 0; set((cur + 1) % 3); } };
+  set(0);
+}
+{ // people in the loop: most items flow through, some go to a person
+  const g = $('#mvItems');
+  const items = Array.from({ length: 8 }, (_, i) => ({
+    x: 4 + i * 23, flag: i % 4 === 1,
+    el: svgEl('rect', { width: 6, height: 6, rx: 1.5, fill: i % 4 === 1 ? 'var(--amber)' : 'var(--mint)' }, g)
+  }));
+  const place = () => items.forEach(it => {
+    let y = 66;
+    if (it.flag && it.x > 60 && it.x < 124) y = 66 - Math.sin(Math.PI * (it.x - 60) / 64) * 40;
+    it.el.setAttribute('x', f2(it.x - 3)); it.el.setAttribute('y', f2(y - 3));
+  });
+  MV.loop = dt => {
+    items.forEach(it => {
+      const nearPerson = it.flag && Math.abs(it.x - 92) < 6;
+      it.x += (nearPerson ? 6 : 22) * dt / 1000;
+      if (it.x > 184) it.x -= 184;
+    });
+    place();
+  };
+  place();
+}
+let lastT = 0, rafOn = false;
+const loop = t => {
+  const dt = Math.min(64, t - (lastT || t));
+  lastT = t;
+  live.forEach(k => MV[k](dt));
+  if (live.size) requestAnimationFrame(loop); else { rafOn = false; lastT = 0; }
+};
+if (!RM) {
+  const mio = new IntersectionObserver(entries => {
+    entries.forEach(e => { const k = e.target.dataset.mv; if (e.isIntersecting) live.add(k); else live.delete(k); });
+    if (live.size && !rafOn) { rafOn = true; requestAnimationFrame(loop); }
+  });
+  $$('[data-mv]').forEach(n => mio.observe(n));
+}
+
+/* ---------- process: active step follows scroll ---------- */
+const proc = $('#process'), steps = $$('.step'), pw = $('#stepsWrap'), parcs = $('#parcs');
+let active = -1;
+const horiz = () => window.innerWidth >= 900 && !RM;
+function drawProcess() {
+  parcs.innerHTML = '';
+  const wr = pw.getBoundingClientRect(), H = window.innerWidth >= 900;
+  const pts = steps.map(s => {
+    const h = $('.sw', s).getBoundingClientRect(), li = s.getBoundingClientRect();
+    return H ? { x: h.left - wr.left + Math.min(h.width / 2, 60), y: li.top - wr.top - 16 }
+             : { x: li.left - wr.left - 26, y: h.top - wr.top + h.height / 2 };
+  });
+  const path = (a, b, lift) => {
+    if (H) { const h = Math.min(126, lift + Math.abs(b.x - a.x) * .26); return `M${f2(a.x)} ${f2(a.y)}Q${f2((a.x + b.x) / 2)} ${f2(a.y - 2 * h)} ${f2(b.x)} ${f2(b.y)}`; }
+    const bulge = Math.min(a.x - 4, lift * .6 + Math.abs(b.y - a.y) * .08);
+    return `M${f2(a.x)} ${f2(a.y)}Q${f2(a.x - 2 * bulge)} ${f2((a.y + b.y) / 2)} ${f2(b.x)} ${f2(b.y)}`;
+  };
+  for (let i = 0; i < pts.length - 1; i++) {
+    svgEl('path', { d: path(pts[i], pts[i + 1], 14), class: 'parc', stroke: 'var(--bone)', 'stroke-opacity': i < active ? .34 : .12, 'stroke-width': 1 }, parcs);
+  }
+  const a = Math.max(0, active);
+  const WTS = [.52, .24, .14, .1];
+  for (let j = a - 1; j >= 0; j--) {
+    const w = WTS[a - 1 - j] || .08;
+    svgEl('path', { d: path(pts[a], pts[j], 26 + (a - j) * 10), class: 'parc', stroke: 'var(--amber)', 'stroke-opacity': f2(.3 + w), 'stroke-width': f2(1 + w * 4) }, parcs);
+  }
+  pts.forEach((p, i) => svgEl('circle', {
+    cx: f2(p.x), cy: f2(p.y), r: i === a ? 4.5 : 3,
+    fill: i === a ? 'var(--amber)' : i < a ? 'var(--bone)' : 'rgba(236,233,224,.25)'
+  }, parcs));
+}
+function updateProcess() {
+  let a;
+  if (horiz()) {
+    const r = proc.getBoundingClientRect(), span = r.height - window.innerHeight;
+    const p = Math.min(1, Math.max(0, -r.top / Math.max(1, span)));
+    a = Math.min(steps.length - 1, Math.floor(p * steps.length * .999));
+  } else {
+    const mid = window.innerHeight * .55;
+    let bd = Infinity;
+    a = 0;
+    steps.forEach((s, i) => { const r = s.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - mid); if (d < bd) { bd = d; a = i; } });
+  }
+  if (a === active) return;
+  active = a;
+  steps.forEach((s, i) => {
+    s.classList.toggle('is-active', i === a);
+    s.classList.toggle('is-past', i < a);
+    if (i === a) s.setAttribute('aria-current', 'step'); else s.removeAttribute('aria-current');
+  });
+  drawProcess();
+}
+let scT = false;
+window.addEventListener('scroll', () => {
+  if (scT) return;
+  scT = true;
+  requestAnimationFrame(() => { scT = false; updateProcess(); });
+}, { passive: true });
+updateProcess();
+drawProcess();
+(document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(drawProcess);
+
+/* ---------- CTA: a quieter echo of the hero ---------- */
+const ctoks = $$('.ctok'), ctaCaret = $('#ctaCaret'), ctaStage = $('#ctaStage'), ctaH = $('#cta-h');
+if (RM) ctoks.forEach(t => t.classList.add('on'));
+else {
+  const PACE = [240, 190, 300, 170, 150, 190, 560];
+  let ctaStarted = false;
+  const inView = () => { const r = ctaStage.getBoundingClientRect(); return r.bottom > 0 && r.top < window.innerHeight; };
+  const cio = new IntersectionObserver(async entries => {
+    if (ctaStarted || !entries.some(e => e.isIntersecting)) return;
+    ctaStarted = true;
+    cio.disconnect();
+    const fs = parseFloat(getComputedStyle(ctaH).fontSize);
+    const box = t => ({ x: t.offsetLeft, y: t.offsetTop });
+    ctaCaret.classList.add('on');
+    for (let i = 0; i < ctoks.length; i++) {
+      const b = box(ctoks[i]);
+      ctaCaret.style.left = `${b.x - fs * .06}px`;
+      ctaCaret.style.top = `${b.y + fs * .2}px`;
+      ctaCaret.style.height = `${fs * .68}px`;
+      await sleep(PACE[i]);
+      ctoks[i].classList.add('on');
+      await sleep(70);
+    }
+    const last = ctoks[ctoks.length - 1], lb = box(last);
+    ctaCaret.style.left = `${lb.x + last.offsetWidth + fs * .05}px`;
+    ctaCaret.classList.add('blink');
+    await sleep(2600);
+    ctaCaret.classList.remove('on', 'blink');
+  }, { threshold: .2 });
+  cio.observe(ctaStage);
+  // Fallback: if it is on screen after 4s and the observer never fired, just show it.
+  setTimeout(() => {
+    if (ctaStarted || !inView()) return;
+    ctaStarted = true;
+    cio.disconnect();
+    ctoks.forEach(t => t.classList.add('on'));
+  }, 4000);
+}
+
+/* ---------- language toggle (visual only in this mock) ---------- */
+$$('.lang button').forEach(b => b.addEventListener('click', () => {
+  $$('.lang button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+}));
+})();
+</script>
+</body>
+</html>

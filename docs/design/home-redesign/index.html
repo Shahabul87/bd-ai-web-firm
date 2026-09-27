@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CraftsAI home directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#F2F1EE; --ink:#1A1A22; --muted:#5E5E6B; --line:#D7D5CF; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:"Bricolage Grotesque",system-ui,sans-serif; }
+  main { max-width:1180px; margin:0 auto; padding:56px 16px 80px; }
+  h1 { font-size:clamp(32px,5vw,56px); line-height:1.05; margin:0 0 12px; letter-spacing:-0.02em; }
+  p.lede { color:var(--muted); max-width:60ch; font-size:18px; line-height:1.5; margin:0 0 40px; }
+  .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  @media (max-width:880px){ .grid{ grid-template-columns:1fr; } }
+  a.card { display:flex; flex-direction:column; text-decoration:none; color:inherit; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#fff; transition:transform .25s ease, border-color .25s; }
+  a.card:hover { transform:translateY(-3px); border-color:var(--ink); }
+  a.card:focus-visible { outline:3px solid var(--ink); outline-offset:3px; }
+  .swatch { height:170px; position:relative; }
+  .d .swatch { background:#D5D7D3; }
+  .d .swatch::before { content:""; position:absolute; left:24px; top:24px; width:150px; height:110px; border-radius:8px; background:#101412; box-shadow:inset 0 0 0 6px #232427; }
+  .d .swatch::after { content:""; position:absolute; left:120px; right:30px; top:40px; height:110px; border:4px solid #FFC400; border-top:0; border-radius:0 0 60% 60%; }
+  .e .swatch { background:#F3F4F8; }
+  .e .swatch::before { content:"We build AI"; position:absolute; left:20px; top:50px; font:400 44px/1 Georgia,serif; color:#151827; }
+  .e .swatch::after { content:""; position:absolute; left:110px; top:30px; width:110px; height:110px; border-radius:50%; background:#070B12; box-shadow:0 0 0 2px #58E6F0, 0 0 20px #58E6F0; }
+  .f .swatch { background:radial-gradient(circle at 50% 55%,#FFC46B 0 3px,transparent 4px), radial-gradient(circle,#EAF0FF 1px,transparent 1.5px) 0 0/11px 11px, #0A0820; }
+  .a .swatch { background:#0E2621; }
+  .a .swatch::before { content:"We build AI that"; position:absolute; left:20px; bottom:30px; font:400 30px/1 Georgia,serif; color:#ECE9E0; }
+  .a .swatch::after { content:""; position:absolute; left:40px; right:60px; top:40px; height:70px; border:2px solid #F2B33D; border-bottom:0; border-radius:50% 50% 0 0; opacity:.8; }
+  .b .swatch { background:radial-gradient(circle,#fff 1.2px,transparent 1.6px) 0 0/14px 14px, #1F2BD6; }
+  .c .swatch { background:#ECEAF4; }
+  .c .swatch::before { content:"Build me an AI that reads invoices_"; position:absolute; left:20px; top:22px; font-weight:700; font-size:22px; color:#1D1638; }
+  .c .swatch::after { content:""; position:absolute; left:20px; right:20px; bottom:18px; height:90px; border-radius:10px; background:linear-gradient(#fff,#fff) 12px 12px/40% 14px no-repeat, linear-gradient(#C9F03C,#C9F03C) 12px 36px/25% 40px no-repeat, linear-gradient(#5B3FE0,#5B3FE0) 34% 36px/25% 40px no-repeat, #fff; box-shadow:inset 0 0 0 1px #d8d4e8; }
+  .body { padding:20px 20px 24px; }
+  .body h2 { margin:0 0 8px; font-size:24px; }
+  .body p { margin:0; color:var(--muted); line-height:1.5; }
+  .note { margin-top:40px; color:var(--muted); font-size:15px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Round two: four directions for the CraftsAI home page</h1>
+  <p class="lede">Each one opens with a different idea of what an AI studio is. Open each, watch the first ten seconds, move your mouse over the hero, then scroll. Tell me which one to build (or which parts to combine).</p>
+  <div class="grid">
+    <a class="card d" href="mock-d-rack.html"><div class="swatch" aria-hidden="true"></div><div class="body"><h2>D. The Rack</h2><p>The whole page is one piece of AI hardware. It powers on, modules slot in, and you drag patch cables between services while the screen describes the system you just wired. Examples are cartridges you plug in.</p></div></a>
+    <a class="card e" href="mock-e-xray.html"><div class="swatch" aria-hidden="true"></div><div class="body"><h2>E. X-Ray</h2><p>Every part of the page exists twice: what a person reads, and what the AI sees. A scan bar reads the page first, then your cursor becomes a lens into the machine layer. The button at bottom right flips the whole page.</p></div></a>
+    <a class="card f" href="mock-f-descent.html"><div class="swatch" aria-hidden="true"></div><div class="body"><h2>F. The Descent</h2><p>No sections. The headline forms out of light, and scrolling flies you through the layers of a neural network, one chapter per layer, ending at the bright output core.</p></div></a>
+    <a class="card a" href="mock-a-attention.html"><div class="swatch" aria-hidden="true"></div><div class="body"><h2>A. Attention</h2><p>A model writes the headline in front of you, token by token. Then attention arcs link the words; hover any word to see what it attends to.</p></div></a>
+  </div>
+  <p class="note">Earlier directions B (Swarm) and C (Live Build) are still in this folder for reference, but you rejected them as generic.</p>
+  <p class="note">These are static mockups for choosing a direction. The chosen one gets rebuilt properly inside the Next.js site, in English and Bangla.</p>
+</main>
+</body>
+</html>

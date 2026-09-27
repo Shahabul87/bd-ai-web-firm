@@ -46,7 +46,7 @@ describe('MobileMenu', () => {
     const onClose = jest.fn();
     renderMenu(onClose);
 
-    fireEvent.click(screen.getByRole('link', { name: 'Products' }));
+    fireEvent.click(screen.getByRole('link', { name: 'Work' }));
 
     expect(onClose).toHaveBeenCalledTimes(1);
   });
