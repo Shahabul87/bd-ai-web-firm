@@ -121,6 +121,28 @@ body {
 .chrome-links a:hover,
 .chrome-links a[aria-current='page'] { color: var(--parchment); }
 
+/* A gold rule slides in under the hovered link and stays under the current page. */
+.chrome-links a { position: relative; display: inline-block; padding: 6px 0; }
+.chrome-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.chrome-links a:hover::after { transform: scaleX(1); transform-origin: left; opacity: 0.55; }
+.chrome-links a[aria-current='page']::after { transform: scaleX(1); transform-origin: left; opacity: 1; box-shadow: 0 0 8px rgba(242, 179, 61, 0.55); }
+
+@media (prefers-reduced-motion: reduce) {
+  .chrome-links a::after { transition: none; }
+}
+
 .chrome-lang {
   display: inline-flex;
   border: 1px solid var(--forest-rule);

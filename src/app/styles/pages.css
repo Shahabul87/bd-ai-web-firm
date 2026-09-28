@@ -1,0 +1,103 @@
+/* ── Shared primitives for the inner pages ───────────────────────────
+   Services, Work, Process, Company and Contact extend the home page's
+   "Attention" system (home-attention.css): every page root carries `.attn`
+   (forest ground, parchment text, Instrument Serif + Schibsted Grotesk,
+   gold focus rings, .attn-btn, .attn-wrap, .attn-sec, .attn-sec-h) plus its
+   own `.pg-<name>` scope for the page's signature piece. Only what more than
+   one page uses lives here; a page's own styles live in page-<name>.css. */
+
+/* Hero shell: a kicker, a very large serif headline, a lede, actions. */
+.pg-hero {
+  position: relative;
+  padding: clamp(72px, 11vw, 168px) 0 clamp(56px, 7vw, 104px);
+}
+
+.pg-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 clamp(20px, 2.4vw, 32px);
+  font: 500 14px/1.2 var(--attn-sans);
+  color: var(--sage);
+}
+
+.pg-kicker::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(242, 179, 61, 0.7);
+  flex: none;
+}
+
+.pg-h1 {
+  font: 400 clamp(46px, 7.4vw, 124px) / 1.02 var(--attn-serif);
+  letter-spacing: -0.015em;
+  margin: 0;
+  max-width: 13em;
+  text-wrap: balance;
+}
+
+:lang(bn) .pg-h1 { font-size: clamp(40px, 6.2vw, 104px); line-height: 1.2; letter-spacing: 0; }
+
+.pg-h1 em { font-style: italic; color: var(--gold); }
+:lang(bn) .pg-h1 em { font-style: normal; }
+
+.pg-lede {
+  margin: clamp(24px, 2.6vw, 36px) 0 0;
+  max-width: 40rem;
+  font-size: clamp(18px, 1.45vw, 21px);
+  line-height: 1.6;
+  color: var(--sage);
+}
+
+.pg-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: clamp(28px, 3vw, 40px); }
+
+/* Small mono-ish caption used above figures and inside panels. */
+.pg-cap {
+  font: 500 12px/1.3 var(--attn-sans);
+  letter-spacing: 0.04em;
+  color: var(--sage);
+  font-variant-numeric: tabular-nums;
+}
+
+/* A raised panel: the home page's artifact card, reusable. */
+.pg-panel {
+  background: var(--forest-raised);
+  border: 1px solid var(--forest-rule);
+  border-radius: 12px;
+}
+
+/* Scroll reveals. Wrap in <InView once> (adds .vis). Children with `.pg-rise`
+   fade up in order of --d. Hidden only when scripting runs and motion is
+   allowed, so crawlers, no-JS and reduced-motion visitors see everything. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .attn .pg-rise {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--d, 0) * 110ms),
+      transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) calc(var(--d, 0) * 110ms);
+  }
+
+  .attn .vis .pg-rise,
+  .attn .vis.pg-rise { opacity: 1; transform: none; }
+}
+
+/* Hero entrance: plays once on load, CSS only (no hydration dependency). */
+@media (prefers-reduced-motion: no-preference) {
+  .pg-enter { animation: pg-enter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--d, 0) * 120ms); }
+}
+
+@keyframes pg-enter {
+  from { opacity: 0; transform: translateY(22px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* The closing CTA on every inner page reuses the home's typed title. */
+.pg-cta .attn-cta-h { max-width: 14em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-enter { animation: none !important; }
+}

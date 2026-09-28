@@ -3,6 +3,8 @@
 @import "./design/tokens.css";
 @import "./styles/animations.css";
 @import "./styles/home-attention.css";
+@import "./styles/pages.css";
+@import "./styles/page-services.css";
 
 /* Tailwind v4 class-based dark variant — html always carries .dark (dark-only site),
    so legacy `dark:` utilities apply for every visitor regardless of OS preference. */

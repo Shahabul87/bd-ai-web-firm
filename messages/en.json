@@ -596,16 +596,147 @@
   "Services": {
     "index": {
       "hero": {
-        "eyebrow": "Services / overview",
-        "title": "We build agents. The agents build your software.",
-        "lede": "Four services, one workflow. Custom agents do the heavy lifting; senior engineers own the architecture, the review, and what ships.",
-        "primaryCta": "Start a project",
-        "secondaryCta": "Get an estimate"
+        "kicker": "Services",
+        "title": "Six ways to put AI to <em>work</em>.",
+        "lede": "Start from the problem, not the technology. Pick a request below and watch the router send it to the service that fits — then read exactly what you get and how we'll measure it.",
+        "primaryCta": "Book a discovery call",
+        "secondaryCta": "Read the six specs"
       },
-      "pillars": {
-        "eyebrow": "What we build",
-        "title": "Pick where an agent goes to work.",
-        "description": "Not sure which fits? Start a project and we'll map it with you."
+      "router": {
+        "label": "Router",
+        "example": "example routing",
+        "chipsLabel": "Try a request",
+        "requestLabel": "Request",
+        "expertsLabel": "Services, by fit",
+        "routing": "routing…",
+        "routedTo": "Routed to",
+        "readSpec": "Read the spec",
+        "pause": "Pause",
+        "play": "Play",
+        "prompts": [
+          {
+            "chip": "Support inbox",
+            "text": "Our support inbox never empties."
+          },
+          {
+            "chip": "Scattered docs",
+            "text": "Nobody can find the answer in our own documents."
+          },
+          {
+            "chip": "Wrong answers",
+            "text": "The off-the-shelf model keeps getting our domain wrong."
+          },
+          {
+            "chip": "AI in our app",
+            "text": "Our customers keep asking for AI inside the app."
+          },
+          {
+            "chip": "Can't measure it",
+            "text": "We can't tell if our AI is getting better or worse."
+          },
+          {
+            "chip": "Where to start",
+            "text": "We know AI matters. We don't know where it pays off."
+          }
+        ]
+      },
+      "catalogue": {
+        "title": "The six specs",
+        "note": "Every service ships with three things: something that works, a way to measure it, and a person accountable for it.",
+        "railLabel": "Services on this page",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "items": {
+          "agents": {
+            "lede": "An agent is a model that can use your tools. We decide with you what it may do on its own, connect it to the systems your team already works in, and design the moment a person takes over.",
+            "get": [
+              "An agent wired into your helpdesk, CRM, email or internal APIs",
+              "Guardrails: what it does alone, and what waits for approval",
+              "A handoff to a person, with a written summary of the case"
+            ],
+            "measure": "Resolution rate, error rate and cost per task on a fixed set of real cases — checked before and after every change.",
+            "first": "Pick one queue. We map it, then build the agent against last month's real tickets."
+          },
+          "assistants": {
+            "lede": "An assistant that answers from your own documents, databases and wikis, and shows where every answer came from — so people can trust it, and check it.",
+            "get": [
+              "Chat and search over your sources, with citations",
+              "Access that respects who is allowed to see what",
+              "Ingestion that keeps up when documents change"
+            ],
+            "measure": "Answer accuracy and citation correctness on questions your staff actually ask — and how often it says it doesn't know when it shouldn't guess.",
+            "first": "Collect fifty real questions and where their answers live. That becomes the test set."
+          },
+          "models": {
+            "lede": "Sometimes a general model isn't accurate enough, fast enough or cheap enough. Then we train, fine-tune or distil one for your task, and prove it beats the off-the-shelf option.",
+            "get": [
+              "A dataset built and cleaned for your task",
+              "A tuned or distilled model that you own",
+              "A side-by-side comparison with the best general model"
+            ],
+            "measure": "Quality, latency and cost per request against the off-the-shelf baseline, on data the model never saw in training.",
+            "first": "Show us where the general model fails. We measure the gap before we train anything."
+          },
+          "product": {
+            "lede": "AI features inside the web and mobile apps you already have — or a new AI-first product, built end to end, from interface to infrastructure.",
+            "get": [
+              "AI features designed around how your users actually work",
+              "Web and mobile integration, streaming interfaces, graceful fallbacks",
+              "Monitoring for quality and cost once it's live"
+            ],
+            "measure": "Task success for your users, response time and cost per active user — tracked in production, not just in the demo.",
+            "first": "Name the feature your users ask for most. We prototype it inside your app."
+          },
+          "evals": {
+            "lede": "The part most teams skip. Datasets, test suites and evaluations that tell you, with numbers, whether your AI is actually getting better.",
+            "get": [
+              "An evaluation set drawn from real usage and labelled with care",
+              "An automated test suite that runs on every change",
+              "A readable report: what improved, what regressed, and why"
+            ],
+            "measure": "We measure the measurement: how often the evals agree with human reviewers on a sample.",
+            "first": "Send us a week of real inputs and outputs. We turn them into your first test suite."
+          },
+          "sprint": {
+            "lede": "Two weeks to find where AI pays off in your business. You finish with a ranked list of opportunities and a working prototype of the best one — not a slide deck.",
+            "get": [
+              "Interviews, and a map of the workflows that cost the most time",
+              "A ranked shortlist with effort, cost and risk for each",
+              "A working prototype of the top pick, on your data"
+            ],
+            "measure": "Every opportunity is scored on value, feasibility and risk; the prototype is tested against a bar we agree on day one.",
+            "first": "A one-hour call to choose the teams and workflows in scope."
+          }
+        }
+      },
+      "engage": {
+        "title": "Three ways to work together",
+        "note": "Most teams start small and grow into the next shape once the first one has proved itself.",
+        "trackLabel": "How engagements follow each other",
+        "items": {
+          "sprint": {
+            "name": "Sprint",
+            "span": "Two weeks",
+            "body": "Find where AI pays off. Ends with a working prototype."
+          },
+          "build": {
+            "name": "Build",
+            "span": "A scoped project",
+            "body": "From prototype to production: integration, security, evaluations and monitoring."
+          },
+          "run": {
+            "name": "Run",
+            "span": "Ongoing",
+            "body": "We watch it in production and keep improving it, measured against the same bar."
+          }
+        }
+      },
+      "cta": {
+        "title": "Not sure which one you need?",
+        "lede": "Tell us the workflow. We'll tell you which of these fits — or whether AI is the wrong tool for it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "web": {
@@ -1755,12 +1886,12 @@
       "description": "Comprehensive guides on web app development, choosing a development partner, and building successful software products."
     },
     "servicesLayout": {
-      "title": "Our Services",
-      "description": "CraftsAI offers AI-powered web development, Android development, iOS development, and ongoing support."
+      "title": "Services",
+      "description": "AI development services from CraftsAI — agents, assistants on your data, custom models, AI in your product, evaluation pipelines and strategy sprints."
     },
     "services": {
       "title": "Services",
-      "description": "What CraftsAI builds: custom AI agents, agent-built websites and mobile apps, and agent integration into your existing systems."
+      "description": "Six AI development services: agents and automation, assistants on your data, custom models and fine-tuning, AI inside your product, data and evaluation pipelines, and AI strategy sprints."
     },
     "servicesAndroid": {
       "title": "Android Development Services",
