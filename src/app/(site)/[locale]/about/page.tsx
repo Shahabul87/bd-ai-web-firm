@@ -1,12 +1,14 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Link } from '@/i18n/navigation';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
-import PageHero from '@/app/components/shared/PageHero';
-import CTABand from '@/app/components/shared/CTABand';
-import SectionHeader from '@/app/design/ui/SectionHeader';
-import Card from '@/app/design/ui/Card';
+import PageCTA from '@/app/components/pages/PageCTA';
+import CompanyHero from '@/app/components/pages/company/CompanyHero';
+import IntendedUse from '@/app/components/pages/company/IntendedUse';
+import OutOfScope from '@/app/components/pages/company/OutOfScope';
+import Principles from '@/app/components/pages/company/Principles';
+import TwoLayers from '@/app/components/pages/company/TwoLayers';
+import JoinBand from '@/app/components/pages/company/JoinBand';
 
 export async function generateMetadata({
   params,
@@ -19,24 +21,19 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     openGraph: {
-      title: 'About CraftsAI',
-      description: 'AI-first software studio delivering web, Android, and iOS products.',
+      title: t('title'),
+      description: t('description'),
       ...localeOpenGraph('/about', locale),
     },
     alternates: localeAlternates('/about', locale),
   };
 }
 
-interface Stat {
-  value: string;
-  label: string;
-}
-
-interface Product {
-  name: string;
-  description: string;
-}
-
+/**
+ * Company ("/about"): CraftsAI documented the way good AI is documented, as a
+ * model card. Hero card → intended use → out of scope → evaluation &
+ * principles → the two layers of a task → maintainers → CTA.
+ */
 export default async function AboutPage({
   params,
 }: {
@@ -44,94 +41,25 @@ export default async function AboutPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations('About');
-
-  const stats = t.raw('stats.items') as Stat[];
-  const products = t.raw('products.items') as Product[];
+  const t = await getTranslations('About.cta');
 
   return (
     <PageLayout>
-      <PageHero
-        eyebrow={t('hero.eyebrow')}
-        title={t('hero.title')}
-        lede={t('hero.lede')}
-      />
-
-      <section className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-        <SectionHeader index="fig. 01" eyebrow={t('story.eyebrow')} title={t('story.title')} />
-        <div className="mt-8 space-y-5 text-base leading-relaxed text-steel">
-          <p>{t('story.p1')}</p>
-          <p>{t('story.p2')}</p>
-          <p>{t('story.p3')}</p>
-        </div>
-      </section>
-
-      <section className="border-t border-line bg-ink-900">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-          <SectionHeader
-            index="fig. 02"
-            eyebrow={t('approach.eyebrow')}
-            title={t('approach.title')}
-          />
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
-            <Card>
-              <h3 className="font-display text-xl font-medium text-bone">
-                {t('approach.agentsTitle')}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-steel">{t('approach.agentsBody')}</p>
-            </Card>
-            <Card>
-              <h3 className="font-display text-xl font-medium text-bone">
-                {t('approach.humanTitle')}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-steel">{t('approach.humanBody')}</p>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-        <SectionHeader index="fig. 03" eyebrow={t('stats.eyebrow')} title={t('stats.title')} />
-        <div className="mt-14 grid grid-cols-2 gap-px overflow-hidden border border-line bg-line md:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="bg-ink-950 p-8 text-center">
-              <p className="font-display text-4xl font-medium text-signal">{stat.value}</p>
-              <p className="mt-2 font-mono text-xs uppercase tracking-[0.15em] text-steel">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-t border-line bg-ink-900">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <SectionHeader index="fig. 04" eyebrow={t('products.eyebrow')} title={t('products.title')} />
-            <Link
-              href="/products"
-              className="font-mono text-xs uppercase tracking-[0.15em] text-signal underline-offset-4 hover:underline"
-            >
-              {t('products.viewAll')}
-            </Link>
-          </div>
-          <div className="mt-14 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product) => (
-              <div key={product.name} className="bg-ink-950 p-6">
-                <h3 className="font-display text-lg font-medium text-bone">{product.name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-steel">{product.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CTABand
-        title={t('cta.title')}
-        lede={t('cta.lede')}
-        primaryLabel={t('cta.primaryLabel')}
-        primaryHref="/quote"
-      />
+      <div className="attn pg-company">
+        <CompanyHero />
+        <IntendedUse />
+        <OutOfScope />
+        <Principles />
+        <TwoLayers />
+        <JoinBand />
+        <PageCTA
+          id="co-cta-h"
+          title={t('title')}
+          lede={t('lede')}
+          primaryLabel={t('primary')}
+          secondaryLabel={t('secondary')}
+        />
+      </div>
     </PageLayout>
   );
 }

@@ -1,27 +1,11 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import PageLayout from '@/app/components/layout/PageLayout';
-import PageHero from '@/app/components/shared/PageHero';
-import CTABand from '@/app/components/shared/CTABand';
-import Button from '@/app/design/ui/Button';
-import MonoLabel from '@/app/design/ui/MonoLabel';
-import Accordion from '@/app/design/ui/Accordion';
-import faqData from '@content/faq/faq.json';
-
-interface LocalizedString {
-  en: string;
-  bn: string;
-}
-
-interface FaqCategory {
-  category: LocalizedString;
-  questions: { question: LocalizedString; answer: LocalizedString }[];
-}
-
-function pickLocale(value: LocalizedString, locale: string): string {
-  return locale === 'bn' ? value.bn : value.en;
-}
+import PageCTA from '@/app/components/pages/PageCTA';
+import FaqExplorer, { type FaqLabels } from '@/app/components/pages/faq/FaqExplorer';
+import { loadFaq } from '@/app/components/pages/faq/data';
+import { delay } from '@/app/components/pages/company/cssVars';
 
 export async function generateMetadata({
   params,
@@ -34,15 +18,38 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     openGraph: {
-      title: 'FAQ',
-      description:
-        'Frequently asked questions about CraftsAI services, pricing, process, and support.',
+      title: t('title'),
+      description: t('description'),
       ...localeOpenGraph('/faq', locale),
     },
     alternates: localeAlternates('/faq', locale),
   };
 }
 
+const LABEL_KEYS = [
+  'label',
+  'placeholder',
+  'clear',
+  'hint',
+  'count',
+  'ranked',
+  'results',
+  'inAnswer',
+  'chipsLabel',
+  'all',
+  'empty',
+  'emptyBody',
+  'emptyCta',
+  'link',
+  'copied',
+] as const satisfies readonly (keyof FaqLabels)[];
+
+/**
+ * FAQ — "Ask". The questions from content/faq/faq.json behind a search box
+ * that filters, ranks and highlights as you type, with topic chips and a
+ * deep-linkable accordion. The FAQPage JSON-LD for this content is emitted by
+ * the site-wide StructuredData component on /faq only.
+ */
 export default async function FAQPage({
   params,
 }: {
@@ -51,46 +58,40 @@ export default async function FAQPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('Faq');
+  const { categories, items } = loadFaq(locale);
+  const labels = Object.fromEntries(LABEL_KEYS.map((k) => [k, t.raw(`search.${k}`) as string])) as unknown as FaqLabels;
 
   return (
     <PageLayout>
-      <PageHero eyebrow={t('hero.eyebrow')} title={t('hero.title')} lede={t('hero.lede')}>
-        <Button variant="amber" size="lg" href="/contact">
-          {t('hero.primaryCta')}
-        </Button>
-      </PageHero>
-
-      <section className="mx-auto max-w-4xl px-6 py-20 sm:py-28">
-        {(faqData as FaqCategory[]).map((category, categoryIndex) => (
-          <div key={category.category.en} className="mb-16 last:mb-0">
-            <MonoLabel>
-              {String(categoryIndex + 1).padStart(2, '0')} /{' '}
-              {pickLocale(category.category, locale)}
-            </MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone sm:text-3xl">
-              {pickLocale(category.category, locale)}
-            </h2>
-            <div className="mt-6">
-              <Accordion
-                items={category.questions.map((q, questionIndex) => ({
-                  id: `${category.category.en}-${questionIndex}`,
-                  question: pickLocale(q.question, locale),
-                  answer: pickLocale(q.answer, locale),
-                }))}
-              />
-            </div>
+      <div className="attn pg-faq">
+        <section className="pg-hero fq-hero" aria-labelledby="fq-h1">
+          <div className="attn-wrap">
+            <p className="pg-kicker pg-enter">{t('hero.kicker')}</p>
+            <h1 className="pg-h1 pg-enter" id="fq-h1" style={delay(1)}>
+              {t.rich('hero.title', { em: (chunks) => <em>{chunks}</em> })}
+            </h1>
+            <p className="pg-lede pg-enter" style={delay(2)}>
+              {t('hero.lede')}
+            </p>
           </div>
-        ))}
-      </section>
+        </section>
 
-      <CTABand
-        title={t('cta.title')}
-        lede={t('cta.lede')}
-        primaryLabel={t('cta.primaryLabel')}
-        primaryHref="/contact"
-        secondaryLabel={t('cta.secondaryLabel')}
-        secondaryHref="/quote"
-      />
+        <FaqExplorer
+          items={items}
+          categories={categories}
+          labels={labels}
+          bengaliDigits={locale === 'bn'}
+          contactHref="/contact"
+        />
+
+        <PageCTA
+          id="fq-cta-h"
+          title={t('cta.title')}
+          lede={t('cta.lede')}
+          primaryLabel={t('cta.primaryLabel')}
+          secondaryLabel={t('cta.secondaryLabel')}
+        />
+      </div>
     </PageLayout>
   );
 }

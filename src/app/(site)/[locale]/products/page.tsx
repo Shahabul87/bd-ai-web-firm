@@ -1,12 +1,15 @@
+import type { CSSProperties } from 'react';
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
 import { products } from '#content';
 import PageLayout from '@/app/components/layout/PageLayout';
-import PageHero from '@/app/components/shared/PageHero';
-import CTABand from '@/app/components/shared/CTABand';
-import Card from '@/app/design/ui/Card';
+import PageCTA from '@/app/components/pages/PageCTA';
+import WorkMap, { type MapProduct, type WorkMapCopy } from '@/app/components/pages/work/WorkMap';
+import WorkIndex, { type WorkIndexCopy } from '@/app/components/pages/work/WorkIndex';
+import WorkMethod, { METHOD_KEYS } from '@/app/components/pages/work/WorkMethod';
+import type { ClusterKey } from '@/app/components/pages/work/geometry';
 
 export async function generateMetadata({
   params,
@@ -19,8 +22,8 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     openGraph: {
-      title: 'Our Products',
-      description: 'Ready-made solutions, battle-tested and production-ready.',
+      title: t('title'),
+      description: t('description'),
       ...localeOpenGraph('/products', locale),
       siteName: 'CraftsAI',
       type: 'website',
@@ -28,6 +31,13 @@ export async function generateMetadata({
     alternates: localeAlternates('/products', locale),
   };
 }
+
+const PLATFORM_ORDER = ['web', 'android', 'ios', 'desktop'] as const;
+const d = (n: number) => ({ '--d': n }) as CSSProperties;
+
+type Live = MapProduct['live'];
+const liveOf = (p: { demoUrl?: string; storeUrl?: string }): Live =>
+  p.demoUrl ? { href: p.demoUrl, kind: 'site' } : p.storeUrl ? { href: p.storeUrl, kind: 'store' } : null;
 
 export default async function ProductsPage({
   params,
@@ -37,69 +47,121 @@ export default async function ProductsPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('Products');
+  const bn = locale === 'bn';
 
   const platformLabels = t.raw('platformLabels') as Record<string, string>;
+  const filters = PLATFORM_ORDER.filter((key) => products.some((p) => p.platforms.includes(key))).map((key) => ({
+    key,
+    label: platformLabels[key] ?? key,
+  }));
+
+  const mapProducts: MapProduct[] = products.map((p) => ({
+    slug: p.slug,
+    title: p.title,
+    tagline: p.tagline,
+    platforms: [...p.platforms],
+    live: liveOf(p),
+  }));
+
+  const mapCopy: WorkMapCopy = {
+    mapLabel: t('map.label'),
+    note: t('map.note'),
+    hintFine: t('map.hint.fine'),
+    hintCoarse: t('map.hint.coarse'),
+    filterLabel: t('map.filterLabel'),
+    all: t('map.all'),
+    showing: t.raw('map.showing') as string,
+    query: t('map.query'),
+    nearest: t('map.nearest'),
+    close: t('map.card.close'),
+    closest: t('map.card.closest'),
+    openSite: t('map.card.openSite'),
+    openStore: t('map.card.openStore'),
+    readMore: t('map.card.readMore'),
+  };
+
+  const indexCopy: WorkIndexCopy = {
+    title: t('index.title'),
+    note: t('index.note'),
+    stack: t('index.stack'),
+    more: t.raw('index.more') as string,
+    live: t('index.live'),
+    store: t('index.store'),
+    details: t('index.details'),
+    liveAria: t.raw('index.liveAria') as string,
+    storeAria: t.raw('index.storeAria') as string,
+    detailsAria: t.raw('index.detailsAria') as string,
+  };
+
+  const methodItems = Object.fromEntries(
+    METHOD_KEYS.map((k) => [k, { title: t(`method.${k}.title`), body: t(`method.${k}.body`) }]),
+  ) as Record<(typeof METHOD_KEYS)[number], { title: string; body: string }>;
 
   return (
     <PageLayout>
-      <PageHero eyebrow={t('hero.eyebrow')} title={t('hero.title')} lede={t('hero.lede')} />
-
-      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {products.map((product) => (
-            <Link
-              key={product.slug}
-              href={`/products/${product.slug}`}
-              className="block h-full focus-visible:outline-none"
-            >
-              <Card interactive className="flex h-full flex-col">
-                <div className="flex flex-wrap items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-signal">
-                  {product.platforms.map((p) => (
-                    <span key={p} className="border border-line px-2 py-1 text-steel">
-                      {platformLabels[p] ?? p}
-                    </span>
-                  ))}
-                </div>
-
-                <h2 className="mt-6 font-display text-2xl font-medium text-bone">
-                  {product.title}
-                </h2>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-steel">
-                  {product.tagline}
+      <div className="attn pg-work">
+        <section className="pg-hero wk-hero" aria-labelledby="wk-h1">
+          <div className="attn-wrap">
+            <div className="wk-hero-top">
+              <div>
+                <p className="pg-kicker pg-enter">{t('hero.kicker')}</p>
+                <h1 id="wk-h1" className="pg-h1 pg-enter" style={d(1)}>
+                  {t.rich('hero.title', { em: (chunks) => <em>{chunks}</em> })}
+                </h1>
+              </div>
+              <div className="wk-hero-side">
+                <p className="pg-lede pg-enter" style={d(2)}>
+                  {t('hero.lede')}
                 </p>
-
-                <div className="mt-6 flex flex-wrap gap-1.5">
-                  {product.techStack.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="border border-line px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-steel"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {product.techStack.length > 4 ? (
-                    <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-steel">
-                      +{product.techStack.length - 4} {t('more')}
-                    </span>
-                  ) : null}
+                <div className="pg-actions pg-enter" style={d(3)}>
+                  <Link className="attn-btn attn-btn-primary" href="/contact">
+                    {t('hero.primary')}
+                  </Link>
+                  <a className="attn-btn attn-btn-secondary" href="#wk-index">
+                    {t('hero.secondary')}
+                  </a>
                 </div>
+              </div>
+            </div>
+            <div className="wk-stage">
+              <WorkMap
+                products={mapProducts}
+                filters={filters}
+                platformLabels={platformLabels}
+                concepts={t.raw('map.concepts') as Record<ClusterKey, string[]>}
+                clusters={t.raw('map.clusters') as Record<ClusterKey, string>}
+                copy={mapCopy}
+                bn={bn}
+              />
+            </div>
+          </div>
+        </section>
 
-                <span className="mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-bone transition-colors duration-150 group-hover:text-signal">
-                  {t('learnMore')}
-                  <span aria-hidden>→</span>
-                </span>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
+        <WorkIndex
+          products={products.map((p) => ({
+            slug: p.slug,
+            title: p.title,
+            tagline: p.tagline,
+            platforms: [...p.platforms],
+            stack: [...p.techStack],
+            live: liveOf(p),
+          }))}
+          platformLabels={platformLabels}
+          copy={indexCopy}
+          bn={bn}
+        />
 
-      <CTABand
-        title={t('cta.title')}
-        lede={t('cta.lede')}
-        primaryLabel={t('cta.primaryLabel')}
-        primaryHref="/quote"
-      />
+        <WorkMethod title={t('method.title')} items={methodItems} bn={bn} />
+
+        <PageCTA
+          id="wk-cta"
+          title={t('cta.title')}
+          lede={t('cta.lede')}
+          primaryLabel={t('cta.primary')}
+          primaryHref="/contact"
+          secondaryLabel={t('cta.secondary')}
+        />
+      </div>
     </PageLayout>
   );
 }

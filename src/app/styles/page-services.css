@@ -1,0 +1,440 @@
+/* /services page — scoped under .pg-services. See pages.css for the shared primitives.
+   Signature: "The router" — a mixture-of-experts gate that routes a request to
+   the service that fits (ServiceRouter), then six spec sheets with a sticky
+   index (ServiceRail) and the three engagement shapes as a drawn track. */
+
+/* ── Hero ───────────────────────────────────────────────────────── */
+.pg-services .sv-hero { padding-top: clamp(48px, 6.5vw, 104px); padding-bottom: clamp(56px, 6vw, 96px); }
+.pg-services .sv-hero .pg-h1 { max-width: 11.5em; }
+
+.pg-services .sv-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  gap: 40px clamp(32px, 5vw, 80px);
+  align-items: start;
+  margin-top: clamp(28px, 3.4vw, 52px);
+}
+
+.pg-services .sv-hero-copy .pg-lede { margin-top: 0; }
+
+/* ── Router ─────────────────────────────────────────────────────── */
+.pg-services .sv-router {
+  position: relative;
+  padding: 18px clamp(16px, 2vw, 26px) 22px;
+  isolation: isolate;
+}
+
+/* A slow gold bloom behind the panel, so the router reads as "live". */
+.pg-services .sv-router::before {
+  content: '';
+  position: absolute;
+  inset: -12% -8% auto auto;
+  width: 60%;
+  height: 80%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(242, 179, 61, 0.14), transparent);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pg-services .sv-router::before { animation: sv-bloom 9s ease-in-out infinite alternate; }
+}
+
+@keyframes sv-bloom {
+  from { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  to { transform: translate(-18%, 22%) scale(1.15); opacity: 1; }
+}
+
+.pg-services .sv-router-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--forest-rule);
+}
+
+.pg-services .sv-router-title { display: inline-flex; align-items: baseline; gap: 12px; }
+.pg-services .sv-router-title b { font: 400 24px/1 var(--attn-serif); color: var(--parchment); }
+
+.pg-services .sv-router-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--forest-rule);
+  border-radius: 999px;
+  background: none;
+  color: var(--sage);
+  font: 500 13px/1 var(--attn-sans);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.pg-services .sv-router-toggle:hover { color: var(--parchment); border-color: var(--forest-faint); }
+.pg-services .sv-ico-pause { width: 8px; height: 10px; border-left: 3px solid currentColor; border-right: 3px solid currentColor; }
+.pg-services .sv-ico-play { width: 0; height: 0; border-left: 9px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+
+.pg-services .sv-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 0 6px; }
+
+.pg-services .sv-chip {
+  min-height: 34px;
+  padding: 0 13px;
+  border: 1px solid var(--forest-rule);
+  border-radius: 999px;
+  background: rgba(236, 233, 224, 0.03);
+  color: var(--sage);
+  font: 500 13px/1 var(--attn-sans);
+  cursor: pointer;
+  transition: color 0.25s, border-color 0.25s, background-color 0.25s, box-shadow 0.25s;
+}
+
+.pg-services .sv-chip:hover { color: var(--parchment); border-color: var(--forest-faint); }
+
+.pg-services .sv-chip[aria-pressed='true'] {
+  color: #1a1206;
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 18px rgba(242, 179, 61, 0.35);
+}
+
+.pg-services .sv-router-body {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) 120px minmax(0, 1.4fr);
+  align-items: center;
+  gap: 0;
+  padding-top: 14px;
+}
+
+.pg-services .sv-req { display: grid; gap: 10px; align-content: center; padding-right: 8px; }
+
+.pg-services .sv-req-text {
+  margin: 0;
+  min-height: 4.4em;
+  font: 400 clamp(22px, 2vw, 28px) / 1.2 var(--attn-serif);
+  color: var(--parchment);
+}
+
+:lang(bn) .pg-services .sv-req-text { line-height: 1.35; }
+
+.pg-services .sv-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 2px;
+  vertical-align: -0.1em;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(242, 179, 61, 0.7);
+}
+
+.pg-services .sv-req-state { opacity: 0; transition: opacity 0.3s; color: var(--gold); }
+.pg-services .sv-req-state.on { opacity: 1; animation: sv-think 0.9s ease-in-out infinite alternate; }
+@keyframes sv-think { from { opacity: 0.45; } to { opacity: 1; } }
+
+.pg-services .sv-fan { display: block; width: 120px; height: 264px; overflow: visible; }
+.pg-services .sv-wire { fill: none; stroke: var(--mint); transition: stroke 0.35s; }
+.pg-services .sv-wire.is-win { stroke: var(--gold); filter: drop-shadow(0 0 5px rgba(242, 179, 61, 0.55)); }
+
+.pg-services .sv-wire-pulse {
+  fill: none;
+  stroke: var(--parchment);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-dasharray: 12 400;
+  stroke-dashoffset: 12;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pg-services .sv-wire-pulse { animation: sv-pulse 2.2s cubic-bezier(0.5, 0, 0.3, 1) infinite; }
+  .pg-services .sv-router[data-phase='routing'] .sv-gate-ring { animation: sv-ring 0.8s ease-out infinite; }
+}
+
+@keyframes sv-pulse { 0% { stroke-dashoffset: 12; } 70%, 100% { stroke-dashoffset: -170; } }
+@keyframes sv-ring { from { transform: scale(0.8); opacity: 1; } to { transform: scale(2.2); opacity: 0; } }
+
+.pg-services .sv-gate { fill: var(--gold); }
+.pg-services .sv-gate-ring { fill: none; stroke: var(--gold); stroke-opacity: 0.5; transform-box: fill-box; transform-origin: center; }
+
+.pg-services .sv-experts { list-style: none; margin: 0; padding: 0; }
+
+.pg-services .sv-experts li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 52px 38px;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 10px;
+  border-radius: 6px;
+  color: var(--sage);
+  font-size: 14px;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.pg-services .sv-experts li.is-win { color: var(--parchment); background: rgba(242, 179, 61, 0.09); }
+.pg-services .sv-ex-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pg-services .sv-ex-bar { position: relative; height: 3px; border-radius: 2px; background: rgba(127, 214, 181, 0.14); overflow: hidden; }
+.pg-services .sv-ex-bar i { position: absolute; inset: 0; background: var(--mint); transform-origin: left; border-radius: 2px; }
+.pg-services .is-win .sv-ex-bar i { background: var(--gold); box-shadow: 0 0 8px rgba(242, 179, 61, 0.6); }
+.pg-services .sv-ex-p { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; }
+
+.pg-services .sv-routed {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 14px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--forest-rule);
+  opacity: 0.25;
+  transform: translateY(4px);
+  transition: opacity 0.4s, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-services .sv-routed.on { opacity: 1; transform: none; }
+
+.pg-services .sv-routed-link {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  text-decoration: none;
+}
+
+.pg-services .sv-routed-link b { font: 400 24px/1.1 var(--attn-serif); color: var(--gold); }
+.pg-services .sv-routed-link span { font-size: 14px; color: var(--sage); transition: color 0.2s; }
+.pg-services .sv-routed-link:hover span { color: var(--parchment); }
+
+/* Until the island takes over, the request and bars stay hidden (with a
+   failsafe), so the first typed request doesn't flash in finished. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .pg-services .sv-router:not([data-live]) :is(.sv-req-text, .sv-experts, .sv-routed, .sv-fan) {
+    opacity: 0;
+    animation: attn-failsafe 0.01s linear 3s forwards;
+  }
+}
+
+/* ── Spec catalogue ─────────────────────────────────────────────── */
+.pg-services .sv-catalogue { border-top: 1px solid var(--forest-rule); padding: clamp(64px, 8vw, 120px) 0 clamp(48px, 6vw, 96px); }
+.pg-services .sv-cat-head { max-width: 62rem; }
+.pg-services .sv-cat-head .attn-sec-h { margin-bottom: 20px; }
+.pg-services .sv-cat-note { color: var(--sage); font-size: clamp(17px, 1.3vw, 19px); max-width: 44ch; margin: 0 0 clamp(40px, 5vw, 72px); }
+
+.pg-services .sv-cat-grid {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 80px);
+  align-items: start;
+}
+
+.pg-services .sv-rail {
+  position: sticky;
+  top: 104px;
+  display: grid;
+  grid-template-columns: 2px minmax(0, 1fr);
+  gap: 18px;
+}
+
+.pg-services .sv-rail-track { position: relative; background: var(--forest-rule); border-radius: 2px; }
+.pg-services .sv-rail-track i {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  border-radius: 2px;
+  transform-origin: top;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  box-shadow: 0 0 10px rgba(242, 179, 61, 0.5);
+}
+
+.pg-services .sv-rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+
+.pg-services .sv-rail a {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+  text-decoration: none;
+  color: var(--sage);
+  font-size: 14px;
+  line-height: 1.35;
+  transition: color 0.3s, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-services .sv-rail a:hover { color: var(--parchment); }
+.pg-services .sv-rail a[aria-current='true'] { color: var(--parchment); transform: translateX(6px); }
+.pg-services .sv-rail a[aria-current='true'] .sv-rail-n { color: var(--gold); }
+.pg-services .sv-rail-n { font-variant-numeric: tabular-nums; font-size: 12px; padding-top: 2px; transition: color 0.3s; }
+
+.pg-services .sv-specs { display: grid; min-width: 0; }
+.pg-services .sv-spec { scroll-margin-top: 88px; border-top: 1px solid var(--forest-rule); padding: clamp(40px, 5vw, 72px) 0; }
+.pg-services .sv-spec:last-child { border-bottom: 1px solid var(--forest-rule); }
+
+.pg-services .sv-spec-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: 28px clamp(28px, 4vw, 64px);
+  align-items: center;
+}
+
+.pg-services .sv-spec-n {
+  display: block;
+  margin-bottom: 10px;
+  font: 400 clamp(64px, 7vw, 112px) / 0.9 var(--attn-serif);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(236, 233, 224, 0.28);
+  /* The ordinal fills with gold from the left as the spec comes into view. */
+  background: linear-gradient(90deg, var(--gold) 0 50%, transparent 50% 100%) 100% 0 / 200% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-position 1.4s cubic-bezier(0.3, 0.7, 0.2, 1) 0.2s, opacity 0.7s, transform 0.8s;
+}
+
+.pg-services .vis .sv-spec-n { background-position: 0 0; }
+
+.pg-services .sv-spec h3 {
+  font: 400 clamp(34px, 3.6vw, 56px) / 1.04 var(--attn-serif);
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+}
+
+:lang(bn) .pg-services .sv-spec h3 { line-height: 1.22; letter-spacing: 0; }
+.pg-services .sv-spec-lede { margin: 0; color: var(--sage); font-size: clamp(17px, 1.3vw, 19px); max-width: 46ch; }
+.pg-services .sv-spec-fig { justify-self: end; width: 100%; max-width: 440px; }
+/* The smaller diagrams were drawn for a 380px column; keep their labels near body size. */
+.pg-services .sv-spec-fig:not(.sv-fig-agents) { max-width: 330px; }
+
+.pg-services .sv-spec-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px clamp(20px, 3vw, 44px);
+  margin: clamp(32px, 4vw, 52px) 0 0;
+}
+
+.pg-services .sv-spec-col { position: relative; padding-top: 16px; min-width: 0; }
+
+/* Each column's rule draws in once the spec is on screen. */
+.pg-services .sv-spec-col::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--forest-faint);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.3, 0.7, 0.2, 1) calc(var(--d, 0) * 110ms + 250ms);
+}
+
+.pg-services .sv-col-get::before { background: var(--mint); }
+.pg-services .sv-col-measure::before { background: var(--gold); }
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .pg-services .sv-spec-col::before { transform: scaleX(0); }
+  .pg-services .vis .sv-spec-col::before { transform: scaleX(1); }
+}
+
+.pg-services .sv-spec-col dt { font: 500 13px/1.3 var(--attn-sans); color: var(--sage); margin-bottom: 12px; }
+.pg-services .sv-spec-col dd { margin: 0; font-size: 16px; line-height: 1.55; color: var(--parchment); }
+.pg-services .sv-spec-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.pg-services .sv-spec-col li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.pg-services .sv-spec-col li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); transform: translateY(-1px); }
+
+/* ── Engagements track ──────────────────────────────────────────── */
+.pg-services .sv-engage { border-top: 1px solid var(--forest-rule); padding: clamp(64px, 8vw, 120px) 0; }
+.pg-services .sv-engage .attn-sec-h { margin-bottom: 20px; }
+
+.pg-services .sv-track {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 4.6fr) minmax(0, 3.6fr);
+  gap: 0 6px;
+}
+
+.pg-services .sv-seg { min-width: 0; padding-right: clamp(12px, 2vw, 28px); }
+
+.pg-services .sv-seg-bar {
+  position: relative;
+  display: block;
+  height: 8px;
+  margin-bottom: 22px;
+  border-radius: 4px;
+  background: rgba(236, 233, 224, 0.06);
+  overflow: hidden;
+}
+
+.pg-services .sv-seg-bar i {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  transform-origin: left;
+  transition: transform 1.1s cubic-bezier(0.45, 0.05, 0.2, 1) calc(var(--d, 0) * 900ms + 200ms);
+}
+
+.pg-services .sv-seg-sprint .sv-seg-bar i { background: var(--gold); box-shadow: 0 0 12px rgba(242, 179, 61, 0.5); }
+.pg-services .sv-seg-build .sv-seg-bar i { background: var(--mint); }
+.pg-services .sv-seg-run .sv-seg-bar i { background: linear-gradient(90deg, var(--mint), rgba(127, 214, 181, 0.35) 70%, transparent); }
+
+/* "Ongoing": a bright pip keeps travelling along the run bar. */
+.pg-services .sv-seg-run .sv-seg-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, transparent, rgba(236, 233, 224, 0.9), transparent);
+  opacity: 0;
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .pg-services .sv-seg-bar i { transform: scaleX(0); }
+  .pg-services .vis .sv-seg-bar i { transform: scaleX(1); }
+  .pg-services .vis .sv-seg-run .sv-seg-bar::after { animation: sv-ongoing 3.2s ease-in-out 3s infinite; }
+}
+
+@keyframes sv-ongoing {
+  0% { transform: translateX(-40px); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateX(min(34vw, 460px)); opacity: 0; }
+}
+
+.pg-services .sv-seg-span { display: block; margin-bottom: 8px; }
+.pg-services .sv-seg-name { display: block; font: 400 clamp(30px, 3vw, 44px) / 1.05 var(--attn-serif); color: var(--parchment); margin-bottom: 12px; }
+:lang(bn) .pg-services .sv-seg-name { line-height: 1.25; }
+.pg-services .sv-seg p { margin: 0; color: var(--sage); font-size: 16px; max-width: 34ch; }
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .pg-services .sv-hero-grid { grid-template-columns: 1fr; }
+  .pg-services .sv-hero-copy { max-width: 40rem; }
+  .pg-services .sv-cat-grid { grid-template-columns: 1fr; }
+  .pg-services .sv-rail { display: none; }
+}
+
+@media (max-width: 900px) {
+  .pg-services .sv-spec-top { grid-template-columns: 1fr; }
+  .pg-services .sv-spec-fig { justify-self: start; max-width: 420px; }
+  .pg-services .sv-spec-grid { grid-template-columns: 1fr; }
+  .pg-services .sv-track { grid-template-columns: 1fr; gap: 36px; }
+  .pg-services .sv-seg { padding-right: 0; }
+}
+
+@media (max-width: 680px) {
+  .pg-services .sv-router-body { grid-template-columns: 1fr; }
+  .pg-services .sv-fan { display: none; }
+  .pg-services .sv-req { padding: 0 0 12px; }
+  .pg-services .sv-req-text { min-height: 3.6em; }
+  .pg-services .sv-experts li { grid-template-columns: minmax(0, 1fr) 48px 36px; padding: 0 6px; font-size: 13px; }
+  .pg-services .sv-routed-link b { font-size: 21px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-services *,
+  .pg-services *::before,
+  .pg-services *::after { animation: none !important; transition: none !important; }
+}

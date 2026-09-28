@@ -14,13 +14,12 @@ import {
 export const SERVICE_KEYS = ['agents', 'assistants', 'models', 'product', 'evals', 'sprint'] as const;
 export type ServiceKey = (typeof SERVICE_KEYS)[number];
 
-export default function ServicesIndex() {
+/**
+ * The home page's diagram for one service, with its translated labels. Shared
+ * with the services page, which shows the same pictures at a larger size.
+ */
+export function ServiceDiagram({ serviceKey }: { serviceKey: ServiceKey }) {
   const t = useTranslations('Home.services');
-  const locale = useLocale();
-  const ordinal = (i: number) => {
-    const n = String(i + 1).padStart(2, '0');
-    return locale === 'bn' ? toBengaliDigits(n) : n;
-  };
   const label = (key: ServiceKey, name: string) => t(`${key}.labels.${name}`);
 
   const diagrams: Record<ServiceKey, React.ReactNode> = {
@@ -77,6 +76,17 @@ export default function ServicesIndex() {
     ),
   };
 
+  return diagrams[serviceKey];
+}
+
+export default function ServicesIndex() {
+  const t = useTranslations('Home.services');
+  const locale = useLocale();
+  const ordinal = (i: number) => {
+    const n = String(i + 1).padStart(2, '0');
+    return locale === 'bn' ? toBengaliDigits(n) : n;
+  };
+
   return (
     <section className="attn-sec" id="services" aria-labelledby="attn-services-h">
       <div className="attn-wrap">
@@ -91,7 +101,9 @@ export default function ServicesIndex() {
                 <h3>{t(`${key}.title`)}</h3>
                 <p>{t(`${key}.body`)}</p>
               </div>
-              <div className="attn-svc-v">{diagrams[key]}</div>
+              <div className="attn-svc-v">
+                <ServiceDiagram serviceKey={key} />
+              </div>
             </InView>
           ))}
         </div>

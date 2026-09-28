@@ -42,50 +42,6 @@
     "languageLabel": "Language",
     "footerNavLabel": "Footer"
   },
-  "CTABand": {
-    "eyebrow": "● accepting projects",
-    "title": "Have something to build?",
-    "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
-    "primaryLabel": "Start a project",
-    "secondaryLabel": "Get an estimate"
-  },
-  "PillarCards": {
-    "flagship": "Flagship",
-    "explore": "Explore",
-    "aiAgents": {
-      "title": "AI Agents",
-      "blurb": "Custom agents that plan, write, and ship software — supervised by a senior engineer at every step.",
-      "stage1": "Brief",
-      "stage2": "Plan",
-      "stage3": "Build",
-      "stage4": "Review",
-      "stage5": "Ship"
-    },
-    "webDevelopment": {
-      "title": "Web Development",
-      "blurb": "Production web apps built by our agents and shipped fast, from marketing sites to full platforms.",
-      "stage1": "Design",
-      "stage2": "Build",
-      "stage3": "Test",
-      "stage4": "Deploy"
-    },
-    "mobileApps": {
-      "title": "Mobile Apps",
-      "blurb": "Native iOS and Android apps from one agent workflow — one brief, both platforms.",
-      "stage1": "Spec",
-      "stage2": "Build",
-      "stage3": "QA",
-      "stage4": "Release"
-    },
-    "agentIntegration": {
-      "title": "Agent Integration",
-      "blurb": "Wire agents into the tools you already run — CRM, ERP, WhatsApp, and your internal systems.",
-      "stage1": "Audit",
-      "stage2": "Connect",
-      "stage3": "Automate",
-      "stage4": "Monitor"
-    }
-  },
   "Home": {
     "hero": {
       "tokens": [
@@ -596,726 +552,1213 @@
   "Services": {
     "index": {
       "hero": {
-        "eyebrow": "Services / overview",
-        "title": "We build agents. The agents build your software.",
-        "lede": "Four services, one workflow. Custom agents do the heavy lifting; senior engineers own the architecture, the review, and what ships.",
-        "primaryCta": "Start a project",
-        "secondaryCta": "Get an estimate"
+        "kicker": "Services",
+        "title": "Six ways to put AI to <em>work</em>.",
+        "lede": "Start from the problem, not the technology. Pick a request below and watch the router send it to the service that fits — then read exactly what you get and how we'll measure it.",
+        "primaryCta": "Book a discovery call",
+        "secondaryCta": "Read the six specs"
       },
-      "pillars": {
-        "eyebrow": "What we build",
-        "title": "Pick where an agent goes to work.",
-        "description": "Not sure which fits? Start a project and we'll map it with you."
+      "router": {
+        "label": "Router",
+        "example": "example routing",
+        "chipsLabel": "Try a request",
+        "requestLabel": "Request",
+        "expertsLabel": "Services, by fit",
+        "routing": "routing…",
+        "routedTo": "Routed to",
+        "readSpec": "Read the spec",
+        "pause": "Pause",
+        "play": "Play",
+        "prompts": [
+          {
+            "chip": "Support inbox",
+            "text": "Our support inbox never empties."
+          },
+          {
+            "chip": "Scattered docs",
+            "text": "Nobody can find the answer in our own documents."
+          },
+          {
+            "chip": "Wrong answers",
+            "text": "The off-the-shelf model keeps getting our domain wrong."
+          },
+          {
+            "chip": "AI in our app",
+            "text": "Our customers keep asking for AI inside the app."
+          },
+          {
+            "chip": "Can't measure it",
+            "text": "We can't tell if our AI is getting better or worse."
+          },
+          {
+            "chip": "Where to start",
+            "text": "We know AI matters. We don't know where it pays off."
+          }
+        ]
+      },
+      "catalogue": {
+        "title": "The six specs",
+        "note": "Every service ships with three things: something that works, a way to measure it, and a person accountable for it.",
+        "railLabel": "Services on this page",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "items": {
+          "agents": {
+            "lede": "An agent is a model that can use your tools. We decide with you what it may do on its own, connect it to the systems your team already works in, and design the moment a person takes over.",
+            "get": [
+              "An agent wired into your helpdesk, CRM, email or internal APIs",
+              "Guardrails: what it does alone, and what waits for approval",
+              "A handoff to a person, with a written summary of the case"
+            ],
+            "measure": "Resolution rate, error rate and cost per task on a fixed set of real cases — checked before and after every change.",
+            "first": "Pick one queue. We map it, then build the agent against last month's real tickets."
+          },
+          "assistants": {
+            "lede": "An assistant that answers from your own documents, databases and wikis, and shows where every answer came from — so people can trust it, and check it.",
+            "get": [
+              "Chat and search over your sources, with citations",
+              "Access that respects who is allowed to see what",
+              "Ingestion that keeps up when documents change"
+            ],
+            "measure": "Answer accuracy and citation correctness on questions your staff actually ask — and how often it says it doesn't know when it shouldn't guess.",
+            "first": "Collect fifty real questions and where their answers live. That becomes the test set."
+          },
+          "models": {
+            "lede": "Sometimes a general model isn't accurate enough, fast enough or cheap enough. Then we train, fine-tune or distil one for your task, and prove it beats the off-the-shelf option.",
+            "get": [
+              "A dataset built and cleaned for your task",
+              "A tuned or distilled model that you own",
+              "A side-by-side comparison with the best general model"
+            ],
+            "measure": "Quality, latency and cost per request against the off-the-shelf baseline, on data the model never saw in training.",
+            "first": "Show us where the general model fails. We measure the gap before we train anything."
+          },
+          "product": {
+            "lede": "AI features inside the web and mobile apps you already have — or a new AI-first product, built end to end, from interface to infrastructure.",
+            "get": [
+              "AI features designed around how your users actually work",
+              "Web and mobile integration, streaming interfaces, graceful fallbacks",
+              "Monitoring for quality and cost once it's live"
+            ],
+            "measure": "Task success for your users, response time and cost per active user — tracked in production, not just in the demo.",
+            "first": "Name the feature your users ask for most. We prototype it inside your app."
+          },
+          "evals": {
+            "lede": "The part most teams skip. Datasets, test suites and evaluations that tell you, with numbers, whether your AI is actually getting better.",
+            "get": [
+              "An evaluation set drawn from real usage and labelled with care",
+              "An automated test suite that runs on every change",
+              "A readable report: what improved, what regressed, and why"
+            ],
+            "measure": "We measure the measurement: how often the evals agree with human reviewers on a sample.",
+            "first": "Send us a week of real inputs and outputs. We turn them into your first test suite."
+          },
+          "sprint": {
+            "lede": "Two weeks to find where AI pays off in your business. You finish with a ranked list of opportunities and a working prototype of the best one — not a slide deck.",
+            "get": [
+              "Interviews, and a map of the workflows that cost the most time",
+              "A ranked shortlist with effort, cost and risk for each",
+              "A working prototype of the top pick, on your data"
+            ],
+            "measure": "Every opportunity is scored on value, feasibility and risk; the prototype is tested against a bar we agree on day one.",
+            "first": "A one-hour call to choose the teams and workflows in scope."
+          }
+        },
+        "productLinks": {
+          "label": "By platform",
+          "web": "Web",
+          "android": "Android",
+          "ios": "iOS"
+        }
+      },
+      "engage": {
+        "title": "Three ways to work together",
+        "note": "Most teams start small and grow into the next shape once the first one has proved itself.",
+        "trackLabel": "How engagements follow each other",
+        "items": {
+          "sprint": {
+            "name": "Sprint",
+            "span": "Two weeks",
+            "body": "Find where AI pays off. Ends with a working prototype."
+          },
+          "build": {
+            "name": "Build",
+            "span": "A scoped project",
+            "body": "From prototype to production: integration, security, evaluations and monitoring."
+          },
+          "run": {
+            "name": "Run",
+            "span": "Ongoing",
+            "body": "We watch it in production and keep improving it, measured against the same bar."
+          }
+        },
+        "runLink": "Read about run & improve"
+      },
+      "cta": {
+        "title": "Not sure which one you need?",
+        "lede": "Tell us the workflow. We'll tell you which of these fits — or whether AI is the wrong tool for it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "web": {
       "hero": {
-        "eyebrow": "Services / Web",
-        "title": "Web Development",
-        "lede": "Full-stack web applications built with React, Next.js, and modern cloud infrastructure — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
+        "kicker": "AI inside your web product",
+        "title": "AI that does its work inside your <em>web app</em>.",
+        "lede": "We add AI features to the web product you already run — search that answers, forms that fill themselves, assistants that know your data — or build a new AI-first product end to end, from interface to infrastructure.",
+        "primaryCta": "Book a discovery call",
         "secondaryCta": "Get an estimate"
       },
-      "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent scaffolds it. Engineers ship it.",
-        "description": "Our agents turn your requirements into a working codebase in hours — senior engineers take it from there.",
-        "stages": [
-          "Brief",
-          "Scaffold",
-          "Build",
-          "Review",
-          "Ship"
-        ]
+      "crumbLabel": "Breadcrumb",
+      "back": "All services",
+      "figure": {
+        "label": "Answer engine",
+        "example": "Example",
+        "summary": "An example help page inside a web app: a visitor asks how to move their billing date, and the answer streams in with numbered citations that point to two help articles.",
+        "appName": "Your app",
+        "url": "app.example.com/help",
+        "nav": [
+          "Overview",
+          "Projects",
+          "Billing",
+          "Help"
+        ],
+        "placeholder": "Ask a question",
+        "query": "How do I move my billing date?",
+        "ask": "Ask",
+        "thinking": "Reading the help centre",
+        "answer": [
+          {
+            "text": "You can move your billing date once per cycle, from Settings → Billing → Billing date.",
+            "cite": 1
+          },
+          {
+            "text": "The next invoice is prorated for the days in between.",
+            "cite": 2
+          },
+          {
+            "text": "On an annual plan, ask support to move it for you.",
+            "cite": 2
+          }
+        ],
+        "sourcesLabel": "Sources",
+        "sources": [
+          {
+            "title": "Billing settings",
+            "path": "help / billing"
+          },
+          {
+            "title": "Plan changes and proration",
+            "path": "help / plans"
+          }
+        ],
+        "done": "Answered from your help centre",
+        "pause": "Pause",
+        "play": "Play"
+      },
+      "what": {
+        "title": "What it is",
+        "body": "Most AI features fail in the interface, not the model: an answer that arrives too slowly, a citation nobody can check, no plan for when the model is unsure. We design the feature and the plumbing together — streaming responses, sources people can open, sensible limits on cost — and build it into the stack you already have.",
+        "note": "This page is one part of <product>AI inside your product</product>. The same service covers Android and iOS apps."
       },
       "spec": {
-        "eyebrow": "What you get",
-        "title": "Scope, stack, and delivery — in writing."
+        "title": "The spec",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "getItems": [
+          "An AI feature built into your existing web app, or a new AI-first product",
+          "Streaming interfaces, citations, and graceful fallbacks when the model is slow or unsure",
+          "A server layer that keeps keys, prompts and spending limits off the browser",
+          "Monitoring for quality, response time and cost once it is live"
+        ],
+        "measureBody": "Task success for real users, time to the first words and to a finished answer, and cost per active user — tracked in production against the bar we agree before we build.",
+        "firstBody": "Pick the feature your users ask for most. We prototype it inside your app, on your data, and test it against real requests."
       },
-      "specRows": [
-        {
-          "slug": "scope",
-          "label": "Scope",
-          "value": "SaaS platforms, e-commerce, enterprise dashboards, MVPs, APIs, and progressive web apps — full-stack, schema to deploy."
-        },
-        {
-          "slug": "stack",
-          "label": "Stack"
-        },
-        {
-          "slug": "timeline",
-          "label": "Timeline",
-          "value": "2–6 weeks, depending on scope — roughly 10x faster and 80% cheaper than a typical agency build."
-        },
-        {
-          "slug": "automated",
-          "label": "Automated by agents",
-          "value": "Next.js page structures, API routes, database schemas, and Tailwind component libraries, generated from a plain-English brief."
-        },
-        {
-          "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "Every pull request, integration test, and product decision that only a person can make — before anything ships."
-        }
-      ],
-      "techStack": [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "Node.js",
-        "PostgreSQL",
-        "MongoDB",
-        "AWS",
-        "Vercel",
-        "Docker",
-        "GraphQL",
-        "REST APIs",
-        "Tailwind CSS"
-      ],
-      "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the products we build most often — not an exhaustive list."
+      "stack": {
+        "title": "What we build with",
+        "note": "Our usual stack for web work. If yours is different, we work in yours.",
+        "items": [
+          "React",
+          "Next.js",
+          "TypeScript",
+          "Node.js",
+          "Python",
+          "PostgreSQL",
+          "pgvector",
+          "Streaming responses",
+          "REST and GraphQL APIs",
+          "Vercel",
+          "AWS",
+          "Docker"
+        ]
       },
-      "useCases": [
-        {
-          "title": "SaaS Platforms",
-          "description": "Multi-tenant applications with subscription billing, user management, and analytics dashboards."
-        },
-        {
-          "title": "E-Commerce",
-          "description": "Online stores with inventory management, payment processing, and order fulfillment."
-        },
-        {
-          "title": "Enterprise Dashboards",
-          "description": "Data-rich dashboards with real-time charts, role-based access, and reporting tools."
-        },
-        {
-          "title": "MVPs & Prototypes",
-          "description": "Rapid prototypes to validate your idea and attract funding in weeks, not months."
-        }
-      ],
+      "cases": {
+        "title": "Where it fits",
+        "note": "Examples of what this work looks like — not client stories.",
+        "example": "Example",
+        "items": [
+          {
+            "title": "Search that answers",
+            "body": "A help centre or docs site where people ask a question and get a cited answer instead of ten links."
+          },
+          {
+            "title": "Forms that fill themselves",
+            "body": "Onboarding, quotes or long forms that fill in from a document or a short description, with every field still editable."
+          },
+          {
+            "title": "An assistant in your dashboard",
+            "body": "People ask their own data questions in plain language and get a table or chart back, with the query shown."
+          },
+          {
+            "title": "A new AI-first product",
+            "body": "From an idea and a dataset to a working product: interface, model choice, evaluations and hosting."
+          }
+        ]
+      },
       "faq": {
-        "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "Common questions",
+        "items": [
+          {
+            "id": "existing-app",
+            "question": "Can you add AI to the web app we already have?",
+            "answer": "Yes — that is most of this work. We start by reading your codebase and how the feature would fit, then build inside your conventions instead of bolting on a separate app. Your team reviews and owns the code."
+          },
+          {
+            "id": "model",
+            "question": "Which model will you use?",
+            "answer": "Whichever fits the job on quality, speed and cost, measured on your own requests. We keep the model behind a small interface, so it can be switched when a better or cheaper one arrives."
+          },
+          {
+            "id": "data",
+            "question": "Where does our data go?",
+            "answer": "Requests go through your servers, not straight from the browser to a model provider. We use providers that do not train on your data, or run open models in your own cloud when that matters."
+          },
+          {
+            "id": "timeline",
+            "question": "How long does it take?",
+            "answer": "It depends on the feature and on your codebase, so we do not quote a number before we have seen either. We agree the scope of a first prototype on the discovery call and estimate once we have read the code."
+          },
+          {
+            "id": "after-launch",
+            "question": "What happens after launch?",
+            "answer": "We can keep watching quality and cost in production and keep improving the feature against the same bar. That is our Run & improve service."
+          }
+        ]
       },
-      "faqItems": [
-        {
-          "id": "ai-speed",
-          "question": "How does AI speed up web development?",
-          "answer": "Our agents generate boilerplate code, database schemas, and component scaffolding in minutes. Human engineers then review, refine, and customize everything to your exact requirements. This eliminates repetitive work and lets us focus on what makes your product unique."
-        },
-        {
-          "id": "existing-codebase",
-          "question": "Can you work with my existing codebase?",
-          "answer": "Absolutely. We regularly join projects mid-stream. Our onboarding process includes a thorough code audit, and our AI agent adapts to your existing patterns, conventions, and tech stack."
-        },
-        {
-          "id": "timeline",
-          "question": "What does the delivery timeline look like?",
-          "answer": "Most web projects ship in 2 to 6 weeks depending on complexity. MVPs and prototypes can launch in as little as 2 weeks. Enterprise platforms with complex integrations typically take 4 to 6 weeks. You will receive weekly progress demos throughout."
-        },
-        {
-          "id": "deployment",
-          "question": "Do you handle deployment and hosting?",
-          "answer": "Yes. We deploy to Vercel, AWS, or your preferred cloud provider. Every project includes CI/CD pipelines, monitoring, and a production-ready infrastructure setup at no extra charge."
-        }
-      ],
       "cta": {
-        "title": "Ready to build your web application?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "What should AI do in your web app?",
+        "lede": "Tell us the feature and who uses it. We will come back with how we would build it, what it would cost to run, and how we would measure it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "ios": {
       "hero": {
-        "eyebrow": "Services / iOS",
-        "title": "iOS Development",
-        "lede": "Native iOS apps with Swift and SwiftUI — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
+        "kicker": "AI inside your iOS app",
+        "title": "AI that feels at home in your <em>iOS app</em>.",
+        "lede": "We build AI features into iPhone and iPad apps — assistants, summaries, smart search, suggestions — natively in Swift and SwiftUI, running on the device, on your servers, or both.",
+        "primaryCta": "Book a discovery call",
         "secondaryCta": "Get an estimate"
       },
-      "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent drafts the app. Engineers ship it.",
-        "description": "Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance.",
-        "stages": [
-          "Brief",
-          "Design",
-          "Build",
-          "Review",
-          "Ship"
-        ]
+      "crumbLabel": "Breadcrumb",
+      "back": "All services",
+      "figure": {
+        "label": "On-device assistant",
+        "example": "Example",
+        "summary": "An example iOS expenses app: the user asks what they spent on client dinners this month. The assistant finds four receipts, notes that two are missing a project code, and offers to add them, which the user taps.",
+        "time": "9:41",
+        "appTitle": "Expenses",
+        "user": "What did I spend on client dinners this month?",
+        "assistant": "Assistant",
+        "badge": "On device",
+        "thinking": "Thinking",
+        "reply": "Four receipts this month, 212.40 in total. Two of them are missing a project code — the last two, both from the same week.",
+        "chip": "Add project codes",
+        "chipDone": "Project codes added",
+        "pause": "Pause",
+        "play": "Play"
+      },
+      "what": {
+        "title": "What it is",
+        "body": "An AI feature on iOS has to meet the standard of the rest of the platform: fast, private by default, and quiet when it has nothing useful to say. We design it around your app’s patterns, choose what runs on the device and what runs on your servers, and ship it through App Review like any other release.",
+        "note": "This page is one part of <product>AI inside your product</product>. The same service covers web and Android apps."
       },
       "spec": {
-        "eyebrow": "What you get",
-        "title": "Scope, stack, and delivery — in writing."
+        "title": "The spec",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "getItems": [
+          "AI features built natively into your iOS app, in Swift and SwiftUI",
+          "On-device models with Core ML where privacy or speed matter, server models where quality does",
+          "Fallbacks and offline behaviour, so the app still works without the AI",
+          "Monitoring for quality, response time and cost once it is live"
+        ],
+        "measureBody": "Task success for real users, response time on the iPhones they actually carry, and cost per active user — tracked in production against the bar we agree first.",
+        "firstBody": "Pick the screen where your users spend the most effort. We prototype the AI feature there and test it on real devices."
       },
-      "specRows": [
-        {
-          "slug": "scope",
-          "label": "Scope",
-          "value": "Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst."
-        },
-        {
-          "slug": "stack",
-          "label": "Stack"
-        },
-        {
-          "slug": "timeline",
-          "label": "Timeline",
-          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
-        },
-        {
-          "slug": "automated",
-          "label": "Automated by agents",
-          "value": "SwiftUI views, Core Data models, networking layers, and navigation stacks — generated from your requirements, following Apple's Human Interface Guidelines."
-        },
-        {
-          "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "UX refinement, App Store compliance, and rigorous testing on every build before it reaches your users."
-        }
-      ],
-      "techStack": [
-        "Swift",
-        "SwiftUI",
-        "UIKit",
-        "Core Data",
-        "CloudKit",
-        "Combine",
-        "MapKit",
-        "HealthKit",
-        "StoreKit",
-        "Core ML"
-      ],
-      "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the apps we build most often — not an exhaustive list."
+      "stack": {
+        "title": "What we build with",
+        "note": "Our usual iOS stack. We work inside your codebase and conventions.",
+        "items": [
+          "Swift",
+          "SwiftUI",
+          "UIKit",
+          "Combine",
+          "Core Data",
+          "Core ML",
+          "Vision",
+          "Natural Language",
+          "CloudKit",
+          "Your backend APIs"
+        ]
       },
-      "useCases": [
-        {
-          "title": "Business Apps",
-          "description": "Enterprise tools, CRM mobile clients, and field-service apps with secure data handling."
-        },
-        {
-          "title": "Health & Fitness",
-          "description": "HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines."
-        },
-        {
-          "title": "Fintech",
-          "description": "Secure financial apps with biometric auth, real-time data, and Apple Pay integration."
-        },
-        {
-          "title": "Consumer Apps",
-          "description": "Polished consumer experiences with elegant animations and seamless onboarding."
-        }
-      ],
+      "cases": {
+        "title": "Where it fits",
+        "note": "Examples of what this work looks like — not client stories.",
+        "example": "Example",
+        "items": [
+          {
+            "title": "Search that understands",
+            "body": "Find a note, a payment or a photo by describing it, instead of remembering the exact word."
+          },
+          {
+            "title": "Document capture",
+            "body": "Scan a receipt or a form and get the fields that matter, checked by the user before anything is saved."
+          },
+          {
+            "title": "Private summaries",
+            "body": "A short digest of the user’s own activity — spending, workouts, messages — worked out on the device."
+          },
+          {
+            "title": "An in-app assistant",
+            "body": "Help that knows the user’s account and your product, and hands off to a person when it should."
+          }
+        ]
+      },
       "faq": {
-        "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "Common questions",
+        "items": [
+          {
+            "id": "on-device",
+            "question": "Can it run on the device?",
+            "answer": "For many tasks, yes, with Core ML and Apple’s on-device frameworks. Larger tasks usually run on your servers. We measure both on your data before deciding."
+          },
+          {
+            "id": "review",
+            "question": "Will it pass App Review?",
+            "answer": "We follow Apple’s guidelines on AI features, privacy labels and user data from the start, and handle review like any other release. Nobody can promise an outcome, but we design so that there are no surprises."
+          },
+          {
+            "id": "existing-app",
+            "question": "Do you work on our existing app?",
+            "answer": "Yes. We work inside your codebase and release process, and your team reviews and owns everything we ship."
+          },
+          {
+            "id": "data",
+            "question": "What about user privacy?",
+            "answer": "On-device features keep the data on the phone. Server features go through your backend, under the provider terms you choose — including no training on your data."
+          }
+        ]
       },
-      "faqItems": [
-        {
-          "id": "swiftui-uikit",
-          "question": "Do you build with SwiftUI or UIKit?",
-          "answer": "We use SwiftUI for all new projects because it provides a modern, declarative approach to UI development and is Apple's recommended framework going forward. For projects that need to support older iOS versions or require features not yet available in SwiftUI, we use UIKit or a hybrid approach."
-        },
-        {
-          "id": "app-store-submission",
-          "question": "Can you submit to the App Store for us?",
-          "answer": "Yes. We manage the entire submission process including App Store Connect setup, screenshots, metadata, and review compliance. We also handle TestFlight distribution for beta testing with your team or early users."
-        },
-        {
-          "id": "ipad-watch",
-          "question": "Do you support iPad and Apple Watch?",
-          "answer": "Absolutely. Our SwiftUI layouts adapt to iPad, Apple Watch, and even macOS via Catalyst. We design for the full Apple ecosystem from day one, so your app feels native on every device."
-        },
-        {
-          "id": "iap",
-          "question": "What about in-app purchases and subscriptions?",
-          "answer": "StoreKit 2 is part of our standard toolkit. We implement subscriptions, consumables, and non-consumable purchases with server-side receipt validation. We also handle the App Store pricing and tax configuration."
-        }
-      ],
       "cta": {
-        "title": "Ready to build your iOS app?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "What should AI do in your iOS app?",
+        "lede": "Tell us the feature and who uses it. We will come back with how we would build it, where it should run, and how we would measure it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "android": {
       "hero": {
-        "eyebrow": "Services / Android",
-        "title": "Android Development",
-        "lede": "Native Android apps with Kotlin and Jetpack Compose — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
+        "kicker": "AI inside your Android app",
+        "title": "An assistant that lives in your <em>Android app</em>.",
+        "lede": "We build AI features into Android apps — assistants, summaries, smart capture, suggestions — natively in Kotlin and Jetpack Compose, running on the device, on your servers, or both.",
+        "primaryCta": "Book a discovery call",
         "secondaryCta": "Get an estimate"
       },
-      "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent drafts the app. Engineers ship it.",
-        "description": "Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance.",
-        "stages": [
-          "Brief",
-          "Design",
-          "Build",
-          "Review",
-          "Release"
-        ]
+      "crumbLabel": "Breadcrumb",
+      "back": "All services",
+      "figure": {
+        "label": "On-device assistant",
+        "example": "Example",
+        "summary": "An example Android app: a field engineer asks the assistant to summarise the day and book the follow-up. The assistant replies with three issues and suggests a follow-up time, which the engineer taps to schedule.",
+        "time": "9:41",
+        "appTitle": "Field notes",
+        "user": "Summarise today’s visit and book the follow-up.",
+        "assistant": "Assistant",
+        "badge": "On device",
+        "thinking": "Thinking",
+        "reply": "Three issues logged at the pump station: a worn seal, a loose valve and a gauge reading high. The seal needs a part, so I suggest Thursday morning.",
+        "chip": "Book Thursday 9:00",
+        "chipDone": "Booked for Thursday",
+        "pause": "Pause",
+        "play": "Play"
+      },
+      "what": {
+        "title": "What it is",
+        "body": "On a phone, AI has to be quick, cope with a patchy connection and respect the battery. We decide with you what runs on the device and what runs on your servers, design the feature around how people already use your app, and ship it through Google Play like any other release.",
+        "note": "This page is one part of <product>AI inside your product</product>. The same service covers web and iOS apps."
       },
       "spec": {
-        "eyebrow": "What you get",
-        "title": "Scope, stack, and delivery — in writing."
+        "title": "The spec",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "getItems": [
+          "AI features built natively into your Android app, in Kotlin and Jetpack Compose",
+          "A split that fits: on-device models where speed or privacy matter, server models where quality does",
+          "Offline behaviour and fallbacks, so the app still works without the AI",
+          "Monitoring for quality, response time and cost across devices once it is live"
+        ],
+        "measureBody": "Task success for real users, response time on the devices your users actually have, and cost per active user — measured in production, not only on a flagship phone.",
+        "firstBody": "Name the moment in your app where people get stuck. We prototype the AI feature right there and test it on real devices."
       },
-      "specRows": [
-        {
-          "slug": "scope",
-          "label": "Scope",
-          "value": "Business, social, e-commerce, health, education, and productivity apps — responsive across phones, tablets, and foldables."
-        },
-        {
-          "slug": "stack",
-          "label": "Stack"
-        },
-        {
-          "slug": "timeline",
-          "label": "Timeline",
-          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
-        },
-        {
-          "slug": "automated",
-          "label": "Automated by agents",
-          "value": "Kotlin modules, Compose screens, Room database entities, and Hilt dependency graphs — generated from your requirements, following Google's MVVM + Repository architecture."
-        },
-        {
-          "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "UX polish, edge-case testing, and Play Store compliance on every release before it reaches production."
-        }
-      ],
-      "techStack": [
-        "Kotlin",
-        "Jetpack Compose",
-        "Material Design 3",
-        "Firebase",
-        "Room DB",
-        "Retrofit",
-        "ML Kit",
-        "Google Play Services",
-        "Coroutines",
-        "Hilt"
-      ],
-      "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the apps we build most often — not an exhaustive list."
+      "stack": {
+        "title": "What we build with",
+        "note": "Our usual Android stack. We work inside your codebase and conventions.",
+        "items": [
+          "Kotlin",
+          "Jetpack Compose",
+          "Material Design 3",
+          "Coroutines",
+          "Hilt",
+          "Room",
+          "Retrofit",
+          "ML Kit",
+          "On-device models",
+          "Firebase",
+          "Your backend APIs"
+        ]
       },
-      "useCases": [
-        {
-          "title": "Business Apps",
-          "description": "Internal tools, CRM integrations, and field-service apps that streamline operations."
-        },
-        {
-          "title": "E-Commerce Mobile",
-          "description": "Shopping apps with product catalogs, in-app payments, and push notification campaigns."
-        },
-        {
-          "title": "Social & Community",
-          "description": "Chat, feeds, and real-time features that keep users engaged and connected."
-        },
-        {
-          "title": "Health & Fitness",
-          "description": "Wearable integrations, workout trackers, and telehealth experiences."
-        }
-      ],
+      "cases": {
+        "title": "Where it fits",
+        "note": "Examples of what this work looks like — not client stories.",
+        "example": "Example",
+        "items": [
+          {
+            "title": "Smart capture",
+            "body": "Point the camera at a receipt, a label or a form and get the fields back, ready to check and save."
+          },
+          {
+            "title": "Summaries on the go",
+            "body": "Long threads, notes or reports turned into a short summary with the next action, readable in a few seconds."
+          },
+          {
+            "title": "An in-app assistant",
+            "body": "Answers questions about the user’s own account, orders or history, and hands off to support when it cannot."
+          },
+          {
+            "title": "Voice to action",
+            "body": "Speak a note in the field; the app files it, tags it and suggests the follow-up."
+          }
+        ]
+      },
       "faq": {
-        "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "Common questions",
+        "items": [
+          {
+            "id": "on-device",
+            "question": "Can the AI run on the phone itself?",
+            "answer": "Often, for tasks that suit small models — classification, extraction, short summaries. Larger tasks usually run on your servers. We measure both on your data before choosing."
+          },
+          {
+            "id": "devices",
+            "question": "Will it work on older and cheaper phones?",
+            "answer": "We test on a spread of devices that matches your users, not only recent flagships, and fall back to a server model or a simpler path where a device cannot keep up."
+          },
+          {
+            "id": "existing-app",
+            "question": "Do you work on our existing app?",
+            "answer": "Yes. We work inside your codebase and release process, and your team reviews and owns everything we ship."
+          },
+          {
+            "id": "data",
+            "question": "Where does user data go?",
+            "answer": "On-device features keep the data on the phone. Server features go through your backend, under the provider terms you choose — including no training on your data."
+          }
+        ]
       },
-      "faqItems": [
-        {
-          "id": "kotlin-java",
-          "question": "Do you build with Kotlin or Java?",
-          "answer": "We build exclusively with Kotlin and Jetpack Compose for all new projects. Kotlin is the official recommended language for Android development, and Compose provides a modern, declarative UI toolkit. If you have an existing Java codebase, we can maintain it or help you migrate incrementally."
-        },
-        {
-          "id": "play-store",
-          "question": "Can you publish to the Google Play Store?",
-          "answer": "Yes. We handle the entire release process including Play Store listing, screenshots, app signing, and compliance review. We also set up staged rollouts and crash monitoring so you can ship with confidence."
-        },
-        {
-          "id": "tablets-foldables",
-          "question": "Do you support tablets and foldables?",
-          "answer": "Absolutely. Our Compose-based layouts are responsive by default. We test on phones, tablets, and foldable devices to ensure a great experience across the entire Android ecosystem."
-        },
-        {
-          "id": "offline",
-          "question": "What about offline functionality?",
-          "answer": "Room database and WorkManager are part of our standard stack. We architect every app with offline-first principles so users can keep working even without an internet connection. Data syncs automatically when connectivity returns."
-        }
-      ],
       "cta": {
-        "title": "Ready to build your Android app?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "What should AI do in your Android app?",
+        "lede": "Tell us the feature and who uses it. We will come back with how we would build it, where it should run, and how we would measure it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "support": {
       "hero": {
-        "eyebrow": "Services / Support",
-        "title": "Support & Maintenance",
-        "lede": "Ongoing support retainers so your product stays fast, secure, and up to date — without hiring a full-time team.",
-        "primaryCta": "Start a project",
+        "kicker": "Run & improve",
+        "title": "AI in production, <em>watched</em> and made better.",
+        "lede": "Once an AI system is live, the work changes: inputs drift, models get updated, costs creep. We watch quality, cost and speed against the bar we agreed, catch problems early, and keep making the system better.",
+        "primaryCta": "Book a discovery call",
         "secondaryCta": "Get an estimate"
       },
+      "crumbLabel": "Breadcrumb",
+      "back": "All services",
+      "figure": {
+        "label": "Production monitor",
+        "example": "Example",
+        "summary": "An example production monitor: answer quality holds above the agreed bar, starts to drift, the drift is detected, a fix ships, and quality recovers before it crosses the bar.",
+        "metric": "Answer quality",
+        "bar": "The bar we agreed",
+        "axisStart": "Two weeks ago",
+        "axisEnd": "Now",
+        "events": {
+          "drift": "Drift detected",
+          "fix": "Fix shipped",
+          "recovered": "Recovered"
+        },
+        "status": {
+          "holding": "Holding above the bar",
+          "drift": "Drift: answers quoting an outdated policy",
+          "fix": "Fix: sources re-indexed, evals re-run",
+          "recovered": "Recovered, back where it was"
+        },
+        "pause": "Pause",
+        "play": "Play"
+      },
+      "what": {
+        "title": "What it is",
+        "body": "An AI system that passed its evaluations on launch day can quietly get worse — new kinds of requests, a changed document, a provider’s model update. Run & improve is an ongoing engagement: we run your evaluations on real traffic, review what fails, fix it, and show you the numbers every time.",
+        "note": "It is the last stage of <process>how we work</process>, built on the evaluations described under <evals>Data & evaluation pipelines</evals>."
+      },
       "spec": {
-        "eyebrow": "Snapshot",
-        "title": "Coverage, response time, and billing — in writing."
+        "title": "The spec",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "getItems": [
+          "Continuous evaluation on a sample of real production traffic",
+          "Alerts when quality, cost or speed moves away from the agreed bar",
+          "Regular fixes — prompts, retrieval, data and model updates — each tested before release",
+          "A readable report: what changed, what improved, and what we are watching"
+        ],
+        "measureBody": "The bar we agreed before launch — quality on your test set and on sampled live traffic, cost per task, and response time — tracked over time, with every change compared before and after.",
+        "firstBody": "Give us access to the logs of a system that is already live. We turn a week of them into an evaluation set and a first report."
       },
-      "specRows": [
-        {
-          "slug": "monitoring",
-          "label": "Monitoring",
-          "value": "24/7 automated monitoring and alerting, with a 4-hour response SLA on Enterprise."
-        },
-        {
-          "slug": "uptime",
-          "label": "Uptime SLA",
-          "value": "99.9% — backed by quarterly architecture reviews on Enterprise plans."
-        },
-        {
-          "slug": "included",
-          "label": "Included"
-        },
-        {
-          "slug": "stacks",
-          "label": "Stacks supported"
-        },
-        {
-          "slug": "billing",
-          "label": "Billing",
-          "value": "A fixed monthly fee per tier — no surprise charges. Work beyond retainer scope is quoted before we proceed. Change tiers any time with 30 days notice."
-        }
-      ],
-      "included": [
-        "Bug Fixes",
-        "Security Patches",
-        "Performance Monitoring",
-        "Feature Updates",
-        "Database Maintenance",
-        "Backup Management"
-      ],
-      "coverage": [
-        "React",
-        "Next.js",
-        "Node.js",
-        "Kotlin",
-        "Swift",
-        "PostgreSQL",
-        "MongoDB",
-        "AWS",
-        "Vercel",
-        "Firebase"
-      ],
-      "plans": {
-        "eyebrow": "Plans",
-        "title": "Choose your tier.",
-        "description": "Every tier is a monthly retainer. Upgrade, downgrade, or cancel with 30 days notice."
+      "stack": {
+        "title": "What we watch with",
+        "note": "Tooling we commonly use. Where you already have monitoring, we plug into it.",
+        "items": [
+          "Evaluation suites",
+          "Production tracing",
+          "Sampled human review",
+          "Drift checks",
+          "Cost dashboards",
+          "Prompt and model versioning",
+          "Alerting",
+          "OpenTelemetry",
+          "Your existing observability stack"
+        ]
       },
-      "tiers": [
-        {
-          "slug": "basic",
-          "name": "Basic",
-          "description": "Bug fixes and routine updates for smaller applications.",
-          "features": [
-            "Bug fixes within 48 hours",
-            "Dependency updates",
-            "Monthly health report",
-            "Email support"
-          ]
-        },
-        {
-          "slug": "professional",
-          "name": "Professional",
-          "description": "Priority support with proactive monitoring for growing products.",
-          "features": [
-            "Bug fixes within 24 hours",
-            "Performance monitoring",
-            "Security patches",
-            "Weekly health reports",
-            "WhatsApp & email support"
-          ]
-        },
-        {
-          "slug": "enterprise",
-          "name": "Enterprise",
-          "description": "Dedicated team with SLA guarantees for mission-critical systems.",
-          "features": [
-            "4-hour response SLA",
-            "24/7 monitoring & alerting",
-            "Dedicated support engineer",
-            "Quarterly architecture reviews",
-            "Priority feature development",
-            "Custom SLA terms"
-          ]
-        }
-      ],
-      "onboardingSection": {
-        "eyebrow": "Onboarding",
-        "title": "Three steps to your first retainer month."
+      "cases": {
+        "title": "Where it fits",
+        "note": "Examples of what this work looks like — not client stories.",
+        "example": "Example",
+        "items": [
+          {
+            "title": "A support agent after launch",
+            "body": "Escalations and wrong answers are reviewed every week and turned into new test cases and fixes."
+          },
+          {
+            "title": "Documents that keep changing",
+            "body": "Re-indexing, freshness checks and citation audits, so answers never quote last year’s policy."
+          },
+          {
+            "title": "A model provider update",
+            "body": "When a provider ships a new model version, we run your evaluations first and switch only if it holds the bar."
+          },
+          {
+            "title": "Cost creeping up",
+            "body": "Find where the spend goes, then cache, route or distil so cost per task comes back down without losing quality."
+          }
+        ]
       },
-      "onboarding": [
-        {
-          "index": "01",
-          "title": "Audit",
-          "detail": "We review your existing codebase, infrastructure, and monitoring setup to identify risks and quick wins."
-        },
-        {
-          "index": "02",
-          "title": "Setup",
-          "detail": "We configure monitoring, alerting, CI/CD pipelines, and backup systems tailored to your stack."
-        },
-        {
-          "index": "03",
-          "title": "Launch",
-          "detail": "Your retainer begins. You get a dedicated channel for requests and a dashboard to track every issue."
-        }
-      ],
       "faq": {
-        "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "Common questions",
+        "items": [
+          {
+            "id": "vs-maintenance",
+            "question": "How is this different from ordinary support and maintenance?",
+            "answer": "Ordinary support keeps software running. An AI system can keep running and still get worse. Run & improve is about quality: we measure it continuously and act on it, not only when something breaks."
+          },
+          {
+            "id": "not-ours",
+            "question": "Do you only run systems you built?",
+            "answer": "No. We can take over a system another team built. We start with a review and an evaluation set, so we both know where it stands before we change anything."
+          },
+          {
+            "id": "worse",
+            "question": "Who decides what “worse” means?",
+            "answer": "We agree it with you up front: the metrics, the test set and the thresholds. When a number moves, we look at the real cases behind it before calling it a problem."
+          },
+          {
+            "id": "response",
+            "question": "How quickly do you respond to problems?",
+            "answer": "We agree response times and hours with you when we set up the engagement, based on how critical the system is. They are written into the agreement, not promised on a web page."
+          }
+        ]
       },
-      "faqItems": [
-        {
-          "id": "other-teams",
-          "question": "Can you support apps you did not build?",
-          "answer": "Yes. We regularly take over maintenance for applications built by other teams. Our onboarding audit identifies technical debt and risks so we can hit the ground running."
-        },
-        {
-          "id": "technologies",
-          "question": "What technologies do you support?",
-          "answer": "We support React, Next.js, Node.js, Kotlin, Swift, PostgreSQL, MongoDB, AWS, Vercel, Firebase, and more. If your stack is not listed, ask us — we are happy to evaluate."
-        },
-        {
-          "id": "billing",
-          "question": "How does billing work?",
-          "answer": "Support retainers are billed monthly with a fixed fee based on your chosen tier. There are no surprise charges. If an issue requires work beyond the retainer scope, we provide a quote before proceeding."
-        },
-        {
-          "id": "change-plan",
-          "question": "Can I upgrade or downgrade my plan?",
-          "answer": "Absolutely. You can change tiers at any time with 30 days notice. We will help you transition smoothly and adjust monitoring and SLA terms accordingly."
-        }
-      ],
       "cta": {
-        "title": "Ready to secure your product?",
-        "lede": "Tell us about your application and we'll recommend the right support tier."
+        "title": "Is your AI getting better or worse?",
+        "lede": "Tell us what is running in production. We will tell you how we would measure it, and what we would watch first.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     }
   },
   "About": {
     "hero": {
-      "eyebrow": "About",
-      "title": "An AI-first studio, built in Dhaka, shipping worldwide.",
-      "lede": "We build web, Android, and iOS products at startup speed with enterprise quality — agents write, senior engineers own every line that ships."
+      "kicker": "Company",
+      "title": "We document ourselves the way we document our <em>models</em>.",
+      "lede": "Every model we ship comes with a model card: what it is for, what it is not for, how it was tested, and where its limits are. This one is ours. CraftsAI designs, builds and runs AI systems for businesses.",
+      "primary": "Book a discovery call",
+      "secondary": "See how we work",
+      "card": {
+        "ariaLabel": "The CraftsAI model card",
+        "label": "Model card",
+        "name": "CraftsAI",
+        "revision": "rev. {year}",
+        "footer": "Reviewed at the start of every engagement.",
+        "fields": [
+          {
+            "label": "Name",
+            "value": "CraftsAI"
+          },
+          {
+            "label": "Type",
+            "value": "AI development services"
+          },
+          {
+            "label": "Built for",
+            "value": "Businesses with a workflow worth handing to AI"
+          },
+          {
+            "label": "Inputs",
+            "value": "Your workflow, your data, and your bar for “good”"
+          },
+          {
+            "label": "Outputs",
+            "value": "Agents, assistants and models, and the evals that prove them"
+          },
+          {
+            "label": "Oversight",
+            "value": "People in the loop on every judgement call"
+          },
+          {
+            "label": "Data",
+            "value": "Stays in your environment"
+          },
+          {
+            "label": "Licence",
+            "value": "You own the code"
+          }
+        ]
+      }
     },
-    "story": {
-      "eyebrow": "Our story",
-      "title": "Why we started CraftsAI.",
-      "p1": "CraftsAI was founded in 2025 with a simple thesis: most software development time is spent on repetitive, predictable tasks that AI can handle better and faster than humans.",
-      "p2": "Based in Bangladesh, we built a studio around that idea. Our AI agents generate boilerplate code, database schemas, and component libraries while human engineers focus on architecture, product decisions, and the nuanced craft that machines cannot replicate.",
-      "p3": "The result is enterprise-grade software delivered at a fraction of the traditional cost and timeline — without compromising on quality, security, or maintainability."
-    },
-    "approach": {
-      "eyebrow": "Our approach",
-      "title": "Agents plus engineers, not agents instead of engineers.",
-      "agentsTitle": "AI Agents",
-      "agentsBody": "Our AI agents handle the repetitive coding tasks that traditionally consume most of development time. They generate clean, typed, well-structured code from plain-English requirements, following best practices for each platform.",
-      "humanTitle": "Human Oversight",
-      "humanBody": "Every line of AI-generated code is reviewed by experienced engineers. They make architectural decisions, write integration tests, handle edge cases, and ensure the final product meets production standards. AI amplifies their output; it does not replace their judgment."
-    },
-    "stats": {
-      "eyebrow": "By the numbers",
-      "title": "What that looks like in practice.",
+    "intended": {
+      "label": "Intended use",
+      "title": "Built for teams with real work to hand over.",
+      "note": "We are a good fit when at least one of these sounds familiar.",
       "items": [
         {
-          "value": "4",
-          "label": "Products Built"
+          "title": "A workflow that eats hours",
+          "body": "Your team reads, sorts and replies to the same things every day. We build an agent that takes the routine cases and hands the rest to a person."
         },
         {
-          "value": "3",
-          "label": "Platforms"
+          "title": "Knowledge scattered across documents",
+          "body": "Policies, contracts, wikis and old tickets that nobody can search well. We build an assistant that answers from them and shows its sources."
         },
         {
-          "value": "10x",
-          "label": "Faster Delivery"
+          "title": "A product that needs an AI feature done properly",
+          "body": "You know what the feature should do. We build it into your web or mobile app, with the evals, monitoring and cost controls that keep it good."
         },
         {
-          "value": "80%",
-          "label": "Cost Savings"
+          "title": "Leaders who want to know where AI pays off",
+          "body": "Before you commit a budget, a two-week sprint maps where AI helps and what it would cost, and ends with a working prototype."
         }
       ]
     },
-    "products": {
-      "eyebrow": "Our products",
-      "title": "What we've built for ourselves.",
-      "viewAll": "View all →",
+    "outOfScope": {
+      "label": "Out of scope",
+      "title": "What we won’t do.",
+      "note": "A good model card is honest about its limits. Ours is too.",
+      "tag": "Won’t do",
       "items": [
         {
-          "name": "Banglu",
-          "description": "Bengali phonetic keyboard for web and Android."
+          "title": "Build a demo that can’t reach production.",
+          "body": "If your security, data or reliability needs rule it out, we will say so in the first week."
         },
         {
-          "name": "Taxomind",
-          "description": "AI-powered tax preparation platform."
+          "title": "Train on your data without your consent.",
+          "body": "Your data is used to build your system, in your environment, and for nothing else."
         },
         {
-          "name": "CraftsAI Studio",
-          "description": "Internal tooling for AI-assisted development."
+          "title": "Promise accuracy we haven’t measured.",
+          "body": "We quote numbers only after testing on your real cases, and we show you the test."
         },
         {
-          "name": "Client Projects",
-          "description": "Custom web and mobile apps for businesses worldwide."
+          "title": "Replace the judgement calls your people should make.",
+          "body": "Large refunds, legal wording, anything about a person’s job: the AI prepares the case, and a person decides."
         }
       ]
+    },
+    "principles": {
+      "label": "Evaluation & principles",
+      "title": "How we hold ourselves to account.",
+      "note": "Four rules we apply to every system we ship.",
+      "measured": {
+        "title": "Measured, not guessed",
+        "body": "Every system ships with evaluations you can read: real cases, a bar we agreed on, and a result you can check.",
+        "example": "Example eval",
+        "tally": "{pass} of {total} pass",
+        "bar": "Bar",
+        "criteria": [
+          "Accurate",
+          "On policy",
+          "Tone",
+          "Cost"
+        ]
+      },
+      "private": {
+        "title": "Your data stays yours",
+        "body": "Private deployments inside your environment. No training on your data without your consent.",
+        "inside": "Your environment",
+        "outside": "Outside"
+      },
+      "agnostic": {
+        "title": "Model-agnostic",
+        "body": "We pick the model that fits the job, and build your system so the model can be swapped when a better one arrives.",
+        "system": "Your system",
+        "models": [
+          "Model A",
+          "Model B",
+          "Model C"
+        ]
+      },
+      "loop": {
+        "title": "People in the loop",
+        "body": "The AI handles the volume. Anything that needs judgement waits until a person approves it.",
+        "person": "A person",
+        "approve": "Approve"
+      }
+    },
+    "layers": {
+      "label": "Two layers",
+      "title": "Every task has two layers.",
+      "note": "On top, what your team sees. Underneath, what the system actually did. Move the lens over the example, or use the button, to see both.",
+      "example": "Example: a refund request",
+      "human": "Human layer",
+      "machine": "Machine layer",
+      "toggle": "Show the machine layer",
+      "caption": "People set the goals and make the calls. The machine does the volume, and shows its working.",
+      "kinds": {
+        "tokens": "Tokens",
+        "tool": "Tool call",
+        "retrieval": "Retrieval",
+        "eval": "Eval",
+        "handoff": "Handoff",
+        "log": "Log"
+      },
+      "rows": [
+        {
+          "human": "A customer writes in: the order arrived damaged, and they would like a refund.",
+          "kind": "tokens",
+          "machine": "intent = refund_request · damaged_item",
+          "meta": "p 0.94"
+        },
+        {
+          "human": "The assistant looks up the order and confirms what happened.",
+          "kind": "tool",
+          "machine": "orders.lookup(order_id)",
+          "meta": "→ delivered · photo attached"
+        },
+        {
+          "human": "It finds the refund policy that applies.",
+          "kind": "retrieval",
+          "machine": "refund_policy.md › damaged goods",
+          "meta": "score 0.91"
+        },
+        {
+          "human": "It drafts a reply, and checks the draft before anyone sees it.",
+          "kind": "eval",
+          "machine": "tone ✓ · policy ✓ · amount > limit",
+          "meta": "hold"
+        },
+        {
+          "human": "The amount is over the team’s limit, so it asks a person to approve.",
+          "kind": "handoff",
+          "machine": "route → support_lead + summary",
+          "meta": "awaiting approval"
+        },
+        {
+          "human": "A person approves. The customer gets the refund and a clear answer.",
+          "kind": "log",
+          "machine": "approved · reply sent · case → eval set",
+          "meta": "done"
+        }
+      ]
+    },
+    "join": {
+      "label": "Maintainers",
+      "title": "Help us maintain this card.",
+      "body": "We hire engineers and designers who care as much about measuring a system as building it.",
+      "field": "Maintainers",
+      "value": "A small team of engineers and designers, and maybe you.",
+      "cta": "See open roles"
     },
     "cta": {
-      "title": "Ready to work with us?",
-      "lede": "Tell us about your project and get a free, no-obligation quote within 24 hours.",
-      "primaryLabel": "Get a free quote"
+      "title": "Put us to work on one workflow.",
+      "lede": "Pick the workflow that costs your team the most time. We will come back with an honest view of what AI can do there, how we would measure it, and what it would cost.",
+      "primary": "Book a discovery call",
+      "secondary": "Email us"
     }
   },
   "Careers": {
     "hero": {
-      "eyebrow": "Careers",
-      "title": "Build the future with us.",
-      "lede": "We're a small, AI-first studio where engineers work alongside intelligent agents to ship products faster than anyone thought possible. If you thrive at the intersection of craftsmanship and automation, you'll fit right in."
+      "kicker": "Careers",
+      "title": "Join the [maint|ainers.]",
+      "lede": "CraftsAI is a small team of engineers and designers who build, measure and run AI systems for businesses. We're remote-friendly and mostly asynchronous, and we value output over hours.",
+      "primary": "Write to us",
+      "secondary": "See open roles",
+      "tokens": {
+        "show": "Show tokens",
+        "caption": "An example split. Real tokenizers cut words in their own places."
+      },
+      "card": {
+        "ariaLabel": "The maintainers entry of our model card",
+        "label": "Model card",
+        "name": "Maintainers",
+        "fields": [
+          {
+            "label": "Team",
+            "value": "A small team of engineers and designers"
+          },
+          {
+            "label": "Setup",
+            "value": "Remote-friendly, mostly asynchronous"
+          },
+          {
+            "label": "Oversight",
+            "value": "People make the judgement calls"
+          },
+          {
+            "label": "Evidence",
+            "value": "Evaluations anyone can read"
+          },
+          {
+            "label": "Open roles",
+            "value": "None right now"
+          },
+          {
+            "label": "Next",
+            "value": "Maybe you"
+          }
+        ],
+        "footer": "Continued from our company card.",
+        "link": "Read the full card"
+      }
     },
-    "culture": {
-      "eyebrow": "Why CraftsAI",
-      "title": "What it's like to work here.",
-      "cards": [
+    "work": {
+      "label": "How we work",
+      "title": "The way we build AI is the way we work.",
+      "note": "The principles on our client work apply to our own.",
+      "items": [
         {
-          "title": "AI-First Culture",
-          "description": "We embrace AI as a core tool in every workflow. You will work alongside cutting-edge coding agents and shape how humans and AI collaborate."
+          "title": "People in the loop",
+          "body": "The AI we build handles volume and leaves judgement calls with people. We work the same way: tools take the repetitive parts, and a person owns every decision that matters."
         },
         {
-          "title": "Remote Friendly",
-          "description": "Work from anywhere in the world. We communicate asynchronously and value output over hours. Flexible schedules that fit your life."
+          "title": "Measured, not guessed",
+          "body": "Every system we ship comes with evaluations a client can read. We hold our own work to that bar: if we can't measure it, we don't claim it."
         },
         {
-          "title": "Cutting-Edge Tech",
-          "description": "Next.js, Kotlin, Swift, LLM integrations, cloud-native architectures. You will always be working with the latest technologies and frameworks."
+          "title": "A small team",
+          "body": "Few people and clear ownership, so the person who builds a system also sees how it performs in production."
         },
         {
-          "title": "Impact-Driven Work",
-          "description": "Every product we build solves real problems for real users. From education platforms to finance apps, your work will make a tangible difference."
+          "title": "Remote-friendly",
+          "body": "We work mostly asynchronously, write things down, and value output over hours, with schedules that fit your life."
         }
       ]
     },
-    "openPositions": {
-      "eyebrow": "Open positions",
-      "title": "Nothing open right now.",
-      "cardLead": "We are always looking for talented people. There are no open positions right now, but we would love to hear from you — send your CV and a note to"
+    "look": {
+      "label": "What we look for",
+      "title": "What we look for.",
+      "rubric": "Rubric",
+      "items": [
+        {
+          "title": "You measure before you claim",
+          "body": "You would rather show an evaluation than an adjective."
+        },
+        {
+          "title": "You write clearly",
+          "body": "Specs, notes and pull requests that someone else can pick up and run with."
+        },
+        {
+          "title": "You know where AI fails",
+          "body": "You can say when not to use a model, and what a person should check."
+        },
+        {
+          "title": "You finish things",
+          "body": "Prototypes are the easy part. You care about the version that runs in production."
+        }
+      ]
+    },
+    "roles": {
+      "title": "Open roles",
+      "query": "roles where status = open",
+      "empty": "No open roles right now.",
+      "body": "We still read every note. If you build or measure AI systems and this way of working sounds right, write to us.",
+      "includeTitle": "A good note includes",
+      "include": [
+        "What you've built, and who it was for",
+        "How you knew it worked",
+        "A link we can read or run"
+      ],
+      "mail": "Email hello@craftsai.org"
     },
     "cta": {
-      "title": "Interested in joining?",
-      "lede": "Send your CV and a brief introduction. Tell us what excites you about AI-powered development.",
-      "primaryLabel": "Email careers@craftsai.org",
-      "secondaryLabel": "See our work"
+      "title": "Tell us what you'd maintain.",
+      "lede": "Send a short note about something you built and how you measured it. There may be no role today, but we read every note.",
+      "primaryLabel": "Read our company card",
+      "secondaryLabel": "Email us"
     }
   },
   "Process": {
     "hero": {
-      "eyebrow": "Process",
-      "title": "Your project rides the line.",
-      "lede": "Five stations between idea and launch. Watch it move — no black boxes, no surprises, just a build you can follow with your own eyes."
+      "kicker": "Process",
+      "title": "Agree the bar. Then clear it.",
+      "lede": "Every project follows one line: quality, measured against a bar we set with you at the start. Five stages take it from a first prototype to a system that keeps improving in production, and you can see where it stands at every step.",
+      "primary": "Book a discovery call",
+      "secondary": "Walk through a project",
+      "replay": "Replay the run",
+      "chartLabel": "Example run: quality starts well below the bar agreed in Discover, rises quickly while prototyping, crosses the bar during Evaluate, and keeps improving in Run & improve while cost per task falls."
     },
-    "line": {
-      "eyebrow": "The line",
-      "title": "How a project moves through CraftsAI.",
-      "totalNote": "05 stations · typical total 2–6 weeks"
+    "chart": {
+      "example": "Example run · illustrative numbers",
+      "quality": "quality",
+      "bar": "the bar we agreed",
+      "cost": "cost per task",
+      "stage": "stage",
+      "vsBar": "vs the bar"
     },
-    "phases": [
-      {
-        "number": "01",
-        "title": "Discovery",
-        "label": "DISCOVERY",
-        "what": "Free consultation to understand your needs. We discuss your goals, target audience, and success criteria to make sure we are aligned before any code is written.",
-        "deliverables": "Requirements document, project scope",
-        "yourRole": "Share your vision and goals",
-        "timeline": "1–2 days"
+    "run": {
+      "title": "Five stages, one curve",
+      "note": "Scroll through a project. The line is an example run: quality at each checkpoint, against the bar we agree at the start. Each stage ends with something you can hold, and a call that is yours to make.",
+      "listLabel": "Project stages",
+      "youGet": "You get",
+      "youDecide": "You decide",
+      "example": "Example",
+      "chartLabel": "Example run chart: quality over the five stages, crossing the agreed bar during Evaluate."
+    },
+    "stages": {
+      "discover": {
+        "title": "Discover",
+        "body": "We sit with the people who do the work, map the workflow and the data behind it, and agree what good looks like in terms you can check. That becomes the bar everything after is measured against.",
+        "get": "A one-page map of the workflow and a written quality bar.",
+        "decide": "Which workflow to start with, and where the bar sits.",
+        "artifact": {
+          "title": "Workflow map",
+          "steps": [
+            "A request comes in",
+            "Find the facts",
+            "Draft the answer",
+            "A person signs off"
+          ],
+          "data": "Data: past requests, policy documents, the order system",
+          "bar": "The bar: 0.70 on a test set of real cases"
+        }
       },
-      {
-        "number": "02",
-        "title": "Planning",
-        "label": "PLANNING",
-        "what": "Architecture design, technology selection, and milestone planning. We map out the entire project so there are no surprises down the road.",
-        "deliverables": "Technical spec, project timeline, cost estimate",
-        "yourRole": "Review and approve plan",
-        "timeline": "2–3 days"
+      "prototype": {
+        "title": "Prototype",
+        "body": "Within weeks you see a working demo on your real data, not a mock-up. It is rough on purpose: the point is to learn quickly where the AI is strong and where it struggles.",
+        "get": "A working demo you can try with your own cases.",
+        "decide": "Whether it is worth measuring properly.",
+        "artifact": {
+          "title": "Working demo",
+          "question": "Can I still return the jacket I ordered last month?",
+          "answer": "Yes. Your order is still inside the return window, so I have started the return and emailed you a label.",
+          "source": "returns-policy.pdf",
+          "tag": "on your data"
+        }
       },
-      {
-        "number": "03",
-        "title": "Development",
-        "label": "DEVELOPMENT",
-        "what": "AI agents generate code while engineers review and refine. You see working features early and often through regular demos.",
-        "deliverables": "Working features, regular demos",
-        "yourRole": "Weekly check-ins, feedback",
-        "timeline": "1–4 weeks"
+      "evaluate": {
+        "title": "Evaluate",
+        "body": "We measure accuracy, cost, and speed against the bar we agreed, on test cases drawn from your real work. You read the same report we do, failures included.",
+        "get": "An eval report: every test case, pass or fail, and the score against the bar.",
+        "decide": "Whether it is good enough to build, or what to fix first.",
+        "artifact": {
+          "title": "Eval report",
+          "cases": "real test cases",
+          "pass": "pass",
+          "fail": "fail",
+          "score": "score",
+          "bar": "bar",
+          "verdict": "Clears the bar"
+        }
       },
-      {
-        "number": "04",
-        "title": "Testing",
-        "label": "TESTING",
-        "what": "Comprehensive QA, performance testing, and security audit. We catch issues before your users do.",
-        "deliverables": "Test reports, bug-free application",
-        "yourRole": "User acceptance testing",
-        "timeline": "3–5 days"
+      "build": {
+        "title": "Build",
+        "body": "Production-grade integration with your systems, with security and monitoring built in from the start. The evals come along, so every release is checked against the bar before it ships.",
+        "get": "A production system connected to your tools, with monitoring on.",
+        "decide": "Who can use it, what it can touch, and when it goes live.",
+        "artifact": {
+          "title": "Production checklist",
+          "items": [
+            "Connected to your systems",
+            "Access control and audit log",
+            "Evals run on every release",
+            "Monitoring and alerts on"
+          ],
+          "status": "Ready to go live"
+        }
       },
-      {
-        "number": "05",
-        "title": "Launch & Support",
-        "label": "LAUNCH",
-        "what": "Deployment, monitoring setup, and handoff. We make sure everything runs smoothly and your team is fully equipped to take over.",
-        "deliverables": "Live application, documentation, training",
-        "yourRole": "Final approval",
-        "timeline": "1–2 days"
+      "run": {
+        "title": "Run & improve",
+        "body": "We watch it in production and keep making it better: we catch drift, fix the cases it gets wrong, and switch models when a better one arrives. Each improvement is measured before it ships.",
+        "get": "A live monitor, and a note each time an improvement ships.",
+        "decide": "Which improvements matter most to your team.",
+        "artifact": {
+          "title": "Live monitor",
+          "label": "quality in production",
+          "holding": "Above the bar",
+          "shipped": "Improvement shipped",
+          "pips": [
+            "Better answers on returns",
+            "Lower cost per task",
+            "Moved to a newer model"
+          ]
+        }
       }
-    ],
-    "communication": {
-      "eyebrow": "How we communicate",
-      "title": "Transparency is how we work.",
-      "description": "You will always know where your project stands.",
+    },
+    "loop": {
+      "title": "How you stay in the loop",
+      "note": "You see the work as it happens, and anything that needs your judgement is marked as yours to decide.",
+      "channel": "Project channel",
+      "from": "CraftsAI",
+      "example": "What a week looks like · example",
+      "legendDecide": "Needs your decision",
+      "legendDone": "Done",
       "items": [
         {
-          "title": "Weekly Progress Reports",
-          "description": "Detailed updates on what was completed, what is next, and any blockers."
+          "title": "Weekly demo",
+          "body": "A short recorded walkthrough of this week's version, including the cases it still gets wrong.",
+          "status": "Done"
         },
         {
-          "title": "Direct Messaging",
-          "description": "Reach us anytime via WhatsApp or email. No ticketing queues."
+          "title": "Eval report",
+          "body": "The new version clears the bar on the latest test cases. The remaining failures are listed with examples.",
+          "status": "Done"
         },
         {
-          "title": "Live Demos at Milestones",
-          "description": "See working software at every major milestone, not just at the end."
+          "title": "Decision log",
+          "body": "Should the agent approve small refunds on its own, or always ask a person first? The options and trade-offs are written up.",
+          "status": "Needs your call"
         },
         {
-          "title": "Dedicated Project Channel",
-          "description": "A shared channel for your team and ours to keep everything in one place."
+          "title": "Deploy note",
+          "body": "The new version is on staging for your team to try. The previous one stays ready if anything looks off.",
+          "status": "Done"
+        }
+      ]
+    },
+    "wont": {
+      "title": "What we won't do",
+      "items": [
+        {
+          "line": "Demos that can't ship.",
+          "instead": "Every prototype runs on your real data, so what you see is what we build on."
+        },
+        {
+          "line": "Launches without evals you can read.",
+          "instead": "Nothing goes live until it clears the bar, and you get the report."
+        },
+        {
+          "line": "Black boxes.",
+          "instead": "You own the code, the prompts, the evals, and the data."
         }
       ]
     },
     "cta": {
-      "title": "Ready to get started?",
-      "lede": "Phase 1 is free. Tell us about your project and we'll schedule a discovery call within 24 hours.",
-      "primaryLabel": "Start your project",
-      "secondaryLabel": "See our services"
+      "title": "Start with Discover.",
+      "lede": "Tell us the workflow. We'll map it with you, agree the bar, and give you an honest view of whether AI can clear it.",
+      "primary": "Book a discovery call",
+      "secondary": "See our services"
     }
   },
   "Products": {
     "hero": {
-      "eyebrow": "Products",
-      "title": "Ready-made solutions, battle-tested and production-ready.",
-      "lede": "Our product lineup spans web platforms and Android apps, built and maintained by the same agent workflow we use for client work."
+      "kicker": "Work",
+      "title": "Our work, mapped by <em>meaning</em>.",
+      "lede": "These are products we designed, built and run ourselves, in public — the same way we'd build yours. Move across the map to see what sits close to what, or pick a product to open it.",
+      "primary": "Book a discovery call",
+      "secondary": "See the full index"
+    },
+    "map": {
+      "label": "Map of our products, placed by meaning",
+      "note": "An illustrative map: we placed each product by what it's about, and the scores are closeness on this map, not the output of a model.",
+      "hint": {
+        "fine": "Move your pointer over the map, or tab to a product.",
+        "coarse": "Tap the map to move the query. Tap a product to open it."
+      },
+      "filterLabel": "Filter by platform",
+      "all": "All",
+      "showing": "Showing {count} of {total}",
+      "query": "Query",
+      "nearest": "Nearest",
+      "clusters": {
+        "learn": "Learning",
+        "lang": "Language",
+        "docs": "Documents",
+        "money": "Money"
+      },
+      "concepts": {
+        "learn": [
+          "lessons",
+          "students",
+          "exams",
+          "questions",
+          "teachers",
+          "practice",
+          "animations",
+          "vectors",
+          "curriculum",
+          "progress"
+        ],
+        "lang": [
+          "Bangla",
+          "keyboard",
+          "phonetic",
+          "script",
+          "typing",
+          "conjuncts"
+        ],
+        "docs": [
+          "PDF",
+          "summaries",
+          "answers",
+          "extraction",
+          "reports",
+          "sources"
+        ],
+        "money": [
+          "budget",
+          "spending",
+          "goals",
+          "bills",
+          "savings"
+        ]
+      },
+      "card": {
+        "close": "Close",
+        "closest": "Closest on this map",
+        "openSite": "Open live site",
+        "openStore": "Open on Play Store",
+        "readMore": "Read more"
+      }
     },
     "platformLabels": {
       "web": "Web",
@@ -1323,12 +1766,38 @@
       "ios": "iOS",
       "desktop": "Desktop"
     },
-    "learnMore": "Learn more",
-    "more": "more",
+    "index": {
+      "title": "Every product, in one list.",
+      "note": "Open any of them live, or read how it works and what it's built with.",
+      "stack": "Built with",
+      "more": "+{count} more",
+      "live": "Live site",
+      "store": "Play Store",
+      "details": "Read more",
+      "liveAria": "{title} live site (opens in a new tab)",
+      "storeAria": "{title} on Play Store (opens in a new tab)",
+      "detailsAria": "Read more about {title}"
+    },
+    "method": {
+      "title": "Built the way we'd build yours.",
+      "public": {
+        "title": "Out in the open",
+        "body": "Every product here is released. You can open it, use it and judge it yourself — no staged demo."
+      },
+      "measured": {
+        "title": "Checked against a bar",
+        "body": "We agree what good looks like before we build, then test the work against it. Client projects get the same habit."
+      },
+      "maintained": {
+        "title": "Looked after, not handed off",
+        "body": "We run these ourselves, so we keep fixing and improving them after launch. That's how we'd look after yours."
+      }
+    },
     "cta": {
-      "title": "Need a custom solution?",
-      "lede": "Our products showcase what we can build. Let us create something tailored to your specific needs.",
-      "primaryLabel": "Get a free quote"
+      "title": "Want one of these for your business?",
+      "lede": "Tell us what you have in mind. We'll tell you honestly what we'd build, what it would take and how we'd know it works.",
+      "primary": "Book a discovery call",
+      "secondary": "Email us"
     },
     "detail": {
       "platformLabels": {
@@ -1338,11 +1807,12 @@
         "desktop": "Desktop App"
       },
       "hero": {
-        "eyebrow": "Products / {platforms}",
+        "eyebrow": "Work / {platforms}",
         "viewDemo": "View live demo",
         "getOnPlayStore": "Get on Play Store",
         "downloadDesktop": "Download desktop app",
-        "requestCustomization": "Request customization"
+        "requestCustomization": "Request customization",
+        "back": "All work"
       },
       "downloads": {
         "eyebrow": "Downloads",
@@ -1351,7 +1821,7 @@
       },
       "features": {
         "eyebrow": "Features",
-        "title": "Everything you need, built in from day one."
+        "title": "What it does."
       },
       "techStack": {
         "eyebrow": "Tech stack",
@@ -1359,77 +1829,60 @@
       },
       "useCases": {
         "eyebrow": "Use cases",
-        "title": "Who is it for?"
+        "title": "Who it's for."
       },
       "cta": {
         "title": "Interested in {title}?",
-        "lede": "Get in touch to learn more, request a demo, or discuss customization options for your needs.",
+        "lede": "Ask for a demo, or tell us how you'd want it adapted for your team. We'll reply with an honest view of what it would take.",
         "primaryLabel": "Get in touch",
-        "secondaryLabel": "View all products"
+        "secondaryLabel": "See all our work"
+      },
+      "map": {
+        "caption": "Where {title} sits on our map.",
+        "note": "Illustrative: closeness on our hand-placed map.",
+        "navLabel": "Other products on the map"
       }
     }
   },
   "Portfolio": {
     "hero": {
-      "eyebrow": "Portfolio",
-      "title": "Software our agents have shipped.",
-      "lede": "Real projects built by our team. From web apps to Android — see what's possible when agents do the coding."
+      "kicker": "Portfolio",
+      "title": "Two ways to look at <em>our work</em>.",
+      "lede": "The AI products we build and run ourselves, and the reports on how we built them. Pick the view you need."
+    },
+    "routes": {
+      "label": "Where to go next",
+      "work": {
+        "name": "Work",
+        "title": "The products",
+        "body": "Live AI products we build and run — what each one does, who it's for, and where to try it.",
+        "cta": "Go to Work"
+      },
+      "cases": {
+        "name": "Case studies",
+        "title": "The reports",
+        "body": "How each product was built — the problem, our approach, and what shipped. No invented numbers.",
+        "cta": "Read the case studies"
+      }
+    },
+    "list": {
+      "title": "The reports, at a glance",
+      "note": "The same eval cards as on the case studies page. Open one for the full write-up."
     },
     "cta": {
-      "title": "Your project could be next.",
-      "lede": "Tell us the brief and we'll come back with a plan, a timeline, and a fixed estimate."
-    },
-    "detail": {
-      "hero": {
-        "eyebrow": "Portfolio / {industry}"
-      },
-      "spec": {
-        "client": "Client",
-        "industry": "Industry",
-        "services": "Services",
-        "tags": "Tags"
-      },
-      "related": {
-        "eyebrow": "Related work",
-        "title": "More projects like this."
-      },
-      "cta": {
-        "title": "Ready to build something similar?",
-        "lede": "Let us help you bring your idea to life with the same quality and expertise.",
-        "primaryLabel": "Start your project",
-        "secondaryLabel": "View all projects"
-      }
+      "title": "What should AI do for your business?",
+      "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+      "primaryLabel": "Book a discovery call",
+      "secondaryLabel": "Email us"
     }
   },
   "Resources": {
     "hero": {
-      "eyebrow": "Resources",
-      "title": "Field notes from the studio.",
-      "lede": "Blog posts, case studies, and guides on AI-powered development — written by the team that ships it.",
-      "primaryCta": "Start a project"
-    },
-    "browse": {
-      "eyebrow": "Browse by type",
-      "title": "Three ways into the archive.",
-      "cta": "Browse"
-    },
-    "categories": {
-      "blog": {
-        "title": "Blog",
-        "description": "Insights on AI development, strategy, and technology trends."
-      },
-      "case-studies": {
-        "title": "Case studies",
-        "description": "Real results from our AI-powered development projects."
-      },
-      "guides": {
-        "title": "Guides",
-        "description": "In-depth guides on web development, mobile apps, and choosing the right approach."
-      }
-    },
-    "latest": {
-      "eyebrow": "Latest",
-      "title": "Everything we've published."
+      "kicker": "Resources",
+      "title": "The <em>reading room</em>.",
+      "lede": "What we have written down about building AI that does real work: notes from the studio, practical guides and case studies. Ask the library a question and the pieces that answer it rise to the top.",
+      "primaryCta": "Read the blog",
+      "secondaryCta": "Book a discovery call"
     },
     "typeLabels": {
       "blog": "Blog",
@@ -1438,87 +1891,341 @@
     },
     "blog": {
       "hero": {
-        "eyebrow": "Resources / Blog",
-        "title": "Field notes from the build.",
-        "lede": "Insights on AI-powered development, business strategy, and technology trends from the CraftsAI team."
+        "kicker": "Blog",
+        "title": "Notes on building AI that <em>does real work</em>.",
+        "lede": "Short pieces from the studio: how AI systems get built, measured and run, and where they are worth it."
       },
-      "empty": "No posts yet — check back soon.",
-      "badge": "Blog",
-      "readTime": "{count} min read",
-      "readMore": "Read",
+      "back": "Resources",
+      "count": "{n, select, 1 {1 post} other {{n} posts}}",
+      "filter": "Filter posts by tag",
+      "all": "All",
+      "showing": "Showing {shown} of {total} posts",
+      "noMatch": "No posts with this tag yet.",
+      "empty": "No posts yet. Check back soon.",
       "detail": {
-        "by": "By {author}",
+        "kicker": "Blog",
+        "back": "All posts",
         "cta": {
-          "title": "Ready to build your next project?",
-          "lede": "Let our AI-powered team turn your idea into production-ready software at a fraction of the traditional cost.",
-          "primaryLabel": "Get a free quote",
-          "secondaryLabel": "Back to blog"
+          "title": "Want this thinking applied to your workflow?",
+          "lede": "Tell us where the work piles up. We'll tell you honestly whether AI helps there, and how we would measure it.",
+          "primaryLabel": "Book a discovery call",
+          "secondaryLabel": "Back to the blog"
         }
       }
     },
     "caseStudies": {
       "hero": {
-        "eyebrow": "Resources / Case studies",
-        "title": "Real projects, real results.",
-        "lede": "See how AI-powered development delivers measurable outcomes for businesses across industries."
+        "kicker": "Case studies",
+        "title": "Our own products, <em>written up as eval reports</em>.",
+        "lede": "TaxoMind, FinCoach AI and MathPhysics are products we designed, built and run ourselves. Each report covers the same three steps — the problem, our approach, what shipped — and only what we can stand behind.",
+        "primaryCta": "Read the reports",
+        "secondaryCta": "See the live products"
+      },
+      "legend": {
+        "label": "How to read a report",
+        "caption": "Every report runs the same pipeline.",
+        "rule": "Reporting rule: if we haven't measured it, it isn't here. No invented users, ratings or speed-ups."
+      },
+      "stages": {
+        "problem": "Problem",
+        "approach": "Approach",
+        "outcome": "Outcome"
+      },
+      "list": {
+        "title": "The reports",
+        "note": "Three products, three write-ups. Hover or focus a report to run its eval card.",
+        "cardLabel": "Eval card: problem, approach and outcome for {title}"
+      },
+      "ownProduct": "Our product",
+      "platforms": {
+        "web": "Web",
+        "android": "Android",
+        "ios": "iOS",
+        "desktop": "Desktop"
       },
       "empty": "No case studies yet — check back soon.",
-      "readMore": "Read case study",
-      "detail": {
-        "client": "Client: {client}",
-        "cta": {
-          "title": "Ready to build something similar?",
-          "lede": "Let us help you bring your idea to life with the same quality and expertise.",
-          "primaryLabel": "Start your project",
-          "secondaryLabel": "View all case studies"
+      "readMore": "Read the report",
+      "items": {
+        "building-taxomind-ai-powered-learning-platform": {
+          "problem": "Learning platforms track what you finished, not how deeply you understood it.",
+          "approach": "AI evaluation that places a learner on one of Bloom's six cognitive levels and adapts the path from there.",
+          "outcome": "A web platform that covers all six levels, with progress tracked in real time.",
+          "facts": [
+            {
+              "label": "Cognitive levels",
+              "value": "All six Bloom's Taxonomy stages"
+            },
+            {
+              "label": "Evaluation",
+              "value": "AI assesses the level a learner has reached"
+            },
+            {
+              "label": "Progress",
+              "value": "Tracked in real time, per level"
+            }
+          ]
+        },
+        "fincoach-ai-personal-finance-made-simple": {
+          "problem": "Finance apps either just log expenses or overwhelm beginners with investment jargon.",
+          "approach": "An offline-first Android app whose AI engine reads spending patterns and suggests what to do next.",
+          "outcome": "One app for budgeting, investment basics, goals and bills, with advice built from each user's own data.",
+          "facts": [
+            {
+              "label": "Tool areas",
+              "value": "Budgeting, investment analysis, goal tracking, bills"
+            },
+            {
+              "label": "AI engine",
+              "value": "On-device spending analysis with ML Kit"
+            },
+            {
+              "label": "Architecture",
+              "value": "Offline-first, synced with Firebase"
+            }
+          ]
+        },
+        "mathphysics-interactive-stem-learning": {
+          "problem": "Static diagrams make abstract ideas — vector fields, projectile motion, waves — hard to picture.",
+          "approach": "Show the animated phenomenon first, then reveal the maths behind it, in English or Bengali.",
+          "outcome": "An Android app for grades 9–12, with interactive lessons in both languages and a custom animation engine.",
+          "facts": [
+            {
+              "label": "Lesson format",
+              "value": "Animation first, then the maths"
+            },
+            {
+              "label": "Languages",
+              "value": "English and Bengali"
+            },
+            {
+              "label": "Coverage",
+              "value": "Grades 9–12"
+            }
+          ]
         }
+      },
+      "detail": {
+        "back": "All case studies",
+        "kicker": "Case study · {industry}",
+        "results": {
+          "title": "What shipped",
+          "note": "Facts about what we built. We haven't published usage or performance numbers for this product, so you won't find any here."
+        },
+        "summary": {
+          "label": "Report summary",
+          "builtBy": "Built by",
+          "builtByValue": "CraftsAI, as our own product",
+          "platform": "Platform",
+          "stack": "Stack",
+          "product": "See {title} in Work",
+          "productNote": "The live product: features, use cases, where to try it."
+        },
+        "more": {
+          "title": "Other reports"
+        },
+        "cta": {
+          "title": "What would your report say?",
+          "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+          "primaryLabel": "Book a discovery call",
+          "secondaryLabel": "All case studies"
+        }
+      },
+      "cta": {
+        "title": "What should AI do for your business?",
+        "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "guides": {
       "hero": {
-        "eyebrow": "Resources / Guides",
-        "title": "Guides & whitepapers.",
-        "lede": "In-depth resources to help you plan, build, and ship successful software products."
+        "kicker": "Guides",
+        "title": "Practical guides for <em>planning a build</em>.",
+        "lede": "Longer reads for the decisions before and around a project: what to build, how to plan it, and who to build it with."
       },
-      "empty": "No guides yet — check back soon.",
-      "badge": "Guide",
-      "readTime": "{count} min read",
-      "readMore": "Read",
+      "back": "Resources",
+      "count": "{n, select, 1 {1 guide} other {{n} guides}}",
+      "filter": "Filter guides by tag",
+      "all": "All",
+      "showing": "Showing {shown} of {total} guides",
+      "noMatch": "No guides with this tag yet.",
+      "empty": "No guides yet. Check back soon.",
       "detail": {
+        "kicker": "Guide",
+        "back": "All guides",
         "cta": {
-          "title": "Need expert help with your project?",
-          "lede": "Our AI-powered team can help you go from idea to launch faster and more affordably than you thought possible.",
-          "primaryLabel": "Get a free quote",
+          "title": "Planning an AI project?",
+          "lede": "Bring the plan, or just the problem. We'll help you find the version that is worth building and the bar it has to clear.",
+          "primaryLabel": "Book a discovery call",
           "secondaryLabel": "Back to guides"
         }
       }
+    },
+    "article": {
+      "toc": "On this page",
+      "tags": "Tags",
+      "by": "By {author}",
+      "readTime": "{n} min read",
+      "nav": "More in this collection",
+      "prev": "Previous",
+      "next": "Next",
+      "related": "Related reading",
+      "relatedNote": "Ranked by shared tags and title words, with the same word-overlap score as the library demo."
+    },
+    "cta": {
+      "title": "Have a question the library can't answer?",
+      "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+      "primaryLabel": "Book a discovery call",
+      "secondaryLabel": "Email us"
+    },
+    "retrieval": {
+      "label": "Retrieval",
+      "example": "Over this library",
+      "chipsLabel": "Example questions",
+      "queryLabel": "Question",
+      "termsLabel": "Key terms",
+      "resultsLabel": "Library, ranked by relevance",
+      "ranking": "Ranking…",
+      "pause": "Pause",
+      "play": "Play",
+      "topMatch": "Top match",
+      "note": "How the score works: 2 points for each key term in a title, 1 for a term only in the description or tags, divided by the best possible. Plain word overlap, no model, so the same question always ranks the same.",
+      "queries": [
+        {
+          "chip": "Measuring quality",
+          "text": "How do we know the AI is getting better?",
+          "terms": [
+            "measure",
+            "quality",
+            "evaluat",
+            "test"
+          ]
+        },
+        {
+          "chip": "Web or mobile",
+          "text": "Should our AI feature live in a web app or a mobile app?",
+          "terms": [
+            "web",
+            "mobile",
+            "app",
+            "choos"
+          ]
+        },
+        {
+          "chip": "Cost",
+          "text": "What does AI change about the cost of a build?",
+          "terms": [
+            "cost",
+            "build",
+            "effort",
+            "estimat"
+          ]
+        },
+        {
+          "chip": "Choosing a partner",
+          "text": "How do we choose who to build it with?",
+          "terms": [
+            "choos",
+            "partner",
+            "build",
+            "evaluat"
+          ]
+        }
+      ]
+    },
+    "shelves": {
+      "tagsLabel": "Tags",
+      "blog": {
+        "title": "Latest posts",
+        "note": "Short pieces on how AI systems get built, measured and run.",
+        "link": "All posts"
+      },
+      "guides": {
+        "title": "Guides",
+        "note": "Longer, practical reads for planning a build and choosing who to build it with.",
+        "link": "All guides"
+      },
+      "caseStudies": {
+        "title": "Case studies",
+        "note": "Projects written up: the problem, what was built, and how it went.",
+        "link": "All case studies"
+      }
+    },
+    "tags": {
+      "ai": "AI",
+      "cost": "Cost",
+      "business": "Business",
+      "strategy": "Strategy",
+      "web": "Web",
+      "mobile": "Mobile",
+      "development": "Development",
+      "automation": "Automation",
+      "outsourcing": "Outsourcing",
+      "guide": "Guide",
+      "edtech": "EdTech",
+      "fintech": "FinTech",
+      "web-platform": "Web platform",
+      "android": "Android",
+      "animation": "Animation",
+      "bilingual": "Bilingual"
     }
   },
   "Faq": {
     "hero": {
-      "eyebrow": "FAQ",
-      "title": "Questions, answered.",
-      "lede": "Everything you need to know about working with CraftsAI.",
-      "primaryCta": "Ask us directly"
+      "kicker": "FAQ",
+      "title": "Questions, <em>answered</em> plainly.",
+      "lede": "How we scope, price, build and run AI systems, and what happens to your data along the way. Type to search; every answer has its own link."
+    },
+    "search": {
+      "label": "Search the questions",
+      "placeholder": "Try “who owns the code” or “data”",
+      "clear": "Clear search",
+      "hint": "Press / to search",
+      "count": "Showing {shown} of {total}",
+      "ranked": "Ranked by how closely each question and answer match.",
+      "results": "Results",
+      "inAnswer": "Match in the answer",
+      "chipsLabel": "Filter by topic",
+      "all": "All topics",
+      "empty": "Nothing matches that yet.",
+      "emptyBody": "Ask us directly. Good questions tend to end up on this page.",
+      "emptyCta": "Ask us",
+      "link": "Link to this answer",
+      "copied": "Link copied"
     },
     "cta": {
-      "title": "Still have questions?",
-      "lede": "We're happy to help. Get in touch and we'll respond within 24 hours.",
-      "primaryLabel": "Contact us",
-      "secondaryLabel": "Get an estimate"
+      "title": "Didn't find your question?",
+      "lede": "Tell us the workflow you have in mind. We'll answer honestly, including when AI isn't the right tool.",
+      "primaryLabel": "Book a discovery call",
+      "secondaryLabel": "Email us"
     }
   },
   "Legal": {
+    "kicker": "Legal",
+    "toc": {
+      "label": "On this page",
+      "anchor": "Link to this section: {title}",
+      "related": "Other policies",
+      "updatedLabel": "Last updated"
+    },
+    "docs": {
+      "privacy": "Privacy policy",
+      "terms": "Terms of service",
+      "cookies": "Cookie policy"
+    },
+    "cta": {
+      "title": "Questions about a policy?",
+      "lede": "Write to us and we will answer in plain language.",
+      "primaryLabel": "Contact us",
+      "secondaryLabel": "Email us"
+    },
     "privacy": {
-      "hero": {
-        "eyebrow": "Legal",
-        "title": "Privacy Policy",
-        "lede": "Last updated: July 5, 2026"
-      },
+      "title": "Privacy policy",
+      "updated": "July 5, 2026",
+      "lede": "How CraftsAI collects, uses and protects your personal information.",
       "sections": {
         "informationWeCollect": {
-          "label": "01 / Information we collect",
-          "title": "Information We Collect",
+          "title": "Information we collect",
           "intro": "We collect information in the following ways:",
           "items": [
             {
@@ -1544,8 +2251,7 @@
           ]
         },
         "howWeUse": {
-          "label": "02 / How we use your information",
-          "title": "How We Use Your Information",
+          "title": "How we use your information",
           "intro": "We use the information we collect to:",
           "items": [
             "Respond to your inquiries and provide requested services",
@@ -1557,8 +2263,7 @@
           ]
         },
         "serviceProviders": {
-          "label": "03 / Service providers & data sharing",
-          "title": "Service Providers & Data Sharing",
+          "title": "Service providers and data sharing",
           "intro": "We do not sell, rent, or trade your personal information. We share data only with the service providers needed to run our business, each of which processes it on our behalf:",
           "items": [
             {
@@ -1577,117 +2282,96 @@
           "outro": "We may also disclose information when required by law or to protect our rights, safety, or property."
         },
         "cookies": {
-          "label": "04 / Cookies & analytics",
-          "title": "Cookies & Analytics",
+          "title": "Cookies and analytics",
           "body": "We use strictly-necessary cookies for authentication and security, and — only with your consent — analytics cookies to understand site usage. You can control cookie preferences through the consent banner and your browser settings. For more details, please review our",
           "linkLabel": "Cookie Policy"
         },
         "dataRetention": {
-          "label": "05 / Data retention",
-          "title": "Data Retention",
+          "title": "Data retention",
           "body": "We keep personal data only as long as necessary for the purposes above or as required by law. Indicatively: lead enquiries are retained for [retention period]; client project, invoice, and message records for [retention period, e.g. as required for tax/accounting]; and optional push tokens until you disable notifications. You can request earlier deletion as described below."
         },
         "yourRights": {
-          "label": "06 / Your rights",
-          "title": "Your Rights",
+          "title": "Your rights",
           "bodyBefore": "Depending on your location, you may have the right to access, correct, delete, or export your personal data, and to restrict or object to certain processing. To exercise any of these rights — including deleting your lead record or client-portal data — email us at",
           "bodyAfter": "from the address associated with your data. We will verify your identity and respond within 30 days."
         },
         "dataSecurity": {
-          "label": "07 / Data security",
-          "title": "Data Security",
+          "title": "Data security",
           "body": "We implement industry-standard security measures to protect your personal information, including encryption in transit (TLS), passwordless authentication, access controls, and separation between our public site, admin, and client-portal systems. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security."
         },
         "contactUs": {
-          "label": "08 / Contact us",
-          "title": "Contact Us",
+          "title": "Contact us",
           "body": "If you have any questions about this Privacy Policy or our data practices, please contact us at"
         }
       }
     },
     "terms": {
-      "hero": {
-        "eyebrow": "Legal",
-        "title": "Terms of Service",
-        "lede": "Last updated: April 1, 2026"
-      },
+      "title": "Terms of service",
+      "updated": "April 1, 2026",
+      "lede": "The terms that apply when you engage CraftsAI for our services.",
       "sections": {
         "serviceTerms": {
-          "label": "01 / Service terms",
-          "title": "Service Terms",
-          "body": "By engaging CraftsAI for software development services, you agree to these terms. Our services include web development, mobile application development, product customization, and ongoing support as outlined in individual project proposals. All project scopes, timelines, and deliverables are defined in a signed Statement of Work (SOW) prior to commencement."
+          "title": "Service terms",
+          "body": "By engaging CraftsAI for AI and software development services, you agree to these terms. Our services include designing, building and running AI systems, adding AI features to web and mobile products, and ongoing support, as outlined in individual project proposals. All project scopes, timelines, and deliverables are defined in a signed Statement of Work (SOW) prior to commencement."
         },
         "intellectualProperty": {
-          "label": "02 / Intellectual property",
-          "title": "Intellectual Property",
+          "title": "Intellectual property",
           "body": "Upon full payment, all custom code, designs, and deliverables created specifically for your project are transferred to you. CraftsAI retains ownership of proprietary tools, frameworks, and reusable components developed independently of your project. We reserve the right to showcase completed work in our portfolio unless a non-disclosure agreement is in place."
         },
         "paymentTerms": {
-          "label": "03 / Payment terms",
-          "title": "Payment Terms",
+          "title": "Payment terms",
           "body": "Payment schedules are defined in the project SOW. Standard terms require 30% upfront, 40% at the mid-project milestone, and 30% upon final delivery. Invoices are due within 14 days of issue unless otherwise agreed. Late payments may result in project suspension after a 7-day grace period and written notice."
         },
         "limitationOfLiability": {
-          "label": "04 / Limitation of liability",
-          "title": "Limitation of Liability",
+          "title": "Limitation of liability",
           "body": "CraftsAI provides services on an \"as is\" basis to the extent permitted by law. Our total liability for any claim arising from our services shall not exceed the total fees paid for the specific project in question. We are not liable for indirect, incidental, or consequential damages including lost profits, data loss, or business interruption."
         },
         "termination": {
-          "label": "05 / Termination",
           "title": "Termination",
           "body": "Either party may terminate a project with 14 days written notice. Upon termination, the client is responsible for payment of all work completed up to the termination date. CraftsAI will deliver all completed work and source code for paid milestones. Refunds for prepaid but undelivered work will be issued within 30 days of termination."
         },
         "governingLaw": {
-          "label": "06 / Governing law",
-          "title": "Governing Law",
+          "title": "Governing law",
           "body": "These terms are governed by the laws of Bangladesh. Any disputes arising from these terms or our services shall be resolved through good-faith negotiation first, followed by binding arbitration if necessary."
         },
         "contact": {
-          "label": "07 / Contact",
           "title": "Contact",
           "body": "For questions about these terms, contact us at"
         }
       }
     },
     "cookies": {
-      "hero": {
-        "eyebrow": "Legal",
-        "title": "Cookie Policy",
-        "lede": "Last updated: July 5, 2026"
-      },
+      "title": "Cookie policy",
+      "updated": "July 5, 2026",
+      "lede": "The cookies this site uses and how to manage your preferences.",
       "cookieTypes": [
         {
-          "title": "Essential Cookies",
+          "title": "Essential cookies",
           "description": "Required for the site to function and stay secure. These carry your authenticated admin or client-portal session, short-lived login challenge state, an optional \"remember this device\" token, and your cookie-consent choice. They cannot be disabled."
         },
         {
-          "title": "Analytics Cookies (optional)",
+          "title": "Analytics cookies (optional)",
           "description": "If — and only if — you accept analytics in our consent banner, we use Google Analytics to understand how visitors interact with the site (pages visited, session duration, referral sources). You can decline these, and no analytics cookies are set until you consent."
         }
       ],
       "sections": {
         "whatAreCookies": {
-          "label": "01 / What are cookies",
-          "title": "What Are Cookies",
+          "title": "What are cookies",
           "body": "Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work efficiently, provide a better user experience, and supply information to site owners. Cookies may be set by the website you are visiting (first-party cookies) or by third-party services embedded on the page."
         },
         "typesOfCookies": {
-          "label": "02 / Types of cookies we use",
-          "title": "Types of Cookies We Use",
+          "title": "Types of cookies we use",
           "intro": "We use the following categories of cookies on our website:"
         },
         "managingCookies": {
-          "label": "03 / Managing cookies",
-          "title": "Managing Cookies",
+          "title": "Managing cookies",
           "body": "Most web browsers allow you to control cookies through their settings. You can configure your browser to block or delete cookies, or to alert you when a cookie is being set. Please note that disabling essential cookies may affect the functionality of our website. Refer to your browser's help documentation for instructions on managing cookie preferences."
         },
         "updates": {
-          "label": "04 / Updates to this policy",
-          "title": "Updates to This Policy",
+          "title": "Updates to this policy",
           "body": "We may update this Cookie Policy from time to time to reflect changes in technology, legislation, or our business practices. The \"Last updated\" date at the top of this page indicates when the policy was most recently revised."
         },
         "contact": {
-          "label": "05 / Contact",
           "title": "Contact",
           "bodyBefore": "If you have questions about our use of cookies, please contact us at",
           "bodyMiddle": "or review our",
@@ -1699,359 +2383,384 @@
   },
   "Meta": {
     "about": {
-      "title": "About - AI-First Software Studio",
-      "description": "Founded in 2025, CraftsAI is a Bangladesh-based software studio that combines AI agents with human engineers to deliver web, Android, and iOS products 10x faster."
+      "title": "Company",
+      "description": "CraftsAI designs, builds and runs AI systems for businesses. Read our model card: who we are for, what we won't do, and how we measure our work."
     },
     "careers": {
       "title": "Careers",
-      "description": "Join the CraftsAI team. We are building the future of AI-powered software development. Explore our culture and open positions."
+      "description": "Join the small CraftsAI team that builds, measures and runs AI systems for businesses. No open roles right now, but we read every note."
     },
     "contact": {
-      "title": "Contact Us",
-      "description": "Get in touch with CraftsAI for web, Android, iOS development or support inquiries."
+      "title": "Contact",
+      "description": "Tell us the workflow. A person reads every message and replies within 24 hours with an honest view of what AI can do there, what it will cost, and how we'd measure it."
     },
     "cookies": {
-      "title": "Cookie Policy",
-      "description": "CraftsAI cookie policy. Learn about the cookies we use and how to manage your preferences."
+      "title": "Cookie policy",
+      "description": "CraftsAI cookie policy: the cookies we use and how to manage your preferences."
     },
     "faq": {
       "title": "FAQ",
-      "description": "Frequently asked questions about CraftsAI services, pricing, process, and support. Find answers to common questions about AI-powered development."
+      "description": "Answers about working with CraftsAI: how AI projects are scoped and priced, how your data is handled, model choice, evaluation, code ownership and what happens after launch."
     },
     "portfolio": {
       "title": "Portfolio",
-      "description": "Explore CraftsAI projects — web apps, Android apps, and iOS apps built with AI-powered development."
+      "description": "The AI products CraftsAI builds and runs, and the case studies on how we built them."
     },
     "privacy": {
-      "title": "Privacy Policy",
-      "description": "CraftsAI privacy policy. Learn how we collect, use, and protect your personal information."
+      "title": "Privacy policy",
+      "description": "CraftsAI privacy policy: how we collect, use and protect your personal information."
     },
     "process": {
-      "title": "Our Development Process",
-      "description": "From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication."
+      "title": "How we work",
+      "description": "Discover, prototype, evaluate, build, run and improve: how CraftsAI takes an AI system from a first working demo to production, measured against a quality bar you agree."
     },
     "products": {
-      "title": "Our Products",
-      "description": "Ready-made solutions, battle-tested and production-ready. Explore our product lineup spanning web platforms and Android apps."
+      "title": "Work",
+      "description": "Products CraftsAI designed, built and runs in public: apps for learning, language, documents and personal finance, on the web, Android and desktop."
     },
     "quote": {
-      "title": "Get a Quote",
-      "description": "Request a free quote for your web, Android, or iOS development project from CraftsAI."
+      "title": "Get an estimate",
+      "description": "Describe the problem, your data and the scope in four short steps. A person reads your spec and replies within 24 hours with an honest estimate for the AI work."
     },
     "resources": {
-      "title": "Resources - Blog, Case Studies & Guides",
-      "description": "Explore our blog posts, case studies, and in-depth guides on AI-powered software development, web apps, mobile apps, and business strategy."
+      "title": "Resources",
+      "description": "The CraftsAI reading room: articles, guides and case studies on building, measuring and running AI systems that do real work."
     },
     "resourcesBlog": {
-      "title": "Blog - AI Development Insights",
-      "description": "Read our latest articles on AI-powered development, web and mobile strategy, cost savings, and technology trends."
+      "title": "Blog",
+      "description": "Short pieces from CraftsAI on how AI systems get built, measured and run, and where they are worth it."
     },
     "resourcesCaseStudies": {
-      "title": "Case Studies - Real AI Development Results",
-      "description": "See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more."
+      "title": "Case studies",
+      "description": "How we built TaxoMind, FinCoach AI and MathPhysics — the problem, the approach and what shipped, written up as eval reports."
     },
     "resourcesGuides": {
-      "title": "Guides & Whitepapers - In-Depth Development Resources",
-      "description": "Comprehensive guides on web app development, choosing a development partner, and building successful software products."
+      "title": "Guides",
+      "description": "Practical guides from CraftsAI for planning an AI project: what to build, how to plan it, and who to build it with."
     },
     "servicesLayout": {
-      "title": "Our Services",
-      "description": "CraftsAI offers AI-powered web development, Android development, iOS development, and ongoing support."
+      "title": "Services",
+      "description": "AI development services from CraftsAI — agents, assistants on your data, custom models, AI in your product, evaluation pipelines and strategy sprints."
     },
     "services": {
       "title": "Services",
-      "description": "What CraftsAI builds: custom AI agents, agent-built websites and mobile apps, and agent integration into your existing systems."
+      "description": "Six AI development services: agents and automation, assistants on your data, custom models and fine-tuning, AI inside your product, data and evaluation pipelines, and AI strategy sprints."
     },
     "servicesAndroid": {
-      "title": "Android Development Services",
-      "description": "Native Android apps with Kotlin and Jetpack Compose. Material Design 3, Firebase integration — built by our AI agents and reviewed by senior engineers."
+      "title": "AI inside your Android app",
+      "description": "AI features built natively into Android apps in Kotlin and Jetpack Compose — on the device, on your servers, or both — and measured in production."
     },
     "servicesIos": {
-      "title": "iOS Development Services",
-      "description": "Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready — built by our AI agents and reviewed by senior engineers."
+      "title": "AI inside your iOS app",
+      "description": "AI features built natively into iPhone and iPad apps in Swift and SwiftUI — on the device with Core ML, on your servers, or both."
     },
     "servicesSupport": {
-      "title": "Support & Maintenance Services",
-      "description": "Ongoing support retainers with bug fixes, security patches, performance monitoring, and feature updates. 24/7 monitoring with 4-hour response time."
+      "title": "Run & improve AI systems",
+      "description": "Ongoing monitoring, evaluation and improvement of AI systems in production, measured against the bar agreed before launch."
     },
     "servicesWeb": {
-      "title": "Web Development Services",
-      "description": "Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers."
+      "title": "AI inside your web product",
+      "description": "CraftsAI adds AI features to web apps — search that answers, forms that fill themselves, assistants on your data — or builds new AI-first web products end to end."
     },
     "terms": {
-      "title": "Terms of Service",
-      "description": "CraftsAI terms of service. Read the terms and conditions governing the use of our website and services."
+      "title": "Terms of service",
+      "description": "CraftsAI terms of service: the terms that govern our website and services."
     }
   },
   "Contact": {
     "hero": {
-      "eyebrow": "Contact",
-      "title": "Get in touch.",
-      "lede": "Have a project in mind? Send a message and we'll get back to you within 24 hours."
+      "kicker": "Contact",
+      "title": "Tell us the <em>workflow.</em>",
+      "lede": "A person reads every message and replies within 24 hours, with an honest view of what AI can do there, what it will cost, and how we'd measure it."
     },
-    "directChannels": {
-      "label": "Direct channels",
-      "title": "Reach us directly.",
-      "faqLink": "Frequently asked questions →"
-    },
-    "info": {
-      "email": "Email",
-      "whatsapp": "WhatsApp",
-      "location": "Location",
-      "locationValue": "Bangladesh",
-      "hours": "Business Hours",
-      "hoursValue": "Sun–Thu, 9 AM–6 PM (Dhaka, GMT+6)"
-    },
-    "form": {
+    "composer": {
+      "heading": "Write your request",
+      "bar": "New request",
+      "context": "Context",
+      "tokens": "{n, plural, one {≈ {count} token} other {≈ {count} tokens}}",
+      "hints": {
+        "empty": "Start with the workflow you want AI to take on.",
+        "short": "Keep going. A sentence or two is enough to start.",
+        "tools": "Add the tools involved: helpdesk, CRM, spreadsheets, email.",
+        "good": "What does good look like? Faster replies, fewer mistakes, less retyping?",
+        "plenty": "Plenty to go on. Add anything else, or send it."
+      },
+      "message": "Message",
+      "examples": [
+        "Our support team answers the same questions all day. Could an agent handle the routine ones and hand the rest to us?",
+        "We get invoices and contracts as PDFs and retype them into our system. Can AI read them for us?",
+        "Staff keep asking where our policies are. We'd like an assistant that answers from the handbook and cites the page.",
+        "Our sales team spends mornings researching accounts. Could a copilot do the research and keep the CRM current?",
+        "We want an AI feature in our app, but we're not sure where to start or what it would cost."
+      ],
+      "service": "Service interest",
+      "services": {
+        "agents": "AI agents & automation",
+        "assistants": "Assistants on your data",
+        "models": "Custom models & fine-tuning",
+        "product": "AI inside your product",
+        "evals": "Data & evaluation pipelines",
+        "sprint": "AI strategy sprint",
+        "unsure": "Not sure yet"
+      },
+      "parameters": "Parameters",
       "name": "Name",
       "namePlaceholder": "Your name",
       "email": "Email",
       "emailPlaceholder": "you@company.com",
       "company": "Company",
       "optional": "(optional)",
-      "companyPlaceholder": "Your company",
-      "service": "Service Interest",
-      "servicePlaceholder": "Select a service",
-      "serviceOptions": {
-        "web": "Web Development",
-        "android": "Android Development",
-        "ios": "iOS Development",
-        "support": "Support & Maintenance",
-        "productInquiry": "Product Inquiry",
-        "other": "Other"
+      "companyPlaceholder": "Where you work",
+      "honeypot": "Leave this field empty",
+      "note": "A person reads every message.",
+      "shortcut": "Ctrl or ⌘ + Enter to send",
+      "send": "Send message",
+      "sending": "Sending",
+      "noScript": "Sending needs JavaScript. You can email hello@craftsai.org instead.",
+      "error": {
+        "title": "Not sent yet",
+        "generic": "Something went wrong. Please try again, or email us at hello@craftsai.org."
       },
-      "message": "Message",
-      "messagePlaceholder": "Tell us about your project...",
-      "send": "Send Message",
-      "sending": "Sending...",
-      "success": "Message sent! We'll be in touch soon.",
-      "error": "Something went wrong. Please try again or email us directly."
+      "reply": {
+        "bar": "Request sent",
+        "sentLabel": "Your request",
+        "label": "Reply",
+        "greeting": "Thanks, {name}. Your request is with a person now.",
+        "next": "We'll read it properly and reply within 24 hours, usually with a few questions or a time for a short call to map the workflow and agree what good looks like.",
+        "view": "Then you get an honest written view: whether AI can do it well, roughly what it will cost, and how we'd measure it. If it isn't a good fit, we'll say so.",
+        "another": "Send another"
+      }
+    },
+    "trace": {
+      "title": "What happens next",
+      "progress": "{done} of {total} ready",
+      "sent": "Sent. Step one has started.",
+      "note": "Fills in as you write.",
+      "steps": {
+        "read": {
+          "title": "A person reads it",
+          "body": "Not a bot or a ticket queue: someone who builds these systems reads your message."
+        },
+        "reply": {
+          "title": "A reply within 24 hours",
+          "body": "Usually with a few questions, or a time for a short call."
+        },
+        "call": {
+          "title": "A call to map the workflow",
+          "body": "We walk through the work and the data, and agree on the bar for good."
+        },
+        "view": {
+          "title": "An honest written view",
+          "body": "Can AI do it, roughly what it will cost, and how we'd measure it."
+        }
+      }
+    },
+    "channels": {
+      "title": "Or reach us directly",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "newTab": "(opens in a new tab)",
+      "faq": "FAQ",
+      "faqValue": "Common questions, answered"
+    },
+    "band": {
+      "title": "Not ready to write yet?",
+      "body": "Read answers to common questions, or see how a project runs from the first call to production.",
+      "faq": "Read the FAQ",
+      "process": "How we work"
     }
   },
   "Quote": {
     "hero": {
-      "eyebrow": "Estimate",
-      "title": "Get your project built by AI agents.",
-      "lede": "Tell us what you need. Our agents analyze the brief and a senior engineer delivers a fixed-scope quote within 24 hours."
+      "kicker": "Get an estimate",
+      "title": "Describe the problem. We'll <em>scope the build.</em>",
+      "lede": "Four short steps: the problem, your data, the scope, and how to reach you. Your answers compile into a spec that a person reads, and you get a reply within 24 hours."
     },
-    "stepTitles": [
-      "Select Services",
-      "Project Details",
-      "Investment",
-      "Contact Info",
-      "Review"
-    ],
-    "success": {
-      "label": "Submitted",
-      "title": "Quote request received.",
-      "backHome": "Back to home",
-      "viewWork": "View our work"
-    },
-    "nav": {
+    "wizard": {
+      "heading": "Estimate request",
+      "bar": "New estimate",
+      "stepOf": "Step {n} of {total}",
       "back": "Back",
       "continue": "Continue",
-      "submitting": "Submitting...",
-      "submit": "Get My Free Quote",
-      "submitShort": "Submit"
+      "submit": "Send the spec",
+      "submitting": "Compiling",
+      "optional": "(optional)",
+      "honeypot": "Leave this field empty",
+      "note": "A person reads every spec.",
+      "noScript": "This form needs JavaScript. You can email hello@craftsai.org with the same details instead.",
+      "stepAnnounce": "Step {n} of {total}: {name}"
     },
-    "trust": {
-      "secure": "Secure & encrypted",
-      "response": "Response within 24 hours",
-      "noSpam": "No spam, ever"
+    "rail": {
+      "label": "Estimate steps",
+      "step": "Step {n}: {name}",
+      "done": "done",
+      "current": "current step",
+      "todo": "not reached yet"
+    },
+    "steps": {
+      "problem": {
+        "name": "Problem",
+        "title": "What should AI take on?",
+        "lede": "Pick the services that sound closest, then describe the work in your own words."
+      },
+      "data": {
+        "name": "Data",
+        "title": "What will it work from?",
+        "lede": "The systems and files it would read, and where it should run."
+      },
+      "scope": {
+        "name": "Scope",
+        "title": "How will you judge it?",
+        "lede": "Where you're starting from, what good looks like, and the range you're working within."
+      },
+      "you": {
+        "name": "You",
+        "title": "Who should we reply to?",
+        "lede": "One person reads the spec and writes back. No mailing list."
+      }
+    },
+    "fields": {
+      "services": "Services",
+      "servicesHint": "Choose one or more.",
+      "description": "The workflow, in your words",
+      "descriptionPlaceholder": "For example: our support team answers the same questions all day. We'd like an agent to resolve the routine ones and pass the rest to us with a summary.",
+      "descriptionCount": "{count} of {min} characters",
+      "data": "Data it would use",
+      "dataHint": "Choose all that apply.",
+      "runs": "Where it should run",
+      "stage": "Where you're starting",
+      "success": "How you'll judge success",
+      "successHint": "Optional. Choose any that matter.",
+      "timeline": "When you'd like to start",
+      "budget": "Your budget range",
+      "budgetNote": "A range helps us suggest the right shape of work. It isn't a price; the estimate comes from a person after reading your spec.",
+      "notes": "Constraints or must-haves",
+      "notesPlaceholder": "Compliance rules, systems it must connect to, languages it must handle…",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@company.com",
+      "company": "Company",
+      "companyPlaceholder": "Where you work, or your own name",
+      "phone": "Phone",
+      "phonePlaceholder": "If you'd rather talk",
+      "terms": "I agree to the <terms>terms of service</terms> and <privacy>privacy policy</privacy>. This is a request for an estimate, not a contract."
+    },
+    "options": {
+      "services": {
+        "agents": "AI agents & automation",
+        "assistants": "Assistants on your data",
+        "models": "Custom models & fine-tuning",
+        "product": "AI inside your product",
+        "evals": "Data & evaluation pipelines",
+        "sprint": "AI strategy sprint",
+        "unsure": "Not sure yet"
+      },
+      "data": {
+        "documents": "Documents & PDFs",
+        "helpdesk": "Helpdesk & tickets",
+        "crm": "CRM",
+        "databases": "Databases",
+        "spreadsheets": "Spreadsheets",
+        "email": "Email & chat",
+        "wikis": "Wikis & intranet",
+        "none": "No data yet"
+      },
+      "runs": {
+        "hosted": "Hosted and run by CraftsAI",
+        "cloud": "In our own cloud",
+        "private": "On-premises or private network",
+        "product": "Inside our product",
+        "unsure": "Not sure yet"
+      },
+      "stage": {
+        "idea": "Exploring an idea",
+        "prototype": "Have a prototype",
+        "live": "Improving a live system"
+      },
+      "success": {
+        "accuracy": "Accuracy and quality",
+        "time": "Time saved",
+        "cost": "Cost per task",
+        "errors": "Fewer mistakes",
+        "experience": "Customer experience",
+        "unsure": "Help us define it"
+      },
+      "timeline": {
+        "soon": "As soon as possible",
+        "months": "In the next few months",
+        "open": "No fixed date"
+      },
+      "budget": {
+        "under10": "Under $10k",
+        "to50": "$10k to $50k",
+        "to150": "$50k to $150k",
+        "over150": "Over $150k",
+        "unsure": "Not sure yet"
+      }
     },
     "validation": {
-      "services": "Please select at least one service",
-      "description": "Please describe your project (minimum 20 characters)",
-      "budget": "Please select your investment level",
-      "contactName": "Your name is required",
-      "email": "Valid email is required",
-      "terms": "Please agree to the terms"
+      "services": "Pick at least one service, or \"Not sure yet\".",
+      "description": "Describe the workflow in at least 20 characters.",
+      "data": "Pick at least one data source, or \"No data yet\".",
+      "runs": "Pick where it should run, or \"Not sure yet\".",
+      "stage": "Pick where you're starting from.",
+      "timeline": "Pick when you'd like to start.",
+      "budget": "Pick a budget range, or \"Not sure yet\".",
+      "name": "Enter your name (at least 2 characters).",
+      "email": "Enter a valid email address.",
+      "company": "Enter a company, or your own name.",
+      "terms": "Please agree to the terms to send the spec.",
+      "summary": "A few answers need attention before you continue."
     },
-    "status": {
-      "success": "Quote request submitted! We'll review your requirements and contact you within 24 hours.",
-      "fixFields": "Please fix the highlighted fields and try again.",
-      "genericError": "Something went wrong. Please try again.",
-      "networkError": "Network error. Please check your connection and try again."
-    },
-    "step1": {
-      "title": "What do you need built?",
-      "subtitle": "Select all the services that apply to your project",
-      "timelineLabel": "Timeline:",
-      "selected": "Selected",
-      "tapToSelect": "Tap to select",
-      "services": {
-        "web-development": {
-          "name": "Web Development",
-          "description": "Full-stack web apps with React, Next.js, and modern APIs",
-          "deliverables": [
-            "React/Next.js Apps",
-            "API Development",
-            "Database Design",
-            "Cloud Deployment"
-          ],
-          "timeline": "2-6 weeks",
-          "perfectFor": "SaaS platforms, dashboards, e-commerce"
-        },
-        "android-development": {
-          "name": "Android Development",
-          "description": "Native Android apps with Kotlin and Jetpack Compose",
-          "deliverables": [
-            "Native Kotlin Apps",
-            "Material Design 3",
-            "Play Store Ready",
-            "Firebase Backend"
-          ],
-          "timeline": "4-8 weeks",
-          "perfectFor": "Consumer apps, B2B mobile tools"
-        },
-        "ios-development": {
-          "name": "iOS Development",
-          "description": "Native iOS apps with Swift and SwiftUI for iPhone and iPad",
-          "deliverables": [
-            "Swift/SwiftUI Apps",
-            "App Store Ready",
-            "TestFlight Beta",
-            "CloudKit Integration"
-          ],
-          "timeline": "4-8 weeks",
-          "perfectFor": "Consumer apps, enterprise iOS tools"
-        },
-        "product-inquiry": {
-          "name": "Product Inquiry",
-          "description": "Explore our ready-made products or request customization",
-          "deliverables": [
-            "Product Demo",
-            "Custom Branding",
-            "Feature Add-ons",
-            "Deployment Support"
-          ],
-          "timeline": "1-3 weeks",
-          "perfectFor": "Quick launch with proven solutions"
-        }
+    "spec": {
+      "title": "estimate.yaml",
+      "heading": "Your spec",
+      "toggleShow": "Show your spec",
+      "toggleHide": "Hide your spec",
+      "count": "{done} of {total} lines",
+      "note": "Builds as you answer. Nothing is sent until you press send.",
+      "state": {
+        "draft": "draft",
+        "compiling": "compiling",
+        "sent": "sent to a person"
+      },
+      "keys": {
+        "service": "service",
+        "problem": "problem",
+        "data": "data",
+        "runs": "runs_on",
+        "stage": "stage",
+        "success": "success",
+        "timeline": "timeline",
+        "budget": "budget",
+        "contact": "contact"
       }
     },
-    "step2": {
-      "title": "Tell us about your project",
-      "subtitle": "The more details you share, the better quote we can provide",
-      "scaleLabel": "Project Scale",
-      "scaleOptions": {
-        "mvp": {
-          "label": "MVP",
-          "desc": "Quick validation"
-        },
-        "standard": {
-          "label": "Standard",
-          "desc": "Full features"
-        },
-        "advanced": {
-          "label": "Advanced",
-          "desc": "Complex logic"
-        },
-        "enterprise": {
-          "label": "Enterprise",
-          "desc": "Mission-critical"
-        }
-      },
-      "descriptionLabel": "Project Description *",
-      "descriptionPlaceholder": "Describe your project goals, target users, and key features you need...",
-      "requirementsLabel": "Special Requirements (Optional)",
-      "requirementsPlaceholder": "Any technical requirements, integrations, or specific technologies you need...",
-      "timelineLabel": "Preferred Timeline",
-      "timelineOptions": {
-        "urgent": {
-          "label": "ASAP",
-          "desc": "2-4 weeks",
-          "badge": "Priority"
-        },
-        "standard": {
-          "label": "Standard",
-          "desc": "4-8 weeks",
-          "badge": "Recommended"
-        },
-        "flexible": {
-          "label": "Flexible",
-          "desc": "8+ weeks",
-          "badge": "Best Value"
-        }
-      }
+    "error": {
+      "title": "Not sent yet",
+      "generic": "Something went wrong. Your answers are still here; please try again, or email us at hello@craftsai.org.",
+      "network": "We couldn't reach the server. Your answers are still here; check your connection and try again.",
+      "fix": "Some answers need a change. We've taken you to the first one."
     },
-    "step3": {
-      "title": "What's your investment level?",
-      "subtitle": "We work with startups at every stage. Pick what fits your budget.",
-      "mostPopular": "Most Popular",
-      "budgetOptions": {
-        "bootstrap": {
-          "label": "Bootstrap",
-          "range": "$2K - $8K",
-          "desc": "Perfect for MVPs and validation",
-          "features": [
-            "Core features only",
-            "2-4 week delivery",
-            "Essential support"
-          ]
-        },
-        "seed": {
-          "label": "Seed Stage",
-          "range": "$8K - $25K",
-          "desc": "Full-featured product launch",
-          "features": [
-            "Complete feature set",
-            "Premium design",
-            "60-day support"
-          ]
-        },
-        "growth": {
-          "label": "Growth",
-          "range": "$25K - $75K",
-          "desc": "Scalable enterprise solution",
-          "features": [
-            "Advanced features",
-            "Custom integrations",
-            "90-day support"
-          ]
-        },
-        "enterprise": {
-          "label": "Enterprise",
-          "range": "$75K+",
-          "desc": "Mission-critical systems",
-          "features": [
-            "Full customization",
-            "Dedicated team",
-            "Ongoing partnership"
-          ]
-        }
-      },
-      "notSureTitle": "Not sure about budget?",
-      "notSureBody": "No worries! We'll provide a detailed quote based on your requirements. We also offer flexible payment plans and equity arrangements for early-stage startups."
+    "reply": {
+      "bar": "Spec sent",
+      "label": "Reply",
+      "greeting": "Thanks, {name}. Your spec is with a person now.",
+      "next": "We'll read it properly and reply within 24 hours, usually with a few questions or a time for a short call to walk through the workflow and the data.",
+      "view": "Then you get an honest written estimate: whether AI can do it well, what it will cost, and how we'd measure it. If it isn't a good fit, we'll say so.",
+      "another": "Start another spec"
     },
-    "step4": {
-      "title": "How can we reach you?",
-      "subtitle": "We'll send your personalized quote to this email",
-      "nameLabel": "Your Name *",
-      "namePlaceholder": "John Smith",
-      "emailLabel": "Email Address *",
-      "emailPlaceholder": "john@company.com",
-      "companyLabel": "Company Name",
-      "optional": "(Optional)",
-      "companyPlaceholder": "Acme Inc.",
-      "phoneLabel": "Phone Number",
-      "phonePlaceholder": "+880 1XXX-XXXXXX"
-    },
-    "step5": {
-      "title": "Review Your Quote Request",
-      "subtitle": "Make sure everything looks good before submitting",
-      "services": "Services",
-      "projectScale": "Project Scale",
-      "timeline": "Timeline",
-      "investmentLevel": "Investment Level",
-      "contact": "Contact",
-      "terms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>. This is a quote request, not a binding contract.",
-      "whatNextTitle": "What happens next?",
-      "whatNext": [
-        "Our AI analyzes your requirements (instant)",
-        "You receive a detailed quote (within 24 hours)",
-        "Free consultation call (optional)"
-      ]
+    "trust": [
+      "A person reads every spec",
+      "A reply within 24 hours",
+      "No mailing list"
+    ],
+    "band": {
+      "title": "Rather talk it through?",
+      "body": "Book a short call instead, or see how a project runs from the first call to production.",
+      "call": "Book a discovery call",
+      "process": "How we work"
     }
   },
   "FormErrors": {
@@ -2074,32 +2783,52 @@
     "quote_success": "Your quote request has been submitted successfully! We'll review your requirements and contact you within 24 hours with a detailed proposal."
   },
   "ErrorPage": {
-    "label": "500 / Something broke",
-    "title": "A build step hit an error.",
-    "body": "Something went wrong on our end. You can retry, or head back home and try again in a moment.",
+    "label": "Error",
+    "title": "Something failed its eval.",
+    "body": "A step on our side didn't pass. It isn't something you did. Try again, or head home and come back in a moment.",
+    "evalLabel": "Eval run",
+    "evalStep": "Render this page",
+    "evalResult": "Failed",
     "reference": "Reference:",
     "tryAgain": "Try again",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "loading": "Loading the page"
   },
   "NotFound": {
-    "eyebrow": "404 / Not found",
-    "title": "This page went off the blueprint.",
-    "lede": "The page you're looking for doesn't exist or has been moved.",
-    "primaryLabel": "Back to home",
-    "secondaryLabel": "Contact support"
+    "kicker": "404",
+    "title": "This page is out of distribution.",
+    "lede": "Nothing we've built lives at this address. It may have moved, or the link may be off by a token or two.",
+    "visual": {
+      "label": "The address you asked for, read token by token",
+      "placeholder": "/the-page-you-wanted",
+      "rejected": "Rejected",
+      "candidates": "Rejected candidates",
+      "note": "Illustrative: no page on this site matches this address."
+    },
+    "suggest": {
+      "label": "Closest pages we do have",
+      "home": "Home",
+      "homeNote": "Start from the top",
+      "services": "Services",
+      "servicesNote": "What we build for clients",
+      "work": "Work",
+      "workNote": "Products we build and run",
+      "contact": "Contact",
+      "contactNote": "Ask us directly"
+    }
   },
   "Chatbot": {
     "openLabel": "Open CraftsAI Help Assistant",
     "headerTitle": "Help Assistant",
     "headerSubtitle": "CraftsAI · guided FAQ",
     "onlineStatus": "Online",
-    "welcome": "👋 Hi! I'm the CraftsAI Help Assistant — a guided FAQ that answers common questions about our services. (For anything specific, our team is one message away via the contact page.)\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
+    "welcome": "👋 Hi! I'm the CraftsAI help assistant: a guided FAQ with answers to common questions about our AI development services. For anything specific, a person on our team is one message away on the contact page.\n\nYou can ask me about:\n• What we build\n• How pricing works\n• How a project runs\n• Models and tools we use\n• How to get started\n\nWhat would you like to know?",
     "quickQuestionsLabel": "Quick questions:",
     "quickQuestions": [
       "What services do you offer?",
       "How much does a project cost?",
-      "What technologies do you use?",
-      "Can I see your portfolio?",
+      "How does a project run?",
+      "What models and tools do you use?",
       "How do I get started?"
     ],
     "inputPlaceholder": "Ask me anything...",
@@ -2114,7 +2843,7 @@
           "capabilities",
           "offerings"
         ],
-        "response": "We're an AI agent development studio. Our AI agents build your software, with human review on every release. We offer:\n\n• Custom AI agents built for your workflows\n• AI-built websites & web applications\n• Android apps (Kotlin, Jetpack Compose)\n• iOS apps (Swift, SwiftUI)\n• AI agent integration into your existing systems\n• Ongoing support & maintenance\n\nWould you like to know more about any specific service?"
+        "response": "CraftsAI is an AI development services firm. We design, build, and run AI systems for your business:\n\n• AI agents & automation: agents that act inside your tools and hand off to a person when it matters\n• Assistants on your data: chat and search over your documents, with cited sources\n• Custom models & fine-tuning: when an off-the-shelf model isn't enough\n• AI inside your product: AI features in the web and mobile apps you already have\n• Data & evaluation pipelines: datasets, test suites, and evals\n• AI strategy sprint: two weeks, with a working prototype at the end\n\nWould you like to know more about any of these?"
       },
       {
         "id": "pricing",
@@ -2125,7 +2854,7 @@
           "budget",
           "quote"
         ],
-        "response": "Our pricing is tailored to each project's scope and complexity. We offer:\n\n• Free initial consultation\n• Custom project quotes\n• Flexible engagement options\n• Ongoing support packages\n\nI'd be happy to connect you with our team for a personalized quote. What type of project are you considering?"
+        "response": "Every project is priced after we understand the workflow, the data, and the bar for good, so there's no price list. Here's how it works:\n\n• Tell us the problem on the Get an estimate page, or book a discovery call\n• A person reads it and replies within 24 hours\n• You get an honest written view of what AI can do there, what it will cost, and how we'd measure it\n\nWhat kind of work are you considering?"
       },
       {
         "id": "technologies",
@@ -2133,9 +2862,11 @@
           "technology",
           "tech stack",
           "tools",
-          "frameworks"
+          "frameworks",
+          "model",
+          "llm"
         ],
-        "response": "We build with a modern, production-grade stack:\n\n**Web:** React, Next.js, Node.js, TypeScript\n**Android:** Kotlin, Jetpack Compose\n**iOS:** Swift, SwiftUI\n**AI:** custom AI agents integrated into your build and product workflows\n\nWe choose the right tools for your specific project needs."
+        "response": "We're model-agnostic: we pick the model that fits the job, and can switch when a better one arrives. Depending on the task that means hosted frontier models, open-weight models, or a model we fine-tune for you.\n\nAround the model we build what makes it work in production: retrieval over your data, integrations with your tools, evaluations you can read, and monitoring. Your data stays yours: private deployments, and no training on it without consent."
       },
       {
         "id": "portfolio",
@@ -2146,7 +2877,7 @@
           "work",
           "case studies"
         ],
-        "response": "Here are live products we've built:\n\n• **TaxoMind** — AI-powered learning platform (taxomind.com)\n• **TaxoMind Schools** — cognitive learning for schools (taxomindsc.com)\n• **Book-AI** — interactive AI & math lessons (book-ai.org)\n• **File2Insight** — turn documents into insight (file2insight.com)\n• **Banglu** — type Bangla from an English keyboard (bangluweb.com)\n\nVisit our Products, Portfolio, and Case Studies pages for the full stories!"
+        "response": "The Work page shows the kinds of systems we build, labelled as examples:\n\n• Support agent: resolves routine tickets and escalates the rest with a summary\n• Document intelligence: turns contracts, invoices, and forms into structured data\n• Sales copilot: researches accounts, drafts outreach, keeps the CRM current\n• Internal knowledge assistant: answers staff questions from policies and past tickets\n\nWant to talk through one of these for your business?"
       },
       {
         "id": "contact",
@@ -2159,7 +2890,7 @@
           "location",
           "where"
         ],
-        "response": "I'd love to connect you with our team! Here's how to reach us:\n\n📧 **Email:** hello@craftsai.org\n💬 **WhatsApp:** tap the green button at the bottom-right\n📍 **Based in:** Dhaka, Bangladesh — working with clients worldwide\n\nOr click the 'Get a Quote' button to start a free consultation!"
+        "response": "Happy to connect you with our team:\n\n📧 **Email:** hello@craftsai.org\n💬 **WhatsApp:** tap the green button at the bottom right\n📝 **Contact page:** a person reads every message and replies within 24 hours\n\nOr use Get an estimate to describe the problem in four short steps."
       },
       {
         "id": "timeline",
@@ -2168,9 +2899,10 @@
           "duration",
           "how long",
           "delivery",
-          "time"
+          "time",
+          "project run"
         ],
-        "response": "Project timelines depend on scope. Typical ranges:\n\n• **Website / landing site:** 1-4 weeks\n• **Custom web application:** 4-12 weeks\n• **Mobile app (Android/iOS):** 6-14 weeks\n• **AI agent integration:** scoped per project\n\nWe'll give you a detailed timeline during your consultation."
+        "response": "It depends on the scope, so we agree the timeline with you after the first call. What's fixed is the sequence:\n\n• Discover: map the workflow, the data, and what good looks like\n• Prototype: a working demo on your real data\n• Evaluate: measure accuracy, cost, and speed against the agreed bar\n• Build: production integration, security, and monitoring\n• Run & improve: we watch it in production and keep improving it\n\nThe AI strategy sprint is the one fixed length: two weeks."
       },
       {
         "id": "greeting",
@@ -2178,24 +2910,25 @@
           "hello",
           "hi"
         ],
-        "response": "Hello! I'm here to help you learn about CraftsAI. What would you like to know about our AI and web development services?"
+        "response": "Hello! I'm here to help you learn about CraftsAI's AI development services. What would you like to know?"
       },
       {
         "id": "help",
         "keywords": [
-          "help"
+          "help",
+          "get started"
         ],
-        "response": "I can help you with information about:\n\n• Our AI and web development services\n• Project pricing and timelines\n• Technologies and capabilities\n• Portfolio and case studies\n• Getting started with your project\n\nWhat specific area interests you most?"
+        "response": "I can help with:\n\n• What we build: agents, assistants, custom models, AI in your product, evals, strategy sprints\n• How pricing and estimates work\n• How a project runs\n• Models and tools\n• Getting started\n\nWhat would you like to know?"
       },
       {
         "id": "thanks",
         "keywords": [
           "thank"
         ],
-        "response": "You're welcome! Is there anything else you'd like to know about our services? I'm here to help! 😊"
+        "response": "You're welcome! Is there anything else you'd like to know? 😊"
       }
     ],
-    "fallback": "I'd be happy to help you with that! For detailed information about your specific needs, I recommend:\n\n• Checking our Services or Portfolio pages\n• Scheduling a free consultation with our team\n• Emailing us at hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything specific about our AI, web, or mobile development services you'd like to know?"
+    "fallback": "I'd be happy to help with that. For anything specific to your business, I'd suggest:\n\n• Reading the Services or Work pages\n• Describing the problem on the Get an estimate page\n• Emailing hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything about our AI development services you'd like to know?"
   },
   "Chrome": {
     "whatsapp": {
@@ -2213,39 +2946,47 @@
   },
   "StructuredData": {
     "org": {
-      "description": "AI-powered software studio delivering web, Android, and iOS applications up to 10x faster with enterprise-grade quality.",
-      "offerCatalogName": "Development Services",
+      "description": "CraftsAI designs, builds and runs AI systems for businesses — agents that take action, assistants that know your data, and models tuned to your problem, measured from first prototype to production.",
+      "offerCatalogName": "AI development services",
       "service": {
-        "web": {
-          "name": "Web Development",
-          "description": "Full-stack web application development with React, Next.js, and Node.js"
+        "agents": {
+          "name": "AI agents & automation",
+          "description": "Agents that plan and act inside your tools: they read tickets, update the CRM, draft replies, and hand off to a person when it matters."
         },
-        "android": {
-          "name": "Android Development",
-          "description": "Native Android app development with Kotlin and Jetpack Compose"
+        "assistants": {
+          "name": "Assistants on your data",
+          "description": "Chat and search over your documents, databases, and wikis, with answers that cite their sources."
         },
-        "ios": {
-          "name": "iOS Development",
-          "description": "Native iOS app development with Swift and SwiftUI"
+        "models": {
+          "name": "Custom models & fine-tuning",
+          "description": "When an off-the-shelf model isn't enough, we train, fine-tune, and distil models for your task and your budget."
         },
-        "support": {
-          "name": "Support & Maintenance",
-          "description": "Ongoing support, bug fixes, security patches, and feature updates"
+        "product": {
+          "name": "AI inside your product",
+          "description": "We add AI features to the web and mobile apps you already have, or build new AI-first products end to end."
+        },
+        "evals": {
+          "name": "Data & evaluation pipelines",
+          "description": "Clean data in, measurable quality out: datasets, test suites, and evals that tell you whether the AI is actually getting better."
+        },
+        "sprint": {
+          "name": "AI strategy sprint",
+          "description": "Two weeks to find where AI pays off in your business, with a working prototype at the end, not a slide deck."
         }
       }
     },
     "website": {
-      "description": "AI-powered software studio delivering web, Android, and iOS applications."
+      "description": "CraftsAI — AI development services: agents, assistants on your data, custom models, AI inside your product, evaluation pipelines and strategy sprints."
     },
     "breadcrumb": {
       "home": "Home",
-      "about": "About Us",
+      "about": "Company",
       "services": "Services",
-      "web-development": "Web Development",
-      "android-development": "Android Development",
-      "ios-development": "iOS Development",
-      "support": "Support & Maintenance",
-      "products": "Products",
+      "web-development": "AI in web products",
+      "android-development": "AI in Android apps",
+      "ios-development": "AI in iOS apps",
+      "support": "Run & improve",
+      "products": "Work",
       "taxomind": "TaxoMind",
       "taxomind-schools": "TaxoMind Schools",
       "fincoach-ai": "FinCoach AI",
@@ -2257,7 +2998,7 @@
       "guides": "Guides",
       "quote": "Get a Quote",
       "contact": "Contact",
-      "process": "Our Process",
+      "process": "Process",
       "faq": "FAQ",
       "careers": "Careers",
       "privacy": "Privacy Policy",
@@ -2266,64 +3007,64 @@
     },
     "page": {
       "services": {
-        "name": "CraftsAI Development Services",
-        "description": "AI-powered web, Android, iOS development and ongoing support services."
+        "name": "CraftsAI services",
+        "description": "Six AI development services, each shipped with a way to measure it."
       },
       "webDevelopment": {
-        "name": "Web Development",
-        "description": "Full-stack web application development with React, Next.js, and Node.js."
+        "name": "AI inside your web product",
+        "description": "AI features in the web apps you have, or new AI-first web products, built end to end."
       },
       "androidDevelopment": {
-        "name": "Android Development",
-        "description": "Native Android app development with Kotlin and Jetpack Compose."
+        "name": "AI inside your Android app",
+        "description": "AI features for Android apps, designed around how your users work."
       },
       "iosDevelopment": {
-        "name": "iOS Development",
-        "description": "Native iOS app development with Swift and SwiftUI."
+        "name": "AI inside your iOS app",
+        "description": "AI features for iOS apps, designed around how your users work."
       },
       "support": {
-        "name": "Support & Maintenance",
-        "description": "Ongoing support, bug fixes, security patches, and feature updates."
+        "name": "Run & improve",
+        "description": "Monitoring, evaluation and ongoing improvement of AI systems in production."
       },
       "products": {
-        "name": "CraftsAI Products",
-        "description": "Ready-made software products by CraftsAI."
+        "name": "CraftsAI work",
+        "description": "Products CraftsAI designed, built and runs."
       },
       "portfolio": {
-        "name": "CraftsAI Portfolio",
-        "description": "Web, Android, and iOS projects built by CraftsAI."
+        "name": "CraftsAI case studies",
+        "description": "How we built and measured our own AI products."
       },
       "resources": {
-        "name": "CraftsAI Resources",
-        "description": "Blog posts, case studies, and development guides."
+        "name": "CraftsAI resources",
+        "description": "Articles, guides and case studies on building AI that does real work."
       },
       "blog": {
-        "name": "CraftsAI Blog",
-        "description": "Articles on web, Android, and iOS development."
+        "name": "CraftsAI blog",
+        "description": "Articles on building, evaluating and running AI systems."
       },
       "contact": {
         "name": "Contact CraftsAI",
-        "description": "Get in touch with CraftsAI for web, Android, or iOS development inquiries."
+        "description": "Tell us the workflow; a person replies within 24 hours."
       },
       "quote": {
-        "name": "Get a Quote from CraftsAI",
-        "description": "Request a free quote for your development project."
+        "name": "Get an estimate from CraftsAI",
+        "description": "Describe the problem, the data and the scope to get an estimate."
       },
       "faq": {
         "name": "CraftsAI FAQ",
-        "description": "Frequently asked questions about CraftsAI services, pricing, and process."
+        "description": "Questions about how CraftsAI scopes, builds, measures and runs AI systems."
       },
       "about": {
         "name": "About CraftsAI",
-        "description": "Learn about CraftsAI, our team, and our AI-powered development approach."
+        "description": "CraftsAI, documented like a model: who we are for, what we won't do, and how we work."
       },
       "process": {
-        "name": "Our Process",
-        "description": "How CraftsAI delivers projects from consultation to launch."
+        "name": "How CraftsAI works",
+        "description": "Discover, prototype, evaluate, build, run and improve — measured against a bar agreed at the start."
       },
       "careers": {
         "name": "Careers at CraftsAI",
-        "description": "Join the CraftsAI team and build the future of AI-powered development."
+        "description": "Build AI that is measured, private and has people in the loop."
       }
     }
   }

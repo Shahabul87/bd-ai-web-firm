@@ -1,198 +1,174 @@
 [
   {
-    "category": {
-      "en": "General",
-      "bn": "সাধারণ"
-    },
+    "id": "working",
+    "category": { "en": "Working with us", "bn": "আমাদের সাথে কাজ" },
     "questions": [
       {
-        "question": {
-          "en": "What is CraftsAI?",
-          "bn": "CraftsAI কী?"
-        },
+        "id": "what-we-do",
+        "question": { "en": "What does CraftsAI do?", "bn": "CraftsAI কী করে?" },
         "answer": {
-          "en": "CraftsAI is an AI-powered software studio based in Bangladesh. We combine AI coding agents with experienced human engineers to deliver web, Android, and iOS applications up to 10x faster than traditional studios, while maintaining enterprise-grade quality.",
-          "bn": "CraftsAI হলো বাংলাদেশ-ভিত্তিক একটি AI-চালিত সফটওয়্যার স্টুডিও। আমরা AI কোডিং এজেন্টের সঙ্গে অভিজ্ঞ মানব ইঞ্জিনিয়ারদের সমন্বয় ঘটিয়ে ওয়েব, Android এবং iOS অ্যাপ্লিকেশন প্রচলিত স্টুডিওগুলোর চেয়ে 10x পর্যন্ত দ্রুত সরবরাহ করি, একই সঙ্গে এন্টারপ্রাইজ-গ্রেড মান বজায় রাখি।"
+          "en": "We're an AI development services firm. We design, build and run AI systems for businesses: agents that take action inside your tools, assistants that answer from your own data, and models tuned to your problem, from first prototype to production.",
+          "bn": "আমরা একটি AI ডেভেলপমেন্ট সার্ভিস প্রতিষ্ঠান। ব্যবসার জন্য AI সিস্টেম ডিজাইন করি, তৈরি করি ও চালাই: এমন এজেন্ট যা আপনার টুলের ভেতরে কাজ করে, এমন অ্যাসিস্ট্যান্ট যা আপনার নিজের ডেটা থেকে উত্তর দেয়, আর আপনার সমস্যার জন্য টিউন করা মডেল — প্রথম প্রোটোটাইপ থেকে প্রোডাকশন পর্যন্ত।"
         }
       },
       {
-        "question": {
-          "en": "How does AI-powered development work?",
-          "bn": "AI-চালিত ডেভেলপমেন্ট কীভাবে কাজ করে?"
-        },
+        "id": "how-projects-start",
+        "question": { "en": "How does a project start?", "bn": "একটি প্রজেক্ট কীভাবে শুরু হয়?" },
         "answer": {
-          "en": "Our engineers work alongside AI coding agents that handle repetitive tasks such as boilerplate generation, test writing, and code review. The human team focuses on architecture decisions, business logic, and quality assurance. This hybrid approach accelerates delivery without sacrificing craftsmanship.",
-          "bn": "আমাদের ইঞ্জিনিয়াররা AI কোডিং এজেন্টের সঙ্গে কাজ করেন, যেগুলো বয়লারপ্লেট তৈরি, টেস্ট লেখা এবং কোড পর্যালোচনার মতো পুনরাবৃত্তিমূলক কাজ সামলায়। মানব দলটি আর্কিটেকচার সিদ্ধান্ত, বিজনেস লজিক এবং কোয়ালিটি অ্যাসুরেন্সে মনোনিবেশ করে। এই হাইব্রিড পদ্ধতি কারিগরি নৈপুণ্যের সঙ্গে আপস না করেই সরবরাহ ত্বরান্বিত করে।"
+          "en": "With a discovery call. We map the workflow, the data involved and what “good” looks like for you. If AI is a fit, we propose a first step, often a short strategy sprint or a prototype on your real data. If it isn't a fit, we'll tell you.",
+          "bn": "একটি ডিসকভারি কল দিয়ে। আমরা কাজের ধারা, সংশ্লিষ্ট ডেটা, আর আপনার কাছে “ভালো” মানে কী — সেটা বুঝে নিই। AI মানানসই হলে প্রথম একটি ধাপ প্রস্তাব করি, প্রায়ই একটি ছোট স্ট্র্যাটেজি স্প্রিন্ট বা আপনার আসল ডেটায় একটি প্রোটোটাইপ। মানানসই না হলে সেটাও সোজাসুজি জানাই।"
         }
       },
       {
-        "question": {
-          "en": "Where is CraftsAI based?",
-          "bn": "CraftsAI কোথায় অবস্থিত?"
-        },
+        "id": "day-to-day",
+        "question": { "en": "How do we work together day to day?", "bn": "প্রতিদিনের কাজ একসাথে কীভাবে চলে?" },
         "answer": {
-          "en": "CraftsAI is headquartered in Bangladesh with a fully remote team. We serve clients worldwide and communicate across time zones through asynchronous updates, scheduled calls, and real-time project dashboards.",
-          "bn": "CraftsAI-এর সদর দপ্তর বাংলাদেশে এবং এর দলটি সম্পূর্ণ রিমোট। আমরা বিশ্বজুড়ে ক্লায়েন্টদের সেবা দিই এবং অ্যাসিনক্রোনাস আপডেট, নির্ধারিত কল এবং রিয়েল-টাইম প্রজেক্ট ড্যাশবোর্ডের মাধ্যমে বিভিন্ন টাইম জোন জুড়ে যোগাযোগ করি।"
+          "en": "Through a shared channel, regular check-ins and written updates you can read on your own time. You see working software early, and changes to scope are agreed before we act on them.",
+          "bn": "একটি শেয়ার করা চ্যানেল, নিয়মিত চেক-ইন, আর লিখিত আপডেটের মাধ্যমে, যা আপনি নিজের সময়ে পড়ে নিতে পারেন। কাজ করা সফটওয়্যার আপনি শুরুতেই দেখতে পান, আর কাজের পরিধিতে কোনো বদল হলে আগে তাতে একমত হয়ে তারপর আমরা এগোই।"
+        }
+      },
+      {
+        "id": "existing-product",
+        "question": { "en": "Can you add AI to a product we already have?", "bn": "আমাদের বিদ্যমান প্রোডাক্টে কি AI যোগ করতে পারবেন?" },
+        "answer": {
+          "en": "Yes. We add AI features to the web and mobile apps you already run, or build new AI-first products end to end. We start from your stack and your users, not from a rewrite.",
+          "bn": "হ্যাঁ। আপনার চালু ওয়েব ও মোবাইল অ্যাপে আমরা AI ফিচার যোগ করি, অথবা শুরু থেকে শেষ পর্যন্ত নতুন AI-ফার্স্ট প্রোডাক্ট তৈরি করি। শুরু করি আপনার বর্তমান স্ট্যাক আর ব্যবহারকারীদের থেকে — সব নতুন করে লেখা থেকে নয়।"
         }
       }
     ]
   },
   {
-    "category": {
-      "en": "Services",
-      "bn": "সার্ভিস"
-    },
+    "id": "pricing",
+    "category": { "en": "Pricing and scope", "bn": "মূল্য ও কাজের পরিধি" },
     "questions": [
       {
-        "question": {
-          "en": "What services do you offer?",
-          "bn": "আপনারা কী কী সার্ভিস দেন?"
-        },
+        "id": "how-we-price",
+        "question": { "en": "How do you price a project?", "bn": "প্রজেক্টের মূল্য কীভাবে ঠিক করেন?" },
         "answer": {
-          "en": "We offer full-stack web development (React, Next.js, Node.js), native Android development (Kotlin, Jetpack Compose), iOS development (Swift, SwiftUI), and ongoing support and maintenance plans. Every project includes cloud deployment, testing, and documentation.",
-          "bn": "আমরা ফুল-স্ট্যাক ওয়েব ডেভেলপমেন্ট (React, Next.js, Node.js), নেটিভ Android ডেভেলপমেন্ট (Kotlin, Jetpack Compose), iOS ডেভেলপমেন্ট (Swift, SwiftUI) এবং চলমান সাপোর্ট ও রক্ষণাবেক্ষণ প্ল্যান দিয়ে থাকি। প্রতিটি প্রজেক্টে ক্লাউড ডিপ্লয়মেন্ট, টেস্টিং এবং ডকুমেন্টেশন অন্তর্ভুক্ত থাকে।"
+          "en": "We scope before we price. After the discovery call we propose one of three shapes: a strategy sprint with a fixed length, a scoped build with milestones, or an ongoing run-and-improve arrangement. Each proposal states what's included, how we'll measure it and what it costs.",
+          "bn": "আগে কাজের পরিধি ঠিক করি, তারপর মূল্য। ডিসকভারি কলের পর তিনটি ধরনের একটি প্রস্তাব করি: নির্দিষ্ট মেয়াদের একটি স্ট্র্যাটেজি স্প্রিন্ট, মাইলফলকসহ নির্দিষ্ট পরিসরের একটি বিল্ড, অথবা চলমান রান-ও-উন্নতির ব্যবস্থা। প্রতিটি প্রস্তাবে লেখা থাকে কী কী থাকছে, আমরা কীভাবে মাপব, আর খরচ কত।"
         }
       },
       {
-        "question": {
-          "en": "Do you build iOS apps?",
-          "bn": "আপনারা কি iOS অ্যাপ তৈরি করেন?"
-        },
+        "id": "timeline",
+        "question": { "en": "How long does it take?", "bn": "কত সময় লাগে?" },
         "answer": {
-          "en": "Yes. We build native iOS apps using Swift and SwiftUI, targeting iPhone, iPad, and Apple Watch. Our iOS projects include App Store submission, TestFlight beta testing, and post-launch monitoring.",
-          "bn": "হ্যাঁ। আমরা Swift এবং SwiftUI ব্যবহার করে নেটিভ iOS অ্যাপ তৈরি করি, যা iPhone, iPad এবং Apple Watch-এর জন্য উপযোগী। আমাদের iOS প্রজেক্টে App Store সাবমিশন, TestFlight বেটা টেস্টিং এবং লঞ্চ-পরবর্তী মনিটরিং অন্তর্ভুক্ত থাকে।"
+          "en": "It depends on the workflow and the state of your data, so we don't guess at a timeline before discovery. The strategy sprint runs two weeks and ends with a working prototype; for a build, the proposal sets out the milestones and dates we commit to.",
+          "bn": "এটা নির্ভর করে কাজের ধারা আর আপনার ডেটার অবস্থার ওপর, তাই ডিসকভারির আগে আমরা আন্দাজে সময়সীমা বলি না। স্ট্র্যাটেজি স্প্রিন্ট চলে দুই সপ্তাহ, শেষে থাকে একটি কাজ করা প্রোটোটাইপ; বিল্ডের ক্ষেত্রে প্রস্তাবেই থাকে সেই মাইলফলক ও তারিখ, যেগুলোর প্রতিশ্রুতি আমরা দিই।"
         }
       },
       {
-        "question": {
-          "en": "Do you offer ongoing support?",
-          "bn": "আপনারা কি চলমান সাপোর্ট দেন?"
-        },
+        "id": "payments",
+        "question": { "en": "How do payments work?", "bn": "অর্থ পরিশোধ কীভাবে হয়?" },
         "answer": {
-          "en": "Absolutely. We offer monthly support plans that cover bug fixes, performance monitoring, security patches, feature enhancements, and server maintenance. Plans start with basic monitoring and scale up to dedicated engineering hours.",
-          "bn": "অবশ্যই। আমরা মাসিক সাপোর্ট প্ল্যান দিই, যা বাগ ফিক্স, পারফরম্যান্স মনিটরিং, সিকিউরিটি প্যাচ, ফিচার উন্নতি এবং সার্ভার রক্ষণাবেক্ষণ কভার করে। প্ল্যানগুলো বেসিক মনিটরিং থেকে শুরু হয়ে ডেডিকেটেড ইঞ্জিনিয়ারিং আওয়ার পর্যন্ত বিস্তৃত হয়।"
+          "en": "The payment schedule is set in the statement of work for each project and is usually tied to milestones. Our standard terms are in the terms of service.",
+          "bn": "প্রতিটি প্রজেক্টের স্টেটমেন্ট অফ ওয়ার্কে অর্থ পরিশোধের সময়সূচি ঠিক করা থাকে, সাধারণত মাইলফলকের সাথে যুক্ত। আমাদের প্রমিত শর্তগুলো পাবেন পরিষেবার শর্তাবলীতে।"
+        }
+      },
+      {
+        "id": "running-costs",
+        "question": { "en": "What about model and hosting costs?", "bn": "মডেল ও হোস্টিংয়ের খরচের কী হবে?" },
+        "answer": {
+          "en": "An AI system has running costs, mostly model usage and hosting. We estimate them during the prototype, measure them in evaluation alongside accuracy and speed, and design to the budget you set.",
+          "bn": "একটি AI সিস্টেম চালাতে নিয়মিত খরচ আছে, বেশির ভাগই মডেল ব্যবহার আর হোস্টিং। প্রোটোটাইপের সময়েই আমরা এর আনুমানিক হিসাব করি, ইভ্যালুয়েশনে নির্ভুলতা ও গতির পাশাপাশি এটাও মাপি, আর আপনার ঠিক করা বাজেটের মধ্যে সিস্টেম ডিজাইন করি।"
         }
       }
     ]
   },
   {
-    "category": {
-      "en": "Products",
-      "bn": "প্রোডাক্ট"
-    },
+    "id": "data",
+    "category": { "en": "Data and security", "bn": "ডেটা ও নিরাপত্তা" },
     "questions": [
       {
-        "question": {
-          "en": "What ready-made products do you sell?",
-          "bn": "আপনারা কী কী রেডিমেড প্রোডাক্ট বিক্রি করেন?"
-        },
+        "id": "our-data",
+        "question": { "en": "What happens to our data?", "bn": "আমাদের ডেটার কী হয়?" },
         "answer": {
-          "en": "We offer several ready-made products including TaxoMind (an AI-powered tax management platform), TaxoMind Schools (school management system), FinCoach AI (personal finance coaching app), and MathPhysics (an interactive STEM learning tool). Each product is production-ready and continuously updated.",
-          "bn": "আমরা বেশ কয়েকটি রেডিমেড প্রোডাক্ট অফার করি, যার মধ্যে রয়েছে TaxoMind (একটি AI-চালিত ট্যাক্স ম্যানেজমেন্ট প্ল্যাটফর্ম), TaxoMind Schools (স্কুল ম্যানেজমেন্ট সিস্টেম), FinCoach AI (ব্যক্তিগত ফিন্যান্স কোচিং অ্যাপ) এবং MathPhysics (একটি ইন্টারঅ্যাক্টিভ STEM লার্নিং টুল)। প্রতিটি প্রোডাক্ট প্রোডাকশন-রেডি এবং নিয়মিত আপডেট করা হয়।"
+          "en": "Your data stays yours. We prefer private deployments in your own environment or cloud account, give access only to the people working on the project, and never train models on your data without your consent.",
+          "bn": "আপনার ডেটা আপনারই থাকে। আমরা আপনার নিজের পরিবেশ বা ক্লাউড অ্যাকাউন্টে প্রাইভেট ডিপ্লয়মেন্ট পছন্দ করি, অ্যাক্সেস দিই কেবল প্রজেক্টে কাজ করা মানুষদের, আর আপনার সম্মতি ছাড়া আপনার ডেটায় কখনো কোনো মডেল ট্রেন করি না।"
         }
       },
       {
-        "question": {
-          "en": "Can products be customized?",
-          "bn": "প্রোডাক্টগুলো কি কাস্টমাইজ করা যায়?"
-        },
+        "id": "sensitive-data",
+        "question": { "en": "Can you work with sensitive or regulated data?", "bn": "সংবেদনশীল বা নিয়ন্ত্রিত ডেটা নিয়ে কি কাজ করতে পারেন?" },
         "answer": {
-          "en": "Yes. All our products can be white-labeled and customized to match your brand, workflows, and specific requirements. We offer customization packages that range from simple branding changes to deep feature additions tailored to your industry.",
-          "bn": "হ্যাঁ। আমাদের সব প্রোডাক্ট হোয়াইট-লেবেল করা যায় এবং আপনার ব্র্যান্ড, ওয়ার্কফ্লো ও নির্দিষ্ট প্রয়োজন অনুযায়ী কাস্টমাইজ করা যায়। আমরা কাস্টমাইজেশন প্যাকেজ অফার করি, যা সাধারণ ব্র্যান্ডিং পরিবর্তন থেকে শুরু করে আপনার ইন্ডাস্ট্রির উপযোগী গভীর ফিচার সংযোজন পর্যন্ত বিস্তৃত।"
+          "en": "Often, with the right setup. We ask where the data must live, who may see it and which rules apply, then design around those limits: private deployment, redaction, access controls and logging. If a requirement rules out a design, we say so up front.",
+          "bn": "প্রায়ই পারি, সঠিক ব্যবস্থা থাকলে। আমরা জেনে নিই ডেটা কোথায় থাকতে হবে, কে দেখতে পারবেন, আর কোন নিয়ম প্রযোজ্য — তারপর সেই সীমার মধ্যে ডিজাইন করি: প্রাইভেট ডিপ্লয়মেন্ট, তথ্য আড়াল করা (redaction), অ্যাক্সেস নিয়ন্ত্রণ ও লগিং। কোনো শর্তের কারণে কোনো ডিজাইন সম্ভব না হলে সেটা শুরুতেই জানাই।"
+        }
+      },
+      {
+        "id": "nda",
+        "question": { "en": "Will you sign an NDA?", "bn": "আপনারা কি NDA-তে সই করবেন?" },
+        "answer": {
+          "en": "Yes. Without an NDA, our terms let us show completed work in our portfolio; with one in place, we don't.",
+          "bn": "হ্যাঁ। NDA না থাকলে আমাদের শর্ত অনুযায়ী সম্পন্ন কাজ আমরা পোর্টফোলিওতে দেখাতে পারি; NDA থাকলে দেখাই না।"
         }
       }
     ]
   },
   {
-    "category": {
-      "en": "Process",
-      "bn": "প্রক্রিয়া"
-    },
+    "id": "models",
+    "category": { "en": "Models and quality", "bn": "মডেল ও মান" },
     "questions": [
       {
-        "question": {
-          "en": "How long does a typical project take?",
-          "bn": "একটি সাধারণ প্রজেক্ট শেষ করতে কতদিন লাগে?"
-        },
+        "id": "which-model",
+        "question": { "en": "Which AI models do you use?", "bn": "কোন AI মডেল ব্যবহার করেন?" },
         "answer": {
-          "en": "Timelines depend on scope. An MVP web application typically takes 2 to 4 weeks. A standard mobile app runs 4 to 8 weeks. Enterprise platforms with complex integrations may take 8 to 16 weeks. We provide a detailed timeline estimate during the free consultation.",
-          "bn": "সময়সীমা প্রজেক্টের পরিধির উপর নির্ভর করে। একটি MVP ওয়েব অ্যাপ্লিকেশনে সাধারণত ২ থেকে ৪ সপ্তাহ লাগে। একটি স্ট্যান্ডার্ড মোবাইল অ্যাপে ৪ থেকে ৮ সপ্তাহ লাগে। জটিল ইন্টিগ্রেশনসহ এন্টারপ্রাইজ প্ল্যাটফর্মে ৮ থেকে ১৬ সপ্তাহ পর্যন্ত লাগতে পারে। আমরা বিনামূল্যের পরামর্শের সময় একটি বিস্তারিত সময়সীমার এস্টিমেট দিই।"
+          "en": "Whichever fits the job. We're model-agnostic: we compare hosted and open models on your task, weighing accuracy, cost, speed and where the data may go, and we build so the model can be switched when a better one arrives.",
+          "bn": "কাজের জন্য যেটা মানানসই। আমরা কোনো নির্দিষ্ট মডেলে বাঁধা নই: আপনার কাজে হোস্টেড ও ওপেন মডেল তুলনা করি — নির্ভুলতা, খরচ, গতি, আর ডেটা কোথায় যেতে পারে তা বিবেচনা করে — আর এমনভাবে তৈরি করি যাতে আরও ভালো মডেল এলে বদলে নেওয়া যায়।"
         }
       },
       {
-        "question": {
-          "en": "How do you communicate during projects?",
-          "bn": "প্রজেক্ট চলাকালীন আপনারা কীভাবে যোগাযোগ করেন?"
-        },
+        "id": "custom-model",
+        "question": { "en": "Do we need a custom model?", "bn": "আমাদের কি নিজস্ব মডেল দরকার?" },
         "answer": {
-          "en": "We use a combination of weekly video calls, a shared project dashboard with real-time progress tracking, and instant messaging through Slack or WhatsApp. You receive daily summary updates and can review work-in-progress at any time.",
-          "bn": "আমরা সাপ্তাহিক ভিডিও কল, রিয়েল-টাইম অগ্রগতি ট্র্যাকিংসহ একটি শেয়ার্ড প্রজেক্ট ড্যাশবোর্ড এবং Slack বা WhatsApp-এর মাধ্যমে ইনস্ট্যান্ট মেসেজিংয়ের সমন্বয় ব্যবহার করি। আপনি প্রতিদিন সারসংক্ষেপ আপডেট পাবেন এবং যেকোনো সময় চলমান কাজ পর্যালোচনা করতে পারবেন।"
+          "en": "Usually not at first. Most work starts with a strong existing model, your data and good retrieval. When that isn't enough, we fine-tune or distil a model for your task and budget, and the evaluation shows whether it was worth it.",
+          "bn": "শুরুতে সাধারণত না। বেশির ভাগ কাজ শুরু হয় একটি শক্তিশালী বিদ্যমান মডেল, আপনার ডেটা আর ভালো রিট্রিভাল দিয়ে। তাতে যথেষ্ট না হলে আপনার কাজ ও বাজেটের জন্য মডেল ফাইন-টিউন বা ডিস্টিল করি, আর ইভ্যালুয়েশনই দেখায় সেটা করার মূল্য ছিল কি না।"
         }
       },
       {
-        "question": {
-          "en": "What if I need changes after launch?",
-          "bn": "লঞ্চের পর আমার যদি পরিবর্তন প্রয়োজন হয়?"
-        },
+        "id": "evaluation",
+        "question": { "en": "How do you know the AI is working?", "bn": "AI ঠিকমতো কাজ করছে কি না, কীভাবে বোঝেন?" },
         "answer": {
-          "en": "Post-launch changes are covered under our support plans or handled as change requests. Minor tweaks within the first 30 days after launch are included at no extra cost. Larger feature additions are scoped and quoted separately.",
-          "bn": "লঞ্চ-পরবর্তী পরিবর্তন আমাদের সাপোর্ট প্ল্যানের আওতায় থাকে অথবা চেঞ্জ রিকোয়েস্ট হিসেবে সামলানো হয়। লঞ্চের পর প্রথম ৩০ দিনের মধ্যে ছোটখাটো সংশোধন কোনো অতিরিক্ত খরচ ছাড়াই অন্তর্ভুক্ত থাকে। বড় ফিচার সংযোজন আলাদাভাবে নির্ধারণ ও কোট করা হয়।"
+          "en": "We agree the bar with you before we build, then turn it into a test suite of real examples with expected results. Every version is measured against it for accuracy, cost and speed, and you can read the results yourself.",
+          "bn": "তৈরির আগেই আপনার সাথে মানদণ্ড ঠিক করি, তারপর সেটাকে বাস্তব উদাহরণ আর প্রত্যাশিত ফলাফলের একটি টেস্ট স্যুটে রূপ দিই। প্রতিটি সংস্করণ এর বিপরীতে নির্ভুলতা, খরচ ও গতিতে মাপা হয়, আর ফলাফল আপনি নিজেই পড়ে দেখতে পারেন।"
+        }
+      },
+      {
+        "id": "mistakes",
+        "question": { "en": "What happens when the AI gets something wrong?", "bn": "AI ভুল করলে কী হয়?" },
+        "answer": {
+          "en": "It will, sometimes, so we design for it. Systems cite their sources where they can and hand off to a person when it matters. Mistakes found in production become new test cases, so they stay fixed.",
+          "bn": "মাঝে মাঝে করবেই, তাই আমরা সেটা মাথায় রেখেই ডিজাইন করি। যেখানে সম্ভব সিস্টেম তার উৎস দেখায়, আর গুরুত্বপূর্ণ মুহূর্তে কাজটা একজন মানুষের হাতে দেয়। প্রোডাকশনে পাওয়া ভুলগুলো নতুন টেস্ট কেস হয়ে যায়, যাতে একবার ঠিক হলে ঠিকই থাকে।"
         }
       }
     ]
   },
   {
-    "category": {
-      "en": "Pricing",
-      "bn": "মূল্য নির্ধারণ"
-    },
+    "id": "ownership",
+    "category": { "en": "Ownership and after launch", "bn": "মালিকানা ও লঞ্চের পর" },
     "questions": [
       {
-        "question": {
-          "en": "How much does a project cost?",
-          "bn": "একটি প্রজেক্টের খরচ কত?"
-        },
+        "id": "who-owns",
+        "question": { "en": "Who owns the code and the data?", "bn": "কোড আর ডেটার মালিক কে?" },
         "answer": {
-          "en": "Project costs vary by scope and complexity. MVPs typically start from $2,000, standard web apps from $5,000, and enterprise solutions from $15,000. We provide a free, no-obligation quote tailored to your exact requirements after an initial consultation.",
-          "bn": "প্রজেক্টের খরচ এর পরিধি ও জটিলতা অনুযায়ী পরিবর্তিত হয়। MVP সাধারণত $2,000 থেকে, স্ট্যান্ডার্ড ওয়েব অ্যাপ $5,000 থেকে এবং এন্টারপ্রাইজ সমাধান $15,000 থেকে শুরু হয়। প্রাথমিক পরামর্শের পর আমরা আপনার সুনির্দিষ্ট প্রয়োজন অনুযায়ী একটি বিনামূল্যের, বাধ্যবাধকতাহীন কোট প্রদান করি।"
+          "en": "You do. Once the project is paid in full, the custom code and deliverables built for it, such as prompts and evaluation suites, are transferred to you, and your data was never ours. We keep the general-purpose tools and reusable components we develop independently.",
+          "bn": "আপনি। প্রজেক্টের পুরো অর্থ পরিশোধের পর এর জন্য তৈরি কাস্টম কোড ও ডেলিভারেবল — যেমন প্রম্পট আর ইভ্যালুয়েশন স্যুট — আপনার কাছে হস্তান্তর করা হয়, আর আপনার ডেটা কখনোই আমাদের ছিল না। প্রজেক্ট থেকে স্বতন্ত্রভাবে তৈরি আমাদের সাধারণ টুল ও পুনঃব্যবহারযোগ্য কম্পোনেন্টের মালিকানা আমাদের কাছে থাকে।"
         }
       },
       {
-        "question": {
-          "en": "Do you offer payment plans?",
-          "bn": "আপনারা কি পেমেন্ট প্ল্যান দেন?"
-        },
+        "id": "after-launch",
+        "question": { "en": "What happens after launch?", "bn": "লঞ্চের পর কী হয়?" },
         "answer": {
-          "en": "Yes. We offer milestone-based payment plans where you pay in stages as the project progresses. A typical split is 30% upfront, 40% at mid-project milestone, and 30% upon delivery. Custom arrangements are available for larger projects.",
-          "bn": "হ্যাঁ। আমরা মাইলস্টোন-ভিত্তিক পেমেন্ট প্ল্যান দিই, যেখানে প্রজেক্ট এগিয়ে যাওয়ার সঙ্গে সঙ্গে আপনি ধাপে ধাপে পরিশোধ করেন। সাধারণ বিভাজন হলো ৩০% আগাম, ৪০% প্রজেক্টের মধ্যবর্তী মাইলস্টোনে এবং ৩০% ডেলিভারির সময়। বড় প্রজেক্টের জন্য কাস্টম ব্যবস্থা উপলব্ধ।"
-        }
-      }
-    ]
-  },
-  {
-    "category": {
-      "en": "Support",
-      "bn": "সাপোর্ট"
-    },
-    "questions": [
-      {
-        "question": {
-          "en": "What does your support include?",
-          "bn": "আপনাদের সাপোর্টে কী কী অন্তর্ভুক্ত থাকে?"
-        },
-        "answer": {
-          "en": "Our support plans include server monitoring, bug fixes, security patches, dependency updates, performance optimization, and a monthly allocation of feature development hours. We also provide incident response for critical issues.",
-          "bn": "আমাদের সাপোর্ট প্ল্যানে সার্ভার মনিটরিং, বাগ ফিক্স, সিকিউরিটি প্যাচ, ডিপেন্ডেন্সি আপডেট, পারফরম্যান্স অপটিমাইজেশন এবং মাসিক ফিচার ডেভেলপমেন্ট আওয়ারের বরাদ্দ অন্তর্ভুক্ত থাকে। আমরা জটিল সমস্যার জন্য ইনসিডেন্ট রেসপন্সও প্রদান করি।"
+          "en": "If you want us to, we keep running it: we watch the system in production, review its evaluations and failures, and keep improving it against the same bar. If you'd rather run it yourselves, we hand over what your team needs: code, documentation, evaluations and a walkthrough.",
+          "bn": "আপনি চাইলে আমরাই চালিয়ে যাই: প্রোডাকশনে সিস্টেমের ওপর নজর রাখি, এর ইভ্যালুয়েশন ও ব্যর্থতাগুলো রিভিউ করি, আর একই মানদণ্ডে ক্রমাগত উন্নত করি। নিজেরা চালাতে চাইলে আপনার টিমের যা দরকার সব হস্তান্তর করি: কোড, ডকুমেন্টেশন, ইভ্যালুয়েশন আর হাতে-কলমে একটি পরিচিতি।"
         }
       },
       {
-        "question": {
-          "en": "What is your response time?",
-          "bn": "আপনাদের রেসপন্স টাইম কত?"
-        },
+        "id": "support",
+        "question": { "en": "Do you offer ongoing support?", "bn": "আপনারা কি চলমান সাপোর্ট দেন?" },
         "answer": {
-          "en": "Critical issues receive a response within 2 hours during business hours and within 6 hours outside business hours. Standard requests are acknowledged within 24 hours. Enterprise support clients receive a dedicated Slack channel with priority routing.",
-          "bn": "জটিল সমস্যার ক্ষেত্রে কর্মঘণ্টার মধ্যে ২ ঘণ্টার মধ্যে এবং কর্মঘণ্টার বাইরে ৬ ঘণ্টার মধ্যে রেসপন্স দেওয়া হয়। স্ট্যান্ডার্ড অনুরোধ ২৪ ঘণ্টার মধ্যে স্বীকৃতি দেওয়া হয়। এন্টারপ্রাইজ সাপোর্ট ক্লায়েন্টরা প্রায়োরিটি রাউটিংসহ একটি ডেডিকেটেড Slack চ্যানেল পান।"
+          "en": "Yes, as part of a run-and-improve arrangement. What it covers, from monitoring and fixes to new evaluations and model updates, is agreed in writing for each system.",
+          "bn": "হ্যাঁ, চলমান রান-ও-উন্নতির ব্যবস্থার অংশ হিসেবে। এতে কী কী থাকবে — মনিটরিং ও সমস্যা সমাধান থেকে নতুন ইভ্যালুয়েশন ও মডেল আপডেট পর্যন্ত — তা প্রতিটি সিস্টেমের জন্য লিখিতভাবে ঠিক করা হয়।"
         }
       }
     ]

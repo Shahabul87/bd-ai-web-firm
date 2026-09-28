@@ -16,22 +16,30 @@ test.describe('Contact form (UI)', () => {
   test('renders and completes a submit round-trip', async ({ page }) => {
     await page.goto('/contact');
 
-    await expect(page.getByLabel('Name')).toBeVisible();
-    await expect(page.getByLabel('Email')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Send Message' })).toBeVisible();
+    const send = page.getByRole('button', { name: 'Send message' });
+    await expect(page.getByLabel('Name', { exact: true })).toBeVisible();
+    await expect(page.getByLabel('Email', { exact: true })).toBeVisible();
+    await expect(page.getByLabel('Message', { exact: true })).toBeVisible();
+    await expect(send).toBeVisible();
 
-    await page.getByLabel('Name').fill('Ada Lovelace');
-    await page.getByLabel('Email').fill('ada@example.com');
+    await page.getByLabel('Message', { exact: true }).fill(
+      'Our support team answers the same questions all day. Could an agent handle the routine ones?',
+    );
+    // Service chips are real radios laid invisibly over each chip.
+    const agents = page.getByRole('radio', { name: 'AI agents & automation' });
+    await agents.check();
+    await expect(agents).toBeChecked();
+    await page.getByLabel('Name', { exact: true }).fill('Ada Lovelace');
+    await page.getByLabel('Email', { exact: true }).fill('ada@example.com');
     await page.locator('#company').fill('Analytical Engines Ltd');
-    await page.getByLabel('Service Interest').selectOption({ index: 1 });
-    await page.getByLabel('Message').fill('We would like to discuss a new web application project.');
 
-    await page.getByRole('button', { name: 'Send Message' }).click();
+    await send.click();
 
-    // Either terminal state proves the form → API → UI round-trip works.
-    await expect(
-      page.getByText(/Message sent!|Something went wrong/i),
-    ).toBeVisible({ timeout: 15_000 });
+    // Either terminal state proves the form → API → UI round-trip works: the
+    // generated reply (DB configured) or the rose error panel (no DB → 503).
+    const success = page.getByText('Your request is with a person now', { exact: false });
+    const failure = page.getByRole('alert').filter({ hasText: /Not sent yet/ });
+    await expect(success.or(failure).first()).toBeVisible({ timeout: 15_000 });
   });
 });
 
@@ -97,12 +105,48 @@ test.describe('Demo API (validation is DB-independent)', () => {
 });
 
 test.describe('Quote form (UI)', () => {
-  test('renders the multi-step quote wizard', async ({ page }) => {
+  test('walks the four-step pipeline and completes a submit round-trip', async ({ page }) => {
     await page.goto('/quote');
-    // First step should be visible; assert the page mounted the actual
-    // accessible wizard UI rather than an implementation-specific <form>.
-    await expect(page.getByText('Step 1/5')).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'What do you need built?' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Continue' })).toBeVisible();
+
+    const rail = page.getByRole('navigation', { name: 'Estimate steps' });
+    await expect(rail.getByRole('button', { name: /Step 1: Problem/ })).toHaveAttribute('aria-current', 'step');
+    await expect(page.getByRole('heading', { name: 'What should AI take on?' })).toBeVisible();
+    const next = page.getByRole('button', { name: /Continue/ });
+
+    // Step validation: an empty step does not advance.
+    await next.click();
+    await expect(page.getByText('Pick at least one service', { exact: false })).toBeVisible();
+
+    // Chips are real checkboxes / radios laid invisibly over each chip.
+    await page.getByRole('checkbox', { name: 'AI agents & automation' }).check();
+    await page.getByLabel('The workflow, in your words').fill(
+      'Our support team answers the same questions all day. Could an agent handle the routine ones?',
+    );
+    await next.click();
+
+    await expect(page.getByRole('heading', { name: 'What will it work from?' })).toBeVisible();
+    await page.getByRole('checkbox', { name: 'Helpdesk & tickets' }).check();
+    await page.getByRole('radio', { name: 'In our own cloud' }).check();
+    await next.click();
+
+    await expect(page.getByRole('heading', { name: 'How will you judge it?' })).toBeVisible();
+    await page.getByRole('radio', { name: 'Exploring an idea' }).check();
+    await page.getByRole('radio', { name: 'In the next few months' }).check();
+    await page.getByRole('radio', { name: 'Not sure yet' }).check();
+    await next.click();
+
+    await expect(page.getByRole('heading', { name: 'Who should we reply to?' })).toBeVisible();
+    await page.locator('#qt-name').fill('Ada Lovelace');
+    await page.locator('#qt-email').fill('ada@example.com');
+    await page.locator('#qt-company').fill('Analytical Engines Ltd');
+    await page.getByRole('checkbox', { name: /terms of service/ }).check();
+
+    await page.getByRole('button', { name: 'Send the spec' }).click();
+
+    // Either terminal state proves the wizard → API → UI round-trip works: the
+    // streamed reply (DB configured) or the rose error panel (no DB → 503).
+    const success = page.getByRole('heading', { name: 'Reply' });
+    const failure = page.getByRole('alert').filter({ hasText: /Not sent yet/ });
+    await expect(success.or(failure).first()).toBeVisible({ timeout: 15_000 });
   });
 });

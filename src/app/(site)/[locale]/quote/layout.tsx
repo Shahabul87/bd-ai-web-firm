@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 
 export async function generateMetadata({
   params,
@@ -11,6 +12,12 @@ export async function generateMetadata({
   return {
     title: t('title'),
     description: t('description'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      ...localeOpenGraph('/quote', locale),
+    },
+    alternates: localeAlternates('/quote', locale),
   };
 }
 

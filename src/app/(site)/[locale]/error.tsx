@@ -2,10 +2,13 @@
 
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
-import Button from '@/app/design/ui/Button';
-import MonoLabel from '@/app/design/ui/MonoLabel';
 
+/**
+ * Error boundary — "Something failed its eval." A calm eval-run line (the
+ * step, and a rose "failed" verdict) with retry and home.
+ */
 export default function Error({
   error,
   reset,
@@ -26,30 +29,40 @@ export default function Error({
 
   return (
     <PageLayout>
-      <section className="flex min-h-[70vh] items-center justify-center bg-ink-950 px-6 py-24">
-        <div className="text-center">
-          <MonoLabel className="text-signal">{t('label')}</MonoLabel>
-          <h1 className="mt-6 font-display text-5xl font-medium text-bone sm:text-6xl">
-            {t('title')}
-          </h1>
-          <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-steel">
-            {t('body')}
-          </p>
-          {error.digest && (
-            <p className="mt-4 font-mono text-xs text-steel/70">
-              {t('reference')} {error.digest}
+      <div className="attn pg-system">
+        <section className="sy-main sy-error" aria-labelledby="sy-err-h">
+          <div className="attn-wrap sy-narrow">
+            <p className="pg-kicker sy-kicker sy-kicker-rose pg-enter">{t('label')}</p>
+            <h1 id="sy-err-h" className="pg-h1 sy-h1 pg-enter" style={{ '--d': 1 } as React.CSSProperties}>
+              {t('title')}
+            </h1>
+            <p className="pg-lede pg-enter" style={{ '--d': 2 } as React.CSSProperties}>
+              {t('body')}
             </p>
-          )}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
-            <Button variant="signal" size="lg" onClick={reset}>
-              {t('tryAgain')}
-            </Button>
-            <Button variant="ghost" size="lg" href="/">
-              {t('backHome')}
-            </Button>
+            <div className="sy-run pg-panel pg-enter" style={{ '--d': 2 } as React.CSSProperties}>
+              <span className="sy-run-l pg-cap">{t('evalLabel')}</span>
+              <span className="sy-run-step">{t('evalStep')}</span>
+              <span className="sy-run-bar" aria-hidden="true">
+                <i />
+              </span>
+              <span className="sy-run-v">{t('evalResult')}</span>
+            </div>
+            {error.digest ? (
+              <p className="sy-ref pg-cap">
+                {t('reference')} <code>{error.digest}</code>
+              </p>
+            ) : null}
+            <div className="pg-actions pg-enter" style={{ '--d': 3 } as React.CSSProperties}>
+              <button type="button" className="attn-btn attn-btn-primary" onClick={reset}>
+                {t('tryAgain')}
+              </button>
+              <Link className="attn-btn attn-btn-secondary" href="/">
+                {t('backHome')}
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </PageLayout>
   );
 }

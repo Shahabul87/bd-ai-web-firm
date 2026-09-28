@@ -1,0 +1,287 @@
+/* scoped under .pg-legal — see pages.css for shared primitives.
+   One calm reading template for privacy, terms and cookies: a sticky table of
+   contents with a gold indicator that follows the section being read (a
+   sticky "On this page" bar on mobile), numbered sections with serif
+   headings, anchor links, a ~68ch measure. Motion: the indicator, and each
+   section's rule drawing in once. */
+
+.pg-legal .lg-hero { padding-bottom: clamp(40px, 5vw, 72px); border-bottom: 1px solid var(--forest-rule); }
+.pg-legal .lg-h1 { font-size: clamp(46px, 6.4vw, 104px); }
+:lang(bn) .pg-legal .lg-h1 { font-size: clamp(40px, 5.4vw, 88px); }
+
+.pg-legal .lg-updated {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: clamp(22px, 2.4vw, 32px) 0 0;
+  padding: 8px 14px;
+  border: 1px solid var(--forest-rule);
+  border-radius: 999px;
+  font: 500 14px/1.2 var(--attn-sans);
+  color: var(--sage);
+}
+
+.pg-legal .lg-updated time { color: var(--parchment); }
+
+.pg-legal .lg-updated-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 8px rgba(127, 214, 181, 0.6);
+}
+
+/* ── Layout ─────────────────────────────────────────────────────── */
+.pg-legal .lg-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 260px) minmax(0, 68ch);
+  gap: clamp(40px, 6vw, 112px);
+  padding-top: clamp(48px, 6vw, 88px);
+  padding-bottom: clamp(80px, 10vw, 140px);
+}
+
+.pg-legal .lg-side {
+  position: sticky;
+  top: 96px;
+  align-self: start;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+/* ── Table of contents ─────────────────────────────────────────── */
+.pg-legal .lg-toc-h { margin: 0 0 14px; }
+.pg-legal .lg-toc-toggle { display: none; }
+.pg-legal .lg-toc-body { position: relative; }
+
+.pg-legal .lg-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 1px solid var(--forest-rule);
+}
+
+.pg-legal .lg-toc-list a {
+  display: grid;
+  grid-template-columns: 2em minmax(0, 1fr);
+  gap: 4px;
+  padding: 8px 0 8px 16px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--sage);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+.pg-legal .lg-toc-list a:hover { color: var(--parchment); }
+.pg-legal .lg-toc-list a[aria-current] { color: var(--parchment); }
+.pg-legal .lg-toc-n { font: 500 12px/1.9 var(--attn-sans); letter-spacing: 0.04em; color: var(--gold); opacity: 0.7; }
+.pg-legal .lg-toc-list a[aria-current] .lg-toc-n { opacity: 1; }
+
+.pg-legal .lg-toc-bar {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  width: 2px;
+  height: 0;
+  border-radius: 2px;
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(242, 179, 61, 0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pg-legal .lg-toc[data-state='ready'] .lg-toc-bar { opacity: 1; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pg-legal .lg-toc[data-state='ready'] .lg-toc-bar {
+    transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), height 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.3s;
+  }
+}
+
+.pg-legal .lg-related { margin-top: 32px; }
+.pg-legal .lg-related .pg-cap { margin: 0 0 10px; }
+.pg-legal .lg-related ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.pg-legal .lg-related a { font-size: 15px; color: var(--sage); text-underline-offset: 3px; }
+.pg-legal .lg-related a:hover { color: var(--gold); }
+
+/* ── Article ───────────────────────────────────────────────────── */
+.pg-legal .lg-article { min-width: 0; }
+
+.pg-legal .lg-sec { scroll-margin-top: 96px; }
+.pg-legal .lg-sec + .lg-sec { margin-top: clamp(48px, 5vw, 72px); }
+
+.pg-legal .lg-sec-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.pg-legal .lg-sec-n { font: 500 13px/1 var(--attn-sans); letter-spacing: 0.04em; color: var(--gold); flex: none; }
+
+.pg-legal .lg-sec-rule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: linear-gradient(to right, rgba(242, 179, 61, 0.5), var(--forest-rule) 30%, transparent);
+  transform-origin: left;
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .pg-legal .lg-sec-rule { transform: scaleX(0); transition: transform 1.1s cubic-bezier(0.45, 0.05, 0.2, 1) 0.1s; }
+  .pg-legal .vis .lg-sec-rule { transform: none; }
+}
+
+.pg-legal .lg-sec-title {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.pg-legal .lg-sec-title h2 {
+  margin: 0;
+  font: 400 clamp(30px, 3vw, 42px) / 1.12 var(--attn-serif);
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+:lang(bn) .pg-legal .lg-sec-title h2 { line-height: 1.3; letter-spacing: 0; }
+
+.pg-legal .lg-anchor {
+  font: 500 20px/1 var(--attn-sans);
+  color: var(--gold);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.pg-legal .lg-sec-title:hover .lg-anchor,
+.pg-legal .lg-anchor:focus-visible { opacity: 1; }
+
+@media (hover: none) {
+  .pg-legal .lg-anchor { opacity: 0.6; }
+}
+
+.pg-legal .lg-body {
+  margin-top: 18px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--sage);
+}
+
+.pg-legal .lg-body p { margin: 0 0 1em; }
+.pg-legal .lg-body p:last-child { margin-bottom: 0; }
+.pg-legal .lg-body strong { font-weight: 600; color: var(--parchment); }
+
+.pg-legal .lg-body a {
+  color: var(--parchment);
+  text-decoration: underline;
+  text-decoration-color: rgba(242, 179, 61, 0.6);
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.pg-legal .lg-body a:hover { color: var(--gold); }
+
+.pg-legal .lg-body ul { list-style: none; margin: 0 0 1em; padding: 0; }
+
+.pg-legal .lg-body li {
+  position: relative;
+  padding: 0 0 0 22px;
+  margin: 0 0 0.7em;
+}
+
+.pg-legal .lg-body li::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.72em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+}
+
+.pg-legal .lg-defs { margin: 8px 0 0; display: grid; gap: 12px; }
+
+.pg-legal .lg-defs > div {
+  padding: 18px 20px;
+  background: var(--forest-raised);
+  border: 1px solid var(--forest-rule);
+  border-radius: 10px;
+}
+
+.pg-legal .lg-defs dt { font-weight: 600; color: var(--parchment); margin-bottom: 4px; }
+.pg-legal .lg-defs dd { margin: 0; }
+
+/* ── Mobile / tablet: a sticky "On this page" bar ───────────────── */
+@media (max-width: 1023px) {
+  .pg-legal .lg-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 0; }
+
+  .pg-legal .lg-side {
+    position: sticky;
+    top: 64px;
+    z-index: 5;
+    max-height: none;
+    overflow: visible;
+    margin: 0 calc(var(--attn-gut) * -1);
+    padding: 0 var(--attn-gut);
+    background: rgba(14, 38, 33, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--forest-rule);
+  }
+
+  .pg-legal .lg-related { display: none; }
+
+  /* Before hydration / no JS the list is simply shown, not sticky. */
+  .pg-legal .lg-side:not(:has(.lg-toc[data-state='ready'])) { position: static; padding-top: 20px; padding-bottom: 20px; }
+
+  .pg-legal .lg-toc[data-state='ready'] .lg-toc-h { display: none; }
+
+  .pg-legal .lg-toc[data-state='ready'] .lg-toc-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 52px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--parchment);
+    font: 500 14px/1.3 var(--attn-sans);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .pg-legal .lg-toc-toggle-k { color: var(--sage); flex: none; }
+
+  .pg-legal .lg-toc-toggle-v {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .pg-legal .lg-toc-chev {
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    border-right: 1.5px solid var(--sage);
+    border-bottom: 1.5px solid var(--sage);
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.3s;
+    flex: none;
+  }
+
+  .pg-legal .lg-toc[data-open] .lg-toc-chev { transform: translateY(2px) rotate(-135deg); }
+
+  .pg-legal .lg-toc[data-state='ready'] .lg-toc-body { display: none; padding-bottom: 14px; }
+  .pg-legal .lg-toc[data-state='ready'][data-open] .lg-toc-body { display: block; }
+  .pg-legal .lg-toc-list a { min-height: 44px; align-items: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-legal .lg-toc-chev { transition: none; }
+}
