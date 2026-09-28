@@ -1491,90 +1491,164 @@
   },
   "Process": {
     "hero": {
-      "eyebrow": "Process",
-      "title": "Your project rides the line.",
-      "lede": "Five stations between idea and launch. Watch it move — no black boxes, no surprises, just a build you can follow with your own eyes."
+      "kicker": "Process",
+      "title": "Agree the bar. Then clear it.",
+      "lede": "Every project follows one line: quality, measured against a bar we set with you at the start. Five stages take it from a first prototype to a system that keeps improving in production, and you can see where it stands at every step.",
+      "primary": "Book a discovery call",
+      "secondary": "Walk through a project",
+      "replay": "Replay the run",
+      "chartLabel": "Example run: quality starts well below the bar agreed in Discover, rises quickly while prototyping, crosses the bar during Evaluate, and keeps improving in Run & improve while cost per task falls."
     },
-    "line": {
-      "eyebrow": "The line",
-      "title": "How a project moves through CraftsAI.",
-      "totalNote": "05 stations · typical total 2–6 weeks"
+    "chart": {
+      "example": "Example run · illustrative numbers",
+      "quality": "quality",
+      "bar": "the bar we agreed",
+      "cost": "cost per task",
+      "stage": "stage",
+      "vsBar": "vs the bar"
     },
-    "phases": [
-      {
-        "number": "01",
-        "title": "Discovery",
-        "label": "DISCOVERY",
-        "what": "Free consultation to understand your needs. We discuss your goals, target audience, and success criteria to make sure we are aligned before any code is written.",
-        "deliverables": "Requirements document, project scope",
-        "yourRole": "Share your vision and goals",
-        "timeline": "1–2 days"
+    "run": {
+      "title": "Five stages, one curve",
+      "note": "Scroll through a project. The line is an example run: quality at each checkpoint, against the bar we agree at the start. Each stage ends with something you can hold, and a call that is yours to make.",
+      "listLabel": "Project stages",
+      "youGet": "You get",
+      "youDecide": "You decide",
+      "example": "Example",
+      "chartLabel": "Example run chart: quality over the five stages, crossing the agreed bar during Evaluate."
+    },
+    "stages": {
+      "discover": {
+        "title": "Discover",
+        "body": "We sit with the people who do the work, map the workflow and the data behind it, and agree what good looks like in terms you can check. That becomes the bar everything after is measured against.",
+        "get": "A one-page map of the workflow and a written quality bar.",
+        "decide": "Which workflow to start with, and where the bar sits.",
+        "artifact": {
+          "title": "Workflow map",
+          "steps": [
+            "A request comes in",
+            "Find the facts",
+            "Draft the answer",
+            "A person signs off"
+          ],
+          "data": "Data: past requests, policy documents, the order system",
+          "bar": "The bar: 0.70 on a test set of real cases"
+        }
       },
-      {
-        "number": "02",
-        "title": "Planning",
-        "label": "PLANNING",
-        "what": "Architecture design, technology selection, and milestone planning. We map out the entire project so there are no surprises down the road.",
-        "deliverables": "Technical spec, project timeline, cost estimate",
-        "yourRole": "Review and approve plan",
-        "timeline": "2–3 days"
+      "prototype": {
+        "title": "Prototype",
+        "body": "Within weeks you see a working demo on your real data, not a mock-up. It is rough on purpose: the point is to learn quickly where the AI is strong and where it struggles.",
+        "get": "A working demo you can try with your own cases.",
+        "decide": "Whether it is worth measuring properly.",
+        "artifact": {
+          "title": "Working demo",
+          "question": "Can I still return the jacket I ordered last month?",
+          "answer": "Yes. Your order is still inside the return window, so I have started the return and emailed you a label.",
+          "source": "returns-policy.pdf",
+          "tag": "on your data"
+        }
       },
-      {
-        "number": "03",
-        "title": "Development",
-        "label": "DEVELOPMENT",
-        "what": "AI agents generate code while engineers review and refine. You see working features early and often through regular demos.",
-        "deliverables": "Working features, regular demos",
-        "yourRole": "Weekly check-ins, feedback",
-        "timeline": "1–4 weeks"
+      "evaluate": {
+        "title": "Evaluate",
+        "body": "We measure accuracy, cost, and speed against the bar we agreed, on test cases drawn from your real work. You read the same report we do, failures included.",
+        "get": "An eval report: every test case, pass or fail, and the score against the bar.",
+        "decide": "Whether it is good enough to build, or what to fix first.",
+        "artifact": {
+          "title": "Eval report",
+          "cases": "real test cases",
+          "pass": "pass",
+          "fail": "fail",
+          "score": "score",
+          "bar": "bar",
+          "verdict": "Clears the bar"
+        }
       },
-      {
-        "number": "04",
-        "title": "Testing",
-        "label": "TESTING",
-        "what": "Comprehensive QA, performance testing, and security audit. We catch issues before your users do.",
-        "deliverables": "Test reports, bug-free application",
-        "yourRole": "User acceptance testing",
-        "timeline": "3–5 days"
+      "build": {
+        "title": "Build",
+        "body": "Production-grade integration with your systems, with security and monitoring built in from the start. The evals come along, so every release is checked against the bar before it ships.",
+        "get": "A production system connected to your tools, with monitoring on.",
+        "decide": "Who can use it, what it can touch, and when it goes live.",
+        "artifact": {
+          "title": "Production checklist",
+          "items": [
+            "Connected to your systems",
+            "Access control and audit log",
+            "Evals run on every release",
+            "Monitoring and alerts on"
+          ],
+          "status": "Ready to go live"
+        }
       },
-      {
-        "number": "05",
-        "title": "Launch & Support",
-        "label": "LAUNCH",
-        "what": "Deployment, monitoring setup, and handoff. We make sure everything runs smoothly and your team is fully equipped to take over.",
-        "deliverables": "Live application, documentation, training",
-        "yourRole": "Final approval",
-        "timeline": "1–2 days"
+      "run": {
+        "title": "Run & improve",
+        "body": "We watch it in production and keep making it better: we catch drift, fix the cases it gets wrong, and switch models when a better one arrives. Each improvement is measured before it ships.",
+        "get": "A live monitor, and a note each time an improvement ships.",
+        "decide": "Which improvements matter most to your team.",
+        "artifact": {
+          "title": "Live monitor",
+          "label": "quality in production",
+          "holding": "Above the bar",
+          "shipped": "Improvement shipped",
+          "pips": [
+            "Better answers on returns",
+            "Lower cost per task",
+            "Moved to a newer model"
+          ]
+        }
       }
-    ],
-    "communication": {
-      "eyebrow": "How we communicate",
-      "title": "Transparency is how we work.",
-      "description": "You will always know where your project stands.",
+    },
+    "loop": {
+      "title": "How you stay in the loop",
+      "note": "You see the work as it happens, and anything that needs your judgement is marked as yours to decide.",
+      "channel": "Project channel",
+      "from": "CraftsAI",
+      "example": "What a week looks like · example",
+      "legendDecide": "Needs your decision",
+      "legendDone": "Done",
       "items": [
         {
-          "title": "Weekly Progress Reports",
-          "description": "Detailed updates on what was completed, what is next, and any blockers."
+          "title": "Weekly demo",
+          "body": "A short recorded walkthrough of this week's version, including the cases it still gets wrong.",
+          "status": "Done"
         },
         {
-          "title": "Direct Messaging",
-          "description": "Reach us anytime via WhatsApp or email. No ticketing queues."
+          "title": "Eval report",
+          "body": "The new version clears the bar on the latest test cases. The remaining failures are listed with examples.",
+          "status": "Done"
         },
         {
-          "title": "Live Demos at Milestones",
-          "description": "See working software at every major milestone, not just at the end."
+          "title": "Decision log",
+          "body": "Should the agent approve small refunds on its own, or always ask a person first? The options and trade-offs are written up.",
+          "status": "Needs your call"
         },
         {
-          "title": "Dedicated Project Channel",
-          "description": "A shared channel for your team and ours to keep everything in one place."
+          "title": "Deploy note",
+          "body": "The new version is on staging for your team to try. The previous one stays ready if anything looks off.",
+          "status": "Done"
+        }
+      ]
+    },
+    "wont": {
+      "title": "What we won't do",
+      "items": [
+        {
+          "line": "Demos that can't ship.",
+          "instead": "Every prototype runs on your real data, so what you see is what we build on."
+        },
+        {
+          "line": "Launches without evals you can read.",
+          "instead": "Nothing goes live until it clears the bar, and you get the report."
+        },
+        {
+          "line": "Black boxes.",
+          "instead": "You own the code, the prompts, the evals, and the data."
         }
       ]
     },
     "cta": {
-      "title": "Ready to get started?",
-      "lede": "Phase 1 is free. Tell us about your project and we'll schedule a discovery call within 24 hours.",
-      "primaryLabel": "Start your project",
-      "secondaryLabel": "See our services"
+      "title": "Start with Discover.",
+      "lede": "Tell us the workflow. We'll map it with you, agree the bar, and give you an honest view of whether AI can clear it.",
+      "primary": "Book a discovery call",
+      "secondary": "See our services"
     }
   },
   "Products": {
@@ -2090,8 +2164,8 @@
       "description": "CraftsAI privacy policy. Learn how we collect, use, and protect your personal information."
     },
     "process": {
-      "title": "Our Development Process",
-      "description": "From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication."
+      "title": "How we work",
+      "description": "Discover, prototype, evaluate, build, run and improve: how CraftsAI takes an AI system from a first working demo to production, measured against a quality bar you agree."
     },
     "products": {
       "title": "Work",

@@ -1,11 +1,18 @@
-import { Metadata } from 'next';
+import type { CSSProperties } from 'react';
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
+import { toBengaliDigits } from '@/app/lib/numerals';
+import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
-import PageHero from '@/app/components/shared/PageHero';
-import CTABand from '@/app/components/shared/CTABand';
-import SectionHeader from '@/app/design/ui/SectionHeader';
-import ConveyorProcess, { ConveyorPhase } from '@/app/components/process/ConveyorProcess';
+import PageCTA from '@/app/components/pages/PageCTA';
+import HeroRun from '@/app/components/pages/process/HeroRun';
+import StageRun, { type StageCopy } from '@/app/components/pages/process/StageRun';
+import LoopFeed, { type LoopItem } from '@/app/components/pages/process/LoopFeed';
+import WontDo, { type WontItem } from '@/app/components/pages/process/WontDo';
+import type { ChartCopy } from '@/app/components/pages/process/RunPlot';
+import type { ArtifactCopy } from '@/app/components/pages/process/StageArtifacts';
+import { STAGE_KEYS } from '@/app/components/pages/process/run';
 
 export async function generateMetadata({
   params,
@@ -18,19 +25,20 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     openGraph: {
-      title: 'Our Development Process',
-      description: 'From discovery to launch in 5 clear phases.',
+      title: t('title'),
+      description: t('description'),
       ...localeOpenGraph('/process', locale),
     },
     alternates: localeAlternates('/process', locale),
   };
 }
 
-interface CommunicationItem {
-  title: string;
-  description: string;
-}
-
+/**
+ * /process — "The training run". The project is drawn as a quality curve
+ * measured against the bar agreed in Discover: it draws itself in the hero,
+ * then the five stages scroll past a sticky chart that converges stage by
+ * stage. Copy is resolved here; the chart islands get it as typed props.
+ */
 export default async function ProcessPage({
   params,
 }: {
@@ -39,47 +47,103 @@ export default async function ProcessPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('Process');
+  const bn = locale === 'bn';
+  const num = (n: number) => {
+    const s = String(n).padStart(2, '0');
+    return bn ? toBengaliDigits(s) : s;
+  };
 
-  /* A real sequence — station numbers encode the order the work happens in. */
-  const phases = t.raw('phases') as ConveyorPhase[];
-  const communicationItems = t.raw('communication.items') as CommunicationItem[];
+  const chart: ChartCopy = {
+    example: t('chart.example'),
+    quality: t('chart.quality'),
+    bar: t('chart.bar'),
+    cost: t('chart.cost'),
+    stage: t('chart.stage'),
+    vsBar: t('chart.vsBar'),
+  };
+
+  const stages: StageCopy[] = STAGE_KEYS.map((key, i) => ({
+    key,
+    number: num(i + 1),
+    title: t(`stages.${key}.title`),
+    body: t(`stages.${key}.body`),
+    get: t(`stages.${key}.get`),
+    decide: t(`stages.${key}.decide`),
+  }));
+
+  const artifacts = Object.fromEntries(
+    STAGE_KEYS.map((key) => [key, t.raw(`stages.${key}.artifact`)]),
+  ) as ArtifactCopy;
 
   return (
     <PageLayout>
-      <PageHero eyebrow={t('hero.eyebrow')} title={t('hero.title')} lede={t('hero.lede')} />
-
-      <section className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-        <SectionHeader index="fig. 01" eyebrow={t('line.eyebrow')} title={t('line.title')} />
-        <ConveyorProcess phases={phases} totalNote={t('line.totalNote')} />
-      </section>
-
-      <section className="border-t border-line bg-ink-900">
-        <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-          <SectionHeader
-            index="fig. 02"
-            eyebrow={t('communication.eyebrow')}
-            title={t('communication.title')}
-            description={t('communication.description')}
-          />
-          <div className="mt-14 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-            {communicationItems.map((item) => (
-              <div key={item.title} className="bg-ink-950 p-6">
-                <h3 className="font-display text-lg font-medium text-bone">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-steel">{item.description}</p>
+      <div className="attn pg-process">
+        <section className="pg-hero pr-hero" aria-labelledby="pr-hero-h">
+          <div className="attn-wrap pr-hero-grid">
+            <div className="pr-hero-copy">
+              <p className="pg-kicker pg-enter">{t('hero.kicker')}</p>
+              <h1 className="pg-h1 pg-enter" id="pr-hero-h" style={{ '--d': 1 } as CSSProperties}>
+                {t('hero.title')}
+              </h1>
+              <p className="pg-lede pg-enter" style={{ '--d': 2 } as CSSProperties}>
+                {t('hero.lede')}
+              </p>
+              <div className="pg-actions pg-enter" style={{ '--d': 3 } as CSSProperties}>
+                <Link className="attn-btn attn-btn-primary" href="/contact">
+                  {t('hero.primary')}
+                </Link>
+                <a className="attn-btn attn-btn-secondary" href="#pr-run">
+                  {t('hero.secondary')}
+                </a>
               </div>
-            ))}
+            </div>
+            <HeroRun
+              copy={chart}
+              stages={stages.map((s) => s.title)}
+              label={t('hero.chartLabel')}
+              replay={t('hero.replay')}
+              bn={bn}
+            />
           </div>
-        </div>
-      </section>
+        </section>
 
-      <CTABand
-        title={t('cta.title')}
-        lede={t('cta.lede')}
-        primaryLabel={t('cta.primaryLabel')}
-        primaryHref="/quote"
-        secondaryLabel={t('cta.secondaryLabel')}
-        secondaryHref="/services"
-      />
+        <StageRun
+          title={t('run.title')}
+          note={t('run.note')}
+          listLabel={t('run.listLabel')}
+          youGet={t('run.youGet')}
+          youDecide={t('run.youDecide')}
+          chartLabel={t('run.chartLabel')}
+          chart={chart}
+          example={t('run.example')}
+          stages={stages}
+          artifacts={artifacts}
+          bn={bn}
+        />
+
+        <LoopFeed
+          title={t('loop.title')}
+          note={t('loop.note')}
+          channel={t('loop.channel')}
+          from={t('loop.from')}
+          example={t('loop.example')}
+          legendDecide={t('loop.legendDecide')}
+          legendDone={t('loop.legendDone')}
+          items={t.raw('loop.items') as LoopItem[]}
+        />
+
+        <WontDo title={t('wont.title')} items={t.raw('wont.items') as WontItem[]} />
+
+        <PageCTA
+          id="pr-cta-h"
+          title={t('cta.title')}
+          lede={t('cta.lede')}
+          primaryLabel={t('cta.primary')}
+          primaryHref="/contact"
+          secondaryLabel={t('cta.secondary')}
+          secondaryHref="/services"
+        />
+      </div>
     </PageLayout>
   );
 }
