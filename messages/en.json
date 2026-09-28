@@ -1922,10 +1922,11 @@
   },
   "Resources": {
     "hero": {
-      "eyebrow": "Resources",
-      "title": "Field notes from the studio.",
-      "lede": "Blog posts, case studies, and guides on AI-powered development — written by the team that ships it.",
-      "primaryCta": "Start a project"
+      "kicker": "Resources",
+      "title": "The <em>reading room</em>.",
+      "lede": "What we have written down about building AI that does real work: notes from the studio, practical guides and case studies. Ask the library a question and the pieces that answer it rise to the top.",
+      "primaryCta": "Read the blog",
+      "secondaryCta": "Book a discovery call"
     },
     "browse": {
       "eyebrow": "Browse by type",
@@ -1957,21 +1958,25 @@
     },
     "blog": {
       "hero": {
-        "eyebrow": "Resources / Blog",
-        "title": "Field notes from the build.",
-        "lede": "Insights on AI-powered development, business strategy, and technology trends from the CraftsAI team."
+        "kicker": "Blog",
+        "title": "Notes on building AI that <em>does real work</em>.",
+        "lede": "Short pieces from the studio: how AI systems get built, measured and run, and where they are worth it."
       },
-      "empty": "No posts yet — check back soon.",
-      "badge": "Blog",
-      "readTime": "{count} min read",
-      "readMore": "Read",
+      "back": "Resources",
+      "count": "{n, select, 1 {1 post} other {{n} posts}}",
+      "filter": "Filter posts by tag",
+      "all": "All",
+      "showing": "Showing {shown} of {total} posts",
+      "noMatch": "No posts with this tag yet.",
+      "empty": "No posts yet. Check back soon.",
       "detail": {
-        "by": "By {author}",
+        "kicker": "Blog",
+        "back": "All posts",
         "cta": {
-          "title": "Ready to build your next project?",
-          "lede": "Let our AI-powered team turn your idea into production-ready software at a fraction of the traditional cost.",
-          "primaryLabel": "Get a free quote",
-          "secondaryLabel": "Back to blog"
+          "title": "Want this thinking applied to your workflow?",
+          "lede": "Tell us where the work piles up. We'll tell you honestly whether AI helps there, and how we would measure it.",
+          "primaryLabel": "Book a discovery call",
+          "secondaryLabel": "Back to the blog"
         }
       }
     },
@@ -1995,22 +2000,135 @@
     },
     "guides": {
       "hero": {
-        "eyebrow": "Resources / Guides",
-        "title": "Guides & whitepapers.",
-        "lede": "In-depth resources to help you plan, build, and ship successful software products."
+        "kicker": "Guides",
+        "title": "Practical guides for <em>planning a build</em>.",
+        "lede": "Longer reads for the decisions before and around a project: what to build, how to plan it, and who to build it with."
       },
-      "empty": "No guides yet — check back soon.",
-      "badge": "Guide",
-      "readTime": "{count} min read",
-      "readMore": "Read",
+      "back": "Resources",
+      "count": "{n, select, 1 {1 guide} other {{n} guides}}",
+      "filter": "Filter guides by tag",
+      "all": "All",
+      "showing": "Showing {shown} of {total} guides",
+      "noMatch": "No guides with this tag yet.",
+      "empty": "No guides yet. Check back soon.",
       "detail": {
+        "kicker": "Guide",
+        "back": "All guides",
         "cta": {
-          "title": "Need expert help with your project?",
-          "lede": "Our AI-powered team can help you go from idea to launch faster and more affordably than you thought possible.",
-          "primaryLabel": "Get a free quote",
+          "title": "Planning an AI project?",
+          "lede": "Bring the plan, or just the problem. We'll help you find the version that is worth building and the bar it has to clear.",
+          "primaryLabel": "Book a discovery call",
           "secondaryLabel": "Back to guides"
         }
       }
+    },
+    "article": {
+      "toc": "On this page",
+      "tags": "Tags",
+      "by": "By {author}",
+      "readTime": "{n} min read",
+      "nav": "More in this collection",
+      "prev": "Previous",
+      "next": "Next",
+      "related": "Related reading",
+      "relatedNote": "Ranked by shared tags and title words, with the same word-overlap score as the library demo."
+    },
+    "cta": {
+      "title": "Have a question the library can't answer?",
+      "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+      "primaryLabel": "Book a discovery call",
+      "secondaryLabel": "Email us"
+    },
+    "retrieval": {
+      "label": "Retrieval",
+      "example": "Over this library",
+      "chipsLabel": "Example questions",
+      "queryLabel": "Question",
+      "termsLabel": "Key terms",
+      "resultsLabel": "Library, ranked by relevance",
+      "ranking": "Ranking…",
+      "pause": "Pause",
+      "play": "Play",
+      "topMatch": "Top match",
+      "note": "How the score works: 2 points for each key term in a title, 1 for a term only in the description or tags, divided by the best possible. Plain word overlap, no model, so the same question always ranks the same.",
+      "queries": [
+        {
+          "chip": "Measuring quality",
+          "text": "How do we know the AI is getting better?",
+          "terms": [
+            "ai",
+            "measure",
+            "quality",
+            "better"
+          ]
+        },
+        {
+          "chip": "Web or mobile",
+          "text": "Should our AI feature live in a web app or a mobile app?",
+          "terms": [
+            "ai",
+            "web",
+            "mobile",
+            "app"
+          ]
+        },
+        {
+          "chip": "Cost",
+          "text": "What does AI change about the cost of a build?",
+          "terms": [
+            "ai",
+            "cost",
+            "build",
+            "effort"
+          ]
+        },
+        {
+          "chip": "Choosing a partner",
+          "text": "How do we choose who to build it with?",
+          "terms": [
+            "choose",
+            "partner",
+            "build",
+            "evaluate"
+          ]
+        }
+      ]
+    },
+    "shelves": {
+      "tagsLabel": "Tags",
+      "blog": {
+        "title": "Latest posts",
+        "note": "Short pieces on how AI systems get built, measured and run.",
+        "link": "All posts"
+      },
+      "guides": {
+        "title": "Guides",
+        "note": "Longer, practical reads for planning a build and choosing who to build it with.",
+        "link": "All guides"
+      },
+      "caseStudies": {
+        "title": "Case studies",
+        "note": "Projects written up: the problem, what was built, and how it went.",
+        "link": "All case studies"
+      }
+    },
+    "tags": {
+      "ai": "AI",
+      "cost": "Cost",
+      "business": "Business",
+      "strategy": "Strategy",
+      "web": "Web",
+      "mobile": "Mobile",
+      "development": "Development",
+      "automation": "Automation",
+      "outsourcing": "Outsourcing",
+      "guide": "Guide",
+      "edtech": "EdTech",
+      "fintech": "FinTech",
+      "web-platform": "Web platform",
+      "android": "Android",
+      "animation": "Animation",
+      "bilingual": "Bilingual"
     }
   },
   "Faq": {
@@ -2266,20 +2384,20 @@
       "description": "Describe the problem, your data and the scope in four short steps. A person reads your spec and replies within 24 hours with an honest estimate for the AI work."
     },
     "resources": {
-      "title": "Resources - Blog, Case Studies & Guides",
-      "description": "Explore our blog posts, case studies, and in-depth guides on AI-powered software development, web apps, mobile apps, and business strategy."
+      "title": "Resources",
+      "description": "The CraftsAI reading room: articles, guides and case studies on building, measuring and running AI systems that do real work."
     },
     "resourcesBlog": {
-      "title": "Blog - AI Development Insights",
-      "description": "Read our latest articles on AI-powered development, web and mobile strategy, cost savings, and technology trends."
+      "title": "Blog",
+      "description": "Short pieces from CraftsAI on how AI systems get built, measured and run, and where they are worth it."
     },
     "resourcesCaseStudies": {
       "title": "Case Studies - Real AI Development Results",
       "description": "See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more."
     },
     "resourcesGuides": {
-      "title": "Guides & Whitepapers - In-Depth Development Resources",
-      "description": "Comprehensive guides on web app development, choosing a development partner, and building successful software products."
+      "title": "Guides",
+      "description": "Practical guides from CraftsAI for planning an AI project: what to build, how to plan it, and who to build it with."
     },
     "servicesLayout": {
       "title": "Services",
