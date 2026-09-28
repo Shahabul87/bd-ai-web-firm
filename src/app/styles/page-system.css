@@ -1,0 +1,355 @@
+/* System pages — 404, error, loading — scoped under .pg-system (prefix sy-).
+   See pages.css for the shared primitives. Signature: "Out of distribution" —
+   the requested address is read token by token and rejected in rose, and the
+   closest real pages follow as mint candidates. Bars are illustrative. */
+
+/* The global 404 (src/app/not-found.tsx) renders outside the locale layout:
+   <body> has no next/font variables, so body's --attn-serif/--attn-sans
+   resolved against nothing. Re-point them on the wrapper that carries the
+   font-variable classes. */
+.pg-system.sy-root {
+  --attn-serif: var(--font-instrument-serif), Georgia, 'Times New Roman', serif;
+  --attn-sans: var(--font-schibsted), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+.pg-system .sy-main {
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 64px);
+  padding: clamp(64px, 9vw, 140px) 0;
+}
+
+.pg-system.sy-root .sy-main { min-height: 100vh; }
+
+.pg-system .sy-main > .attn-wrap { width: 100%; }
+
+.pg-system .sy-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 48px clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.pg-system .sy-h1 { font-size: clamp(44px, 6.2vw, 100px); max-width: 10em; }
+:lang(bn) .pg-system .sy-h1 { font-size: clamp(38px, 5.2vw, 84px); }
+
+.pg-system .sy-kicker-rose::before { background: var(--rose); box-shadow: 0 0 8px rgba(232, 122, 140, 0.7); }
+
+/* ── The out-of-distribution address ────────────────────────────── */
+.pg-system .sy-ood { padding: 20px clamp(18px, 2vw, 26px) 18px; }
+.pg-system .sy-ood-h { margin: 0; }
+
+.pg-system .sy-addr {
+  position: relative;
+  margin: 18px 0 72px;
+  font: 400 clamp(26px, 2.8vw, 40px) / 1.4 var(--attn-serif);
+  overflow-wrap: anywhere;
+  color: var(--parchment);
+}
+
+.pg-system .sy-sep { color: var(--sage); opacity: 0.7; }
+
+.pg-system .sy-tok-t {
+  position: relative;
+  display: inline-block;
+  border-radius: 4px;
+  text-decoration: underline wavy rgba(232, 122, 140, 0.75) 1.5px;
+  text-underline-offset: 0.2em;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+/* The flicker: a near-miss spelling flashes over the live token. */
+.pg-system .sy-tok-f {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--rose);
+  background: var(--forest-raised);
+  text-decoration: line-through rgba(232, 122, 140, 0.8) 1.5px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Candidates for the live token, in a fixed readout under the address. */
+.pg-system .sy-cands {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 12px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 18px;
+  font: 500 13px/1.2 var(--attn-sans);
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-system .sy-cands-h { color: var(--sage); }
+.pg-system .sy-cand { display: inline-grid; grid-template-columns: auto 44px; align-items: center; gap: 8px; }
+.pg-system .sy-cand s { color: var(--rose); text-decoration-thickness: 1.5px; }
+
+.pg-system .sy-cand i {
+  position: relative;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(232, 122, 140, 0.18);
+}
+
+.pg-system .sy-cand i::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--p, 0.2) * 100%);
+  border-radius: 2px;
+  background: var(--rose);
+}
+
+.pg-system .sy-caret {
+  display: inline-block;
+  width: 3px;
+  height: 0.9em;
+  margin-left: 6px;
+  vertical-align: -0.12em;
+  border-radius: 2px;
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(242, 179, 61, 0.6);
+}
+
+.pg-system .sy-ood-note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--forest-rule);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--sage);
+}
+
+.pg-system .sy-flag {
+  font: 600 12px/1 var(--attn-sans);
+  color: var(--rose);
+  border: 1px solid rgba(232, 122, 140, 0.45);
+  border-radius: 4px;
+  padding: 4px 7px;
+}
+
+/* Live reading (the island sets data-state="live"; server HTML, no-JS and
+   reduced motion keep the resting picture: every token rejected). */
+.pg-system .sy-ood[data-state='live']:not([data-rest]) .sy-tok:not(.is-live, .is-done) .sy-tok-t {
+  color: var(--sage);
+  text-decoration-color: transparent;
+}
+
+.pg-system .sy-ood[data-state='live'] .sy-tok.is-live .sy-tok-t {
+  color: var(--gold);
+  background: rgba(242, 179, 61, 0.1);
+  text-decoration-color: transparent;
+}
+
+.pg-system .sy-ood[data-state='live'] .sy-tok.is-live .sy-tok-f { animation: sy-flicker 1.5s steps(1) both; }
+.pg-system .sy-ood[data-state='live'] .sy-tok.is-live .sy-cands { opacity: 1; transform: none; }
+.pg-system .sy-ood[data-state='live'] .sy-caret { animation: sy-blink 1.05s steps(1) infinite; }
+
+@keyframes sy-flicker {
+  0%, 16% { opacity: 0; }
+  18%, 26% { opacity: 1; }
+  28%, 46% { opacity: 0; }
+  48%, 54% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+@keyframes sy-blink { 50% { opacity: 0; } }
+
+/* The global 404 has no island: its tokens light in turn with CSS alone. */
+@media (prefers-reduced-motion: no-preference) {
+  .pg-system .sy-ood-css .sy-tok-t { animation: sy-pass 7.5s ease-in-out infinite; animation-delay: calc(var(--w, 0) * 1.1s); }
+  .pg-system .sy-ood-css .sy-caret { animation: sy-blink 1.05s steps(1) infinite; }
+}
+
+@keyframes sy-pass {
+  0%, 18%, 100% { color: var(--parchment); background-color: transparent; }
+  5% { color: var(--gold); background-color: rgba(242, 179, 61, 0.1); }
+  11% { color: var(--rose); background-color: transparent; }
+}
+
+/* ── Closest pages ──────────────────────────────────────────────── */
+.pg-system .sy-suggest { margin-top: 28px; }
+.pg-system .sy-suggest-h { margin: 0 0 8px; }
+.pg-system .sy-suggest ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--forest-rule); }
+.pg-system .sy-suggest li { border-bottom: 1px solid var(--forest-rule); }
+
+.pg-system .sy-sug {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(56px, 8vw, 110px) 20px;
+  grid-template-areas: 't bar arr' 'n bar arr';
+  align-items: center;
+  gap: 2px 18px;
+  padding: 14px 4px;
+  text-decoration: none;
+}
+
+.pg-system .sy-sug-t { grid-area: t; font: 400 26px/1.15 var(--attn-serif); color: var(--parchment); transition: color 0.25s; }
+:lang(bn) .pg-system .sy-sug-t { line-height: 1.35; }
+.pg-system .sy-sug-n { grid-area: n; font-size: 14px; color: var(--sage); }
+
+.pg-system .sy-sug-bar {
+  grid-area: bar;
+  position: relative;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(127, 214, 181, 0.14);
+  overflow: hidden;
+}
+
+.pg-system .sy-sug-bar i {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: var(--mint);
+  box-shadow: 0 0 8px rgba(127, 214, 181, 0.55);
+  transform: scaleX(var(--p, 0.8));
+  transform-origin: left;
+}
+
+.pg-system .sy-sug-arr { grid-area: arr; color: var(--sage); transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), color 0.25s; }
+.pg-system .sy-sug:is(:hover, :focus-visible) .sy-sug-t { color: var(--gold); }
+.pg-system .sy-sug:is(:hover, :focus-visible) .sy-sug-arr { color: var(--gold); transform: translateX(4px); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pg-system .sy-sug-bar i { animation: sy-fill 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(0.6s + var(--d, 0) * 0.12s); }
+}
+
+@keyframes sy-fill { from { transform: scaleX(0); } }
+
+/* ── Error: an eval run that failed ─────────────────────────────── */
+.pg-system .sy-narrow { max-width: calc(52rem + 2 * var(--attn-gut)); }
+.pg-system .sy-error .sy-h1 { max-width: 11em; }
+
+.pg-system .sy-run {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) clamp(64px, 12vw, 140px) auto;
+  align-items: center;
+  gap: 12px 18px;
+  margin-top: clamp(28px, 3vw, 40px);
+  padding: 16px 20px;
+}
+
+.pg-system .sy-run-step { font-size: 16px; color: var(--parchment); }
+
+.pg-system .sy-run-bar {
+  position: relative;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--forest-rule);
+  overflow: hidden;
+}
+
+.pg-system .sy-run-bar i {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: var(--rose);
+  transform: scaleX(0.62);
+  transform-origin: left;
+}
+
+.pg-system .sy-run-v {
+  font: 600 12px/1 var(--attn-sans);
+  color: var(--rose);
+  border: 1px solid rgba(232, 122, 140, 0.45);
+  border-radius: 4px;
+  padding: 5px 8px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pg-system .sy-run-bar i { animation: sy-run 1.6s cubic-bezier(0.3, 0.6, 0.3, 1) 0.5s both; }
+  .pg-system .sy-run-v { animation: sy-verdict 0.5s ease 2s both; }
+}
+
+@keyframes sy-run {
+  0% { transform: scaleX(0); background: var(--gold); }
+  80% { background: var(--gold); }
+  100% { transform: scaleX(0.62); background: var(--rose); }
+}
+
+@keyframes sy-verdict { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+
+.pg-system .sy-ref { margin: 14px 0 0; }
+.pg-system .sy-ref code { color: var(--parchment); font-size: 12px; }
+
+/* ── Loading: token placeholders and a caret, not a spinner ─────── */
+.pg-system.sy-loading {
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.pg-system .sy-load-line { display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.pg-system .sy-load-line i {
+  position: relative;
+  display: block;
+  width: calc(var(--w, 4) * 14px);
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(236, 233, 224, 0.07);
+  overflow: hidden;
+}
+
+.pg-system .sy-load-line i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(242, 179, 61, 0.38), transparent);
+  transform: translateX(-100%);
+}
+
+.pg-system .sy-load-line .sy-caret { height: 22px; margin-left: 2px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pg-system .sy-load-line i::after { animation: sy-sweep 2.2s ease-in-out infinite; }
+  .pg-system .sy-load-line i:nth-child(2)::after { animation-delay: 0.18s; }
+  .pg-system .sy-load-line i:nth-child(3)::after { animation-delay: 0.36s; }
+  .pg-system .sy-load-line i:nth-child(4)::after { animation-delay: 0.54s; }
+  .pg-system .sy-load-line .sy-caret { animation: sy-blink 1.05s steps(1) infinite; }
+}
+
+@keyframes sy-sweep { 0% { transform: translateX(-100%); } 60%, 100% { transform: translateX(100%); } }
+
+.pg-system .sy-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .pg-system .sy-grid { grid-template-columns: minmax(0, 1fr); }
+  .pg-system .sy-fig { max-width: 40rem; }
+}
+
+@media (max-width: 560px) {
+  .pg-system .sy-run { grid-template-columns: minmax(0, 1fr) auto; }
+  .pg-system .sy-run-l { grid-column: 1 / -1; }
+  .pg-system .sy-run-bar { grid-column: 1 / -1; grid-row: 3; }
+  .pg-system .sy-addr { margin-bottom: 88px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-system :is(.sy-tok-t, .sy-cands, .sy-sug-t, .sy-sug-arr) { transition: none; }
+  .pg-system :is(.sy-tok-f, .sy-caret, .sy-sug-bar i, .sy-run-bar i, .sy-run-v) { animation: none !important; }
+  .pg-system .sy-load-line i::after { display: none; }
+}

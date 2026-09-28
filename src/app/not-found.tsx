@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { Space_Grotesk, Instrument_Sans, JetBrains_Mono } from 'next/font/google';
+import type { CSSProperties } from 'react';
+import { Instrument_Serif, Schibsted_Grotesk } from 'next/font/google';
 import './globals.css';
-import MonoLabel from '@/app/design/ui/MonoLabel';
 
 // Global 404 for URLs matching NO route group. Only reachable for paths the
 // i18n middleware matcher deliberately skips (anything containing a dot, e.g.
@@ -17,70 +17,99 @@ import MonoLabel from '@/app/design/ui/MonoLabel';
 // with its classes and font variables. So the shell comes from Next and this
 // file supplies only the contents.
 //
-// That injected <html> carries no font-variable classes, so the next/font
-// variables are declared on the wrapper below instead of on <body>; CSS custom
-// properties cascade to descendants, which is all --font-display needs. The
-// `.dark` class is likewise absent, but nothing here uses a `dark:` utility —
-// the ink/signal tokens are dark-by-default at :root.
+// That injected <html>/<body> carries no font-variable classes, so the
+// next/font variables are declared on the wrapper below instead of on <body>,
+// and page-system.css re-points --attn-serif / --attn-sans at them on that
+// wrapper (`.sy-root`) — body's own copies resolved against nothing. CSS custom
+// properties cascade to descendants, which is all the design system needs.
 //
-// Deliberately NOT using design/ui/Button: it imports Link from
-// '@/i18n/navigation', which needs a NextIntlClientProvider that this tree has
-// no locale context to supply. Plain next/link is correct here.
+// No locale context exists here (no NextIntlClientProvider), so the copy is
+// English and the links are plain next/link, not '@/i18n/navigation'. No
+// client island either: the token flicker is CSS only.
 
-const spaceGrotesk = Space_Grotesk({
-  variable: '--font-space-grotesk',
+const instrumentSerif = Instrument_Serif({
+  variable: '--font-instrument-serif',
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
+});
+
+const schibstedGrotesk = Schibsted_Grotesk({
+  variable: '--font-schibsted',
   subsets: ['latin'],
   display: 'swap',
   fallback: ['system-ui', 'sans-serif'],
-});
-
-const instrumentSans = Instrument_Sans({
-  variable: '--font-instrument-sans',
-  subsets: ['latin'],
-  display: 'swap',
-  fallback: ['system-ui', 'sans-serif'],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-jetbrains-mono',
-  subsets: ['latin'],
-  display: 'swap',
-  preload: false,
-  fallback: ['Menlo', 'Monaco', 'monospace'],
 });
 
 export const metadata = {
-  title: '404: This page could not be found.',
+  title: '404: This page is out of distribution.',
   robots: { index: false, follow: false },
 };
 
+const TOKENS = ['this', 'page', 'is', 'not', 'here'];
+const SUGGESTIONS = [
+  { href: '/', label: 'Home', note: 'Start from the top' },
+  { href: '/services', label: 'Services', note: 'What we build for clients' },
+  { href: '/products', label: 'Work', note: 'Products we build and run' },
+  { href: '/contact', label: 'Contact', note: 'Ask us directly' },
+];
+
 export default function NotFound() {
   return (
-    <div
-      className={`${spaceGrotesk.variable} ${instrumentSans.variable} ${jetbrainsMono.variable} antialiased`}
-    >
-      <main className="flex min-h-screen items-center justify-center bg-ink-950 px-6 py-24 text-bone">
-        <div className="text-center">
-          <MonoLabel className="text-signal">404 / Not found</MonoLabel>
-          <h1 className="mt-6 font-display text-5xl font-medium text-bone sm:text-6xl">
-            This page went off the blueprint.
-          </h1>
-          <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-steel">
-            The page you&apos;re looking for doesn&apos;t exist or has been moved.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3.5">
-            <Link
-              href="/"
-              className="inline-flex items-center justify-center gap-2 bg-signal px-7 py-3.5 font-mono text-sm uppercase tracking-[0.15em] text-ink-950 transition-colors duration-150 hover:bg-signal-dim focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
-            >
-              Back to home
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center gap-2 border border-line px-7 py-3.5 font-mono text-sm uppercase tracking-[0.15em] text-bone transition-colors duration-150 hover:border-signal hover:text-signal focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal"
-            >
-              Contact support
-            </Link>
+    <div className={`${instrumentSerif.variable} ${schibstedGrotesk.variable} attn pg-system sy-root`}>
+      <main className="sy-main" aria-labelledby="sy-404-h">
+        <div className="attn-wrap sy-grid">
+          <div className="sy-copy">
+            <p className="pg-kicker sy-kicker">404</p>
+            <h1 id="sy-404-h" className="pg-h1 sy-h1">
+              This page is out of distribution.
+            </h1>
+            <p className="pg-lede">
+              Nothing we&apos;ve built lives at this address. It may have moved, or the link may be off
+              by a token or two.
+            </p>
+          </div>
+          <div className="sy-fig">
+            <div className="sy-ood sy-ood-css pg-panel">
+              <p className="sy-ood-h pg-cap">The address, read token by token</p>
+              <p className="sy-addr">
+                {TOKENS.map((w, i) => (
+                  <span key={w}>
+                    <span className="sy-sep">/</span>
+                    <span className="sy-tok" style={{ '--w': i } as CSSProperties}>
+                      <span className="sy-tok-t">{w}</span>
+                    </span>
+                  </span>
+                ))}
+                <span className="sy-caret" aria-hidden="true" />
+              </p>
+              <p className="sy-ood-note">
+                <span className="sy-flag">Rejected</span>
+                Illustrative: no page on this site matches this address.
+              </p>
+            </div>
+            <nav className="sy-suggest" aria-labelledby="sy-suggest-h">
+              <p id="sy-suggest-h" className="sy-suggest-h pg-cap">
+                Closest pages we do have
+              </p>
+              <ul>
+                {SUGGESTIONS.map((s, i) => (
+                  <li key={s.href}>
+                    <Link href={s.href} className="sy-sug">
+                      <span className="sy-sug-t">{s.label}</span>
+                      <span className="sy-sug-n">{s.note}</span>
+                      <span className="sy-sug-bar" aria-hidden="true">
+                        <i style={{ '--p': 0.9 - i * 0.1 } as CSSProperties} />
+                      </span>
+                      <span className="sy-sug-arr" aria-hidden="true">
+                        →
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </div>
       </main>

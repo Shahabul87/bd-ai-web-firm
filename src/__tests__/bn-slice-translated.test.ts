@@ -14,7 +14,7 @@ function hasBengali(v: unknown): boolean {
 // voice). These must STAY Bengali through stage 3b so a later bulk edit or a bad
 // merge cannot silently revert them to the English placeholder. A whole namespace
 // reverting to English fails here.
-const SLICE = ['Nav', 'Header', 'Footer', 'CTABand', 'PillarCards', 'Home'] as const;
+const SLICE = ['Nav', 'Header', 'Footer', 'Home'] as const;
 
 describe('bn calibration slice stays translated', () => {
   it.each(SLICE)('%s contains Bengali', (ns) => {

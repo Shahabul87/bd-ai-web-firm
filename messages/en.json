@@ -42,50 +42,6 @@
     "languageLabel": "Language",
     "footerNavLabel": "Footer"
   },
-  "CTABand": {
-    "eyebrow": "● accepting projects",
-    "title": "Have something to build?",
-    "lede": "Tell us the brief. We'll come back with a plan, a timeline, and a fixed estimate — usually within two business days.",
-    "primaryLabel": "Start a project",
-    "secondaryLabel": "Get an estimate"
-  },
-  "PillarCards": {
-    "flagship": "Flagship",
-    "explore": "Explore",
-    "aiAgents": {
-      "title": "AI Agents",
-      "blurb": "Custom agents that plan, write, and ship software — supervised by a senior engineer at every step.",
-      "stage1": "Brief",
-      "stage2": "Plan",
-      "stage3": "Build",
-      "stage4": "Review",
-      "stage5": "Ship"
-    },
-    "webDevelopment": {
-      "title": "Web Development",
-      "blurb": "Production web apps built by our agents and shipped fast, from marketing sites to full platforms.",
-      "stage1": "Design",
-      "stage2": "Build",
-      "stage3": "Test",
-      "stage4": "Deploy"
-    },
-    "mobileApps": {
-      "title": "Mobile Apps",
-      "blurb": "Native iOS and Android apps from one agent workflow — one brief, both platforms.",
-      "stage1": "Spec",
-      "stage2": "Build",
-      "stage3": "QA",
-      "stage4": "Release"
-    },
-    "agentIntegration": {
-      "title": "Agent Integration",
-      "blurb": "Wire agents into the tools you already run — CRM, ERP, WhatsApp, and your internal systems.",
-      "stage1": "Audit",
-      "stage2": "Connect",
-      "stage3": "Automate",
-      "stage4": "Monitor"
-    }
-  },
   "Home": {
     "hero": {
       "tokens": [
@@ -1890,34 +1846,34 @@
   },
   "Portfolio": {
     "hero": {
-      "eyebrow": "Portfolio",
-      "title": "Software our agents have shipped.",
-      "lede": "Real projects built by our team. From web apps to Android — see what's possible when agents do the coding."
+      "kicker": "Portfolio",
+      "title": "Two ways to look at <em>our work</em>.",
+      "lede": "The AI products we build and run ourselves, and the reports on how we built them. Pick the view you need."
+    },
+    "routes": {
+      "label": "Where to go next",
+      "work": {
+        "name": "Work",
+        "title": "The products",
+        "body": "Live AI products we build and run — what each one does, who it's for, and where to try it.",
+        "cta": "Go to Work"
+      },
+      "cases": {
+        "name": "Case studies",
+        "title": "The reports",
+        "body": "How each product was built — the problem, our approach, and what shipped. No invented numbers.",
+        "cta": "Read the case studies"
+      }
+    },
+    "list": {
+      "title": "The reports, at a glance",
+      "note": "The same eval cards as on the case studies page. Open one for the full write-up."
     },
     "cta": {
-      "title": "Your project could be next.",
-      "lede": "Tell us the brief and we'll come back with a plan, a timeline, and a fixed estimate."
-    },
-    "detail": {
-      "hero": {
-        "eyebrow": "Portfolio / {industry}"
-      },
-      "spec": {
-        "client": "Client",
-        "industry": "Industry",
-        "services": "Services",
-        "tags": "Tags"
-      },
-      "related": {
-        "eyebrow": "Related work",
-        "title": "More projects like this."
-      },
-      "cta": {
-        "title": "Ready to build something similar?",
-        "lede": "Let us help you bring your idea to life with the same quality and expertise.",
-        "primaryLabel": "Start your project",
-        "secondaryLabel": "View all projects"
-      }
+      "title": "What should AI do for your business?",
+      "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+      "primaryLabel": "Book a discovery call",
+      "secondaryLabel": "Email us"
     }
   },
   "Resources": {
@@ -1927,29 +1883,6 @@
       "lede": "What we have written down about building AI that does real work: notes from the studio, practical guides and case studies. Ask the library a question and the pieces that answer it rise to the top.",
       "primaryCta": "Read the blog",
       "secondaryCta": "Book a discovery call"
-    },
-    "browse": {
-      "eyebrow": "Browse by type",
-      "title": "Three ways into the archive.",
-      "cta": "Browse"
-    },
-    "categories": {
-      "blog": {
-        "title": "Blog",
-        "description": "Insights on AI development, strategy, and technology trends."
-      },
-      "case-studies": {
-        "title": "Case studies",
-        "description": "Real results from our AI-powered development projects."
-      },
-      "guides": {
-        "title": "Guides",
-        "description": "In-depth guides on web development, mobile apps, and choosing the right approach."
-      }
-    },
-    "latest": {
-      "eyebrow": "Latest",
-      "title": "Everything we've published."
     },
     "typeLabels": {
       "blog": "Blog",
@@ -1982,20 +1915,126 @@
     },
     "caseStudies": {
       "hero": {
-        "eyebrow": "Resources / Case studies",
-        "title": "Real projects, real results.",
-        "lede": "See how AI-powered development delivers measurable outcomes for businesses across industries."
+        "kicker": "Case studies",
+        "title": "Our own products, <em>written up as eval reports</em>.",
+        "lede": "TaxoMind, FinCoach AI and MathPhysics are products we designed, built and run ourselves. Each report covers the same three steps — the problem, our approach, what shipped — and only what we can stand behind.",
+        "primaryCta": "Read the reports",
+        "secondaryCta": "See the live products"
+      },
+      "legend": {
+        "label": "How to read a report",
+        "caption": "Every report runs the same pipeline.",
+        "rule": "Reporting rule: if we haven't measured it, it isn't here. No invented users, ratings or speed-ups."
+      },
+      "stages": {
+        "problem": "Problem",
+        "approach": "Approach",
+        "outcome": "Outcome"
+      },
+      "list": {
+        "title": "The reports",
+        "note": "Three products, three write-ups. Hover or focus a report to run its eval card.",
+        "cardLabel": "Eval card: problem, approach and outcome for {title}"
+      },
+      "ownProduct": "Our product",
+      "platforms": {
+        "web": "Web",
+        "android": "Android",
+        "ios": "iOS",
+        "desktop": "Desktop"
       },
       "empty": "No case studies yet — check back soon.",
-      "readMore": "Read case study",
-      "detail": {
-        "client": "Client: {client}",
-        "cta": {
-          "title": "Ready to build something similar?",
-          "lede": "Let us help you bring your idea to life with the same quality and expertise.",
-          "primaryLabel": "Start your project",
-          "secondaryLabel": "View all case studies"
+      "readMore": "Read the report",
+      "items": {
+        "building-taxomind-ai-powered-learning-platform": {
+          "problem": "Learning platforms track what you finished, not how deeply you understood it.",
+          "approach": "AI evaluation that places a learner on one of Bloom's six cognitive levels and adapts the path from there.",
+          "outcome": "A web platform that covers all six levels, with progress tracked in real time.",
+          "facts": [
+            {
+              "label": "Cognitive levels",
+              "value": "All six Bloom's Taxonomy stages"
+            },
+            {
+              "label": "Evaluation",
+              "value": "AI assesses the level a learner has reached"
+            },
+            {
+              "label": "Progress",
+              "value": "Tracked in real time, per level"
+            }
+          ]
+        },
+        "fincoach-ai-personal-finance-made-simple": {
+          "problem": "Finance apps either just log expenses or overwhelm beginners with investment jargon.",
+          "approach": "An offline-first Android app whose AI engine reads spending patterns and suggests what to do next.",
+          "outcome": "One app for budgeting, investment basics, goals and bills, with advice built from each user's own data.",
+          "facts": [
+            {
+              "label": "Tool areas",
+              "value": "Budgeting, investment analysis, goal tracking, bills"
+            },
+            {
+              "label": "AI engine",
+              "value": "On-device spending analysis with ML Kit"
+            },
+            {
+              "label": "Architecture",
+              "value": "Offline-first, synced with Firebase"
+            }
+          ]
+        },
+        "mathphysics-interactive-stem-learning": {
+          "problem": "Static diagrams make abstract ideas — vector fields, projectile motion, waves — hard to picture.",
+          "approach": "Show the animated phenomenon first, then reveal the maths behind it, in English or Bengali.",
+          "outcome": "An Android app for grades 9–12, with interactive lessons in both languages and a custom animation engine.",
+          "facts": [
+            {
+              "label": "Lesson format",
+              "value": "Animation first, then the maths"
+            },
+            {
+              "label": "Languages",
+              "value": "English and Bengali"
+            },
+            {
+              "label": "Coverage",
+              "value": "Grades 9–12"
+            }
+          ]
         }
+      },
+      "detail": {
+        "back": "All case studies",
+        "kicker": "Case study · {industry}",
+        "results": {
+          "title": "What shipped",
+          "note": "Facts about what we built. We haven't published usage or performance numbers for this product, so you won't find any here."
+        },
+        "summary": {
+          "label": "Report summary",
+          "builtBy": "Built by",
+          "builtByValue": "CraftsAI, as our own product",
+          "platform": "Platform",
+          "stack": "Stack",
+          "product": "See {title} in Work",
+          "productNote": "The live product: features, use cases, where to try it."
+        },
+        "more": {
+          "title": "Other reports"
+        },
+        "cta": {
+          "title": "What would your report say?",
+          "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+          "primaryLabel": "Book a discovery call",
+          "secondaryLabel": "All case studies"
+        }
+      },
+      "cta": {
+        "title": "What should AI do for your business?",
+        "lede": "Tell us the workflow. We'll come back with an honest view of what AI can do there, what it will cost, and how we'd measure it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "guides": {
@@ -2056,40 +2095,40 @@
           "chip": "Measuring quality",
           "text": "How do we know the AI is getting better?",
           "terms": [
-            "ai",
             "measure",
             "quality",
-            "better"
+            "evaluat",
+            "test"
           ]
         },
         {
           "chip": "Web or mobile",
           "text": "Should our AI feature live in a web app or a mobile app?",
           "terms": [
-            "ai",
             "web",
             "mobile",
-            "app"
+            "app",
+            "choos"
           ]
         },
         {
           "chip": "Cost",
           "text": "What does AI change about the cost of a build?",
           "terms": [
-            "ai",
             "cost",
             "build",
-            "effort"
+            "effort",
+            "estimat"
           ]
         },
         {
           "chip": "Choosing a partner",
           "text": "How do we choose who to build it with?",
           "terms": [
-            "choose",
+            "choos",
             "partner",
             "build",
-            "evaluate"
+            "evaluat"
           ]
         }
       ]
@@ -2365,7 +2404,7 @@
     },
     "portfolio": {
       "title": "Portfolio",
-      "description": "Explore CraftsAI projects — web apps, Android apps, and iOS apps built with AI-powered development."
+      "description": "The AI products CraftsAI builds and runs, and the case studies on how we built them."
     },
     "privacy": {
       "title": "Privacy policy",
@@ -2392,8 +2431,8 @@
       "description": "Short pieces from CraftsAI on how AI systems get built, measured and run, and where they are worth it."
     },
     "resourcesCaseStudies": {
-      "title": "Case Studies - Real AI Development Results",
-      "description": "See how our AI-powered development delivers real results. Browse case studies across EdTech, FinTech, and more."
+      "title": "Case studies",
+      "description": "How we built TaxoMind, FinCoach AI and MathPhysics — the problem, the approach and what shipped, written up as eval reports."
     },
     "resourcesGuides": {
       "title": "Guides",
@@ -2744,19 +2783,39 @@
     "quote_success": "Your quote request has been submitted successfully! We'll review your requirements and contact you within 24 hours with a detailed proposal."
   },
   "ErrorPage": {
-    "label": "500 / Something broke",
-    "title": "A build step hit an error.",
-    "body": "Something went wrong on our end. You can retry, or head back home and try again in a moment.",
+    "label": "Error",
+    "title": "Something failed its eval.",
+    "body": "A step on our side didn't pass. It isn't something you did. Try again, or head home and come back in a moment.",
+    "evalLabel": "Eval run",
+    "evalStep": "Render this page",
+    "evalResult": "Failed",
     "reference": "Reference:",
     "tryAgain": "Try again",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "loading": "Loading the page"
   },
   "NotFound": {
-    "eyebrow": "404 / Not found",
-    "title": "This page went off the blueprint.",
-    "lede": "The page you're looking for doesn't exist or has been moved.",
-    "primaryLabel": "Back to home",
-    "secondaryLabel": "Contact support"
+    "kicker": "404",
+    "title": "This page is out of distribution.",
+    "lede": "Nothing we've built lives at this address. It may have moved, or the link may be off by a token or two.",
+    "visual": {
+      "label": "The address you asked for, read token by token",
+      "placeholder": "/the-page-you-wanted",
+      "rejected": "Rejected",
+      "candidates": "Rejected candidates",
+      "note": "Illustrative: no page on this site matches this address."
+    },
+    "suggest": {
+      "label": "Closest pages we do have",
+      "home": "Home",
+      "homeNote": "Start from the top",
+      "services": "Services",
+      "servicesNote": "What we build for clients",
+      "work": "Work",
+      "workNote": "Products we build and run",
+      "contact": "Contact",
+      "contactNote": "Ask us directly"
+    }
   },
   "Chatbot": {
     "openLabel": "Open CraftsAI Help Assistant",

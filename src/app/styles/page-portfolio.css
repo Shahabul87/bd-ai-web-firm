@@ -1,0 +1,609 @@
+/* Case studies (/resources/case-studies, scope .pg-resources + prefix cs-) and
+   /portfolio (scope .pg-portfolio + prefix pf-). See pages.css for the shared
+   primitives. Signature: "Eval reports" — every case study is written up like
+   an evaluation report, and each row carries a tiny eval card (problem →
+   approach → outcome) whose rail draws in view and replays on hover/focus.
+   The eval list is shared by both routes, so its rules are scoped to both. */
+
+/* ── Eval card ──────────────────────────────────────────────────── */
+:is(.pg-resources, .pg-portfolio) .cs-eval {
+  position: relative;
+  margin: 0;
+  padding-left: 30px;
+  --cs-node: 16px;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-eval-legend { --cs-node: 20px; padding-left: 38px; }
+
+:is(.pg-resources, .pg-portfolio) .cs-rail {
+  position: absolute;
+  left: calc(var(--cs-node) / 2 - 1px);
+  top: calc(var(--cs-node) / 2 + 3px);
+  bottom: calc(var(--cs-node) / 2 + 6px);
+  width: 2px;
+  border-radius: 2px;
+  background: var(--forest-rule);
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-rail-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(var(--sage), var(--gold) 50%, var(--mint));
+  transform-origin: top;
+}
+
+/* The token that travels down the rail on hover/focus (and loops in the
+   legend). The element spans the rail; translating it by its own height moves
+   its dot from the first node to the last. */
+:is(.pg-resources, .pg-portfolio) .cs-rail-tok {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-rail-tok::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(242, 179, 61, 0.8);
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-stages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-eval-legend .cs-stages { gap: 22px; }
+
+:is(.pg-resources, .pg-portfolio) .cs-stage { position: relative; display: grid; gap: 3px; --c: var(--sage); }
+:is(.pg-resources, .pg-portfolio) .cs-stage-approach { --c: var(--gold); }
+:is(.pg-resources, .pg-portfolio) .cs-stage-outcome { --c: var(--mint); }
+
+:is(.pg-resources, .pg-portfolio) .cs-node {
+  position: absolute;
+  left: calc(-1 * (var(--cs-node) + 14px));
+  top: 1px;
+  width: var(--cs-node);
+  height: var(--cs-node);
+  border-radius: 50%;
+  border: 1.5px solid var(--c);
+  background: var(--forest-raised);
+  display: grid;
+  place-items: center;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-eval-legend .cs-node { left: calc(-1 * (var(--cs-node) + 18px)); top: 4px; }
+
+/* A ring that pings outward when the token passes a node. */
+:is(.pg-resources, .pg-portfolio) .cs-node::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--c);
+  opacity: 0;
+  pointer-events: none;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-check { width: 70%; height: 70%; overflow: visible; }
+
+:is(.pg-resources, .pg-portfolio) .cs-check path {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-stage-l { color: var(--c); font-weight: 600; }
+:is(.pg-resources, .pg-portfolio) .cs-stage-t { font-size: 15px; line-height: 1.5; color: var(--parchment); }
+:is(.pg-resources, .pg-portfolio) .cs-eval-legend .cs-stage-l {
+  font: 400 clamp(24px, 2vw, 30px) / 1.1 var(--attn-serif);
+  letter-spacing: 0;
+}
+:is(.pg-resources, .pg-portfolio) .cs-eval-legend .cs-stage-t { font-size: 15.5px; color: var(--sage); }
+
+/* Draw on reveal: rail, then each node in turn, then the outcome check. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  :is(.pg-resources, .pg-portfolio) .cs-rail-fill {
+    transform: scaleY(0);
+    transition: transform 1.2s cubic-bezier(0.45, 0.05, 0.2, 1) 0.2s;
+  }
+
+  :is(.pg-resources, .pg-portfolio) .cs-node {
+    opacity: 0.35;
+    transform: scale(0.55);
+    transition:
+      opacity 0.5s ease calc(0.25s + var(--i, 0) * 0.42s),
+      transform 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) calc(0.25s + var(--i, 0) * 0.42s);
+  }
+
+  :is(.pg-resources, .pg-portfolio) .cs-check path {
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.5s ease 1.3s;
+  }
+
+  :is(.pg-resources, .pg-portfolio) .cs-stage :is(.cs-stage-l, .cs-stage-t) {
+    opacity: 0.4;
+    transition: opacity 0.6s ease calc(0.3s + var(--i, 0) * 0.42s);
+  }
+
+  :is(.pg-resources, .pg-portfolio) .vis .cs-rail-fill { transform: none; }
+  :is(.pg-resources, .pg-portfolio) .vis .cs-node { opacity: 1; transform: none; }
+  :is(.pg-resources, .pg-portfolio) .vis .cs-check path { stroke-dashoffset: 0; }
+  :is(.pg-resources, .pg-portfolio) .vis .cs-stage :is(.cs-stage-l, .cs-stage-t) { opacity: 1; }
+
+  /* Hover / focus a row: a gold token runs the pipeline and each node pings. */
+  :is(.pg-resources, .pg-portfolio) .cs-row-in.vis:is(:hover, :focus-within) .cs-rail-tok {
+    animation: cs-run 1.5s cubic-bezier(0.45, 0.05, 0.3, 1) both;
+  }
+
+  :is(.pg-resources, .pg-portfolio) .cs-row-in.vis:is(:hover, :focus-within) .cs-node::after {
+    animation: cs-ping 0.7s ease-out both;
+    animation-delay: calc(var(--i, 0) * 0.62s + 0.05s);
+  }
+
+  /* The hero legend loops while it is on screen (its InView toggles .vis). */
+  :is(.pg-resources, .pg-portfolio) .cs-legend-fig.vis .cs-rail-tok { animation: cs-run-loop 6s cubic-bezier(0.45, 0.05, 0.3, 1) 1.8s infinite; }
+  :is(.pg-resources, .pg-portfolio) .cs-legend-fig.vis .cs-node::after {
+    animation: cs-ping-loop 6s ease-out infinite;
+    animation-delay: calc(1.8s + var(--i, 0) * 1.3s);
+  }
+}
+
+@keyframes cs-run {
+  0% { opacity: 0; transform: translateY(0); }
+  12% { opacity: 1; }
+  88% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(100%); }
+}
+
+@keyframes cs-run-loop {
+  0% { opacity: 0; transform: translateY(0); }
+  5% { opacity: 1; }
+  45% { opacity: 1; }
+  50%, 100% { opacity: 0; transform: translateY(100%); }
+}
+
+@keyframes cs-ping {
+  from { opacity: 0.9; transform: scale(0.7); }
+  to { opacity: 0; transform: scale(1.6); }
+}
+
+@keyframes cs-ping-loop {
+  0% { opacity: 0.9; transform: scale(0.7); }
+  12%, 100% { opacity: 0; transform: scale(1.6); }
+}
+
+/* ── Case studies hero ──────────────────────────────────────────── */
+.pg-resources.cs-page .cs-hero { padding-bottom: clamp(48px, 6vw, 88px); }
+
+.pg-resources.cs-page .cs-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.6fr);
+  gap: 48px clamp(40px, 6vw, 96px);
+  align-items: end;
+}
+
+.pg-resources.cs-page .cs-h1 { max-width: 12em; }
+
+.pg-resources.cs-page .cs-legend {
+  position: relative;
+  padding: 24px clamp(20px, 2vw, 28px) 24px;
+  isolation: isolate;
+}
+
+.pg-resources.cs-page .cs-legend::before {
+  content: '';
+  position: absolute;
+  inset: auto -10% -20% auto;
+  width: 70%;
+  height: 70%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(127, 214, 181, 0.12), transparent);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.pg-resources.cs-page .cs-legend-h { margin: 0 0 22px; font-size: 14px; font-weight: 600; color: var(--parchment); }
+.pg-resources.cs-page .cs-legend-cap { margin: 22px 0 0; }
+
+.pg-resources.cs-page .cs-legend-rule {
+  margin: 14px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--forest-rule);
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--sage);
+}
+
+/* ── Eval list (shared) ─────────────────────────────────────────── */
+.pg-resources.cs-page .cs-index { padding-top: clamp(56px, 7vw, 104px); }
+
+:is(.pg-resources, .pg-portfolio) :is(.cs-index-head, .pf-list-head) { margin-bottom: clamp(32px, 4vw, 56px); }
+:is(.pg-resources, .pg-portfolio) :is(.cs-index-head, .pf-list-head) .attn-sec-h { margin-bottom: 14px; }
+:is(.pg-resources, .pg-portfolio) :is(.cs-index-note, .pf-list-note) { margin: 0; max-width: 60ch; color: var(--sage); font-size: 16px; }
+.pg-resources.cs-page .cs-empty { color: var(--sage); }
+
+:is(.pg-resources, .pg-portfolio) .cs-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--forest-rule);
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-row { border-bottom: 1px solid var(--forest-rule); }
+
+:is(.pg-resources, .pg-portfolio) .cs-row-in {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 24px clamp(24px, 4vw, 64px);
+  align-items: start;
+  padding: clamp(32px, 4vw, 56px) 0;
+}
+
+/* A gold hairline sweeps across the top of the hovered row. */
+:is(.pg-resources, .pg-portfolio) .cs-row-in::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 1px;
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(242, 179, 61, 0.5);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-row-in:is(:hover, :focus-within)::before { transform: scaleX(1); }
+
+:is(.pg-resources, .pg-portfolio) .cs-n {
+  font: 400 28px/1.1 var(--attn-serif);
+  color: var(--sage);
+  padding-top: 4px;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin: 0 0 14px;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-row-meta > span + span::before { content: '·'; margin: 0 8px; color: var(--forest-faint); }
+:is(.pg-resources, .pg-portfolio) .cs-own { color: var(--gold); }
+
+:is(.pg-resources, .pg-portfolio) .cs-row-t {
+  margin: 0;
+  font: 400 clamp(30px, 3.3vw, 50px) / 1.08 var(--attn-serif);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+:lang(bn) :is(.pg-resources, .pg-portfolio) .cs-row-t { line-height: 1.2; letter-spacing: 0; }
+
+:is(.pg-resources, .pg-portfolio) .cs-row-link {
+  text-decoration: none;
+  transition: color 0.25s;
+}
+
+/* The title link covers the whole row, so the eval card is part of the target. */
+:is(.pg-resources, .pg-portfolio) .cs-row-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-row-link:focus-visible { outline: none; }
+:is(.pg-resources, .pg-portfolio) .cs-row-link:focus-visible::after {
+  outline: 2px solid var(--gold);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-row-in:hover .cs-row-link { color: var(--gold); }
+
+:is(.pg-resources, .pg-portfolio) .cs-row-d {
+  margin: 16px 0 0;
+  max-width: 52ch;
+  color: var(--sage);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--parchment);
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-more-arr { display: inline-block; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+:is(.pg-resources, .pg-portfolio) .cs-row-in:is(:hover, :focus-within) .cs-more-arr { transform: translateX(5px); }
+
+:is(.pg-resources, .pg-portfolio) .cs-row-card {
+  padding: 20px 22px 20px 20px;
+  background: rgba(20, 49, 41, 0.72);
+  border: 1px solid var(--forest-rule);
+  border-radius: 12px;
+  transition: border-color 0.4s;
+}
+
+:is(.pg-resources, .pg-portfolio) .cs-row-in:is(:hover, :focus-within) .cs-row-card { border-color: rgba(242, 179, 61, 0.38); }
+
+/* Compact rows (portfolio, "other reports"): no excerpt, smaller titles. */
+:is(.pg-resources, .pg-portfolio) .cs-rows-compact .cs-row-in { padding: clamp(28px, 3vw, 40px) 0; }
+:is(.pg-resources, .pg-portfolio) .cs-rows-compact .cs-row-t { font-size: clamp(26px, 2.6vw, 38px); }
+
+@media (max-width: 960px) {
+  .pg-resources.cs-page .cs-hero-grid { grid-template-columns: 1fr; }
+  .pg-resources.cs-page .cs-legend { max-width: 34rem; }
+
+  :is(.pg-resources, .pg-portfolio) .cs-row-in { grid-template-columns: 44px minmax(0, 1fr); }
+  :is(.pg-resources, .pg-portfolio) .cs-row-card { grid-column: 2; max-width: 36rem; }
+}
+
+@media (max-width: 560px) {
+  :is(.pg-resources, .pg-portfolio) .cs-row-in { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  :is(.pg-resources, .pg-portfolio) .cs-row-card { grid-column: auto; }
+  :is(.pg-resources, .pg-portfolio) .cs-n { font-size: 22px; padding: 0; }
+}
+
+/* ── Case study detail ──────────────────────────────────────────
+   The page is the resources ArticleShell (hero, TOC, measure, progress line);
+   the report itself is its `lead`: summary card, then the facts that shipped. */
+.pg-resources.cs-detail .cs-lead {
+  display: grid;
+  gap: clamp(36px, 4vw, 56px);
+  margin-bottom: clamp(48px, 5vw, 72px);
+  padding-bottom: clamp(40px, 4vw, 56px);
+  border-bottom: 1px solid var(--forest-rule);
+}
+
+.pg-resources.cs-detail .cs-summary { position: relative; padding: 24px clamp(20px, 2.4vw, 30px); isolation: isolate; }
+
+.pg-resources.cs-detail .cs-summary::before {
+  content: '';
+  position: absolute;
+  inset: -10% -6% auto auto;
+  width: 50%;
+  height: 70%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(242, 179, 61, 0.1), transparent);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.pg-resources.cs-detail .cs-summary-h { margin: 0 0 20px; font: 400 28px/1.1 var(--attn-serif); color: var(--parchment); }
+:lang(bn) .pg-resources.cs-detail .cs-summary-h { line-height: 1.3; }
+.pg-resources.cs-detail .cs-summary .cs-stage-t { font-size: 16px; }
+
+.pg-resources.cs-detail .cs-summary-dl {
+  margin: 22px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--forest-rule);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 28px;
+}
+
+.pg-resources.cs-detail .cs-summary-stack { grid-column: 1 / -1; }
+.pg-resources.cs-detail .cs-summary-dl dt { margin-bottom: 4px; }
+.pg-resources.cs-detail .cs-summary-dl dd { margin: 0; font-size: 15px; line-height: 1.5; color: var(--parchment); }
+
+.pg-resources.cs-detail .cs-stack { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+
+.pg-resources.cs-detail .cs-stack li {
+  font: 500 12.5px/1 var(--attn-sans);
+  color: var(--parchment);
+  border: 1px solid var(--forest-rule);
+  border-radius: 4px;
+  padding: 5px 8px;
+}
+
+.pg-resources.cs-detail .cs-product {
+  display: grid;
+  gap: 4px;
+  margin-top: 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--forest-rule);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.pg-resources.cs-detail .cs-product:hover { border-color: rgba(242, 179, 61, 0.5); background: rgba(242, 179, 61, 0.05); }
+.pg-resources.cs-detail .cs-product-t { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15.5px; color: var(--parchment); }
+.pg-resources.cs-detail .cs-product-n { font-size: 13.5px; line-height: 1.45; color: var(--sage); }
+.pg-resources.cs-detail .cs-product:is(:hover, :focus-visible) .cs-more-arr { transform: translateX(4px); }
+
+/* Results: the facts that shipped, as passed report lines. */
+.pg-resources.cs-detail .cs-results-h { margin: 0; font: 400 clamp(28px, 2.6vw, 38px) / 1.1 var(--attn-serif); }
+:lang(bn) .pg-resources.cs-detail .cs-results-h { line-height: 1.25; }
+.pg-resources.cs-detail .cs-results-note { margin: 12px 0 24px; color: var(--sage); font-size: 15px; line-height: 1.55; max-width: 56ch; }
+
+.pg-resources.cs-detail .cs-facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--forest-rule);
+}
+
+.pg-resources.cs-detail .cs-fact {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 18px 20px 4px;
+  border-left: 1px solid var(--forest-rule);
+}
+
+.pg-resources.cs-detail .cs-fact:first-child { border-left: 0; padding-left: 0; }
+.pg-resources.cs-detail .cs-fact dt { color: var(--mint); font-weight: 600; padding-right: 26px; }
+.pg-resources.cs-detail .cs-fact dd { margin: 0; font: 400 clamp(20px, 1.7vw, 24px) / 1.25 var(--attn-serif); color: var(--parchment); }
+:lang(bn) .pg-resources.cs-detail .cs-fact dd { line-height: 1.4; }
+
+.pg-resources.cs-detail .cs-fact-ok {
+  position: absolute;
+  top: 17px;
+  right: 16px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--mint);
+  display: grid;
+  place-items: center;
+}
+
+.pg-resources.cs-detail .cs-fact-ok svg { width: 70%; height: 70%; overflow: visible; }
+.pg-resources.cs-detail .cs-fact-ok path { fill: none; stroke: var(--mint); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; }
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .pg-resources.cs-detail .cs-fact-ok path { stroke-dashoffset: 1; transition: stroke-dashoffset 0.5s ease calc(0.5s + var(--d, 0) * 110ms); }
+  .pg-resources.cs-detail .vis .cs-fact-ok path { stroke-dashoffset: 0; }
+}
+
+.pg-resources.cs-detail .cs-others { border-top: 1px solid var(--forest-rule); }
+.pg-resources.cs-detail .cs-others .attn-sec-h { margin-bottom: clamp(28px, 3.4vw, 48px); }
+
+@media (max-width: 640px) {
+  .pg-resources.cs-detail .cs-summary-dl { grid-template-columns: minmax(0, 1fr); }
+  .pg-resources.cs-detail .cs-facts { grid-template-columns: minmax(0, 1fr); }
+  .pg-resources.cs-detail .cs-fact { border-left: 0; border-bottom: 1px solid var(--forest-rule); padding: 16px 0; }
+  .pg-resources.cs-detail .cs-fact-ok { right: 0; top: 16px; }
+}
+
+/* ── Portfolio: the fork ────────────────────────────────────────── */
+.pg-portfolio .pf-hero { padding-bottom: clamp(40px, 5vw, 72px); }
+.pg-portfolio .pf-h1 { max-width: 11em; }
+
+.pg-portfolio .pf-fork { position: relative; margin-top: clamp(48px, 6vw, 88px); }
+
+.pg-portfolio .pf-fork-lines {
+  display: block;
+  width: 100%;
+  height: 72px;
+  overflow: visible;
+}
+
+.pg-portfolio .pf-fork-p {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  opacity: 0.75;
+}
+
+.pg-portfolio .pf-fork-root {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px rgba(242, 179, 61, 0.75);
+}
+
+.pg-portfolio .pf-routes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 32px);
+}
+
+.pg-portfolio .pf-route-a {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  height: 100%;
+  padding: clamp(24px, 3vw, 40px);
+  text-decoration: none;
+  overflow: hidden;
+  transition: border-color 0.35s, background-color 0.35s;
+  --c: var(--mint);
+}
+
+.pg-portfolio .pf-route-cases .pf-route-a { --c: var(--gold); }
+
+/* The branch's end: a lit node on the top edge where the fork line lands. */
+.pg-portfolio .pf-route-a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 40%;
+  height: 1px;
+  margin-left: -20%;
+  background: linear-gradient(90deg, transparent, var(--c), transparent);
+  opacity: 0.6;
+  transition: opacity 0.35s, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-portfolio .pf-route-a:hover { border-color: var(--forest-faint); background: #17372e; }
+.pg-portfolio .pf-route-a:hover::before { opacity: 1; transform: scaleX(2.2); }
+
+.pg-portfolio .pf-route-n { display: flex; align-items: center; gap: 8px; color: var(--c); font-weight: 600; }
+.pg-portfolio .pf-route-n::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--c); }
+.pg-portfolio .pf-route-t { font: 400 clamp(34px, 3.6vw, 56px) / 1.04 var(--attn-serif); color: var(--parchment); letter-spacing: -0.01em; }
+:lang(bn) .pg-portfolio .pf-route-t { line-height: 1.2; letter-spacing: 0; }
+.pg-portfolio .pf-route-b { color: var(--sage); font-size: 16.5px; line-height: 1.6; max-width: 44ch; }
+.pg-portfolio .pf-route-cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-weight: 600; font-size: 15.5px; color: var(--parchment); }
+.pg-portfolio .pf-route-arr { display: inline-block; transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.pg-portfolio .pf-route-a:is(:hover, :focus-visible) .pf-route-arr { transform: translateX(5px); }
+
+.pg-portfolio .pf-list { padding-top: clamp(64px, 8vw, 120px); }
+
+/* The fork draws once on load (CSS only, no hydration dependency). */
+@media (prefers-reduced-motion: no-preference) {
+  .pg-portfolio .pf-fork-p { animation: pf-draw 1.3s cubic-bezier(0.45, 0.05, 0.2, 1) 0.55s both; }
+  .pg-portfolio .pf-fork-root { animation: pf-root 5.6s ease-in-out 1.8s infinite; }
+  .pg-portfolio .pf-route { animation: pf-land 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(1.2s + var(--d, 0) * 0.12s); }
+}
+
+@keyframes pf-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pf-root { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
+@keyframes pf-land { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 720px) {
+  .pg-portfolio .pf-fork-lines,
+  .pg-portfolio .pf-fork-root { display: none; }
+  .pg-portfolio .pf-routes { grid-template-columns: 1fr; }
+}
+
+/* ── Reduced motion: finished pictures, nothing loops. ──────────── */
+@media (prefers-reduced-motion: reduce) {
+  :is(.pg-resources, .pg-portfolio) .cs-rail-tok { display: none; }
+  :is(.pg-resources, .pg-portfolio) :is(.cs-more-arr, .cs-row-card) { transition: none; }
+  :is(.pg-resources, .pg-portfolio) .cs-row-in::before { transition: none; }
+  .pg-portfolio :is(.pf-fork-p, .pf-fork-root, .pf-route) { animation: none; }
+  .pg-portfolio :is(.pf-route-a, .pf-route-arr) { transition: none; }
+  .pg-portfolio .pf-route-a::before { transition: none; }
+}
