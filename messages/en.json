@@ -1244,74 +1244,209 @@
   },
   "About": {
     "hero": {
-      "eyebrow": "About",
-      "title": "An AI-first studio, built in Dhaka, shipping worldwide.",
-      "lede": "We build web, Android, and iOS products at startup speed with enterprise quality — agents write, senior engineers own every line that ships."
+      "kicker": "Company",
+      "title": "We document ourselves the way we document our <em>models</em>.",
+      "lede": "Every model we ship comes with a model card: what it is for, what it is not for, how it was tested, and where its limits are. This one is ours. CraftsAI designs, builds and runs AI systems for businesses.",
+      "primary": "Book a discovery call",
+      "secondary": "See how we work",
+      "card": {
+        "ariaLabel": "The CraftsAI model card",
+        "label": "Model card",
+        "name": "CraftsAI",
+        "revision": "rev. {year}",
+        "footer": "Reviewed at the start of every engagement.",
+        "fields": [
+          {
+            "label": "Name",
+            "value": "CraftsAI"
+          },
+          {
+            "label": "Type",
+            "value": "AI development services"
+          },
+          {
+            "label": "Built for",
+            "value": "Businesses with a workflow worth handing to AI"
+          },
+          {
+            "label": "Inputs",
+            "value": "Your workflow, your data, and your bar for “good”"
+          },
+          {
+            "label": "Outputs",
+            "value": "Agents, assistants and models, and the evals that prove them"
+          },
+          {
+            "label": "Oversight",
+            "value": "People in the loop on every judgement call"
+          },
+          {
+            "label": "Data",
+            "value": "Stays in your environment"
+          },
+          {
+            "label": "Licence",
+            "value": "You own the code"
+          }
+        ]
+      }
     },
-    "story": {
-      "eyebrow": "Our story",
-      "title": "Why we started CraftsAI.",
-      "p1": "CraftsAI was founded in 2025 with a simple thesis: most software development time is spent on repetitive, predictable tasks that AI can handle better and faster than humans.",
-      "p2": "Based in Bangladesh, we built a studio around that idea. Our AI agents generate boilerplate code, database schemas, and component libraries while human engineers focus on architecture, product decisions, and the nuanced craft that machines cannot replicate.",
-      "p3": "The result is enterprise-grade software delivered at a fraction of the traditional cost and timeline — without compromising on quality, security, or maintainability."
-    },
-    "approach": {
-      "eyebrow": "Our approach",
-      "title": "Agents plus engineers, not agents instead of engineers.",
-      "agentsTitle": "AI Agents",
-      "agentsBody": "Our AI agents handle the repetitive coding tasks that traditionally consume most of development time. They generate clean, typed, well-structured code from plain-English requirements, following best practices for each platform.",
-      "humanTitle": "Human Oversight",
-      "humanBody": "Every line of AI-generated code is reviewed by experienced engineers. They make architectural decisions, write integration tests, handle edge cases, and ensure the final product meets production standards. AI amplifies their output; it does not replace their judgment."
-    },
-    "stats": {
-      "eyebrow": "By the numbers",
-      "title": "What that looks like in practice.",
+    "intended": {
+      "label": "Intended use",
+      "title": "Built for teams with real work to hand over.",
+      "note": "We are a good fit when at least one of these sounds familiar.",
       "items": [
         {
-          "value": "4",
-          "label": "Products Built"
+          "title": "A workflow that eats hours",
+          "body": "Your team reads, sorts and replies to the same things every day. We build an agent that takes the routine cases and hands the rest to a person."
         },
         {
-          "value": "3",
-          "label": "Platforms"
+          "title": "Knowledge scattered across documents",
+          "body": "Policies, contracts, wikis and old tickets that nobody can search well. We build an assistant that answers from them and shows its sources."
         },
         {
-          "value": "10x",
-          "label": "Faster Delivery"
+          "title": "A product that needs an AI feature done properly",
+          "body": "You know what the feature should do. We build it into your web or mobile app, with the evals, monitoring and cost controls that keep it good."
         },
         {
-          "value": "80%",
-          "label": "Cost Savings"
+          "title": "Leaders who want to know where AI pays off",
+          "body": "Before you commit a budget, a two-week sprint maps where AI helps and what it would cost, and ends with a working prototype."
         }
       ]
     },
-    "products": {
-      "eyebrow": "Our products",
-      "title": "What we've built for ourselves.",
-      "viewAll": "View all →",
+    "outOfScope": {
+      "label": "Out of scope",
+      "title": "What we won’t do.",
+      "note": "A good model card is honest about its limits. Ours is too.",
+      "tag": "Won’t do",
       "items": [
         {
-          "name": "Banglu",
-          "description": "Bengali phonetic keyboard for web and Android."
+          "title": "Build a demo that can’t reach production.",
+          "body": "If your security, data or reliability needs rule it out, we will say so in the first week."
         },
         {
-          "name": "Taxomind",
-          "description": "AI-powered tax preparation platform."
+          "title": "Train on your data without your consent.",
+          "body": "Your data is used to build your system, in your environment, and for nothing else."
         },
         {
-          "name": "CraftsAI Studio",
-          "description": "Internal tooling for AI-assisted development."
+          "title": "Promise accuracy we haven’t measured.",
+          "body": "We quote numbers only after testing on your real cases, and we show you the test."
         },
         {
-          "name": "Client Projects",
-          "description": "Custom web and mobile apps for businesses worldwide."
+          "title": "Replace the judgement calls your people should make.",
+          "body": "Large refunds, legal wording, anything about a person’s job: the AI prepares the case, and a person decides."
         }
       ]
+    },
+    "principles": {
+      "label": "Evaluation & principles",
+      "title": "How we hold ourselves to account.",
+      "note": "Four rules we apply to every system we ship.",
+      "measured": {
+        "title": "Measured, not guessed",
+        "body": "Every system ships with evaluations you can read: real cases, a bar we agreed on, and a result you can check.",
+        "example": "Example eval",
+        "tally": "{pass} of {total} pass",
+        "bar": "Bar",
+        "criteria": [
+          "Accurate",
+          "On policy",
+          "Tone",
+          "Cost"
+        ]
+      },
+      "private": {
+        "title": "Your data stays yours",
+        "body": "Private deployments inside your environment. No training on your data without your consent.",
+        "inside": "Your environment",
+        "outside": "Outside"
+      },
+      "agnostic": {
+        "title": "Model-agnostic",
+        "body": "We pick the model that fits the job, and build your system so the model can be swapped when a better one arrives.",
+        "system": "Your system",
+        "models": [
+          "Model A",
+          "Model B",
+          "Model C"
+        ]
+      },
+      "loop": {
+        "title": "People in the loop",
+        "body": "The AI handles the volume. Anything that needs judgement waits until a person approves it.",
+        "person": "A person",
+        "approve": "Approve"
+      }
+    },
+    "layers": {
+      "label": "Two layers",
+      "title": "Every task has two layers.",
+      "note": "On top, what your team sees. Underneath, what the system actually did. Move the lens over the example, or use the button, to see both.",
+      "example": "Example: a refund request",
+      "human": "Human layer",
+      "machine": "Machine layer",
+      "toggle": "Show the machine layer",
+      "caption": "People set the goals and make the calls. The machine does the volume, and shows its working.",
+      "kinds": {
+        "tokens": "Tokens",
+        "tool": "Tool call",
+        "retrieval": "Retrieval",
+        "eval": "Eval",
+        "handoff": "Handoff",
+        "log": "Log"
+      },
+      "rows": [
+        {
+          "human": "A customer writes in: the order arrived damaged, and they would like a refund.",
+          "kind": "tokens",
+          "machine": "intent = refund_request · damaged_item",
+          "meta": "p 0.94"
+        },
+        {
+          "human": "The assistant looks up the order and confirms what happened.",
+          "kind": "tool",
+          "machine": "orders.lookup(order_id)",
+          "meta": "→ delivered · photo attached"
+        },
+        {
+          "human": "It finds the refund policy that applies.",
+          "kind": "retrieval",
+          "machine": "refund_policy.md › damaged goods",
+          "meta": "score 0.91"
+        },
+        {
+          "human": "It drafts a reply, and checks the draft before anyone sees it.",
+          "kind": "eval",
+          "machine": "tone ✓ · policy ✓ · amount > limit",
+          "meta": "hold"
+        },
+        {
+          "human": "The amount is over the team’s limit, so it asks a person to approve.",
+          "kind": "handoff",
+          "machine": "route → support_lead + summary",
+          "meta": "awaiting approval"
+        },
+        {
+          "human": "A person approves. The customer gets the refund and a clear answer.",
+          "kind": "log",
+          "machine": "approved · reply sent · case → eval set",
+          "meta": "done"
+        }
+      ]
+    },
+    "join": {
+      "label": "Maintainers",
+      "title": "Help us maintain this card.",
+      "body": "We hire engineers and designers who care as much about measuring a system as building it.",
+      "field": "Maintainers",
+      "value": "A small team of engineers and designers, and maybe you.",
+      "cta": "See open roles"
     },
     "cta": {
-      "title": "Ready to work with us?",
-      "lede": "Tell us about your project and get a free, no-obligation quote within 24 hours.",
-      "primaryLabel": "Get a free quote"
+      "title": "Put us to work on one workflow.",
+      "lede": "Pick the workflow that costs your team the most time. We will come back with an honest view of what AI can do there, how we would measure it, and what it would cost.",
+      "primary": "Book a discovery call",
+      "secondary": "Email us"
     }
   },
   "Careers": {
@@ -1444,9 +1579,74 @@
   },
   "Products": {
     "hero": {
-      "eyebrow": "Products",
-      "title": "Ready-made solutions, battle-tested and production-ready.",
-      "lede": "Our product lineup spans web platforms and Android apps, built and maintained by the same agent workflow we use for client work."
+      "kicker": "Work",
+      "title": "Our work, mapped by <em>meaning</em>.",
+      "lede": "These are products we designed, built and run ourselves, in public — the same way we'd build yours. Move across the map to see what sits close to what, or pick a product to open it.",
+      "primary": "Book a discovery call",
+      "secondary": "See the full index"
+    },
+    "map": {
+      "label": "Map of our products, placed by meaning",
+      "note": "An illustrative map: we placed each product by what it's about, and the scores are closeness on this map, not the output of a model.",
+      "hint": {
+        "fine": "Move your pointer over the map, or tab to a product.",
+        "coarse": "Tap the map to move the query. Tap a product to open it."
+      },
+      "filterLabel": "Filter by platform",
+      "all": "All",
+      "showing": "Showing {count} of {total}",
+      "query": "Query",
+      "nearest": "Nearest",
+      "clusters": {
+        "learn": "Learning",
+        "lang": "Language",
+        "docs": "Documents",
+        "money": "Money"
+      },
+      "concepts": {
+        "learn": [
+          "lessons",
+          "students",
+          "exams",
+          "questions",
+          "teachers",
+          "practice",
+          "animations",
+          "vectors",
+          "curriculum",
+          "progress"
+        ],
+        "lang": [
+          "Bangla",
+          "keyboard",
+          "phonetic",
+          "script",
+          "typing",
+          "conjuncts"
+        ],
+        "docs": [
+          "PDF",
+          "summaries",
+          "answers",
+          "extraction",
+          "reports",
+          "sources"
+        ],
+        "money": [
+          "budget",
+          "spending",
+          "goals",
+          "bills",
+          "savings"
+        ]
+      },
+      "card": {
+        "close": "Close",
+        "closest": "Closest on this map",
+        "openSite": "Open live site",
+        "openStore": "Open on Play Store",
+        "readMore": "Read more"
+      }
     },
     "platformLabels": {
       "web": "Web",
@@ -1454,12 +1654,38 @@
       "ios": "iOS",
       "desktop": "Desktop"
     },
-    "learnMore": "Learn more",
-    "more": "more",
+    "index": {
+      "title": "Every product, in one list.",
+      "note": "Open any of them live, or read how it works and what it's built with.",
+      "stack": "Built with",
+      "more": "+{count} more",
+      "live": "Live site",
+      "store": "Play Store",
+      "details": "Read more",
+      "liveAria": "{title} live site (opens in a new tab)",
+      "storeAria": "{title} on Play Store (opens in a new tab)",
+      "detailsAria": "Read more about {title}"
+    },
+    "method": {
+      "title": "Built the way we'd build yours.",
+      "public": {
+        "title": "Out in the open",
+        "body": "Every product here is released. You can open it, use it and judge it yourself — no staged demo."
+      },
+      "measured": {
+        "title": "Checked against a bar",
+        "body": "We agree what good looks like before we build, then test the work against it. Client projects get the same habit."
+      },
+      "maintained": {
+        "title": "Looked after, not handed off",
+        "body": "We run these ourselves, so we keep fixing and improving them after launch. That's how we'd look after yours."
+      }
+    },
     "cta": {
-      "title": "Need a custom solution?",
-      "lede": "Our products showcase what we can build. Let us create something tailored to your specific needs.",
-      "primaryLabel": "Get a free quote"
+      "title": "Want one of these for your business?",
+      "lede": "Tell us what you have in mind. We'll tell you honestly what we'd build, what it would take and how we'd know it works.",
+      "primary": "Book a discovery call",
+      "secondary": "Email us"
     },
     "detail": {
       "platformLabels": {
@@ -1469,11 +1695,12 @@
         "desktop": "Desktop App"
       },
       "hero": {
-        "eyebrow": "Products / {platforms}",
+        "eyebrow": "Work / {platforms}",
         "viewDemo": "View live demo",
         "getOnPlayStore": "Get on Play Store",
         "downloadDesktop": "Download desktop app",
-        "requestCustomization": "Request customization"
+        "requestCustomization": "Request customization",
+        "back": "All work"
       },
       "downloads": {
         "eyebrow": "Downloads",
@@ -1482,7 +1709,7 @@
       },
       "features": {
         "eyebrow": "Features",
-        "title": "Everything you need, built in from day one."
+        "title": "What it does."
       },
       "techStack": {
         "eyebrow": "Tech stack",
@@ -1490,13 +1717,18 @@
       },
       "useCases": {
         "eyebrow": "Use cases",
-        "title": "Who is it for?"
+        "title": "Who it's for."
       },
       "cta": {
         "title": "Interested in {title}?",
-        "lede": "Get in touch to learn more, request a demo, or discuss customization options for your needs.",
+        "lede": "Ask for a demo, or tell us how you'd want it adapted for your team. We'll reply with an honest view of what it would take.",
         "primaryLabel": "Get in touch",
-        "secondaryLabel": "View all products"
+        "secondaryLabel": "See all our work"
+      },
+      "map": {
+        "caption": "Where {title} sits on our map.",
+        "note": "Illustrative: closeness on our hand-placed map.",
+        "navLabel": "Other products on the map"
       }
     }
   },
@@ -1830,8 +2062,8 @@
   },
   "Meta": {
     "about": {
-      "title": "About - AI-First Software Studio",
-      "description": "Founded in 2025, CraftsAI is a Bangladesh-based software studio that combines AI agents with human engineers to deliver web, Android, and iOS products 10x faster."
+      "title": "Company",
+      "description": "CraftsAI designs, builds and runs AI systems for businesses. Read our model card: who we are for, what we won't do, and how we measure our work."
     },
     "careers": {
       "title": "Careers",
@@ -1862,8 +2094,8 @@
       "description": "From discovery to launch in 5 clear phases. Learn how CraftsAI delivers AI-powered web, Android, and iOS projects with weekly demos and transparent communication."
     },
     "products": {
-      "title": "Our Products",
-      "description": "Ready-made solutions, battle-tested and production-ready. Explore our product lineup spanning web platforms and Android apps."
+      "title": "Work",
+      "description": "Products CraftsAI designed, built and runs in public: apps for learning, language, documents and personal finance, on the web, Android and desktop."
     },
     "quote": {
       "title": "Get a Quote",

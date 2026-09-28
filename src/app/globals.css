@@ -5,6 +5,8 @@
 @import "./styles/home-attention.css";
 @import "./styles/pages.css";
 @import "./styles/page-services.css";
+@import "./styles/page-work.css";
+@import "./styles/page-company.css";
 @import "./styles/page-contact.css";
 
 /* Tailwind v4 class-based dark variant — html always carries .dark (dark-only site),

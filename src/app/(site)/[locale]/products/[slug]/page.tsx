@@ -1,16 +1,19 @@
+import type { CSSProperties } from 'react';
 import { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { notFound } from 'next/navigation';
+import { Link } from '@/i18n/navigation';
 import { products } from '#content';
 import { getProductBySlug } from '@/app/lib/content';
+import { toBengaliDigits } from '@/app/lib/numerals';
 import PageLayout from '@/app/components/layout/PageLayout';
-import PageHero from '@/app/components/shared/PageHero';
-import CTABand from '@/app/components/shared/CTABand';
+import PageCTA from '@/app/components/pages/PageCTA';
+import InView from '@/app/components/home/InView';
 import MdxContent from '@/app/components/mdx/MdxContent';
-import SectionHeader from '@/app/design/ui/SectionHeader';
-import Card from '@/app/design/ui/Card';
-import Button from '@/app/design/ui/Button';
+import MiniMap from '@/app/components/pages/work/MiniMap';
+import { decodeEntities } from '@/app/components/pages/work/text';
+import type { ClusterKey } from '@/app/components/pages/work/geometry';
 
 interface ProductPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -41,13 +44,7 @@ export async function generateMetadata({
   };
 }
 
-/* Matches Button's amber/chalk variants at size="lg" — used here because
-   demoUrl/storeUrl are external links that need target="_blank", which the
-   Button primitive (Link-only) does not support. */
-const EXTERNAL_LINK_BASE =
-  'inline-flex items-center justify-center gap-2 px-7 py-3.5 font-mono text-sm uppercase tracking-[0.15em] transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal';
-const EXTERNAL_LINK_AMBER = `${EXTERNAL_LINK_BASE} bg-amber text-ink-950 hover:opacity-90`;
-const EXTERNAL_LINK_CHALK = `${EXTERNAL_LINK_BASE} border border-[#EDEDE3]/45 text-[#EDEDE3] hover:border-amber hover:text-amber`;
+const d = (n: number) => ({ '--d': n }) as CSSProperties;
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { locale, slug } = await params;
@@ -59,138 +56,195 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound();
   }
 
+  const bn = locale === 'bn';
+  const num = (n: number) => {
+    const s = String(n).padStart(2, '0');
+    return bn ? toBengaliDigits(s) : s;
+  };
+
   const platformLabels = t.raw('detail.platformLabels') as Record<string, string>;
+  const shortPlatformLabels = t.raw('platformLabels') as Record<string, string>;
   const platforms = product.platforms
     .map((p) => platformLabels[p] ?? p)
     .join(' + ');
 
   const downloads = product.downloads ?? [];
-  // Section indexes shift by one when the Downloads section is present.
-  const fig = (n: number) =>
-    `fig. ${String(n + (downloads.length > 0 ? 1 : 0)).padStart(2, '0')}`;
 
   return (
     <PageLayout>
-      <PageHero
-        eyebrow={t('detail.hero.eyebrow', { platforms })}
-        title={product.title}
-        lede={product.tagline}
-      >
-        {product.demoUrl ? (
-          <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" className={EXTERNAL_LINK_AMBER}>
-            {t('detail.hero.viewDemo')}
-          </a>
-        ) : null}
-        {product.storeUrl ? (
-          <a href={product.storeUrl} target="_blank" rel="noopener noreferrer" className={EXTERNAL_LINK_CHALK}>
-            {t('detail.hero.getOnPlayStore')}
-          </a>
-        ) : null}
-        {downloads.length > 0 ? (
-          <a href="#downloads" className={product.demoUrl ? EXTERNAL_LINK_CHALK : EXTERNAL_LINK_AMBER}>
-            {t('detail.hero.downloadDesktop')}
-          </a>
-        ) : null}
-        <Button variant="chalk" size="lg" href="/quote">
-          {t('detail.hero.requestCustomization')}
-        </Button>
-      </PageHero>
-
-      {downloads.length > 0 ? (
-        <section id="downloads" className="border-t border-line bg-ink-900">
-          <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-            <SectionHeader
-              index="fig. 01"
-              eyebrow={t('detail.downloads.eyebrow')}
-              title={t('detail.downloads.title')}
-            />
-            <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {downloads.map((d) => (
-                <Card key={d.os} className="flex h-full flex-col">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-signal">
-                    {d.os}
-                  </span>
-                  <h3 className="mt-4 font-display text-lg font-medium text-bone">{d.label}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-steel">
-                    {d.note ?? ''}
-                  </p>
-                  <div className="mt-6 flex items-center justify-between gap-4">
-                    <span className="font-mono text-xs uppercase tracking-[0.15em] text-steel">
-                      {d.size}
-                    </span>
-                    <a
-                      href={d.url}
-                      className={`${EXTERNAL_LINK_BASE} bg-amber px-5 py-2.5 text-ink-950 hover:opacity-90`}
-                    >
-                      {t('detail.downloads.download')}
-                    </a>
-                  </div>
-                </Card>
-              ))}
+      <div className="attn pg-work wk-detail">
+        <section className="pg-hero wk-d-hero" aria-labelledby="wk-d-h1">
+          <div className="attn-wrap wk-d-grid">
+            <div className="wk-d-text">
+              <Link className="wk-back pg-enter" href="/products">
+                <span aria-hidden="true">← </span>
+                {t('detail.hero.back')}
+              </Link>
+              <p className="pg-kicker pg-enter">{t('detail.hero.eyebrow', { platforms })}</p>
+              <h1 id="wk-d-h1" className="pg-h1 wk-d-h1 pg-enter" style={d(1)}>
+                {product.title}
+              </h1>
+              <p className="pg-lede pg-enter" style={d(2)}>
+                {product.tagline}
+              </p>
+              <ul className="wk-tags wk-d-tags pg-enter" style={d(2)}>
+                {product.platforms.map((p) => (
+                  <li key={p}>{shortPlatformLabels[p] ?? p}</li>
+                ))}
+              </ul>
+              <div className="pg-actions pg-enter" style={d(3)}>
+                {product.demoUrl ? (
+                  <a href={product.demoUrl} target="_blank" rel="noopener noreferrer" className="attn-btn attn-btn-primary">
+                    {t('detail.hero.viewDemo')}
+                    <span aria-hidden="true">&nbsp;↗</span>
+                  </a>
+                ) : null}
+                {product.storeUrl ? (
+                  <a
+                    href={product.storeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`attn-btn ${product.demoUrl ? 'attn-btn-secondary' : 'attn-btn-primary'}`}
+                  >
+                    {t('detail.hero.getOnPlayStore')}
+                    <span aria-hidden="true">&nbsp;↗</span>
+                  </a>
+                ) : null}
+                {downloads.length > 0 ? (
+                  <a
+                    href="#downloads"
+                    className={`attn-btn ${product.demoUrl || product.storeUrl ? 'attn-btn-secondary' : 'attn-btn-primary'}`}
+                  >
+                    {t('detail.hero.downloadDesktop')}
+                  </a>
+                ) : null}
+                <Link className="attn-btn attn-btn-secondary" href="/quote">
+                  {t('detail.hero.requestCustomization')}
+                </Link>
+              </div>
+            </div>
+            <div className="wk-d-fig pg-enter" style={d(2)}>
+              <MiniMap
+                products={products.map((p) => ({ slug: p.slug, title: p.title }))}
+                current={product.slug}
+                concepts={t.raw('map.concepts') as Record<ClusterKey, string[]>}
+                clusters={t.raw('map.clusters') as Record<ClusterKey, string>}
+                caption={t('detail.map.caption', { title: product.title })}
+                note={t('detail.map.note')}
+                navLabel={t('detail.map.navLabel')}
+                bn={bn}
+              />
             </div>
           </div>
         </section>
-      ) : null}
 
-      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-        <SectionHeader
-          index={fig(1)}
-          eyebrow={t('detail.features.eyebrow')}
-          title={t('detail.features.title')}
-        />
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {product.features.map((feature) => (
-            <Card key={feature.title}>
-              <span className="block text-3xl">{feature.icon}</span>
-              <h3 className="mt-4 font-display text-lg font-medium text-bone">{feature.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-steel">{feature.description}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
+        {downloads.length > 0 ? (
+          <section id="downloads" className="attn-sec wk-d-sec wk-d-dl" aria-labelledby="wk-d-dl-h">
+            <div className="attn-wrap">
+              <InView once>
+                <p className="pg-kicker pg-rise">{t('detail.downloads.eyebrow')}</p>
+                <h2 id="wk-d-dl-h" className="attn-sec-h pg-rise" style={d(1)}>
+                  {t('detail.downloads.title')}
+                </h2>
+                <ul className="wk-dl-list">
+                  {downloads.map((dl, i) => (
+                    <li key={dl.os} className="wk-dl pg-rise" style={d(i + 2)}>
+                      <span className="wk-dl-os">{dl.os}</span>
+                      <div className="wk-dl-main">
+                        <h3>{dl.label}</h3>
+                        {dl.note ? <p>{decodeEntities(dl.note)}</p> : null}
+                      </div>
+                      <span className="wk-dl-size pg-cap">{dl.size}</span>
+                      <a href={dl.url} className="attn-btn attn-btn-primary attn-btn-sm">
+                        {t('detail.downloads.download')}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </InView>
+            </div>
+          </section>
+        ) : null}
 
-      <section className="border-t border-line bg-ink-900">
-        <div className="mx-auto max-w-5xl px-6 py-20 text-center sm:py-28">
-          <SectionHeader index={fig(2)} eyebrow={t('detail.techStack.eyebrow')} title={t('detail.techStack.title')} align="center" />
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            {product.techStack.map((tech) => (
-              <span
-                key={tech}
-                className="border border-line px-4 py-2 font-mono text-xs uppercase tracking-[0.15em] text-bone"
-              >
-                {tech}
-              </span>
-            ))}
+        <section className="attn-sec wk-d-sec" aria-labelledby="wk-d-ft-h">
+          <div className="attn-wrap">
+            <InView once>
+              <p className="pg-kicker pg-rise">{t('detail.features.eyebrow')}</p>
+              <h2 id="wk-d-ft-h" className="attn-sec-h pg-rise" style={d(1)}>
+                {t('detail.features.title')}
+              </h2>
+            </InView>
+            <ol className="wk-feats">
+              {product.features.map((feature, i) => (
+                <li key={feature.title}>
+                  <InView once className="wk-feat">
+                    <span className="wk-feat-n pg-cap pg-rise">
+                      {num(i + 1)}
+                      <span className="wk-feat-i" aria-hidden="true">
+                        {feature.icon}
+                      </span>
+                    </span>
+                    <h3 className="pg-rise" style={d(1)}>
+                      {decodeEntities(feature.title)}
+                    </h3>
+                    <p className="pg-rise" style={d(2)}>
+                      {decodeEntities(feature.description)}
+                    </p>
+                  </InView>
+                </li>
+              ))}
+            </ol>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-        <SectionHeader index={fig(3)} eyebrow={t('detail.useCases.eyebrow')} title={t('detail.useCases.title')} align="center" />
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {product.useCases.map((useCase) => (
-            <Card key={useCase.title} className="text-center">
-              <h3 className="font-display text-lg font-medium text-bone">{useCase.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-steel">{useCase.description}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
+        <section className="attn-sec wk-d-sec" aria-labelledby="wk-d-uc-h">
+          <div className="attn-wrap">
+            <InView once>
+              <p className="pg-kicker pg-rise">{t('detail.useCases.eyebrow')}</p>
+              <h2 id="wk-d-uc-h" className="attn-sec-h pg-rise" style={d(1)}>
+                {t('detail.useCases.title')}
+              </h2>
+              <ul className="wk-uses">
+                {product.useCases.map((useCase, i) => (
+                  <li key={useCase.title} className="pg-rise" style={d(i + 2)}>
+                    <h3>{decodeEntities(useCase.title)}</h3>
+                    <p>{decodeEntities(useCase.description)}</p>
+                  </li>
+                ))}
+              </ul>
+            </InView>
+          </div>
+        </section>
 
-      <section className="border-t border-line bg-ink-900">
-        <div className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-          <MdxContent code={product.content} />
-        </div>
-      </section>
+        <section className="attn-sec wk-d-sec wk-d-about" aria-labelledby="wk-d-st-h">
+          <div className="attn-wrap wk-d-about-grid">
+            <aside className="wk-d-stack">
+              <p className="pg-kicker">{t('detail.techStack.eyebrow')}</p>
+              <h2 id="wk-d-st-h" className="wk-d-stack-h">
+                {t('detail.techStack.title')}
+              </h2>
+              <ul className="wk-chips-static">
+                {product.techStack.map((tech) => (
+                  <li key={tech}>{tech}</li>
+                ))}
+              </ul>
+            </aside>
+            <div className="wk-mdx" lang={bn ? 'en' : undefined}>
+              <MdxContent code={product.content} className="wk-prose" />
+            </div>
+          </div>
+        </section>
 
-      <CTABand
-        title={t('detail.cta.title', { title: product.title })}
-        lede={t('detail.cta.lede')}
-        primaryLabel={t('detail.cta.primaryLabel')}
-        primaryHref="/quote"
-        secondaryLabel={t('detail.cta.secondaryLabel')}
-        secondaryHref="/products"
-      />
+        <PageCTA
+          id="wk-d-cta"
+          title={t('detail.cta.title', { title: product.title })}
+          lede={t('detail.cta.lede')}
+          primaryLabel={t('detail.cta.primaryLabel')}
+          primaryHref="/quote"
+          secondaryLabel={t('detail.cta.secondaryLabel')}
+          secondaryHref="/products"
+        />
+      </div>
     </PageLayout>
   );
 }

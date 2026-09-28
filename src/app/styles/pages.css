@@ -59,8 +59,11 @@
   font: 500 12px/1.3 var(--attn-sans);
   letter-spacing: 0.04em;
   color: var(--sage);
-  font-variant-numeric: tabular-nums;
 }
+
+/* Tabular figures only where numbers change in place — on prose they space
+   out ':' and ','. */
+.pg-num { font-variant-numeric: tabular-nums; }
 
 /* A raised panel: the home page's artifact card, reusable. */
 .pg-panel {
