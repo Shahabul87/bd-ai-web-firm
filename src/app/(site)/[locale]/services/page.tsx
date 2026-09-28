@@ -31,6 +31,12 @@ export async function generateMetadata({
 }
 
 const ENGAGEMENTS = ['sprint', 'build', 'run'] as const;
+/** The platform pages under "AI inside your product". */
+const PRODUCT_LINKS = [
+  ['web', '/services/web-development'],
+  ['android', '/services/android-development'],
+  ['ios', '/services/ios-development'],
+] as const;
 const ROUTER_LABELS = [
   'label',
   'example',
@@ -146,6 +152,19 @@ export default async function ServicesPage({
                           <p className="sv-spec-lede pg-rise" style={{ '--d': 2 } as React.CSSProperties}>
                             {s.lede}
                           </p>
+                          {s.key === 'product' ? (
+                            <nav
+                              className="pg-actions pg-rise"
+                              aria-label={t('catalogue.productLinks.label')}
+                              style={{ '--d': 3 } as React.CSSProperties}
+                            >
+                              {PRODUCT_LINKS.map(([key, href]) => (
+                                <Link key={key} className="attn-btn attn-btn-secondary attn-btn-sm" href={href}>
+                                  {t(`catalogue.productLinks.${key}`)}
+                                </Link>
+                              ))}
+                            </nav>
+                          ) : null}
                         </div>
                         <InView className={`sv-spec-fig sv-fig-${s.key} pg-rise`}>
                           <ServiceDiagram serviceKey={s.key} />
@@ -198,6 +217,13 @@ export default async function ServicesPage({
                     <span className="sv-seg-span pg-cap">{t(`engage.items.${key}.span`)}</span>
                     <b className="sv-seg-name">{t(`engage.items.${key}.name`)}</b>
                     <p>{t(`engage.items.${key}.body`)}</p>
+                    {key === 'run' ? (
+                      <div className="pg-actions">
+                        <Link className="attn-btn attn-btn-secondary attn-btn-sm" href="/services/support">
+                          {t('engage.runLink')}
+                        </Link>
+                      </div>
+                    ) : null}
                   </li>
                 ))}
               </ol>

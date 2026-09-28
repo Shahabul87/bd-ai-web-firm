@@ -708,6 +708,12 @@
             "measure": "Every opportunity is scored on value, feasibility and risk; the prototype is tested against a bar we agree on day one.",
             "first": "A one-hour call to choose the teams and workflows in scope."
           }
+        },
+        "productLinks": {
+          "label": "By platform",
+          "web": "Web",
+          "android": "Android",
+          "ios": "iOS"
         }
       },
       "engage": {
@@ -730,7 +736,8 @@
             "span": "Ongoing",
             "body": "We watch it in production and keep improving it, measured against the same bar."
           }
-        }
+        },
+        "runLink": "Read about run & improve"
       },
       "cta": {
         "title": "Not sure which one you need?",
@@ -741,504 +748,508 @@
     },
     "web": {
       "hero": {
-        "eyebrow": "Services / Web",
-        "title": "Web Development",
-        "lede": "Full-stack web applications built with React, Next.js, and modern cloud infrastructure — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
+        "kicker": "AI inside your web product",
+        "title": "AI that does its work inside your <em>web app</em>.",
+        "lede": "We add AI features to the web product you already run — search that answers, forms that fill themselves, assistants that know your data — or build a new AI-first product end to end, from interface to infrastructure.",
+        "primaryCta": "Book a discovery call",
         "secondaryCta": "Get an estimate"
       },
-      "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent scaffolds it. Engineers ship it.",
-        "description": "Our agents turn your requirements into a working codebase in hours — senior engineers take it from there.",
-        "stages": [
-          "Brief",
-          "Scaffold",
-          "Build",
-          "Review",
-          "Ship"
-        ]
+      "crumbLabel": "Breadcrumb",
+      "back": "All services",
+      "figure": {
+        "label": "Answer engine",
+        "example": "Example",
+        "summary": "An example help page inside a web app: a visitor asks how to move their billing date, and the answer streams in with numbered citations that point to two help articles.",
+        "appName": "Your app",
+        "url": "app.example.com/help",
+        "nav": [
+          "Overview",
+          "Projects",
+          "Billing",
+          "Help"
+        ],
+        "placeholder": "Ask a question",
+        "query": "How do I move my billing date?",
+        "ask": "Ask",
+        "thinking": "Reading the help centre",
+        "answer": [
+          {
+            "text": "You can move your billing date once per cycle, from Settings → Billing → Billing date.",
+            "cite": 1
+          },
+          {
+            "text": "The next invoice is prorated for the days in between.",
+            "cite": 2
+          },
+          {
+            "text": "On an annual plan, ask support to move it for you.",
+            "cite": 2
+          }
+        ],
+        "sourcesLabel": "Sources",
+        "sources": [
+          {
+            "title": "Billing settings",
+            "path": "help / billing"
+          },
+          {
+            "title": "Plan changes and proration",
+            "path": "help / plans"
+          }
+        ],
+        "done": "Answered from your help centre",
+        "pause": "Pause",
+        "play": "Play"
+      },
+      "what": {
+        "title": "What it is",
+        "body": "Most AI features fail in the interface, not the model: an answer that arrives too slowly, a citation nobody can check, no plan for when the model is unsure. We design the feature and the plumbing together — streaming responses, sources people can open, sensible limits on cost — and build it into the stack you already have.",
+        "note": "This page is one part of <product>AI inside your product</product>. The same service covers Android and iOS apps."
       },
       "spec": {
-        "eyebrow": "What you get",
-        "title": "Scope, stack, and delivery — in writing."
+        "title": "The spec",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "getItems": [
+          "An AI feature built into your existing web app, or a new AI-first product",
+          "Streaming interfaces, citations, and graceful fallbacks when the model is slow or unsure",
+          "A server layer that keeps keys, prompts and spending limits off the browser",
+          "Monitoring for quality, response time and cost once it is live"
+        ],
+        "measureBody": "Task success for real users, time to the first words and to a finished answer, and cost per active user — tracked in production against the bar we agree before we build.",
+        "firstBody": "Pick the feature your users ask for most. We prototype it inside your app, on your data, and test it against real requests."
       },
-      "specRows": [
-        {
-          "slug": "scope",
-          "label": "Scope",
-          "value": "SaaS platforms, e-commerce, enterprise dashboards, MVPs, APIs, and progressive web apps — full-stack, schema to deploy."
-        },
-        {
-          "slug": "stack",
-          "label": "Stack"
-        },
-        {
-          "slug": "timeline",
-          "label": "Timeline",
-          "value": "2–6 weeks, depending on scope — roughly 10x faster and 80% cheaper than a typical agency build."
-        },
-        {
-          "slug": "automated",
-          "label": "Automated by agents",
-          "value": "Next.js page structures, API routes, database schemas, and Tailwind component libraries, generated from a plain-English brief."
-        },
-        {
-          "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "Every pull request, integration test, and product decision that only a person can make — before anything ships."
-        }
-      ],
-      "techStack": [
-        "React",
-        "Next.js",
-        "TypeScript",
-        "Node.js",
-        "PostgreSQL",
-        "MongoDB",
-        "AWS",
-        "Vercel",
-        "Docker",
-        "GraphQL",
-        "REST APIs",
-        "Tailwind CSS"
-      ],
-      "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the products we build most often — not an exhaustive list."
+      "stack": {
+        "title": "What we build with",
+        "note": "Our usual stack for web work. If yours is different, we work in yours.",
+        "items": [
+          "React",
+          "Next.js",
+          "TypeScript",
+          "Node.js",
+          "Python",
+          "PostgreSQL",
+          "pgvector",
+          "Streaming responses",
+          "REST and GraphQL APIs",
+          "Vercel",
+          "AWS",
+          "Docker"
+        ]
       },
-      "useCases": [
-        {
-          "title": "SaaS Platforms",
-          "description": "Multi-tenant applications with subscription billing, user management, and analytics dashboards."
-        },
-        {
-          "title": "E-Commerce",
-          "description": "Online stores with inventory management, payment processing, and order fulfillment."
-        },
-        {
-          "title": "Enterprise Dashboards",
-          "description": "Data-rich dashboards with real-time charts, role-based access, and reporting tools."
-        },
-        {
-          "title": "MVPs & Prototypes",
-          "description": "Rapid prototypes to validate your idea and attract funding in weeks, not months."
-        }
-      ],
+      "cases": {
+        "title": "Where it fits",
+        "note": "Examples of what this work looks like — not client stories.",
+        "example": "Example",
+        "items": [
+          {
+            "title": "Search that answers",
+            "body": "A help centre or docs site where people ask a question and get a cited answer instead of ten links."
+          },
+          {
+            "title": "Forms that fill themselves",
+            "body": "Onboarding, quotes or long forms that fill in from a document or a short description, with every field still editable."
+          },
+          {
+            "title": "An assistant in your dashboard",
+            "body": "People ask their own data questions in plain language and get a table or chart back, with the query shown."
+          },
+          {
+            "title": "A new AI-first product",
+            "body": "From an idea and a dataset to a working product: interface, model choice, evaluations and hosting."
+          }
+        ]
+      },
       "faq": {
-        "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "Common questions",
+        "items": [
+          {
+            "id": "existing-app",
+            "question": "Can you add AI to the web app we already have?",
+            "answer": "Yes — that is most of this work. We start by reading your codebase and how the feature would fit, then build inside your conventions instead of bolting on a separate app. Your team reviews and owns the code."
+          },
+          {
+            "id": "model",
+            "question": "Which model will you use?",
+            "answer": "Whichever fits the job on quality, speed and cost, measured on your own requests. We keep the model behind a small interface, so it can be switched when a better or cheaper one arrives."
+          },
+          {
+            "id": "data",
+            "question": "Where does our data go?",
+            "answer": "Requests go through your servers, not straight from the browser to a model provider. We use providers that do not train on your data, or run open models in your own cloud when that matters."
+          },
+          {
+            "id": "timeline",
+            "question": "How long does it take?",
+            "answer": "It depends on the feature and on your codebase, so we do not quote a number before we have seen either. We agree the scope of a first prototype on the discovery call and estimate once we have read the code."
+          },
+          {
+            "id": "after-launch",
+            "question": "What happens after launch?",
+            "answer": "We can keep watching quality and cost in production and keep improving the feature against the same bar. That is our Run & improve service."
+          }
+        ]
       },
-      "faqItems": [
-        {
-          "id": "ai-speed",
-          "question": "How does AI speed up web development?",
-          "answer": "Our agents generate boilerplate code, database schemas, and component scaffolding in minutes. Human engineers then review, refine, and customize everything to your exact requirements. This eliminates repetitive work and lets us focus on what makes your product unique."
-        },
-        {
-          "id": "existing-codebase",
-          "question": "Can you work with my existing codebase?",
-          "answer": "Absolutely. We regularly join projects mid-stream. Our onboarding process includes a thorough code audit, and our AI agent adapts to your existing patterns, conventions, and tech stack."
-        },
-        {
-          "id": "timeline",
-          "question": "What does the delivery timeline look like?",
-          "answer": "Most web projects ship in 2 to 6 weeks depending on complexity. MVPs and prototypes can launch in as little as 2 weeks. Enterprise platforms with complex integrations typically take 4 to 6 weeks. You will receive weekly progress demos throughout."
-        },
-        {
-          "id": "deployment",
-          "question": "Do you handle deployment and hosting?",
-          "answer": "Yes. We deploy to Vercel, AWS, or your preferred cloud provider. Every project includes CI/CD pipelines, monitoring, and a production-ready infrastructure setup at no extra charge."
-        }
-      ],
       "cta": {
-        "title": "Ready to build your web application?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "What should AI do in your web app?",
+        "lede": "Tell us the feature and who uses it. We will come back with how we would build it, what it would cost to run, and how we would measure it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "ios": {
       "hero": {
-        "eyebrow": "Services / iOS",
-        "title": "iOS Development",
-        "lede": "Native iOS apps with Swift and SwiftUI — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
+        "kicker": "AI inside your iOS app",
+        "title": "AI that feels at home in your <em>iOS app</em>.",
+        "lede": "We build AI features into iPhone and iPad apps — assistants, summaries, smart search, suggestions — natively in Swift and SwiftUI, running on the device, on your servers, or both.",
+        "primaryCta": "Book a discovery call",
         "secondaryCta": "Get an estimate"
       },
-      "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent drafts the app. Engineers ship it.",
-        "description": "Our agents generate SwiftUI views and data models in hours — senior engineers handle UX and App Store compliance.",
-        "stages": [
-          "Brief",
-          "Design",
-          "Build",
-          "Review",
-          "Ship"
-        ]
+      "crumbLabel": "Breadcrumb",
+      "back": "All services",
+      "figure": {
+        "label": "On-device assistant",
+        "example": "Example",
+        "summary": "An example iOS expenses app: the user asks what they spent on client dinners this month. The assistant finds four receipts, notes that two are missing a project code, and offers to add them, which the user taps.",
+        "time": "9:41",
+        "appTitle": "Expenses",
+        "user": "What did I spend on client dinners this month?",
+        "assistant": "Assistant",
+        "badge": "On device",
+        "thinking": "Thinking",
+        "reply": "Four receipts this month, 212.40 in total. Two of them are missing a project code — the last two, both from the same week.",
+        "chip": "Add project codes",
+        "chipDone": "Project codes added",
+        "pause": "Pause",
+        "play": "Play"
+      },
+      "what": {
+        "title": "What it is",
+        "body": "An AI feature on iOS has to meet the standard of the rest of the platform: fast, private by default, and quiet when it has nothing useful to say. We design it around your app’s patterns, choose what runs on the device and what runs on your servers, and ship it through App Review like any other release.",
+        "note": "This page is one part of <product>AI inside your product</product>. The same service covers web and Android apps."
       },
       "spec": {
-        "eyebrow": "What you get",
-        "title": "Scope, stack, and delivery — in writing."
+        "title": "The spec",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "getItems": [
+          "AI features built natively into your iOS app, in Swift and SwiftUI",
+          "On-device models with Core ML where privacy or speed matter, server models where quality does",
+          "Fallbacks and offline behaviour, so the app still works without the AI",
+          "Monitoring for quality, response time and cost once it is live"
+        ],
+        "measureBody": "Task success for real users, response time on the iPhones they actually carry, and cost per active user — tracked in production against the bar we agree first.",
+        "firstBody": "Pick the screen where your users spend the most effort. We prototype the AI feature there and test it on real devices."
       },
-      "specRows": [
-        {
-          "slug": "scope",
-          "label": "Scope",
-          "value": "Business, consumer, health, education, fintech, and media apps — designed for iPhone, iPad, Apple Watch, and Catalyst."
-        },
-        {
-          "slug": "stack",
-          "label": "Stack"
-        },
-        {
-          "slug": "timeline",
-          "label": "Timeline",
-          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
-        },
-        {
-          "slug": "automated",
-          "label": "Automated by agents",
-          "value": "SwiftUI views, Core Data models, networking layers, and navigation stacks — generated from your requirements, following Apple's Human Interface Guidelines."
-        },
-        {
-          "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "UX refinement, App Store compliance, and rigorous testing on every build before it reaches your users."
-        }
-      ],
-      "techStack": [
-        "Swift",
-        "SwiftUI",
-        "UIKit",
-        "Core Data",
-        "CloudKit",
-        "Combine",
-        "MapKit",
-        "HealthKit",
-        "StoreKit",
-        "Core ML"
-      ],
-      "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the apps we build most often — not an exhaustive list."
+      "stack": {
+        "title": "What we build with",
+        "note": "Our usual iOS stack. We work inside your codebase and conventions.",
+        "items": [
+          "Swift",
+          "SwiftUI",
+          "UIKit",
+          "Combine",
+          "Core Data",
+          "Core ML",
+          "Vision",
+          "Natural Language",
+          "CloudKit",
+          "Your backend APIs"
+        ]
       },
-      "useCases": [
-        {
-          "title": "Business Apps",
-          "description": "Enterprise tools, CRM mobile clients, and field-service apps with secure data handling."
-        },
-        {
-          "title": "Health & Fitness",
-          "description": "HealthKit integration, workout tracking, and telehealth features that meet HIPAA guidelines."
-        },
-        {
-          "title": "Fintech",
-          "description": "Secure financial apps with biometric auth, real-time data, and Apple Pay integration."
-        },
-        {
-          "title": "Consumer Apps",
-          "description": "Polished consumer experiences with elegant animations and seamless onboarding."
-        }
-      ],
+      "cases": {
+        "title": "Where it fits",
+        "note": "Examples of what this work looks like — not client stories.",
+        "example": "Example",
+        "items": [
+          {
+            "title": "Search that understands",
+            "body": "Find a note, a payment or a photo by describing it, instead of remembering the exact word."
+          },
+          {
+            "title": "Document capture",
+            "body": "Scan a receipt or a form and get the fields that matter, checked by the user before anything is saved."
+          },
+          {
+            "title": "Private summaries",
+            "body": "A short digest of the user’s own activity — spending, workouts, messages — worked out on the device."
+          },
+          {
+            "title": "An in-app assistant",
+            "body": "Help that knows the user’s account and your product, and hands off to a person when it should."
+          }
+        ]
+      },
       "faq": {
-        "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "Common questions",
+        "items": [
+          {
+            "id": "on-device",
+            "question": "Can it run on the device?",
+            "answer": "For many tasks, yes, with Core ML and Apple’s on-device frameworks. Larger tasks usually run on your servers. We measure both on your data before deciding."
+          },
+          {
+            "id": "review",
+            "question": "Will it pass App Review?",
+            "answer": "We follow Apple’s guidelines on AI features, privacy labels and user data from the start, and handle review like any other release. Nobody can promise an outcome, but we design so that there are no surprises."
+          },
+          {
+            "id": "existing-app",
+            "question": "Do you work on our existing app?",
+            "answer": "Yes. We work inside your codebase and release process, and your team reviews and owns everything we ship."
+          },
+          {
+            "id": "data",
+            "question": "What about user privacy?",
+            "answer": "On-device features keep the data on the phone. Server features go through your backend, under the provider terms you choose — including no training on your data."
+          }
+        ]
       },
-      "faqItems": [
-        {
-          "id": "swiftui-uikit",
-          "question": "Do you build with SwiftUI or UIKit?",
-          "answer": "We use SwiftUI for all new projects because it provides a modern, declarative approach to UI development and is Apple's recommended framework going forward. For projects that need to support older iOS versions or require features not yet available in SwiftUI, we use UIKit or a hybrid approach."
-        },
-        {
-          "id": "app-store-submission",
-          "question": "Can you submit to the App Store for us?",
-          "answer": "Yes. We manage the entire submission process including App Store Connect setup, screenshots, metadata, and review compliance. We also handle TestFlight distribution for beta testing with your team or early users."
-        },
-        {
-          "id": "ipad-watch",
-          "question": "Do you support iPad and Apple Watch?",
-          "answer": "Absolutely. Our SwiftUI layouts adapt to iPad, Apple Watch, and even macOS via Catalyst. We design for the full Apple ecosystem from day one, so your app feels native on every device."
-        },
-        {
-          "id": "iap",
-          "question": "What about in-app purchases and subscriptions?",
-          "answer": "StoreKit 2 is part of our standard toolkit. We implement subscriptions, consumables, and non-consumable purchases with server-side receipt validation. We also handle the App Store pricing and tax configuration."
-        }
-      ],
       "cta": {
-        "title": "Ready to build your iOS app?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "What should AI do in your iOS app?",
+        "lede": "Tell us the feature and who uses it. We will come back with how we would build it, where it should run, and how we would measure it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "android": {
       "hero": {
-        "eyebrow": "Services / Android",
-        "title": "Android Development",
-        "lede": "Native Android apps with Kotlin and Jetpack Compose — built by our agents and shipped fast, with senior engineers reviewing every release.",
-        "primaryCta": "Start a project",
+        "kicker": "AI inside your Android app",
+        "title": "An assistant that lives in your <em>Android app</em>.",
+        "lede": "We build AI features into Android apps — assistants, summaries, smart capture, suggestions — natively in Kotlin and Jetpack Compose, running on the device, on your servers, or both.",
+        "primaryCta": "Book a discovery call",
         "secondaryCta": "Get an estimate"
       },
-      "pipeline": {
-        "eyebrow": "How it ships",
-        "title": "One brief. An agent drafts the app. Engineers ship it.",
-        "description": "Our agents generate Compose screens and data layers in hours — senior engineers handle UX polish and Play Store compliance.",
-        "stages": [
-          "Brief",
-          "Design",
-          "Build",
-          "Review",
-          "Release"
-        ]
+      "crumbLabel": "Breadcrumb",
+      "back": "All services",
+      "figure": {
+        "label": "On-device assistant",
+        "example": "Example",
+        "summary": "An example Android app: a field engineer asks the assistant to summarise the day and book the follow-up. The assistant replies with three issues and suggests a follow-up time, which the engineer taps to schedule.",
+        "time": "9:41",
+        "appTitle": "Field notes",
+        "user": "Summarise today’s visit and book the follow-up.",
+        "assistant": "Assistant",
+        "badge": "On device",
+        "thinking": "Thinking",
+        "reply": "Three issues logged at the pump station: a worn seal, a loose valve and a gauge reading high. The seal needs a part, so I suggest Thursday morning.",
+        "chip": "Book Thursday 9:00",
+        "chipDone": "Booked for Thursday",
+        "pause": "Pause",
+        "play": "Play"
+      },
+      "what": {
+        "title": "What it is",
+        "body": "On a phone, AI has to be quick, cope with a patchy connection and respect the battery. We decide with you what runs on the device and what runs on your servers, design the feature around how people already use your app, and ship it through Google Play like any other release.",
+        "note": "This page is one part of <product>AI inside your product</product>. The same service covers web and iOS apps."
       },
       "spec": {
-        "eyebrow": "What you get",
-        "title": "Scope, stack, and delivery — in writing."
+        "title": "The spec",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "getItems": [
+          "AI features built natively into your Android app, in Kotlin and Jetpack Compose",
+          "A split that fits: on-device models where speed or privacy matter, server models where quality does",
+          "Offline behaviour and fallbacks, so the app still works without the AI",
+          "Monitoring for quality, response time and cost across devices once it is live"
+        ],
+        "measureBody": "Task success for real users, response time on the devices your users actually have, and cost per active user — measured in production, not only on a flagship phone.",
+        "firstBody": "Name the moment in your app where people get stuck. We prototype the AI feature right there and test it on real devices."
       },
-      "specRows": [
-        {
-          "slug": "scope",
-          "label": "Scope",
-          "value": "Business, social, e-commerce, health, education, and productivity apps — responsive across phones, tablets, and foldables."
-        },
-        {
-          "slug": "stack",
-          "label": "Stack"
-        },
-        {
-          "slug": "timeline",
-          "label": "Timeline",
-          "value": "4–8 weeks, depending on scope — roughly 8x faster and 75% cheaper than a typical agency build."
-        },
-        {
-          "slug": "automated",
-          "label": "Automated by agents",
-          "value": "Kotlin modules, Compose screens, Room database entities, and Hilt dependency graphs — generated from your requirements, following Google's MVVM + Repository architecture."
-        },
-        {
-          "slug": "reviewed",
-          "label": "Reviewed by engineers",
-          "value": "UX polish, edge-case testing, and Play Store compliance on every release before it reaches production."
-        }
-      ],
-      "techStack": [
-        "Kotlin",
-        "Jetpack Compose",
-        "Material Design 3",
-        "Firebase",
-        "Room DB",
-        "Retrofit",
-        "ML Kit",
-        "Google Play Services",
-        "Coroutines",
-        "Hilt"
-      ],
-      "useCasesSection": {
-        "eyebrow": "Use cases",
-        "title": "Where this fits.",
-        "description": "A sample of the apps we build most often — not an exhaustive list."
+      "stack": {
+        "title": "What we build with",
+        "note": "Our usual Android stack. We work inside your codebase and conventions.",
+        "items": [
+          "Kotlin",
+          "Jetpack Compose",
+          "Material Design 3",
+          "Coroutines",
+          "Hilt",
+          "Room",
+          "Retrofit",
+          "ML Kit",
+          "On-device models",
+          "Firebase",
+          "Your backend APIs"
+        ]
       },
-      "useCases": [
-        {
-          "title": "Business Apps",
-          "description": "Internal tools, CRM integrations, and field-service apps that streamline operations."
-        },
-        {
-          "title": "E-Commerce Mobile",
-          "description": "Shopping apps with product catalogs, in-app payments, and push notification campaigns."
-        },
-        {
-          "title": "Social & Community",
-          "description": "Chat, feeds, and real-time features that keep users engaged and connected."
-        },
-        {
-          "title": "Health & Fitness",
-          "description": "Wearable integrations, workout trackers, and telehealth experiences."
-        }
-      ],
+      "cases": {
+        "title": "Where it fits",
+        "note": "Examples of what this work looks like — not client stories.",
+        "example": "Example",
+        "items": [
+          {
+            "title": "Smart capture",
+            "body": "Point the camera at a receipt, a label or a form and get the fields back, ready to check and save."
+          },
+          {
+            "title": "Summaries on the go",
+            "body": "Long threads, notes or reports turned into a short summary with the next action, readable in a few seconds."
+          },
+          {
+            "title": "An in-app assistant",
+            "body": "Answers questions about the user’s own account, orders or history, and hands off to support when it cannot."
+          },
+          {
+            "title": "Voice to action",
+            "body": "Speak a note in the field; the app files it, tags it and suggests the follow-up."
+          }
+        ]
+      },
       "faq": {
-        "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "Common questions",
+        "items": [
+          {
+            "id": "on-device",
+            "question": "Can the AI run on the phone itself?",
+            "answer": "Often, for tasks that suit small models — classification, extraction, short summaries. Larger tasks usually run on your servers. We measure both on your data before choosing."
+          },
+          {
+            "id": "devices",
+            "question": "Will it work on older and cheaper phones?",
+            "answer": "We test on a spread of devices that matches your users, not only recent flagships, and fall back to a server model or a simpler path where a device cannot keep up."
+          },
+          {
+            "id": "existing-app",
+            "question": "Do you work on our existing app?",
+            "answer": "Yes. We work inside your codebase and release process, and your team reviews and owns everything we ship."
+          },
+          {
+            "id": "data",
+            "question": "Where does user data go?",
+            "answer": "On-device features keep the data on the phone. Server features go through your backend, under the provider terms you choose — including no training on your data."
+          }
+        ]
       },
-      "faqItems": [
-        {
-          "id": "kotlin-java",
-          "question": "Do you build with Kotlin or Java?",
-          "answer": "We build exclusively with Kotlin and Jetpack Compose for all new projects. Kotlin is the official recommended language for Android development, and Compose provides a modern, declarative UI toolkit. If you have an existing Java codebase, we can maintain it or help you migrate incrementally."
-        },
-        {
-          "id": "play-store",
-          "question": "Can you publish to the Google Play Store?",
-          "answer": "Yes. We handle the entire release process including Play Store listing, screenshots, app signing, and compliance review. We also set up staged rollouts and crash monitoring so you can ship with confidence."
-        },
-        {
-          "id": "tablets-foldables",
-          "question": "Do you support tablets and foldables?",
-          "answer": "Absolutely. Our Compose-based layouts are responsive by default. We test on phones, tablets, and foldable devices to ensure a great experience across the entire Android ecosystem."
-        },
-        {
-          "id": "offline",
-          "question": "What about offline functionality?",
-          "answer": "Room database and WorkManager are part of our standard stack. We architect every app with offline-first principles so users can keep working even without an internet connection. Data syncs automatically when connectivity returns."
-        }
-      ],
       "cta": {
-        "title": "Ready to build your Android app?",
-        "lede": "Tell us about your project. We'll come back with a plan, a timeline, and a fixed estimate."
+        "title": "What should AI do in your Android app?",
+        "lede": "Tell us the feature and who uses it. We will come back with how we would build it, where it should run, and how we would measure it.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     },
     "support": {
       "hero": {
-        "eyebrow": "Services / Support",
-        "title": "Support & Maintenance",
-        "lede": "Ongoing support retainers so your product stays fast, secure, and up to date — without hiring a full-time team.",
-        "primaryCta": "Start a project",
+        "kicker": "Run & improve",
+        "title": "AI in production, <em>watched</em> and made better.",
+        "lede": "Once an AI system is live, the work changes: inputs drift, models get updated, costs creep. We watch quality, cost and speed against the bar we agreed, catch problems early, and keep making the system better.",
+        "primaryCta": "Book a discovery call",
         "secondaryCta": "Get an estimate"
       },
+      "crumbLabel": "Breadcrumb",
+      "back": "All services",
+      "figure": {
+        "label": "Production monitor",
+        "example": "Example",
+        "summary": "An example production monitor: answer quality holds above the agreed bar, starts to drift, the drift is detected, a fix ships, and quality recovers before it crosses the bar.",
+        "metric": "Answer quality",
+        "bar": "The bar we agreed",
+        "axisStart": "Two weeks ago",
+        "axisEnd": "Now",
+        "events": {
+          "drift": "Drift detected",
+          "fix": "Fix shipped",
+          "recovered": "Recovered"
+        },
+        "status": {
+          "holding": "Holding above the bar",
+          "drift": "Drift: answers quoting an outdated policy",
+          "fix": "Fix: sources re-indexed, evals re-run",
+          "recovered": "Recovered, back where it was"
+        },
+        "pause": "Pause",
+        "play": "Play"
+      },
+      "what": {
+        "title": "What it is",
+        "body": "An AI system that passed its evaluations on launch day can quietly get worse — new kinds of requests, a changed document, a provider’s model update. Run & improve is an ongoing engagement: we run your evaluations on real traffic, review what fails, fix it, and show you the numbers every time.",
+        "note": "It is the last stage of <process>how we work</process>, built on the evaluations described under <evals>Data & evaluation pipelines</evals>."
+      },
       "spec": {
-        "eyebrow": "Snapshot",
-        "title": "Coverage, response time, and billing — in writing."
+        "title": "The spec",
+        "get": "What you get",
+        "measure": "How we measure it",
+        "first": "A good first step",
+        "getItems": [
+          "Continuous evaluation on a sample of real production traffic",
+          "Alerts when quality, cost or speed moves away from the agreed bar",
+          "Regular fixes — prompts, retrieval, data and model updates — each tested before release",
+          "A readable report: what changed, what improved, and what we are watching"
+        ],
+        "measureBody": "The bar we agreed before launch — quality on your test set and on sampled live traffic, cost per task, and response time — tracked over time, with every change compared before and after.",
+        "firstBody": "Give us access to the logs of a system that is already live. We turn a week of them into an evaluation set and a first report."
       },
-      "specRows": [
-        {
-          "slug": "monitoring",
-          "label": "Monitoring",
-          "value": "24/7 automated monitoring and alerting, with a 4-hour response SLA on Enterprise."
-        },
-        {
-          "slug": "uptime",
-          "label": "Uptime SLA",
-          "value": "99.9% — backed by quarterly architecture reviews on Enterprise plans."
-        },
-        {
-          "slug": "included",
-          "label": "Included"
-        },
-        {
-          "slug": "stacks",
-          "label": "Stacks supported"
-        },
-        {
-          "slug": "billing",
-          "label": "Billing",
-          "value": "A fixed monthly fee per tier — no surprise charges. Work beyond retainer scope is quoted before we proceed. Change tiers any time with 30 days notice."
-        }
-      ],
-      "included": [
-        "Bug Fixes",
-        "Security Patches",
-        "Performance Monitoring",
-        "Feature Updates",
-        "Database Maintenance",
-        "Backup Management"
-      ],
-      "coverage": [
-        "React",
-        "Next.js",
-        "Node.js",
-        "Kotlin",
-        "Swift",
-        "PostgreSQL",
-        "MongoDB",
-        "AWS",
-        "Vercel",
-        "Firebase"
-      ],
-      "plans": {
-        "eyebrow": "Plans",
-        "title": "Choose your tier.",
-        "description": "Every tier is a monthly retainer. Upgrade, downgrade, or cancel with 30 days notice."
+      "stack": {
+        "title": "What we watch with",
+        "note": "Tooling we commonly use. Where you already have monitoring, we plug into it.",
+        "items": [
+          "Evaluation suites",
+          "Production tracing",
+          "Sampled human review",
+          "Drift checks",
+          "Cost dashboards",
+          "Prompt and model versioning",
+          "Alerting",
+          "OpenTelemetry",
+          "Your existing observability stack"
+        ]
       },
-      "tiers": [
-        {
-          "slug": "basic",
-          "name": "Basic",
-          "description": "Bug fixes and routine updates for smaller applications.",
-          "features": [
-            "Bug fixes within 48 hours",
-            "Dependency updates",
-            "Monthly health report",
-            "Email support"
-          ]
-        },
-        {
-          "slug": "professional",
-          "name": "Professional",
-          "description": "Priority support with proactive monitoring for growing products.",
-          "features": [
-            "Bug fixes within 24 hours",
-            "Performance monitoring",
-            "Security patches",
-            "Weekly health reports",
-            "WhatsApp & email support"
-          ]
-        },
-        {
-          "slug": "enterprise",
-          "name": "Enterprise",
-          "description": "Dedicated team with SLA guarantees for mission-critical systems.",
-          "features": [
-            "4-hour response SLA",
-            "24/7 monitoring & alerting",
-            "Dedicated support engineer",
-            "Quarterly architecture reviews",
-            "Priority feature development",
-            "Custom SLA terms"
-          ]
-        }
-      ],
-      "onboardingSection": {
-        "eyebrow": "Onboarding",
-        "title": "Three steps to your first retainer month."
+      "cases": {
+        "title": "Where it fits",
+        "note": "Examples of what this work looks like — not client stories.",
+        "example": "Example",
+        "items": [
+          {
+            "title": "A support agent after launch",
+            "body": "Escalations and wrong answers are reviewed every week and turned into new test cases and fixes."
+          },
+          {
+            "title": "Documents that keep changing",
+            "body": "Re-indexing, freshness checks and citation audits, so answers never quote last year’s policy."
+          },
+          {
+            "title": "A model provider update",
+            "body": "When a provider ships a new model version, we run your evaluations first and switch only if it holds the bar."
+          },
+          {
+            "title": "Cost creeping up",
+            "body": "Find where the spend goes, then cache, route or distil so cost per task comes back down without losing quality."
+          }
+        ]
       },
-      "onboarding": [
-        {
-          "index": "01",
-          "title": "Audit",
-          "detail": "We review your existing codebase, infrastructure, and monitoring setup to identify risks and quick wins."
-        },
-        {
-          "index": "02",
-          "title": "Setup",
-          "detail": "We configure monitoring, alerting, CI/CD pipelines, and backup systems tailored to your stack."
-        },
-        {
-          "index": "03",
-          "title": "Launch",
-          "detail": "Your retainer begins. You get a dedicated channel for requests and a dashboard to track every issue."
-        }
-      ],
       "faq": {
-        "eyebrow": "FAQ",
-        "title": "Common questions."
+        "title": "Common questions",
+        "items": [
+          {
+            "id": "vs-maintenance",
+            "question": "How is this different from ordinary support and maintenance?",
+            "answer": "Ordinary support keeps software running. An AI system can keep running and still get worse. Run & improve is about quality: we measure it continuously and act on it, not only when something breaks."
+          },
+          {
+            "id": "not-ours",
+            "question": "Do you only run systems you built?",
+            "answer": "No. We can take over a system another team built. We start with a review and an evaluation set, so we both know where it stands before we change anything."
+          },
+          {
+            "id": "worse",
+            "question": "Who decides what “worse” means?",
+            "answer": "We agree it with you up front: the metrics, the test set and the thresholds. When a number moves, we look at the real cases behind it before calling it a problem."
+          },
+          {
+            "id": "response",
+            "question": "How quickly do you respond to problems?",
+            "answer": "We agree response times and hours with you when we set up the engagement, based on how critical the system is. They are written into the agreement, not promised on a web page."
+          }
+        ]
       },
-      "faqItems": [
-        {
-          "id": "other-teams",
-          "question": "Can you support apps you did not build?",
-          "answer": "Yes. We regularly take over maintenance for applications built by other teams. Our onboarding audit identifies technical debt and risks so we can hit the ground running."
-        },
-        {
-          "id": "technologies",
-          "question": "What technologies do you support?",
-          "answer": "We support React, Next.js, Node.js, Kotlin, Swift, PostgreSQL, MongoDB, AWS, Vercel, Firebase, and more. If your stack is not listed, ask us — we are happy to evaluate."
-        },
-        {
-          "id": "billing",
-          "question": "How does billing work?",
-          "answer": "Support retainers are billed monthly with a fixed fee based on your chosen tier. There are no surprise charges. If an issue requires work beyond the retainer scope, we provide a quote before proceeding."
-        },
-        {
-          "id": "change-plan",
-          "question": "Can I upgrade or downgrade my plan?",
-          "answer": "Absolutely. You can change tiers at any time with 30 days notice. We will help you transition smoothly and adjust monitoring and SLA terms accordingly."
-        }
-      ],
       "cta": {
-        "title": "Ready to secure your product?",
-        "lede": "Tell us about your application and we'll recommend the right support tier."
+        "title": "Is your AI getting better or worse?",
+        "lede": "Tell us what is running in production. We will tell you how we would measure it, and what we would watch first.",
+        "primaryLabel": "Book a discovery call",
+        "secondaryLabel": "Email us"
       }
     }
   },
@@ -2279,20 +2290,20 @@
       "description": "Six AI development services: agents and automation, assistants on your data, custom models and fine-tuning, AI inside your product, data and evaluation pipelines, and AI strategy sprints."
     },
     "servicesAndroid": {
-      "title": "Android Development Services",
-      "description": "Native Android apps with Kotlin and Jetpack Compose. Material Design 3, Firebase integration — built by our AI agents and reviewed by senior engineers."
+      "title": "AI inside your Android app",
+      "description": "AI features built natively into Android apps in Kotlin and Jetpack Compose — on the device, on your servers, or both — and measured in production."
     },
     "servicesIos": {
-      "title": "iOS Development Services",
-      "description": "Native iOS apps with Swift and SwiftUI. Beautiful, performant, App Store ready — built by our AI agents and reviewed by senior engineers."
+      "title": "AI inside your iOS app",
+      "description": "AI features built natively into iPhone and iPad apps in Swift and SwiftUI — on the device with Core ML, on your servers, or both."
     },
     "servicesSupport": {
-      "title": "Support & Maintenance Services",
-      "description": "Ongoing support retainers with bug fixes, security patches, performance monitoring, and feature updates. 24/7 monitoring with 4-hour response time."
+      "title": "Run & improve AI systems",
+      "description": "Ongoing monitoring, evaluation and improvement of AI systems in production, measured against the bar agreed before launch."
     },
     "servicesWeb": {
-      "title": "Web Development Services",
-      "description": "Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers."
+      "title": "AI inside your web product",
+      "description": "CraftsAI adds AI features to web apps — search that answers, forms that fill themselves, assistants on your data — or builds new AI-first web products end to end."
     },
     "terms": {
       "title": "Terms of service",
