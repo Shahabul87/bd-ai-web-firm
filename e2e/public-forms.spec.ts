@@ -16,22 +16,30 @@ test.describe('Contact form (UI)', () => {
   test('renders and completes a submit round-trip', async ({ page }) => {
     await page.goto('/contact');
 
-    await expect(page.getByLabel('Name')).toBeVisible();
-    await expect(page.getByLabel('Email')).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Send Message' })).toBeVisible();
+    const send = page.getByRole('button', { name: 'Send message' });
+    await expect(page.getByLabel('Name', { exact: true })).toBeVisible();
+    await expect(page.getByLabel('Email', { exact: true })).toBeVisible();
+    await expect(page.getByLabel('Message', { exact: true })).toBeVisible();
+    await expect(send).toBeVisible();
 
-    await page.getByLabel('Name').fill('Ada Lovelace');
-    await page.getByLabel('Email').fill('ada@example.com');
+    await page.getByLabel('Message', { exact: true }).fill(
+      'Our support team answers the same questions all day. Could an agent handle the routine ones?',
+    );
+    // Service chips are real radios laid invisibly over each chip.
+    const agents = page.getByRole('radio', { name: 'AI agents & automation' });
+    await agents.check();
+    await expect(agents).toBeChecked();
+    await page.getByLabel('Name', { exact: true }).fill('Ada Lovelace');
+    await page.getByLabel('Email', { exact: true }).fill('ada@example.com');
     await page.locator('#company').fill('Analytical Engines Ltd');
-    await page.getByLabel('Service Interest').selectOption({ index: 1 });
-    await page.getByLabel('Message').fill('We would like to discuss a new web application project.');
 
-    await page.getByRole('button', { name: 'Send Message' }).click();
+    await send.click();
 
-    // Either terminal state proves the form → API → UI round-trip works.
-    await expect(
-      page.getByText(/Message sent!|Something went wrong/i),
-    ).toBeVisible({ timeout: 15_000 });
+    // Either terminal state proves the form → API → UI round-trip works: the
+    // generated reply (DB configured) or the rose error panel (no DB → 503).
+    const success = page.getByText('Your request is with a person now', { exact: false });
+    const failure = page.getByRole('alert').filter({ hasText: /Not sent yet/ });
+    await expect(success.or(failure).first()).toBeVisible({ timeout: 15_000 });
   });
 });
 

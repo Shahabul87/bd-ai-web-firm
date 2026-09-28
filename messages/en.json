@@ -1838,8 +1838,8 @@
       "description": "Join the CraftsAI team. We are building the future of AI-powered software development. Explore our culture and open positions."
     },
     "contact": {
-      "title": "Contact Us",
-      "description": "Get in touch with CraftsAI for web, Android, iOS development or support inquiries."
+      "title": "Contact",
+      "description": "Tell us the workflow. A person reads every message and replies within 24 hours with an honest view of what AI can do there, what it will cost, and how we'd measure it."
     },
     "cookies": {
       "title": "Cookie Policy",
@@ -1916,47 +1916,105 @@
   },
   "Contact": {
     "hero": {
-      "eyebrow": "Contact",
-      "title": "Get in touch.",
-      "lede": "Have a project in mind? Send a message and we'll get back to you within 24 hours."
+      "kicker": "Contact",
+      "title": "Tell us the <em>workflow.</em>",
+      "lede": "A person reads every message and replies within 24 hours, with an honest view of what AI can do there, what it will cost, and how we'd measure it."
     },
-    "directChannels": {
-      "label": "Direct channels",
-      "title": "Reach us directly.",
-      "faqLink": "Frequently asked questions →"
-    },
-    "info": {
-      "email": "Email",
-      "whatsapp": "WhatsApp",
-      "location": "Location",
-      "locationValue": "Bangladesh",
-      "hours": "Business Hours",
-      "hoursValue": "Sun–Thu, 9 AM–6 PM (Dhaka, GMT+6)"
-    },
-    "form": {
+    "composer": {
+      "heading": "Write your request",
+      "bar": "New request",
+      "context": "Context",
+      "tokens": "{n, plural, one {≈ {count} token} other {≈ {count} tokens}}",
+      "hints": {
+        "empty": "Start with the workflow you want AI to take on.",
+        "short": "Keep going. A sentence or two is enough to start.",
+        "tools": "Add the tools involved: helpdesk, CRM, spreadsheets, email.",
+        "good": "What does good look like? Faster replies, fewer mistakes, less retyping?",
+        "plenty": "Plenty to go on. Add anything else, or send it."
+      },
+      "message": "Message",
+      "examples": [
+        "Our support team answers the same questions all day. Could an agent handle the routine ones and hand the rest to us?",
+        "We get invoices and contracts as PDFs and retype them into our system. Can AI read them for us?",
+        "Staff keep asking where our policies are. We'd like an assistant that answers from the handbook and cites the page.",
+        "Our sales team spends mornings researching accounts. Could a copilot do the research and keep the CRM current?",
+        "We want an AI feature in our app, but we're not sure where to start or what it would cost."
+      ],
+      "service": "Service interest",
+      "services": {
+        "agents": "AI agents & automation",
+        "assistants": "Assistants on your data",
+        "models": "Custom models & fine-tuning",
+        "product": "AI inside your product",
+        "evals": "Data & evaluation pipelines",
+        "sprint": "AI strategy sprint",
+        "unsure": "Not sure yet"
+      },
+      "parameters": "Parameters",
       "name": "Name",
       "namePlaceholder": "Your name",
       "email": "Email",
       "emailPlaceholder": "you@company.com",
       "company": "Company",
       "optional": "(optional)",
-      "companyPlaceholder": "Your company",
-      "service": "Service Interest",
-      "servicePlaceholder": "Select a service",
-      "serviceOptions": {
-        "web": "Web Development",
-        "android": "Android Development",
-        "ios": "iOS Development",
-        "support": "Support & Maintenance",
-        "productInquiry": "Product Inquiry",
-        "other": "Other"
+      "companyPlaceholder": "Where you work",
+      "honeypot": "Leave this field empty",
+      "note": "A person reads every message.",
+      "shortcut": "Ctrl or ⌘ + Enter to send",
+      "send": "Send message",
+      "sending": "Sending",
+      "noScript": "Sending needs JavaScript. You can email hello@craftsai.org instead.",
+      "error": {
+        "title": "Not sent yet",
+        "generic": "Something went wrong. Please try again, or email us at hello@craftsai.org."
       },
-      "message": "Message",
-      "messagePlaceholder": "Tell us about your project...",
-      "send": "Send Message",
-      "sending": "Sending...",
-      "success": "Message sent! We'll be in touch soon.",
-      "error": "Something went wrong. Please try again or email us directly."
+      "reply": {
+        "bar": "Request sent",
+        "sentLabel": "Your request",
+        "label": "Reply",
+        "greeting": "Thanks, {name}. Your request is with a person now.",
+        "next": "We'll read it properly and reply within 24 hours, usually with a few questions or a time for a short call to map the workflow and agree what good looks like.",
+        "view": "Then you get an honest written view: whether AI can do it well, roughly what it will cost, and how we'd measure it. If it isn't a good fit, we'll say so.",
+        "another": "Send another"
+      }
+    },
+    "trace": {
+      "title": "What happens next",
+      "progress": "{done} of {total} ready",
+      "sent": "Sent. Step one has started.",
+      "note": "Fills in as you write.",
+      "steps": {
+        "read": {
+          "title": "A person reads it",
+          "body": "Not a bot or a ticket queue: someone who builds these systems reads your message."
+        },
+        "reply": {
+          "title": "A reply within 24 hours",
+          "body": "Usually with a few questions, or a time for a short call."
+        },
+        "call": {
+          "title": "A call to map the workflow",
+          "body": "We walk through the work and the data, and agree on the bar for good."
+        },
+        "view": {
+          "title": "An honest written view",
+          "body": "Can AI do it, roughly what it will cost, and how we'd measure it."
+        }
+      }
+    },
+    "channels": {
+      "title": "Or reach us directly",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "newTab": "(opens in a new tab)",
+      "faq": "FAQ",
+      "faqValue": "Common questions, answered"
+    },
+    "band": {
+      "title": "Not ready to write yet?",
+      "body": "Read answers to common questions, or see how a project runs from the first call to production.",
+      "faq": "Read the FAQ",
+      "process": "How we work"
     }
   },
   "Quote": {

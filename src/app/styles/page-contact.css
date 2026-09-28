@@ -1,0 +1,783 @@
+/* /contact page — scoped under .pg-contact. See pages.css for the shared primitives.
+
+   "The prompt": the contact form is a model prompt window. The message is the
+   prompt (with a context meter and example requests typed into it), service
+   chips and name/email/company are its parameters, and the reply is generated
+   in place. The side trace lights up as the request gets what it needs.
+
+   Nothing here is hidden before hydration or without scripting: the form, the
+   trace and the channels are all plain, readable HTML. Motion is transform /
+   opacity only and is switched off wholesale under reduced motion by the
+   `.attn *` rule in home-attention.css. */
+
+.pg-contact .ct-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Hero: tighter at the bottom so the composer sits close under it ─ */
+.pg-contact .ct-hero { padding-bottom: clamp(36px, 4.5vw, 64px); }
+
+/* ── Layout ───────────────────────────────────────────────────── */
+.pg-contact .ct-main { padding: 0 0 clamp(80px, 10vw, 140px); }
+
+.pg-contact .ct-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(40px, 4.5vw, 80px);
+  align-items: start;
+}
+
+.pg-contact .ct-col { min-width: 0; }
+.pg-contact .ct-side { min-width: 0; display: grid; gap: clamp(32px, 3vw, 44px); }
+
+@media (min-width: 1000px) and (min-height: 820px) {
+  .pg-contact .ct-side { position: sticky; top: 96px; }
+}
+
+@media (max-width: 999px) {
+  .pg-contact .ct-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ── The composer panel ───────────────────────────────────────── */
+.pg-contact .ct-panel {
+  position: relative;
+  overflow: hidden;
+  background: var(--forest-raised);
+  border: 1px solid var(--forest-rule);
+  border-radius: 14px;
+  box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.7);
+  transition: border-color 0.6s, box-shadow 0.6s;
+}
+
+.pg-contact .ct-panel:focus-within {
+  border-color: rgba(242, 179, 61, 0.32);
+  box-shadow: 0 40px 90px -50px rgba(0, 0, 0, 0.7), 0 0 0 4px rgba(242, 179, 61, 0.05);
+}
+
+.pg-contact .ct-bar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  min-height: 54px;
+  padding: 12px clamp(18px, 2.4vw, 30px);
+  border-bottom: 1px solid var(--forest-rule);
+}
+
+.pg-contact .ct-bar-t {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 14px/1.2 var(--attn-sans);
+}
+
+.pg-contact .ct-bar-t::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(242, 179, 61, 0.7);
+}
+
+.pg-contact .ct-panel[data-status='success'] .ct-bar-t::before {
+  background: var(--mint);
+  box-shadow: 0 0 8px rgba(127, 214, 181, 0.7);
+}
+
+/* Context meter: ≈ tokens, filling toward a soft target. */
+.pg-contact .ct-meter {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font: 500 13px/1 var(--attn-sans);
+  color: var(--sage);
+  font-variant-numeric: tabular-nums;
+}
+
+.pg-contact .ct-meter-track {
+  position: relative;
+  width: clamp(72px, 9vw, 140px);
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(236, 233, 224, 0.1);
+  overflow: hidden;
+}
+
+.pg-contact .ct-meter-track i {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: var(--mint);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.5s;
+}
+
+.pg-contact .ct-meter[data-full] .ct-meter-track i { box-shadow: 0 0 10px rgba(127, 214, 181, 0.8); }
+.pg-contact .ct-meter-n { min-width: 8ch; text-align: right; color: var(--parchment); }
+
+/* Sending: a gold scan under the bar and a faint sheen over the panel. */
+.pg-contact .ct-panel[data-status='loading'] .ct-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 40%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation: ct-scan 1.3s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.pg-contact .ct-panel[data-status='loading']::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 55%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(242, 179, 61, 0.05) 50%, transparent);
+  animation: ct-sheen 1.8s linear infinite;
+}
+
+@keyframes ct-scan { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
+@keyframes ct-sheen { from { transform: translateX(-100%); } to { transform: translateX(200%); } }
+
+/* ── The form ─────────────────────────────────────────────────── */
+.pg-contact .ct-form {
+  display: grid;
+  gap: clamp(24px, 2.6vw, 34px);
+  padding: clamp(22px, 2.8vw, 34px) clamp(18px, 2.4vw, 30px) clamp(20px, 2.4vw, 28px);
+}
+
+.pg-contact .ct-cap {
+  display: block;
+  padding: 0;
+  margin: 0 0 12px;
+  font: 500 12px/1.3 var(--attn-sans);
+  letter-spacing: 0.04em;
+  color: var(--sage);
+}
+
+.pg-contact .ct-svc,
+.pg-contact .ct-params {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* The prompt itself. */
+.pg-contact .ct-msg-field { position: relative; }
+
+.pg-contact .ct-ta,
+.pg-contact .ct-ghost {
+  font: 400 clamp(22px, 2.1vw, 30px) / 1.4 var(--attn-serif);
+  letter-spacing: 0;
+}
+
+:lang(bn) .pg-contact .ct-ta,
+:lang(bn) .pg-contact .ct-ghost { font-size: clamp(19px, 1.8vw, 25px); line-height: 1.6; }
+
+.pg-contact .ct-ta {
+  display: block;
+  width: 100%;
+  min-height: 7em;
+  max-height: 20em;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--parchment);
+  caret-color: var(--gold);
+  resize: vertical;
+}
+
+@supports (field-sizing: content) {
+  .pg-contact .ct-ta { field-sizing: content; resize: none; }
+}
+
+/* Focus shows as the gold rule under the prompt (below), not a box. */
+.pg-contact .ct-ta:focus-visible { outline: none; }
+.pg-contact .ct-ta::placeholder { color: rgba(159, 179, 170, 0.5); opacity: 1; }
+.pg-contact .ct-ta[readonly] { opacity: 0.7; }
+
+/* Example requests typed into a ghost layer while the box is empty. The native
+   placeholder carries the same text for assistive tech, invisibly. */
+.pg-contact .ct-ghost {
+  display: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: rgba(159, 179, 170, 0.55);
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.pg-contact .ct-msg[data-typer='run'] .ct-ghost { display: block; }
+.pg-contact .ct-msg[data-typer='run'] .ct-ta::placeholder { color: transparent; }
+
+.pg-contact .ct-ghost span::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 0.95em;
+  margin-left: 2px;
+  vertical-align: -0.14em;
+  border-radius: 1px;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(242, 179, 61, 0.6);
+  animation: ct-blink 1.05s steps(1) infinite;
+}
+
+@keyframes ct-blink { 50% { opacity: 0; } }
+
+.pg-contact .ct-msg-foot {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 18px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--forest-rule);
+}
+
+.pg-contact .ct-msg-foot::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1px;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-contact .ct-msg:focus-within .ct-msg-foot::before { transform: scaleX(1); }
+
+.pg-contact .ct-hint {
+  margin: 0;
+  font-size: 14px;
+  color: var(--sage);
+  animation: ct-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-contact .ct-ferr { margin: 6px 0 0; font-size: 13.5px; line-height: 1.4; color: var(--rose); }
+.pg-contact .ct-msg-foot .ct-ferr { margin: 0; }
+
+@keyframes ct-rise { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* Service chips: real radios laid over each chip (opacity 0), so clicks,
+   keyboard arrows, `required` and form semantics are all native. */
+.pg-contact .ct-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.pg-contact .ct-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 40px;
+  padding: 0 15px 0 13px;
+  border: 1px solid var(--forest-faint);
+  border-radius: 999px;
+  font: 500 14px/1.25 var(--attn-sans);
+  color: var(--parchment);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.pg-contact .ct-chip:hover { border-color: rgba(236, 233, 224, 0.5); }
+
+.pg-contact .ct-chip input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: inherit;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pg-contact .ct-chip:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.pg-contact .ct-chip-dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px var(--forest-faint);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.pg-contact .ct-chip[data-on],
+.pg-contact .ct-chip:has(input:checked) {
+  border-color: var(--gold);
+  background: rgba(242, 179, 61, 0.1);
+}
+
+.pg-contact .ct-chip[data-on] .ct-chip-dot,
+.pg-contact .ct-chip:has(input:checked) .ct-chip-dot {
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(242, 179, 61, 0.7);
+}
+
+/* The selection ring: one gold ripple outward when a chip is picked. */
+.pg-contact .ct-chip::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1px var(--gold);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pg-contact .ct-chip[data-on]::after { animation: ct-ring 0.75s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+@keyframes ct-ring {
+  from { opacity: 0.9; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.08, 1.45); }
+}
+
+/* Parameters: a three-cell table of name / email / company. */
+.pg-contact .ct-param-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--forest-rule);
+  border-radius: 10px;
+}
+
+.pg-contact .ct-param { position: relative; min-width: 0; padding: 12px 16px 14px; }
+.pg-contact .ct-param + .ct-param { border-left: 1px solid var(--forest-rule); }
+
+.pg-contact .ct-param label {
+  display: block;
+  margin: 0 0 6px;
+  font: 500 12px/1.3 var(--attn-sans);
+  letter-spacing: 0.04em;
+  color: var(--sage);
+  transition: color 0.3s;
+}
+
+.pg-contact .ct-opt { letter-spacing: 0; opacity: 0.75; }
+
+.pg-contact .ct-param input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  font: 500 16px/1.4 var(--attn-sans);
+  color: var(--parchment);
+  caret-color: var(--gold);
+}
+
+.pg-contact .ct-param input:focus-visible { outline: none; }
+.pg-contact .ct-param input::placeholder { color: rgba(159, 179, 170, 0.5); opacity: 1; }
+.pg-contact .ct-param input[readonly] { opacity: 0.7; }
+
+.pg-contact .ct-param input:-webkit-autofill {
+  -webkit-text-fill-color: var(--parchment);
+  box-shadow: 0 0 0 100px var(--forest-raised) inset;
+  caret-color: var(--gold);
+}
+
+/* Focus: a gold rule along the bottom of the cell and a gold label. */
+.pg-contact .ct-param::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -1px;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-contact .ct-param:focus-within::after { transform: scaleX(1); }
+.pg-contact .ct-param:focus-within label { color: var(--gold); }
+.pg-contact .ct-param:has([aria-invalid='true'])::after { background: var(--rose); transform: scaleX(1); }
+
+@media (max-width: 720px) {
+  .pg-contact .ct-param-grid { grid-template-columns: minmax(0, 1fr); }
+  .pg-contact .ct-param + .ct-param { border-left: 0; border-top: 1px solid var(--forest-rule); }
+}
+
+/* Honeypot: off screen. Humans never see it; the API ignores filled ones. */
+.pg-contact .ct-hp {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Error: rose-edged, fields keep their values. */
+.pg-contact .ct-error {
+  padding: 14px 16px 15px;
+  border: 1px solid rgba(232, 122, 140, 0.45);
+  border-left: 3px solid var(--rose);
+  border-radius: 8px;
+  background: rgba(232, 122, 140, 0.07);
+  animation: ct-rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-contact .ct-error p { margin: 0; font-size: 15px; line-height: 1.5; }
+.pg-contact .ct-error .ct-error-t { margin-bottom: 4px; font-size: 14px; font-weight: 600; color: var(--rose); }
+
+.pg-contact .ct-nojs { display: none; }
+
+@media (scripting: none) {
+  .pg-contact .ct-nojs { display: block; margin: 0; font-size: 15px; color: var(--gold); }
+}
+
+.pg-contact .ct-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.pg-contact .ct-note { margin: 0; font-size: 14px; color: var(--sage); }
+
+.pg-contact .ct-kbd {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 8px;
+  border: 1px solid var(--forest-rule);
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+@media (hover: none) {
+  .pg-contact .ct-kbd { display: none; }
+}
+
+.pg-contact .ct-send { gap: 10px; min-width: 190px; }
+.pg-contact .ct-send[aria-disabled='true'] { cursor: progress; }
+
+/* The "streaming" indicator inside the button while sending. */
+.pg-contact .ct-dots { display: inline-flex; gap: 4px; }
+
+.pg-contact .ct-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: ct-dot 1s ease-in-out infinite;
+}
+
+.pg-contact .ct-dots i:nth-child(2) { animation-delay: 0.15s; }
+.pg-contact .ct-dots i:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes ct-dot {
+  0%, 100% { opacity: 0.25; transform: none; }
+  40% { opacity: 1; transform: translateY(-3px); }
+}
+
+/* ── The reply ────────────────────────────────────────────────── */
+.pg-contact .ct-reply {
+  display: grid;
+  gap: 26px;
+  padding: clamp(22px, 2.8vw, 34px) clamp(18px, 2.4vw, 30px) clamp(24px, 2.8vw, 34px);
+}
+
+/* The prompt collapses into a sent bubble… */
+.pg-contact .ct-sent {
+  justify-self: end;
+  max-width: min(88%, 36rem);
+  padding: 12px 16px 13px;
+  border-radius: 14px 14px 3px 14px;
+  background: rgba(236, 233, 224, 0.06);
+  transform-origin: right bottom;
+  animation: ct-collapse 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-contact .ct-sent .ct-cap { margin-bottom: 4px; }
+.pg-contact .ct-sent p { margin: 0; font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+
+@keyframes ct-collapse {
+  from { opacity: 0; transform: translateY(36px) scale(1.06); }
+  to { opacity: 1; transform: none; }
+}
+
+/* …and the reply is generated under it. */
+.pg-contact .ct-resp { animation: ct-rise 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s both; }
+
+.pg-contact .ct-resp-h {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  font: 500 13px/1.2 var(--attn-sans);
+  letter-spacing: 0.04em;
+  color: var(--sage);
+}
+
+.pg-contact .ct-resp-h::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 8px rgba(127, 214, 181, 0.7);
+}
+
+.pg-contact .ct-resp-h:focus:not(:focus-visible) { outline: none; }
+
+.pg-contact .ct-stream p {
+  margin: 0 0 0.9em;
+  max-width: 38em;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--sage);
+}
+
+.pg-contact .ct-stream p:first-child {
+  max-width: 18em;
+  margin-bottom: 0.6em;
+  font: 400 clamp(28px, 2.8vw, 42px) / 1.18 var(--attn-serif);
+  color: var(--parchment);
+  text-wrap: balance;
+}
+
+:lang(bn) .pg-contact .ct-stream p:first-child { font-size: clamp(24px, 2.3vw, 34px); line-height: 1.4; }
+
+.pg-contact .ct-w {
+  position: relative;
+  display: inline-block;
+  transition: opacity 0.32s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pg-contact .ct-stream[data-state='live'] .ct-w:not(.on) { opacity: 0; transform: translateY(0.18em); }
+
+/* The caret rides after the newest word, absolutely, so nothing reflows. */
+.pg-contact .ct-w.cur::after {
+  content: '';
+  position: absolute;
+  left: calc(100% + 0.12em);
+  top: 0.2em;
+  bottom: 0.14em;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(242, 179, 61, 0.6);
+  animation: ct-blink 1.05s steps(1) infinite;
+}
+
+.pg-contact .ct-again {
+  margin-top: 10px;
+  opacity: 0;
+  transform: translateY(6px);
+  visibility: hidden;
+  transition: opacity 0.5s, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), visibility 0s linear 0.5s;
+}
+
+.pg-contact .ct-again[data-on] { opacity: 1; transform: none; visibility: visible; transition-delay: 0s; }
+
+/* ── The trace: what happens next ─────────────────────────────── */
+.pg-contact .ct-trace-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 18px;
+}
+
+.pg-contact .ct-trace-h {
+  margin: 0;
+  font: 400 clamp(32px, 3vw, 44px) / 1.05 var(--attn-serif);
+  letter-spacing: -0.01em;
+}
+
+:lang(bn) .pg-contact .ct-trace-h { line-height: 1.25; letter-spacing: 0; }
+
+.pg-contact .ct-trace-state {
+  margin: 0;
+  font: 500 13px/1.2 var(--attn-sans);
+  color: var(--sage);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.4s;
+}
+
+.pg-contact .ct-trace[data-state='ready'] .ct-trace-state { color: var(--mint); }
+.pg-contact .ct-trace[data-state='sent'] .ct-trace-state { color: var(--gold); }
+
+.pg-contact .ct-steps { list-style: none; margin: 0; padding: 0; }
+
+.pg-contact .ct-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr) auto;
+  gap: 14px;
+  padding: 14px 0 18px;
+  border-top: 1px dashed rgba(236, 233, 224, 0.1);
+}
+
+.pg-contact .ct-step:first-child { border-top: 0; }
+
+/* Rail between dots: a faint line, with a mint line drawn over it once both
+   ends are lit. */
+.pg-contact .ct-step:not(:last-child)::before,
+.pg-contact .ct-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 10.5px;
+  top: calc(14px + 0.5em + 9px);
+  bottom: calc(-14px - 0.5em);
+  width: 1px;
+  background: var(--forest-rule);
+}
+
+.pg-contact .ct-step:not(:last-child)::after {
+  background: var(--mint);
+  transform: scaleY(0);
+  transform-origin: top center;
+  transition: transform 0.7s cubic-bezier(0.45, 0.05, 0.2, 1);
+}
+
+.pg-contact .ct-step[data-link]::after { transform: scaleY(1); }
+
+.pg-contact .ct-dot {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  width: 9px;
+  height: 9px;
+  margin-top: 0.5em;
+  border-radius: 50%;
+  background: var(--forest);
+  box-shadow: inset 0 0 0 1.5px var(--forest-faint);
+  transition: background-color 0.4s, box-shadow 0.4s;
+}
+
+.pg-contact .ct-step[data-s='lit'] .ct-dot {
+  background: var(--mint);
+  box-shadow: 0 0 0 4px rgba(127, 214, 181, 0.12), 0 0 10px rgba(127, 214, 181, 0.6);
+}
+
+.pg-contact .ct-step[data-s='next'] .ct-dot { box-shadow: inset 0 0 0 1.5px var(--gold); }
+
+.pg-contact .ct-step[data-s='now'] .ct-dot {
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgba(242, 179, 61, 0.14), 0 0 10px rgba(242, 179, 61, 0.7);
+}
+
+/* A few gold pulses on the step the request is waiting on (not a loop). */
+.pg-contact .ct-step[data-s='next'] .ct-dot::after,
+.pg-contact .ct-step[data-s='now'] .ct-dot::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  animation: ct-pulse 2.4s ease-out 3;
+}
+
+@keyframes ct-pulse {
+  from { opacity: 0.8; transform: scale(0.6); }
+  to { opacity: 0; transform: scale(1.7); }
+}
+
+.pg-contact .ct-step h3 {
+  margin: 0 0 4px;
+  font: 500 17px/1.35 var(--attn-sans);
+  color: var(--sage);
+  transition: color 0.4s;
+}
+
+.pg-contact .ct-step p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--sage); opacity: 0.8; transition: opacity 0.4s; }
+.pg-contact .ct-step:is([data-s='lit'], [data-s='now']) h3 { color: var(--parchment); }
+.pg-contact .ct-step:is([data-s='lit'], [data-s='now']) p { opacity: 1; }
+.pg-contact .ct-step[data-s='lit'] h3 { animation: ct-lit 0.9s ease-out; }
+
+@keyframes ct-lit { from { color: var(--mint); } to { color: var(--parchment); } }
+
+.pg-contact .ct-num {
+  padding-top: 0.3em;
+  font: 500 13px/1.2 var(--attn-sans);
+  color: var(--sage);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.4s;
+}
+
+.pg-contact .ct-step[data-s='lit'] .ct-num { color: var(--mint); }
+.pg-contact .ct-step[data-s='now'] .ct-num { color: var(--gold); }
+.pg-contact .ct-trace-note { margin: 6px 0 0 36px; font-size: 13px; color: var(--sage); opacity: 0.8; }
+
+/* ── Direct channels ──────────────────────────────────────────── */
+.pg-contact .ct-channels { padding-top: 26px; border-top: 1px solid var(--forest-rule); }
+.pg-contact .ct-ch-h { margin: 0 0 12px; font: 400 26px/1.15 var(--attn-serif); }
+:lang(bn) .pg-contact .ct-ch-h { font-size: 23px; line-height: 1.35; }
+.pg-contact .ct-channels ul { list-style: none; margin: 0; padding: 0; }
+
+.pg-contact .ct-channels li {
+  display: grid;
+  grid-template-columns: minmax(6.5em, auto) minmax(0, 1fr);
+  gap: 14px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-top: 1px dashed rgba(236, 233, 224, 0.1);
+  font-size: 15px;
+}
+
+.pg-contact .ct-channels li:first-child { border-top: 0; }
+.pg-contact .ct-ch-k { font-size: 13px; color: var(--sage); }
+
+.pg-contact .ct-channels a {
+  justify-self: start;
+  color: var(--parchment);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-decoration-color: rgba(242, 179, 61, 0.45);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.25s;
+}
+
+.pg-contact .ct-channels a:hover { text-decoration-color: var(--gold); }
+
+/* ── Closing band ─────────────────────────────────────────────── */
+.pg-contact .ct-band { padding: clamp(40px, 5vw, 64px) 0; border-top: 1px solid var(--forest-rule); }
+
+.pg-contact .ct-band-in {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 40px;
+}
+
+.pg-contact .ct-band-h { margin: 0 0 6px; font: 400 clamp(28px, 2.6vw, 40px) / 1.1 var(--attn-serif); }
+:lang(bn) .pg-contact .ct-band-h { line-height: 1.3; }
+.pg-contact .ct-band p { margin: 0; max-width: 46ch; color: var(--sage); }
+.pg-contact .ct-band-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+@media (max-width: 480px) {
+  .pg-contact .ct-send { width: 100%; }
+  .pg-contact .ct-bar { padding-top: 14px; padding-bottom: 14px; }
+  .pg-contact .ct-meter { width: 100%; justify-content: space-between; }
+  .pg-contact .ct-meter-track { flex: 1; }
+}
