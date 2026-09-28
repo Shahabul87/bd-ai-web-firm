@@ -1451,42 +1451,113 @@
   },
   "Careers": {
     "hero": {
-      "eyebrow": "Careers",
-      "title": "Build the future with us.",
-      "lede": "We're a small, AI-first studio where engineers work alongside intelligent agents to ship products faster than anyone thought possible. If you thrive at the intersection of craftsmanship and automation, you'll fit right in."
+      "kicker": "Careers",
+      "title": "Join the [maint|ainers.]",
+      "lede": "CraftsAI is a small team of engineers and designers who build, measure and run AI systems for businesses. We're remote-friendly and mostly asynchronous, and we value output over hours.",
+      "primary": "Write to us",
+      "secondary": "See open roles",
+      "tokens": {
+        "show": "Show tokens",
+        "caption": "An example split. Real tokenizers cut words in their own places."
+      },
+      "card": {
+        "ariaLabel": "The maintainers entry of our model card",
+        "label": "Model card",
+        "name": "Maintainers",
+        "fields": [
+          {
+            "label": "Team",
+            "value": "A small team of engineers and designers"
+          },
+          {
+            "label": "Setup",
+            "value": "Remote-friendly, mostly asynchronous"
+          },
+          {
+            "label": "Oversight",
+            "value": "People make the judgement calls"
+          },
+          {
+            "label": "Evidence",
+            "value": "Evaluations anyone can read"
+          },
+          {
+            "label": "Open roles",
+            "value": "None right now"
+          },
+          {
+            "label": "Next",
+            "value": "Maybe you"
+          }
+        ],
+        "footer": "Continued from our company card.",
+        "link": "Read the full card"
+      }
     },
-    "culture": {
-      "eyebrow": "Why CraftsAI",
-      "title": "What it's like to work here.",
-      "cards": [
+    "work": {
+      "label": "How we work",
+      "title": "The way we build AI is the way we work.",
+      "note": "The principles on our client work apply to our own.",
+      "items": [
         {
-          "title": "AI-First Culture",
-          "description": "We embrace AI as a core tool in every workflow. You will work alongside cutting-edge coding agents and shape how humans and AI collaborate."
+          "title": "People in the loop",
+          "body": "The AI we build handles volume and leaves judgement calls with people. We work the same way: tools take the repetitive parts, and a person owns every decision that matters."
         },
         {
-          "title": "Remote Friendly",
-          "description": "Work from anywhere in the world. We communicate asynchronously and value output over hours. Flexible schedules that fit your life."
+          "title": "Measured, not guessed",
+          "body": "Every system we ship comes with evaluations a client can read. We hold our own work to that bar: if we can't measure it, we don't claim it."
         },
         {
-          "title": "Cutting-Edge Tech",
-          "description": "Next.js, Kotlin, Swift, LLM integrations, cloud-native architectures. You will always be working with the latest technologies and frameworks."
+          "title": "A small team",
+          "body": "Few people and clear ownership, so the person who builds a system also sees how it performs in production."
         },
         {
-          "title": "Impact-Driven Work",
-          "description": "Every product we build solves real problems for real users. From education platforms to finance apps, your work will make a tangible difference."
+          "title": "Remote-friendly",
+          "body": "We work mostly asynchronously, write things down, and value output over hours, with schedules that fit your life."
         }
       ]
     },
-    "openPositions": {
-      "eyebrow": "Open positions",
-      "title": "Nothing open right now.",
-      "cardLead": "We are always looking for talented people. There are no open positions right now, but we would love to hear from you — send your CV and a note to"
+    "look": {
+      "label": "What we look for",
+      "title": "What we look for.",
+      "rubric": "Rubric",
+      "items": [
+        {
+          "title": "You measure before you claim",
+          "body": "You would rather show an evaluation than an adjective."
+        },
+        {
+          "title": "You write clearly",
+          "body": "Specs, notes and pull requests that someone else can pick up and run with."
+        },
+        {
+          "title": "You know where AI fails",
+          "body": "You can say when not to use a model, and what a person should check."
+        },
+        {
+          "title": "You finish things",
+          "body": "Prototypes are the easy part. You care about the version that runs in production."
+        }
+      ]
+    },
+    "roles": {
+      "title": "Open roles",
+      "query": "roles where status = open",
+      "empty": "No open roles right now.",
+      "body": "We still read every note. If you build or measure AI systems and this way of working sounds right, write to us.",
+      "includeTitle": "A good note includes",
+      "include": [
+        "What you've built, and who it was for",
+        "How you knew it worked",
+        "A link we can read or run"
+      ],
+      "mail": "Email hello@craftsai.org"
     },
     "cta": {
-      "title": "Interested in joining?",
-      "lede": "Send your CV and a brief introduction. Tell us what excites you about AI-powered development.",
-      "primaryLabel": "Email careers@craftsai.org",
-      "secondaryLabel": "See our work"
+      "title": "Tell us what you'd maintain.",
+      "lede": "Send a short note about something you built and how you measured it. There may be no role today, but we read every note.",
+      "primaryLabel": "Read our company card",
+      "secondaryLabel": "Email us"
     }
   },
   "Process": {
@@ -1933,29 +2004,60 @@
   },
   "Faq": {
     "hero": {
-      "eyebrow": "FAQ",
-      "title": "Questions, answered.",
-      "lede": "Everything you need to know about working with CraftsAI.",
-      "primaryCta": "Ask us directly"
+      "kicker": "FAQ",
+      "title": "Questions, <em>answered</em> plainly.",
+      "lede": "How we scope, price, build and run AI systems, and what happens to your data along the way. Type to search; every answer has its own link."
+    },
+    "search": {
+      "label": "Search the questions",
+      "placeholder": "Try “who owns the code” or “data”",
+      "clear": "Clear search",
+      "hint": "Press / to search",
+      "count": "Showing {shown} of {total}",
+      "ranked": "Ranked by how closely each question and answer match.",
+      "results": "Results",
+      "inAnswer": "Match in the answer",
+      "chipsLabel": "Filter by topic",
+      "all": "All topics",
+      "empty": "Nothing matches that yet.",
+      "emptyBody": "Ask us directly. Good questions tend to end up on this page.",
+      "emptyCta": "Ask us",
+      "link": "Link to this answer",
+      "copied": "Link copied"
     },
     "cta": {
-      "title": "Still have questions?",
-      "lede": "We're happy to help. Get in touch and we'll respond within 24 hours.",
-      "primaryLabel": "Contact us",
-      "secondaryLabel": "Get an estimate"
+      "title": "Didn't find your question?",
+      "lede": "Tell us the workflow you have in mind. We'll answer honestly, including when AI isn't the right tool.",
+      "primaryLabel": "Book a discovery call",
+      "secondaryLabel": "Email us"
     }
   },
   "Legal": {
+    "kicker": "Legal",
+    "toc": {
+      "label": "On this page",
+      "anchor": "Link to this section: {title}",
+      "related": "Other policies",
+      "updatedLabel": "Last updated"
+    },
+    "docs": {
+      "privacy": "Privacy policy",
+      "terms": "Terms of service",
+      "cookies": "Cookie policy"
+    },
+    "cta": {
+      "title": "Questions about a policy?",
+      "lede": "Write to us and we will answer in plain language.",
+      "primaryLabel": "Contact us",
+      "secondaryLabel": "Email us"
+    },
     "privacy": {
-      "hero": {
-        "eyebrow": "Legal",
-        "title": "Privacy Policy",
-        "lede": "Last updated: July 5, 2026"
-      },
+      "title": "Privacy policy",
+      "updated": "July 5, 2026",
+      "lede": "How CraftsAI collects, uses and protects your personal information.",
       "sections": {
         "informationWeCollect": {
-          "label": "01 / Information we collect",
-          "title": "Information We Collect",
+          "title": "Information we collect",
           "intro": "We collect information in the following ways:",
           "items": [
             {
@@ -1981,8 +2083,7 @@
           ]
         },
         "howWeUse": {
-          "label": "02 / How we use your information",
-          "title": "How We Use Your Information",
+          "title": "How we use your information",
           "intro": "We use the information we collect to:",
           "items": [
             "Respond to your inquiries and provide requested services",
@@ -1994,8 +2095,7 @@
           ]
         },
         "serviceProviders": {
-          "label": "03 / Service providers & data sharing",
-          "title": "Service Providers & Data Sharing",
+          "title": "Service providers and data sharing",
           "intro": "We do not sell, rent, or trade your personal information. We share data only with the service providers needed to run our business, each of which processes it on our behalf:",
           "items": [
             {
@@ -2014,117 +2114,96 @@
           "outro": "We may also disclose information when required by law or to protect our rights, safety, or property."
         },
         "cookies": {
-          "label": "04 / Cookies & analytics",
-          "title": "Cookies & Analytics",
+          "title": "Cookies and analytics",
           "body": "We use strictly-necessary cookies for authentication and security, and — only with your consent — analytics cookies to understand site usage. You can control cookie preferences through the consent banner and your browser settings. For more details, please review our",
           "linkLabel": "Cookie Policy"
         },
         "dataRetention": {
-          "label": "05 / Data retention",
-          "title": "Data Retention",
+          "title": "Data retention",
           "body": "We keep personal data only as long as necessary for the purposes above or as required by law. Indicatively: lead enquiries are retained for [retention period]; client project, invoice, and message records for [retention period, e.g. as required for tax/accounting]; and optional push tokens until you disable notifications. You can request earlier deletion as described below."
         },
         "yourRights": {
-          "label": "06 / Your rights",
-          "title": "Your Rights",
+          "title": "Your rights",
           "bodyBefore": "Depending on your location, you may have the right to access, correct, delete, or export your personal data, and to restrict or object to certain processing. To exercise any of these rights — including deleting your lead record or client-portal data — email us at",
           "bodyAfter": "from the address associated with your data. We will verify your identity and respond within 30 days."
         },
         "dataSecurity": {
-          "label": "07 / Data security",
-          "title": "Data Security",
+          "title": "Data security",
           "body": "We implement industry-standard security measures to protect your personal information, including encryption in transit (TLS), passwordless authentication, access controls, and separation between our public site, admin, and client-portal systems. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security."
         },
         "contactUs": {
-          "label": "08 / Contact us",
-          "title": "Contact Us",
+          "title": "Contact us",
           "body": "If you have any questions about this Privacy Policy or our data practices, please contact us at"
         }
       }
     },
     "terms": {
-      "hero": {
-        "eyebrow": "Legal",
-        "title": "Terms of Service",
-        "lede": "Last updated: April 1, 2026"
-      },
+      "title": "Terms of service",
+      "updated": "April 1, 2026",
+      "lede": "The terms that apply when you engage CraftsAI for our services.",
       "sections": {
         "serviceTerms": {
-          "label": "01 / Service terms",
-          "title": "Service Terms",
-          "body": "By engaging CraftsAI for software development services, you agree to these terms. Our services include web development, mobile application development, product customization, and ongoing support as outlined in individual project proposals. All project scopes, timelines, and deliverables are defined in a signed Statement of Work (SOW) prior to commencement."
+          "title": "Service terms",
+          "body": "By engaging CraftsAI for AI and software development services, you agree to these terms. Our services include designing, building and running AI systems, adding AI features to web and mobile products, and ongoing support, as outlined in individual project proposals. All project scopes, timelines, and deliverables are defined in a signed Statement of Work (SOW) prior to commencement."
         },
         "intellectualProperty": {
-          "label": "02 / Intellectual property",
-          "title": "Intellectual Property",
+          "title": "Intellectual property",
           "body": "Upon full payment, all custom code, designs, and deliverables created specifically for your project are transferred to you. CraftsAI retains ownership of proprietary tools, frameworks, and reusable components developed independently of your project. We reserve the right to showcase completed work in our portfolio unless a non-disclosure agreement is in place."
         },
         "paymentTerms": {
-          "label": "03 / Payment terms",
-          "title": "Payment Terms",
+          "title": "Payment terms",
           "body": "Payment schedules are defined in the project SOW. Standard terms require 30% upfront, 40% at the mid-project milestone, and 30% upon final delivery. Invoices are due within 14 days of issue unless otherwise agreed. Late payments may result in project suspension after a 7-day grace period and written notice."
         },
         "limitationOfLiability": {
-          "label": "04 / Limitation of liability",
-          "title": "Limitation of Liability",
+          "title": "Limitation of liability",
           "body": "CraftsAI provides services on an \"as is\" basis to the extent permitted by law. Our total liability for any claim arising from our services shall not exceed the total fees paid for the specific project in question. We are not liable for indirect, incidental, or consequential damages including lost profits, data loss, or business interruption."
         },
         "termination": {
-          "label": "05 / Termination",
           "title": "Termination",
           "body": "Either party may terminate a project with 14 days written notice. Upon termination, the client is responsible for payment of all work completed up to the termination date. CraftsAI will deliver all completed work and source code for paid milestones. Refunds for prepaid but undelivered work will be issued within 30 days of termination."
         },
         "governingLaw": {
-          "label": "06 / Governing law",
-          "title": "Governing Law",
+          "title": "Governing law",
           "body": "These terms are governed by the laws of Bangladesh. Any disputes arising from these terms or our services shall be resolved through good-faith negotiation first, followed by binding arbitration if necessary."
         },
         "contact": {
-          "label": "07 / Contact",
           "title": "Contact",
           "body": "For questions about these terms, contact us at"
         }
       }
     },
     "cookies": {
-      "hero": {
-        "eyebrow": "Legal",
-        "title": "Cookie Policy",
-        "lede": "Last updated: July 5, 2026"
-      },
+      "title": "Cookie policy",
+      "updated": "July 5, 2026",
+      "lede": "The cookies this site uses and how to manage your preferences.",
       "cookieTypes": [
         {
-          "title": "Essential Cookies",
+          "title": "Essential cookies",
           "description": "Required for the site to function and stay secure. These carry your authenticated admin or client-portal session, short-lived login challenge state, an optional \"remember this device\" token, and your cookie-consent choice. They cannot be disabled."
         },
         {
-          "title": "Analytics Cookies (optional)",
+          "title": "Analytics cookies (optional)",
           "description": "If — and only if — you accept analytics in our consent banner, we use Google Analytics to understand how visitors interact with the site (pages visited, session duration, referral sources). You can decline these, and no analytics cookies are set until you consent."
         }
       ],
       "sections": {
         "whatAreCookies": {
-          "label": "01 / What are cookies",
-          "title": "What Are Cookies",
+          "title": "What are cookies",
           "body": "Cookies are small text files placed on your device when you visit a website. They are widely used to make websites work efficiently, provide a better user experience, and supply information to site owners. Cookies may be set by the website you are visiting (first-party cookies) or by third-party services embedded on the page."
         },
         "typesOfCookies": {
-          "label": "02 / Types of cookies we use",
-          "title": "Types of Cookies We Use",
+          "title": "Types of cookies we use",
           "intro": "We use the following categories of cookies on our website:"
         },
         "managingCookies": {
-          "label": "03 / Managing cookies",
-          "title": "Managing Cookies",
+          "title": "Managing cookies",
           "body": "Most web browsers allow you to control cookies through their settings. You can configure your browser to block or delete cookies, or to alert you when a cookie is being set. Please note that disabling essential cookies may affect the functionality of our website. Refer to your browser's help documentation for instructions on managing cookie preferences."
         },
         "updates": {
-          "label": "04 / Updates to this policy",
-          "title": "Updates to This Policy",
+          "title": "Updates to this policy",
           "body": "We may update this Cookie Policy from time to time to reflect changes in technology, legislation, or our business practices. The \"Last updated\" date at the top of this page indicates when the policy was most recently revised."
         },
         "contact": {
-          "label": "05 / Contact",
           "title": "Contact",
           "bodyBefore": "If you have questions about our use of cookies, please contact us at",
           "bodyMiddle": "or review our",
@@ -2141,27 +2220,27 @@
     },
     "careers": {
       "title": "Careers",
-      "description": "Join the CraftsAI team. We are building the future of AI-powered software development. Explore our culture and open positions."
+      "description": "Join the small CraftsAI team that builds, measures and runs AI systems for businesses. No open roles right now, but we read every note."
     },
     "contact": {
       "title": "Contact",
       "description": "Tell us the workflow. A person reads every message and replies within 24 hours with an honest view of what AI can do there, what it will cost, and how we'd measure it."
     },
     "cookies": {
-      "title": "Cookie Policy",
-      "description": "CraftsAI cookie policy. Learn about the cookies we use and how to manage your preferences."
+      "title": "Cookie policy",
+      "description": "CraftsAI cookie policy: the cookies we use and how to manage your preferences."
     },
     "faq": {
       "title": "FAQ",
-      "description": "Frequently asked questions about CraftsAI services, pricing, process, and support. Find answers to common questions about AI-powered development."
+      "description": "Answers about working with CraftsAI: how AI projects are scoped and priced, how your data is handled, model choice, evaluation, code ownership and what happens after launch."
     },
     "portfolio": {
       "title": "Portfolio",
       "description": "Explore CraftsAI projects — web apps, Android apps, and iOS apps built with AI-powered development."
     },
     "privacy": {
-      "title": "Privacy Policy",
-      "description": "CraftsAI privacy policy. Learn how we collect, use, and protect your personal information."
+      "title": "Privacy policy",
+      "description": "CraftsAI privacy policy: how we collect, use and protect your personal information."
     },
     "process": {
       "title": "How we work",
@@ -2216,8 +2295,8 @@
       "description": "Full-stack web applications built with React, Next.js, TypeScript, and modern cloud infrastructure — built by our AI agents and reviewed by senior engineers."
     },
     "terms": {
-      "title": "Terms of Service",
-      "description": "CraftsAI terms of service. Read the terms and conditions governing the use of our website and services."
+      "title": "Terms of service",
+      "description": "CraftsAI terms of service: the terms that govern our website and services."
     }
   },
   "Contact": {

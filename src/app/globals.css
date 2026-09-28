@@ -9,6 +9,9 @@
 @import "./styles/page-process.css";
 @import "./styles/page-company.css";
 @import "./styles/page-contact.css";
+@import "./styles/page-careers.css";
+@import "./styles/page-faq.css";
+@import "./styles/page-legal.css";
 @import "./styles/page-quote.css";
 
 /* Tailwind v4 class-based dark variant — html always carries .dark (dark-only site),

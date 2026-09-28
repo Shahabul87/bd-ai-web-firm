@@ -1,11 +1,10 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { localeAlternates, localeOpenGraph } from '@/app/lib/seo';
 import { Link } from '@/i18n/navigation';
 import PageLayout from '@/app/components/layout/PageLayout';
-import PageHero from '@/app/components/shared/PageHero';
-import CTABand from '@/app/components/shared/CTABand';
-import MonoLabel from '@/app/design/ui/MonoLabel';
+import LegalDoc, { anchorId, type LegalSection } from '@/app/components/pages/legal/LegalDoc';
+import { MAIL, stringListSchema, termDetailSchema } from '@/app/components/pages/legal/schema';
 
 export async function generateMetadata({
   params,
@@ -18,15 +17,26 @@ export async function generateMetadata({
     title: t('title'),
     description: t('description'),
     openGraph: {
-      title: 'Privacy Policy',
-      description: 'How CraftsAI collects, uses, and protects your data.',
+      title: t('title'),
+      description: t('description'),
       ...localeOpenGraph('/privacy', locale),
     },
     alternates: localeAlternates('/privacy', locale),
   };
 }
 
-type TermDetail = { term: string; detail: string };
+const KEYS = [
+  'informationWeCollect',
+  'howWeUse',
+  'serviceProviders',
+  'cookies',
+  'dataRetention',
+  'yourRights',
+  'dataSecurity',
+  'contactUs',
+] as const;
+
+type Key = (typeof KEYS)[number];
 
 export default async function PrivacyPage({
   params,
@@ -35,144 +45,87 @@ export default async function PrivacyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations('Legal.privacy');
-  const collectItems = t.raw('sections.informationWeCollect.items') as TermDetail[];
-  const useItems = t.raw('sections.howWeUse.items') as string[];
-  const providerItems = t.raw('sections.serviceProviders.items') as TermDetail[];
+  const t = await getTranslations('Legal.privacy.sections');
+  const collect = termDetailSchema.parse(t.raw('informationWeCollect.items'));
+  const uses = stringListSchema.parse(t.raw('howWeUse.items'));
+  const providers = termDetailSchema.parse(t.raw('serviceProviders.items'));
+  const mail = (
+    <a href={`mailto:${MAIL}`}>{MAIL}</a>
+  );
+
+  /*
+    FOUNDER TODO before public launch — finalize the bracketed [placeholders]
+    in these sections with your real details and have this reviewed by a lawyer:
+      • Named sub-processors (hosting/database provider, email provider).
+      • Concrete data-retention periods per data category.
+      • Your registered legal/business entity name & jurisdiction.
+    The data categories and processor *types* described here are accurate to
+    what the application actually collects and transmits as of this date.
+  */
+  const body: Record<Key, React.ReactNode> = {
+    informationWeCollect: (
+      <>
+        <p>{t('informationWeCollect.intro')}</p>
+        <ul>
+          {collect.map((item) => (
+            <li key={item.term}>
+              <strong>{item.term}</strong> {item.detail}
+            </li>
+          ))}
+        </ul>
+      </>
+    ),
+    howWeUse: (
+      <>
+        <p>{t('howWeUse.intro')}</p>
+        <ul>
+          {uses.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </>
+    ),
+    serviceProviders: (
+      <>
+        <p>{t('serviceProviders.intro')}</p>
+        <ul>
+          {providers.map((item) => (
+            <li key={item.term}>
+              <strong>{item.term}</strong> {item.detail}
+            </li>
+          ))}
+        </ul>
+        <p>{t('serviceProviders.outro')}</p>
+      </>
+    ),
+    cookies: (
+      <p>
+        {t('cookies.body')} <Link href="/cookies">{t('cookies.linkLabel')}</Link>.
+      </p>
+    ),
+    dataRetention: <p>{t('dataRetention.body')}</p>,
+    yourRights: (
+      <p>
+        {t('yourRights.bodyBefore')} {mail} {t('yourRights.bodyAfter')}
+      </p>
+    ),
+    dataSecurity: <p>{t('dataSecurity.body')}</p>,
+    contactUs: (
+      <p>
+        {t('contactUs.body')} {mail}.
+      </p>
+    ),
+  };
+
+  const sections: LegalSection[] = KEYS.map((key) => ({
+    id: anchorId(key),
+    title: t(`${key}.title`),
+    body: body[key],
+  }));
 
   return (
     <PageLayout>
-      <PageHero
-        eyebrow={t('hero.eyebrow')}
-        title={t('hero.title')}
-        lede={t('hero.lede')}
-      />
-
-      {/*
-        FOUNDER TODO before public launch — finalize the bracketed [placeholders]
-        below with your real details and have this reviewed by a lawyer:
-          • Named sub-processors (hosting/database provider, email provider).
-          • Concrete data-retention periods per data category.
-          • Your registered legal/business entity name & jurisdiction.
-        The data categories and processor *types* described here are accurate to
-        what the application actually collects and transmits as of this date.
-      */}
-      <section className="mx-auto max-w-3xl px-6 py-20 sm:py-28">
-        <div className="space-y-12">
-          <div>
-            <MonoLabel>{t('sections.informationWeCollect.label')}</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">
-              {t('sections.informationWeCollect.title')}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-steel">
-              {t('sections.informationWeCollect.intro')}
-            </p>
-            <ul className="mt-3 list-disc space-y-1.5 pl-6 text-base leading-relaxed text-steel">
-              {collectItems.map((item) => (
-                <li key={item.term}>
-                  <strong className="text-bone">{item.term}</strong>{` ${item.detail}`}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <MonoLabel>{t('sections.howWeUse.label')}</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">
-              {t('sections.howWeUse.title')}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-steel">{t('sections.howWeUse.intro')}</p>
-            <ul className="mt-3 list-disc space-y-1.5 pl-6 text-base leading-relaxed text-steel">
-              {useItems.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <MonoLabel>{t('sections.serviceProviders.label')}</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">
-              {t('sections.serviceProviders.title')}
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-steel">
-              {t('sections.serviceProviders.intro')}
-            </p>
-            <ul className="mt-3 list-disc space-y-1.5 pl-6 text-base leading-relaxed text-steel">
-              {providerItems.map((item) => (
-                <li key={item.term}>
-                  <strong className="text-bone">{item.term}</strong>{` ${item.detail}`}
-                </li>
-              ))}
-            </ul>
-            <p className="mt-4 text-base leading-relaxed text-steel">
-              {t('sections.serviceProviders.outro')}
-            </p>
-          </div>
-
-          <div>
-            <MonoLabel>{t('sections.cookies.label')}</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">{t('sections.cookies.title')}</h2>
-            <p className="mt-4 text-base leading-relaxed text-steel">
-              {t('sections.cookies.body')}{' '}
-              <Link
-                href="/cookies"
-                className="text-signal underline-offset-4 hover:underline"
-              >
-                {t('sections.cookies.linkLabel')}
-              </Link>
-              .
-            </p>
-          </div>
-
-          <div>
-            <MonoLabel>{t('sections.dataRetention.label')}</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">{t('sections.dataRetention.title')}</h2>
-            <p className="mt-4 text-base leading-relaxed text-steel">
-              {t('sections.dataRetention.body')}
-            </p>
-          </div>
-
-          <div>
-            <MonoLabel>{t('sections.yourRights.label')}</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">{t('sections.yourRights.title')}</h2>
-            <p className="mt-4 text-base leading-relaxed text-steel">
-              {t('sections.yourRights.bodyBefore')}{' '}
-              <a
-                href="mailto:hello@craftsai.org"
-                className="text-signal underline-offset-4 hover:underline"
-              >
-                hello@craftsai.org
-              </a>{' '}
-              {t('sections.yourRights.bodyAfter')}
-            </p>
-          </div>
-
-          <div>
-            <MonoLabel>{t('sections.dataSecurity.label')}</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">{t('sections.dataSecurity.title')}</h2>
-            <p className="mt-4 text-base leading-relaxed text-steel">
-              {t('sections.dataSecurity.body')}
-            </p>
-          </div>
-
-          <div>
-            <MonoLabel>{t('sections.contactUs.label')}</MonoLabel>
-            <h2 className="mt-3 font-display text-2xl font-medium text-bone">{t('sections.contactUs.title')}</h2>
-            <p className="mt-4 text-base leading-relaxed text-steel">
-              {t('sections.contactUs.body')}{' '}
-              <a
-                href="mailto:hello@craftsai.org"
-                className="text-signal underline-offset-4 hover:underline"
-              >
-                hello@craftsai.org
-              </a>
-              .
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <CTABand />
+      <LegalDoc doc="privacy" sections={sections} />
     </PageLayout>
   );
 }
