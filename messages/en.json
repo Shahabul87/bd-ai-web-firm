@@ -2172,8 +2172,8 @@
       "description": "Products CraftsAI designed, built and runs in public: apps for learning, language, documents and personal finance, on the web, Android and desktop."
     },
     "quote": {
-      "title": "Get a Quote",
-      "description": "Request a free quote for your web, Android, or iOS development project from CraftsAI."
+      "title": "Get an estimate",
+      "description": "Describe the problem, your data and the scope in four short steps. A person reads your spec and replies within 24 hours with an honest estimate for the AI work."
     },
     "resources": {
       "title": "Resources - Blog, Case Studies & Guides",
@@ -2325,228 +2325,195 @@
   },
   "Quote": {
     "hero": {
-      "eyebrow": "Estimate",
-      "title": "Get your project built by AI agents.",
-      "lede": "Tell us what you need. Our agents analyze the brief and a senior engineer delivers a fixed-scope quote within 24 hours."
+      "kicker": "Get an estimate",
+      "title": "Describe the problem. We'll <em>scope the build.</em>",
+      "lede": "Four short steps: the problem, your data, the scope, and how to reach you. Your answers compile into a spec that a person reads, and you get a reply within 24 hours."
     },
-    "stepTitles": [
-      "Select Services",
-      "Project Details",
-      "Investment",
-      "Contact Info",
-      "Review"
-    ],
-    "success": {
-      "label": "Submitted",
-      "title": "Quote request received.",
-      "backHome": "Back to home",
-      "viewWork": "View our work"
-    },
-    "nav": {
+    "wizard": {
+      "heading": "Estimate request",
+      "bar": "New estimate",
+      "stepOf": "Step {n} of {total}",
       "back": "Back",
       "continue": "Continue",
-      "submitting": "Submitting...",
-      "submit": "Get My Free Quote",
-      "submitShort": "Submit"
+      "submit": "Send the spec",
+      "submitting": "Compiling",
+      "optional": "(optional)",
+      "honeypot": "Leave this field empty",
+      "note": "A person reads every spec.",
+      "noScript": "This form needs JavaScript. You can email hello@craftsai.org with the same details instead.",
+      "stepAnnounce": "Step {n} of {total}: {name}"
     },
-    "trust": {
-      "secure": "Secure & encrypted",
-      "response": "Response within 24 hours",
-      "noSpam": "No spam, ever"
+    "rail": {
+      "label": "Estimate steps",
+      "step": "Step {n}: {name}",
+      "done": "done",
+      "current": "current step",
+      "todo": "not reached yet"
+    },
+    "steps": {
+      "problem": {
+        "name": "Problem",
+        "title": "What should AI take on?",
+        "lede": "Pick the services that sound closest, then describe the work in your own words."
+      },
+      "data": {
+        "name": "Data",
+        "title": "What will it work from?",
+        "lede": "The systems and files it would read, and where it should run."
+      },
+      "scope": {
+        "name": "Scope",
+        "title": "How will you judge it?",
+        "lede": "Where you're starting from, what good looks like, and the range you're working within."
+      },
+      "you": {
+        "name": "You",
+        "title": "Who should we reply to?",
+        "lede": "One person reads the spec and writes back. No mailing list."
+      }
+    },
+    "fields": {
+      "services": "Services",
+      "servicesHint": "Choose one or more.",
+      "description": "The workflow, in your words",
+      "descriptionPlaceholder": "For example: our support team answers the same questions all day. We'd like an agent to resolve the routine ones and pass the rest to us with a summary.",
+      "descriptionCount": "{count} of {min} characters",
+      "data": "Data it would use",
+      "dataHint": "Choose all that apply.",
+      "runs": "Where it should run",
+      "stage": "Where you're starting",
+      "success": "How you'll judge success",
+      "successHint": "Optional. Choose any that matter.",
+      "timeline": "When you'd like to start",
+      "budget": "Your budget range",
+      "budgetNote": "A range helps us suggest the right shape of work. It isn't a price; the estimate comes from a person after reading your spec.",
+      "notes": "Constraints or must-haves",
+      "notesPlaceholder": "Compliance rules, systems it must connect to, languages it must handle…",
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@company.com",
+      "company": "Company",
+      "companyPlaceholder": "Where you work, or your own name",
+      "phone": "Phone",
+      "phonePlaceholder": "If you'd rather talk",
+      "terms": "I agree to the <terms>terms of service</terms> and <privacy>privacy policy</privacy>. This is a request for an estimate, not a contract."
+    },
+    "options": {
+      "services": {
+        "agents": "AI agents & automation",
+        "assistants": "Assistants on your data",
+        "models": "Custom models & fine-tuning",
+        "product": "AI inside your product",
+        "evals": "Data & evaluation pipelines",
+        "sprint": "AI strategy sprint",
+        "unsure": "Not sure yet"
+      },
+      "data": {
+        "documents": "Documents & PDFs",
+        "helpdesk": "Helpdesk & tickets",
+        "crm": "CRM",
+        "databases": "Databases",
+        "spreadsheets": "Spreadsheets",
+        "email": "Email & chat",
+        "wikis": "Wikis & intranet",
+        "none": "No data yet"
+      },
+      "runs": {
+        "hosted": "Hosted and run by CraftsAI",
+        "cloud": "In our own cloud",
+        "private": "On-premises or private network",
+        "product": "Inside our product",
+        "unsure": "Not sure yet"
+      },
+      "stage": {
+        "idea": "Exploring an idea",
+        "prototype": "Have a prototype",
+        "live": "Improving a live system"
+      },
+      "success": {
+        "accuracy": "Accuracy and quality",
+        "time": "Time saved",
+        "cost": "Cost per task",
+        "errors": "Fewer mistakes",
+        "experience": "Customer experience",
+        "unsure": "Help us define it"
+      },
+      "timeline": {
+        "soon": "As soon as possible",
+        "months": "In the next few months",
+        "open": "No fixed date"
+      },
+      "budget": {
+        "under10": "Under $10k",
+        "to50": "$10k to $50k",
+        "to150": "$50k to $150k",
+        "over150": "Over $150k",
+        "unsure": "Not sure yet"
+      }
     },
     "validation": {
-      "services": "Please select at least one service",
-      "description": "Please describe your project (minimum 20 characters)",
-      "budget": "Please select your investment level",
-      "contactName": "Your name is required",
-      "email": "Valid email is required",
-      "terms": "Please agree to the terms"
+      "services": "Pick at least one service, or \"Not sure yet\".",
+      "description": "Describe the workflow in at least 20 characters.",
+      "data": "Pick at least one data source, or \"No data yet\".",
+      "runs": "Pick where it should run, or \"Not sure yet\".",
+      "stage": "Pick where you're starting from.",
+      "timeline": "Pick when you'd like to start.",
+      "budget": "Pick a budget range, or \"Not sure yet\".",
+      "name": "Enter your name (at least 2 characters).",
+      "email": "Enter a valid email address.",
+      "company": "Enter a company, or your own name.",
+      "terms": "Please agree to the terms to send the spec.",
+      "summary": "A few answers need attention before you continue."
     },
-    "status": {
-      "success": "Quote request submitted! We'll review your requirements and contact you within 24 hours.",
-      "fixFields": "Please fix the highlighted fields and try again.",
-      "genericError": "Something went wrong. Please try again.",
-      "networkError": "Network error. Please check your connection and try again."
-    },
-    "step1": {
-      "title": "What do you need built?",
-      "subtitle": "Select all the services that apply to your project",
-      "timelineLabel": "Timeline:",
-      "selected": "Selected",
-      "tapToSelect": "Tap to select",
-      "services": {
-        "web-development": {
-          "name": "Web Development",
-          "description": "Full-stack web apps with React, Next.js, and modern APIs",
-          "deliverables": [
-            "React/Next.js Apps",
-            "API Development",
-            "Database Design",
-            "Cloud Deployment"
-          ],
-          "timeline": "2-6 weeks",
-          "perfectFor": "SaaS platforms, dashboards, e-commerce"
-        },
-        "android-development": {
-          "name": "Android Development",
-          "description": "Native Android apps with Kotlin and Jetpack Compose",
-          "deliverables": [
-            "Native Kotlin Apps",
-            "Material Design 3",
-            "Play Store Ready",
-            "Firebase Backend"
-          ],
-          "timeline": "4-8 weeks",
-          "perfectFor": "Consumer apps, B2B mobile tools"
-        },
-        "ios-development": {
-          "name": "iOS Development",
-          "description": "Native iOS apps with Swift and SwiftUI for iPhone and iPad",
-          "deliverables": [
-            "Swift/SwiftUI Apps",
-            "App Store Ready",
-            "TestFlight Beta",
-            "CloudKit Integration"
-          ],
-          "timeline": "4-8 weeks",
-          "perfectFor": "Consumer apps, enterprise iOS tools"
-        },
-        "product-inquiry": {
-          "name": "Product Inquiry",
-          "description": "Explore our ready-made products or request customization",
-          "deliverables": [
-            "Product Demo",
-            "Custom Branding",
-            "Feature Add-ons",
-            "Deployment Support"
-          ],
-          "timeline": "1-3 weeks",
-          "perfectFor": "Quick launch with proven solutions"
-        }
+    "spec": {
+      "title": "estimate.yaml",
+      "heading": "Your spec",
+      "toggleShow": "Show your spec",
+      "toggleHide": "Hide your spec",
+      "count": "{done} of {total} lines",
+      "note": "Builds as you answer. Nothing is sent until you press send.",
+      "state": {
+        "draft": "draft",
+        "compiling": "compiling",
+        "sent": "sent to a person"
+      },
+      "keys": {
+        "service": "service",
+        "problem": "problem",
+        "data": "data",
+        "runs": "runs_on",
+        "stage": "stage",
+        "success": "success",
+        "timeline": "timeline",
+        "budget": "budget",
+        "contact": "contact"
       }
     },
-    "step2": {
-      "title": "Tell us about your project",
-      "subtitle": "The more details you share, the better quote we can provide",
-      "scaleLabel": "Project Scale",
-      "scaleOptions": {
-        "mvp": {
-          "label": "MVP",
-          "desc": "Quick validation"
-        },
-        "standard": {
-          "label": "Standard",
-          "desc": "Full features"
-        },
-        "advanced": {
-          "label": "Advanced",
-          "desc": "Complex logic"
-        },
-        "enterprise": {
-          "label": "Enterprise",
-          "desc": "Mission-critical"
-        }
-      },
-      "descriptionLabel": "Project Description *",
-      "descriptionPlaceholder": "Describe your project goals, target users, and key features you need...",
-      "requirementsLabel": "Special Requirements (Optional)",
-      "requirementsPlaceholder": "Any technical requirements, integrations, or specific technologies you need...",
-      "timelineLabel": "Preferred Timeline",
-      "timelineOptions": {
-        "urgent": {
-          "label": "ASAP",
-          "desc": "2-4 weeks",
-          "badge": "Priority"
-        },
-        "standard": {
-          "label": "Standard",
-          "desc": "4-8 weeks",
-          "badge": "Recommended"
-        },
-        "flexible": {
-          "label": "Flexible",
-          "desc": "8+ weeks",
-          "badge": "Best Value"
-        }
-      }
+    "error": {
+      "title": "Not sent yet",
+      "generic": "Something went wrong. Your answers are still here; please try again, or email us at hello@craftsai.org.",
+      "network": "We couldn't reach the server. Your answers are still here; check your connection and try again.",
+      "fix": "Some answers need a change. We've taken you to the first one."
     },
-    "step3": {
-      "title": "What's your investment level?",
-      "subtitle": "We work with startups at every stage. Pick what fits your budget.",
-      "mostPopular": "Most Popular",
-      "budgetOptions": {
-        "bootstrap": {
-          "label": "Bootstrap",
-          "range": "$2K - $8K",
-          "desc": "Perfect for MVPs and validation",
-          "features": [
-            "Core features only",
-            "2-4 week delivery",
-            "Essential support"
-          ]
-        },
-        "seed": {
-          "label": "Seed Stage",
-          "range": "$8K - $25K",
-          "desc": "Full-featured product launch",
-          "features": [
-            "Complete feature set",
-            "Premium design",
-            "60-day support"
-          ]
-        },
-        "growth": {
-          "label": "Growth",
-          "range": "$25K - $75K",
-          "desc": "Scalable enterprise solution",
-          "features": [
-            "Advanced features",
-            "Custom integrations",
-            "90-day support"
-          ]
-        },
-        "enterprise": {
-          "label": "Enterprise",
-          "range": "$75K+",
-          "desc": "Mission-critical systems",
-          "features": [
-            "Full customization",
-            "Dedicated team",
-            "Ongoing partnership"
-          ]
-        }
-      },
-      "notSureTitle": "Not sure about budget?",
-      "notSureBody": "No worries! We'll provide a detailed quote based on your requirements. We also offer flexible payment plans and equity arrangements for early-stage startups."
+    "reply": {
+      "bar": "Spec sent",
+      "label": "Reply",
+      "greeting": "Thanks, {name}. Your spec is with a person now.",
+      "next": "We'll read it properly and reply within 24 hours, usually with a few questions or a time for a short call to walk through the workflow and the data.",
+      "view": "Then you get an honest written estimate: whether AI can do it well, what it will cost, and how we'd measure it. If it isn't a good fit, we'll say so.",
+      "another": "Start another spec"
     },
-    "step4": {
-      "title": "How can we reach you?",
-      "subtitle": "We'll send your personalized quote to this email",
-      "nameLabel": "Your Name *",
-      "namePlaceholder": "John Smith",
-      "emailLabel": "Email Address *",
-      "emailPlaceholder": "john@company.com",
-      "companyLabel": "Company Name",
-      "optional": "(Optional)",
-      "companyPlaceholder": "Acme Inc.",
-      "phoneLabel": "Phone Number",
-      "phonePlaceholder": "+880 1XXX-XXXXXX"
-    },
-    "step5": {
-      "title": "Review Your Quote Request",
-      "subtitle": "Make sure everything looks good before submitting",
-      "services": "Services",
-      "projectScale": "Project Scale",
-      "timeline": "Timeline",
-      "investmentLevel": "Investment Level",
-      "contact": "Contact",
-      "terms": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>. This is a quote request, not a binding contract.",
-      "whatNextTitle": "What happens next?",
-      "whatNext": [
-        "Our AI analyzes your requirements (instant)",
-        "You receive a detailed quote (within 24 hours)",
-        "Free consultation call (optional)"
-      ]
+    "trust": [
+      "A person reads every spec",
+      "A reply within 24 hours",
+      "No mailing list"
+    ],
+    "band": {
+      "title": "Rather talk it through?",
+      "body": "Book a short call instead, or see how a project runs from the first call to production.",
+      "call": "Book a discovery call",
+      "process": "How we work"
     }
   },
   "FormErrors": {
@@ -2588,13 +2555,13 @@
     "headerTitle": "Help Assistant",
     "headerSubtitle": "CraftsAI · guided FAQ",
     "onlineStatus": "Online",
-    "welcome": "👋 Hi! I'm the CraftsAI Help Assistant — a guided FAQ that answers common questions about our services. (For anything specific, our team is one message away via the contact page.)\n\nYou can ask me about:\n• Our services and capabilities\n• Pricing and project timelines\n• Technologies we use\n• Portfolio and case studies\n• How to get started\n\nWhat would you like to know?",
+    "welcome": "👋 Hi! I'm the CraftsAI help assistant: a guided FAQ with answers to common questions about our AI development services. For anything specific, a person on our team is one message away on the contact page.\n\nYou can ask me about:\n• What we build\n• How pricing works\n• How a project runs\n• Models and tools we use\n• How to get started\n\nWhat would you like to know?",
     "quickQuestionsLabel": "Quick questions:",
     "quickQuestions": [
       "What services do you offer?",
       "How much does a project cost?",
-      "What technologies do you use?",
-      "Can I see your portfolio?",
+      "How does a project run?",
+      "What models and tools do you use?",
       "How do I get started?"
     ],
     "inputPlaceholder": "Ask me anything...",
@@ -2609,7 +2576,7 @@
           "capabilities",
           "offerings"
         ],
-        "response": "We're an AI agent development studio. Our AI agents build your software, with human review on every release. We offer:\n\n• Custom AI agents built for your workflows\n• AI-built websites & web applications\n• Android apps (Kotlin, Jetpack Compose)\n• iOS apps (Swift, SwiftUI)\n• AI agent integration into your existing systems\n• Ongoing support & maintenance\n\nWould you like to know more about any specific service?"
+        "response": "CraftsAI is an AI development services firm. We design, build, and run AI systems for your business:\n\n• AI agents & automation: agents that act inside your tools and hand off to a person when it matters\n• Assistants on your data: chat and search over your documents, with cited sources\n• Custom models & fine-tuning: when an off-the-shelf model isn't enough\n• AI inside your product: AI features in the web and mobile apps you already have\n• Data & evaluation pipelines: datasets, test suites, and evals\n• AI strategy sprint: two weeks, with a working prototype at the end\n\nWould you like to know more about any of these?"
       },
       {
         "id": "pricing",
@@ -2620,7 +2587,7 @@
           "budget",
           "quote"
         ],
-        "response": "Our pricing is tailored to each project's scope and complexity. We offer:\n\n• Free initial consultation\n• Custom project quotes\n• Flexible engagement options\n• Ongoing support packages\n\nI'd be happy to connect you with our team for a personalized quote. What type of project are you considering?"
+        "response": "Every project is priced after we understand the workflow, the data, and the bar for good, so there's no price list. Here's how it works:\n\n• Tell us the problem on the Get an estimate page, or book a discovery call\n• A person reads it and replies within 24 hours\n• You get an honest written view of what AI can do there, what it will cost, and how we'd measure it\n\nWhat kind of work are you considering?"
       },
       {
         "id": "technologies",
@@ -2628,9 +2595,11 @@
           "technology",
           "tech stack",
           "tools",
-          "frameworks"
+          "frameworks",
+          "model",
+          "llm"
         ],
-        "response": "We build with a modern, production-grade stack:\n\n**Web:** React, Next.js, Node.js, TypeScript\n**Android:** Kotlin, Jetpack Compose\n**iOS:** Swift, SwiftUI\n**AI:** custom AI agents integrated into your build and product workflows\n\nWe choose the right tools for your specific project needs."
+        "response": "We're model-agnostic: we pick the model that fits the job, and can switch when a better one arrives. Depending on the task that means hosted frontier models, open-weight models, or a model we fine-tune for you.\n\nAround the model we build what makes it work in production: retrieval over your data, integrations with your tools, evaluations you can read, and monitoring. Your data stays yours: private deployments, and no training on it without consent."
       },
       {
         "id": "portfolio",
@@ -2641,7 +2610,7 @@
           "work",
           "case studies"
         ],
-        "response": "Here are live products we've built:\n\n• **TaxoMind** — AI-powered learning platform (taxomind.com)\n• **TaxoMind Schools** — cognitive learning for schools (taxomindsc.com)\n• **Book-AI** — interactive AI & math lessons (book-ai.org)\n• **File2Insight** — turn documents into insight (file2insight.com)\n• **Banglu** — type Bangla from an English keyboard (bangluweb.com)\n\nVisit our Products, Portfolio, and Case Studies pages for the full stories!"
+        "response": "The Work page shows the kinds of systems we build, labelled as examples:\n\n• Support agent: resolves routine tickets and escalates the rest with a summary\n• Document intelligence: turns contracts, invoices, and forms into structured data\n• Sales copilot: researches accounts, drafts outreach, keeps the CRM current\n• Internal knowledge assistant: answers staff questions from policies and past tickets\n\nWant to talk through one of these for your business?"
       },
       {
         "id": "contact",
@@ -2654,7 +2623,7 @@
           "location",
           "where"
         ],
-        "response": "I'd love to connect you with our team! Here's how to reach us:\n\n📧 **Email:** hello@craftsai.org\n💬 **WhatsApp:** tap the green button at the bottom-right\n📍 **Based in:** Dhaka, Bangladesh — working with clients worldwide\n\nOr click the 'Get a Quote' button to start a free consultation!"
+        "response": "Happy to connect you with our team:\n\n📧 **Email:** hello@craftsai.org\n💬 **WhatsApp:** tap the green button at the bottom right\n📝 **Contact page:** a person reads every message and replies within 24 hours\n\nOr use Get an estimate to describe the problem in four short steps."
       },
       {
         "id": "timeline",
@@ -2663,9 +2632,10 @@
           "duration",
           "how long",
           "delivery",
-          "time"
+          "time",
+          "project run"
         ],
-        "response": "Project timelines depend on scope. Typical ranges:\n\n• **Website / landing site:** 1-4 weeks\n• **Custom web application:** 4-12 weeks\n• **Mobile app (Android/iOS):** 6-14 weeks\n• **AI agent integration:** scoped per project\n\nWe'll give you a detailed timeline during your consultation."
+        "response": "It depends on the scope, so we agree the timeline with you after the first call. What's fixed is the sequence:\n\n• Discover: map the workflow, the data, and what good looks like\n• Prototype: a working demo on your real data\n• Evaluate: measure accuracy, cost, and speed against the agreed bar\n• Build: production integration, security, and monitoring\n• Run & improve: we watch it in production and keep improving it\n\nThe AI strategy sprint is the one fixed length: two weeks."
       },
       {
         "id": "greeting",
@@ -2673,24 +2643,25 @@
           "hello",
           "hi"
         ],
-        "response": "Hello! I'm here to help you learn about CraftsAI. What would you like to know about our AI and web development services?"
+        "response": "Hello! I'm here to help you learn about CraftsAI's AI development services. What would you like to know?"
       },
       {
         "id": "help",
         "keywords": [
-          "help"
+          "help",
+          "get started"
         ],
-        "response": "I can help you with information about:\n\n• Our AI and web development services\n• Project pricing and timelines\n• Technologies and capabilities\n• Portfolio and case studies\n• Getting started with your project\n\nWhat specific area interests you most?"
+        "response": "I can help with:\n\n• What we build: agents, assistants, custom models, AI in your product, evals, strategy sprints\n• How pricing and estimates work\n• How a project runs\n• Models and tools\n• Getting started\n\nWhat would you like to know?"
       },
       {
         "id": "thanks",
         "keywords": [
           "thank"
         ],
-        "response": "You're welcome! Is there anything else you'd like to know about our services? I'm here to help! 😊"
+        "response": "You're welcome! Is there anything else you'd like to know? 😊"
       }
     ],
-    "fallback": "I'd be happy to help you with that! For detailed information about your specific needs, I recommend:\n\n• Checking our Services or Portfolio pages\n• Scheduling a free consultation with our team\n• Emailing us at hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything specific about our AI, web, or mobile development services you'd like to know?"
+    "fallback": "I'd be happy to help with that. For anything specific to your business, I'd suggest:\n\n• Reading the Services or Work pages\n• Describing the problem on the Get an estimate page\n• Emailing hello@craftsai.org or messaging us on WhatsApp\n\nIs there anything about our AI development services you'd like to know?"
   },
   "Chrome": {
     "whatsapp": {
