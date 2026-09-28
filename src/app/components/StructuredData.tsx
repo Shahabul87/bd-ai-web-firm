@@ -19,6 +19,9 @@ interface FaqCategory {
   questions: FaqQuestion[];
 }
 
+/** The six services, in the order the site presents them. */
+const OFFER_KEYS = ['agents', 'assistants', 'models', 'product', 'evals', 'sprint'] as const;
+
 function pickLocale(value: LocalizedString, locale: string): string {
   return locale === 'bn' ? value.bn : value.en;
 }
@@ -45,10 +48,6 @@ export default function StructuredData() {
     "description": t('org.description'),
     "inLanguage": locale,
     "foundingDate": "2025",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "BD"
-    },
     "email": "hello@craftsai.org",
     "sameAs": [
       "https://twitter.com/craftsai",
@@ -56,49 +55,24 @@ export default function StructuredData() {
       "https://github.com/craftsai"
     ],
     "knowsAbout": [
-      "Web Development",
-      "Android Development",
-      "iOS Development",
-      "Software Maintenance",
-      "AI-Powered Development"
+      "AI agents",
+      "Retrieval-augmented generation",
+      "Fine-tuning",
+      "LLM evaluation",
+      "AI product development",
+      "AI strategy"
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": t('org.offerCatalogName'),
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": t('org.service.web.name'),
-            "description": t('org.service.web.description')
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": t('org.service.android.name'),
-            "description": t('org.service.android.description')
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": t('org.service.ios.name'),
-            "description": t('org.service.ios.description')
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": t('org.service.support.name'),
-            "description": t('org.service.support.description')
-          }
+      "itemListElement": OFFER_KEYS.map((key) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": t(`org.service.${key}.name`),
+          "description": t(`org.service.${key}.description`)
         }
-      ]
+      }))
     }
   };
 

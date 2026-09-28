@@ -2708,39 +2708,47 @@
   },
   "StructuredData": {
     "org": {
-      "description": "AI-powered software studio delivering web, Android, and iOS applications up to 10x faster with enterprise-grade quality.",
-      "offerCatalogName": "Development Services",
+      "description": "CraftsAI designs, builds and runs AI systems for businesses — agents that take action, assistants that know your data, and models tuned to your problem, measured from first prototype to production.",
+      "offerCatalogName": "AI development services",
       "service": {
-        "web": {
-          "name": "Web Development",
-          "description": "Full-stack web application development with React, Next.js, and Node.js"
+        "agents": {
+          "name": "AI agents & automation",
+          "description": "Agents that plan and act inside your tools: they read tickets, update the CRM, draft replies, and hand off to a person when it matters."
         },
-        "android": {
-          "name": "Android Development",
-          "description": "Native Android app development with Kotlin and Jetpack Compose"
+        "assistants": {
+          "name": "Assistants on your data",
+          "description": "Chat and search over your documents, databases, and wikis, with answers that cite their sources."
         },
-        "ios": {
-          "name": "iOS Development",
-          "description": "Native iOS app development with Swift and SwiftUI"
+        "models": {
+          "name": "Custom models & fine-tuning",
+          "description": "When an off-the-shelf model isn't enough, we train, fine-tune, and distil models for your task and your budget."
         },
-        "support": {
-          "name": "Support & Maintenance",
-          "description": "Ongoing support, bug fixes, security patches, and feature updates"
+        "product": {
+          "name": "AI inside your product",
+          "description": "We add AI features to the web and mobile apps you already have, or build new AI-first products end to end."
+        },
+        "evals": {
+          "name": "Data & evaluation pipelines",
+          "description": "Clean data in, measurable quality out: datasets, test suites, and evals that tell you whether the AI is actually getting better."
+        },
+        "sprint": {
+          "name": "AI strategy sprint",
+          "description": "Two weeks to find where AI pays off in your business, with a working prototype at the end, not a slide deck."
         }
       }
     },
     "website": {
-      "description": "AI-powered software studio delivering web, Android, and iOS applications."
+      "description": "CraftsAI — AI development services: agents, assistants on your data, custom models, AI inside your product, evaluation pipelines and strategy sprints."
     },
     "breadcrumb": {
       "home": "Home",
-      "about": "About Us",
+      "about": "Company",
       "services": "Services",
-      "web-development": "Web Development",
-      "android-development": "Android Development",
-      "ios-development": "iOS Development",
-      "support": "Support & Maintenance",
-      "products": "Products",
+      "web-development": "AI in web products",
+      "android-development": "AI in Android apps",
+      "ios-development": "AI in iOS apps",
+      "support": "Run & improve",
+      "products": "Work",
       "taxomind": "TaxoMind",
       "taxomind-schools": "TaxoMind Schools",
       "fincoach-ai": "FinCoach AI",
@@ -2752,7 +2760,7 @@
       "guides": "Guides",
       "quote": "Get a Quote",
       "contact": "Contact",
-      "process": "Our Process",
+      "process": "Process",
       "faq": "FAQ",
       "careers": "Careers",
       "privacy": "Privacy Policy",
@@ -2761,64 +2769,64 @@
     },
     "page": {
       "services": {
-        "name": "CraftsAI Development Services",
-        "description": "AI-powered web, Android, iOS development and ongoing support services."
+        "name": "CraftsAI services",
+        "description": "Six AI development services, each shipped with a way to measure it."
       },
       "webDevelopment": {
-        "name": "Web Development",
-        "description": "Full-stack web application development with React, Next.js, and Node.js."
+        "name": "AI inside your web product",
+        "description": "AI features in the web apps you have, or new AI-first web products, built end to end."
       },
       "androidDevelopment": {
-        "name": "Android Development",
-        "description": "Native Android app development with Kotlin and Jetpack Compose."
+        "name": "AI inside your Android app",
+        "description": "AI features for Android apps, designed around how your users work."
       },
       "iosDevelopment": {
-        "name": "iOS Development",
-        "description": "Native iOS app development with Swift and SwiftUI."
+        "name": "AI inside your iOS app",
+        "description": "AI features for iOS apps, designed around how your users work."
       },
       "support": {
-        "name": "Support & Maintenance",
-        "description": "Ongoing support, bug fixes, security patches, and feature updates."
+        "name": "Run & improve",
+        "description": "Monitoring, evaluation and ongoing improvement of AI systems in production."
       },
       "products": {
-        "name": "CraftsAI Products",
-        "description": "Ready-made software products by CraftsAI."
+        "name": "CraftsAI work",
+        "description": "Products CraftsAI designed, built and runs."
       },
       "portfolio": {
-        "name": "CraftsAI Portfolio",
-        "description": "Web, Android, and iOS projects built by CraftsAI."
+        "name": "CraftsAI case studies",
+        "description": "How we built and measured our own AI products."
       },
       "resources": {
-        "name": "CraftsAI Resources",
-        "description": "Blog posts, case studies, and development guides."
+        "name": "CraftsAI resources",
+        "description": "Articles, guides and case studies on building AI that does real work."
       },
       "blog": {
-        "name": "CraftsAI Blog",
-        "description": "Articles on web, Android, and iOS development."
+        "name": "CraftsAI blog",
+        "description": "Articles on building, evaluating and running AI systems."
       },
       "contact": {
         "name": "Contact CraftsAI",
-        "description": "Get in touch with CraftsAI for web, Android, or iOS development inquiries."
+        "description": "Tell us the workflow; a person replies within 24 hours."
       },
       "quote": {
-        "name": "Get a Quote from CraftsAI",
-        "description": "Request a free quote for your development project."
+        "name": "Get an estimate from CraftsAI",
+        "description": "Describe the problem, the data and the scope to get an estimate."
       },
       "faq": {
         "name": "CraftsAI FAQ",
-        "description": "Frequently asked questions about CraftsAI services, pricing, and process."
+        "description": "Questions about how CraftsAI scopes, builds, measures and runs AI systems."
       },
       "about": {
         "name": "About CraftsAI",
-        "description": "Learn about CraftsAI, our team, and our AI-powered development approach."
+        "description": "CraftsAI, documented like a model: who we are for, what we won't do, and how we work."
       },
       "process": {
-        "name": "Our Process",
-        "description": "How CraftsAI delivers projects from consultation to launch."
+        "name": "How CraftsAI works",
+        "description": "Discover, prototype, evaluate, build, run and improve — measured against a bar agreed at the start."
       },
       "careers": {
         "name": "Careers at CraftsAI",
-        "description": "Join the CraftsAI team and build the future of AI-powered development."
+        "description": "Build AI that is measured, private and has people in the loop."
       }
     }
   }
